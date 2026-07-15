@@ -78,7 +78,7 @@ Abra o endereço exibido no Terminal — normalmente `http://127.0.0.1:8000`. Al
 
 ```bash
 python -m unittest discover -s tests -v
-python scripts/validate_content.py
+python scripts/validate_content.py --all
 mkdocs build --strict
 ```
 

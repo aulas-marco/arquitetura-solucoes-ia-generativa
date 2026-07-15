@@ -1,5 +1,7 @@
 from pathlib import Path
 import re
+import subprocess
+import sys
 import unittest
 
 import yaml
@@ -32,6 +34,18 @@ class PublicationHandoffTest(unittest.TestCase):
         for marker in expected:
             with self.subTest(marker=marker):
                 self.assertIn(marker, self.readme)
+
+    def test_documented_content_validation_command_is_complete_and_runs(self):
+        command = "python scripts/validate_content.py --all"
+        self.assertIn(command, self.readme)
+        result = subprocess.run(
+            [sys.executable, "scripts/validate_content.py", "--all"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn("Validação concluída sem erros", result.stdout)
 
     def test_every_local_markdown_link_in_readme_exists(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.readme)
