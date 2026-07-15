@@ -127,6 +127,38 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(path, folded, path)
 
+    def test_threat_model_closes_tool_result_and_human_resolution_paths(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for edge in (
+            'R -->|"trechos autorizados"| O',
+            'T -->|"resultado autorizado"| O',
+            'O -->|"contexto mínimo com fontes e resultado"| M',
+            'V -->|"escalonamento obrigatório"| H',
+            'H -->|"resolução humana"| U',
+        ):
+            self.assertIn(edge, text, edge)
+
+        self.assertNotIn('R --> M', text)
+        self.assertNotIn('V --> H', text)
+
+    def test_evaluation_pipeline_samples_execution_and_calibrates_model_judgment(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for edge in (
+            'X --> SAMP["Amostra estratificada de execuções"]',
+            'RUB["Rubrica humana versionada"] --> HJ',
+            'SAMP --> HJ["Julgamentos humanos com proveniência"]',
+            'J --> AM["Resultados assistidos com proveniência"]',
+            'AM --> CAL["Calibração e checagem de viés"]',
+            'HJ --> CAL',
+            'CAL --> G["Agregação por dimensão e fatia"]',
+        ):
+            self.assertIn(edge, text, edge)
+
+        self.assertNotIn('H["Rubrica humana calibrada"] --> G', text)
+        self.assertNotIn('J --> G', text)
+
     def test_exercises_preserve_bloom_policy_and_required_challenges(self):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)

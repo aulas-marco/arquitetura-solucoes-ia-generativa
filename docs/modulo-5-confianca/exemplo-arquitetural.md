@@ -13,11 +13,14 @@ flowchart LR
     U["Empregado autenticado"] --> I["1 Entrada e sessão"]
     I --> O["2 Orquestrador e contexto"]
     O --> R["3 Recuperação autorizada"]
-    R --> M["4 Modelo via gateway"]
-    M --> V["5 Validação de saída"]
-    V --> U
+    R -->|"trechos autorizados"| O
     O --> T["4 Ferramenta de leitura de RH"]
-    V --> H["6 Fila humana de RH"]
+    T -->|"resultado autorizado"| O
+    O -->|"contexto mínimo com fontes e resultado"| M["4 Modelo via gateway"]
+    M --> V["5 Validação de saída"]
+    V -->|"resposta liberada"| U
+    V -->|"escalonamento obrigatório"| H["6 Fila humana de RH"]
+    H -->|"resolução humana"| U
 
     D["Autores e repositórios"] --> R
     P["Identidade, política e catálogo"] --> I
@@ -33,7 +36,7 @@ flowchart LR
     A5["Resposta sem apoio ou escalonamento"] -.-> V
 ```
 
-**Equivalente textual do modelo de ameaças.** O empregado entra por uma sessão autenticada. Entrada e sessão aplicam limites antes que o orquestrador monte contexto. O orquestrador solicita ao recuperador apenas fontes autorizadas e pode chamar uma ferramenta somente de leitura. O gateway envia contexto mínimo ao modelo. A saída passa por vínculo com evidências, política e regra de escalonamento antes de voltar ao empregado ou entrar na fila de RH. Identidade, política e catálogo alimentam entrada, recuperação e ferramenta; autores alimentam repositórios; fornecedores sustentam o modelo. Injeção direta e consumo abusivo ameaçam a entrada; injeção indireta e adulteração ameaçam a recuperação; vazamento ameaça contexto; uso indevido e cadeia de fornecedores ameaçam ferramenta e modelo; resposta sem apoio ou falta de escalonamento ameaça a saída.
+**Equivalente textual do modelo de ameaças.** O empregado entra por sessão autenticada. O orquestrador recebe trechos autorizados e o resultado autorizado da ferramenta de leitura; só então envia contexto mínimo ao modelo. A validação libera a resposta ao empregado ou abre escalonamento obrigatório. RH devolve uma resolução humana pelo canal autenticado. Identidade, política e catálogo alimentam entrada, recuperação e ferramenta; autores alimentam repositórios; fornecedores sustentam o modelo. Injeção direta e consumo abusivo ameaçam a entrada; injeção indireta e adulteração ameaçam a recuperação; vazamento ameaça contexto; uso indevido e cadeia de fornecedores ameaçam ferramenta e modelo; resposta sem apoio ou falta de escalonamento ameaça a saída.
 
 A análise por camada torna os cenários testáveis:
 
@@ -52,7 +55,7 @@ A análise por camada torna os cenários testáveis:
 
 ## Fluxo de resposta e escalonamento
 
-Ao receber “quantos dias de férias ainda tenho e posso vendê-los?”, a aplicação resolve a identidade da sessão. A intenção combina dado pessoal e regra de política. O recuperador busca a política vigente, filtrada pela jurisdição e vínculo; a ferramenta recebe o identificador do empregado derivado da identidade, nunca um identificador escrito no prompt. O modelo prepara uma resposta com saldo, regra e citações. Validações conferem esquema, presença de evidência, correspondência entre empregado e sessão e ausência de campos proibidos.
+Ao receber “quantos dias de férias ainda tenho e posso vendê-los?”, a aplicação resolve a identidade. O recuperador devolve ao orquestrador a política vigente; a ferramenta recebe o identificador derivado da sessão e devolve o saldo autorizado. O orquestrador compõe esses resultados antes de chamar o modelo. Validações conferem esquema, evidência, correspondência entre empregado e sessão e campos proibidos.
 
 Se a política estiver ausente, conflitante ou abaixo do limiar de suficiência, o sistema não preenche a lacuna: informa o limite e escalona. Se a pergunta disser “meu gestor está me coagindo a vender férias”, uma regra de categoria sensível aciona escalonamento obrigatório antes de qualquer tentativa de aconselhamento conclusivo. O empregado recebe expectativa de prazo e canal seguro. O atendente recebe somente o necessário, com acesso compatível; aprovação não significa disponibilizar toda a conversa indiscriminadamente.
 
@@ -65,10 +68,16 @@ flowchart TD
     X --> D["Verificações determinísticas"]
     X --> K["Avaliação de recuperação e ferramentas"]
     X --> J["Avaliador assistido por modelo"]
-    D --> G["Agregação por dimensão e fatia"]
+    J --> AM["Resultados assistidos com proveniência"]
+    X --> SAMP["Amostra estratificada de execuções"]
+    RUB["Rubrica humana versionada"] --> HJ
+    RUB --> J
+    SAMP --> HJ["Julgamentos humanos com proveniência"]
+    AM --> CAL["Calibração e checagem de viés"]
+    HJ --> CAL
+    CAL --> G["Agregação por dimensão e fatia"]
+    D --> G
     K --> G
-    J --> G
-    H["Rubrica humana calibrada"] --> G
     G --> Q{"Portões críticos e metas"}
     Q -->|"reprovado"| F["Diagnóstico, correção e nova execução"]
     Q -->|"aprovado"| N["Canary com limites e rollback"]
@@ -78,7 +87,7 @@ flowchart TD
     R --> A
 ```
 
-**Equivalente textual do pipeline de avaliação.** Casos de referência e casos adversariais, ambos versionados, entram em um executor que fixa a configuração testada. Cada execução alimenta verificações determinísticas, métricas de recuperação e ferramentas e um avaliador assistido por modelo. Uma amostra segue rubrica humana calibrada. Os resultados são agregados por dimensão e por fatias de acesso, intenção e sensibilidade. Falha em portão crítico ou meta leva a diagnóstico, correção e nova execução. Aprovação offline permite apenas canary limitado, com rollback. Amostras e incidentes online passam por revisão e curadoria antes de virar novos casos; dados brutos de produção não entram automaticamente no conjunto.
+**Equivalente textual do pipeline de avaliação.** Casos versionados entram no executor. Cada execução alimenta verificações determinísticas, métricas de componentes, avaliador assistido e amostragem estratificada. A rubrica é o instrumento: revisores a aplicam e produzem julgamentos com proveniência; ela também orienta o avaliador. Resultados automáticos e humanos passam por calibração e checagem de viés antes da agregação por dimensão e fatia. Falha em portão leva a correção e nova execução; aprovação permite canary com rollback. Amostras e incidentes online passam por revisão e curadoria antes de virar casos.
 
 O conjunto de referência inclui resposta, evidência, recusa, escalonamento e rótulos. Casos adversariais cobrem extração, acesso cruzado, conflito, codificação, prompt longo, repetição e pergunta sensível disfarçada. Separe desenvolvimento do portão para reduzir ajuste excessivo.
 
