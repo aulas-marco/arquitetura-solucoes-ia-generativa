@@ -12,12 +12,12 @@ Este site-livro foi preparado para estudantes de pós-graduação, arquitetos, e
 
 ## Uma progressão em seis decisões
 
-1. **[Compreender — Fundamentos](sobre/plano-da-disciplina.md#encontro-1-fundamentos-de-sistemas-com-ia-generativa):** reconhecer a anatomia e as propriedades dos sistemas generativos.
-2. **[Decidir — Desenho conceitual](sobre/plano-da-disciplina.md#encontro-2-desenho-conceitual-e-decisoes-arquiteturais):** converter oportunidades em requisitos e escolhas justificadas.
-3. **[Fundamentar — RAG](sobre/plano-da-disciplina.md#encontro-3-arquitetura-de-rag-e-sistemas-de-conhecimento):** conectar modelos a conhecimento verificável.
-4. **[Agir — Agentes](sobre/plano-da-disciplina.md#encontro-4-agentes-e-integracao-com-sistemas-corporativos):** integrar ferramentas e controlar a autonomia.
-5. **[Proteger e avaliar — Confiança](sobre/plano-da-disciplina.md#encontro-5-confianca-seguranca-avaliacao-e-governanca):** limitar riscos e produzir evidências de qualidade.
-6. **[Operar e escalar — LLMOps](sobre/plano-da-disciplina.md#encontro-6-operacao-llmops-e-plataformas-corporativas):** sustentar múltiplas soluções em produção.
+1. **[Compreender — Fundamentos](sobre/plano-da-disciplina.md#modulo-1):** reconhecer a anatomia e as propriedades dos sistemas generativos.
+2. **[Decidir — Desenho conceitual](sobre/plano-da-disciplina.md#modulo-2):** converter oportunidades em requisitos e escolhas justificadas.
+3. **[Fundamentar — RAG](sobre/plano-da-disciplina.md#modulo-3):** conectar modelos a conhecimento verificável.
+4. **[Agir — Agentes](sobre/plano-da-disciplina.md#modulo-4):** integrar ferramentas e controlar a autonomia.
+5. **[Proteger e avaliar — Confiança](sobre/plano-da-disciplina.md#modulo-5):** limitar riscos e produzir evidências de qualidade.
+6. **[Operar e escalar — LLMOps](sobre/plano-da-disciplina.md#modulo-6):** sustentar múltiplas soluções em produção.
 
 ## Como começar
 

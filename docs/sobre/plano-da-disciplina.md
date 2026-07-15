@@ -89,6 +89,8 @@ Os tempos podem ser ajustados de acordo com a complexidade da oficina, preservan
 
 # 8. Programação aula a aula
 
+<a id="modulo-1"></a>
+
 ## Encontro 1 — Fundamentos de sistemas com IA generativa
 
 ### Propósito
@@ -199,6 +201,8 @@ Leitura arquitetural comentada contendo:
 
 ---
 
+<a id="modulo-2"></a>
+
 ## Encontro 2 — Desenho conceitual e decisões arquiteturais
 
 ### Propósito
@@ -277,6 +281,8 @@ Testar a mesma tarefa com três configurações de contexto e observar variaçã
 - *Conceptual Design for AI Systems*.
 
 ---
+
+<a id="modulo-3"></a>
 
 ## Encontro 3 — Arquitetura de RAG e sistemas de conhecimento
 
@@ -369,6 +375,8 @@ Comparar duas estratégias de segmentação e recuperação em um pequeno conjun
 
 ---
 
+<a id="modulo-4"></a>
+
 ## Encontro 4 — Agentes e integração com sistemas corporativos
 
 ### Propósito
@@ -458,6 +466,8 @@ Executar um protótipo com duas ferramentas simuladas. Observar seleção incorr
 - *Architecting a Generative AI System – A Case Study*.
 
 ---
+
+<a id="modulo-5"></a>
 
 ## Encontro 5 — Confiança, segurança, avaliação e governança
 
@@ -551,6 +561,8 @@ Executar cenários normais e adversariais contra um protótipo. Aplicar controle
 - *Design, Integration, and Testing* — requisitos e tipos de teste.
 
 ---
+
+<a id="modulo-6"></a>
 
 ## Encontro 6 — Operação, LLMOps e plataformas corporativas
 
