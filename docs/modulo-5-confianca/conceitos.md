@@ -1,12 +1,16 @@
 # Conceitos: confiança como propriedade do sistema
 
+![Quatro riscos alimentam risco inerente; controles em camadas produzem risco residual, rastreabilidade, papéis e avaliação](../assets/images/m05-mapa-confianca-sistemica.png "Mapa da confiança sistêmica")
+
+*Figura — Confiança combina riscos, controles, responsabilidades e evidências.*
+
 ## Confiança é uma relação, não uma característica absoluta
 
-**Confiança sistêmica** é a expectativa justificada de que uma solução, em um contexto definido, produzirá resultados aceitáveis, limitará danos previsíveis e permitirá detectar, explicar e corrigir desvios. Ela depende da composição entre modelo, dados, recuperação, prompts, código, ferramentas, identidade, políticas, interfaces, pessoas, fornecedores e operação. Um mesmo modelo pode ser aceitável para sugerir títulos e inaceitável para decidir elegibilidade de um benefício.
+**Confiança sistêmica** é a expectativa justificada de que uma solução, em um contexto definido, produzirá resultados aceitáveis, limitará danos previsíveis e permitirá detectar, explicar e corrigir desvios. Ela depende da composição entre modelo, dados, recuperação, prompts, código, ferramentas, identidade, políticas, interfaces, pessoas, fornecedores e operação. Um modelo pode sugerir títulos, mas não decidir elegibilidade.
 
 “Justificada” exige evidência. Demonstrações escolhidas pela equipe, ausência de incidentes conhecidos ou reputação do fornecedor são sinais fracos. Evidências melhores incluem cenários de risco, testes reproduzíveis, conjunto de referência representativo, resultados por dimensão, revisão independente, traces minimizados, incidentes, limites de uso e decisão formal sobre risco residual. Ainda assim, evidência reduz incerteza; não prova ausência de falhas futuras.
 
-O [AI Risk Management Framework 1.0 do NIST](https://doi.org/10.6028/NIST.AI.100-1) propõe as funções Govern, Map, Measure e Manage e descreve características de IA confiável. É um framework voluntário para organizar gestão de risco, não uma certificação automática. O [perfil de IA generativa do NIST](https://doi.org/10.6028/NIST.AI.600-1) adapta essa visão a riscos generativos. Neste curso, usamos os dois como estruturas de raciocínio; os limiares concretos pertencem ao contexto da organização.
+O [AI Risk Management Framework 1.0 do NIST](https://doi.org/10.6028/NIST.AI.100-1) organiza a gestão de risco em Govern, Map, Measure e Manage; seu [perfil de IA generativa](https://doi.org/10.6028/NIST.AI.600-1) aplica essa visão aos riscos generativos. Ambos orientam raciocínio, não certificam sistemas; limiares pertencem ao contexto organizacional.
 
 ## Quatro famílias de risco que se reforçam
 

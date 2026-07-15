@@ -45,8 +45,13 @@ class ConceptInfographicsTest(unittest.TestCase):
         for slug, (filename, title, first_heading) in INFOGRAPHICS.items():
             with self.subTest(module=slug):
                 page = (ROOT / "docs" / slug / "conceitos.md").read_text(encoding="utf-8")
-                image = f"![{title}](../assets/images/{filename}"
-                self.assertIn(image, page)
+                image = f"../assets/images/{filename}"
+                alt = re.search(
+                    rf"!\[([^]]+)\]\(\.\./assets/images/{re.escape(filename)}",
+                    page,
+                )
+                self.assertIsNotNone(alt)
+                self.assertGreater(len(alt.group(1)), len(title))
                 self.assertEqual(1, page.count(filename))
                 self.assertTrue((IMAGES / filename).is_file())
                 self.assertLess(page.index(image), page.index(f"## {first_heading}"))

@@ -1,10 +1,14 @@
 # Conceitos: comportamento operável e evidência contínua
 
+![Ciclo: pacote comportamental passa por avaliação, promoção, entrega, observabilidade e aprendizado; métricas, privacidade e SLO atravessam-no](../assets/images/m06-mapa-operacao-evidencia-continua.png "Mapa da operação e evidência contínua")
+
+*Figura — Operar IA requer evidência contínua.*
+
 ## O objeto operado é um pacote comportamental
 
-Em software convencional, uma versão do código costuma identificar grande parte do comportamento. Em uma solução generativa, a unidade de mudança é maior. Chamaremos de **ativo comportamental** qualquer artefato cuja alteração possa mudar resposta, decisão, custo, latência, acesso ou efeito: modelo e revisão do provedor; parâmetros de inferência; prompt e exemplos; política e guardrails; corpus, permissões e snapshot do índice; modelo de embedding e estratégia de recuperação; esquemas e versões de ferramentas; memória; código de orquestração; rubricas, avaliadores e conjuntos de referência; dependências e configuração de infraestrutura.
+Em IA generativa, a unidade de mudança excede a versão do código. Chamaremos de **ativo comportamental** qualquer artefato cuja alteração possa mudar resposta, decisão, custo, latência, acesso ou efeito: modelo e revisão do provedor; parâmetros de inferência; prompt e exemplos; política e guardrails; corpus, permissões e snapshot do índice; modelo de embedding e estratégia de recuperação; esquemas e versões de ferramentas; memória; código de orquestração; rubricas, avaliadores e conjuntos de referência; dependências e configuração de infraestrutura.
 
-O manifesto de uma liberação relaciona versões imutáveis desses ativos, proprietário, finalidade, data, evidências, aprovação e compatibilidade. “Versão 2 do chatbot” não basta se ela não permite descobrir qual índice, modelo e política estavam ativos. Hashes ajudam a verificar integridade, mas precisam de metadados compreensíveis. Para serviços externos que não permitem fixar uma revisão, registre o identificador declarado, região, data, parâmetros e resultado de testes sentinela; a incapacidade de fixação é risco explícito.
+O manifesto de uma liberação registra versões, proprietário, finalidade, evidências, aprovação e compatibilidade. “Versão 2 do chatbot” não basta se ela não permite descobrir qual índice, modelo e política estavam ativos. Hashes ajudam a verificar integridade, mas precisam de metadados compreensíveis. Para provedores sem revisão fixável, registre identificador, região, data, parâmetros e testes sentinela: a variação é risco explícito.
 
 ## Ambientes e promoção
 
