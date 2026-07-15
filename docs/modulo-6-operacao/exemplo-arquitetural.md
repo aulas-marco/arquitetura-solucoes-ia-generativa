@@ -8,7 +8,7 @@ Os atributos prioritários são: nenhuma ação sem autoridade; nenhum cruzament
 
 ![Ilustração do ciclo LLMOps com ativos versionados, avaliação, promoção gradual, observação, incidente e aprendizagem](../assets/images/m06-ciclo-llmops.png)
 
-*Figura planejada — Ciclo LLMOps: a mudança de qualquer ativo comportamental percorre avaliação, liberação controlada, observação e aprendizagem. A seta de retorno não autoriza copiar dados de produção sem tratamento.*
+*Figura 1 — Ciclo LLMOps: a mudança de qualquer ativo comportamental percorre avaliação, liberação controlada, observação e aprendizagem. A seta de retorno não autoriza copiar dados de produção sem tratamento.*
 
 ## Arquitetura completa da plataforma
 
@@ -131,7 +131,7 @@ flowchart TB
 
 ![Mapa da plataforma corporativa com produtos, gateway, serviços compartilhados, provedores, domínios e plano operacional](../assets/images/m06-plataforma-corporativa.png)
 
-*Figura planejada — Plataforma corporativa: o plano comum concentra controles transversais; produtos e domínios preservam responsabilidade pelo contexto, dados, efeitos e resultados.*
+*Figura 2 — Plataforma corporativa: o plano comum concentra controles transversais; produtos e domínios preservam responsabilidade pelo contexto, dados, efeitos e resultados.*
 
 ### Fronteiras de propriedade
 

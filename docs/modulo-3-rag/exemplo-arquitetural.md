@@ -4,7 +4,7 @@ O exemplo é um serviço corporativo genérico de consulta a normas internas. El
 
 ![Visão dos dois fluxos de RAG: ingestão transforma fontes governadas em índices versionados, enquanto consulta transforma uma pergunta autorizada em resposta citada ou abstenção](../assets/images/m03-dois-fluxos-rag.png)
 
-*Figura planejada — os fluxos offline e online compartilham proveniência, políticas, avaliação e observabilidade, mas escalam e falham de maneiras diferentes.*
+*Figura 1 — Os fluxos offline e online compartilham proveniência, políticas, avaliação e observabilidade, mas escalam e falham de maneiras diferentes.*
 
 ## Fluxo de ingestão
 
@@ -132,7 +132,7 @@ sequenceDiagram
 
 ![Jornada de uma pergunta corporativa, da identidade e transformação da consulta à seleção de evidências, geração citada e decisão explícita de responder ou abster](../assets/images/m03-pergunta-evidencia.png)
 
-*Figura planejada — cada transição preserva identidade, versão e identificadores suficientes para explicar por que uma evidência entrou ou não na resposta.*
+*Figura 2 — Cada transição preserva identidade, versão e identificadores suficientes para explicar por que uma evidência entrou ou não na resposta.*
 
 ## Contratos entre componentes
 
