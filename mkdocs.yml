@@ -43,6 +43,14 @@ nav:
       - Estudo de caso: modulo-1-fundamentos/estudo-de-caso.md
       - Exercícios: modulo-1-fundamentos/exercicios.md
       - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
+  - Módulo 2 — Desenho conceitual:
+      - Visão geral: modulo-2-desenho-conceitual/index.md
+      - Conceitos: modulo-2-desenho-conceitual/conceitos.md
+      - Padrões e decisões: modulo-2-desenho-conceitual/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-2-desenho-conceitual/exemplo-arquitetural.md
+      - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
+      - Exercícios: modulo-2-desenho-conceitual/exercicios.md
+      - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
