@@ -6,7 +6,7 @@ Um cliente autenticado pede: “troque o item P10 pelo P20 no pedido 845 e mante
 
 O objetivo não é mostrar uma biblioteca específica. É localizar decisões probabilísticas dentro de uma malha determinística de identidade, contratos, política, estado, aprovação e recuperação.
 
-![Agente controlado conectado a um catálogo mínimo de ferramentas, executor de políticas, estado, auditoria, CRM e sistema de pedidos](../assets/images/m04-agente-ferramentas.png)
+![O agente propõe ferramentas de um catálogo mínimo; chamadas seguem pelo plano de controle até os adaptadores, e resultados tipados retornam por auditoria e estado ao orquestrador antes de chegar ao canal](../assets/images/m04-agente-ferramentas.png)
 *Figura 1 — O modelo propõe; o plano de controle valida e executa com autoridade limitada. Sistemas corporativos nunca recebem diretamente texto livre do modelo.*
 
 ## Vista de componentes

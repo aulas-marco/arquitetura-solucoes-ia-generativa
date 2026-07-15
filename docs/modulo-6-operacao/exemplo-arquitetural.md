@@ -4,9 +4,9 @@
 
 Uma organização opera três produtos: copiloto de atendimento, RAG de políticas e agente de compras com aprovação. Eles compartilham provedores, identidade, telemetria e controles transversais, mas mantêm jornadas, fontes, ferramentas, avaliações e risco residual próprios. A plataforma oferece um caminho preferencial; não transforma produtos diferentes em um único “chat corporativo”.
 
-Os atributos prioritários são: nenhuma ação sem autoridade; nenhum cruzamento de tenant; respostas de política fundamentadas; p95 de 8 segundos para consulta; recuperação controlada diante de falha de fornecedor; custo atribuível por produto; e reconstrução de qualquer decisão crítica. Essas medidas determinam fronteiras e modos de falha.
+Os atributos prioritários são: nenhuma ação sem autoridade; nenhum cruzamento de tenant; respostas de política fundamentadas; p95 de 8 segundos para consulta; recuperação controlada diante de falha de fornecedor; custo atribuível por produto; e reconstrução de qualquer decisão crítica.
 
-![Ilustração do ciclo LLMOps com ativos versionados, avaliação, promoção gradual, observação, incidente e aprendizagem](../assets/images/m06-ciclo-llmops.png)
+![Ativos LLMOps versionados percorrem avaliação, canary e observação; rollback seguro rotineiro e incidente real classificado seguem ramos distintos antes da aprendizagem curada](../assets/images/m06-ciclo-llmops.png)
 
 *Figura 1 — Ciclo LLMOps: a mudança de qualquer ativo comportamental percorre avaliação, liberação controlada, observação e aprendizagem. A seta de retorno não autoriza copiar dados de produção sem tratamento.*
 

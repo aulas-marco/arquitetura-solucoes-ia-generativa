@@ -173,6 +173,15 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
             text.casefold(),
         )
 
+    def test_llmops_image_alt_separates_routine_rollback_from_true_incident(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        rollback = "rollback seguro rotineiro"
+        incident = "incidente real classificado"
+        self.assertIn(rollback, text)
+        self.assertIn(incident, text)
+        self.assertLess(text.index(rollback), text.index(incident))
+
     def test_retrieval_trace_defaults_to_metadata_and_raw_query_requires_controlled_sample(self):
         text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
 

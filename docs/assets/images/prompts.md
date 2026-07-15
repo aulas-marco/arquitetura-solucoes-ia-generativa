@@ -1,6 +1,6 @@
 # Manifesto das ilustrações
 
-As treze pranchas foram geradas com o recurso integrado de geração de imagens, uma chamada por ativo, em 15 de julho de 2026. Todas seguem a direção visual **Academia / prancha de arquitetura** e a paleta Ink `#16243A`, Cobalt `#254DB8`, Cyan `#5FC0D1`, Paper `#F2F6FB`, White `#FFFFFF` e Amber `#F2B84B`. Não há logotipos de fornecedores, marcas-d'água nem texto incorporado. O significado preciso permanece no texto alternativo e na legenda editorial de cada página.
+As treze pranchas foram inicialmente geradas com o recurso integrado de geração de imagens, uma chamada por ativo, em 15 de julho de 2026. A prancha do agente controlado recebeu uma edição posterior, também pelo recurso integrado, para explicitar o caminho governado de retorno. Todas seguem a direção visual **Academia / prancha de arquitetura** e a paleta Ink `#16243A`, Cobalt `#254DB8`, Cyan `#5FC0D1`, Paper `#F2F6FB`, White `#FFFFFF` e Amber `#F2B84B`. Não há logotipos de fornecedores, marcas-d'água nem texto incorporado. O significado preciso permanece no texto alternativo e na legenda editorial de cada página.
 
 ## `capa-cartografia-solucao-generativa.png`
 
@@ -175,9 +175,9 @@ Avoid: model querying unrestricted data, answer before validation, decorative ch
 - **Uso:** `scientific-educational`.
 - **Página e propósito:** Módulo 4, Exemplo arquitetural; localizar decisões probabilísticas dentro de uma malha determinística.
 - **Elementos distintos:** canal autenticado, modelo/orquestrador, catálogo mínimo, política, aprovação, estado, idempotência, auditoria, adaptadores, CRM e pedidos.
-- **Texto alternativo:** O agente propõe ferramentas de um catálogo mínimo, mas toda chamada cruza política, aprovação, estado, idempotência, auditoria e adaptadores antes dos sistemas corporativos.
+- **Texto alternativo:** O agente propõe ferramentas de um catálogo mínimo; chamadas seguem pelo plano de controle até os adaptadores, e resultados tipados retornam por auditoria e estado ao orquestrador antes de chegar ao canal.
 - **Legenda:** O modelo propõe; o plano de controle valida e executa com autoridade limitada.
-- **Validação:** nenhum caminho direto entre modelo e sistemas, controles sequenciais e dois adaptadores isolados. PNG RGB, 1672 × 941 px.
+- **Validação:** nenhum caminho direto entre modelo e sistemas; execução sólida atravessa controles e adaptadores; retorno tracejado parte dos sistemas, entra no plano de controle, sobe ao orquestrador e só então alcança o canal. PNG RGB, 1672 × 941 px.
 
 ```text
 Use case: scientific-educational
@@ -192,6 +192,17 @@ Color palette: Ink #16243A, Cobalt #254DB8 for orchestration, Cyan #5FC0D1 for t
 Text: no words, no letters, no numbers
 Constraints: model, tool catalog, control plane, adapters, CRM and order system must remain visually distinct; all effectful arrows pass through the control plane; no vendor logos; no trademarks; no watermark
 Avoid: autonomous robot, direct model access to databases, giant tool catalog, dark cyberpunk, decorative circuitry, ambiguous arrows
+```
+
+### Edição pós-revisão
+
+```text
+Use case: precise-object-edit
+Input images: the generated controlled-agent architecture diagram is the edit target
+Primary request: change only the cyan dashed result-return route so it forms one governed path.
+Required topology: external systems -> adapters -> audit/state inside control plane -> orchestrator -> authenticated channel. Typed results return from each external system into its adapter; from the adapters the cyan dashed route enters the deterministic control-plane boundary and reaches audit/state; from audit/state it continues upward to the orchestrator; only after orchestration and safe presentation does it continue leftward to the authenticated channel.
+Invariants: preserve every panel, icon, solid-blue execution arrow, layout, dimensions, spacing, palette, white grid background and architecture-board style. Preserve the tool catalog and the two external-system panels. Change only cyan dashed return-route geometry and arrowheads.
+Constraints: no direct adapter-to-channel shortcut; no result path outside the control plane; no text, words, letters or numbers; no new components; no vendor logos; no trademarks; no watermark; no ambiguous crossings.
 ```
 
 ## `m04-fronteiras-autonomia.png`
@@ -271,7 +282,7 @@ Avoid: one star rating, one gauge, business pie chart, photoreal crystal, dark b
 - **Uso:** `scientific-educational`.
 - **Página e propósito:** Módulo 6, Exemplo arquitetural; apresentar mudança versionada, promoção gradual e aprendizagem governada.
 - **Elementos distintos:** ativos versionados, avaliação, canary, observação, classificação, rollback seguro, incidente e curadoria.
-- **Texto alternativo:** O ciclo LLMOps leva ativos versionados por avaliação, canary e observação, separa rollback seguro de incidente real e retorna aprendizagem curada a uma nova versão.
+- **Texto alternativo:** Ativos LLMOps versionados percorrem avaliação, canary e observação; rollback seguro rotineiro e incidente real classificado seguem ramos distintos antes da aprendizagem curada.
 - **Legenda:** Toda mudança comportamental percorre avaliação, liberação controlada, observação e aprendizagem.
 - **Validação:** ciclo fechado, dois ramos classificados — rollback e incidente — e retorno curado sem representar cópia de conteúdo bruto. PNG RGB, 1672 × 941 px.
 

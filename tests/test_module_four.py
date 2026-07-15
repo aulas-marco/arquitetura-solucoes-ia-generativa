@@ -85,6 +85,25 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(path, folded, path)
 
+    def test_agent_image_accessibility_and_manifest_close_result_return_path(self):
+        example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+        manifest = (
+            ROOT / "docs" / "assets" / "images" / "prompts.md"
+        ).read_text(encoding="utf-8")
+
+        for phrase in (
+            "resultados tipados retornam por auditoria e estado ao orquestrador",
+            "antes de chegar ao canal",
+        ):
+            self.assertIn(phrase, example, phrase)
+
+        for phrase in (
+            "external systems -> adapters -> audit/state inside control plane -> orchestrator -> authenticated channel",
+            "no direct adapter-to-channel shortcut",
+            "no result path outside the control plane",
+        ):
+            self.assertIn(phrase, manifest, phrase)
+
     def test_write_timeout_reconciles_authoritatively_before_result_reuse(self):
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 
