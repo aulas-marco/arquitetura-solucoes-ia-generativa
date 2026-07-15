@@ -51,6 +51,14 @@ nav:
       - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
       - Exercícios: modulo-2-desenho-conceitual/exercicios.md
       - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
+  - Módulo 3 — RAG:
+      - Visão geral: modulo-3-rag/index.md
+      - Conceitos: modulo-3-rag/conceitos.md
+      - Padrões e decisões: modulo-3-rag/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-3-rag/exemplo-arquitetural.md
+      - Estudo de caso: modulo-3-rag/estudo-de-caso.md
+      - Exercícios: modulo-3-rag/exercicios.md
+      - Síntese e referências: modulo-3-rag/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
