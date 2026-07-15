@@ -34,6 +34,12 @@ BLOOM = ("Recordar", "Compreender", "Aplicar", "Analisar", "Avaliar", "Criar")
 EDITORIAL_MARKERS = ("TODO", "TBD", "PLACEHOLDER", "PREENCHER")
 IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
+REFERENCE_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\[([^\]]+)\]")
+REFERENCE_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\[([^\]]+)\]")
+REFERENCE_DEFINITION_RE = re.compile(
+    r"(?m)^[ \t]{0,3}\[([^\]]+)\]:[ \t]*(.+?)[ \t]*$"
+)
+MARKDOWN_HEADING_RE = re.compile(r"(?m)^(#{1,6})[ \t]+.*?[ \t]*$")
 WORD_RE = re.compile(r"\b[^\W\d_]+(?:[-’'][^\W\d_]+)*\b", re.UNICODE)
 
 
@@ -74,7 +80,16 @@ def local_path(source: Path, raw_target: str) -> Path | None:
     return source.parent / path_text
 
 
+def normalize_reference_id(reference_id: str) -> str:
+    return re.sub(r"\s+", " ", reference_id.strip()).casefold()
+
+
 def validate_references(path: Path, text: str, errors: list[str], counts: Counts) -> None:
+    definitions = {
+        normalize_reference_id(reference_id): target
+        for reference_id, target in REFERENCE_DEFINITION_RE.findall(text)
+    }
+
     for alt, target in IMAGE_RE.findall(text):
         counts.images += 1
         if not alt.strip():
@@ -97,18 +112,61 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
                 f"{path.relative_to(ROOT)}: link relativo inexistente: {markdown_target(target)}"
             )
 
+    for alt, reference_id in REFERENCE_IMAGE_RE.findall(text):
+        counts.images += 1
+        if not alt.strip():
+            errors.append(f"{path.relative_to(ROOT)}: imagem com texto alternativo vazio")
+        target = definitions.get(normalize_reference_id(reference_id))
+        if target is None:
+            errors.append(
+                f"{path.relative_to(ROOT)}: referência de imagem sem definição: {reference_id}"
+            )
+            continue
+        destination = local_path(path, target)
+        if destination is not None and not destination.resolve().is_file():
+            errors.append(
+                f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
+            )
+
+    for reference_id in REFERENCE_LINK_RE.findall(text):
+        target = definitions.get(normalize_reference_id(reference_id))
+        if target is None:
+            errors.append(
+                f"{path.relative_to(ROOT)}: referência de link sem definição: {reference_id}"
+            )
+            continue
+        destination = local_path(path, target)
+        if destination is None:
+            continue
+        resolved = destination.resolve()
+        if resolved.is_dir():
+            resolved = resolved / "index.md"
+        if not resolved.is_file():
+            errors.append(
+                f"{path.relative_to(ROOT)}: link relativo inexistente: {markdown_target(target)}"
+            )
+
 
 def bloom_sections(text: str) -> dict[str, str]:
-    headings = list(
-        re.finditer(
-            rf"(?m)^#{{1,6}}[ \t]+({'|'.join(map(re.escape, BLOOM))})(?:[ \t]+.*?)?[ \t]*$",
-            text,
-        )
+    headings = list(MARKDOWN_HEADING_RE.finditer(text))
+    bloom_heading = re.compile(
+        rf"^(#{{1,6}})[ \t]+({'|'.join(map(re.escape, BLOOM))})(?:[ \t]+.*?)?[ \t]*$"
     )
     sections: dict[str, str] = {}
     for index, heading in enumerate(headings):
-        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
-        sections[heading.group(1)] = text[heading.end():end]
+        match = bloom_heading.fullmatch(heading.group(0))
+        if match is None:
+            continue
+        level = len(match.group(1))
+        end = next(
+            (
+                following.start()
+                for following in headings[index + 1:]
+                if len(following.group(1)) <= level
+            ),
+            len(text),
+        )
+        sections[match.group(2)] = text[heading.end():end]
     return sections
 
 
