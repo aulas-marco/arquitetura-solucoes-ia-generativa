@@ -61,7 +61,7 @@ Embedding não é resumo legível, prova de equivalência nem banco de fatos. Si
 
 ## Conhecimento paramétrico, variabilidade e alucinação
 
-**Conhecimento paramétrico** é o conteúdo implicitamente representado nos pesos após o treinamento. Ele permite responder sem uma fonte externa, mas tem três limites arquiteturais importantes: não oferece atualização sob demanda, nem proveniência granular, nem garantia de cobertura. A pesquisa de [Brown et al. sobre aprendizagem com poucos exemplos](https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html) demonstra ampla adaptação por contexto, mas capacidade geral não equivale a compromisso com fatos de um domínio privado.
+**Conhecimento paramétrico** é o conteúdo implicitamente representado nos pesos após o treinamento. Ele permite responder sem uma fonte externa, mas tem três limites arquiteturais importantes: não oferece atualização sob demanda, nem proveniência granular, nem garantia de cobertura. A pesquisa de [Brown et al. sobre aprendizagem com poucos exemplos](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html) demonstra ampla adaptação por contexto, mas capacidade geral não equivale a compromisso com fatos de um domínio privado.
 
 **Variabilidade** é a mudança possível entre saídas ou versões. Pode ser benéfica em ideação e problemática em classificação regulada. **Alucinação** é conteúdo plausível sem sustentação nos fatos, no contexto ou nas evidências disponíveis. Uma resposta inventada com tom seguro é perigosa justamente porque legibilidade e factualidade são propriedades diferentes.
 

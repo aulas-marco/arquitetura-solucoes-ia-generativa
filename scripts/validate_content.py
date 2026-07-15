@@ -39,6 +39,10 @@ REFERENCE_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\[([^\]]+)\]")
 REFERENCE_DEFINITION_RE = re.compile(
     r"(?m)^[ \t]{0,3}\[([^\]]+)\]:[ \t]*(.+?)[ \t]*$"
 )
+HTML_IMAGE_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
+HTML_ATTRIBUTE_RE = re.compile(
+    r"([:\w-]+)\s*=\s*(?:\"([^\"]*)\"|'([^']*)')", re.IGNORECASE
+)
 MARKDOWN_HEADING_RE = re.compile(r"(?m)^(#{1,6})[ \t]+.*?[ \t]*$")
 WORD_RE = re.compile(r"\b[^\W\d_]+(?:[-’'][^\W\d_]+)*\b", re.UNICODE)
 
@@ -96,6 +100,21 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
             errors.append(f"{path.relative_to(ROOT)}: imagem com texto alternativo vazio")
         destination = local_path(path, target)
         if destination is not None and not destination.resolve().is_file():
+            errors.append(
+                f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
+            )
+
+    for tag in HTML_IMAGE_RE.findall(text):
+        attributes = {
+            name.casefold(): double_quoted if double_quoted else single_quoted
+            for name, double_quoted, single_quoted in HTML_ATTRIBUTE_RE.findall(tag)
+        }
+        counts.images += 1
+        if not attributes.get("alt", "").strip():
+            errors.append(f"{path.relative_to(ROOT)}: imagem com texto alternativo vazio")
+        target = attributes.get("src", "")
+        destination = local_path(path, target)
+        if target and destination is not None and not destination.resolve().is_file():
             errors.append(
                 f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
             )
@@ -210,6 +229,20 @@ def validate_module(slug: str, errors: list[str], counts: Counts) -> None:
             validate_exercises(path, text, errors, counts)
 
 
+def validate_shared_pages(errors: list[str], counts: Counts) -> None:
+    """Validate non-module Markdown without adding it to the module word budget."""
+    module_directories = {DOCS / slug for slug in MODULES}
+    for path in sorted(DOCS.rglob("*.md")):
+        if any(module_dir in path.parents for module_dir in module_directories):
+            continue
+
+        text = path.read_text(encoding="utf-8")
+        for marker in EDITORIAL_MARKERS:
+            if re.search(rf"\b{marker}\b", text):
+                errors.append(f"{path.relative_to(ROOT)}: marcador editorial proibido: {marker}")
+        validate_references(path, text, errors, counts)
+
+
 def validate_required_images(slugs: tuple[str, ...], include_cover: bool, errors: list[str]) -> None:
     required = [image for slug in slugs for image in MODULES[slug][1]]
     if include_cover:
@@ -227,6 +260,8 @@ def main() -> int:
 
     for slug in slugs:
         validate_module(slug, errors, counts)
+    if args.all:
+        validate_shared_pages(errors, counts)
     validate_required_images(slugs, include_cover=args.all, errors=errors)
 
     print(

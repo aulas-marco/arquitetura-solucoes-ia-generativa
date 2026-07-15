@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import subprocess
 import unittest
 
@@ -25,6 +26,32 @@ class ProjectTest(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(0, result.returncode, result.stderr)
+
+    def test_full_validator_counts_the_cover_and_module_illustrations(self):
+        result = subprocess.run(
+            ["python3", "scripts/validate_content.py", "--all"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn("Imagens: 13", result.stdout)
+
+    def test_homepage_cover_has_an_editorial_caption(self):
+        homepage = (ROOT / "docs/index.md").read_text(encoding="utf-8")
+
+        self.assertIn("*Capa — Cartografia da solução generativa", homepage)
+
+    def test_every_external_markdown_url_is_in_the_source_registry(self):
+        registry = (ROOT / "docs/referencia/fontes.yml").read_text(encoding="utf-8")
+        registered_urls = set(re.findall(r"(?m)^  url: (https?://\S+)$", registry))
+        markdown = "\n".join(
+            path.read_text(encoding="utf-8") for path in (ROOT / "docs").rglob("*.md")
+        )
+        used_urls = set(re.findall(r"https?://[^) >]+", markdown))
+
+        self.assertEqual([], sorted(used_urls - registered_urls))
 
 
 if __name__ == "__main__":

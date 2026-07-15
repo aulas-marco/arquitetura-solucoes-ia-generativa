@@ -104,6 +104,12 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(phrase, manifest, phrase)
 
+    def test_component_diagram_returns_typed_adapter_results_to_orchestration(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        self.assertIn('ACRM -- "observação tipada" --> ORQ', text)
+        self.assertIn('APED -- "resultado tipado" --> ORQ', text)
+
     def test_write_timeout_reconciles_authoritatively_before_result_reuse(self):
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 

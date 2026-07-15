@@ -18,6 +18,11 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
         self.assertEqual(1, diagram.group(1).count('["8.'))
         self.assertIn('["8. Segurança, governança e observabilidade"]', diagram.group(1))
 
+    def test_architecture_diagram_returns_typed_tool_results_to_orchestration(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        self.assertIn('T -. "resultado tipado" .-> O', text)
+
     def test_exercises_keep_four_recall_and_three_comprehension_answers(self):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)

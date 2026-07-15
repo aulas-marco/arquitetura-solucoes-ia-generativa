@@ -2,6 +2,8 @@
 
 <img src="assets/images/capa-cartografia-solucao-generativa.png" alt="Cartografia de uma solução generativa: do modelo à operação confiável" width="100%">
 
+*Capa — Cartografia da solução generativa: o modelo é um componente dentro de um sistema governado e operável.*
+
 ## A promessa do curso
 
 Aprenda a projetar, avaliar e defender arquiteturas de soluções com IA generativa conectando comportamento probabilístico, conhecimento, integrações, controles e operação. Ao final, você não terá uma receita única: terá vocabulário, padrões e critérios para tomar decisões justificáveis em contextos diferentes.

@@ -28,6 +28,7 @@ flowchart LR
     G -->|"saída para validação"| A
     A --> U
     O -. "quando permitido" .-> T["6. Ferramentas corporativas"]
+    T -. "resultado tipado" .-> O
     P["7. Infraestrutura e operação"] --- A
     P --- O
     P --- G
@@ -38,7 +39,7 @@ flowchart LR
     X -.-> T
 ```
 
-Em texto: o canal envia uma solicitação autenticada à API. A aplicação estabelece identidade e regras; o orquestrador obtém apenas conhecimento autorizado e monta um contexto limitado. O gateway chama o modelo aprovado. Ao receber a saída, a aplicação valida formato e suporte antes de responder ao canal. Ferramentas só participam quando o fluxo permite. Infraestrutura sustenta os componentes, enquanto a única camada 8 aplica políticas, avaliação e telemetria de forma transversal a todo o percurso.
+Em texto: o canal envia uma solicitação autenticada à API. A aplicação estabelece identidade e regras; o orquestrador obtém apenas conhecimento autorizado e monta um contexto limitado. O gateway chama o modelo aprovado. Ao receber a saída, a aplicação valida formato e suporte antes de responder ao canal. Ferramentas só participam quando o fluxo permite, e seus resultados tipados retornam ao orquestrador. Infraestrutura sustenta os componentes, enquanto a única camada 8 aplica políticas, avaliação e telemetria de forma transversal a todo o percurso.
 
 ## Caminho crítico de uma resposta
 

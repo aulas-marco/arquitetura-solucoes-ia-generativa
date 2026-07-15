@@ -27,6 +27,8 @@ flowchart LR
     APED --> PED["Pedidos e reservas"]
     CRM -- "resultado tipado" --> ACRM
     PED -- "resultado / evento" --> APED
+    ACRM -- "observação tipada" --> ORQ
+    APED -- "resultado tipado" --> ORQ
     ORQ --> AUD["Trace e auditoria"]
     POL --> AUD
     ST --> AUD

@@ -50,6 +50,14 @@ class ReferenceStyleMarkdownTest(unittest.TestCase):
         self.assertTrue(any("texto alternativo vazio" in error for error in errors), errors)
         self.assertEqual(1, counts.images)
 
+    def test_html_image_is_counted_and_checked(self):
+        (self.directory / "image.png").write_bytes(b"image")
+
+        errors, counts = self.validate('<img src="image.png" alt="Diagrama acessível">')
+
+        self.assertEqual([], errors)
+        self.assertEqual(1, counts.images)
+
 
 class BloomSectionBoundaryTest(unittest.TestCase):
     def test_section_stops_at_next_heading_of_same_level(self):
