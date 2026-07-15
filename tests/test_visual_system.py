@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import subprocess
+import sys
 import unittest
 
 
@@ -128,7 +129,7 @@ class BuiltSiteRuntimeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         result = subprocess.run(
-            [str(ROOT / ".venv/bin/mkdocs"), "build", "--strict"],
+            [sys.executable, "-m", "mkdocs", "build", "--strict"],
             cwd=ROOT,
             text=True,
             capture_output=True,
