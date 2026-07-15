@@ -109,6 +109,15 @@ class PublicationHandoffTest(unittest.TestCase):
             deploy["environment"]["url"],
         )
 
+    def test_configure_pages_enables_a_new_pages_site(self):
+        steps = self.workflow["jobs"]["build"]["steps"]
+        configure = next(
+            step for step in steps
+            if step.get("uses") == "actions/configure-pages@v5"
+        )
+
+        self.assertEqual("true", configure.get("with", {}).get("enablement"))
+
     def test_configuration_remains_portable(self):
         active_lines = [
             line for line in self.mkdocs.splitlines() if not line.lstrip().startswith("#")
