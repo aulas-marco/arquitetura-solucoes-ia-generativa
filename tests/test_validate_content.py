@@ -58,6 +58,18 @@ class ReferenceStyleMarkdownTest(unittest.TestCase):
         self.assertEqual([], errors)
         self.assertEqual(1, counts.images)
 
+    def test_html_image_without_src_is_reported_without_crashing(self):
+        errors, counts = self.validate('<img alt="sem origem">')
+
+        self.assertTrue(any("imagem HTML sem origem" in error for error in errors), errors)
+        self.assertEqual(1, counts.images)
+
+    def test_html_image_with_empty_src_is_reported_without_crashing(self):
+        errors, counts = self.validate('<img src="" alt="sem origem">')
+
+        self.assertTrue(any("imagem HTML sem origem" in error for error in errors), errors)
+        self.assertEqual(1, counts.images)
+
 
 class BloomSectionBoundaryTest(unittest.TestCase):
     def test_section_stops_at_next_heading_of_same_level(self):

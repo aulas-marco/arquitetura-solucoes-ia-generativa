@@ -112,9 +112,15 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
         counts.images += 1
         if not attributes.get("alt", "").strip():
             errors.append(f"{path.relative_to(ROOT)}: imagem com texto alternativo vazio")
-        target = attributes.get("src", "")
+        target = attributes.get("src", "").strip()
+        if not target:
+            errors.append(
+                f"{path.relative_to(ROOT)}: imagem HTML sem origem: "
+                "atributo src ausente ou vazio"
+            )
+            continue
         destination = local_path(path, target)
-        if target and destination is not None and not destination.resolve().is_file():
+        if destination is not None and not destination.resolve().is_file():
             errors.append(
                 f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
             )
