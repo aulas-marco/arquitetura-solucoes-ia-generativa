@@ -118,7 +118,7 @@ Evite construir infraestrutura genérica por sensação de controle ou comprar d
 
 ## Da comparação à ADR
 
-Uma matriz ajuda a tornar consequências visíveis, mas não decide sozinha. Registre a escolha no [Template de ADR](../referencia/template-adr.md) com contexto, direcionadores, opções, decisão, consequências, evidências e gatilhos de revisão. Diferencie fato medido, restrição confirmada e pressuposto. Quando a evidência é insuficiente, a decisão adequada pode ser “experimento limitado”, com critério explícito de promoção ou abandono.
+> **Decisão arquitetural:** Uma matriz ajuda a tornar consequências visíveis, mas não decide sozinha. Registre a escolha no [Template de ADR](../referencia/template-adr.md) com contexto, direcionadores, opções, decisão, consequências, evidências e gatilhos de revisão. Diferencie fato medido, restrição confirmada e pressuposto. Quando a evidência é insuficiente, a decisão adequada pode ser “experimento limitado”, com critério explícito de promoção ou abandono.
 
 A página seguinte mostra o encadeamento completo: objetivo, contexto, cenários, vistas, falhas e duas ADRs para o copiloto financeiro.
 

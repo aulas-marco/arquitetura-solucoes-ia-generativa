@@ -26,7 +26,7 @@ Um **ativo** é algo que precisa ser protegido ou preservado: dado pessoal, segr
 
 O **risco inerente** é avaliado antes dos controles. O **risco residual** permanece depois que controles e condições operacionais são considerados. Controles podem reduzir probabilidade, limitar impacto, aumentar detecção ou facilitar recuperação. Nenhum número elimina a necessidade de justificar premissas. “Baixo” precisa dizer para quem, em qual período e sob qual exposição.
 
-Aceitar risco residual é decisão de negócio e governança, não preferência do desenvolvedor. O proprietário precisa ter autoridade, compreender incerteza, registrar prazo e definir gatilhos de revisão. Risco acima do apetite requer reduzir escopo, acrescentar controle, transferir parte do risco, suspender ou não lançar. A aceitação expira quando mudam modelo, fontes, ferramentas, público, finalidade, ameaça ou obrigação.
+> **Risco arquitetural:** Aceitar risco residual é decisão de negócio e governança, não preferência do desenvolvedor. O proprietário precisa ter autoridade, compreender incerteza, registrar prazo e definir gatilhos de revisão. Risco acima do apetite requer reduzir escopo, acrescentar controle, transferir parte do risco, suspender ou não lançar. A aceitação expira quando mudam modelo, fontes, ferramentas, público, finalidade, ameaça ou obrigação.
 
 ## Rastreabilidade sem vigilância indiscriminada
 

@@ -182,14 +182,12 @@ body {
 }
 
 /* Module opening: a four-part rail is the course's architectural signature. */
-.module-opening,
-.md-typeset > h1:first-child {
+.module-opening {
   position: relative;
   padding-left: clamp(1.4rem, 4vw, 2.5rem);
 }
 
-.module-opening::before,
-.md-typeset > h1:first-child::before {
+.module-opening::before {
   position: absolute;
   inset: 0 auto 0 0;
   width: 0.6rem;
@@ -204,10 +202,8 @@ body {
   content: "";
 }
 
-/* Objective cards work both with an explicit class and the standard module headings. */
-.objectives-grid,
-.md-typeset h2#objetivos-de-aprendizagem + p + ol,
-.md-typeset h2#o-que-voce-aprendera + p + ol {
+/* Objective cards are emitted from the module's semantic objectives list. */
+.objectives-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
@@ -216,9 +212,7 @@ body {
   counter-reset: objective;
 }
 
-.objective-card,
-.md-typeset h2#objetivos-de-aprendizagem + p + ol > li,
-.md-typeset h2#o-que-voce-aprendera + p + ol > li {
+.objectives-grid > .objective-card {
   position: relative;
   min-height: 7rem;
   margin: 0;
@@ -231,9 +225,7 @@ body {
   counter-increment: objective;
 }
 
-.objective-card::before,
-.md-typeset h2#objetivos-de-aprendizagem + p + ol > li::before,
-.md-typeset h2#o-que-voce-aprendera + p + ol > li::before {
+.objectives-grid > .objective-card::before {
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
@@ -244,8 +236,7 @@ body {
 }
 
 /* conceito → decisão → evidência → aplicação */
-.learning-spine,
-.md-typeset h2#espinha-de-aprendizagem + ol {
+.learning-spine {
   display: grid;
   gap: var(--space-3);
   margin: var(--space-5) 0;
@@ -255,8 +246,7 @@ body {
   counter-reset: spine;
 }
 
-.learning-spine > li,
-.md-typeset h2#espinha-de-aprendizagem + ol > li {
+.learning-spine > li {
   position: relative;
   margin: 0;
   padding: var(--space-3) var(--space-4);
@@ -265,8 +255,7 @@ body {
   counter-increment: spine;
 }
 
-.learning-spine > li::before,
-.md-typeset h2#espinha-de-aprendizagem + ol > li::before {
+.learning-spine > li::before {
   position: absolute;
   top: 50%;
   left: calc(-1 * var(--space-6) - 0.27rem);
@@ -283,20 +272,17 @@ body {
   transform: translateY(-50%);
 }
 
-.learning-spine > li:nth-child(2)::before,
-.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(2)::before {
+.learning-spine > li:nth-child(2)::before {
   color: var(--course-ink);
   background: var(--course-amber);
 }
 
-.learning-spine > li:nth-child(3)::before,
-.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(3)::before {
+.learning-spine > li:nth-child(3)::before {
   color: var(--course-ink);
   background: var(--course-cyan);
 }
 
-.learning-spine > li:nth-child(4)::before,
-.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(4)::before {
+.learning-spine > li:nth-child(4)::before {
   background: var(--course-ink);
 }
 
@@ -319,45 +305,37 @@ body {
   margin-bottom: 0;
 }
 
-.md-typeset blockquote.decision-callout,
-.decision-callout {
+.md-typeset blockquote.decision-callout {
   color: var(--color-risk-text);
   background: #FFF7E3;
   border-left-color: var(--course-amber);
 }
 
-.md-typeset blockquote.risk-callout,
-.risk-callout {
+.md-typeset blockquote.risk-callout {
   color: var(--color-text);
   background: #FFF7E3;
   border: 1px solid #E4C777;
   border-left: 0.3rem solid var(--course-amber);
 }
 
-.decision-callout::before,
-.risk-callout::before {
+.md-typeset blockquote.decision-callout::before,
+.md-typeset blockquote.risk-callout::before {
   display: block;
   margin-bottom: var(--space-2);
   font: 800 0.58rem/1 var(--course-meta-font);
   letter-spacing: 0.12em;
 }
 
-.decision-callout::before {
+.md-typeset blockquote.decision-callout::before {
   content: "DECISÃO";
 }
 
-.risk-callout::before {
+.md-typeset blockquote.risk-callout::before {
   content: "RISCO";
 }
 
 /* Bloom: words remain visible; color is a secondary orientation cue. */
-.bloom-label,
-.md-typeset h2#recordar,
-.md-typeset h2#compreender,
-.md-typeset h2#aplicar,
-.md-typeset h2#analisar,
-.md-typeset h2#avaliar,
-.md-typeset h2#criar {
+.md-typeset h2.bloom-label {
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
@@ -370,7 +348,7 @@ body {
   border-radius: var(--radius-sm);
 }
 
-.bloom-label::before {
+.md-typeset h2.bloom-label::before {
   color: var(--course-cyan);
   content: "NÍVEL BLOOM";
   font: 700 0.56rem/1 var(--course-meta-font);
@@ -393,8 +371,7 @@ body {
 }
 
 /* Architectural figures and their Markdown-native captions. */
-.architecture-figure,
-.md-typeset p:has(> img:first-child) {
+.md-typeset .architecture-figure {
   margin-block: var(--space-6);
   padding: var(--space-3);
   background: #EAF0FB;
@@ -403,8 +380,7 @@ body {
   box-shadow: inset 0 0 0 0.3rem rgb(255 255 255 / 48%);
 }
 
-.architecture-figure img,
-.md-typeset p > img:first-child {
+.md-typeset .architecture-figure img {
   display: block;
   width: auto;
   max-width: 100%;
@@ -413,8 +389,7 @@ body {
   border-radius: var(--radius-sm);
 }
 
-.architecture-figure figcaption,
-.md-typeset p > img + em {
+.md-typeset .figure-caption {
   display: block;
   margin-top: var(--space-3);
   padding-top: var(--space-2);
@@ -423,9 +398,17 @@ body {
   font: 0.67rem/1.5 var(--course-meta-font);
 }
 
+.md-typeset .architecture-figure + .figure-caption {
+  margin-top: calc(-1 * var(--space-6));
+  padding: var(--space-3);
+  background: #EAF0FB;
+  border: 1px solid #C4D2E8;
+  border-top: 0;
+}
+
 /* Comparison tables read as technical schedules, not spreadsheets. */
-.comparison-table,
-.md-typeset__table {
+.md-typeset .comparison-table {
+  display: block;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
@@ -434,15 +417,14 @@ body {
   box-shadow: 0 0.2rem 0.8rem rgb(22 36 58 / 4%);
 }
 
-.md-typeset table:not([class]) {
-  display: table;
+.md-typeset table.comparison-table {
   width: 100%;
   margin: 0;
   border-collapse: collapse;
   font-size: 0.72rem;
 }
 
-.md-typeset table:not([class]) th {
+.md-typeset table.comparison-table th {
   color: var(--course-white);
   background: var(--course-ink);
   border-color: #42526B;
@@ -450,12 +432,12 @@ body {
   letter-spacing: 0.02em;
 }
 
-.md-typeset table:not([class]) td {
+.md-typeset table.comparison-table td {
   vertical-align: top;
   border-color: var(--color-border);
 }
 
-.md-typeset table:not([class]) tbody tr:nth-child(even) {
+.md-typeset table.comparison-table tbody tr:nth-child(even) {
   background: #F7F9FD;
 }
 
@@ -470,8 +452,8 @@ body {
   box-shadow: var(--shadow-plate);
 }
 
-.md-typeset h2[id^="adr-"],
-.md-typeset h3[id^="adr-"] {
+.md-typeset h2.adr-block,
+.md-typeset h3.adr-block {
   padding: var(--space-3) var(--space-4);
   background: #FFF7E3;
   border: 1px solid #E4C777;
@@ -479,8 +461,8 @@ body {
   border-radius: var(--radius-sm);
 }
 
-.md-typeset h2[id^="adr-"]::before,
-.md-typeset h3[id^="adr-"]::before {
+.md-typeset h2.adr-block::before,
+.md-typeset h3.adr-block::before {
   display: block;
   margin-bottom: var(--space-2);
   color: var(--color-risk-text);
@@ -490,7 +472,7 @@ body {
 }
 
 /* Public answers are deliberately quiet until the learner opens them. */
-.md-typeset details {
+.md-typeset details.answer-details {
   margin: var(--space-3) 0 var(--space-5);
   padding: 0 var(--space-4);
   background: #F8FAFD;
@@ -500,7 +482,7 @@ body {
   box-shadow: none;
 }
 
-.md-typeset details summary {
+.md-typeset details.answer-details summary {
   margin: 0 calc(-1 * var(--space-4));
   padding: var(--space-3) var(--space-4) var(--space-3) 2.25rem;
   color: var(--course-ink);
@@ -508,14 +490,14 @@ body {
   font: 700 0.7rem/1.4 var(--course-meta-font);
 }
 
-.md-typeset details[open] summary {
+.md-typeset details.answer-details[open] summary {
   margin-bottom: var(--space-3);
   background: #E9F5F7;
   border-bottom: 1px solid var(--color-border);
 }
 
 /* Rubrics are already labelled in the Markdown; color never carries the label. */
-.rubric {
+.md-typeset .rubric {
   position: relative;
   padding: var(--space-5) var(--space-4) var(--space-4);
   background: #F8FAFD;
@@ -524,7 +506,7 @@ body {
   border-radius: var(--radius-sm);
 }
 
-.rubric::before {
+.md-typeset .rubric::before {
   position: absolute;
   top: var(--space-2);
   left: var(--space-4);
@@ -534,29 +516,17 @@ body {
   letter-spacing: 0.11em;
 }
 
-.md-typeset p > strong:first-child {
-  display: inline-block;
-  margin-right: var(--space-1);
-  padding: 0.12rem var(--space-2);
-  color: var(--course-cobalt);
-  background: #EAF0FB;
-  border-left: 0.18rem solid var(--course-cobalt);
-  border-radius: var(--radius-sm);
-  font-family: var(--course-meta-font);
-}
-
-.md-typeset p > strong:first-child:only-child,
 .md-typeset .rubric > strong:first-child {
+  color: var(--course-cobalt);
   font-family: var(--course-meta-font);
 }
 
 /* Keyboard and skip-link support. Never suppress browser focus outlines. */
 :focus-visible {
-  outline: 0.2rem solid var(--course-amber);
+  outline: 0.2rem solid var(--course-cobalt);
   outline-offset: 0.18rem;
 }
 
-.md-skip:focus,
 .md-typeset summary:focus-visible {
   position: relative;
   z-index: 10;
@@ -579,15 +549,10 @@ body {
     margin-top: var(--space-6);
   }
 
-  .objectives-grid,
-  .md-typeset h2#objetivos-de-aprendizagem + p + ol,
-  .md-typeset h2#o-que-voce-aprendera + p + ol {
+  .objectives-grid {
     grid-template-columns: 1fr;
   }
 
-  .md-typeset__table {
-    margin-inline: 0;
-  }
 }
 
 @media (max-width: 37.5em) {
@@ -595,22 +560,18 @@ body {
     font-size: 0.78rem;
   }
 
-  .module-opening,
-  .md-typeset > h1:first-child {
+  .module-opening {
     padding-left: 1.2rem;
   }
 
-  .learning-spine,
-  .md-typeset h2#espinha-de-aprendizagem + ol {
+  .learning-spine {
     padding-left: 1.65rem;
   }
 }
 
 @media (forced-colors: active) {
   .module-opening::before,
-  .md-typeset > h1:first-child::before,
-  .learning-spine > li::before,
-  .md-typeset h2#espinha-de-aprendizagem + ol > li::before {
+  .learning-spine > li::before {
     border: 2px solid CanvasText;
   }
 }
