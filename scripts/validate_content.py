@@ -20,12 +20,12 @@ IMAGES = DOCS / "assets" / "images"
 COVER = "capa-cartografia-solucao-generativa.png"
 
 MODULES = {
-    "modulo-1-fundamentos": ("Fundamentos", ("m01-deterministico-probabilistico.png", "m01-anatomia-solucao-generativa.png")),
-    "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png")),
-    "modulo-3-rag": ("RAG", ("m03-dois-fluxos-rag.png", "m03-pergunta-evidencia.png")),
-    "modulo-4-agentes": ("Agentes", ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png")),
-    "modulo-5-confianca": ("Confiança", ("m05-defesas-profundidade.png", "m05-prisma-avaliacao.png")),
-    "modulo-6-operacao": ("Operação", ("m06-ciclo-llmops.png", "m06-plataforma-corporativa.png")),
+    "modulo-1-fundamentos": ("Fundamentos", ("m01-deterministico-probabilistico.png", "m01-anatomia-solucao-generativa.png", "m01-mapa-comportamento-generativo.png")),
+    "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png", "m02-mapa-da-oportunidade-ao-conops.png")),
+    "modulo-3-rag": ("RAG", ("m03-dois-fluxos-rag.png", "m03-pergunta-evidencia.png", "m03-mapa-rag-dos-dois-pipelines.png")),
+    "modulo-4-agentes": ("Agentes", ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png", "m04-mapa-autonomia-controlada.png")),
+    "modulo-5-confianca": ("Confiança", ("m05-defesas-profundidade.png", "m05-prisma-avaliacao.png", "m05-mapa-confianca-sistemica.png")),
+    "modulo-6-operacao": ("Operação", ("m06-ciclo-llmops.png", "m06-plataforma-corporativa.png", "m06-mapa-operacao-evidencia-continua.png")),
 }
 PAGES = (
     "index.md", "conceitos.md", "padroes-e-decisoes.md",
