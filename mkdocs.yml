@@ -75,6 +75,14 @@ nav:
       - Estudo de caso: modulo-5-confianca/estudo-de-caso.md
       - Exercícios: modulo-5-confianca/exercicios.md
       - Síntese e referências: modulo-5-confianca/sintese-e-referencias.md
+  - Módulo 6 — Operação:
+      - Visão geral: modulo-6-operacao/index.md
+      - Conceitos: modulo-6-operacao/conceitos.md
+      - Padrões e decisões: modulo-6-operacao/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-6-operacao/exemplo-arquitetural.md
+      - Estudo de caso: modulo-6-operacao/estudo-de-caso.md
+      - Exercícios: modulo-6-operacao/exercicios.md
+      - Síntese e referências: modulo-6-operacao/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
