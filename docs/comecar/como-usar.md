@@ -10,6 +10,15 @@ Este material pode ser lido em sequência, consultado durante uma decisão arqui
 4. Resolva os exercícios após a leitura. Use a [Taxonomia de Bloom](taxonomia-de-bloom.md) para reconhecer o tipo de raciocínio solicitado.
 5. Consulte o [Glossário](../referencia/glossario.md), o [Catálogo de padrões](../referencia/catalogo-de-padroes.md), os [Atributos de qualidade](../referencia/atributos-de-qualidade.md) e o [Template de ADR](../referencia/template-adr.md) sempre que precisar comparar ou registrar escolhas.
 
+## Espinha de aprendizagem
+
+Em qualquer página, use quatro movimentos para transformar leitura em decisão arquitetural:
+
+1. **Conceito:** nomeie o fenômeno e delimite o que ele significa no sistema.
+2. **Decisão:** compare alternativas e explicite o trade-off assumido.
+3. **Evidência:** declare como a hipótese será testada, observada ou revista.
+4. **Aplicação:** use o raciocínio no caso, respeitando contexto, risco e restrições.
+
 ## No GitHub ou no MkDocs
 
 No GitHub, abra `docs/index.md` para iniciar e siga os links entre arquivos Markdown. Essa forma é conveniente para leitura direta, histórico de mudanças e comentários em revisão.

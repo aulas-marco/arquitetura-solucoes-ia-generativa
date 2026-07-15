@@ -1,87 +1,618 @@
+/*
+ * Academia / Prancha de Arquitetura
+ *
+ * A interface toma emprestados a grade, as linhas de cota e as legendas de uma
+ * prancha técnica. O conteúdo continua em Markdown sem depender destes estilos.
+ */
+
 :root {
+  /* Approved course palette */
   --course-ink: #16243A;
   --course-cobalt: #254DB8;
   --course-cyan: #5FC0D1;
   --course-paper: #F2F6FB;
   --course-white: #FFFFFF;
   --course-amber: #F2B84B;
-  --course-heading-font: Charter, Georgia, "Times New Roman", serif;
-  --course-body-font: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Semantic color roles */
+  --color-text: var(--course-ink);
+  --color-text-muted: #56677F;
+  --color-surface: var(--course-white);
+  --color-surface-subtle: var(--course-paper);
+  --color-border: #CED9E9;
+  --color-link: var(--course-cobalt);
+  --color-flow: var(--course-cyan);
+  --color-decision: var(--course-amber);
+  --color-risk-text: #5D4514;
+
+  /* Type roles: local/system first, no remote font dependency */
+  --course-heading-font: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --course-body-font: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --course-meta-font: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+
+  /* A compact, reusable spatial scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --reading-width: 54rem;
+  --radius-sm: 0.2rem;
+  --radius-md: 0.45rem;
+  --shadow-plate: 0 0.45rem 1.5rem rgb(22 36 58 / 8%);
+  --shadow-raised: 0.35rem 0.35rem 0 var(--course-cyan);
+
+  /* Material theme integration */
+  --md-primary-fg-color: var(--course-ink);
+  --md-primary-fg-color--light: #293B57;
+  --md-primary-fg-color--dark: #0D1727;
+  --md-accent-fg-color: var(--course-cobalt);
+  --md-typeset-a-color: var(--course-cobalt);
+  --md-default-fg-color: var(--course-ink);
+  --md-default-bg-color: var(--course-paper);
+}
+
+html {
+  background: var(--course-paper);
+  color-scheme: light;
+  scroll-padding-top: 4.5rem;
 }
 
 body,
-.md-typeset {
+.md-typeset,
+input {
+  color: var(--color-text);
   font-family: var(--course-body-font);
+}
+
+body {
+  background-color: var(--course-paper);
+  background-image:
+    linear-gradient(rgb(37 77 184 / 3.5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(37 77 184 / 3.5%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+
+.md-grid {
+  max-width: 90rem;
+}
+
+.md-main {
+  background: transparent;
+}
+
+.md-content__inner {
+  max-width: var(--reading-width);
+  min-height: calc(100vh - 8rem);
+  margin-inline: auto;
+  padding: var(--space-6) clamp(1.1rem, 4vw, var(--space-7)) var(--space-8);
+  background: var(--color-surface);
+  border-inline: 1px solid rgb(206 217 233 / 72%);
+  box-shadow: var(--shadow-plate);
+}
+
+.md-typeset {
+  font-size: 0.82rem;
+  line-height: 1.72;
 }
 
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4 {
-  color: var(--course-ink);
+  color: var(--color-text);
   font-family: var(--course-heading-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 5rem;
+}
+
+.md-typeset h1 {
+  margin-bottom: var(--space-5);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.02;
+}
+
+.md-typeset h2 {
+  margin-top: var(--space-7);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  line-height: 1.16;
+}
+
+.md-typeset h3 {
+  margin-top: var(--space-6);
+  font-size: 1.25rem;
+  line-height: 1.25;
 }
 
 .md-typeset code,
+.md-typeset pre,
 .md-typeset time,
-.md-typeset .metadata {
+.md-typeset .metadata,
+.md-typeset .headerlink {
   font-family: var(--course-meta-font);
 }
 
-.md-main {
-  background: var(--course-paper);
-}
-
-.md-content {
-  max-width: 52rem;
-}
-
-.md-content__inner {
-  background: var(--course-white);
-  padding-inline: clamp(1rem, 4vw, 3rem);
-}
-
 .md-typeset a {
-  color: var(--course-cobalt);
+  color: var(--color-link);
+  text-decoration-color: rgb(37 77 184 / 35%);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
 }
 
-:focus-visible {
-  outline: 3px solid var(--course-amber);
-  outline-offset: 3px;
+.md-typeset a:hover {
+  text-decoration-color: currentColor;
 }
 
-.md-typeset blockquote {
-  background: color-mix(in srgb, var(--course-cyan) 12%, var(--course-white));
-  border-left: 0.3rem solid var(--course-cyan);
-  color: var(--course-ink);
-  padding: 0.8rem 1rem;
+/* Navigation keeps the sober ink-and-cobalt identity of the approved mockup. */
+.md-header {
+  border-bottom: 0.25rem solid var(--course-cobalt);
+  box-shadow: none;
 }
 
-.learning-spine {
-  border-left: 0.4rem solid var(--course-cobalt);
-  display: grid;
-  gap: 0.75rem;
-  list-style: none;
-  margin-left: 0;
-  padding-left: 1.4rem;
+.md-header__title,
+.md-tabs,
+.md-nav,
+.md-search__input {
+  font-family: var(--course-body-font);
 }
 
-.learning-spine > li::before {
-  background: var(--course-cyan);
-  border: 2px solid var(--course-ink);
-  border-radius: 50%;
+.md-tabs {
+  background: var(--course-ink);
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.md-tabs__link {
+  font-family: var(--course-meta-font);
+  font-size: 0.62rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.md-nav__title,
+.md-footer-meta {
+  font-family: var(--course-meta-font);
+  letter-spacing: 0.025em;
+}
+
+/* Module opening: a four-part rail is the course's architectural signature. */
+.module-opening,
+.md-typeset > h1:first-child {
+  position: relative;
+  padding-left: clamp(1.4rem, 4vw, 2.5rem);
+}
+
+.module-opening::before,
+.md-typeset > h1:first-child::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.6rem;
+  min-height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--course-cobalt) 0 48%,
+    var(--course-cyan) 48% 72%,
+    var(--course-amber) 72% 88%,
+    var(--course-ink) 88%
+  );
   content: "";
-  display: inline-block;
-  height: 0.75rem;
-  margin-left: -1.95rem;
-  margin-right: 0.8rem;
-  width: 0.75rem;
+}
+
+/* Objective cards work both with an explicit class and the standard module headings. */
+.objectives-grid,
+.md-typeset h2#objetivos-de-aprendizagem + p + ol,
+.md-typeset h2#o-que-voce-aprendera + p + ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+  counter-reset: objective;
+}
+
+.objective-card,
+.md-typeset h2#objetivos-de-aprendizagem + p + ol > li,
+.md-typeset h2#o-que-voce-aprendera + p + ol > li {
+  position: relative;
+  min-height: 7rem;
+  margin: 0;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 0.2rem solid var(--course-cobalt);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0.25rem 0.8rem rgb(22 36 58 / 4%);
+  counter-increment: objective;
+}
+
+.objective-card::before,
+.md-typeset h2#objetivos-de-aprendizagem + p + ol > li::before,
+.md-typeset h2#o-que-voce-aprendera + p + ol > li::before {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  color: var(--course-cobalt);
+  content: "O" counter(objective, decimal-leading-zero);
+  font: 700 0.58rem/1 var(--course-meta-font);
+  letter-spacing: 0.08em;
+}
+
+/* conceito → decisão → evidência → aplicação */
+.learning-spine,
+.md-typeset h2#espinha-de-aprendizagem + ol {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-5) 0;
+  padding: 0 0 0 var(--space-6);
+  border-left: 0.45rem solid var(--course-cobalt);
+  list-style: none;
+  counter-reset: spine;
+}
+
+.learning-spine > li,
+.md-typeset h2#espinha-de-aprendizagem + ol > li {
+  position: relative;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--course-paper);
+  border: 1px solid var(--color-border);
+  counter-increment: spine;
+}
+
+.learning-spine > li::before,
+.md-typeset h2#espinha-de-aprendizagem + ol > li::before {
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--space-6) - 0.27rem);
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  place-items: center;
+  color: var(--course-white);
+  background: var(--course-cobalt);
+  border: 0.18rem solid var(--course-white);
+  border-radius: 50%;
+  content: counter(spine);
+  font: 700 0.55rem/1 var(--course-meta-font);
+  transform: translateY(-50%);
 }
 
 .learning-spine > li:nth-child(2)::before,
-.learning-spine > li:nth-child(4)::before {
+.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(2)::before {
+  color: var(--course-ink);
   background: var(--course-amber);
+}
+
+.learning-spine > li:nth-child(3)::before,
+.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(3)::before {
+  color: var(--course-ink);
+  background: var(--course-cyan);
+}
+
+.learning-spine > li:nth-child(4)::before,
+.md-typeset h2#espinha-de-aprendizagem + ol > li:nth-child(4)::before {
+  background: var(--course-ink);
+}
+
+/* Standard Markdown blockquotes remain meaningful on GitHub. */
+.md-typeset blockquote {
+  margin: var(--space-5) 0;
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text);
+  background: #E9F5F7;
+  border: 0;
+  border-left: 0.3rem solid var(--course-cyan);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.md-typeset blockquote > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.md-typeset blockquote.decision-callout,
+.decision-callout {
+  color: var(--color-risk-text);
+  background: #FFF7E3;
+  border-left-color: var(--course-amber);
+}
+
+.md-typeset blockquote.risk-callout,
+.risk-callout {
+  color: var(--color-text);
+  background: #FFF7E3;
+  border: 1px solid #E4C777;
+  border-left: 0.3rem solid var(--course-amber);
+}
+
+.decision-callout::before,
+.risk-callout::before {
+  display: block;
+  margin-bottom: var(--space-2);
+  font: 800 0.58rem/1 var(--course-meta-font);
+  letter-spacing: 0.12em;
+}
+
+.decision-callout::before {
+  content: "DECISÃO";
+}
+
+.risk-callout::before {
+  content: "RISCO";
+}
+
+/* Bloom: words remain visible; color is a secondary orientation cue. */
+.bloom-label,
+.md-typeset h2#recordar,
+.md-typeset h2#compreender,
+.md-typeset h2#aplicar,
+.md-typeset h2#analisar,
+.md-typeset h2#avaliar,
+.md-typeset h2#criar {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding: var(--space-3) var(--space-4);
+  color: var(--course-white);
+  background: var(--course-ink);
+  border: 0;
+  border-left: 0.35rem solid var(--course-cyan);
+  border-radius: var(--radius-sm);
+}
+
+.bloom-label::before {
+  color: var(--course-cyan);
+  content: "NÍVEL BLOOM";
+  font: 700 0.56rem/1 var(--course-meta-font);
+  letter-spacing: 0.1em;
+}
+
+.md-typeset h2#recordar,
+.md-typeset h2#compreender {
+  border-left-color: var(--course-cyan);
+}
+
+.md-typeset h2#aplicar,
+.md-typeset h2#analisar {
+  border-left-color: var(--course-cobalt);
+}
+
+.md-typeset h2#avaliar,
+.md-typeset h2#criar {
+  border-left-color: var(--course-amber);
+}
+
+/* Architectural figures and their Markdown-native captions. */
+.architecture-figure,
+.md-typeset p:has(> img:first-child) {
+  margin-block: var(--space-6);
+  padding: var(--space-3);
+  background: #EAF0FB;
+  border: 1px solid #C4D2E8;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 0.3rem rgb(255 255 255 / 48%);
+}
+
+.architecture-figure img,
+.md-typeset p > img:first-child {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--radius-sm);
+}
+
+.architecture-figure figcaption,
+.md-typeset p > img + em {
+  display: block;
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  color: var(--color-text-muted);
+  border-top: 1px solid #C4D2E8;
+  font: 0.67rem/1.5 var(--course-meta-font);
+}
+
+/* Comparison tables read as technical schedules, not spreadsheets. */
+.comparison-table,
+.md-typeset__table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0.2rem 0.8rem rgb(22 36 58 / 4%);
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+}
+
+.md-typeset table:not([class]) th {
+  color: var(--course-white);
+  background: var(--course-ink);
+  border-color: #42526B;
+  font: 700 0.64rem/1.35 var(--course-meta-font);
+  letter-spacing: 0.02em;
+}
+
+.md-typeset table:not([class]) td {
+  vertical-align: top;
+  border-color: var(--color-border);
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: #F7F9FD;
+}
+
+/* ADRs keep their standard headings in Markdown; the site adds a plate. */
+.adr-block {
+  margin-block: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--course-white);
+  border: 1px solid var(--color-border);
+  border-left: 0.35rem solid var(--course-amber);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-plate);
+}
+
+.md-typeset h2[id^="adr-"],
+.md-typeset h3[id^="adr-"] {
+  padding: var(--space-3) var(--space-4);
+  background: #FFF7E3;
+  border: 1px solid #E4C777;
+  border-left: 0.35rem solid var(--course-amber);
+  border-radius: var(--radius-sm);
+}
+
+.md-typeset h2[id^="adr-"]::before,
+.md-typeset h3[id^="adr-"]::before {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-risk-text);
+  content: "REGISTRO DE DECISÃO ARQUITETURAL";
+  font: 700 0.56rem/1 var(--course-meta-font);
+  letter-spacing: 0.1em;
+}
+
+/* Public answers are deliberately quiet until the learner opens them. */
+.md-typeset details {
+  margin: var(--space-3) 0 var(--space-5);
+  padding: 0 var(--space-4);
+  background: #F8FAFD;
+  border: 1px solid var(--color-border);
+  border-left: 0.25rem solid var(--course-cyan);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+.md-typeset details summary {
+  margin: 0 calc(-1 * var(--space-4));
+  padding: var(--space-3) var(--space-4) var(--space-3) 2.25rem;
+  color: var(--course-ink);
+  background: transparent;
+  font: 700 0.7rem/1.4 var(--course-meta-font);
+}
+
+.md-typeset details[open] summary {
+  margin-bottom: var(--space-3);
+  background: #E9F5F7;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Rubrics are already labelled in the Markdown; color never carries the label. */
+.rubric {
+  position: relative;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  background: #F8FAFD;
+  border: 1px solid var(--color-border);
+  border-left: 0.3rem solid var(--course-cobalt);
+  border-radius: var(--radius-sm);
+}
+
+.rubric::before {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  color: var(--course-cobalt);
+  content: "RUBRICA";
+  font: 800 0.54rem/1 var(--course-meta-font);
+  letter-spacing: 0.11em;
+}
+
+.md-typeset p > strong:first-child {
+  display: inline-block;
+  margin-right: var(--space-1);
+  padding: 0.12rem var(--space-2);
+  color: var(--course-cobalt);
+  background: #EAF0FB;
+  border-left: 0.18rem solid var(--course-cobalt);
+  border-radius: var(--radius-sm);
+  font-family: var(--course-meta-font);
+}
+
+.md-typeset p > strong:first-child:only-child,
+.md-typeset .rubric > strong:first-child {
+  font-family: var(--course-meta-font);
+}
+
+/* Keyboard and skip-link support. Never suppress browser focus outlines. */
+:focus-visible {
+  outline: 0.2rem solid var(--course-amber);
+  outline-offset: 0.18rem;
+}
+
+.md-skip:focus,
+.md-typeset summary:focus-visible {
+  position: relative;
+  z-index: 10;
+}
+
+/* Mobile: preserve the reading order, reduce chrome, and keep tables scrollable. */
+@media (max-width: 59.984375em) {
+  .md-content__inner {
+    min-height: auto;
+    padding: var(--space-5) clamp(1rem, 4vw, var(--space-5)) var(--space-7);
+    border-inline: 0;
+    box-shadow: none;
+  }
+
+  .md-typeset h1 {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .md-typeset h2 {
+    margin-top: var(--space-6);
+  }
+
+  .objectives-grid,
+  .md-typeset h2#objetivos-de-aprendizagem + p + ol,
+  .md-typeset h2#o-que-voce-aprendera + p + ol {
+    grid-template-columns: 1fr;
+  }
+
+  .md-typeset__table {
+    margin-inline: 0;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .md-typeset {
+    font-size: 0.78rem;
+  }
+
+  .module-opening,
+  .md-typeset > h1:first-child {
+    padding-left: 1.2rem;
+  }
+
+  .learning-spine,
+  .md-typeset h2#espinha-de-aprendizagem + ol {
+    padding-left: 1.65rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .module-opening::before,
+  .md-typeset > h1:first-child::before,
+  .learning-spine > li::before,
+  .md-typeset h2#espinha-de-aprendizagem + ol > li::before {
+    border: 2px solid CanvasText;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

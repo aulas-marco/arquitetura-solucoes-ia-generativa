@@ -4,11 +4,18 @@ site_description: Livro-texto da disciplina de pós-graduação em Arquitetura d
 theme:
   name: material
   language: pt-BR
+  font: false
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
     - navigation.top
+    - navigation.footer
+    - content.code.copy
     - search.suggest
 
 extra_css:
