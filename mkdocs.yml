@@ -35,6 +35,14 @@ nav:
       - Como usar: comecar/como-usar.md
       - Mapa de aprendizagem: comecar/mapa-de-aprendizagem.md
       - Taxonomia de Bloom: comecar/taxonomia-de-bloom.md
+  - Módulo 1 — Fundamentos:
+      - Visão geral: modulo-1-fundamentos/index.md
+      - Conceitos: modulo-1-fundamentos/conceitos.md
+      - Padrões e decisões: modulo-1-fundamentos/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-1-fundamentos/exemplo-arquitetural.md
+      - Estudo de caso: modulo-1-fundamentos/estudo-de-caso.md
+      - Exercícios: modulo-1-fundamentos/exercicios.md
+      - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
