@@ -2,9 +2,7 @@
 
 ## O argumento do módulo
 
-Operar sistemas generativos é controlar uma composição que muda. O pacote comportamental torna a mudança identificável; avaliação contínua produz evidência; entrega gradual limita exposição; observabilidade conecta execução a produto, modelo, operação e negócio; recuperação preserva guardrails; plataforma escala capacidades comuns sem absorver a responsabilidade dos domínios.
-
-LLMOps não elimina incerteza. Ele torna premissas, versões, resultados, limites e responsáveis suficientemente visíveis para decidir e aprender. Uma organização madura não é a que nunca falha, mas a que reduz falhas previsíveis, contém as demais, comunica efeitos e transforma incidentes em mudança verificável.
+Operar sistemas generativos é controlar uma composição que muda. Pacote comportamental, avaliação contínua, entrega gradual, observabilidade e recuperação tornam premissas, versões, limites e responsáveis visíveis. A plataforma escala capacidades comuns sem absorver a responsabilidade dos domínios; maturidade significa conter falhas e transformar evidência em mudança verificável.
 
 ## A progressão dos seis módulos
 
@@ -16,19 +14,6 @@ LLMOps não elimina incerteza. Ele torna premissas, versões, resultados, limite
 - O **Módulo 6** coloca tudo no tempo: versões, promoção, observação, recuperação, plataforma, equipes e economia.
 
 O capstone não é um diagrama de componentes. É um argumento rastreável do contexto à operação: por que o sistema existe, que qualidade promete, como flui, onde pode falhar, quem decide, que evidência libera, como degrada e que perguntas ainda exigem experimento.
-
-## Princípios de saída
-
-1. Versione tudo que altera comportamento, não apenas código e modelo.
-2. Reproduza condições e distribuições; não prometa determinismo inexistente.
-3. Use avaliação offline, canary e sinais de produção como evidências complementares.
-4. Faça do release uma unidade coerente e reversível.
-5. Meça tarefa e valor, além de chamadas, tokens e disponibilidade.
-6. Colete telemetria mínima para decisões declaradas.
-7. Preserve identidade, política, fundamentação e aprovação em fallbacks.
-8. Contenha por tenant, produto, rota, componente e classe de efeito.
-9. Compartilhe capacidade estável; mantenha contexto e risco no produto.
-10. Trate custo como atributo de arquitetura e resultado, não só fatura.
 
 ## Checklist de prontidão para produção
 
@@ -78,4 +63,4 @@ Fontes oficiais fornecem vocabulário, requisitos ou métodos dentro de seu esco
 
 **Prática viva** é uma convenção ou abordagem ainda sujeita a rápida mudança, como schemas GenAI de telemetria, capacidades de gateways e estratégias de avaliação assistida por modelo. Registre versão e data, teste migração e revise evidência. “Padrão de mercado” sem contrato, estabilidade ou fonte não é decisão arquitetural.
 
-O curso termina, mas o ciclo não. Volte ao [Mapa de aprendizagem](../comecar/mapa-de-aprendizagem.md), escolha um sistema real e percorra novamente contexto, arquitetura, conhecimento, ação, confiança e operação. A competência final é manter essas dimensões coerentes enquanto o sistema e a organização aprendem.
+Use o [Mapa de aprendizagem](../comecar/mapa-de-aprendizagem.md) para percorrer novamente contexto, arquitetura, conhecimento, ação, confiança e operação em um sistema real.

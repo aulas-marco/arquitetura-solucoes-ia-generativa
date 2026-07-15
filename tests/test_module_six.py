@@ -112,6 +112,82 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(topic, folded, topic)
 
+    def test_platform_diagram_closes_request_retrieval_model_response_and_tool_paths(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for edge in (
+            'P --> ID["Identidade, tenant e quotas"]',
+            'GW1 -->|"requisição admitida"| GI["Guardrail de entrada"]',
+            'GI --> ORQ["Orquestrador do produto"]',
+            'RG -->|"evidências autorizadas"| ORQ',
+            'ORQ -->|"prompt + contexto mínimo"| MC["Conector de inferência do gateway"]',
+            'M1 -->|"resposta ou intenção estruturada"| GO["Guardrail de saída e validação"]',
+            'GO -->|"resposta validada"| P',
+            'GO -->|"intenção de ferramenta validada"| TL',
+            'TL -->|"após política e aprovação quando exigida"| ERP',
+            'TL -->|"resultado autoritativo"| ORQ',
+        ):
+            self.assertIn(edge, text, edge)
+
+        self.assertNotIn('GW --> GR', text)
+        self.assertNotIn('GR --> RG', text)
+
+    def test_gateway_failure_has_replica_failover_equivalent_bypass_and_bounded_degradation(self):
+        example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+        patterns = (MODULE / "padroes-e-decisoes.md").read_text(
+            encoding="utf-8"
+        ).casefold()
+
+        for edge in (
+            'HE -->|"saudável"| GW1["Gateway — região A"]',
+            'HE -->|"health failover"| GW2["Gateway — região B"]',
+            'HE -.->|"bypass temporário pré-autorizado"| EC["Edge contingencial com controles equivalentes"]',
+            'HE -->|"sem caminho seguro"| DEG["Degradação específica por produto"]',
+        ):
+            self.assertIn(edge, example, edge)
+
+        for phrase in (
+            "domínios de falha",
+            "controles equivalentes",
+            "prazo curto",
+            "raio de impacto",
+            "busca oficial",
+            "suspende escrita",
+        ):
+            self.assertIn(phrase, patterns, phrase)
+
+    def test_canary_stop_is_classified_before_incident_response(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for edge in (
+            'K -->|"critério de parada"| CL{"Impacto, guardrail crítico ou severidade?"}',
+            'CL -->|"não"| SS["Parada segura + rollback ou degradação"]',
+            'SS --> DA["Diagnóstico da hipótese ou qualidade"]',
+            'CL -->|"sim"| I["Incidente + evidência minimizada"]',
+        ):
+            self.assertIn(edge, text, edge)
+
+        self.assertNotIn('RB --> I', text)
+        self.assertIn(
+            "falha esperada de hipótese ou qualidade não abre automaticamente um incidente",
+            text.casefold(),
+        )
+
+    def test_retrieval_trace_defaults_to_metadata_and_raw_query_requires_controlled_sample(self):
+        text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
+
+        for phrase in (
+            "por padrão, o span de recuperação registra classificação",
+            "tamanho",
+            "identificador controlado ou hash",
+            "metadados de recuperação",
+            "consulta derivada em texto bruto",
+            "amostra explicitamente autorizada",
+            "segregada",
+            "retenção limitada",
+        ):
+            self.assertIn(phrase, text, phrase)
+
     def test_case_integrates_fragmented_prototypes_and_operational_decisions(self):
         text = (MODULE / "estudo-de-caso.md").read_text(encoding="utf-8").casefold()
 

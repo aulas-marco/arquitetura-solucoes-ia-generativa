@@ -117,7 +117,7 @@ Crie a arquitetura-alvo e um plano incremental para a organização que possui c
 10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;
 11. roadmap de três incrementos que preserve valor e contenção antes da migração total.
 
-Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de produto, segurança e privacidade, operação, FinOps, domínios e dono do processo. Para cada falha — fornecedor, índice, gateway, guardrail, executor e telemetria — declare raio de impacto e contenção. Nenhuma opção pode usar “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
+Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de produto, segurança e privacidade, operação, FinOps, domínios e dono do processo. Para cada falha — fornecedor, índice, gateway, guardrail, executor e telemetria — declare raio de impacto e contenção. Para o gateway, inclua réplicas em domínios de falha, health failover, condições de bypass com controles equivalentes e degradação por produto quando não houver caminho seguro. Nenhuma opção pode usar “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
 
 **Rubrica (24 pontos).** 3 pontos por contexto e qualidade mensurável; 3 por arquitetura, componentes e contratos; 3 por fluxos completos e equivalentes textuais; 2 por ADRs e trade-offs; 3 por guardrails e autoridade; 3 por avaliação e portões; 3 por operações, recuperação e privacidade; 2 por riscos residuais; 2 por experimentos e roadmap. Sem identidade propagada, teste negativo de tenancy, rollback do manifesto ou modo seguro para ação, a entrega recebe no máximo 14 pontos.
 

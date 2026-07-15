@@ -16,40 +16,51 @@ Os atributos prioritários são: nenhuma ação sem autoridade; nenhum cruzament
 flowchart TB
     subgraph C["Canais e produtos — propriedade das equipes de produto"]
         U["Usuários e sistemas"]
-        CP["Copiloto de atendimento"]
-        RP["RAG de políticas"]
-        AP["Agente de compras"]
-        U --> CP
-        U --> RP
-        U --> AP
+        P["Produtos: copiloto, RAG e agente"]
+        U --> P
     end
 
-    subgraph E["Edge de IA — propriedade da equipe de plataforma"]
+    subgraph E["Edge replicado — propriedade da equipe de plataforma"]
         ID["Identidade, tenant e quotas"]
-        GW["Model gateway: política, roteamento e medição"]
-        GR["Guardrails transversais versionados"]
+        HE["Entrada com health check"]
+        HE -->|"saudável"| GW1["Gateway — região A"]
+        HE -->|"health failover"| GW2["Gateway — região B"]
+        HE -.->|"bypass temporário pré-autorizado"| EC["Edge contingencial com controles equivalentes"]
+        HE -->|"sem caminho seguro"| DEG["Degradação específica por produto"]
+        GW1 -->|"requisição admitida"| GI["Guardrail de entrada"]
+        GW2 -->|"requisição admitida"| GI
+        EC -->|"requisição sob controles equivalentes"| GI
         CAT["Catálogo de modelos e releases"]
-        ID --> GW
-        CAT --> GW
-        GW --> GR
+        ID --> HE
+        CAT --> GW1
+        CAT --> GW2
     end
 
-    CP --> ID
-    RP --> ID
-    AP --> ID
+    P --> ID["Identidade, tenant e quotas"]
+    DEG -->|"copiloto"| DC["Fila ou indisponibilidade explícita"]
+    DEG -->|"RAG"| DR["Busca oficial sem geração"]
+    DEG -->|"agente"| DA["Escrita suspensa; consulta segura"]
 
     subgraph S["Serviços compartilhados — plataforma com contratos de domínio"]
+        ORQ["Orquestrador do produto"]
         PR["Registro de prompts"]
         RG["RAG: ingestão, índices segregados e proveniência"]
         TL["Catálogo e executor de ferramentas"]
         PE["Engine de políticas"]
+        MC["Conector de inferência do gateway"]
+        GO["Guardrail de saída e validação"]
         EV["Avaliação e conjuntos versionados"]
     end
 
-    GR --> PR
-    GR --> RG
-    GR --> TL
-    PE --> GW
+    GI --> ORQ["Orquestrador do produto"]
+    ORQ -->|"template e versão"| PR
+    PR -->|"prompt versionado"| ORQ
+    ORQ -->|"consulta + identidade e ACL"| RG
+    RG -->|"evidências autorizadas"| ORQ
+    ORQ -->|"prompt + contexto mínimo"| MC["Conector de inferência do gateway"]
+    PE --> GW1
+    PE --> GW2
+    PE --> GI
     PE --> RG
     PE --> TL
 
@@ -58,8 +69,12 @@ flowchart TB
         M2["Modelo B aprovado"]
         EM["Serviço de embeddings"]
     end
-    GW -->|"rota permitida por dado e finalidade"| M1
-    GW -->|"fallback compatível"| M2
+    MC -->|"rota autorizada"| M1
+    MC -->|"fallback compatível"| M2
+    M1 -->|"resposta ou intenção estruturada"| GO["Guardrail de saída e validação"]
+    M2 -->|"resposta ou intenção estruturada"| GO
+    GO -->|"resposta validada"| P
+    GO -->|"intenção de ferramenta validada"| TL
     RG --> EM
 
     subgraph D["Sistemas e dados corporativos — propriedade dos domínios"]
@@ -68,9 +83,11 @@ flowchart TB
         HUM["Fila de aprovação humana"]
     end
     DOC -->|"conteúdo classificado e ACL"| RG
-    TL -->|"identidade delegada + idempotência"| ERP
+    TL -->|"após política e aprovação quando exigida"| ERP
     TL -->|"ação sensível"| HUM
     HUM -->|"aprovação vinculada à intenção"| TL
+    ERP -->|"resultado persistido"| TL
+    TL -->|"resultado autoritativo"| ORQ
 
     subgraph O["Plano de operação e governança"]
         OT["Traces, métricas e logs minimizados"]
@@ -78,20 +95,39 @@ flowchart TB
         FI["FinOps: showback, budgets e previsão"]
         AUD["Auditoria, risco e evidências"]
     end
-    CP --> OT
-    RP --> OT
-    AP --> OT
-    GW --> OT
-    GR --> OT
-    RG --> OT
-    TL --> OT
+    P -.-> OT
+    ID -.-> OT
+    HE -.-> OT
+    GW1 -.-> OT
+    GW2 -.-> OT
+    EC -.-> OT
+    DEG -.-> OT
+    DC -.-> OT
+    DR -.-> OT
+    DA -.-> OT
+    GI -.-> OT
+    ORQ -.-> OT
+    PR -.-> OT
+    RG -.-> OT
+    PE -.-> OT
+    MC -.-> OT
+    M1 -.-> OT
+    M2 -.-> OT
+    EM -.-> OT
+    GO -.-> OT
+    TL -.-> OT
+    DOC -.-> OT
+    ERP -.-> OT
+    HUM -.-> OT
+    CAT -.-> OT
+    EV -.-> OT
     OT --> AL
     OT --> FI
     OT --> AUD
     EV --> AUD
 ```
 
-**Equivalente textual — arquitetura completa da plataforma.** Usuários entram por três produtos. Cada produto envia identidade e tenant ao edge; o gateway consulta catálogo e política, aplica quotas, escolhe apenas um modelo permitido e passa por guardrails. Prompts, RAG e ferramentas são serviços compartilhados com contratos versionados. O RAG ingere documentos com classificação e ACL em índices segregados. O executor revalida política e identidade delegada antes do ERP; ações sensíveis passam por aprovação vinculada à intenção. Todos os componentes emitem telemetria minimizada para SLOs, incidentes, FinOps e auditoria. O avaliador fornece evidência, mas não participa sozinho da autorização.
+**Equivalente textual — arquitetura completa da plataforma.** A requisição sai do produto, recebe identidade, tenant e quota, e o health check escolhe uma réplica do gateway. O gateway aplica política e roteamento; o guardrail de entrada precede o orquestrador. Registro de prompts e RAG devolvem ao orquestrador template e evidências autorizadas. O contexto mínimo segue pelo conector do gateway ao modelo. Toda resposta ou intenção passa pelo guardrail de saída: resposta validada volta ao produto; intenção validada segue ao executor, que revalida política, identidade, idempotência e, se sensível, aprovação antes do ERP. O resultado autoritativo retorna ao orquestrador. Cada nó executável emite telemetria minimizada para SLOs, FinOps e auditoria; o avaliador fornece evidência, não autorização.
 
 ![Mapa da plataforma corporativa com produtos, gateway, serviços compartilhados, provedores, domínios e plano operacional](../assets/images/m06-plataforma-corporativa.png)
 
@@ -105,6 +141,7 @@ Responsabilidade conjunta aparece em contratos operacionais. A plataforma pode d
 
 ### Contenção de falhas
 
+- As réplicas do gateway ficam em domínios de falha distintos. O health failover limita a perda regional às execuções em voo; novas solicitações usam a réplica saudável. O edge contingencial só opera por prazo e escopo aprovados com controles equivalentes. Sem caminho seguro, o raio de impacto é contido por produto: copiloto encaminha ou para, RAG usa busca oficial e agente suspende escrita.
 - Uma falha do Modelo A abre circuit breaker apenas para a rota afetada. O gateway usa Modelo B somente onde catálogo, região, classe de dados e avaliação permitem; demais rotas degradam.
 - Um índice corrompido é isolado por tenant e snapshot. O RAG de políticas interrompe geração fundamentada, enquanto copiloto e agente preservam serviços não dependentes daquele índice.
 - A indisponibilidade do executor desabilita escrita; consulta e rascunho continuam. A fila não transforma timeout em sucesso e reconcilia chaves idempotentes antes de retry.
@@ -124,20 +161,26 @@ flowchart LR
     R --> A
     G -->|"aprovado"| H["Homologação: carga, segurança e falhas"]
     H --> K{"Canary com critérios prévios"}
-    K -->|"interromper"| RB["Rollback do manifesto ou degradação"]
-    RB --> I["Incidente e evidência minimizada"]
+    K -->|"critério de parada"| CL{"Impacto, guardrail crítico ou severidade?"}
+    CL -->|"não"| SS["Parada segura + rollback ou degradação"]
+    SS --> DA["Diagnóstico da hipótese ou qualidade"]
+    DA --> A
+    CL -->|"sim"| I["Incidente + evidência minimizada"]
     K -->|"ampliar"| P["Produção"]
     P --> T["Traces + métricas de produto, modelo, operação e negócio"]
-    T --> S{"SLO, guardrail ou hipótese violada?"}
-    S -->|"sim"| I
+    T --> S{"Sinal exige ação?"}
     S -->|"não"| X["Revisão periódica e showback"]
+    S -->|"sim"| PC{"Impacto, guardrail crítico ou severidade?"}
+    PC -->|"não"| PA["Correção planejada ou rollback controlado"]
+    PA --> L
+    PC -->|"sim"| I
     I --> CSE["Conter, comunicar, erradicar e recuperar"]
     CSE --> L["Caso curado, risco, runbook e teste atualizados"]
     X --> L
     L --> A
 ```
 
-**Equivalente textual — ciclo de entrega e observação.** Uma alteração gera manifesto e ADR; testes e avaliação alimentam um portão. Reprovação volta ao diagnóstico. Aprovação segue para homologação e canary. Critério de interrupção aciona rollback ou degradação e, quando aplicável, incidente. Produção emite métricas nos quatro planos. Violação de SLO, guardrail ou hipótese aciona contenção; operação normal passa por revisão. Incidentes e observações são curados em casos de teste, riscos e runbooks antes de voltar ao ciclo.
+**Equivalente textual — ciclo de entrega e observação.** Uma alteração gera manifesto e ADR; testes e avaliação alimentam um portão. Aprovação segue para homologação e canary. Todo critério de parada interrompe exposição, mas é classificado: falha esperada de hipótese ou qualidade não abre automaticamente um incidente; usa parada segura, rollback ou degradação e diagnóstico. Impacto em usuário, violação de guardrail crítico ou limiar de severidade abre incidente. Sinais de produção passam pela mesma classificação; desvios não críticos entram em correção planejada. Incidentes e observações curados atualizam testes, riscos e runbooks.
 
 O feedback não conecta log bruto diretamente ao dataset. Há seleção autorizada, desidentificação, revisão de ataque e versionamento. Também não existe promoção automática a partir de uma nota única: o dono apropriado decide exceções e consequências.
 

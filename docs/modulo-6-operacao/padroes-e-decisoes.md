@@ -6,7 +6,7 @@ Um **portão de regressão** compara o candidato com critérios e baseline versi
 
 Portões não devem congelar melhoria. Um limiar absoluto protege o mínimo; um limite de não regressão impede piora relevante; uma revisão explícita trata trade-offs, como pequena perda de latência para grande ganho de segurança. Flakiness não é motivo para ignorar teste: separe variação esperada de infraestrutura instável e estime incerteza.
 
-**Canary** expõe o candidato a uma fração delimitada de tráfego, usuários, tenants ou casos. A coorte precisa representar o risco e evitar pessoas vulneráveis sem consentimento ou proteção. Antes do início, defina duração, volume mínimo, métricas, limiares, autoridade para pausar e versão de retorno. Compare por fatia e mantenha atribuição: sem `release_id` no trace, misturam-se resultados.
+**Canary** expõe o candidato a uma fração delimitada de tráfego, usuários, tenants ou casos. A coorte precisa representar o risco e evitar pessoas vulneráveis sem consentimento ou proteção. Antes do início, defina duração, volume mínimo, métricas, limiares, autoridade para pausar e versão de retorno. Compare por fatia e mantenha atribuição: sem `release_id` no trace, misturam-se resultados. Atingir um critério de parada sempre interrompe a exposição, mas só abre incidente se houver impacto, guardrail crítico ou severidade definida; hipótese de produto rejeitada segue para diagnóstico normal.
 
 Shadow traffic pode executar o candidato sem mostrar a saída nem realizar efeitos. É útil para latência e comparação, mas ainda processa dados e incorre em custo; ferramentas devem ser simuladas. A/B testa uma hipótese de produto quando ambas as variantes já são aceitáveis. Não se usa experimento para descobrir se uma variante viola um guardrail crítico.
 
@@ -22,7 +22,7 @@ Shadow traffic pode executar o candidato sem mostrar a saída nem realizar efeit
 
 ## Incidente generativo
 
-**Resposta a incidente** preserva a sequência: detectar, triar, conter, comunicar, erradicar, recuperar e aprender. O alerta abre um identificador e congela evidências minimizadas. A triagem delimita release, tenants, dados, ferramentas, período e possível efeito. Contenção pode desabilitar operação, remover fonte, reduzir tráfego, revogar credencial, fixar modelo ou encaminhar ao humano. Segurança, privacidade, jurídico e dono do processo participam conforme impacto.
+**Resposta a incidente** preserva a sequência: detectar, triar, conter, comunicar, erradicar, recuperar e aprender. Quando a classificação alcança impacto, guardrail crítico ou limiar de severidade, abre-se um identificador e congelam-se evidências minimizadas. A triagem delimita release, tenants, dados, ferramentas, período e possível efeito. Contenção pode desabilitar operação, remover fonte, reduzir tráfego, revogar credencial, fixar modelo ou encaminhar ao humano. Segurança, privacidade, jurídico e dono do processo participam conforme impacto.
 
 Depois, reconstruir traces não autoriza expor conteúdo a todos. A recuperação valida o pacote e amplia gradualmente. O post-incident review evita caça a culpados e produz causas técnicas e organizacionais, riscos atualizados, testes de regressão, mudanças de runbook e responsáveis com prazo. Casos reais alimentam avaliação apenas após tratamento de dados e revisão para não perpetuar conteúdo malicioso.
 
@@ -32,7 +32,9 @@ Alertas precisam de ação. “Qualidade média caiu 1%” sem janela, fatia ou 
 
 Um **model gateway** centraliza autenticação, autorização, roteamento, limites, normalização de APIs, registro de versões, medição, redaction e políticas transversais. Ele reduz credenciais espalhadas e cria um ponto consistente de controle. Também pode virar gargalo, ponto único de falha e interface pelo menor denominador comum.
 
-O gateway não deve interpretar regra profunda do domínio nem ocultar capacidades importantes. Preserve um escape governado: extensão tipada, rota experimental isolada ou acesso direto excepcional com controles equivalentes. Disponibilidade multi-região, circuit breaker e modo de bypass previamente autorizado evitam que o controle comum derrube todos os produtos — mas bypass não pode remover identidade ou telemetria crítica.
+O gateway não deve interpretar regra profunda do domínio nem ocultar capacidades importantes. Réplicas ativas ou em espera ocupam **domínios de falha** distintos; uma entrada com health check faz failover entre regiões. Catálogo, política e configuração assinada precisam estar disponíveis na réplica, e o ensaio deve incluir perda regional e dependências comuns. Circuit breaker por rota e quotas por produto limitam o **raio de impacto**.
+
+Bypass é contingência limitada, não acesso direto improvisado ao provedor. Só existe quando previamente autorizado e testado, por **prazo curto**, com proprietário e desligamento, e preserva **controles equivalentes** de identidade, quotas, política, guardrails e telemetria. Se isso não for seguro, cada produto degrada: o copiloto informa indisponibilidade ou encaminha; o RAG oferece **busca oficial** sem geração; o agente **suspende escrita** e mantém apenas consulta permitida. Assim, falha do gateway não se converte em remoção coletiva de controles.
 
 ## Serviços compartilhados, com fronteiras explícitas
 
