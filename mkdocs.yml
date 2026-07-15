@@ -30,6 +30,17 @@ markdown_extensions:
 
 nav:
   - Início: index.md
+  - Começar:
+      - Sobre a disciplina: comecar/sobre-a-disciplina.md
+      - Como usar: comecar/como-usar.md
+      - Mapa de aprendizagem: comecar/mapa-de-aprendizagem.md
+      - Taxonomia de Bloom: comecar/taxonomia-de-bloom.md
   - Referência:
+      - Glossário: referencia/glossario.md
+      - Catálogo de padrões: referencia/catalogo-de-padroes.md
+      - Atributos de qualidade: referencia/atributos-de-qualidade.md
+      - Template de ADR: referencia/template-adr.md
       - Método de referências: referencia/metodo-de-referencias.md
       - Bibliografia consolidada: referencia/bibliografia.md
+  - Sobre:
+      - Plano da disciplina: sobre/plano-da-disciplina.md
