@@ -1,5 +1,9 @@
 # Conceitos: conhecimento externo e os dois pipelines
 
+![Mapa RAG dos dois pipelines: no fluxo offline, fontes governadas passam por extração, fragmentação, metadados e permissões até um índice versionado; no fluxo online, uma pergunta autorizada recupera evidências para uma resposta citada ou para abstenção, ligadas por proveniência e atualidade](../assets/images/m03-mapa-rag-dos-dois-pipelines.png "Mapa RAG dos dois pipelines")
+
+*Figura — RAG não é uma busca acoplada ao prompt: ingestão governada e consulta autorizada são pipelines distintos unidos por evidência, atualização e proveniência.*
+
 RAG conecta uma pergunta a evidências externas antes da geração. Para projetá-lo, precisamos distinguir quatro objetos que interfaces de chat costumam misturar: o que o modelo aprendeu, o que a organização declara como fonte, o que a recuperação seleciona e o que a geração afirma.
 
 ## Conhecimento paramétrico não é repositório corporativo

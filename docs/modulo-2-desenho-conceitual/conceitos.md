@@ -1,5 +1,9 @@
 # Conceitos: da oportunidade ao conceito de operações
 
+![Mapa da oportunidade ao CONOPS: uma oportunidade é testada por hipóteses de valor e capacidade, passa por uma decisão de adequação da IA e se converte em CONOPS, partes interessadas, modos operacionais, responsabilidade humano–IA e requisitos significativos; a rejeição da IA é uma saída válida](../assets/images/m02-mapa-da-oportunidade-ao-conops.png "Mapa da oportunidade ao CONOPS")
+
+*Figura — A decisão arquitetural começa antes do modelo: uma oportunidade só merece solução depois que seu valor, sua capacidade e seu modo de operação podem ser defendidos.*
+
 O desenho conceitual descreve **o que o sistema será no contexto de uso**, antes de comprometer a solução com produtos. Ele conecta intenção, experiência, informação, responsabilidades humanas e capacidades técnicas com precisão suficiente para revelar decisões e riscos.
 
 ## Oportunidade não é solução

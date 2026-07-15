@@ -142,6 +142,18 @@ class FullRepositoryMutationTest(unittest.TestCase):
         self.assertNotEqual(0, result.returncode)
         self.assertIn("PNG não previsto", result.stderr)
 
+    def test_internal_superpowers_documents_are_not_published_content(self):
+        internal = self.repository / "docs/superpowers/specs/internal.md"
+        internal.parent.mkdir(parents=True, exist_ok=True)
+        internal.write_text(
+            "TODO interno\n![exemplo](../assets/images/inexistente.png)\n",
+            encoding="utf-8",
+        )
+
+        result = self.validate()
+
+        self.assertEqual(0, result.returncode, result.stderr)
+
     def test_broken_local_anchor_is_rejected(self):
         page = self.repository / "docs/index.md"
         page.write_text(

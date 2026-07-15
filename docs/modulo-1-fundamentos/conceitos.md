@@ -1,5 +1,9 @@
 # Conceitos fundamentais
 
+![Mapa do comportamento generativo: entrada e contexto atravessam prompt, tokens e parâmetros até um modelo fundacional e uma saída variável; conhecimento paramétrico, avaliação, segurança e observabilidade circundam esse comportamento probabilístico](../assets/images/m01-mapa-comportamento-generativo.png "Mapa do comportamento generativo")
+
+*Figura — O modelo transforma contexto em uma saída provável, não garantida; por isso avaliação, segurança e observabilidade pertencem à arquitetura desde a primeira decisão.*
+
 ## Do determinístico ao probabilístico
 
 Um **componente determinístico** aplica regras explícitas: dadas a mesma entrada e o mesmo estado, produz a mesma saída. Uma função que calcula imposto por uma tabela versionada é um exemplo. Se o resultado estiver errado, procuramos defeitos na regra, nos dados ou na implementação.
