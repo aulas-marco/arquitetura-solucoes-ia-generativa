@@ -1,0 +1,299 @@
+- id: vaswani-et-al-attention-2017
+  title: Attention Is All You Need
+  authors: Ashish Vaswani et al.
+  year: 2017
+  url: https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html
+  accessed: 2026-07-14
+  topics: [transformers, modelos-de-linguagem, fundamentos]
+  modules: [1, 2]
+  type: research-paper
+
+- id: brown-et-al-few-shot-2020
+  title: Language Models are Few-Shot Learners
+  authors: Tom B. Brown et al.
+  year: 2020
+  url: https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html
+  accessed: 2026-07-14
+  topics: [modelos-de-linguagem, few-shot, comportamento]
+  modules: [1, 2, 5]
+  type: research-paper
+
+- id: bommasani-et-al-foundation-models-2021
+  title: On the Opportunities and Risks of Foundation Models
+  authors: Rishi Bommasani et al.
+  year: 2021
+  url: https://arxiv.org/abs/2108.07258
+  accessed: 2026-07-14
+  topics: [foundation-models, riscos, avaliacao]
+  modules: [1, 2, 5]
+  type: institutional-report
+
+- id: sculley-et-al-technical-debt-2015
+  title: Hidden Technical Debt in Machine Learning Systems
+  authors: D. Sculley et al.
+  year: 2015
+  url: https://proceedings.neurips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html
+  accessed: 2026-07-14
+  topics: [arquitetura, divida-tecnica, operacoes]
+  modules: [1, 2, 6]
+  type: research-paper
+
+- id: lewis-et-al-rag-2020
+  title: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+  authors: Patrick Lewis et al.
+  year: 2020
+  url: https://proceedings.neurips.cc/paper/2020/hash/6b493230-Abstract.html
+  accessed: 2026-07-14
+  topics: [rag, recuperacao, geracao]
+  modules: [3, 5]
+  type: research-paper
+
+- id: karpukhin-et-al-dpr-2020
+  title: Dense Passage Retrieval for Open-Domain Question Answering
+  authors: Vladimir Karpukhin et al.
+  year: 2020
+  url: https://aclanthology.org/2020.emnlp-main.550/
+  accessed: 2026-07-14
+  topics: [recuperacao-densa, embeddings, busca-semantica]
+  modules: [3, 5]
+  type: research-paper
+
+- id: reimers-gurevych-sbert-2019
+  title: Sentence-BERT — Sentence Embeddings using Siamese BERT-Networks
+  authors: Nils Reimers and Iryna Gurevych
+  year: 2019
+  url: https://aclanthology.org/D19-1410/
+  accessed: 2026-07-14
+  topics: [embeddings, similaridade-semantica, recuperacao]
+  modules: [3]
+  type: research-paper
+
+- id: yao-et-al-react-2023
+  title: "ReAct: Synergizing Reasoning and Acting in Language Models"
+  authors: Shunyu Yao et al.
+  year: 2023
+  url: https://openreview.net/forum?id=WE_vluYUL-X
+  accessed: 2026-07-14
+  topics: [agentes, raciocinio, uso-de-ferramentas]
+  modules: [4, 5]
+  type: research-paper
+
+- id: schick-et-al-toolformer-2023
+  title: "Toolformer: Language Models Can Teach Themselves to Use Tools"
+  authors: Timo Schick et al.
+  year: 2023
+  url: https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html
+  accessed: 2026-07-14
+  topics: [agentes, uso-de-ferramentas, apis]
+  modules: [4, 5]
+  type: research-paper
+
+- id: mcp-specification-2025-11-25
+  title: Model Context Protocol Specification 2025-11-25
+  authors: Model Context Protocol Project
+  year: 2025
+  url: https://modelcontextprotocol.io/specification/2025-11-25
+  accessed: 2026-07-14
+  topics: [agentes, interoperabilidade, uso-de-ferramentas]
+  modules: [4, 6]
+  type: official-specification
+
+- id: nist-ai-rmf-1-0-2023
+  title: Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+  authors: National Institute of Standards and Technology
+  year: 2023
+  url: https://doi.org/10.6028/NIST.AI.100-1
+  accessed: 2026-07-14
+  topics: [risco, governanca, confiabilidade]
+  modules: [1, 5, 6]
+  type: institutional-framework
+
+- id: nist-genai-profile-2024
+  title: "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile"
+  authors: National Institute of Standards and Technology
+  year: 2024
+  url: https://doi.org/10.6028/NIST.AI.600-1
+  accessed: 2026-07-14
+  topics: [genai, risco, governanca]
+  modules: [2, 3, 4, 5, 6]
+  type: institutional-profile
+
+- id: nist-ssdf-genai-2024
+  title: "Secure Software Development Practices for Generative AI and Dual-Use Foundation Models: An SSDF Community Profile"
+  authors: National Institute of Standards and Technology
+  year: 2024
+  url: https://doi.org/10.6028/NIST.SP.800-218A
+  accessed: 2026-07-14
+  topics: [seguranca, desenvolvimento-seguro, supply-chain]
+  modules: [2, 4, 5, 6]
+  type: institutional-standard
+
+- id: owasp-llm-top-10-2025
+  title: OWASP Top 10 for LLM Applications 2025
+  authors: OWASP GenAI Security Project
+  year: 2024
+  url: https://genai.owasp.org/llm-top-10/
+  accessed: 2026-07-14
+  topics: [seguranca, llm, rag, agentes]
+  modules: [3, 4, 5, 6]
+  type: security-guidance
+
+- id: iso-iec-42001-2023
+  title: "ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management system"
+  authors: International Organization for Standardization and International Electrotechnical Commission
+  year: 2023
+  url: https://www.iso.org/standard/42001
+  accessed: 2026-07-14
+  topics: [governanca, gestao, risco]
+  modules: [1, 5, 6]
+  type: international-standard
+
+- id: liang-et-al-helm-2023
+  title: Holistic Evaluation of Language Models
+  authors: Percy Liang et al.
+  year: 2023
+  url: https://arxiv.org/abs/2211.09110
+  accessed: 2026-07-14
+  topics: [avaliacao, modelos-de-linguagem, benchmark]
+  modules: [2, 5]
+  type: research-paper
+
+- id: es-et-al-ragas-2024
+  title: "RAGAs: Automated Evaluation of Retrieval Augmented Generation"
+  authors: Shahul Es et al.
+  year: 2024
+  url: https://aclanthology.org/2024.eacl-demo.16/
+  accessed: 2026-07-14
+  topics: [rag, avaliacao, metricas]
+  modules: [3, 5]
+  type: research-paper
+
+- id: liu-et-al-geval-2023
+  title: "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment"
+  authors: Yang Liu et al.
+  year: 2023
+  url: https://aclanthology.org/2023.emnlp-main.153/
+  accessed: 2026-07-14
+  topics: [avaliacao, llm-as-judge, geracao]
+  modules: [2, 5]
+  type: research-paper
+
+- id: opentelemetry-semconv-1-43
+  title: OpenTelemetry Semantic Conventions 1.43.0
+  authors: OpenTelemetry Authors
+  year: 2025
+  url: https://opentelemetry.io/docs/specs/semconv/
+  accessed: 2026-07-14
+  topics: [observabilidade, telemetria, semantic-conventions]
+  modules: [6]
+  type: official-specification
+
+- id: opentelemetry-genai-semconv
+  title: OpenTelemetry GenAI Semantic Conventions
+  authors: OpenTelemetry Authors
+  year: 2026
+  url: https://github.com/open-telemetry/semantic-conventions-genai
+  accessed: 2026-07-14
+  topics: [observabilidade, genai, agentes]
+  modules: [4, 5, 6]
+  type: official-specification
+
+- id: google-sre-slos-2016
+  title: Service Level Objectives
+  authors: Chris Jones, John Wilkes, Niall Murphy, and Cody Smith
+  year: 2016
+  url: https://sre.google/sre-book/service-level-objectives/
+  accessed: 2026-07-14
+  topics: [confiabilidade, slos, operacoes]
+  modules: [6]
+  type: institutional-book-chapter
+
+- id: dora-delivery-metrics-2026
+  title: DORA's Software Delivery Performance Metrics
+  authors: DORA and Nathen Harvey
+  year: 2026
+  url: https://dora.dev/guides/dora-metrics/
+  accessed: 2026-07-14
+  topics: [delivery, metricas, confiabilidade]
+  modules: [6]
+  type: institutional-guidance
+
+- id: avila-ahmad-chapter-1-local
+  title: Fundamentals of AI System Architecture
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-1.mhtml
+  accessed: 2026-07-14
+  topics: [arquitetura, fundamentos, sistemas-de-ia]
+  modules: [1]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-2-local
+  title: The Case for Architecture
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-2.mhtml
+  accessed: 2026-07-14
+  topics: [arquitetura, governanca, risco]
+  modules: [1, 2]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-3-local
+  title: Software Engineering and Architecture
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-3.mhtml
+  accessed: 2026-07-14
+  topics: [engenharia-de-software, arquitetura, complexidade]
+  modules: [1, 6]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-4-local
+  title: Conceptual Design for AI Systems
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-4.mhtml
+  accessed: 2026-07-14
+  topics: [design-conceitual, requisitos, risco]
+  modules: [2]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-5-local
+  title: Requirements and Architecture for AI Pipelines
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-5.mhtml
+  accessed: 2026-07-14
+  topics: [pipelines, requisitos, arquitetura]
+  modules: [2, 3, 6]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-6-local
+  title: Design, Integration, and Testing
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-6.mhtml
+  accessed: 2026-07-14
+  topics: [design, integracao, testes]
+  modules: [2, 5, 6]
+  type: local-course-source
+
+- id: avila-ahmad-chapter-7-local
+  title: Architecting a Generative AI System — A Case Study
+  authors: Richard D. Avila and Imran Ahmad
+  year: 2025
+  url: local://asia-asd-oferta-10/architecting-ai-software-systems/chapter-7.mhtml
+  accessed: 2026-07-14
+  topics: [genai, arquitetura, estudo-de-caso]
+  modules: [2, 3, 4, 5, 6]
+  type: local-course-source
+
+- id: fundamentos-arquitetura-ia-ebook-local
+  title: Fundamentos da Arquitetura de Sistemas de Inteligência Artificial
+  authors: Material didático da disciplina, adaptado de Richard D. Avila e Imran Ahmad
+  year: 2026
+  url: local://asia-asd-oferta-10/fundamentos-arquitetura-sistemas-ia.mhtml
+  accessed: 2026-07-14
+  topics: [arquitetura, fundamentos, material-didatico]
+  modules: [1]
+  type: local-course-source

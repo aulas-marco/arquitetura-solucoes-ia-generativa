@@ -30,3 +30,6 @@ markdown_extensions:
 
 nav:
   - Início: index.md
+  - Referência:
+      - Método de referências: referencia/metodo-de-referencias.md
+      - Bibliografia consolidada: referencia/bibliografia.md
