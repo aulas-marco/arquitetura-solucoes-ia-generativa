@@ -67,6 +67,14 @@ nav:
       - Estudo de caso: modulo-4-agentes/estudo-de-caso.md
       - Exercícios: modulo-4-agentes/exercicios.md
       - Síntese e referências: modulo-4-agentes/sintese-e-referencias.md
+  - Módulo 5 — Confiança:
+      - Visão geral: modulo-5-confianca/index.md
+      - Conceitos: modulo-5-confianca/conceitos.md
+      - Padrões e decisões: modulo-5-confianca/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-5-confianca/exemplo-arquitetural.md
+      - Estudo de caso: modulo-5-confianca/estudo-de-caso.md
+      - Exercícios: modulo-5-confianca/exercicios.md
+      - Síntese e referências: modulo-5-confianca/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
