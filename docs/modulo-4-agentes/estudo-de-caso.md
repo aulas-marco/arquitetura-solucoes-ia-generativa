@@ -29,7 +29,7 @@ O estado autoritativo guarda objetivo, recursos envolvidos, versões, propostas,
 
 ## Aprovações e experiência humana
 
-Ao cliente, a confirmação mostra item anterior/novo, preço, prazo, duração da reserva e que nada foi concluído ainda. Ao supervisor, o objeto de aprovação inclui pedido, regra aplicada, diferença financeira, efeito, reversibilidade, evidências e expiração. Mudança de preço ou versão invalida a aprovação.
+Ao cliente, a confirmação mostra item anterior/novo, preço, prazo e duração da reserva. A mensagem distingue os dois estados: **a troca ainda não está concluída**, mas **a reserva temporária já pode estar ativa** e indisponibilizar o item até expirar ou ser liberada. Ao supervisor, o objeto de aprovação inclui pedido, regra aplicada, diferença financeira, efeito, reversibilidade, evidências e expiração. Mudança de preço ou versão invalida a aprovação.
 
 Revisão humana depois da ação cobre amostra de reservas A3 e todos os alertas de repetição, compensação ou política negada várias vezes. Ela calibra limites; não substitui aprovação antes de cancelamento crítico. O cliente recebe protocolo, estado real e caminho de contestação.
 

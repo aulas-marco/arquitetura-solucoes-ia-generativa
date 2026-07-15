@@ -85,6 +85,52 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(path, folded, path)
 
+    def test_write_timeout_reconciles_authoritatively_before_result_reuse(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        required_sequence = (
+            "Marcar K-845-1 como outcome_unknown",
+            "Reconciliar K-845-1 no destino",
+            "Consultar operação por K-845-1",
+            "Confirmar R9 como resultado autoritativo",
+            "Persistir completed e resultado R9",
+        )
+        positions = [text.index(step) for step in required_sequence]
+        self.assertEqual(positions, sorted(positions))
+        self.assertIn("reconciliation: query destination by idempotency key", text)
+        self.assertIn(
+            "timeout de escrita persiste `outcome_unknown`",
+            text,
+        )
+
+    def test_effectful_calls_reenter_deterministic_boundary_after_wait(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for semantic in (
+            "Avaliar identidade, política, parâmetros, pedido v17 e risco",
+            "Revalidar identidade, política, aprovação e pedido v17",
+            "Persistir intenção confirmar + K-845-2",
+            "Executor: confirmar troca, expected=v17, K-845-2",
+            "Persistir intenção registrar + K-845-3",
+            "Executor: registrar resolução, pedido v18, K-845-3",
+            "Persistir compensação C-K-845-1 e estado compensation_pending",
+            "Executor: liberar R9, expected=reserva-v1, C-K-845-1",
+        ):
+            self.assertIn(semantic, text, semantic)
+
+        for bypass in (
+            "O->>D: Confirmar troca",
+            "O->>R: Registrar resolução",
+            "O->>D: Liberar R9",
+        ):
+            self.assertNotIn(bypass, text, bypass)
+
+    def test_case_discloses_active_reservation_before_exchange_completion(self):
+        text = (MODULE / "estudo-de-caso.md").read_text(encoding="utf-8")
+
+        self.assertIn("a troca ainda não está concluída", text)
+        self.assertIn("a reserva temporária já pode estar ativa", text)
+
     def test_exercises_preserve_bloom_policy_and_required_challenges(self):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)

@@ -73,13 +73,18 @@ output:
   price_delta: decimal
 errors: [invalid, denied, conflict, unavailable, transient, unknown_outcome]
 authorization: delegated order scope plus commercial policy
+execution_boundary: deterministic executor and orders adapter only
 timeout_ms: 1800
-retry: reconcile by idempotency key, then at most 1 transient retry
+on_timeout:
+  local_state: outcome_unknown
+  reconciliation: query destination by idempotency key or consume correlated event
+retry: only after destination proves no effect; reuse the stable key
+after_human_wait: revalidate identity, policy, approval and resource version
 compensation: liberar_reserva(reservation_id, idempotency_key)
 audit: actor, subject, approval_id, policy_version, before/after references
 ```
 
-Os esquemas não recebem `approved=true` produzido pelo modelo. A política calcula necessidade de aprovação. `expected_order_version` impede alteração sobre pedido que mudou; `idempotency_key` impede duas reservas lógicas; `unknown_outcome` força reconciliação. A compensação é uma ferramenta independente e autorizada.
+Os esquemas não recebem `approved=true` produzido pelo modelo. A política calcula necessidade de aprovação. `expected_order_version` impede alteração sobre pedido que mudou; `idempotency_key` impede duas reservas lógicas. Timeout deixa o estado local em `outcome_unknown`: somente uma consulta ao destino pela mesma chave, ou um evento correlacionado emitido por ele, pode confirmar o resultado. A compensação é uma ferramenta independente e autorizada, e também atravessa política, estado, executor e adaptador.
 
 ![Fronteiras de autonomia mostrando ações informativas, leituras, escritas reversíveis e ações materiais condicionadas a aprovação](../assets/images/m04-fronteiras-autonomia.png)
 *Figura 2 — A autonomia varia por ação: conversar, consultar, reservar e confirmar uma troca pertencem a níveis e controles diferentes.*
@@ -94,6 +99,7 @@ sequenceDiagram
     participant M as Modelo
     participant P as Política/Aprovação
     participant S as Estado/Idempotência
+    participant X as Executor/Adaptadores
     participant R as CRM
     participant D as Pedidos
 
@@ -103,25 +109,44 @@ sequenceDiagram
     M-->>O: consultar_cliente e consultar_pedido
     O->>P: Autorizar leituras com identidade delegada
     P-->>O: allow (política v31)
-    O->>R: Consultar cliente
-    R-->>O: Segmento e preferências autorizadas
-    O->>D: Consultar pedido
-    D-->>O: Pedido v17 e itens
+    O->>X: Executar consultas autorizadas
+    X->>R: Consultar cliente
+    R-->>X: Segmento e preferências autorizadas
+    X->>D: Consultar pedido
+    D-->>X: Pedido v17 e itens
+    X-->>O: Observações tipadas e versões
     O->>M: Observações tipadas
     M-->>O: reservar_substituicao(P20, expected=v17)
-    O->>P: Avaliar ação, parâmetros e risco
+    O->>P: Avaliar identidade, política, parâmetros, pedido v17 e risco
 
     alt Caminho feliz: reversível e dentro do limite
         P-->>O: allow + exige confirmação do cliente antes da troca
-        O->>S: Persistir intenção e chave K-845-1
-        O->>D: Reservar P20 com K-845-1
-        D-->>O: Reserva R9, expira 15:30, diferença R$ 40
+        O->>P: Revalidar identidade, política e pedido v17 para reserva
+        P-->>O: allow (política v31, pedido v17)
+        O->>S: Persistir intenção reservar + K-845-1
+        O->>X: Executor: reservar P20, expected=v17, K-845-1
+        X->>D: Adaptador invoca reserva
+        D-->>X: Reserva R9, reserva-v1, expira 15:30
+        X-->>O: R9, diferença R$ 40
+        O->>S: Persistir completed, versões e auditoria before/after
         O-->>C: Exibe termos e solicita confirmação
         C->>O: Confirma objeto aprovado
-        O->>D: Confirmar troca com chave K-845-2
-        D-->>O: Troca concluída, pedido v18
-        O->>R: Registrar resolução com K-845-3
-        R-->>O: Registro concluído
+        O->>P: Revalidar identidade, política, aprovação e pedido v17
+        P-->>O: allow (aprovação íntegra e vigente)
+        O->>S: Persistir intenção confirmar + K-845-2
+        O->>X: Executor: confirmar troca, expected=v17, K-845-2
+        X->>D: Adaptador invoca confirmação
+        D-->>X: Troca concluída, pedido v18
+        X-->>O: Pedido v18 e auditoria before/after
+        O->>S: Persistir confirmação completed e pedido v18
+        O->>P: Revalidar identidade, política e CRM v12
+        P-->>O: allow para registro do resultado
+        O->>S: Persistir intenção registrar + K-845-3
+        O->>X: Executor: registrar resolução, pedido v18, K-845-3
+        X->>R: Adaptador grava com expected=CRM-v12
+        R-->>X: Registro concluído, CRM-v13
+        X-->>O: CRM-v13 e auditoria before/after
+        O->>S: Persistir registro completed
         O-->>C: Confirma conclusão e protocolo
     else Ação rejeitada pela política
         P-->>O: deny (pedido já despachado)
@@ -129,26 +154,52 @@ sequenceDiagram
         O-->>C: Informa limite e oferece atendimento humano
     else Prevenção de chamada repetida após timeout
         P-->>O: allow
-        O->>S: Encontrar K-845-1 como concluída
-        S-->>O: Reutilizar resultado Reserva R9
-        Note over O,D: Nenhuma segunda reserva é enviada
+        O->>S: Persistir intenção reservar + K-845-1
+        O->>X: Executor: reservar P20, expected=v17, K-845-1
+        X->>D: Adaptador invoca reserva com K-845-1
+        D-->>X: Reserva R9 criada no destino
+        X--xO: Timeout; confirmação não chega
+        O->>S: Marcar K-845-1 como outcome_unknown
+        O->>X: Reconciliar K-845-1 no destino
+        X->>D: Consultar operação por K-845-1
+        D-->>X: R9, completed, reserva-v1
+        X-->>O: Confirmar R9 como resultado autoritativo
+        O->>S: Persistir completed e resultado R9
+        Note over O,D: Só após reconciliação; nenhuma segunda reserva é enviada
         O-->>C: Retoma a partir da reserva existente
     else Compensação após falha posterior
         P-->>O: allow
-        O->>D: Reservar P20 com K-845-1
-        D-->>O: Reserva R9 criada
-        O->>D: Confirmar troca com K-845-2
-        D-->>O: Conflito: pedido mudou para v18
-        O->>P: Autorizar compensação da reserva R9
+        O->>P: Revalidar identidade, política e pedido v17 para reserva
+        P-->>O: allow (pedido v17)
+        O->>S: Persistir intenção reservar + K-845-1
+        O->>X: Executor: reservar P20, expected=v17, K-845-1
+        X->>D: Adaptador invoca reserva
+        D-->>X: Reserva R9 criada, reserva-v1
+        X-->>O: R9, reserva-v1
+        O->>S: Persistir reserva completed e auditoria before/after
+        O-->>C: Informa reserva ativa e solicita confirmação
+        C->>O: Confirma objeto aprovado
+        O->>P: Revalidar identidade, política, aprovação e pedido v17
         P-->>O: allow
-        O->>D: Liberar R9 com chave C-K-845-1
-        D-->>O: Reserva liberada
-        O->>S: Marcar compensada e preservar conflito
+        O->>S: Persistir intenção confirmar + K-845-2
+        O->>X: Executor: confirmar troca, expected=v17, K-845-2
+        X->>D: Adaptador invoca confirmação
+        D-->>X: Conflito: pedido atual v18
+        X-->>O: conflict, expected=v17, actual=v18
+        O->>S: Persistir conflito e compensation_required
+        O->>P: Revalidar identidade, política e reserva-v1; autorizar compensação
+        P-->>O: allow para liberar R9
+        O->>S: Persistir compensação C-K-845-1 e estado compensation_pending
+        O->>X: Executor: liberar R9, expected=reserva-v1, C-K-845-1
+        X->>D: Adaptador invoca liberação idempotente
+        D-->>X: Reserva liberada, reserva-v2
+        X-->>O: Compensação concluída e auditoria before/after
+        O->>S: Marcar compensada, guardar reserva-v2 e preservar conflito
         O-->>C: Informa não conclusão e encaminha revisão
     end
 ```
 
-**Equivalente textual 2.** A execução começa com identidade e orçamento. O modelo escolhe leituras; a política autoriza; CRM e pedidos devolvem resultados tipados. No **caminho feliz**, uma reserva reversível é criada com chave idempotente, o cliente confirma exatamente a proposta e a troca é concluída antes de registrar o CRM. Na **ação rejeitada**, a política nega porque o pedido foi despachado; o orquestrador encerra efeitos e oferece atendimento. Na **prevenção de chamada repetida**, o estado encontra a mesma chave já concluída após timeout e reutiliza o resultado, sem enviar segunda reserva. No caminho de **compensação**, uma mudança concorrente impede confirmar a troca; o sistema autoriza e executa a liberação idempotente da reserva, preserva o conflito e informa que a solicitação não foi concluída.
+**Equivalente textual 2.** A execução começa com identidade e orçamento. O modelo escolhe leituras; política, executor e adaptadores mediam CRM e pedidos. No **caminho feliz**, antes de cada escrita o sistema revalida identidade, política e versão do recurso, persiste intenção e chave estável e só então o executor chama o adaptador. Depois da espera humana, a confirmação não reutiliza autorização antiga: revalida a aprovação e o pedido v17. Confirmar a troca e registrar o CRM repetem a fronteira determinística e preservam precondições e auditoria. Na **ação rejeitada**, a política nega porque o pedido foi despachado; nenhuma ferramenta de efeito é executada. Na **prevenção de chamada repetida**, o timeout deixa K-845-1 em `outcome_unknown`; o executor consulta o sistema de pedidos pela chave, recebe R9 como resultado autoritativo e só então o estado reutiliza o resultado, sem segunda reserva. No caminho de **compensação**, reserva e confirmação atravessam a mesma fronteira. O conflito de versão exige nova autorização para compensar, intenção `compensation_pending` e chave estável; executor e adaptador liberam R9 com precondição `reserva-v1`, e estado/auditoria preservam versões e efeito residual.
 
 ## Estado e invariantes
 
@@ -169,7 +220,7 @@ Invariantes testáveis:
 1. nenhuma chamada ocorre sem decisão de política vigente;
 2. nenhuma credencial aparece no contexto do modelo;
 3. uma intenção de escrita possui uma chave persistida antes da chamada;
-4. timeout de escrita produz reconciliação antes de retry;
+4. timeout de escrita persiste `outcome_unknown`; antes de reutilizar resultado ou fazer retry, o executor reconcilia no destino por chave de idempotência ou evento correlacionado autoritativo;
 5. aprovação vincula ferramenta, parâmetros, evidência e validade;
 6. orçamento inclui tentativas, handoffs e compensações;
 7. execução só termina `completed` quando efeitos e registros obrigatórios concluem;
@@ -184,7 +235,7 @@ Invariantes testáveis:
 | pedidos com circuito aberto | interromper chamadas e não procurar rota paralela | retomar após half-open ou atendimento humano |
 | resposta do modelo inválida | rejeitar esquema e permitir uma correção dentro do orçamento | fallback determinístico coleta campos |
 | aprovação expirada | não executar | gerar novo objeto após revalidar estado e preço |
-| resultado desconhecido | bloquear nova intenção equivalente | reconciliar por chave e recurso |
+| resultado desconhecido | persistir `outcome_unknown` e bloquear nova intenção equivalente | reconciliar no destino por chave ou evento correlacionado; reutilizar só após confirmação autoritativa e repetir apenas se o destino provar ausência de efeito |
 | compensação falha | marcar `compensation_pending`, alertar e limitar novas ações | operação repete com chave ou corrige manualmente |
 | orçamento esgotado | persistir estado e impedir novo efeito | resposta parcial, retomada autorizada ou encaminhamento |
 
