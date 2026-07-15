@@ -1,5 +1,8 @@
 site_name: Arquitetura de Soluções com IA Generativa
 site_description: Livro-texto da disciplina de pós-graduação em Arquitetura de Soluções com IA Generativa
+# `site_url` será definido somente após a criação do repositório público.
+# Os caminhos relativos mantêm a prévia e a publicação portáteis até lá.
+use_directory_urls: true
 
 theme:
   name: material
