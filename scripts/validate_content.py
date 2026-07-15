@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
+import html
 import re
 import sys
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -76,8 +79,10 @@ def markdown_target(raw_target: str) -> str:
 def local_path(source: Path, raw_target: str) -> Path | None:
     target = markdown_target(raw_target)
     parsed = urlsplit(target)
-    if parsed.scheme or parsed.netloc or not parsed.path:
+    if parsed.scheme or parsed.netloc or (not parsed.path and not parsed.fragment):
         return None
+    if not parsed.path and parsed.fragment:
+        return source
     path_text = unquote(parsed.path)
     if path_text.startswith("/"):
         return DOCS / path_text.lstrip("/")
@@ -88,7 +93,48 @@ def normalize_reference_id(reference_id: str) -> str:
     return re.sub(r"\s+", " ", reference_id.strip()).casefold()
 
 
-def validate_references(path: Path, text: str, errors: list[str], counts: Counts) -> None:
+def document_anchors(text: str) -> set[str]:
+    """Return explicit and Markdown-compatible heading anchors in a document."""
+    anchors = set(re.findall(r"<a\b[^>]*(?:id|name)=[\"']([^\"']+)[\"']", text, re.I))
+    for heading_match in MARKDOWN_HEADING_RE.finditer(text):
+        heading = re.sub(r"^#{1,6}[ \t]+", "", heading_match.group(0)).strip()
+        explicit = re.search(r"[ \t]+\{#([\w:.-]+)(?:\s+[^}]*)?\}[ \t]*$", heading)
+        if explicit:
+            anchors.add(explicit.group(1))
+            heading = heading[: explicit.start()].rstrip()
+        heading = re.sub(r"!?(?:\[([^]]+)\])\([^)]+\)", r"\1", heading)
+        heading = re.sub(r"<[^>]+>", "", heading)
+        heading = re.sub(r"[`*_~]", "", heading)
+        heading = html.unescape(heading)
+        heading = unicodedata.normalize("NFKD", heading).encode("ascii", "ignore").decode()
+        heading = re.sub(r"[^\w\s-]", "", heading.casefold())
+        slug = re.sub(r"[-\s]+", "-", heading).strip("-")
+        if slug:
+            anchors.add(slug)
+    return anchors
+
+
+def validate_anchor(
+    source: Path, resolved: Path, raw_target: str, errors: list[str]
+) -> None:
+    fragment = unquote(urlsplit(markdown_target(raw_target)).fragment)
+    if not fragment or resolved.suffix.casefold() != ".md":
+        return
+    anchors = document_anchors(resolved.read_text(encoding="utf-8"))
+    if fragment not in anchors:
+        errors.append(
+            f"{source.relative_to(ROOT)}: âncora local inexistente: "
+            f"{markdown_target(raw_target)}"
+        )
+
+
+def validate_references(
+    path: Path,
+    text: str,
+    errors: list[str],
+    counts: Counts,
+    image_references: Counter[Path] | None = None,
+) -> None:
     definitions = {
         normalize_reference_id(reference_id): target
         for reference_id, target in REFERENCE_DEFINITION_RE.findall(text)
@@ -99,6 +145,8 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
         if not alt.strip():
             errors.append(f"{path.relative_to(ROOT)}: imagem com texto alternativo vazio")
         destination = local_path(path, target)
+        if destination is not None and image_references is not None:
+            image_references[destination.resolve()] += 1
         if destination is not None and not destination.resolve().is_file():
             errors.append(
                 f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
@@ -120,6 +168,8 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
             )
             continue
         destination = local_path(path, target)
+        if destination is not None and image_references is not None:
+            image_references[destination.resolve()] += 1
         if destination is not None and not destination.resolve().is_file():
             errors.append(
                 f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
@@ -136,6 +186,8 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
             errors.append(
                 f"{path.relative_to(ROOT)}: link relativo inexistente: {markdown_target(target)}"
             )
+        else:
+            validate_anchor(path, resolved, target, errors)
 
     for alt, reference_id in REFERENCE_IMAGE_RE.findall(text):
         counts.images += 1
@@ -148,6 +200,8 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
             )
             continue
         destination = local_path(path, target)
+        if destination is not None and image_references is not None:
+            image_references[destination.resolve()] += 1
         if destination is not None and not destination.resolve().is_file():
             errors.append(
                 f"{path.relative_to(ROOT)}: imagem local inexistente: {markdown_target(target)}"
@@ -170,6 +224,8 @@ def validate_references(path: Path, text: str, errors: list[str], counts: Counts
             errors.append(
                 f"{path.relative_to(ROOT)}: link relativo inexistente: {markdown_target(target)}"
             )
+        else:
+            validate_anchor(path, resolved, target, errors)
 
 
 def bloom_sections(text: str) -> dict[str, str]:
@@ -214,8 +270,14 @@ def validate_exercises(path: Path, text: str, errors: list[str], counts: Counts)
             errors.append(f"{path.relative_to(ROOT)}: {level} requer Rubrica")
 
 
-def validate_module(slug: str, errors: list[str], counts: Counts) -> None:
+def validate_module(
+    slug: str,
+    errors: list[str],
+    counts: Counts,
+    image_references: Counter[Path],
+) -> int:
     module_dir = DOCS / slug
+    words_before = counts.words
     for page_name in PAGES:
         path = module_dir / page_name
         if not path.is_file():
@@ -230,12 +292,15 @@ def validate_module(slug: str, errors: list[str], counts: Counts) -> None:
             if re.search(rf"\b{marker}\b", text):
                 errors.append(f"{path.relative_to(ROOT)}: marcador editorial proibido: {marker}")
 
-        validate_references(path, text, errors, counts)
+        validate_references(path, text, errors, counts, image_references)
         if page_name == "exercicios.md":
             validate_exercises(path, text, errors, counts)
+    return counts.words - words_before
 
 
-def validate_shared_pages(errors: list[str], counts: Counts) -> None:
+def validate_shared_pages(
+    errors: list[str], counts: Counts, image_references: Counter[Path]
+) -> None:
     """Validate non-module Markdown without adding it to the module word budget."""
     module_directories = {DOCS / slug for slug in MODULES}
     for path in sorted(DOCS.rglob("*.md")):
@@ -246,16 +311,40 @@ def validate_shared_pages(errors: list[str], counts: Counts) -> None:
         for marker in EDITORIAL_MARKERS:
             if re.search(rf"\b{marker}\b", text):
                 errors.append(f"{path.relative_to(ROOT)}: marcador editorial proibido: {marker}")
-        validate_references(path, text, errors, counts)
+        validate_references(path, text, errors, counts, image_references)
 
 
-def validate_required_images(slugs: tuple[str, ...], include_cover: bool, errors: list[str]) -> None:
+def validate_required_images(
+    slugs: tuple[str, ...],
+    include_cover: bool,
+    errors: list[str],
+    image_references: Counter[Path],
+) -> None:
     required = [image for slug in slugs for image in MODULES[slug][1]]
     if include_cover:
         required.insert(0, COVER)
     for filename in required:
-        if not (IMAGES / filename).is_file():
+        path = (IMAGES / filename).resolve()
+        if not path.is_file():
             errors.append(f"imagem obrigatória ausente: docs/assets/images/{filename}")
+            continue
+        if include_cover:
+            reference_count = image_references[path]
+            if reference_count == 0:
+                errors.append(
+                    f"imagem obrigatória não referenciada: docs/assets/images/{filename}"
+                )
+            elif reference_count > 1:
+                errors.append(
+                    f"imagem obrigatória referenciada mais de uma vez ({reference_count}): "
+                    f"docs/assets/images/{filename}"
+                )
+
+    if include_cover:
+        required_set = set(required)
+        actual_set = {path.name for path in IMAGES.glob("*.png") if path.is_file()}
+        for filename in sorted(actual_set - required_set):
+            errors.append(f"PNG não previsto: docs/assets/images/{filename}")
 
 
 def main() -> int:
@@ -263,12 +352,27 @@ def main() -> int:
     slugs = tuple(MODULES) if args.all else (args.module,)
     errors: list[str] = []
     counts = Counts()
+    image_references: Counter[Path] = Counter()
+    module_words: dict[str, int] = {}
 
     for slug in slugs:
-        validate_module(slug, errors, counts)
+        module_words[slug] = validate_module(slug, errors, counts, image_references)
+        if not 6_000 <= module_words[slug] <= 8_000:
+            errors.append(
+                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–8.000"
+            )
     if args.all:
-        validate_shared_pages(errors, counts)
-    validate_required_images(slugs, include_cover=args.all, errors=errors)
+        validate_shared_pages(errors, counts, image_references)
+        if not 40_000 <= counts.words <= 50_000:
+            errors.append(
+                f"total fora do orçamento de 40.000–50.000: {counts.words} palavras"
+            )
+    validate_required_images(
+        slugs,
+        include_cover=args.all,
+        errors=errors,
+        image_references=image_references,
+    )
 
     print(
         f"Páginas: {counts.pages} | Palavras: {counts.words} | "

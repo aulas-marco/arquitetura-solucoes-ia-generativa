@@ -51,3 +51,11 @@ Essa distinção evita dois erros. O primeiro é transformar orientação volunt
 Antes de chamar uma solução de “pronta”, confirme contexto e usos proibidos; dados e ferramentas mínimos; ameaças por fronteira; testes negativos; escalonamento; casos adversariais; resultados por dimensão e fatia; limites; versões; responsáveis; risco residual; canary, rollback e resposta a incidente.
 
 Sem evidência para item crítico, reduza escopo, produza-a ou não libere. No [Módulo 6](../sobre/plano-da-disciplina.md#modulo-6), a arquitetura vira prática operacional: LLMOps, observabilidade, SLOs, mudanças e plataforma.
+
+## Autoavaliação
+
+1. Consigo delimitar confiança para um contexto e público concretos?
+2. Relaciono cada ameaça a ativos, fronteiras, controles e evidências?
+3. Distingo autorização, integridade, privacidade e qualidade?
+4. Avalio dimensões críticas por fatia, sem escondê-las na média?
+5. Declaro risco residual, autoridade, prazo e gatilho de revisão?

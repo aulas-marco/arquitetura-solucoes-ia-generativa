@@ -34,7 +34,13 @@ jobs:
       - name: Configurar o GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Construir e validar o site
+      - name: Executar os testes
+        run: python -m unittest discover -s tests -v
+
+      - name: Validar conteúdo completo
+        run: python scripts/validate_content.py --all
+
+      - name: Construir o site
         run: mkdocs build --strict
 
       - name: Preparar o site para publicação

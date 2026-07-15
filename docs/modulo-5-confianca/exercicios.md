@@ -89,7 +89,7 @@ Escolha três ameaças do exercício anterior e monte uma matriz com controles n
 
 Após trocar modelo e reindexar políticas, a factualidade média sobe de 3,2 para 3,5 em 4, mas a recuperação de documentos vigentes cai de 96% para 91%; perguntas de gestores melhoram, perguntas de terceirizados pioram; dois de 80 casos obrigatórios deixam de escalar; latência p95 aumenta 40%; e o avaliador automático quase nunca discorda do novo modelo. Analise por que a média não sustenta liberação. Separe hipóteses de recuperação, geração, avaliador e composição. Proponha investigações que possam refutar cada hipótese e indique quais portões interrompem o rollout.
 
-**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por análise de fatias; 2 por tratar escalonamento como portão; 2 por investigar viés e correlação do avaliador; 2 por experimentos refutáveis; 1 por decisão explícita de rollout. Confundir correlação com causa reduz a nota em até 3 pontos.
+**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por análise de fatias; 2 pela coerência entre severidade, evidência e decisão de liberação; 2 pela crítica ao avaliador; 2 por experimentos refutáveis; 1 por conclusão explícita. Confundir correlação com causa reduz a nota em até 3 pontos.
 
 ## Avaliar
 

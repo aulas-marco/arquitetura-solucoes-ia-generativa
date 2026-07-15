@@ -42,7 +42,7 @@ Esta bibliografia apresenta as fontes do registro editorial por área de uso. A 
 
 ## Operations
 
-- OpenTelemetry Authors (2025). [*OpenTelemetry Semantic Conventions 1.43.0*](https://opentelemetry.io/docs/specs/semconv/). (`opentelemetry-semconv-1-43`)
+- OpenTelemetry Authors (2026). [*OpenTelemetry Semantic Conventions 1.43.0*](https://opentelemetry.io/docs/specs/semconv/). (`opentelemetry-semconv-1-43`)
 - OpenTelemetry Authors (2026). [*OpenTelemetry GenAI Semantic Conventions*](https://github.com/open-telemetry/semantic-conventions-genai). (`opentelemetry-genai-semconv`)
 - Jones, Wilkes, Murphy e Smith (2016). [*Service Level Objectives*](https://sre.google/sre-book/service-level-objectives/). (`google-sre-slos-2016`)
 - DORA e Harvey (2026). [*DORA's Software Delivery Performance Metrics*](https://dora.dev/guides/dora-metrics/). (`dora-delivery-metrics-2026`)

@@ -14,12 +14,14 @@ Este site-livro foi preparado para estudantes de pós-graduação, arquitetos, e
 
 ## Uma progressão em seis decisões
 
-1. **[Compreender — Fundamentos](sobre/plano-da-disciplina.md#modulo-1):** reconhecer a anatomia e as propriedades dos sistemas generativos.
-2. **[Decidir — Desenho conceitual](sobre/plano-da-disciplina.md#modulo-2):** converter oportunidades em requisitos e escolhas justificadas.
-3. **[Fundamentar — RAG](sobre/plano-da-disciplina.md#modulo-3):** conectar modelos a conhecimento verificável.
-4. **[Agir — Agentes](sobre/plano-da-disciplina.md#modulo-4):** integrar ferramentas e controlar a autonomia.
-5. **[Proteger e avaliar — Confiança](sobre/plano-da-disciplina.md#modulo-5):** limitar riscos e produzir evidências de qualidade.
-6. **[Operar e escalar — LLMOps](sobre/plano-da-disciplina.md#modulo-6):** sustentar múltiplas soluções em produção.
+1. **[Compreender — Fundamentos](modulo-1-fundamentos/index.md):** reconhecer a anatomia e as propriedades dos sistemas generativos.
+2. **[Decidir — Desenho conceitual](modulo-2-desenho-conceitual/index.md):** converter oportunidades em requisitos e escolhas justificadas.
+3. **[Fundamentar — RAG](modulo-3-rag/index.md):** conectar modelos a conhecimento verificável.
+4. **[Agir — Agentes](modulo-4-agentes/index.md):** integrar ferramentas e controlar a autonomia.
+5. **[Proteger e avaliar — Confiança](modulo-5-confianca/index.md):** limitar riscos e produzir evidências de qualidade.
+6. **[Operar e escalar — LLMOps](modulo-6-operacao/index.md):** sustentar múltiplas soluções em produção.
+
+Consulte separadamente o [Plano da disciplina](sobre/plano-da-disciplina.md) para objetivos, carga horária e programação dos seis encontros.
 
 ## Como começar
 

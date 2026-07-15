@@ -89,7 +89,7 @@ Desenhe o trace de uma consulta que recupera documentos, chama um modelo e pode 
 
 Um canary reduz custo por chamada em 25% e p95 em 15%. Ao mesmo tempo, tarefas concluídas caem 6%, tokens por tarefa sobem, fundamentação piora apenas em português, erros do gateway permanecem estáveis e uma ferramenta dobra chamadas após timeout. O avaliador automático declara melhora geral. Analise hipóteses separadas para roteamento, modelo, recuperação, ferramenta, avaliador e experiência. Relacione métricas de produto, modelo, operação e negócio; indique traces e experimentos que refutariam cada hipótese; decida pausar, reverter, degradar ou ampliar.
 
-**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por relacionar métricas sem tratá-las como equivalentes; 2 por fatia linguística e viés do avaliador; 2 por idempotência e reconciliação no timeout; 2 por experimentos refutáveis; 1 por decisão coerente. A economia por chamada não compensa automaticamente queda na tarefa.
+**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por relacionar métricas sem tratá-las como equivalentes; 2 pela qualidade da análise por fatia e do avaliador; 2 pela análise de efeitos sob incerteza; 2 por experimentos refutáveis; 1 por decisão coerente com as evidências.
 
 ## Avaliar
 

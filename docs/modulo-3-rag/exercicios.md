@@ -82,7 +82,7 @@ Um link pode tratar do tema sem implicar a afirmação. Fundamentação exige co
 
 Para uma pergunta, o gabarito possui três chunks relevantes: A, C e F. O ranking top-5 retornou A, B, C, D e E. Calcule Recall@k para k = 5 e Precision@5. Explique o que cada resultado sugere para uma aplicação cujo orçamento aceita somente cinco chunks e proponha uma investigação.
 
-**Rubrica (0–4 pontos):** 1 ponto por Recall@5 = 2/3; 1 por Precision@5 = 2/5; 1 por interpretar perda de F e desperdício de três posições; 1 por investigação coerente sobre consulta, chunking, recuperação ou ranking.
+**Rubrica (0–4 pontos):** 1 ponto por cada métrica corretamente calculada e demonstrada; 1 pela interpretação arquitetural coerente com o orçamento; 1 por uma investigação refutável e ligada às evidências.
 
 ### 9. Comparação de estratégias de chunking
 

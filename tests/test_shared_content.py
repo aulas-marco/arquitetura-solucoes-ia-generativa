@@ -116,9 +116,8 @@ class StableModuleLinkTest(unittest.TestCase):
 
     def test_shared_module_links_use_only_stable_targets(self):
         targets = {
-            1: (DOCS / "index.md", "sobre/plano-da-disciplina.md#modulo-"),
-            2: (DOCS / "referencia/glossario.md", "../sobre/plano-da-disciplina.md#modulo-"),
-            3: (DOCS / "referencia/catalogo-de-padroes.md", "../sobre/plano-da-disciplina.md#modulo-"),
+            1: (DOCS / "referencia/glossario.md", "../sobre/plano-da-disciplina.md#modulo-"),
+            2: (DOCS / "referencia/catalogo-de-padroes.md", "../sobre/plano-da-disciplina.md#modulo-"),
         }
         for _, (path, prefix) in targets.items():
             text = path.read_text(encoding="utf-8")

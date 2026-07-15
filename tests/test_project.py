@@ -43,6 +43,34 @@ class ProjectTest(unittest.TestCase):
 
         self.assertIn("*Capa — Cartografia da solução generativa", homepage)
 
+    def test_homepage_links_directly_to_six_modules_and_separately_to_plan(self):
+        homepage = (ROOT / "docs/index.md").read_text(encoding="utf-8")
+
+        for slug in (
+            "modulo-1-fundamentos", "modulo-2-desenho-conceitual", "modulo-3-rag",
+            "modulo-4-agentes", "modulo-5-confianca", "modulo-6-operacao",
+        ):
+            self.assertEqual(1, homepage.count(f"({slug}/index.md)"), slug)
+        self.assertIn("[Plano da disciplina](sobre/plano-da-disciplina.md)", homepage)
+
+    def test_opentelemetry_semconv_year_is_consistently_2026(self):
+        registry = (ROOT / "docs/referencia/fontes.yml").read_text(encoding="utf-8")
+        entry = re.search(
+            r"- id: opentelemetry-semconv-1-43\n(.*?)(?=\n- id:|\Z)",
+            registry,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(entry)
+        self.assertIn("\n  year: 2026\n", entry.group(0))
+
+        bibliography = (ROOT / "docs/referencia/bibliografia.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "OpenTelemetry Authors (2026). [*OpenTelemetry Semantic Conventions 1.43.0*]",
+            bibliography,
+        )
+
     def test_every_external_markdown_url_is_in_the_source_registry(self):
         registry = (ROOT / "docs/referencia/fontes.yml").read_text(encoding="utf-8")
         registered_urls = set(re.findall(r"(?m)^  url: (https?://\S+)$", registry))

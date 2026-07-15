@@ -12,7 +12,7 @@ Você deve dominar o vocabulário do [Módulo 1 — Fundamentos](../modulo-1-fun
 
 Não é necessário conhecer um provedor, modelo ou framework específico. As decisões deste módulo são deliberadamente independentes de fornecedor e devem continuar úteis quando produtos, preços e capacidades mudarem.
 
-**Tempo estimado de leitura:** 75–105 minutos, sem contar o estudo de caso e os exercícios de projeto.
+**Tempo estimado de leitura:** 60–90 minutos, sem contar o estudo de caso e os exercícios de projeto.
 
 ## Objetivos de aprendizagem
 

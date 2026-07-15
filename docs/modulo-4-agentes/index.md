@@ -8,6 +8,8 @@ Responder bem não autoriza agir. Um modelo pode redigir uma mensagem convincent
 
 Este módulo estuda essa passagem sem tratar “agente” como sinônimo de chatbot sofisticado. Um **chatbot** sustenta uma conversa; um **copiloto** ajuda uma pessoa a decidir ou produzir; um **workflow determinístico** tem sequência e transições definidas pela aplicação; um **agente** delega ao modelo a escolha de próximos passos ou ferramentas dentro de fronteiras explícitas. Uma solução pode combinar os quatro, e o rótulo da interface não determina onde está o controle.
 
+**Tempo estimado de leitura:** 60–90 minutos, sem contar o estudo de caso e os exercícios de projeto.
+
 ## O que você aprenderá
 
 Ao final, você deverá conseguir:
@@ -28,13 +30,17 @@ Retomaremos a [sequência de decisão](../modulo-2-desenho-conceitual/padroes-e-
 
 Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), [Confiabilidade](../referencia/atributos-de-qualidade.md#confiabilidade), [Segurança](../referencia/atributos-de-qualidade.md#seguranca) e [Observabilidade](../referencia/atributos-de-qualidade.md#observabilidade) serão tratados como cenários mensuráveis. A tese do módulo é simples: **autonomia deve ser orçada e observável**. “Orçada” significa limitada por escopo, ações, etapas, tempo, custo e risco. “Observável” significa reconstruir propostas, decisões de política, aprovações, chamadas, resultados e compensações sem registrar segredos desnecessários.
 
-## Percurso pedagógico
+## Mapa do módulo
 
-- **Conceitos:** do sistema que conversa ao que escolhe e age; planejamento, estado, memória, políticas e topologias.
-- **Padrões e decisões:** contratos de ferramentas, integração corporativa, identidade, resiliência, matriz de autonomia e intervenção humana.
-- **Exemplo arquitetural:** um agente controlado consulta CRM e altera pedidos, com caminhos de sucesso, rejeição, repetição e compensação.
-- **Estudo de caso:** resolução de solicitações de clientes envolvendo CRM, estoque, pedidos e política comercial.
-- **Exercícios:** seleção de ferramentas, classificação de autonomia, diagnóstico de trace, crítica e criação arquitetural.
+| Etapa | Página | Foco |
+|---|---|---|
+| 1 | [Abertura](index.md) | contrato de aprendizagem e limites de autonomia |
+| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória e topologias |
+| 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, identidade, resiliência e intervenção humana |
+| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, rejeição, repetição e compensação |
+| 5 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
+| 6 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
+| 7 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
 ## Um teste inicial
 

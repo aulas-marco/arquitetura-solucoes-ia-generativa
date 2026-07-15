@@ -4,9 +4,11 @@
 
 > **Como demonstrar que uma solução generativa é suficientemente confiável para seu contexto?**
 
-Uma demonstração de confiança não começa com “o modelo acertou esta resposta”. Começa com um contexto de uso delimitado, pessoas que podem ser afetadas, eventos indesejados, responsabilidades e critérios observáveis. Um assistente de recursos humanos pode responder corretamente a perguntas sobre férias e ainda ser inadequado se revelar salário, aceitar instruções escondidas em um documento, registrar dados pessoais sem prazo ou impedir que uma decisão sensível chegue a uma pessoa responsável. Qualidade da frase é apenas uma parte da confiança do sistema.
+Confiança começa com contexto delimitado, pessoas afetadas, eventos indesejados, responsabilidades e critérios observáveis. Um assistente de RH pode responder corretamente sobre férias e ainda ser inadequado se revelar salário, obedecer a instruções escondidas, reter dados sem prazo ou impedir escalonamento. Qualidade da frase é apenas parte da confiança do sistema.
 
 Neste módulo, **confiável** não significa infalível. Significa que os riscos relevantes foram identificados; que atributos como fundamentação, segurança, latência e custo têm critérios proporcionais ao uso; que controles independentes reduzem probabilidade ou impacto; que o risco residual foi aceito por quem tem autoridade; e que existem evidências para revisar a decisão. A pergunta correta não é “este modelo é seguro?”, mas “esta configuração, integrada a estas fontes e ferramentas, operada por estas pessoas, é suficientemente controlada para este público e esta finalidade?”.
+
+**Tempo estimado de leitura:** 60–90 minutos, sem contar o estudo de caso e os exercícios de projeto.
 
 ## O que você aprenderá
 
@@ -40,12 +42,16 @@ Terceiro, **governança produz decisões e evidências**, não apenas documentos
 
 Quarto, **responsabilidade é compartilhada, mas não diluída**. Fornecedor, plataforma, equipe de produto, segurança, dados, jurídico, operação, dono do processo e usuários têm parcelas distintas. “O modelo decidiu” nunca é um proprietário aceitável.
 
-## Percurso pedagógico
+## Mapa do módulo
 
-- **Conceitos:** confiança sistêmica, categorias de risco, rastreabilidade, responsabilidade e qualidade mensurável.
-- **Padrões e decisões:** ameaças, guardrails em profundidade, privacidade, governança e limites de cada controle.
-- **Exemplo arquitetural:** modelo de ameaças e pipeline de avaliação de um assistente de RH.
-- **Estudo de caso:** decisões de segurança, escalonamento e critérios de liberação para conteúdo público, restrito e pessoal.
-- **Exercícios:** identificação, mapeamento, desenho de rubrica, julgamento de risco residual e criação arquitetural.
+| Etapa | Página | Foco |
+|---|---|---|
+| 1 | [Abertura](index.md) | contrato de confiança contextual |
+| 2 | [Conceitos](conceitos.md) | risco, responsabilidade e qualidade mensurável |
+| 3 | [Padrões e decisões](padroes-e-decisoes.md) | ameaças, guardrails, privacidade e governança |
+| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | modelo de ameaças e pipeline de avaliação |
+| 5 | [Estudo de caso](estudo-de-caso.md) | RH, escalonamento e critérios de liberação |
+| 6 | [Exercícios](exercicios.md) | ameaças, controles, risco residual e projeto |
+| 7 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
 Comece por [Conceitos](conceitos.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências.

@@ -14,7 +14,7 @@ Retomaremos o [Módulo 2 — Desenho conceitual](../modulo-2-desenho-conceitual/
 
 Não é necessário conhecer um produto de busca, um provedor de modelos ou uma biblioteca específica. Falaremos em repositório de origem, processador, índice lexical, índice vetorial, motor de políticas, reranker, montador de contexto e serviço de inferência. Esses papéis podem ser implementados de várias maneiras sem alterar as decisões essenciais.
 
-**Tempo estimado de leitura:** 85–115 minutos, sem contar o estudo de caso e os exercícios de projeto.
+**Tempo estimado de leitura:** 60–90 minutos, sem contar o estudo de caso e os exercícios de projeto.
 
 ## Objetivos de aprendizagem
 

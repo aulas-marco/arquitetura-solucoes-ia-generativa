@@ -8,6 +8,8 @@ Uma solução generativa não termina quando o primeiro deployment funciona. O m
 
 **LLMOps** é o conjunto de práticas técnicas e organizacionais que torna o ciclo de vida de sistemas com modelos de linguagem controlável: registrar ativos comportamentais, reproduzir configurações, avaliar continuamente, promover mudanças por ambientes, observar execuções, responder a incidentes e aprender com produção. O termo é útil, mas não representa uma norma universal nem um produto específico. Neste módulo, ele amplia DevOps, SRE e MLOps para uma arquitetura em que prompts, contexto, recuperação, ferramentas, guardrails e modelos participam do comportamento.
 
+**Tempo estimado de leitura:** 60–90 minutos.
+
 ## O que você aprenderá
 
 Ao final, você deverá conseguir:
@@ -33,12 +35,21 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 
 ## Quatro compromissos operacionais
 
-Primeiro, **toda mudança comportamental é uma mudança de produção**. Trocar modelo, prompt, corpus, política, avaliador ou contrato de ferramenta exige impacto, evidência e rota de retorno proporcionais ao risco.
+- Mudança de modelo, prompt, corpus, política, avaliador ou ferramenta recebe evidência e rota de retorno proporcionais ao risco.
+- Observabilidade sustenta decisões com metadados minimizados; conteúdo completo é exceção autorizada.
+- Fallback e degradação preservam autorização, qualidade mínima e aprovação.
+- Plataforma é produto interno: oferece contratos comuns sem absorver a responsabilidade do domínio.
 
-Segundo, **observabilidade serve a uma decisão**. Métrica sem hipótese, proprietário ou ação apenas acumula custo e exposição. Conteúdo completo é exceção; metadados minimizados e amostras autorizadas são o padrão.
+## Mapa do módulo
 
-Terceiro, **resiliência preserva segurança e significado**. Um fallback mais rápido que remove autorização, fundamentação ou aprovação não é recuperação: é outra falha. Degradação precisa declarar quais capacidades ficam indisponíveis.
-
-Quarto, **plataforma é produto interno**. Ela oferece um caminho seguro e econômico, mede adoção e mantém contratos. Não centraliza toda inovação nem transfere ao time comum a responsabilidade pelo resultado de negócio.
+| Etapa | Página | Foco |
+|---|---|---|
+| 1 | [Abertura](index.md) | contrato operacional e continuidade do curso |
+| 2 | [Conceitos](conceitos.md) | versões, ambientes, observabilidade e SLOs |
+| 3 | [Padrões e decisões](padroes-e-decisoes.md) | entrega, recuperação e capacidades comuns |
+| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
+| 5 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
+| 6 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
+| 7 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 
 Siga para [Conceitos](conceitos.md), onde o ciclo operacional é construído antes das escolhas de plataforma.

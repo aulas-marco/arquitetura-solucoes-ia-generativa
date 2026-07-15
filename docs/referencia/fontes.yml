@@ -181,7 +181,7 @@
 - id: opentelemetry-semconv-1-43
   title: OpenTelemetry Semantic Conventions 1.43.0
   authors: OpenTelemetry Authors
-  year: 2025
+  year: 2026
   url: https://opentelemetry.io/docs/specs/semconv/
   accessed: 2026-07-14
   topics: [observabilidade, telemetria, semantic-conventions]

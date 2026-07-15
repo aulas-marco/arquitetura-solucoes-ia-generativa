@@ -82,7 +82,7 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 Para um assistente de despesas, classifique como predominantemente determinística ou probabilística: autenticar usuário; extrair valor de uma foto; verificar limite de R$ 500; redigir explicação; gravar aprovação. Justifique duas fronteiras e proponha validação para a extração.
 
-**Rubrica (0–3 pontos):** 1 ponto pela classificação coerente; 1 pelas justificativas relacionando regra e variabilidade; 1 por validar tipo, faixa e conferência com a evidência visual antes de qualquer efeito.
+**Rubrica (0–3 pontos):** 1 ponto pela classificação coerente; 1 pela qualidade das justificativas; 1 por um mecanismo de validação proporcional ao risco, com evidência verificável.
 
 ### 9. Cenário de qualidade
 

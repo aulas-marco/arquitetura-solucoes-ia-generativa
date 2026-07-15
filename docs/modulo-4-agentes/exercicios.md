@@ -108,9 +108,9 @@ Faça o **diagnóstico de trace** abaixo. O cliente recebeu duas reservas e nenh
 10:00:04 execution completed
 ```
 
-Reconstrua causas e violações. Indique evidências ausentes, contenção, reconciliação, compensação, correções de idempotência/estado e testes de não recorrência. Explique por que timeout não significa falha e por que `completed` é incorreto.
+Reconstrua causas e violações. Indique evidências ausentes, contenção, reconciliação, compensação, correções de idempotência/estado e testes de não recorrência. Discuta os significados possíveis do timeout e avalie se o estado `completed` é sustentado pelas evidências.
 
-**Rubrica (0–6 pontos):** 1 ponto pela hipótese da primeira reserva ter concluído; 1 por identificar chaves instáveis/ausência de reconciliação; 1 por estado terminal incorreto; 1 por contenção e compensação das duas reservas; 1 por correção com intenção/chave persistente e precondições; 1 por testes que simulam timeout após efeito, repetição e falha de compensação.
+**Rubrica (0–6 pontos):** 1 ponto pela reconstrução causal sustentada pelo trace; 1 pela análise explícita das incertezas; 1 pela identificação de violações de contrato e estado; 1 pela contenção e recuperação proporcionais; 1 pela coerência das correções propostas; 1 por testes de não recorrência que discriminem as hipóteses.
 
 ## Avaliar
 

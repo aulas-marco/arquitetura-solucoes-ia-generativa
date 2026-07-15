@@ -13,7 +13,7 @@ Operar sistemas generativos é controlar uma composição que muda. Pacote compo
 - O **Módulo 5** conectou ameaças, guardrails, avaliação multidimensional, governança e risco residual.
 - O **Módulo 6** coloca tudo no tempo: versões, promoção, observação, recuperação, plataforma, equipes e economia.
 
-O capstone não é um diagrama de componentes. É um argumento rastreável do contexto à operação: por que o sistema existe, que qualidade promete, como flui, onde pode falhar, quem decide, que evidência libera, como degrada e que perguntas ainda exigem experimento.
+O capstone é um argumento rastreável do contexto à operação: propósito, qualidade, fluxo, falhas, autoridade, evidência, degradação e experimentos pendentes.
 
 ## Checklist de prontidão para produção
 
@@ -59,8 +59,16 @@ O capstone não é um diagrama de componentes. É um argumento rastreável do co
 
 ## O que é referência e o que é prática viva
 
-Fontes oficiais fornecem vocabulário, requisitos ou métodos dentro de seu escopo. A arquitetura deste módulo — manifesto comportamental, portões compostos, gateway, contratos de serviço e divisão de equipes — é síntese pedagógica, não texto literal dessas fontes. Limiar, retenção, coorte, quota e modelo de custo pertencem ao contexto.
+Fontes oficiais fornecem vocabulário dentro de seu escopo. A arquitetura proposta é síntese pedagógica; limiares e retenção pertencem ao contexto.
 
 **Prática viva** é uma convenção ou abordagem ainda sujeita a rápida mudança, como schemas GenAI de telemetria, capacidades de gateways e estratégias de avaliação assistida por modelo. Registre versão e data, teste migração e revise evidência. “Padrão de mercado” sem contrato, estabilidade ou fonte não é decisão arquitetural.
 
 Use o [Mapa de aprendizagem](../comecar/mapa-de-aprendizagem.md) para percorrer novamente contexto, arquitetura, conhecimento, ação, confiança e operação em um sistema real.
+
+## Autoavaliação
+
+1. Consigo reproduzir o pacote comportamental promovido?
+2. Ligo cada métrica a hipótese, decisão e responsável?
+3. Distingo parada segura de experimento e incidente real?
+4. Projeto fallback e rollback que preservam controles essenciais?
+5. Delimito capacidades comuns, autonomia local e raio de impacto?

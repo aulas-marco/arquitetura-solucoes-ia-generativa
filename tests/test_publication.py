@@ -81,6 +81,25 @@ class PublicationHandoffTest(unittest.TestCase):
                 self.assertIn(marker, self.workflow_text)
         self.assertEqual("site", self._upload_step()["with"]["path"])
 
+    def test_workflow_runs_tests_and_full_content_gate_before_build(self):
+        steps = self.workflow["jobs"]["build"]["steps"]
+        commands = [step.get("run", "") for step in steps]
+        test_index = next(
+            index for index, command in enumerate(commands)
+            if "python -m unittest discover -s tests -v" in command
+        )
+        validator_index = next(
+            index for index, command in enumerate(commands)
+            if "python scripts/validate_content.py --all" in command
+        )
+        build_index = next(
+            index for index, command in enumerate(commands)
+            if "mkdocs build --strict" in command
+        )
+
+        self.assertLess(test_index, validator_index)
+        self.assertLess(validator_index, build_index)
+
     def test_deployment_uses_github_pages_environment(self):
         deploy = self.workflow["jobs"]["deploy"]
         self.assertEqual("build", deploy["needs"])
