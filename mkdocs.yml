@@ -59,6 +59,14 @@ nav:
       - Estudo de caso: modulo-3-rag/estudo-de-caso.md
       - Exercícios: modulo-3-rag/exercicios.md
       - Síntese e referências: modulo-3-rag/sintese-e-referencias.md
+  - Módulo 4 — Agentes:
+      - Visão geral: modulo-4-agentes/index.md
+      - Conceitos: modulo-4-agentes/conceitos.md
+      - Padrões e decisões: modulo-4-agentes/padroes-e-decisoes.md
+      - Exemplo arquitetural: modulo-4-agentes/exemplo-arquitetural.md
+      - Estudo de caso: modulo-4-agentes/estudo-de-caso.md
+      - Exercícios: modulo-4-agentes/exercicios.md
+      - Síntese e referências: modulo-4-agentes/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md

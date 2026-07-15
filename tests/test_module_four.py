@@ -1,0 +1,142 @@
+from pathlib import Path
+import re
+import unittest
+
+from scripts.validate_content import PAGES, bloom_sections
+
+
+ROOT = Path(__file__).resolve().parents[1]
+MODULE = ROOT / "docs" / "modulo-4-agentes"
+
+
+class ModuleFourContentRegressionTest(unittest.TestCase):
+    def test_module_has_standard_pages_navigation_and_guiding_question(self):
+        self.assertEqual(set(PAGES), {path.name for path in MODULE.glob("*.md")})
+
+        navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+        positions = [navigation.index(f"modulo-4-agentes/{page}") for page in PAGES]
+        self.assertEqual(positions, sorted(positions))
+
+        opening = (MODULE / "index.md").read_text(encoding="utf-8")
+        self.assertIn(
+            "Quando permitir que o modelo escolha e execute ações?",
+            opening,
+        )
+
+    def test_concepts_distinguish_interaction_and_control_models(self):
+        text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
+
+        for concept in (
+            "chatbot",
+            "copiloto",
+            "workflow determinístico",
+            "agente",
+            "saída estruturada",
+            "planejamento",
+            "estado",
+            "memória de trabalho",
+            "memória persistente",
+            "contexto",
+            "políticas",
+            "agente único",
+            "múltiplos agentes",
+        ):
+            self.assertIn(concept, text, concept)
+
+    def test_patterns_cover_enterprise_integration_and_control_mechanisms(self):
+        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8").casefold()
+
+        for topic in (
+            "contrato de ferramenta",
+            "api",
+            "mensageria",
+            "eventos",
+            "adaptador",
+            "identidade do usuário",
+            "autorização delegada",
+            "idempotência",
+            "timeout",
+            "retry",
+            "circuit breaker",
+            "compensação",
+            "auditoria",
+            "aprovação humana",
+            "workflow determinístico",
+            "orçamento de etapas",
+            "orçamento de tempo",
+            "orçamento de custo",
+        ):
+            self.assertIn(topic, text, topic)
+
+    def test_architectural_example_has_images_diagrams_and_required_paths(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+        folded = text.casefold()
+
+        for image in ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png"):
+            self.assertIn(image, text)
+        self.assertGreaterEqual(text.count("```mermaid"), 2)
+        self.assertIn("sequenceDiagram", text)
+        self.assertGreaterEqual(text.count("**Equivalente textual"), 2)
+        for path in (
+            "caminho feliz",
+            "ação rejeitada",
+            "prevenção de chamada repetida",
+            "compensação",
+        ):
+            self.assertIn(path, folded, path)
+
+    def test_exercises_preserve_bloom_policy_and_required_challenges(self):
+        text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
+        sections = bloom_sections(text)
+        expected_counts = {
+            "Recordar": 4,
+            "Compreender": 3,
+            "Aplicar": 2,
+            "Analisar": 1,
+            "Avaliar": 1,
+            "Criar": 1,
+        }
+
+        for level, expected in expected_counts.items():
+            questions = re.findall(r"(?m)^### \d+\.", sections[level])
+            self.assertEqual(expected, len(questions), level)
+
+        self.assertEqual(4, sections["Recordar"].count("<details>"))
+        self.assertEqual(3, sections["Compreender"].count("<details>"))
+        for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
+            self.assertNotIn("<details>", sections[level])
+            self.assertIn("**Rubrica", sections[level])
+
+        exercise_text = text.casefold()
+        for challenge in (
+            "seleção de ferramentas",
+            "classificação de autonomia",
+            "diagnóstico de trace",
+            "crítica arquitetural",
+            "arquitetura de agente controlado",
+        ):
+            self.assertIn(challenge, exercise_text, challenge)
+
+    def test_registered_sources_cover_agents_tools_protocol_and_book_case(self):
+        registry = (ROOT / "docs" / "referencia" / "fontes.yml").read_text(
+            encoding="utf-8"
+        )
+
+        for source_id in (
+            "yao-et-al-react-2023",
+            "schick-et-al-toolformer-2023",
+            "mcp-specification-2025-11-25",
+            "opentelemetry-genai-semconv",
+            "avila-ahmad-chapter-7-local",
+        ):
+            entry = re.search(
+                rf"- id: {re.escape(source_id)}\n(.*?)(?=\n- id:|\Z)",
+                registry,
+                re.DOTALL,
+            )
+            self.assertIsNotNone(entry, source_id)
+            self.assertRegex(entry.group(1), r"(?m)^  modules: \[[^]]*\b4\b[^]]*\]$")
+
+
+if __name__ == "__main__":
+    unittest.main()
