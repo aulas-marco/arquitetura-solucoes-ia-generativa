@@ -1,0 +1,96 @@
+:root {
+  --course-ink: #16243A;
+  --course-cobalt: #254DB8;
+  --course-cyan: #5FC0D1;
+  --course-paper: #F2F6FB;
+  --course-white: #FFFFFF;
+  --course-amber: #F2B84B;
+  --course-heading-font: Charter, Georgia, "Times New Roman", serif;
+  --course-body-font: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --course-meta-font: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+}
+
+body,
+.md-typeset {
+  font-family: var(--course-body-font);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  color: var(--course-ink);
+  font-family: var(--course-heading-font);
+}
+
+.md-typeset code,
+.md-typeset time,
+.md-typeset .metadata {
+  font-family: var(--course-meta-font);
+}
+
+.md-main {
+  background: var(--course-paper);
+}
+
+.md-content {
+  max-width: 52rem;
+}
+
+.md-content__inner {
+  background: var(--course-white);
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+.md-typeset a {
+  color: var(--course-cobalt);
+}
+
+:focus-visible {
+  outline: 3px solid var(--course-amber);
+  outline-offset: 3px;
+}
+
+.md-typeset blockquote {
+  background: color-mix(in srgb, var(--course-cyan) 12%, var(--course-white));
+  border-left: 0.3rem solid var(--course-cyan);
+  color: var(--course-ink);
+  padding: 0.8rem 1rem;
+}
+
+.learning-spine {
+  border-left: 0.4rem solid var(--course-cobalt);
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 1.4rem;
+}
+
+.learning-spine > li::before {
+  background: var(--course-cyan);
+  border: 2px solid var(--course-ink);
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 0.75rem;
+  margin-left: -1.95rem;
+  margin-right: 0.8rem;
+  width: 0.75rem;
+}
+
+.learning-spine > li:nth-child(2)::before,
+.learning-spine > li:nth-child(4)::before {
+  background: var(--course-amber);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

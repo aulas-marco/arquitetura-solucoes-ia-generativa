@@ -1,0 +1,32 @@
+site_name: Arquitetura de Soluções com IA Generativa
+site_description: Livro-texto da disciplina de pós-graduação em Arquitetura de Soluções com IA Generativa
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Início: index.md

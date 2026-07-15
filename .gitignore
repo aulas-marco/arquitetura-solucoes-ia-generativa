@@ -1,1 +1,8 @@
 .worktrees/
+.venv/
+site/
+__pycache__/
+*.pyc
+.DS_Store
+.superpowers/
+material-professor/
