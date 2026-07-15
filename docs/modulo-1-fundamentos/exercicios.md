@@ -34,14 +34,14 @@ Liste quatro elementos que podem compor o contexto de uma chamada.
 Exemplos: instruções do sistema, pedido do usuário, histórico permitido, exemplos, trechos recuperados, resultado de ferramenta e especificação da saída. Quaisquer quatro são suficientes.
 </details>
 
-### 4. Abordagens
+### 4. Parâmetro de geração
 
-Identifique duas abordagens que mantêm o fluxo sob controle explícito e duas que acrescentam conhecimento ou capacidade externa.
+Nomeie o parâmetro de geração apresentado neste módulo que influencia a variabilidade na seleção de tokens.
 
 <details>
 <summary>Ver resposta</summary>
 
-Geração direta e workflow com LLM preservam um caminho explícito. Contexto fornecido e RAG acrescentam conhecimento externo; uso de ferramentas acrescenta consulta ou ação. Outras combinações são válidas se justificadas.
+Temperatura.
 </details>
 
 ## Compreender
