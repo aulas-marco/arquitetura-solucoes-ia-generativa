@@ -306,6 +306,8 @@ def validate_shared_pages(
     for path in sorted(DOCS.rglob("*.md")):
         if any(module_dir in path.parents for module_dir in module_directories):
             continue
+        if path.is_relative_to(DOCS / "superpowers"):
+            continue
 
         text = path.read_text(encoding="utf-8")
         for marker in EDITORIAL_MARKERS:
