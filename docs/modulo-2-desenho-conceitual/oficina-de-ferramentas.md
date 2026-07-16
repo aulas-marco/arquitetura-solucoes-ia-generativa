@@ -1,96 +1,134 @@
-# Oficina de ferramentas — escolher a fronteira de consumo
+# Oficina de ferramentas — estabilizar o contrato de consumo
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina exercita uma escolha conceitual: onde a aplicação consome capacidade generativa e quais responsabilidades continuam visíveis. Não é uma recomendação de fornecedor nem requer uma chamada remota.
+Esta oficina cria um gateway local para tornar uma fronteira de consumo visível. O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente.
 
-## Decisão arquitetural em foco
+## Ferramenta
 
-Consumir inferência por AIaaS/SDK, operar um modelo aberto localmente ou introduzir uma camada de orquestração altera as fronteiras de dados, operação e observação. A **atividade guiada** transforma essa escolha em hipótese verificável, em vez de escolher por familiaridade com uma ferramenta.
+**LiteLLM Proxy** é um gateway open source que recebe uma interface compatível com APIs de chat e encaminha a solicitação para o modelo configurado. Nesta prática, ele encaminha para o **Ollama**, que executa o modelo localmente.
 
-Use as categorias, critérios e avisos do [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md). Nenhuma opção descrita aqui promete disponibilidade, gratuidade ou adequação ao seu caso.
-
-## Roteiros equivalentes de acesso
-
-### Essencial, sem cartão
-
-Preencha a matriz com base no contrato público de um SDK/AIaaS, na decisão de capacidade de um executor local e em uma configuração simulada de orquestração com entradas e saídas sintéticas. Uma fixture local pode representar a resposta de um SDK; não faça chamada remota. Esta rota não depende de cartão, conta, chave ou crédito e produz toda a evidência obrigatória.
-
-### Institucional
-
-Se houver ambiente institucional autorizado, examine um contrato, adaptador ou configuração já disponibilizados, sem enviar dados da instituição nem executar ação fora do escopo permitido. Registre apenas observações seguras e sintéticas. A rota institucional não acrescenta pontos: a matriz e a mini-ADR são as mesmas da rota essencial.
-
-### Comercial ou avançada
-
-Opcionalmente, faça uma chamada mínima autorizada ou inspecione uma camada comercial de orquestração, sempre com dados sintéticos e sem expor chaves. Declare custo potencial, condições de acesso e o dado que sairia da fronteira. A rota comercial ou avançada não acrescenta pontos e nunca é pré-requisito da atividade.
-
-## Receita principal
-
-Esta receita usa uma fixture de resposta no formato de um adaptador **LiteLLM/OpenAI SDK**, sem instalar chave nem chamar rede. Requer Python 3.10+; confirme `python --version` antes de iniciar. Crie o arquivo `fixture-resumo.json` apenas com a entrada e a resposta sintéticas abaixo.
-
-```json
-{
-  "request": {"model": "fixture-local", "messages": [{"role": "user", "content": "Resuma: cliente fictício não consegue acessar o portal."}]},
-  "response": {"choices": [{"message": {"role": "assistant", "content": "Resumo: cliente fictício relata falha de acesso ao portal."}}]}
-}
-```
-
-Execute o adaptador de inspeção local:
-
-```bash
-python -m json.tool fixture-resumo.json
-python -c "import json; f=json.load(open('fixture-resumo.json')); print(f.get('request',{}).get('messages',[{}])[0].get('content')); print(f.get('response',{}).get('choices',[{}])[0].get('message',{}).get('content'))"
-```
+**Decisão arquitetural em foco:** qual contrato a aplicação deve consumir para preservar portabilidade, observação e possibilidade de troca do destino de inferência?
 
 ## Pré-requisitos
 
-- Python 3.10+; esta receita usa somente a biblioteca padrão e não exige conta, SDK instalado, chave ou crédito.
-- Um diretório de trabalho descartável para `fixture-resumo.json`.
-- Para comparar contratos, mantenha os campos `model`, `messages` e `choices` explícitos; não substitua a fixture por uma chamada remota.
+- Python 3.10 ou superior e um terminal.
+- Ollama instalado e espaço para o modelo `llama3.2:3b`.
+- Portas locais `11434` (Ollama) e `4000` (gateway) disponíveis.
+- Uma pasta descartável para o laboratório e somente a solicitação sintética fornecida abaixo.
+
+## Instalação
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). Em seguida, crie a pasta do laboratório e instale o LiteLLM Proxy:
+
+```bash
+mkdir oficina-m2
+cd oficina-m2
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+No Windows PowerShell, ative o ambiente com:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+## Preparação do laboratório
+
+Baixe e salve os dois arquivos na pasta `oficina-m2`:
+
+- [litellm_config.yaml](../assets/labs/modulo-2/litellm_config.yaml) — o manifesto do gateway. `boreal-local` é o alias que a aplicação verá; `ollama/llama3.2:3b` é o destino local inicial.
+- [request.json](../assets/labs/modulo-2/request.json) — a solicitação de chat sintética. O cliente usa o alias, não o nome físico do modelo.
+
+Confirme que os dois arquivos estão presentes:
+
+```bash
+ls litellm_config.yaml request.json
+```
+
+## Execução
+
+Abra **dois terminais** na pasta `oficina-m2`. No primeiro, inicie o gateway:
+
+```bash
+source .venv/bin/activate
+litellm --config litellm_config.yaml --port 4000
+```
+
+No segundo, envie a requisição pelo contrato do gateway:
+
+```bash
+curl http://localhost:4000/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  --data @request.json
+```
+
+## Receita principal
+
+A requisição é entregue a `localhost:4000`, não diretamente ao Ollama. Observe no JSON de resposta a mensagem em `choices[0].message.content`. O manifesto é a fronteira explícita entre a aplicação e a capacidade de inferência.
+
+Se `litellm` informar que a porta 4000 já está em uso, encerre o processo que a usa ou escolha outra porta e atualize o endereço do `curl`. Se o Ollama não responder, execute `ollama list` e confira se `llama3.2:3b` aparece na lista.
 
 ## Resultado esperado
 
-O primeiro comando valida o JSON e o segundo imprime a entrada e a saída sintéticas. A matriz deve mostrar que o adaptador preserva um contrato observável, mas não demonstra inferência, preço ou latência de provedor. Use esse mesmo arquivo ao descrever a alternativa AIaaS/SDK.
+Você deve receber uma resposta JSON do alias `boreal-local`. Registre três evidências: o arquivo de manifesto, a requisição JSON e a resposta. A prática prova que há um contrato de consumo observável; não mede qualidade geral, latência de produção ou adequação de um modelo ao domínio.
 
-## Limpeza e contingência
+## Interpretação
 
-Apague `fixture-resumo.json` ao terminar. Se Python não estiver disponível, desenhe os dois objetos JSON em uma tabela e confira manualmente os mesmos campos; registre a inspeção sem execução e mantenha a mini-ADR. Não inclua `OPENAI_API_KEY`, URL privada ou credenciais em arquivo algum.
+Abra `litellm_config.yaml` e troque **somente** esta linha por um modelo que você já tenha baixado no Ollama, por exemplo `ollama/qwen2.5:3b`:
+
+```yaml
+model: ollama/qwen2.5:3b
+```
+
+Mantenha `model_name: boreal-local` e `request.json` inalterados. Reinicie o proxy e repita o mesmo `curl`. Esta é uma **troca controlada**: a única variável é o destino do manifesto. Compare a resposta e anote o que o cliente não precisou modificar.
 
 ## Roteiro sugerido para aula
 
-Selecione um bloco; todos usam dados sintéticos e dispensam conta.
+### Experimento A — contrato pelo gateway (Essencial em aula)
 
-### Experimento A — contrato observável (Essencial em aula)
+**Objetivo:** identificar o contrato consumido pela aplicação. **Pré-requisito:** proxy iniciado. **Execute:** envie `request.json`. **Observe:** alias, mensagens e resposta JSON. **Compare:** chamada para `localhost:4000` versus chamada direta ao modelo.
 
-**Objetivo:** tornar visível a fronteira do contrato. **Pré-requisito:** fixture. **Execute:** valide-a. **Observe:** campos auditáveis. **Compare:** contrato versus inferência, preço e latência. **Questões exploratórias:** que decisão mantém o contrato? Que qualidade depende de campos explícitos? Que risco há sem modelo ou versão no log?
+**Questões exploratórias:**
 
-### Experimento B — matriz de fronteiras (Exploração em dupla)
+- Qual campo do contrato deve permanecer estável para o cliente?
+- Onde a arquitetura deve registrar modelo e versão efetivamente usados?
+- Que atributo de qualidade melhora quando o ponto de consumo é explícito?
 
-**Objetivo:** comparar AIaaS/SDK, local e orquestração. **Pré-requisito:** fixture e matriz. **Execute:** cada dupla completa uma rota. **Observe:** a fronteira de dados. **Compare:** custo, operação, portabilidade e observabilidade. **Questões exploratórias:** qual rota reduz dependência? Que qualidade é difícil de observar? Que risco dispara revisão?
+### Experimento B — troca controlada do destino (Exploração em dupla)
+
+**Objetivo:** separar contrato público e modelo configurado. **Pré-requisito:** um segundo modelo já baixado. **Execute:** altere apenas o destino no manifesto. **Observe:** a mesma requisição passa pelo mesmo alias. **Compare:** manifesto anterior, manifesto alterado e respostas.
+
+**Questões exploratórias:**
+
+- Qual alteração exigiria novo teste de regressão antes de produção?
+- Que decisão reduz acoplamento entre produto e fornecedor/modelo?
+- Que informação não pode faltar no log para reproduzir uma saída?
 
 ### Experimento C — mini-ADR reversível (Extensão)
 
-**Objetivo:** criar hipótese revisável. **Pré-requisito:** matriz. **Execute:** redija a mini-ADR. **Observe:** evidência faltante. **Compare:** escolha e alternativa. **Questões exploratórias:** que decisão é reversível? Como a latência altera o critério? Que risco inviabiliza a alternativa?
+**Objetivo:** registrar uma escolha verificável. **Pré-requisito:** resultados de A e B. **Execute:** complete a mini-ADR. **Observe:** evidência disponível e limite não medido. **Compare:** manter o modelo atual, trocar o destino ou chamar o modelo diretamente.
 
-## Atividade guiada
+**Questões exploratórias:**
 
-A atividade obrigatória é realizável pela rota **Essencial, sem cartão**; ela não depende de cartão e não exige chave de API. Considere o cenário sintético: uma equipe quer redigir um resumo de solicitações fictícias de suporte e precisa manter o contrato de entrada e saída explícito.
-
-1. Faça uma **chamada mínima simulada**, uma configuração de exemplo ou uma análise de contrato público para cada alternativa. Para AIaaS/SDK, descreva uma entrada `texto` e uma saída `resumo`, usando uma fixture local. Para modelo aberto local/autogerido, descreva a mesma entrada/saída e a capacidade operacional necessária. Para orquestração, descreva um fluxo que valida entrada, chama um adaptador simulado e registra a saída.
-2. Preencha a matriz abaixo sem atribuir nota de “melhor” antes de declarar a hipótese. Compare dados, custo, latência, operação, portabilidade e observabilidade.
-3. Escreva uma mini-ADR: hipótese, escolha provisória, alternativa preterida e gatilho que faria a equipe revisar a decisão. Essa mini-ADR é a evidência da atividade.
-
-| Alternativa | Dados e fronteira de envio | Custo e limite | Latência | Operação | Portabilidade | Observabilidade |
-|---|---|---|---|---|---|---|
-| AIaaS/SDK |  |  |  |  |  |  |
-| Modelo aberto local/autogerido |  |  |  |  |  |  |
-| Camada de orquestração |  |  |  |  |  |  |
-
-Não use dados pessoais, solicitações reais, documentos corporativos, credenciais, chaves ou URLs privadas. A decisão arquitetural em discussão é: **qual fronteira de consumo preserva o contrato e permite revisar a escolha quando os requisitos mudarem?**
+- Que gatilho faria a equipe revisar essa fronteira?
+- Como latência e observabilidade entram na decisão sem serem inferidas de uma chamada?
+- Que risco aparece se o alias não for versionado no manifesto?
 
 ## Evidência a entregar
 
-Entregue a matriz preenchida e uma mini-ADR da atividade, de até 250 palavras. Inclua segurança e custo: declare que os dados são sintéticos, identifique custo potencial e explique quem teria acesso à entrada, à saída e aos registros.
+Entregue a tabela e uma mini-ADR de até 250 palavras.
+
+| Item | Evidência observada | Limite da observação |
+|---|---|---|
+| Alias consumido |  |  |
+| Modelo configurado |  |  |
+| Entrada enviada |  |  |
+| Resposta recebida |  |  |
+| Troca controlada |  |  |
 
 ```markdown
 ### Mini-ADR — fronteira de consumo
@@ -98,14 +136,12 @@ Entregue a matriz preenchida e uma mini-ADR da atividade, de até 250 palavras. 
 - **Hipótese:**
 - **Escolha provisória:**
 - **Alternativa considerada:**
-- **Evidência da atividade:**
+- **Evidência do laboratório:**
 - **Gatilho de revisão:**
 ```
 
-O gatilho pode ser uma nova restrição de dados, um limite de latência, aumento de custo, necessidade de auditoria ou mudança de portabilidade. A mini-ADR registra uma hipótese; não prova que uma alternativa é universalmente superior.
+## Limpeza e contingência
 
-## Segurança e custo
+Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e remova a pasta `oficina-m2` se não precisar mais da evidência. Para liberar o espaço do modelo, use `ollama rm llama3.2:3b` somente se ele não será usado nas próximas oficinas.
 
-A decisão arquitetural deve registrar o que atravessa cada fronteira, quem opera a capacidade e como observar falhas. Na atividade, a análise de contrato ou configuração simulada evita a necessidade de chave; se for feita uma chamada autorizada, remova credenciais e não armazene dados reais.
-
-Mesmo uma rota local pode demandar instalação, hardware, energia e operação; AIaaS/SDK e orquestração podem trazer cobrança, retenção, limites ou dependência contratual. Documente esses riscos na evidência da atividade e mantenha a rota essencial como alternativa reproduzível sem cartão.
+Se a instalação falhar, registre a mensagem de erro, verifique `python --version`, `ollama --version` e as portas indicadas. A contingência é corrigir o ambiente local com o professor; não substitua a execução por uma resposta inventada ou por dados reais.

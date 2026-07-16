@@ -2,7 +2,7 @@
 
 Livro-texto digital da disciplina de pós-graduação **Arquitetura de Soluções com IA Generativa**, organizada em seis encontros de quatro horas. O material foi pensado para arquitetos, engenheiros e líderes técnicos que já dominam fundamentos de arquitetura de software e desejam projetar soluções generativas com critérios explícitos de qualidade, risco e operação.
 
-O site combina conceitos, exemplos arquiteturais, estudos de caso, seis oficinas aplicadas e exercícios nos seis níveis da Taxonomia de Bloom. As oficinas desenvolvem letramento aplicado com dados sintéticos e rotas de acesso equivalentes; não são treinamento nem certificação de fornecedor. A leitura começa ampla, para criar um vocabulário comum, e avança até RAG, agentes, confiança, governança e LLMOps.
+O site combina conceitos, exemplos arquiteturais, estudos de caso, seis oficinas aplicadas e exercícios nos seis níveis da Taxonomia de Bloom. As seis oficinas são laboratórios locais com ferramentas open source e dados sintéticos. Cada roteiro informa o que instalar, os arquivos a preparar, os comandos a executar, o resultado esperado e como limpar o ambiente ao terminar. A leitura começa ampla, para criar um vocabulário comum, e avança até RAG, agentes, confiança, governança e LLMOps.
 
 ## Comece por aqui
 
@@ -26,7 +26,7 @@ Mesmo sem publicar o site, todo o conteúdo pode ser lido diretamente no GitHub:
 5. [Confiança, avaliação e governança](docs/modulo-5-confianca/index.md)
 6. [Operação, LLMOps e plataforma](docs/modulo-6-operacao/index.md)
 
-Para consultas durante as aulas, use também o [glossário](docs/referencia/glossario.md), o [catálogo de padrões](docs/referencia/catalogo-de-padroes.md), os [cenários de atributos de qualidade](docs/referencia/atributos-de-qualidade.md) e o [template de ADR](docs/referencia/template-adr.md). Em qualquer oficina, a rota essencial sem cartão é suficiente para a entrega; rotas institucional e comercial são opcionais, não acrescentam pontos e nunca devem receber dados sensíveis.
+Para consultas durante as aulas, use também o [glossário](docs/referencia/glossario.md), o [catálogo de padrões](docs/referencia/catalogo-de-padroes.md), os [cenários de atributos de qualidade](docs/referencia/atributos-de-qualidade.md) e o [template de ADR](docs/referencia/template-adr.md). Em qualquer oficina, a evidência é a execução local e sua interpretação arquitetural; nunca use dados sensíveis.
 
 ## Organização do repositório
 

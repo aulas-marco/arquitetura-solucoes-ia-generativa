@@ -1,108 +1,116 @@
-# Oficina de ferramentas — workflow, ferramenta e aprovação
+# Oficina de ferramentas — workflow, aprovação e efeito simulado
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina separa consulta, intenção e efeito em um fluxo pequeno e inspecionável. A prática simula uma ação em dados de treinamento; ela não conecta CRM, estoque, pedidos ou qualquer sistema corporativo real.
+Esta oficina executa um workflow local que separa intenção, aprovação e efeito. Nenhuma chamada alcança CRM, estoque, pedidos ou qualquer sistema externo.
 
-## Decisão arquitetural em foco
+## Ferramenta
 
-Disponibilizar uma ferramenta ao modelo não autoriza sua execução. A **atividade guiada** torna visíveis o contrato da ferramenta, a autorização delegada, a aprovação humana e o retorno autoritativo que fecha um efeito. Consulte o [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md): a ferramenta é uma hipótese de implementação, não uma substituição para política e controle.
+**LangGraph** é uma biblioteca open source para definir grafos de estado. O grafo Boreal desta prática tem três resultados explícitos: `aguardando_aprovacao`, `reservado` e `outcome_unknown`.
 
-## Roteiros equivalentes de acesso
-
-### Essencial, sem cartão
-
-Use um diagrama, uma tabela de estado ou arquivo de configuração local para descrever o workflow e executar a simulação passo a passo. A “ferramenta” de consulta pode ser uma busca no conjunto JSON ou na tabela sintética abaixo; a ação apenas atualiza um estado de simulação. A rota não depende de cartão, conta, chave de API ou integração externa e é suficiente para a evidência obrigatória.
-
-### Institucional
-
-Se houver autorização prévia, use um ambiente institucional de automação para reproduzir o mesmo fluxo com dados sintéticos e endpoint simulado. Não conecte sistemas corporativos nem use credenciais reais. A rota institucional não acrescenta pontos; ela só torna observável o mesmo contrato em outro ambiente.
-
-### Comercial ou avançada
-
-Opcionalmente, modele o fluxo em uma plataforma comercial de automação ou orquestração, usando exclusivamente dados e ações simulados. Declare conta, chave, cobrança, retenção e limites antes de executar. A rota comercial ou avançada não acrescenta pontos e nunca justifica acesso a um sistema real.
-
-## Receita principal
-
-Use **n8n** local com Node.js LTS e confirme `node --version` e `npx --version`. Inicie o editor sem conta, chave ou integração externa; o fluxo deve conter um gatilho manual, um nó Set com o JSON de Troca Boreal, uma condição `aprovacao_humana`, um registro `reserva_pendente` e um nó final que retorna `RES-501` somente no ramo aprovado.
-
-```bash
-npx n8n
-```
-
-No editor local, crie o workflow `troca-sintetica`: copie o JSON da atividade para o nó Set, defina a chave `TROCA-PED-104-1` e execute primeiro o ramo sem aprovação. Depois altere apenas `aprovado` para `true` e execute o ramo que produz `{ "resultado": "RES-501", "estado": "reservado" }`. Não adicione credenciais nem nós que chamem CRM, estoque ou webhooks externos.
+**Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um efeito que exige autorização?
 
 ## Pré-requisitos
 
-- Node.js LTS, `npx`, espaço local e acesso de rede apenas para baixar o pacote na primeira execução.
-- Dados JSON sintéticos da oficina e um navegador para o editor local.
-- Uma aprovação simulada explícita; texto de solicitação não é autorização de escrita.
+- Python 3.10 ou superior e terminal.
+- Uma pasta descartável e somente os dados sintéticos do laboratório.
+- O arquivo `troca_boreal.py` baixado na etapa seguinte.
+
+## Instalação
+
+```bash
+mkdir oficina-m4
+cd oficina-m4
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install langgraph langchain-ollama
+```
+
+No Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
+
+## Preparação do laboratório
+
+Baixe [troca_boreal.py](../assets/labs/modulo-4/troca_boreal.py) para a pasta `oficina-m4`. O arquivo contém um pedido fictício `PED-104`, uma chave de idempotência `TROCA-PED-104-1` e uma reserva simulada `RES-501`.
+
+```bash
+ls troca_boreal.py
+```
+
+O script é o workflow inteiro: cada nó devolve um estado tipado e o grafo escolhe entre aguardar aprovação ou reservar. Não há ferramenta externa escondida.
+
+## Execução
+
+Primeiro execute sem aprovação:
+
+```bash
+python troca_boreal.py --aprovado false
+```
+
+Depois execute com aprovação e, por fim, repita a mesma intenção:
+
+```bash
+python troca_boreal.py --aprovado true
+python troca_boreal.py --aprovado true --repetir
+```
+
+## Receita principal
+
+O script percorre o grafo completo e imprime o estado após o nó de aprovação. O resultado `RES-501` é uma confirmação simulada e tipada; ele não é uma frase produzida pelo modelo.
+
+Leia as linhas `ESTADO`, `CHAVE`, `RESULTADO` e `TRACE` de cada execução. Sem aprovação, o estado esperado é `aguardando_aprovacao` e o resultado é “nenhum efeito”. Com aprovação, o estado é `reservado` e o resultado é `RES-501`. Na repetição, o trace declara que não foi criada uma segunda reserva.
 
 ## Resultado esperado
 
-O histórico local mostra `aguardando_aprovacao` quando `aprovado=false` e uma única reserva `RES-501` quando `aprovado=true`. Execute novamente com a mesma chave para registrar que o caminho de idempotência não cria uma segunda reserva. Exporte somente o workflow sintético ou uma captura sem dados externos como evidência.
+Você terá três traces comparáveis: parada segura, efeito simulado aprovado e repetição idempotente. A prática mostra o fluxo de controle, não prova que a autorização de uma organização real está correta.
 
-## Limpeza e contingência
+## Interpretação
 
-Pare o processo com `Ctrl+C` e exclua o workflow e os dados de teste do editor local. Se o n8n não iniciar, desenhe a sequência de nós e preencha a tabela de trace com os mesmos dois ramos, chave e resultado; a inspeção manual preserva a atividade. Não conecte contas, credenciais, URLs privadas ou sistemas reais como tentativa de contorno.
+Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de idempotência. Compare o ponto em que o workflow para, o resultado autoritativo e a evidência de repetição. Se uma confirmação tivesse sido interrompida após a intenção, o estado correto seria `outcome_unknown`: a arquitetura deveria consultar o registro pela chave antes de tentar novamente.
 
 ## Roteiro sugerido para aula
 
-O professor seleciona um bloco; todos simulam a troca Boreal e nunca aplicam efeito externo.
-
 ### Experimento A — intenção sem efeito (Essencial em aula)
 
-**Objetivo:** separar consulta, intenção e escrita. **Pré-requisito:** dados Troca Boreal. **Execute:** descreva o contrato de consulta e registre `reserva_pendente` com `aprovado=false`. **Observe:** o estado `aguardando_aprovacao`. **Compare:** solicitação em linguagem natural, autorização e resultado autoritativo. **Questões exploratórias:** onde a arquitetura impõe a aprovação? Qual atributo de qualidade depende de um contrato tipado? Que risco ocorre se intenção for tratada como autorização?
+**Objetivo:** distinguir proposta e autorização. **Pré-requisito:** script instalado. **Execute:** `--aprovado false`. **Observe:** parada em `aguardando_aprovacao`. **Compare:** pedido em linguagem natural e decisão de escrita.
+
+**Questões exploratórias:**
+
+- Que dado do estado mostra que nenhuma reserva ocorreu?
+- Por que um modelo não deve decidir a aprovação por conta própria?
+- Onde a identidade e a política entrariam em um sistema real?
 
 ### Experimento B — aprovação e idempotência (Exploração em dupla)
 
-**Objetivo:** testar a proteção contra repetição. **Pré-requisito:** chave `TROCA-PED-104-1`. **Execute:** simule aprovação e repita a mesma solicitação. **Observe:** uma única reserva `RES-501`. **Compare:** primeira execução, repetição idêntica e confirmação ausente. **Questões exploratórias:** que decisão arquitetural define a chave? Como idempotência melhora a confiabilidade? Que risco persiste quando o resultado fica desconhecido?
+**Objetivo:** observar uma escrita simulada e sua repetição. **Pré-requisito:** Experimento A. **Execute:** `--aprovado true` e depois `--repetir`. **Observe:** `RES-501` e trace de repetição. **Compare:** primeira execução e segunda execução.
 
-### Experimento C — recuperação de outcome_unknown (Extensão)
+**Questões exploratórias:**
 
-**Objetivo:** definir uma parada segura após falha de confirmação. **Pré-requisito:** trace dos experimentos anteriores. **Execute:** interrompa o retorno e consulte o registro pela chave simulada. **Observe:** o limite entre reexecutar e investigar. **Compare:** retry cego, consulta de estado e escalonamento humano. **Questões exploratórias:** qual componente deve guardar o resultado autoritativo? Que atributo de qualidade protege contra duplicação? Que risco operacional cresce sem rastreabilidade?
+- Quem deve criar e guardar a chave de idempotência?
+- Que falha uma chave duplicada evita?
+- Por que a resposta do modelo não substitui o resultado autoritativo?
 
-## Atividade guiada
+### Experimento C — resultado desconhecido (Extensão)
 
-A atividade obrigatória é a rota **Essencial, sem cartão** (ou uma execução local equivalente); ela não depende de cartão. Use os dados sintéticos abaixo e desenhe ou configure a sequência de estados.
+**Objetivo:** planejar recuperação após confirmação ausente. **Pré-requisito:** traces anteriores. **Execute:** descreva a interrupção entre intenção e confirmação. **Observe:** o limite entre repetir e reconciliar. **Compare:** retry cego, consulta por chave e escalonamento.
 
-**Dados sintéticos — Troca Boreal (ambiente de treinamento):**
+**Questões exploratórias:**
 
-```json
-{
-  "pedido": {"id": "PED-104", "cliente": "C-88", "status": "entregue", "versao": 4},
-  "estoque": {"SKU-21": {"disponivel": true, "versao": 9}},
-  "politica": {"troca_em_dias": 30, "aprovacao_humana": true}
-}
-```
-
-**Solicitação simulada:** “Quero trocar `PED-104` pelo item `SKU-21`.”
-
-1. Registre a **intenção** proposta: consultar pedido e estoque; propor a reserva simulada. Defina o contrato de consulta (entradas, resultado tipado e nenhum efeito).
-2. Execute a consulta nos dados sintéticos e verifique a política. Identifique a identidade de treinamento `C-88` e a **autorização** necessária para propor a ação; não trate o texto da solicitação como autorização de escrita.
-3. Gere uma chave de **idempotência**, por exemplo `TROCA-PED-104-1`, e guarde uma intenção `reserva_pendente` com versão esperada do pedido e do estoque. Simule uma segunda tentativa com a mesma chave e mostre que ela não cria uma nova reserva.
-4. Produza uma tela, registro ou linha de aprovação explícita: aprovador, decisão, data simulada e escopo. Sem aprovação, a condição de parada é `aguardando_aprovacao`; nenhum efeito é aplicado.
-5. Após a aprovação, execute somente a ação simulada `reservar(SKU-21)`. Retorne um **resultado autoritativo** tipado, por exemplo `RES-501`, e persista o estado `reservado`. Se a confirmação não retornar, pare em `outcome_unknown` e consulte o registro simulado pela chave de idempotência antes de repetir.
-
-A decisão arquitetural a discutir é: **em que fronteira o workflow deixa de planejar e passa a produzir efeito, e quem deve aprová-lo?** A evidência é o trace que relaciona proposta, autorização, aprovação e resultado. A atividade não autoriza chamadas a sistemas externos, mesmo quando uma ferramenta comercial estiver disponível.
+- Que componente deve persistir `outcome_unknown`?
+- Qual dado é necessário para reconciliação?
+- Quando a revisão humana é um controle obrigatório?
 
 ## Evidência a entregar
 
-Entregue o diagrama, configuração ou tabela de trace e uma conclusão de até cinco linhas. A evidência da atividade deve declarar que utilizou dados sintéticos, a rota escolhida e qualquer instalação, limite, consumo local ou custo potencial.
+Entregue as três saídas ou uma tabela equivalente e uma conclusão de até cinco linhas.
 
-| Etapa | Registro exigido | Evidência produzida |
-|---|---|---|
-| Intenção | consulta e ação proposta |  |
-| Autorização | identidade, política e escopo |  |
-| Idempotência | chave e tratamento de repetição |  |
-| Aprovação | aprovador, decisão e condição de espera |  |
-| Efeito simulado | ação, versão esperada e resultado autoritativo |  |
-| Parada | concluído, aguardando aprovação ou `outcome_unknown` |  |
+| Execução | Estado | Chave | Resultado | O que a arquitetura comprovou? |
+|---|---|---|---|---|
+| Sem aprovação |  |  |  |  |
+| Com aprovação |  |  |  |  |
+| Repetição |  |  |  |  |
 
-Explique qual condição impede a ação, como evitaria duplicação e por que o resultado autoritativo não pode ser substituído por uma mensagem do modelo.
+Explique qual condição impede a reserva, como a repetição é contida e como você trataria `outcome_unknown`.
 
-## Segurança e custo
+## Limpeza e contingência
 
-A decisão arquitetural é controlar efeitos, não demonstrar autonomia máxima. Mantenha dados, identidades, pedidos, estoque, aprovações e resultados inteiramente sintéticos; não registre chaves, tokens, URLs privadas, credenciais ou capturas de sistemas reais.
-
-Um executor local pode consumir CPU, memória, disco e energia; plataformas institucionais ou comerciais podem impor conta, retenção, limites e cobrança. Registre esses limites na evidência e exclua configurações locais de teste quando não forem mais necessárias. Se a ferramenta falhar, preserve o diagrama e a execução simulada: a atividade continua possível sem cartão e sem efeito externo.
+Saia do ambiente com `deactivate` e apague a pasta `oficina-m4` quando terminar. Se houver erro, confira `python --version`, a ativação do ambiente e `python -m pip show langgraph`. Registre a mensagem e corrija a instalação local antes de continuar; não conecte o exercício a sistemas reais.

@@ -55,4 +55,4 @@ Quarto, **responsabilidade é compartilhada, mas não diluída**. Fornecedor, pl
 | 7 | [Exercícios](exercicios.md) | ameaças, controles, risco residual e projeto |
 | 8 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
-Comece por [Conceitos](conceitos.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências. A [Oficina de ferramentas](oficina-de-ferramentas.md) permite testar essas decisões com casos sintéticos e sem cartão.
+Comece por [Conceitos](conceitos.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências. A [Oficina de ferramentas](oficina-de-ferramentas.md) permite testar essas decisões com casos sintéticos em um laboratório local.

@@ -2,22 +2,29 @@
 
 **Objetivo Bloom:** Compreender e Aplicar.
 
-**Ferramenta:** Ollama — executor local de modelos open source.
-**Você vai observar:** como contexto e temperatura alteram uma resposta gerada.
-**Tempo estimado:** 35 minutos.
-**Resultado esperado:** uma tabela de respostas comparáveis e uma conclusão arquitetural curta.
+## Ferramenta
 
-Este laboratório local não requer conta, cartão, chave ou API externa. Use somente material sintético; não cole dados pessoais, institucionais ou de clientes.
+**Ollama** é um executor local de modelos open source. Você vai observar como contexto e temperatura alteram uma resposta gerada. Tempo estimado: 35 minutos.
 
-## Antes de começar: o problema e o documento de treinamento
+Use somente material sintético; não cole dados pessoais, institucionais ou de clientes.
+
+## Pré-requisitos
+
+- Computador com espaço em disco para um modelo local e um terminal.
+- Conexão temporária para baixar o instalador e o modelo.
+- A Política Aurora desta página: ela é o corpus de treinamento da prática.
+
+## Instalação
+
+Baixe o instalador oficial para [macOS](https://ollama.com/download), [Windows](https://ollama.com/download) ou [Linux](https://ollama.com/download). Depois abra um terminal.
+
+## Preparação do laboratório
 
 Você integra a equipe de atendimento da **empresa fictícia Aurora**. Uma pessoa pergunta qual é o prazo para pedir reembolso. A **Política Aurora** é sintética para treinamento.
 
 Um **[corpus](conceitos.md#tokens-contexto-e-janela-de-contexto)** é o conjunto de documentos que um sistema pode consultar; aqui, o corpus tem apenas a Política Aurora. O **[contexto](conceitos.md#tokens-contexto-e-janela-de-contexto)** é a parte do corpus enviada ao modelo junto da pergunta. A **[fundamentação](../referencia/glossario.md#fundamentacao-grounding)** é o apoio da resposta nesse documento.
 
-## Preparação local
-
-Baixe o instalador oficial para [macOS](https://ollama.com/download), [Windows](https://ollama.com/download) ou [Linux](https://ollama.com/download), abra um terminal e execute:
+Execute:
 
 ```bash
 ollama --version
@@ -25,6 +32,8 @@ ollama pull llama3.2:3b
 ```
 
 **Observe:** o terminal mostra a versão e o progresso do download. O Ollama executa localmente os pesos de um [modelo](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), permitindo a [inferência](conceitos.md#treinamento-adaptacao-e-inferencia) sem enviar o corpus a um serviço externo.
+
+## Execução
 
 ## Roteiro sugerido para aula
 
@@ -153,7 +162,7 @@ curl -s http://localhost:11434/api/generate \
 - Se as duas respostas citam a política, como você verificaria a correção dos prazos e da condição de revisão humana?
 - Em um atendimento de maior risco, qual temperatura escolheria e que controle adicional usaria para não confundir diversidade com factualidade?
 
-## Registro e decisão arquitetural
+## Resultado esperado
 
 Preencha a tabela após cada execução:
 
@@ -171,16 +180,20 @@ Uma [alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucina
 - Que trecho da Política Aurora torna a resposta com corpus verificável?
 - Quando a falta da data de compra exige fonte ou revisão humana, em vez de uma resposta automática?
 
-**Observe:** a decisão não é “qual resposta venceu”, mas quando a arquitetura deve fornecer contexto, preservar sua fonte e encaminhar limites para revisão humana.
+## Interpretação
 
-## Encerramento e evidência a entregar
+A decisão não é “qual resposta venceu”, mas quando a arquitetura deve fornecer contexto, preservar sua fonte e encaminhar limites para revisão humana. A temperatura pode alterar a forma da resposta; contexto, fonte e revisão humana sustentam a decisão.
+
+## Evidência a entregar
+
+Entregue a tabela preenchida e as respostas às questões exploratórias. Declare o corpus sintético, a versão exibida por `ollama --version` e qualquer limitação percebida (tempo, memória, disco ou variação entre saídas).
+
+## Limpeza e contingência
 
 Interrompa qualquer sessão aberta com `Ctrl+C`. Se não for usar o modelo novamente, remova-o:
 
 ```bash
 ollama rm llama3.2:3b
 ```
-
-Entregue a tabela preenchida e as respostas às questões exploratórias. Declare o corpus sintético, a versão exibida por `ollama --version` e qualquer limitação percebida (tempo, memória, disco ou variação entre saídas).
 
 Se a instalação, o download ou a capacidade da máquina impedir a execução, peça ao professor saídas sintéticas de referência, preencha a mesma tabela e declare a limitação. Essas saídas preservam o objetivo do laboratório, mas não transformam a amostra em prova de qualidade geral: uma decisão real também precisa de casos representativos, critérios de aceitação, evidência de fonte e revisão proporcional ao risco.

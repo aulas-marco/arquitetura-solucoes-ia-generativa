@@ -1,66 +1,99 @@
 # Guia de ferramentas e plataformas
 
-## Como ler este guia
+## Como usar este guia
 
-Uma ferramenta é uma hipótese de implementação, não uma recomendação automática. Antes de adotá-la, registre a decisão, o contrato, o dado enviado, o custo, a forma de saída e o caminho de remoção.
+Ferramenta não é decisão arquitetural. Escolha-a para tornar uma hipótese observável: contrato, fronteira de dados, evidência recuperada, estado de um workflow, resultado de avaliação ou trace. Um framework organiza componentes; ele não substitui os critérios da decisão. Nas oficinas, o ponto de partida é sempre local, open source e baseado em dados sintéticos.
 
-As condições abaixo foram verificadas em **16 de julho de 2026** nas fontes oficiais indicadas. Elas podem mudar; não trate uma rota sem cobrança hoje como gratuidade permanente.
+Antes de instalar algo, registre: qual decisão quer observar, qual entrada sintética será usada, que resultado espera ver, que arquivo será produzido e como limpar o ambiente.
 
-## Regra de acesso justo
+## Mapa das ferramentas da disciplina
 
-Nenhuma atividade obrigatória depende de cartão de crédito. A rota essencial, sem cartão, é suficiente para produzir a evidência e receber a nota máxima. A disponibilidade de planos gratuitos muda: confira a fonte oficial e a data de verificação indicada em cada oficina.
-
-Use apenas dados sintéticos nas atividades. Não cole credenciais, chaves, dados pessoais, dados institucionais ou segredos em prompts, arquivos de configuração, capturas ou repositórios.
-
-## Categorias e critérios
-
-| Categoria | Decisão que apoia | Critérios | Risco de abstração |
+| Módulo | Ferramenta local open source | O que o aluno executa | Evidência arquitetural |
 |---|---|---|---|
-| AIaaS e SDK | consumo de inferência | dados, região, custo, limite, portabilidade | contrato do provedor vira contrato do produto |
-| Framework de RAG/orquestração | contexto e fluxo | rastreabilidade, avaliação, extensibilidade | ocultar recuperação e prompt |
-| Executor local | privacidade e autonomia | capacidade, operação, modelo, licença | custo operacional subestimado |
-| Gateway | controle compartilhado | identidade, quota, política, failover | gargalo e menor denominador comum |
+| Fundamentos | Ollama | modelo e temperatura pela API local | contexto, fonte e variação |
+| Desenho conceitual | LiteLLM Proxy + Ollama | gateway e manifesto de modelo | contrato estável e troca de destino |
+| RAG | LangChain + Chroma + Ollama | ingestão e recuperação de corpus | ID, versão, trecho e citação |
+| Agentes | LangGraph | workflow com aprovação simulada | estado, idempotência e parada |
+| Confiança | DeepEval + Ollama | casos e relatório de avaliação | regra, falha e justificativa |
+| Operação | OpenTelemetry + LiteLLM Proxy | trace de chamada sintética | atributo, duração e recuperação |
 
-## Opções pesquisadas e matriz de acesso
+## Critérios de seleção
 
-| Categoria | Rota essencial sem cartão | Institucional | Comercial ou avançada | Pré-requisitos | Comando ou início local | Fonte e data de verificação |
-|---|---|---|---|---|---|---|
-| Playground/assistente — ChatGPT | ChatGPT Free: conta pode ser necessária conforme região; navegador, sem instalação, chave ou cartão para a rota. Os limites variam. | ChatGPT Edu/Business, se a instituição já disponibilizar conta. | Plus/Pro: assinatura opcional; não acrescenta pontos. | Essencial: navegador e, quando exigido, conta; sem chave. Pode haver limite de uso. | Sem comando local; use a análise manual sintética se a interface não estiver disponível. | [FAQ do plano Free](https://help.openai.com/en/articles/9275245-using-chatgpt-s-free-tier), [FAQ geral](https://help.openai.com/en/articles/12677804-what-is-chatgpt-faq) — verificado em 16 jul. 2026. |
-| Executor local — Ollama | Executar um modelo local pequeno ou apenas registrar a decisão de capacidade. Sem conta, chave ou cartão; requer instalação e espaço/CPU/RAM locais. | Laboratório institucional com máquina gerenciada, se houver. | Infraestrutura com GPU ou modelo maior é opcional e não acrescenta pontos. | Instalar Ollama e baixar modelo; custo potencial de hardware, energia e armazenamento, mesmo sem cobrança de serviço. | `ollama pull llama3.2:3b` e `ollama run llama3.2:3b` | [Quickstart do Ollama](https://docs.ollama.com/quickstart), [requisitos no macOS](https://docs.ollama.com/macos) — verificado em 16 jul. 2026. |
-| SDK de provedor / AIaaS — OpenAI SDK | Validar o contrato do adaptador com fixture local sintética, sem chamada remota, conta, chave ou cartão. Isso produz evidência de contrato, não inferência. | Chave disponibilizada pela instituição, se houver política e autorização. | Chave própria e créditos de API; opcional e sem vantagem. | Para chamada real: instalar SDK, criar conta e chave; há custo potencial de créditos/faturamento. Nunca registrar chave no projeto. | `python -m json.tool fixture-resumo.json` | [Quickstart da API OpenAI](https://developers.openai.com/api/docs/quickstart) — verificado em 16 jul. 2026. |
-| Framework de RAG/orquestração — LangChain | Instalar LangChain e executar fluxo com documentos, recuperador e resposta sintéticos/mocks locais; sem conta, chave ou cartão. | Serviço de avaliação/observabilidade institucional, se autorizado. | Integrações com provedores pagos são opcionais e não acrescentam pontos. | Python 3.10+ e instalação do pacote; uma chamada a modelo externo exigirá a credencial e as condições do provedor. | `python -m venv .venv` e `python -m pip install langchain langchain-chroma chromadb` | [Instalação do LangChain](https://docs.langchain.com/oss/python/langchain/install) — verificado em 16 jul. 2026. |
-| Automação de agentes — n8n | Fluxo local com gatilho manual e nós que transformam JSON sintético; sem conta, chave ou cartão para esse fluxo. | n8n gerenciado pela instituição, se houver acesso concedido. | n8n Cloud ou integrações externas são opcionais e não acrescentam pontos. | Instalação local (por exemplo, Docker ou npm); cada integração externa pode exigir conta/credencial e gerar custo. | `npx n8n` | [Documentação de hospedagem do n8n](https://docs.n8n.io/hosting/) — verificado em 16 jul. 2026. |
-| Observabilidade/avaliação — Langfuse | Registrar manualmente um traço e critérios sobre entradas/saídas sintéticas, ou auto-hospedar Langfuse localmente; sem cartão e sem chave de provedor para a evidência mínima. | Instância da instituição, somente com autorização e dados sintéticos. | Cloud/Enterprise e recursos licenciados são opcionais e não acrescentam pontos. | Auto-hospedagem requer Docker e serviços de armazenamento; pode exigir conta local e consome disco/CPU. Custos de infraestrutura continuam possíveis. | `docker run --rm -p 6006:6006 arizephoenix/phoenix:latest` ou trace manual JSON | [Auto-hospedagem Langfuse](https://langfuse.com/self-hosting), [implantação com Docker Compose](https://langfuse.com/self-hosting/deployment/docker-compose) — verificado em 16 jul. 2026. |
-| Gateway — LiteLLM Proxy | Instalar o proxy e apontá-lo para Ollama local, com prompt/saída sintéticos; sem conta, chave ou cartão. | Gateway institucional, se a equipe responsável autorizar o uso. | Provedores remotos, balanceamento corporativo e observabilidade comercial são opcionais e não acrescentam pontos. | Instalar `litellm[proxy]`; para provedor remoto, a respectiva chave e condições são necessárias. Um gateway não elimina custos do provedor. | `litellm --config litellm_config.yaml --port 4000` | [Quickstart do LiteLLM Proxy](https://docs.litellm.ai/docs/proxy/quick_start) — verificado em 16 jul. 2026. |
-
-Em macOS e Linux, ative o ambiente Python com `source .venv/bin/activate`; no Windows, use `.venv\\Scripts\\activate`. Os comandos `ollama`, `npx`, `docker` e `litellm` devem ser executados no terminal compatível com sua instalação; se não estiverem disponíveis, use a contingência manual indicada na oficina correspondente, sem substituir por credenciais ou dados reais.
-
-## Ferramentas complementares por papel arquitetural
-
-Estas opções expandem as categorias acima e não criam uma rota obrigatória. A instalação, a disponibilidade e qualquer custo potencial dependem da versão, ambiente e condições do fornecedor; confirme sempre a fonte oficial antes de adotar.
-
-| Papel | Exemplos | Decisão que ainda cabe à arquitetura | Documentação oficial |
-|---|---|---|---|
-| Executor local | LM Studio; Docker Model Runner | hardware, pesos, licenças, fronteira de dados e operação. | [LM Studio](https://lmstudio.ai/docs/app); [Docker Model Runner](https://docs.docker.com/ai/model-runner/) |
-| Recuperação e índice | LlamaIndex; Chroma; Qdrant | fonte autorizada, metadados, atualização, filtros e evidência. | [LlamaIndex](https://developers.llamaindex.ai/python/framework/getting_started/installation/); [Chroma](https://docs.trychroma.com/docs/overview/introduction); [Qdrant](https://qdrant.tech/documentation/) |
-| Orquestração de agentes | LangGraph; AutoGen | estado, autoridade, aprovação, idempotência e orçamento. | [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview); [AutoGen](https://microsoft.github.io/autogen/stable/) |
-| Observação e validação | Phoenix; Guardrails AI | minimização, retenção, critérios de bloqueio e resposta a falhas. | [Phoenix](https://arize.com/docs/phoenix); [Guardrails AI](https://guardrailsai.com/guardrails/docs) |
-
-## Matriz de seleção
-
-| Pergunta de decisão | Evidência mínima na rota essencial | Sinal para considerar rota institucional ou avançada |
+| Pergunta de decisão | Evidência mínima no laboratório | Risco a controlar |
 |---|---|---|
-| O dado pode sair do dispositivo? | classificação do dado sintético e fronteira de envio | política institucional, região ou contrato exigido |
-| O contrato do modelo é portátil? | interface de entrada/saída e fixture de resposta | necessidade de múltiplos provedores ou failover |
-| O fluxo recupera contexto de modo rastreável? | corpus sintético, consulta, trechos recuperados e resposta | escala, conectores ou avaliação gerenciada |
-| O agente pode agir com segurança? | simulação sem efeitos externos, limites e aprovação humana | integração autorizada com sistemas reais |
-| Como avaliar e operar? | caso de teste sintético, métrica definida e log redigido | retenção, RBAC, SSO, auditoria ou suporte contratado |
+| O dado pode deixar o dispositivo? | descrição da entrada, saída e fronteira local | exposição indevida |
+| O contrato do modelo é portátil? | manifesto, alias e requisição imutável | acoplamento do produto ao modelo |
+| O contexto é rastreável? | corpus, IDs, versões e trechos recuperados | resposta sem fonte autorizada |
+| Um agente pode agir? | estado, aprovação e chave de idempotência | efeito não autorizado ou duplicado |
+| A resposta está pronta para uso? | caso, critério e relatório | julgamento sem evidência |
+| A plataforma é operável? | trace, limiar, dono e ação | alerta sem recuperação |
 
-## Checklist de segurança e remoção
+## Instalação local por papel arquitetural
 
-- [ ] O conjunto de dados, prompts, respostas e capturas é sintético e não contém dados pessoais, institucionais ou segredos.
-- [ ] Não há chave, token, senha, URL privada ou arquivo `.env` versionado; credenciais nunca são solicitadas para a rota essencial.
-- [ ] O grupo declara o provedor, a região quando aplicável, o dado enviado, os limites, o custo potencial e quem pode acessar a saída.
-- [ ] A atividade pode ser reproduzida sem cartão por fixture, mock, executor local ou fluxo manual equivalente.
-- [ ] O grupo registra como desligar a ferramenta, revogar acessos, apagar dados sintéticos e remover dependências.
-- [ ] Uma opção institucional ou comercial é documentada como comparação, nunca como pré-requisito ou vantagem avaliativa.
+### Executor de modelos — Ollama
+
+Ollama executa modelos localmente e é o componente comum às oficinas 1, 2, 3, 5 e 6. Instale-o em [ollama.com/download](https://ollama.com/download) e confirme:
+
+```bash
+ollama --version
+ollama pull llama3.2:3b
+```
+
+Para o laboratório RAG, baixe também o modelo de embeddings:
+
+```bash
+ollama pull nomic-embed-text
+```
+
+### Gateway — LiteLLM Proxy
+
+LiteLLM Proxy faz a aplicação consumir um alias em vez de chamar o modelo diretamente. Ele é usado nos módulos 2 e 6:
+
+```bash
+python -m pip install 'litellm[proxy]'
+litellm --config litellm_config.yaml --port 4000
+```
+
+### Recuperação — LangChain e Chroma
+
+LangChain organiza os componentes; Chroma preserva o índice local. Eles são usados no módulo 3:
+
+```bash
+python -m pip install langchain langchain-chroma chromadb langchain-ollama
+```
+
+### Orquestração — LangGraph
+
+LangGraph representa estados e transições explícitas no módulo 4:
+
+```bash
+python -m pip install langgraph langchain-ollama
+```
+
+### Avaliação — DeepEval
+
+DeepEval transforma casos e critérios em resultados comparáveis. No módulo 5, o juiz é o Ollama local:
+
+```bash
+python -m pip install deepeval
+```
+
+### Observação — OpenTelemetry
+
+OpenTelemetry descreve spans e atributos sem prender a arquitetura a um único backend. O módulo 6 usa o exportador de console:
+
+```bash
+python -m pip install opentelemetry-api opentelemetry-sdk
+```
+
+## Limites que permanecem mesmo em ambiente local
+
+Ambiente local não elimina custo de CPU, memória, disco, energia ou tempo de instalação. Também não transforma um corpus sintético em fonte autorizada de produção. Use os laboratórios para observar decisões, declarar pressupostos e formular testes; não para validar um sistema real com dados reais.
+
+## Checklist de encerramento
+
+- [ ] Dados, prompts, respostas e capturas são sintéticos.
+- [ ] A ferramenta, versão e modelo usados foram registrados na evidência.
+- [ ] Arquivos temporários, índices e relatórios foram removidos ou guardados conscientemente.
+- [ ] A conclusão diferencia o que foi observado do que ainda precisa de avaliação.
+- [ ] A próxima ação tem responsável, limiar ou gatilho de revisão.

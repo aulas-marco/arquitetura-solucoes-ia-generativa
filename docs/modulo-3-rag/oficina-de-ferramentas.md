@@ -2,107 +2,145 @@
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina torna inspecionável o caminho entre uma pergunta, uma evidência recuperada e uma resposta. Ela usa um corpus de treinamento pequeno; não mede a qualidade geral de um modelo, índice ou fornecedor.
+Esta oficina constrói um RAG local pequeno para observar, na ordem correta, corpus, ingestão, recuperação, evidência e resposta. O resultado não é uma demonstração de “chat inteligente”; é uma forma de verificar quais documentos sustentaram uma resposta.
 
-## Decisão arquitetural em foco
+## Ferramenta
 
-Um sistema RAG precisa distinguir uma resposta fluente de uma resposta sustentada por fonte elegível. A **atividade guiada** compara essas condições e explicita onde a arquitetura deve registrar versão, trecho e citação. Consulte o [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md) antes de escolher uma rota: as categorias orientam a decisão, não prescrevem um produto.
+Você usará **LangChain** para organizar os componentes, **Chroma** como banco vetorial local e **Ollama** para gerar embeddings e a resposta. As três ferramentas são open source e rodam no computador do aluno.
 
-## Roteiros equivalentes de acesso
-
-### Essencial, sem cartão
-
-Faça a recuperação manual estruturada com o corpus desta página, uma tabela ou arquivos locais; alternativamente, use um recuperador local que aceite documentos sintéticos. Separe os trechos, atribua identificadores e selecione evidências antes de redigir a resposta. A rota não depende de cartão, conta, chave de API nem chamada remota e é suficiente para a evidência obrigatória.
-
-### Institucional
-
-Use um ambiente de busca, laboratório ou conector institucional somente se ele já estiver autorizado e disponível. Carregue apenas o corpus sintético desta página, registre a política de acesso aplicada e produza a mesma evidência. A rota institucional não acrescenta pontos; apenas muda o ambiente de observação.
-
-### Comercial ou avançada
-
-Opcionalmente, repita a prática em um serviço gerenciado de RAG ou conector comercial autorizado. Declare conta, chave, possível cobrança, retenção e quais dados seriam enviados; não use dados reais. A rota comercial ou avançada não acrescenta pontos e não é necessária para comparar a decisão arquitetural.
-
-## Receita principal
-
-Use Python 3.10+ com **LangChain** e **Chroma** locais. Confira as versões e reserve disco para o ambiente virtual; a receita abaixo não chama modelo remoto nem requer chave. Em uma pasta descartável, crie `rag_local.py` com os três trechos Boreal da atividade e vetores sintéticos fixos (por exemplo, `[1,0]`, `[0,1]`, `[1,1]`) para tornar a recuperação reproduzível.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install langchain langchain-chroma chromadb
-python rag_local.py
-```
-
-O script deve criar uma coleção Chroma persistida em `./chroma-boreal`, inserir cada trecho com os metadados `id=POL-17` e `versao=v3`, consultar o vetor sintético da pergunta e imprimir os IDs, versões e textos recuperados. Não use embedding de provedor: os vetores fixos servem somente para testar proveniência e citação.
+**Decisão arquitetural em foco:** como a arquitetura registra versão e trecho recuperado antes de permitir uma resposta apresentada como fundamentada?
 
 ## Pré-requisitos
 
-- Python 3.10+, `venv`, conexão temporária para instalar pacotes e espaço em disco para `.venv` e `chroma-boreal`.
-- Somente os três trechos sintéticos desta página e um arquivo `rag_local.py` descartável.
-- Terminal compatível com `source`; no Windows use `.venv\\Scripts\\activate`.
+- Python 3.10 ou superior, terminal e espaço em disco para ambiente virtual e índice local.
+- Ollama instalado, com os modelos `llama3.2:3b` e `nomic-embed-text` baixados.
+- Conexão temporária apenas para instalar bibliotecas e baixar modelos.
+- Uma pasta de laboratório sem documentos reais: o corpus Boreal abaixo é integralmente sintético.
+
+## Instalação
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). Depois, em um terminal, execute:
+
+```bash
+mkdir oficina-m3
+cd oficina-m3
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install langchain langchain-chroma chromadb langchain-ollama
+ollama pull llama3.2:3b
+ollama pull nomic-embed-text
+mkdir corpus
+```
+
+No Windows PowerShell, substitua a ativação por `.venv\Scripts\Activate.ps1`.
+
+## Preparação do laboratório
+
+Um **[corpus](conceitos.md#fontes-e-formatos)** é o conjunto de documentos que o sistema pode consultar. Aqui ele terá três arquivos. **Ingestão** é a leitura desses arquivos, a preservação de seus metadados e sua indexação no Chroma. **Recuperação** é a seleção dos trechos candidatos para uma pergunta.
+
+Baixe os quatro arquivos abaixo. Salve os três `.txt` dentro da pasta `corpus/`; salve `rag_local.py` diretamente em `oficina-m3/`.
+
+- [politica-reembolso.txt](../assets/labs/modulo-3/politica-reembolso.txt)
+- [politica-campanha.txt](../assets/labs/modulo-3/politica-campanha.txt)
+- [portal-estorno.txt](../assets/labs/modulo-3/portal-estorno.txt)
+- [rag_local.py](../assets/labs/modulo-3/rag_local.py)
+
+Ao terminar, confirme os arquivos:
+
+```bash
+ls corpus
+ls rag_local.py
+```
+
+Os metadados `ID: POL-17` e `VERSAO: v3` fazem parte do corpus. Eles não são detalhes decorativos: serão impressos antes da resposta e permitem discutir proveniência.
+
+## Execução
+
+Execute a primeira pergunta, sobre compra regular:
+
+```bash
+python rag_local.py --pergunta 'Qual é o prazo para solicitar reembolso em uma compra regular?'
+```
+
+O script cria a pasta `chroma-boreal`, faz a ingestão, recupera até dois trechos e imprime linhas que começam por `RECUPERADO`. Só depois ele pede uma resposta ao modelo local.
+
+## Receita principal
+
+Procure na saída por `RECUPERADO POL-17:v3`. Esse é o sinal de que a resposta tem evidência do corpus correto. Em seguida, execute uma pergunta com informação insuficiente:
+
+```bash
+python rag_local.py --pergunta 'Não sei a data nem se a compra era promocional; qual prazo devo informar?'
+```
+
+**Resultado esperado:** `REVISÃO_HUMANA`. O script interrompe a geração nessa condição porque o corpus exige data e tipo de compra para escolher entre 15 e 7 dias. Essa parada é uma regra arquitetural explícita, não uma limitação a esconder do usuário.
 
 ## Resultado esperado
 
-Para a pergunta sobre compra regular, a saída lista `POL-17:v3` e o trecho de 15 dias. Para dados insuficientes, ela deve listar o trecho que exige revisão humana. A evidência observável é a lista de metadados recuperados antes da resposta citada, não uma resposta fluente sem fonte.
+Após a primeira execução, devem existir:
 
-## Limpeza e contingência
+- a pasta `chroma-boreal`, que contém o índice local;
+- pelo menos uma linha `RECUPERADO POL-17:v3` antes da resposta;
+- uma resposta que cite o ID e a versão usados;
+- na segunda pergunta, a indicação `REVISÃO_HUMANA` em vez de um prazo inventado.
 
-Saia do ambiente com `deactivate` e remova `.venv`, `chroma-boreal` e `rag_local.py` quando terminar. Se a instalação falhar, separe manualmente a tabela da atividade em três cartões, selecione os trechos e registre seus IDs e versões antes de redigir a resposta. Essa inspeção manual é a contingência oficial e não precisa de conta ou execução externa.
+Uma execução só mostra o comportamento desse corpus e desses parâmetros. Ela não mede recall geral, cobertura de um acervo real, qualidade de produção ou autorização de acesso.
+
+## Interpretação
+
+Simule uma falha de ingestão ou filtro removendo o documento de política da coleção:
+
+```bash
+python rag_local.py --excluir POL-17:v3 --pergunta 'Qual é o prazo para solicitar reembolso em uma compra regular?'
+```
+
+Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usuário. A variável alterada é a presença de `POL-17:v3`; o experimento não compara “modelos melhores”, mas localiza uma hipótese de falha entre ingestão, metadado, recuperação e montagem de contexto.
 
 ## Roteiro sugerido para aula
 
-Selecione um bloco; recuperação manual basta.
+### Experimento A — ingestão e proveniência (Essencial em aula)
 
-### Experimento A — resposta sem e com evidência (Essencial em aula)
+**Objetivo:** ver como o corpus se transforma em índice. **Pré-requisito:** arquivos copiados. **Execute:** rode a primeira pergunta. **Observe:** `chroma-boreal`, IDs e versões. **Compare:** arquivo de origem e trecho recuperado.
 
-**Objetivo:** distinguir fluência de fundamentação. **Pré-requisito:** corpus Boreal. **Execute:** responda antes e depois da seleção. **Observe:** ID, versão e citação. **Compare:** resposta plausível e autorizada. **Questões exploratórias:** que decisão preserva proveniência? Que qualidade a citação verifica? Que risco há sem versão?
+**Questões exploratórias:**
 
-### Experimento B — recuperação e falha (Exploração em dupla)
+- Que componente preserva `POL-17:v3` quando o texto entra no índice?
+- Qual risco aparece se o trecho é recuperado sem versão?
+- Que evidência torna uma atualização do corpus auditável?
 
-**Objetivo:** localizar falha no pipeline. **Pré-requisito:** tabela. **Execute:** recupere só o primeiro trecho e revise. **Observe:** cobertura e resposta. **Compare:** metadado, filtro, ranking e contexto. **Questões exploratórias:** que componente registra versão? Como recuperação afeta qualidade? Que alucinação o ranking não elimina?
+### Experimento B — resposta com fonte (Exploração em dupla)
 
-### Experimento C — política de abstenção (Extensão)
+**Objetivo:** separar resposta fluente de resposta fundamentada. **Pré-requisito:** primeira execução concluída. **Execute:** localize o ID antes da resposta. **Observe:** citação e conteúdo recuperado. **Compare:** resposta sem trecho versus resposta com evidência.
 
-**Objetivo:** desenhar parada segura. **Pré-requisito:** Experimento B. **Execute:** defina regra e registro. **Observe:** ausência de data ou tipo. **Compare:** ressalva, abstenção e invenção. **Questões exploratórias:** que decisão é auditável? Que qualidade justifica abstenção? Que risco há sem contexto?
+**Questões exploratórias:**
 
-## Atividade guiada
+- O que a citação permite verificar e o que ela não garante?
+- Como o ranking pode recuperar um trecho plausível, mas insuficiente?
+- Em que ponto da arquitetura a fonte deve ser apresentada ao usuário?
 
-A atividade obrigatória é a rota **Essencial, sem cartão** (ou a execução local equivalente); ela não depende de cartão. Trabalhe com o corpus sintético abaixo.
+### Experimento C — falha e abstenção (Extensão)
 
-**Corpus sintético — Base de atendimento Boreal (versão de treinamento 2026-07):**
+**Objetivo:** tratar ausência de evidência como sinal de parada. **Pré-requisito:** Experimento B. **Execute:** use `--excluir POL-17:v3` e a pergunta sem data. **Observe:** IDs ausentes e `REVISÃO_HUMANA`. **Compare:** abstenção, resposta inventada e encaminhamento.
 
-| ID e versão | Trecho |
-|---|---|
-| `POL-17:v3` | Reembolso de compra regular pode ser solicitado em até 15 dias corridos da compra. O atendente deve citar a política aplicada. |
-| `POL-17:v3` | Em campanha especial identificada no pedido, o prazo de reembolso é de 7 dias corridos. Sem a data ou o tipo de compra, o caso deve ser encaminhado para revisão humana. |
-| `ENV-04:v1` | Pedidos de estorno são registrados no portal; a confirmação depende da validação do pedido elegível. |
+**Questões exploratórias:**
 
-**Perguntas de referência:**
-
-1. “Qual é o prazo para solicitar reembolso em uma compra regular?”
-2. “O que devo responder se não sei a data nem se a compra foi promocional?”
-
-1. Registre uma resposta inicial a cada pergunta **sem evidência recuperada**. Ela pode ser uma hipótese, mas não deve inventar uma fonte.
-2. Simule a ingestão: conserve ID, versão e conteúdo de cada trecho; explique como uma mudança de versão seria reconhecida.
-3. Para cada pergunta, recupere manualmente os trechos candidatos, anote o critério de seleção e aplique o trecho à resposta. Uma ferramenta local pode executar esta etapa, mas deve mostrar os identificadores recuperados.
-4. Redija a resposta **com evidência**, citando `POL-17:v3` ou recusando-se a concluir quando a evidência exigir revisão humana. Compare recuperação, citação e resposta com a versão sem evidência.
-5. Inspecione uma falha plausível: por exemplo, recuperar apenas o primeiro trecho de `POL-17:v3` para a segunda pergunta. Formule uma hipótese de correção em ingestão, metadado, consulta, filtro, ranking ou montagem de contexto.
-
-A decisão arquitetural a discutir é: **como a ingestão, a recuperação e a citação permitem saber se uma resposta está fundamentada na fonte autorizada?** Não acrescente fatos externos ao corpus.
+- Que teste evitaria publicar um índice sem o documento obrigatório?
+- Qual é a diferença entre falha de recuperação e alucinação?
+- Que dado adicional seria necessário para reduzir a abstenção com segurança?
 
 ## Evidência a entregar
 
-Entregue a tabela preenchida e uma conclusão de até cinco linhas. A evidência da atividade inclui segurança e custo: informe a rota escolhida, declare que o corpus é sintético e registre qualquer instalação, limite, consumo local ou custo potencial percebido.
+Entregue a tabela preenchida e uma conclusão de até cinco linhas.
 
-| Pergunta | Resposta sem evidência | Trecho recuperado e proveniência | Resposta com evidência e citação | Falha observada | Hipótese de correção |
-|---|---|---|---|---|---|
-| Prazo regular |  |  |  |  |  |
-| Dados insuficientes |  |  |  |  |  |
+| Pergunta | IDs e versões recuperados | Resposta | Fonte citada? | Hipótese de correção ou decisão |
+|---|---|---|---|---|
+| Compra regular |  |  |  |  |
+| Dados insuficientes |  |  |  |  |
+| `POL-17:v3` excluído |  |  |  |  |
 
-Na conclusão, diferencie uma resposta que pode ser apresentada ao usuário daquela que deve abster-se e encaminhar revisão. Uma única execução não prova qualidade de produção: ela apenas localiza uma hipótese verificável sobre o pipeline.
+Na conclusão, responda: quando a arquitetura deve responder, quando deve pedir informação e quando deve encaminhar para revisão humana? Declare que o corpus é sintético e registre o modelo de embedding e o modelo de chat usados.
 
-## Segurança e custo
+## Limpeza e contingência
 
-A decisão arquitetural não é escolher a ferramenta “mais inteligente”, mas preservar proveniência, autorização e possibilidade de revisão. Use somente o corpus sintético; não carregue políticas, contratos, credenciais, dados pessoais ou documentos institucionais em conectores, capturas ou repositórios.
+Encerre a execução, saia do ambiente com `deactivate` e apague `.venv` e `chroma-boreal` se não precisar mais deles. Para remover modelos que não serão usados, execute `ollama rm nomic-embed-text` e `ollama rm llama3.2:3b`.
 
-Uma ferramenta local pode consumir CPU, memória, disco e energia; um conector institucional ou comercial pode impor conta, retenção, limites ou cobrança. Registre esses limites na evidência e remova o corpus ou configuração local ao terminar. Se qualquer rota externa falhar, retorne à recuperação manual estruturada: a atividade e a evidência continuam possíveis sem cartão.
+Se houver falha, primeiro confirme `python --version`, `ollama list`, a existência de `corpus/` e os nomes dos quatro arquivos. Registre a mensagem de erro e peça apoio ao professor para corrigir a instalação local. Não substitua o corpus por políticas reais, contratos ou dados de atendimento.

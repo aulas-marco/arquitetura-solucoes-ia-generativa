@@ -19,7 +19,7 @@ Formem grupos de três a cinco pessoas. Definam papéis de facilitação, arquit
 
 ## Evidências mínimas
 
-A evidência central deve ser reproduzível na rota essencial, sem cartão: uma fixture ou execução local, um contrato de entrada/saída, uma avaliação simples e um registro de decisão. Não usem nem entreguem credenciais, dados pessoais, dados institucionais, segredos ou dados de produção. Capturas devem ocultar identificadores e chaves.
+A evidência central deve ser reproduzível em uma execução local: entrada sintética, saída, contrato de entrada/saída, avaliação simples e registro de decisão. Não usem nem entreguem credenciais, dados pessoais, dados institucionais, segredos ou dados de produção. Capturas devem ocultar identificadores e chaves.
 
 ## Matriz de comparação de duas opções
 
@@ -27,15 +27,13 @@ A evidência central deve ser reproduzível na rota essencial, sem cartão: uma 
 |---|---|---|---|
 | Dados e privacidade |  |  |  |
 | Contrato e portabilidade |  |  |  |
-| Instalação, conta, chave e cartão |  |  |  |
+| Instalação, dependências e capacidade local |  |  |  |
 | Avaliação e rastreabilidade |  |  |  |
 | Operação, custo potencial e remoção |  |  |  |
 
-## Equidade de acesso
+## Reprodutibilidade do projeto
 
-Uso de ferramenta paga não acrescenta pontos. Quando uma opção comercial for comparada, o grupo deve declarar custo, condição de acesso e uma alternativa essencial sem cartão que permita reproduzir a evidência central.
-
-A rota essencial sem cartão é obrigatória; uma rota institucional ou comercial pode ser apresentada apenas como comparação e não confere vantagem. Planos, limites e preços podem mudar: registrem a fonte oficial e a data de verificação.
+O grupo deve apresentar uma execução local que outra equipe consiga repetir com os mesmos arquivos sintéticos. Registrem versões, dependências, modelo, parâmetros, limite observado e limpeza do ambiente. A comparação de ferramentas deve discutir efeitos arquiteturais — dados, portabilidade, qualidade, operação e remoção — e não preferência por marca.
 
 ## Rubrica
 
@@ -51,7 +49,7 @@ A rota essencial sem cartão é obrigatória; uma rota institucional ou comercia
 
 ## Apresentação
 
-Cada grupo fará uma apresentação curta com problema, arquitetura, a decisão comparada, demonstração ou fixture da rota essencial e riscos. Todas as pessoas devem conseguir explicar as decisões e a evidência atribuída ao grupo.
+Cada grupo fará uma apresentação curta com problema, arquitetura, a decisão comparada, demonstração local e riscos. Todas as pessoas devem conseguir explicar as decisões e a evidência atribuída ao grupo.
 
 ## Limites éticos
 
