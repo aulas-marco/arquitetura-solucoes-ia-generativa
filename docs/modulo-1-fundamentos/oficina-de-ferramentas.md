@@ -68,7 +68,7 @@ A **Política Aurora** é um **documento fictício** criado somente para treinam
    ollama run llama3.2:3b
    ```
 
-   **O que observar:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única **variável de controle** alterada. Compare as duas respostas com corpus. Uma [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) pode ocorrer entre execuções, mas não é uma medida de qualidade por si só. A interação de linha de comando usada aqui não expõe temperatura; não declare que modificou esse parâmetro.
+   **O que observar:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única **variável de controle** alterada. Compare as duas respostas com corpus. Uma [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) pode ocorrer entre execuções, mas não é uma medida de qualidade por si só. **Temperatura** é um parâmetro que influencia o quanto o modelo tende a variar as palavras escolhidas: valores menores costumam produzir respostas mais repetíveis; valores maiores, respostas mais diversas. Ela não garante correção. A interação de linha de comando usada aqui não expõe temperatura; por isso, não a modificaremos nesta prática.
 
    Preencha a tabela após cada execução:
 
