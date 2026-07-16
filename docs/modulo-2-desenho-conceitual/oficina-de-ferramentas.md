@@ -56,6 +56,22 @@ O primeiro comando valida o JSON e o segundo imprime a entrada e a saída sinté
 
 Apague `fixture-resumo.json` ao terminar. Se Python não estiver disponível, desenhe os dois objetos JSON em uma tabela e confira manualmente os mesmos campos; registre a inspeção sem execução e mantenha a mini-ADR. Não inclua `OPENAI_API_KEY`, URL privada ou credenciais em arquivo algum.
 
+## Roteiro sugerido para aula
+
+Selecione um bloco; todos usam dados sintéticos e dispensam conta.
+
+### Experimento A — contrato observável (Essencial em aula)
+
+**Objetivo:** tornar visível a fronteira do contrato. **Pré-requisito:** fixture. **Execute:** valide-a. **Observe:** campos auditáveis. **Compare:** contrato versus inferência, preço e latência. **Questões exploratórias:** que decisão mantém o contrato? Que qualidade depende de campos explícitos? Que risco há sem modelo ou versão no log?
+
+### Experimento B — matriz de fronteiras (Exploração em dupla)
+
+**Objetivo:** comparar AIaaS/SDK, local e orquestração. **Pré-requisito:** fixture e matriz. **Execute:** cada dupla completa uma rota. **Observe:** a fronteira de dados. **Compare:** custo, operação, portabilidade e observabilidade. **Questões exploratórias:** qual rota reduz dependência? Que qualidade é difícil de observar? Que risco dispara revisão?
+
+### Experimento C — mini-ADR reversível (Extensão)
+
+**Objetivo:** criar hipótese revisável. **Pré-requisito:** matriz. **Execute:** redija a mini-ADR. **Observe:** evidência faltante. **Compare:** escolha e alternativa. **Questões exploratórias:** que decisão é reversível? Como a latência altera o critério? Que risco inviabiliza a alternativa?
+
 ## Atividade guiada
 
 A atividade obrigatória é realizável pela rota **Essencial, sem cartão**; ela não depende de cartão e não exige chave de API. Considere o cenário sintético: uma equipe quer redigir um resumo de solicitações fictícias de suporte e precisa manter o contrato de entrada e saída explícito.

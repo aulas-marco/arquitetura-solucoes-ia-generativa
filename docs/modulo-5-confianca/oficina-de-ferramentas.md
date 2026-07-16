@@ -50,6 +50,22 @@ Cada caso resulta em um trace com uma decisão verificável — aceitar, corrigi
 
 Interrompa o contêiner com `Ctrl+C`; com `--rm`, ele é removido ao encerrar. Apague `trace-confianca.json` se não precisar guardar a evidência. Se Docker, Phoenix ou Langfuse não estiverem disponíveis, complete a mesma estrutura em uma tabela local e registre que a rota foi manual; não envie os casos a uma plataforma externa nem use logs reais.
 
+## Roteiro sugerido para aula
+
+Selecione um bloco; a tabela local basta.
+
+### Experimento A — decisão recuperável (Essencial em aula)
+
+**Objetivo:** decidir entre aceitar, corrigir, escalar e bloquear. **Pré-requisito:** cinco casos. **Execute:** registre decisão, motivo e próximo passo. **Observe:** que a pontuação não basta. **Compare:** bloqueio, correção e escalonamento. **Questões exploratórias:** que decisão explicita recuperação? Que qualidade exige justificativa? Que risco há sem política verificável?
+
+### Experimento B — trace mínimo (Exploração em dupla)
+
+**Objetivo:** reduzir dados e manter auditoria. **Pré-requisito:** Experimento A. **Execute:** proponha campos mínimos do trace. **Observe:** entrada, motivo, decisão e recuperação. **Compare:** trace detalhado, mínimo e ausente. **Questões exploratórias:** que dado audita? Como minimização afeta observabilidade? Que privacidade se perde com conteúdo demais?
+
+### Experimento C — fallback de experiência (Extensão)
+
+**Objetivo:** testar resposta segura a bloqueio. **Pré-requisito:** caso bloqueado. **Execute:** escreva mensagem e caminho humano. **Observe:** limite sem política sensível. **Compare:** negar, orientar e executar. **Questões exploratórias:** que arquitetura separa guardrail e experiência? Que qualidade mede recuperabilidade? Que confiança se perde sem próximo passo?
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão**; ela não depende de cartão. Examine os cinco casos sintéticos e registre uma decisão para cada um.

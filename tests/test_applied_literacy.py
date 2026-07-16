@@ -146,6 +146,17 @@ conteúdo da atividade
                 self.assertRegex(security_cost, r"(?i)decis.o arquitetural")
                 self.assertRegex(security_cost, r"(?i)atividade|evid.ncia")
 
+    def test_modules_two_to_six_offer_selectable_exploratory_experiments(self):
+        for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):
+            text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
+            with self.subTest(module=slug):
+                self.assertIn("## Roteiro sugerido para aula", text)
+                for label in ("Essencial em aula", "Exploração em dupla", "Extensão"):
+                    self.assertIn(label, text)
+                for experiment in ("Experimento A", "Experimento B", "Experimento C"):
+                    self.assertIn(experiment, text)
+                self.assertGreaterEqual(text.count("Questões exploratórias"), 3)
+
     def test_shared_guide_and_group_project_preserve_equity(self):
         guide = (DOCS / "referencia" / "guia-de-ferramentas.md").read_text(encoding="utf-8").casefold()
         project = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8").casefold()

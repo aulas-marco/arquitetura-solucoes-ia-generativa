@@ -49,6 +49,22 @@ Para a pergunta sobre compra regular, a saída lista `POL-17:v3` e o trecho de 1
 
 Saia do ambiente com `deactivate` e remova `.venv`, `chroma-boreal` e `rag_local.py` quando terminar. Se a instalação falhar, separe manualmente a tabela da atividade em três cartões, selecione os trechos e registre seus IDs e versões antes de redigir a resposta. Essa inspeção manual é a contingência oficial e não precisa de conta ou execução externa.
 
+## Roteiro sugerido para aula
+
+Selecione um bloco; recuperação manual basta.
+
+### Experimento A — resposta sem e com evidência (Essencial em aula)
+
+**Objetivo:** distinguir fluência de fundamentação. **Pré-requisito:** corpus Boreal. **Execute:** responda antes e depois da seleção. **Observe:** ID, versão e citação. **Compare:** resposta plausível e autorizada. **Questões exploratórias:** que decisão preserva proveniência? Que qualidade a citação verifica? Que risco há sem versão?
+
+### Experimento B — recuperação e falha (Exploração em dupla)
+
+**Objetivo:** localizar falha no pipeline. **Pré-requisito:** tabela. **Execute:** recupere só o primeiro trecho e revise. **Observe:** cobertura e resposta. **Compare:** metadado, filtro, ranking e contexto. **Questões exploratórias:** que componente registra versão? Como recuperação afeta qualidade? Que alucinação o ranking não elimina?
+
+### Experimento C — política de abstenção (Extensão)
+
+**Objetivo:** desenhar parada segura. **Pré-requisito:** Experimento B. **Execute:** defina regra e registro. **Observe:** ausência de data ou tipo. **Compare:** ressalva, abstenção e invenção. **Questões exploratórias:** que decisão é auditável? Que qualidade justifica abstenção? Que risco há sem contexto?
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão** (ou a execução local equivalente); ela não depende de cartão. Trabalhe com o corpus sintético abaixo.
