@@ -62,13 +62,15 @@ A **Política Aurora** é um **documento fictício** criado somente para treinam
 
    **O que observar e registrar:** a resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Copie a resposta para a linha **Com corpus** da tabela e escreva “Política Aurora” na coluna de fonte. Isso é [fundamentação](../referencia/glossario.md#fundamentacao-grounding): apoio da resposta no documento fornecido.
 
+   **Antes de continuar — o que é temperatura?** Em algumas interfaces de modelos, [temperatura](conceitos.md#prompts-mensagens-e-parametros) é um parâmetro que controla quanto o modelo tende a variar as palavras escolhidas. Valores menores costumam produzir respostas mais repetíveis; valores maiores, respostas mais diversas. Ela não torna uma resposta correta. Neste laboratório, não a alteraremos: o chat de linha de comando do Ollama não a expõe diretamente.
+
 6. **Experimento C — repita com uma variável controlada.** Saia da sessão atual com `Ctrl+C`, abra uma nova sessão e envie novamente o bloco do experimento B. Registre a resposta na linha **Com corpus — repetição**.
 
    ```bash
    ollama run llama3.2:3b
    ```
 
-   **O que observar:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única **variável de controle** alterada. Compare as duas respostas com corpus. Uma [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) pode ocorrer entre execuções, mas não é uma medida de qualidade por si só. **Temperatura** é um parâmetro que influencia o quanto o modelo tende a variar as palavras escolhidas: valores menores costumam produzir respostas mais repetíveis; valores maiores, respostas mais diversas. Ela não garante correção. A interação de linha de comando usada aqui não expõe temperatura; por isso, não a modificaremos nesta prática.
+   **O que observar:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única **variável de controle** alterada. Compare as duas respostas com corpus. Uma [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) pode ocorrer entre execuções, mas não é uma medida de qualidade por si só. Como explicado acima, a interação de linha de comando usada aqui não expõe temperatura; por isso, não a modificaremos nesta prática.
 
    Preencha a tabela após cada execução:
 
