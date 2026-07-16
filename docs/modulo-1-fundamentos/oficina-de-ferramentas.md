@@ -9,6 +9,12 @@
 
 Este é um laboratório local: não requer conta, cartão, chave ou API. Use somente o material sintético desta página; não cole dados pessoais, documentos institucionais ou conteúdo de clientes.
 
+## Antes de começar: o problema e o documento de treinamento
+
+Você integra a equipe de atendimento da **empresa fictícia Aurora**. Uma pessoa pergunta qual é o prazo para pedir reembolso. Nesta prática, você verá como o modelo responde quando não recebe nenhum documento e quando recebe a política interna fictícia da empresa.
+
+A **Política Aurora** é um **documento fictício** criado somente para treinamento. Um **[corpus](conceitos.md#tokens-contexto-e-janela-de-contexto)** é o conjunto de documentos que um sistema pode consultar; aqui, o corpus tem apenas este documento. O **[contexto](conceitos.md#tokens-contexto-e-janela-de-contexto)** é a parte do corpus que você envia ao modelo junto da pergunta. Portanto, no Experimento B, você copiará um único bloco que já contém instrução, documento e pergunta.
+
 ## Passos do laboratório
 
 1. **Instale e confira o Ollama.** Baixe o instalador oficial para [macOS](https://ollama.com/download), [Windows](https://ollama.com/download) ou [Linux](https://ollama.com/download). Conclua a instalação indicada para seu sistema e abra um terminal. Em seguida, execute:
@@ -43,7 +49,7 @@ Este é um laboratório local: não requer conta, cartão, chave ou API. Use som
 
    **O que observar:** o modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem uma política fornecida, ele só dispõe do que foi aprendido antes do uso; isso não prova que a resposta vale para a Política Aurora.
 
-5. **Experimento B — acrescente o corpus sintético.** Um [corpus](conceitos.md#tokens-contexto-e-janela-de-contexto) é um conjunto de textos usado como material de trabalho; neste laboratório, ele é a Política Aurora fictícia. Copie e envie todo o bloco a seguir na mesma sessão. O corpus entra como [contexto](conceitos.md#tokens-contexto-e-janela-de-contexto), isto é, informação disponibilizada ao modelo durante esta execução.
+5. **Experimento B — responda com o documento de treinamento.** Volte ao Terminal onde aparece o cursor `>>>` do Ollama. **Copie o bloco inteiro** abaixo, desde “Use somente” até a pergunta final. Cole-o no cursor com `Cmd+V` no macOS ou `Ctrl+Shift+V` no Windows/Linux. Pressione `Enter` **uma vez** e espere a resposta terminar. O bloco contém a instrução, a Política Aurora e a pergunta; não monte ou altere partes dele.
 
    ```text
    Use somente a Política Aurora abaixo para responder à pergunta. Se a política não permitir uma resposta, diga que é necessária revisão humana.
@@ -54,7 +60,7 @@ Este é um laboratório local: não requer conta, cartão, chave ou API. Use som
    Pergunta: Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.
    ```
 
-   **O que observar:** a resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Registre-a na linha **Com corpus** e identifique a [fundamentação](../referencia/glossario.md#fundamentacao-grounding): o apoio da resposta no texto fornecido, com a Política Aurora como fonte.
+   **O que observar e registrar:** a resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Copie a resposta para a linha **Com corpus** da tabela e escreva “Política Aurora” na coluna de fonte. Isso é [fundamentação](../referencia/glossario.md#fundamentacao-grounding): apoio da resposta no documento fornecido.
 
 6. **Experimento C — repita com uma variável controlada.** Saia da sessão atual com `Ctrl+C`, abra uma nova sessão e envie novamente o bloco do experimento B. Registre a resposta na linha **Com corpus — repetição**.
 
