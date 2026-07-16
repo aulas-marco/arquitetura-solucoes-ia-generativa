@@ -10,6 +10,12 @@ Este material pode ser lido em sequência, consultado durante uma decisão arqui
 4. Resolva os exercícios após a leitura. Use a [Taxonomia de Bloom](taxonomia-de-bloom.md) para reconhecer o tipo de raciocínio solicitado.
 5. Consulte o [Glossário](../referencia/glossario.md), o [Catálogo de padrões](../referencia/catalogo-de-padroes.md), os [Atributos de qualidade](../referencia/atributos-de-qualidade.md) e o [Template de ADR](../referencia/template-adr.md) sempre que precisar comparar ou registrar escolhas.
 
+## Oficinas de ferramentas sem barreira financeira
+
+Cada módulo tem uma oficina com três rotas equivalentes: **essencial, sem cartão**, **institucional** e **comercial ou avançada**. A rota essencial não depende de cartão, conta corporativa, chave de API ou consumo pago; ela é suficiente para produzir a evidência obrigatória e receber a avaliação máxima. As rotas institucional e comercial são opcionais, devem declarar limites, retenção e custo potencial, e não acrescentam pontos.
+
+Use somente prompts, corpus, traces e configurações sintéticos. Não envie, registre ou versione dados pessoais, documentos corporativos, credenciais, chaves, tokens, URLs privadas ou qualquer outro dado sensível. O [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md) ajuda a escolher uma rota, e a oficina continua possível pela rota essencial quando uma plataforma externa falhar ou não estiver disponível.
+
 ## Espinha de aprendizagem
 
 Em qualquer página, use quatro movimentos para transformar leitura em decisão arquitetural:
