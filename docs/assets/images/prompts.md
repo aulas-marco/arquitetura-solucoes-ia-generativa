@@ -74,6 +74,19 @@ Constraints: exactly seven sequential responsibility modules plus one unmistakab
 Avoid: stacked pyramid, single monolith, glowing AI brain, crossed arrows, dark cyberpunk, tiny labels
 ```
 
+## `m01-componentes-dependencias.png`
+
+- **Uso:** `scientific-educational`.
+- **Página e propósito:** Módulo 1, Exemplo arquitetural; tornar visíveis os componentes, as dependências e os controles transversais de uma consulta generativa fundamentada.
+- **Elementos distintos:** canal do usuário, aplicação e API, orquestrador de contexto, conhecimento autorizado, gateway de modelos, ferramentas corporativas, infraestrutura e operação e faixa de segurança, governança, avaliação e observabilidade.
+- **Texto alternativo:** Componentes de uma solução generativa fundamentada: canal do usuário, aplicação e API e orquestrador de contexto formam o caminho principal; o orquestrador consulta conhecimento autorizado, usa gateway de modelos e aciona ferramentas corporativas apenas por um fluxo governado. Segurança, governança, avaliação e observabilidade atravessam os componentes, sustentados por infraestrutura e operação.
+- **Legenda:** Figura 3 — Componentes e dependências de uma solução generativa fundamentada.
+- **Validação:** caminho canal→aplicação→orquestrador legível, conhecimento separado do gateway, ferramentas ligadas ao orquestrador sem ligação direta do modelo a sistemas corporativos, controles transversais visíveis. PNG RGB, 1672 × 941 px.
+
+```text
+Ilustração didática horizontal, fundo claro, estilo editorial acadêmico; componentes rotulados em português: Canal do usuário, Aplicação e API, Orquestrador de contexto, Conhecimento autorizado, Gateway de modelos, Ferramentas corporativas, Infraestrutura e operação; uma faixa inferior transversal Segurança · Governança · Avaliação · Observabilidade; setas sólidas entre canal→aplicação→orquestrador, orquestrador↔conhecimento, orquestrador→gateway, orquestrador↔ferramentas; nenhum logotipo, marca ou texto em inglês; tipografia legível e contraste alto.
+```
+
 ## `m02-oportunidade-arquitetura.png`
 
 - **Uso:** `scientific-educational`.

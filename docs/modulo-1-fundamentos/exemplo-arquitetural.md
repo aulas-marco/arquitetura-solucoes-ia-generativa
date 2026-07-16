@@ -16,30 +16,41 @@ Uma arquitetura de referência ajuda a fazer perguntas; não prescreve produtos.
 7. **Infraestrutura e operação.** Provê execução, redes, segredos, capacidade, implantação, recuperação e gestão de dependências.
 8. **Segurança, governança, avaliação e observabilidade.** Define políticas e evidências de ponta a ponta: versões, traces, conjuntos de teste, aprovações, privacidade e resposta a incidentes.
 
-## Fluxo de componentes
+## Componentes e dependências
+
+![Componentes de uma solução generativa fundamentada: canal do usuário, aplicação e API e orquestrador de contexto formam o caminho principal; o orquestrador consulta conhecimento autorizado, usa gateway de modelos e aciona ferramentas corporativas apenas por um fluxo governado. Segurança, governança, avaliação e observabilidade atravessam os componentes, sustentados por infraestrutura e operação.](../assets/images/m01-componentes-dependencias.png)
+*Figura 3 — Componentes e dependências de uma solução generativa fundamentada.*
+
+**Equivalente textual — componentes.** O canal do usuário encaminha a solicitação à aplicação e API, que autentica a sessão e entrega um pedido estruturado ao orquestrador de contexto. O orquestrador consulta conhecimento autorizado e monta o contexto mínimo; em seguida, solicita inferência por um gateway de modelos. Ferramentas corporativas não recebem chamadas do modelo: somente o orquestrador pode acioná-las, depois de uma decisão de política e com contrato, identidade e escopo autorizados. Os resultados tipados retornam ao orquestrador — em notação de dependência, `T -. "resultado tipado" .-> O` — para que ele valide e componha a resposta. Segurança, governança, avaliação e observabilidade aplicam políticas e produzem evidências ao longo de todo o caminho, enquanto infraestrutura e operação sustentam os componentes.
+
+## Sequência de uma consulta fundamentada
 
 ```mermaid
-flowchart LR
-    U["1. Canal do usuário"] --> A["2. API da aplicação"]
-    A --> O["3. Orquestrador de contexto"]
-    O --> K["5. Conhecimento autorizado"]
-    K --> O
-    O --> G["4. Gateway e modelo"]
-    G -->|"saída para validação"| A
-    A --> U
-    O -. "quando permitido" .-> T["6. Ferramentas corporativas"]
-    T -. "resultado tipado" .-> O
-    P["7. Infraestrutura e operação"] --- A
-    P --- O
-    P --- G
-    X["8. Segurança, governança e observabilidade"] -. "políticas e telemetria" .-> A
-    X -.-> O
-    X -.-> K
-    X -.-> G
-    X -.-> T
+sequenceDiagram
+    participant U as Usuário
+    participant A as Aplicação
+    participant O as Orquestrador
+    participant P as Política
+    participant R as Recuperação
+    participant G as Gateway
+    participant M as Modelo
+    participant V as Validação
+    U->>A: pergunta e sessão
+    A->>O: solicitação autenticada
+    O->>P: finalidade e atributos
+    P-->>O: predicado autorizado
+    O->>R: consulta com predicado
+    R-->>O: evidências autorizadas
+    O->>G: prompt e contexto mínimo
+    G->>M: inferência aprovada
+    M-->>G: proposta de resposta
+    G-->>O: resposta do modelo
+    O->>V: resposta, fontes e política
+    V-->>A: resposta validada e citações
+    A-->>U: resposta utilizável
 ```
 
-Em texto: o canal envia uma solicitação autenticada à API. A aplicação estabelece identidade e regras; o orquestrador obtém apenas conhecimento autorizado e monta um contexto limitado. O gateway chama o modelo aprovado. Ao receber a saída, a aplicação valida formato e suporte antes de responder ao canal. Ferramentas só participam quando o fluxo permite, e seus resultados tipados retornam ao orquestrador. Infraestrutura sustenta os componentes, enquanto a única camada 8 aplica políticas, avaliação e telemetria de forma transversal a todo o percurso.
+A sequência mostra o caminho online principal. A ingestão, segmentação, geração de embeddings e indexação pertencem ao caminho offline: produzem e promovem o índice autorizado, mas não são chamadas de modo síncrono por cada consulta.
 
 ## Caminho crítico de uma resposta
 
