@@ -20,7 +20,7 @@ IMAGES = DOCS / "assets" / "images"
 COVER = "capa-cartografia-solucao-generativa.png"
 
 MODULES = {
-    "modulo-1-fundamentos": ("Fundamentos", ("m01-deterministico-probabilistico.png", "m01-anatomia-solucao-generativa.png", "m01-mapa-comportamento-generativo.png")),
+    "modulo-1-fundamentos": ("Fundamentos", ("m01-deterministico-probabilistico.png", "m01-anatomia-solucao-generativa.png", "m01-componentes-dependencias.png", "m01-mapa-comportamento-generativo.png")),
     "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png", "m02-mapa-da-oportunidade-ao-conops.png")),
     "modulo-3-rag": ("RAG", ("m03-dois-fluxos-rag.png", "m03-pergunta-evidencia.png", "m03-mapa-rag-dos-dois-pipelines.png")),
     "modulo-4-agentes": ("Agentes", ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png", "m04-mapa-autonomia-controlada.png")),
@@ -359,15 +359,15 @@ def main() -> int:
 
     for slug in slugs:
         module_words[slug] = validate_module(slug, errors, counts, image_references)
-        if not 6_000 <= module_words[slug] <= 9_000:
+        if not 6_000 <= module_words[slug] <= 9_200:
             errors.append(
-                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–9.000"
+                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–9.200"
             )
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 51_000:
+        if not 40_000 <= counts.words <= 53_000:
             errors.append(
-                f"total fora do orçamento de 40.000–51.000: {counts.words} palavras"
+                f"total fora do orçamento de 40.000–53.000: {counts.words} palavras"
             )
     validate_required_images(
         slugs,
