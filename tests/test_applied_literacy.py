@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 import re
 import unittest
@@ -35,16 +36,44 @@ conteúdo da atividade
         self.assertEqual("conteúdo essencial", self.section(text, "### Essencial, sem cartão"))
         self.assertEqual("conteúdo institucional", self.section(text, "### Institucional"))
 
-    def test_module_one_workshop_is_a_linear_ollama_lab(self):
+    def test_module_one_workshop_is_an_exploratory_ollama_lab(self):
         text = (DOCS / "modulo-1-fundamentos" / OFFICE).read_text(encoding="utf-8")
         self.assertIn("Ferramenta:** Ollama", text)
         self.assertNotIn("Essencial, sem cartão", text)
         for command in ("ollama --version", "ollama pull llama3.2:3b", "ollama run llama3.2:3b", "ollama rm llama3.2:3b"):
             self.assertIn(command, text)
-        for step in range(1, 9):
-            self.assertRegex(text, rf"(?m)^{step}\. ")
+        for label in ("Essencial em aula", "Exploração em dupla", "Extensão"):
+            self.assertIn(label, text)
+        for experiment in ("Experimento A", "Experimento B", "Experimento C", "Experimento D"):
+            self.assertIn(experiment, text)
+        for prompt in ("Objetivo", "Pré-requisito", "Execute", "Observe", "Compare", "Questões exploratórias"):
+            self.assertGreaterEqual(text.count(prompt), 4)
         for term in ("modelo", "inferência", "prompt", "corpus", "contexto", "fundamentação", "alucinação"):
             self.assertRegex(text.casefold(), rf"\[{term}[^]]*\]\([^)]*\)")
+
+    def test_module_one_temperature_experiment_uses_the_local_ollama_api(self):
+        text = (DOCS / "modulo-1-fundamentos" / OFFICE).read_text(encoding="utf-8")
+        experiment = self.section(text, "## Experimento D — compare temperaturas pela API local")
+
+        self.assertIsNotNone(experiment)
+        self.assertIn("http://localhost:11434/api/generate", experiment)
+        self.assertEqual(2, experiment.count("curl"))
+        self.assertIn('"temperature": 0.1', experiment)
+        self.assertIn('"temperature": 0.9', experiment)
+        payloads = [
+            json.loads(payload)
+            for payload in re.findall(r"-d '(\{.*?\})'", experiment, flags=re.DOTALL)
+        ]
+        self.assertEqual(2, len(payloads))
+        lower_temperature, higher_temperature = payloads
+        self.assertEqual(0.1, lower_temperature.pop("options").pop("temperature"))
+        self.assertEqual(0.9, higher_temperature.pop("options").pop("temperature"))
+        self.assertEqual(lower_temperature, higher_temperature)
+        self.assertIn("diversidade", experiment.casefold())
+        self.assertIn("fundamentação", experiment.casefold())
+        self.assertIn("correção", experiment.casefold())
+        self.assertRegex(experiment, r"(?i)temperatura.*n.o.*prova.*factualidade")
+        self.assertIn("Questões exploratórias", experiment)
 
     def test_every_module_has_an_accessible_tool_workshop(self):
         required = (
