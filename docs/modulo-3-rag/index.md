@@ -35,8 +35,9 @@ Ao concluir o módulo, você deverá ser capaz de:
 | **3. [Padrões e decisões](padroes-e-decisoes.md)** | Qual mecanismo responde a cada necessidade? | Decisões de recuperação, autorização, evidência e variantes de RAG. |
 | **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como os dois fluxos cooperam em execução? | Diagramas, sequência, responsabilidades, falhas e métricas. |
 | **5. [Estudo de caso](estudo-de-caso.md)** | Como atender políticas e contratos com permissões individuais? | Uma decisão incremental com citações, atualização rápida e abstenção. |
-| **6. [Exercícios](exercicios.md)** | Consigo medir, diagnosticar e projetar RAG? | Evidências nos seis níveis da Taxonomia de Bloom. |
-| **7. [Síntese e referências](sintese-e-referencias.md)** | O que precisa existir além do índice? | Checklist sistêmico, autoavaliação e fontes. |
+| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
+| **7. [Exercícios](exercicios.md)** | Consigo medir, diagnosticar e projetar RAG? | Evidências nos seis níveis da Taxonomia de Bloom. |
+| **8. [Síntese e referências](sintese-e-referencias.md)** | O que precisa existir além do índice? | Checklist sistêmico, autoavaliação e fontes. |
 
 ## A unidade de raciocínio: pergunta → evidência → resposta
 
