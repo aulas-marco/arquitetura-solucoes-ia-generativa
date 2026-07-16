@@ -18,15 +18,44 @@ Esta oficina executa um workflow local que separa intenção, aprovação e efei
 
 ## Instalação
 
+### macOS
+
 ```bash
+python3 --version
+mkdir oficina-m4
+cd oficina-m4
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langgraph langchain-ollama
+```
+
+### Linux
+
+No terminal Linux, execute:
+
+```bash
+python3 --version
+mkdir oficina-m4
+cd oficina-m4
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langgraph langchain-ollama
+```
+
+### Windows
+
+No PowerShell, execute:
+
+```powershell
+python --version
 mkdir oficina-m4
 cd oficina-m4
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\Activate.ps1
 python -m pip install langgraph langchain-ollama
 ```
 
-No Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m4` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`. Com o ambiente ativo, `python` funciona nos três sistemas.
 
 ## Preparação do laboratório
 
@@ -71,7 +100,25 @@ Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de
 
 ### Experimento A — intenção sem efeito (Essencial em aula)
 
-**Objetivo:** distinguir proposta e autorização. **Pré-requisito:** script instalado. **Execute:** `--aprovado false`. **Observe:** parada em `aguardando_aprovacao`. **Compare:** pedido em linguagem natural e decisão de escrita.
+**Objetivo**
+
+Distinguir proposta e autorização.
+
+**Pré-requisito**
+
+Script instalado.
+
+**Execute**
+
+Use `--aprovado false`.
+
+**Observe**
+
+Parada em `aguardando_aprovacao`.
+
+**Compare**
+
+Pedido em linguagem natural e decisão de escrita.
 
 **Questões exploratórias:**
 
@@ -81,7 +128,25 @@ Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de
 
 ### Experimento B — aprovação e idempotência (Exploração em dupla)
 
-**Objetivo:** observar uma escrita simulada e sua repetição. **Pré-requisito:** Experimento A. **Execute:** `--aprovado true` e depois `--repetir`. **Observe:** `RES-501` e trace de repetição. **Compare:** primeira execução e segunda execução.
+**Objetivo**
+
+Observar uma escrita simulada e sua repetição.
+
+**Pré-requisito**
+
+Experimento A.
+
+**Execute**
+
+Use `--aprovado true` e depois `--repetir`.
+
+**Observe**
+
+`RES-501` e trace de repetição.
+
+**Compare**
+
+Primeira execução e segunda execução.
 
 **Questões exploratórias:**
 
@@ -91,7 +156,25 @@ Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de
 
 ### Experimento C — resultado desconhecido (Extensão)
 
-**Objetivo:** planejar recuperação após confirmação ausente. **Pré-requisito:** traces anteriores. **Execute:** descreva a interrupção entre intenção e confirmação. **Observe:** o limite entre repetir e reconciliar. **Compare:** retry cego, consulta por chave e escalonamento.
+**Objetivo**
+
+Planejar recuperação após confirmação ausente.
+
+**Pré-requisito**
+
+Traces anteriores.
+
+**Execute**
+
+Descreva a interrupção entre intenção e confirmação.
+
+**Observe**
+
+O limite entre repetir e reconciliar.
+
+**Compare**
+
+Retry cego, consulta por chave e escalonamento.
 
 **Questões exploratórias:**
 

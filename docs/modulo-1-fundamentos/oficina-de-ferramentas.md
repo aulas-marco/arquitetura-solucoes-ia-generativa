@@ -16,7 +16,35 @@ Use somente material sintético; não cole dados pessoais, institucionais ou de 
 
 ## Instalação
 
-Baixe o instalador oficial para [macOS](https://ollama.com/download), [Windows](https://ollama.com/download) ou [Linux](https://ollama.com/download). Depois abra um terminal.
+### macOS
+
+Baixe o instalador oficial em [ollama.com/download](https://ollama.com/download). No Terminal, confirme a instalação:
+
+```bash
+python3 --version
+ollama --version
+curl --version
+```
+
+### Linux
+
+Use o procedimento atualizado para sua distribuição em [ollama.com/download](https://ollama.com/download). No terminal Linux, confirme:
+
+```bash
+python3 --version
+ollama --version
+curl --version
+```
+
+### Windows
+
+Baixe o instalador oficial em [ollama.com/download](https://ollama.com/download). No PowerShell, confirme:
+
+```powershell
+python --version
+ollama --version
+curl.exe --version
+```
 
 ## Preparação do laboratório
 
@@ -31,7 +59,9 @@ ollama --version
 ollama pull llama3.2:3b
 ```
 
-**Observe:** o terminal mostra a versão e o progresso do download. O Ollama executa localmente os pesos de um [modelo](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), permitindo a [inferência](conceitos.md#treinamento-adaptacao-e-inferencia) sem enviar o corpus a um serviço externo.
+**Observe**
+
+O terminal mostra a versão e o progresso do download. O Ollama executa localmente os pesos de um [modelo](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), permitindo a [inferência](conceitos.md#treinamento-adaptacao-e-inferencia) sem enviar o corpus a um serviço externo.
 
 ## Execução
 
@@ -45,11 +75,17 @@ ollama pull llama3.2:3b
 
 **Classificação:** Essencial em aula.
 
-**Objetivo:** identificar o limite de uma resposta sem documento de referência.
+**Objetivo**
 
-**Pré-requisito:** conclusão da preparação local.
+Identificar o limite de uma resposta sem documento de referência.
 
-**Execute:** inicie uma sessão e envie exatamente o [prompt](conceitos.md#prompts-mensagens-e-parametros) abaixo.
+**Pré-requisito**
+
+Conclusão da preparação local.
+
+**Execute**
+
+Inicie uma sessão e envie exatamente o [prompt](conceitos.md#prompts-mensagens-e-parametros) abaixo.
 
 ```bash
 ollama run llama3.2:3b
@@ -59,9 +95,13 @@ ollama run llama3.2:3b
 Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.
 ```
 
-**Observe:** o modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem a Política Aurora, ele só dispõe do que foi aprendido antes do uso; isso não prova que a resposta vale para a empresa fictícia.
+**Observe**
 
-**Compare:** registre a saída na linha **Sem corpus** da tabela e compare-a com o Experimento B.
+O modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem a Política Aurora, ele só dispõe do que foi aprendido antes do uso; isso não prova que a resposta vale para a empresa fictícia.
+
+**Compare**
+
+Registre a saída na linha **Sem corpus** da tabela e compare-a com o Experimento B.
 
 **Questões exploratórias:**
 
@@ -73,11 +113,17 @@ Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a font
 
 **Classificação:** Essencial em aula.
 
-**Objetivo:** observar como contexto sintético e fonte tornam uma resposta verificável.
+**Objetivo**
 
-**Pré-requisito:** Experimento A concluído; mantenha a sessão do Ollama aberta.
+Observar como contexto sintético e fonte tornam uma resposta verificável.
 
-**Execute:** copie o bloco inteiro abaixo para o cursor do Ollama e pressione `Enter` uma vez.
+**Pré-requisito**
+
+Experimento A concluído; mantenha a sessão do Ollama aberta.
+
+**Execute**
+
+Copie o bloco inteiro abaixo para o cursor do Ollama e pressione `Enter` uma vez.
 
 ```text
 Use somente a Política Aurora abaixo para responder à pergunta. Se a política não permitir uma resposta, diga que é necessária revisão humana.
@@ -88,9 +134,13 @@ Solicitações de reembolso devem ser abertas em até 15 dias corridos após a c
 Pergunta: Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.
 ```
 
-**Observe:** a resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Registre “Política Aurora” como fonte.
+**Observe**
 
-**Compare:** compare esta saída com a do Experimento A: há uma regra citável e um limite explícito quando a data da compra não está disponível?
+A resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Registre “Política Aurora” como fonte.
+
+**Compare**
+
+Compare esta saída com a do Experimento A: há uma regra citável e um limite explícito quando a data da compra não está disponível?
 
 **Questões exploratórias:**
 
@@ -102,19 +152,29 @@ Pergunta: Qual é o prazo para solicitar reembolso? Responda em uma frase e info
 
 **Classificação:** Exploração em dupla.
 
-**Objetivo:** observar a [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) entre execuções com o mesmo contexto.
+**Objetivo**
 
-**Pré-requisito:** Experimento B concluído e sua resposta registrada.
+Observar a [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) entre execuções com o mesmo contexto.
 
-**Execute:** interrompa a sessão com `Ctrl+C`, abra uma nova sessão e envie novamente, sem alterar, o bloco completo do Experimento B.
+**Pré-requisito**
+
+Experimento B concluído e sua resposta registrada.
+
+**Execute**
+
+Interrompa a sessão com `Ctrl+C`, abra uma nova sessão e envie novamente, sem alterar, o bloco completo do Experimento B.
 
 ```bash
 ollama run llama3.2:3b
 ```
 
-**Observe:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única variável alterada. A variação pode ocorrer entre execuções, mas não é uma medida de qualidade por si só.
+**Observe**
 
-**Compare:** registre a saída em **Com corpus — repetição** e compare formulação, fonte e encaminhamento para revisão humana com a primeira resposta com corpus.
+Mantenha modelo, pergunta e corpus iguais; a nova sessão é a única variável alterada. A variação pode ocorrer entre execuções, mas não é uma medida de qualidade por si só.
+
+**Compare**
+
+Registre a saída em **Com corpus — repetição** e compare formulação, fonte e encaminhamento para revisão humana com a primeira resposta com corpus.
 
 **Questões exploratórias:**
 
@@ -126,11 +186,17 @@ ollama run llama3.2:3b
 
 **Classificação:** Extensão.
 
-**Objetivo:** comparar a diversidade de respostas quando apenas a temperatura muda.
+**Objetivo**
 
-**Pré-requisito:** o modelo `llama3.2:3b` foi baixado e o serviço local do Ollama está em execução.
+Comparar a diversidade de respostas quando apenas a temperatura muda.
 
-**Execute:** rode os dois comandos abaixo. Eles usam o mesmo modelo, prompt e corpus sintético; muda somente `options.temperature`. Cada resposta vem no campo JSON `response`.
+**Pré-requisito**
+
+O modelo `llama3.2:3b` foi baixado e o serviço local do Ollama está em execução.
+
+**Execute**
+
+Rode os dois comandos abaixo. Eles usam o mesmo modelo, prompt e corpus sintético; muda somente `options.temperature`. Cada resposta vem no campo JSON `response`.
 
 ```bash
 curl -s http://localhost:11434/api/generate \
@@ -152,9 +218,13 @@ curl -s http://localhost:11434/api/generate \
   }'
 ```
 
-**Observe:** [temperatura](conceitos.md#prompts-mensagens-e-parametros) menor tende a tornar a escolha de palavras mais repetível; temperatura maior tende a aumentar a diversidade. Temperatura não prova factualidade, nem substitui contexto, fonte ou revisão humana.
+**Observe**
 
-**Compare:** registre as duas saídas nas linhas de temperatura da tabela. Compare diversidade de formulação, fundamentação na Política Aurora e correção dos prazos e do limite de revisão humana.
+[Temperatura](conceitos.md#prompts-mensagens-e-parametros) menor tende a tornar a escolha de palavras mais repetível; temperatura maior tende a aumentar a diversidade. Temperatura não prova factualidade, nem substitui contexto, fonte ou revisão humana.
+
+**Compare**
+
+Registre as duas saídas nas linhas de temperatura da tabela. Compare diversidade de formulação, fundamentação na Política Aurora e correção dos prazos e do limite de revisão humana.
 
 **Questões exploratórias:**
 

@@ -19,22 +19,57 @@ Esta oficina cria um gateway local para tornar uma fronteira de consumo visível
 
 ## Instalação
 
-Baixe o Ollama em [ollama.com/download](https://ollama.com/download). Em seguida, crie a pasta do laboratório e instale o LiteLLM Proxy:
+Primeiro confirme o interpretador disponível. Você precisa de Python 3.10 ou superior.
+
+### macOS
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, confirme Python e crie o ambiente:
 
 ```bash
+python3 --version
+mkdir oficina-m2
+cd oficina-m2
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+Homebrew pode instalar utilitários complementares, mas não é necessário para esta prática.
+
+### Linux
+
+Instale o Ollama pelo procedimento atualizado em [ollama.com/download](https://ollama.com/download), adequado à sua distribuição. Depois, no terminal Linux, execute os mesmos comandos POSIX:
+
+```bash
+python3 --version
+mkdir oficina-m2
+cd oficina-m2
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+Não é necessário usar um gerenciador específico como `apt` ou `dnf`.
+
+### Windows
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). Abra o PowerShell e execute:
+
+```powershell
+python --version
 mkdir oficina-m2
 cd oficina-m2
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\Activate.ps1
 python -m pip install 'litellm[proxy]'
 ollama pull llama3.2:3b
 ```
 
-No Windows PowerShell, ative o ambiente com:
+Se o PowerShell bloquear a ativação, registre a mensagem e peça apoio ao professor ou ao suporte do computador; não altere políticas de segurança sem orientação.
 
-```powershell
-.venv\Scripts\Activate.ps1
-```
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m2` e reative o ambiente antes de executar os comandos seguintes: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`.
 
 ## Preparação do laboratório
 
@@ -54,7 +89,15 @@ ls litellm_config.yaml request.json
 Abra **dois terminais** na pasta `oficina-m2`. No primeiro, inicie o gateway:
 
 ```bash
+# macOS/Linux
 source .venv/bin/activate
+litellm --config litellm_config.yaml --port 4000
+```
+
+No Windows/PowerShell, use:
+
+```powershell
+.venv\Scripts\Activate.ps1
 litellm --config litellm_config.yaml --port 4000
 ```
 
@@ -90,7 +133,25 @@ Mantenha `model_name: boreal-local` e `request.json` inalterados. Reinicie o pro
 
 ### Experimento A — contrato pelo gateway (Essencial em aula)
 
-**Objetivo:** identificar o contrato consumido pela aplicação. **Pré-requisito:** proxy iniciado. **Execute:** envie `request.json`. **Observe:** alias, mensagens e resposta JSON. **Compare:** chamada para `localhost:4000` versus chamada direta ao modelo.
+**Objetivo**
+
+Identificar o contrato consumido pela aplicação.
+
+**Pré-requisito**
+
+Proxy iniciado.
+
+**Execute**
+
+Envie `request.json`.
+
+**Observe**
+
+Alias, mensagens e resposta JSON.
+
+**Compare**
+
+Chamada para `localhost:4000` versus chamada direta ao modelo.
 
 **Questões exploratórias:**
 
@@ -100,7 +161,25 @@ Mantenha `model_name: boreal-local` e `request.json` inalterados. Reinicie o pro
 
 ### Experimento B — troca controlada do destino (Exploração em dupla)
 
-**Objetivo:** separar contrato público e modelo configurado. **Pré-requisito:** um segundo modelo já baixado. **Execute:** altere apenas o destino no manifesto. **Observe:** a mesma requisição passa pelo mesmo alias. **Compare:** manifesto anterior, manifesto alterado e respostas.
+**Objetivo**
+
+Separar contrato público e modelo configurado.
+
+**Pré-requisito**
+
+Um segundo modelo já baixado.
+
+**Execute**
+
+Altere apenas o destino no manifesto.
+
+**Observe**
+
+A mesma requisição passa pelo mesmo alias.
+
+**Compare**
+
+Manifesto anterior, manifesto alterado e respostas.
 
 **Questões exploratórias:**
 
@@ -110,7 +189,25 @@ Mantenha `model_name: boreal-local` e `request.json` inalterados. Reinicie o pro
 
 ### Experimento C — mini-ADR reversível (Extensão)
 
-**Objetivo:** registrar uma escolha verificável. **Pré-requisito:** resultados de A e B. **Execute:** complete a mini-ADR. **Observe:** evidência disponível e limite não medido. **Compare:** manter o modelo atual, trocar o destino ou chamar o modelo diretamente.
+**Objetivo**
+
+Registrar uma escolha verificável.
+
+**Pré-requisito**
+
+Resultados de A e B.
+
+**Execute**
+
+Complete a mini-ADR.
+
+**Observe**
+
+Evidência disponível e limite não medido.
+
+**Compare**
+
+Manter o modelo atual, trocar o destino ou chamar o modelo diretamente.
 
 **Questões exploratórias:**
 

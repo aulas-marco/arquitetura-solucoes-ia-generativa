@@ -104,6 +104,15 @@ conteúdo da atividade
                 )
                 self.assertEqual(1, len(bloom_lines), "a oficina deve declarar um único objetivo Bloom")
 
+    def test_every_workshop_has_platform_instructions_and_block_experiments(self):
+        for slug in MODULES:
+            text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
+            with self.subTest(module=slug):
+                for platform in ("### macOS", "### Linux", "### Windows"):
+                    self.assertIn(platform, text)
+                for label in ("Objetivo", "Pré-requisito", "Execute", "Observe", "Compare"):
+                    self.assertIn(f"**{label}**\n\n", text)
+
     def test_module_two_uses_litellm_proxy_and_a_versioned_manifest(self):
         text = (DOCS / "modulo-2-desenho-conceitual" / OFFICE).read_text(encoding="utf-8")
         for term in (
