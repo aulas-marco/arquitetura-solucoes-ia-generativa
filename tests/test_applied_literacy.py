@@ -35,6 +35,17 @@ conteúdo da atividade
         self.assertEqual("conteúdo essencial", self.section(text, "### Essencial, sem cartão"))
         self.assertEqual("conteúdo institucional", self.section(text, "### Institucional"))
 
+    def test_module_one_workshop_is_a_linear_ollama_lab(self):
+        text = (DOCS / "modulo-1-fundamentos" / OFFICE).read_text(encoding="utf-8")
+        self.assertIn("Ferramenta:** Ollama", text)
+        self.assertNotIn("Essencial, sem cartão", text)
+        for command in ("ollama --version", "ollama pull llama3.2:3b", "ollama run llama3.2:3b", "ollama rm llama3.2:3b"):
+            self.assertIn(command, text)
+        for step in range(1, 9):
+            self.assertRegex(text, rf"(?m)^{step}\. ")
+        for term in ("modelo", "inferência", "prompt", "corpus", "contexto", "fundamentação", "alucinação"):
+            self.assertRegex(text.casefold(), rf"\[{term}[^]]*\]\([^)]*\)")
+
     def test_every_module_has_an_accessible_tool_workshop(self):
         required = (
             "## Decisão arquitetural em foco",
@@ -46,7 +57,9 @@ conteúdo da atividade
             "## Evidência a entregar",
             "## Segurança e custo",
         )
-        for slug in MODULES:
+        # O Módulo 1 tem um contrato próprio de laboratório linear, coberto pelo
+        # teste específico acima; os demais preservam as três rotas de acesso.
+        for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):
             text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
             with self.subTest(module=slug):
                 for marker in required:
@@ -129,11 +142,12 @@ conteúdo da atividade
             self.assertIn("## Ferramentas no mercado", concepts)
             for tool in tools:
                 self.assertIn(tool, concepts)
-            for heading in (
-                "## Receita principal",
-                "## Pré-requisitos",
-                "## Resultado esperado",
-                "## Limpeza e contingência",
-            ):
-                self.assertIn(heading, workshop)
-            self.assertRegex(workshop, r"(?m)^```(?:bash|yaml|json)$")
+            if slug != "modulo-1-fundamentos":
+                for heading in (
+                    "## Receita principal",
+                    "## Pré-requisitos",
+                    "## Resultado esperado",
+                    "## Limpeza e contingência",
+                ):
+                    self.assertIn(heading, workshop)
+            self.assertRegex(workshop, r"(?m)^\s*```(?:bash|yaml|json)$")

@@ -2,84 +2,94 @@
 
 **Objetivo Bloom:** Compreender e Aplicar.
 
-Esta oficina torna observável uma decisão estudada no módulo: que efeito o contexto fornecido e um parâmetro de geração podem ter no comportamento de uma resposta. Ela não mede a capacidade geral de nenhum modelo, produto ou provedor.
+**Ferramenta:** Ollama — executor local de modelos open source.
+**Você vai observar:** como o contexto fornecido altera uma resposta gerada.
+**Tempo estimado:** 35 minutos.
+**Resultado esperado:** uma tabela com três respostas comparáveis e uma conclusão arquitetural curta.
 
-## Decisão arquitetural em foco
+Este é um laboratório local: não requer conta, cartão, chave ou API. Use somente o material sintético desta página; não cole dados pessoais, documentos institucionais ou conteúdo de clientes.
 
-Ao escolher entre geração direta e uma resposta com contexto, a equipe precisa declarar que evidência envia ao modelo, qual limite de uso aceita e como observará a diferença. A **atividade guiada** produz uma comparação curta: ela não substitui uma avaliação representativa do produto.
+## Passos do laboratório
 
-Consulte o [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md) antes de escolher uma rota. As rotas usam categorias do guia; disponibilidade, limites e condições podem mudar.
+1. **Instale e confira o Ollama.** Baixe o instalador oficial para [macOS](https://ollama.com/download), [Windows](https://ollama.com/download) ou [Linux](https://ollama.com/download). Conclua a instalação indicada para seu sistema e abra um terminal. Em seguida, execute:
 
-## Roteiros equivalentes de acesso
+   ```bash
+   ollama --version
+   ```
 
-### Essencial, sem cartão
+   **O que observar:** o terminal mostra a versão instalada. O Ollama é um executor local: ele baixa e executa no seu equipamento os pesos de um [modelo](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), isto é, o artefato treinado que recebe entradas e produz saídas.
 
-Use uma interface de playground/assistente disponível sem cartão ou um executor local, se o seu equipamento o comportar. Caso a interface peça uma conta, siga somente as condições públicas aplicáveis à sua região; não use cartão, chave nem crédito. Se não houver execução disponível, faça a mesma comparação como análise manual dos três pedidos e registre o comportamento esperado e os limites. Esta rota não depende de cartão e é suficiente para a evidência obrigatória.
+2. **Baixe o modelo da atividade.** Execute o comando abaixo uma vez; o download depende da sua conexão e do espaço em disco disponível.
 
-### Institucional
+   ```bash
+   ollama pull llama3.2:3b
+   ```
 
-Use uma interface, laboratório ou ambiente institucional apenas se ele já tiver sido disponibilizado e autorizado. Não envie material da instituição: mantenha o prompt e o corpus sintéticos desta página. A rota institucional não acrescenta pontos; ela somente muda o ambiente em que a mesma evidência é produzida.
+   **O que observar:** o Ollama informa o progresso e conclui o download de `llama3.2:3b`. Os pesos ficam armazenados localmente. Esta escolha permite fazer a [inferência](conceitos.md#treinamento-adaptacao-e-inferencia) — a execução de um modelo treinado para gerar uma saída — sem enviar o corpus a um serviço externo.
 
-### Comercial ou avançada
+3. **Abra uma sessão local.** Inicie o chat com o modelo:
 
-Opcionalmente, use um assistente comercial ou uma API autorizada para repetir o procedimento, declarando que há potencial de cobrança, limites e envio de dados ao provedor. Chave própria, créditos e assinatura não são exigidos. A rota comercial ou avançada não acrescenta pontos e não deve ser usada como comparação de desempenho entre planos.
+   ```bash
+   ollama run llama3.2:3b
+   ```
 
-## Receita principal
+   **O que observar:** aparece um cursor para digitar mensagens. Uma sessão mantém a conversa enquanto o comando está aberto. Cada mensagem é um [prompt](conceitos.md#prompts-mensagens-e-parametros): instruções e dados que orientam a geração.
 
-Use **Ollama** com o modelo local `llama3.2:3b`. Confira a versão do Ollama e reserve, além do modelo, CPU, RAM, disco e tempo de download; os requisitos variam com o equipamento. Não informe cartão, chave ou dado real.
+4. **Experimento A — responda sem corpus.** No cursor aberto no passo anterior, copie e envie exatamente o texto abaixo. Depois copie a resposta para a linha **Sem corpus** da tabela.
 
-```bash
-ollama pull llama3.2:3b
-ollama run llama3.2:3b
-```
+   ```text
+   Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.
+   ```
 
-No prompt interativo, primeiro envie somente `Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.`; depois repita a pergunta seguida da Política Aurora sintética da atividade. Salve as duas saídas em uma tabela local, sem incluir qualquer conteúdo externo.
+   **O que observar:** o modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem uma política fornecida, ele só dispõe do que foi aprendido antes do uso; isso não prova que a resposta vale para a Política Aurora.
 
-## Pré-requisitos
+5. **Experimento B — acrescente o corpus sintético.** Um [corpus](conceitos.md#tokens-contexto-e-janela-de-contexto) é um conjunto de textos usado como material de trabalho; neste laboratório, ele é a Política Aurora fictícia. Copie e envie todo o bloco a seguir na mesma sessão. O corpus entra como [contexto](conceitos.md#tokens-contexto-e-janela-de-contexto), isto é, informação disponibilizada ao modelo durante esta execução.
 
-- Ollama instalado e uma conexão apenas para baixar o modelo uma vez; depois a inferência é local.
-- Espaço para o modelo e recursos compatíveis com o seu equipamento. Em máquinas sem capacidade, não tente substituir o modelo por uma API ou chave.
-- O corpus sintético desta página copiado para o prompt; não use arquivos de clientes ou da instituição.
+   ```text
+   Use somente a Política Aurora abaixo para responder à pergunta. Se a política não permitir uma resposta, diga que é necessária revisão humana.
 
-## Resultado esperado
+   Política Aurora de reembolso (versão de treinamento):
+   Solicitações de reembolso devem ser abertas em até 15 dias corridos após a compra. Para compras feitas durante campanhas especiais, o prazo é de 7 dias corridos. O atendimento deve indicar qual regra usou e pedir revisão humana se a data da compra não estiver disponível.
 
-A primeira saída pode declarar incerteza ou propor um prazo sem fonte. A segunda deve apontar 15 dias para compra regular, 7 dias para campanha especial, ou pedir revisão quando faltar a data; a diferença é o artefato observável. Registre o modelo, a versão exibida por `ollama --version` e a limitação percebida.
+   Pergunta: Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.
+   ```
 
-## Limpeza e contingência
+   **O que observar:** a resposta deve mencionar 15 dias para compra regular, 7 dias para campanha especial ou a necessidade de revisão quando a data não estiver disponível. Registre-a na linha **Com corpus** e identifique a [fundamentação](../referencia/glossario.md#fundamentacao-grounding): o apoio da resposta no texto fornecido, com a Política Aurora como fonte.
 
-Interrompa a sessão com `Ctrl+C`. Quando o modelo não for mais necessário, remova-o com `ollama rm llama3.2:3b`; apague também as anotações locais que não queira manter. Se o download ou a máquina falhar, faça a comparação manual dos dois prompts usando somente o corpus: registre o comportamento esperado e o motivo da não execução, sem alterar a evidência exigida.
+6. **Experimento C — repita com uma variável controlada.** Saia da sessão atual com `Ctrl+C`, abra uma nova sessão e envie novamente o bloco do experimento B. Registre a resposta na linha **Com corpus — repetição**.
 
-## Atividade guiada
+   ```bash
+   ollama run llama3.2:3b
+   ```
 
-A atividade obrigatória é a rota **Essencial, sem cartão** (ou sua análise manual equivalente); ela não depende de cartão. Trabalhe individualmente ou em dupla, com o texto sintético abaixo.
+   **O que observar:** mantenha modelo, pergunta e corpus iguais; a nova sessão é a única **variável de controle** alterada. Compare as duas respostas com corpus. Uma [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) pode ocorrer entre execuções, mas não é uma medida de qualidade por si só. A interação de linha de comando usada aqui não expõe temperatura; não declare que modificou esse parâmetro.
 
-**Prompt comum:** `Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.`
+   Preencha a tabela após cada execução:
 
-**Corpus sintético — Política Aurora de reembolso (versão de treinamento):**
+   | Condição | Resposta (resumo ou transcrição curta) | Fundamentação e fonte | Limite ou incerteza observada |
+   |---|---|---|---|
+   | Sem corpus |  |  |  |
+   | Com corpus |  |  |  |
+   | Com corpus — repetição |  |  |  |
 
-> Solicitações de reembolso devem ser abertas em até 15 dias corridos após a compra. Para compras feitas durante campanhas especiais, o prazo é de 7 dias corridos. O atendimento deve indicar qual regra usou e pedir revisão humana se a data da compra não estiver disponível.
+7. **Compare as evidências e responda à decisão arquitetural.** Uma [alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) é uma afirmação plausível que não é sustentada pelos fatos, pelo contexto ou pelas evidências disponíveis. Com base na tabela, responda em até cinco linhas:
 
-1. Envie apenas o prompt comum e registre a resposta **sem contexto**. Não acrescente fatos externos.
-2. Envie o mesmo prompt seguido do corpus sintético e registre a resposta **com contexto**. Verifique se ela cita a regra de 15 dias, a exceção de 7 dias ou a ausência de data como limite.
-3. Repita o segundo pedido, mudando somente um parâmetro controlável da ferramenta — por exemplo, a temperatura, quando a interface o expuser. Se ele não estiver exposto, mantenha o pedido idêntico e registre que a variação não é observável nessa rota. Não altere simultaneamente prompt, corpus ou modelo.
-4. Compare as três saídas. Marque onde há resposta útil, fundamentação no corpus, latência percebida e um limite ou incerteza que exigiria revisão humana.
+   - Qual resposta você aceitaria apenas como rascunho e por quê?
+   - Que trecho da Política Aurora torna a resposta com corpus verificável?
+   - Em que situação a falta da data de compra exige fonte ou revisão humana, em vez de uma resposta automática?
 
-Não use dados pessoais, documentos institucionais, credenciais, chaves ou capturas que revelem contas. A decisão arquitetural a discutir é: **quando uma resposta deve depender de contexto fornecido e qual evidência precisa acompanhá-la?**
+   **O que observar:** a decisão não é “qual resposta venceu”, mas quando a arquitetura deve fornecer contexto, preservar sua fonte e encaminhar limites para revisão humana.
+
+8. **Encerre e limpe o ambiente.** Interrompa qualquer sessão aberta com `Ctrl+C`. Se não for usar o modelo novamente, remova-o e apague as anotações locais que não deseja manter:
+
+   ```bash
+   ollama rm llama3.2:3b
+   ```
+
+   **O que observar:** o Ollama confirma a remoção do modelo local. Se a instalação, o download ou a capacidade da máquina impedir a execução, peça ao professor as três saídas sintéticas de referência, preencha a mesma tabela e declare a limitação encontrada. Essa contingência preserva o objetivo do laboratório, mas não transforma as saídas em prova de qualidade geral.
 
 ## Evidência a entregar
 
-Entregue a tabela da atividade e uma conclusão de até cinco linhas. A evidência da atividade deve incluir segurança e custo: declare que usou apenas material sintético, a rota escolhida e qualquer limite ou custo potencial percebido.
+Entregue a tabela preenchida e as respostas às três perguntas arquiteturais. Declare que utilizou apenas o corpus sintético, a versão exibida por `ollama --version` e qualquer limitação percebida (tempo, memória, disco ou variação entre saídas).
 
-| Condição | Qualidade para a pergunta | Fundamentação no corpus | Latência percebida | Limite ou incerteza observada |
-|---|---|---|---|---|
-| Sem contexto |  |  |  |  |
-| Com contexto |  |  |  |  |
-| Com contexto + parâmetro controlado |  |  |  |  |
-
-Na conclusão, diga qual condição você aceitaria apenas como rascunho e qual exigiria fonte, revisão humana ou novo teste. Os resultados desta pequena amostra não provam qualidade geral, nem autorizam uma decisão de produção sem casos representativos.
-
-## Segurança e custo
-
-A decisão arquitetural não é “qual ferramenta venceu”, mas qual fronteira de dado, evidência e operação é aceitável para a atividade. Use somente o corpus acima; remova quaisquer registros locais ao terminar e nunca versione respostas que contenham dados reais.
-
-Para a atividade, instalação local pode consumir CPU, memória, disco e energia; uma interface ou API pode impor conta, limites, retenção ou custo potencial. Registre esses limites na evidência, mesmo quando não houve cobrança. Se uma rota falhar, volte à rota essencial de análise manual: ela preserva a comparação e não depende de acesso pago.
+Os três resultados são uma amostra de aprendizado, não uma avaliação representativa para produção. Uma decisão real também precisa de casos representativos, critérios de aceitação, evidência de fonte e revisão proporcional ao risco.
