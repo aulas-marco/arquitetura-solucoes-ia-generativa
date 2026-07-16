@@ -30,7 +30,7 @@ MODULES = {
 PAGES = (
     "index.md", "conceitos.md", "padroes-e-decisoes.md",
     "exemplo-arquitetural.md", "estudo-de-caso.md",
-    "exercicios.md", "sintese-e-referencias.md",
+    "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
 )
 BLOOM = ("Recordar", "Compreender", "Aplicar", "Analisar", "Avaliar", "Criar")
 
