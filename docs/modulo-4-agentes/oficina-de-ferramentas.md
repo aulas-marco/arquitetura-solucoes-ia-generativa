@@ -22,6 +22,30 @@ Se houver autorização prévia, use um ambiente institucional de automação pa
 
 Opcionalmente, modele o fluxo em uma plataforma comercial de automação ou orquestração, usando exclusivamente dados e ações simulados. Declare conta, chave, cobrança, retenção e limites antes de executar. A rota comercial ou avançada não acrescenta pontos e nunca justifica acesso a um sistema real.
 
+## Receita principal
+
+Use **n8n** local com Node.js LTS e confirme `node --version` e `npx --version`. Inicie o editor sem conta, chave ou integração externa; o fluxo deve conter um gatilho manual, um nó Set com o JSON de Troca Boreal, uma condição `aprovacao_humana`, um registro `reserva_pendente` e um nó final que retorna `RES-501` somente no ramo aprovado.
+
+```bash
+npx n8n
+```
+
+No editor local, crie o workflow `troca-sintetica`: copie o JSON da atividade para o nó Set, defina a chave `TROCA-PED-104-1` e execute primeiro o ramo sem aprovação. Depois altere apenas `aprovado` para `true` e execute o ramo que produz `{ "resultado": "RES-501", "estado": "reservado" }`. Não adicione credenciais nem nós que chamem CRM, estoque ou webhooks externos.
+
+## Pré-requisitos
+
+- Node.js LTS, `npx`, espaço local e acesso de rede apenas para baixar o pacote na primeira execução.
+- Dados JSON sintéticos da oficina e um navegador para o editor local.
+- Uma aprovação simulada explícita; texto de solicitação não é autorização de escrita.
+
+## Resultado esperado
+
+O histórico local mostra `aguardando_aprovacao` quando `aprovado=false` e uma única reserva `RES-501` quando `aprovado=true`. Execute novamente com a mesma chave para registrar que o caminho de idempotência não cria uma segunda reserva. Exporte somente o workflow sintético ou uma captura sem dados externos como evidência.
+
+## Limpeza e contingência
+
+Pare o processo com `Ctrl+C` e exclua o workflow e os dados de teste do editor local. Se o n8n não iniciar, desenhe a sequência de nós e preencha a tabela de trace com os mesmos dois ramos, chave e resultado; a inspeção manual preserva a atividade. Não conecte contas, credenciais, URLs privadas ou sistemas reais como tentativa de contorno.
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão** (ou uma execução local equivalente); ela não depende de cartão. Use os dados sintéticos abaixo e desenhe ou configure a sequência de estados.

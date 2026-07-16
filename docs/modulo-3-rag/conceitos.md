@@ -52,6 +52,8 @@ Nem tudo deve ser convertido em texto e colocado no mesmo índice. Um saldo atua
 
 “Offline” significa fora do caminho síncrono da pergunta, não necessariamente processamento em lote. Um evento pode disparar ingestão em segundos.
 
+**LangChain** e **LlamaIndex** organizam recuperação; **Chroma** e **Qdrant** armazenam e buscam vetores. Não substituem fonte, autorização ou evidência.
+
 1. **Aquisição:** conectores leem fontes aprovadas com identidade de serviço, escopo mínimo e registro de origem. O pipeline captura exclusões e alterações, não apenas inclusões.
 2. **Extração:** conteúdo, estrutura, tabelas e atributos são obtidos. Falhas de OCR, páginas ilegíveis e seções vazias tornam-se estados explícitos.
 3. **Normalização:** codificação, espaços, cabeçalhos, datas e formatos são padronizados sem apagar significado jurídico ou operacional. A versão bruta permanece rastreável.
@@ -117,5 +119,16 @@ Essa separação orienta o diagnóstico:
 - **conteúdo correto, acesso indevido:** interromper, conter e corrigir autorização antes de otimizar qualidade.
 
 Os dois pipelines formam um único produto operacional. A próxima página transforma suas etapas em decisões: quando combinar sinais, onde filtrar, como montar contexto, quando recusar e qual variante de RAG acrescenta valor.
+
+## Ferramentas no mercado
+
+Compare papéis e condições no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| LangChain | Compor recuperação. | Contratos de documentos e modelo. | Não prova autorização ou suficiência. |
+| LlamaIndex | Estruturar índices e conectores. | Fontes e metadados classificados. | Não confere autoridade ou atualização. |
+| Chroma | Testar coleção vetorial. | Embedding, persistência e metadados. | Similaridade não é verdade ou acesso. |
+| Qdrant | Buscar vetores com filtros. | Serviço, embedding e acesso externos. | Filtro não substitui política. |
 
 **Próxima página:** [Padrões e decisões de recuperação](padroes-e-decisoes.md).

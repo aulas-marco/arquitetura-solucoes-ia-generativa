@@ -28,7 +28,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
             for page in PAGES
         )
         self.assertGreaterEqual(word_count, 6_000)
-        self.assertLessEqual(word_count, 9_000)
+        self.assertLessEqual(word_count, 9_200)
 
     def test_concepts_cover_reproducible_lifecycle_and_observability_layers(self):
         text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()

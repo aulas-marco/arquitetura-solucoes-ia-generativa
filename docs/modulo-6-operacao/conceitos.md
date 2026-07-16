@@ -40,6 +40,8 @@ Um trace distribuído conecta a solicitação às etapas de **prompt**, **contex
 
 As [convenções semânticas do OpenTelemetry](https://opentelemetry.io/docs/specs/semconv/) oferecem um vocabulário oficial em evolução. As convenções específicas de GenAI são **prática viva**: campos e estabilidade mudam, portanto a organização deve fixar a versão adotada, mapear seu schema interno e revisar migrações. Adotar uma convenção melhora correlação; não define sozinho o que é seguro registrar.
 
+**LiteLLM Proxy** concentra rotas; **OpenTelemetry** transporta telemetria. Ambos exigem identidade, minimização e retenção; gateway não é controle de domínio.
+
 Trace não deve guardar cadeia de pensamento privada como explicação. Registre entradas autorizadas, evidências, decisões externas e saídas necessárias. Justificativas de política vêm de regras auditáveis; texto do modelo sobre seu “raciocínio” não é prova causal.
 
 ## Quatro planos de métricas
@@ -68,5 +70,15 @@ Um **SLO** define uma meta sobre um indicador de nível de serviço em uma janel
 Exemplos: “99% das consultas elegíveis em 28 dias recebem resposta validada em até 8 segundos”; “99,9% das ações confirmadas não produzem duplicidade”; “95% das respostas amostradas sobre políticas vigentes atingem fundamentação 3 ou 4”. O primeiro pode ser observado continuamente; o terceiro depende de amostragem e julgamento, portanto deve declarar atraso e incerteza.
 
 O orçamento de erro orienta ritmo de mudança, mas não compra permissão para eventos intoleráveis. Vazamento de dado sensível ou ação fora de autoridade aciona incidente mesmo se a média do SLO estiver dentro da meta. SLO, guardrail e risco residual são instrumentos complementares.
+
+## Ferramentas no mercado
+
+Veja comparações no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| LiteLLM Proxy | Centralizar rotas e limites. | Provedores, identidade, segredos e fallback. | Não remove custo ou valida produto. |
+| OpenTelemetry | Correlacionar sinais. | Convenções, coletor e retenção. | Não substitui investigação. |
+| Langfuse | Acompanhar liberação. | Instrumentação e acesso controlado. | Não define SLO ou incidente. |
 
 Com o ciclo definido, avance para [Padrões e decisões](padroes-e-decisoes.md).

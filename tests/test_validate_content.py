@@ -119,11 +119,11 @@ class FullRepositoryMutationTest(unittest.TestCase):
         self.assertNotEqual(0, result.returncode)
         self.assertIn("referenciada mais de uma vez", result.stderr)
 
-    def test_unreferenced_required_image_is_rejected(self):
+    def test_unreferenced_required_component_dependency_image_is_rejected(self):
         page = self.repository / "docs/modulo-1-fundamentos/exemplo-arquitetural.md"
         page.write_text(
             re.sub(
-                r"!\[[^]]+\]\(\.\./assets/images/m01-anatomia-solucao-generativa\.png\)",
+                r"!\[[^]]+\]\(\.\./assets/images/m01-componentes-dependencias\.png\)",
                 "", page.read_text(encoding="utf-8"),
             ),
             encoding="utf-8",
@@ -192,7 +192,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–9.000", result.stderr)
+        self.assertIn("fora do orçamento de 6.000–9.200", result.stderr)
 
     def test_module_over_budget_is_rejected(self):
         page = self.repository / "docs/modulo-1-fundamentos/conceitos.md"
@@ -204,7 +204,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–9.000", result.stderr)
+        self.assertIn("fora do orçamento de 6.000–9.200", result.stderr)
 
     def test_total_budget_is_rejected_independently(self):
         for slug in (
@@ -220,7 +220,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("total fora do orçamento de 40.000–51.000", result.stderr)
+        self.assertIn("total fora do orçamento de 40.000–53.000", result.stderr)
 
 
 if __name__ == "__main__":

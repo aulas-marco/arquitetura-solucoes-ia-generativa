@@ -22,6 +22,40 @@ Se existir acesso previamente autorizado, observe um dashboard ou gateway instit
 
 Opcionalmente, use dashboard, gateway ou plataforma comercial autorizada para visualizar os mesmos indicadores sintéticos. Declare conta, retenção, custo, limite e qualquer dado que deixaria a fronteira local. A rota comercial ou avançada não acrescenta pontos e não é necessária para o parecer operacional.
 
+## Receita principal
+
+Use **LiteLLM Proxy** diante do Ollama local. Confira Python 3.10+, Ollama instalado e um modelo já baixado; esse cenário consome CPU, RAM e disco, mas não exige chave, cartão ou provedor remoto. Em uma pasta descartável, salve `litellm_config.yaml`:
+
+```yaml
+model_list:
+  - model_name: boreal-local
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: http://localhost:11434
+```
+
+Inicie o modelo e o proxy em terminais separados, então envie um prompt sintético:
+
+```bash
+ollama serve
+litellm --config litellm_config.yaml --port 4000
+curl http://localhost:4000/v1/chat/completions -H 'Content-Type: application/json' -d '{"model":"boreal-local","messages":[{"role":"user","content":"Resuma o indicador sintético tr-202 em uma frase."}]}'
+```
+
+## Pré-requisitos
+
+- Ollama com `llama3.2:3b` já instalado, Python 3.10+ e LiteLLM Proxy instalado com `python -m pip install 'litellm[proxy]'`.
+- Portas locais 11434 e 4000 livres; o comando `ollama serve` não é necessário quando o serviço já estiver ativo.
+- Apenas o indicador sintético `tr-202`; não encaminhe telemetria, prompts ou endpoints de produção.
+
+## Resultado esperado
+
+A resposta JSON vem do modelo `boreal-local` por `localhost:4000`; o proxy torna o nome de rota e o ponto de controle observáveis. Registre que a receita não implementa quota de produção: ela apenas permite discutir a regra de quota, roteamento e SLO com base na tabela da atividade. Para telemetria, anote quais atributos OpenTelemetry seriam minimizados antes de exportar qualquer trace.
+
+## Limpeza e contingência
+
+Interrompa LiteLLM e Ollama com `Ctrl+C`, apague `litellm_config.yaml` e, se não precisar mais do modelo, use `ollama rm llama3.2:3b`. Se o proxy ou o modelo local não iniciar, faça o mapeamento manual `tr-202 → boreal-local → orçamento R$ 0,25 → redução de contexto` na tabela da oficina; isso preserva a evidência sem executar gateway e sem expor dados reais.
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão**; ela não depende de cartão. Considere o recorte sintético de 15 minutos da capacidade compartilhada Boreal.

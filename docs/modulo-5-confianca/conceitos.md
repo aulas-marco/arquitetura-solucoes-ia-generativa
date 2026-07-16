@@ -40,6 +40,8 @@ Rastrear não significa guardar tudo. Prompts completos, documentos e respostas 
 
 Rastreabilidade também não equivale a explicação causal do modelo. O sistema pode registrar evidências apresentadas, passos observáveis e regras acionadas. Texto gerado como “raciocínio” não prova o mecanismo interno nem deve ser usado como justificativa suficiente para uma decisão sensível.
 
+**Langfuse** e **Phoenix** observam traços; **Guardrails AI** valida entradas ou saídas. Risco, regras de domínio e bloqueios continuam no sistema.
+
 ## Responsabilidade compartilhada, papéis identificáveis
 
 **Responsabilidade compartilhada** descreve dependências entre participantes; não permite que todos sejam genericamente responsáveis e ninguém responda. Uma matriz mínima diferencia:
@@ -71,5 +73,15 @@ Uma resposta “boa” precisa ser decomposta:
 As dimensões não são substituíveis. Alta relevância não compensa vazamento; baixa latência não compensa política desatualizada. Defina **critérios de bloqueio** para eventos intoleráveis e **metas** para dimensões negociáveis. Meça também por fatias — público, idioma, tipo de pergunta, nível de acesso e rota de fallback — porque a média mascara grupos frágeis.
 
 A avaliação fornece evidência sobre uma distribuição de casos observados. Ela não garante comportamento para toda entrada possível. Essa limitação conduz ao próximo capítulo: controles em profundidade e decisões de governança que permanecem ativos quando o teste não antecipou o caso.
+
+## Ferramentas no mercado
+
+Condições e alternativas estão no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| Langfuse | Registrar traços e avaliações. | Telemetria, retenção e acesso. | Não substitui controles de domínio. |
+| Phoenix | Investigar traços. | Instrumentação e dados minimizados. | Não prova segurança fora da amostra. |
+| Guardrails AI | Validar formatos. | Esquemas, critérios e rota de falha. | Não substitui autorização ou revisão. |
 
 Continue em [Padrões e decisões](padroes-e-decisoes.md).

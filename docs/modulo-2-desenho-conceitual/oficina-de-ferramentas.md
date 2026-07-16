@@ -24,6 +24,38 @@ Se houver ambiente institucional autorizado, examine um contrato, adaptador ou c
 
 Opcionalmente, faça uma chamada mínima autorizada ou inspecione uma camada comercial de orquestração, sempre com dados sintéticos e sem expor chaves. Declare custo potencial, condições de acesso e o dado que sairia da fronteira. A rota comercial ou avançada não acrescenta pontos e nunca é pré-requisito da atividade.
 
+## Receita principal
+
+Esta receita usa uma fixture de resposta no formato de um adaptador **LiteLLM/OpenAI SDK**, sem instalar chave nem chamar rede. Requer Python 3.10+; confirme `python --version` antes de iniciar. Crie o arquivo `fixture-resumo.json` apenas com a entrada e a resposta sintéticas abaixo.
+
+```json
+{
+  "request": {"model": "fixture-local", "messages": [{"role": "user", "content": "Resuma: cliente fictício não consegue acessar o portal."}]},
+  "response": {"choices": [{"message": {"role": "assistant", "content": "Resumo: cliente fictício relata falha de acesso ao portal."}}]}
+}
+```
+
+Execute o adaptador de inspeção local:
+
+```bash
+python -m json.tool fixture-resumo.json
+python -c "import json; f=json.load(open('fixture-resumo.json')); print(f.get('request',{}).get('messages',[{}])[0].get('content')); print(f.get('response',{}).get('choices',[{}])[0].get('message',{}).get('content'))"
+```
+
+## Pré-requisitos
+
+- Python 3.10+; esta receita usa somente a biblioteca padrão e não exige conta, SDK instalado, chave ou crédito.
+- Um diretório de trabalho descartável para `fixture-resumo.json`.
+- Para comparar contratos, mantenha os campos `model`, `messages` e `choices` explícitos; não substitua a fixture por uma chamada remota.
+
+## Resultado esperado
+
+O primeiro comando valida o JSON e o segundo imprime a entrada e a saída sintéticas. A matriz deve mostrar que o adaptador preserva um contrato observável, mas não demonstra inferência, preço ou latência de provedor. Use esse mesmo arquivo ao descrever a alternativa AIaaS/SDK.
+
+## Limpeza e contingência
+
+Apague `fixture-resumo.json` ao terminar. Se Python não estiver disponível, desenhe os dois objetos JSON em uma tabela e confira manualmente os mesmos campos; registre a inspeção sem execução e mantenha a mini-ADR. Não inclua `OPENAI_API_KEY`, URL privada ou credenciais em arquivo algum.
+
 ## Atividade guiada
 
 A atividade obrigatória é realizável pela rota **Essencial, sem cartão**; ela não depende de cartão e não exige chave de API. Considere o cenário sintético: uma equipe quer redigir um resumo de solicitações fictícias de suporte e precisa manter o contrato de entrada e saída explícito.

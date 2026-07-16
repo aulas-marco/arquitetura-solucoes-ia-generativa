@@ -318,6 +318,96 @@
   modules: [1, 2, 3, 4, 5, 6]
   type: official-documentation
 
+- id: lm-studio-docs-2026
+  title: Welcome to LM Studio Docs
+  authors: LM Studio
+  year: 2026
+  url: https://lmstudio.ai/docs/app
+  accessed: 2026-07-16
+  topics: [ferramentas, executor-local, modelos-locais]
+  modules: [1]
+  type: vendor-documentation
+
+- id: docker-model-runner-2026
+  title: Docker Model Runner
+  authors: Docker
+  year: 2026
+  url: https://docs.docker.com/ai/model-runner/
+  accessed: 2026-07-16
+  topics: [ferramentas, executor-local, docker]
+  modules: [2]
+  type: vendor-documentation
+
+- id: llamaindex-installation-2026
+  title: Installation and Setup
+  authors: LlamaIndex
+  year: 2026
+  url: https://developers.llamaindex.ai/python/framework/getting_started/installation/
+  accessed: 2026-07-16
+  topics: [ferramentas, rag, recuperacao]
+  modules: [3]
+  type: vendor-documentation
+
+- id: chroma-introduction-2026
+  title: Introduction
+  authors: Chroma
+  year: 2026
+  url: https://docs.trychroma.com/docs/overview/introduction
+  accessed: 2026-07-16
+  topics: [ferramentas, rag, banco-vetorial]
+  modules: [3]
+  type: vendor-documentation
+
+- id: qdrant-documentation-2026
+  title: Qdrant Documentation
+  authors: Qdrant
+  year: 2026
+  url: https://qdrant.tech/documentation/
+  accessed: 2026-07-16
+  topics: [ferramentas, rag, banco-vetorial]
+  modules: [3]
+  type: vendor-documentation
+
+- id: langgraph-overview-2026
+  title: LangGraph overview
+  authors: LangChain
+  year: 2026
+  url: https://docs.langchain.com/oss/python/langgraph/overview
+  accessed: 2026-07-16
+  topics: [ferramentas, agentes, orquestracao]
+  modules: [4]
+  type: vendor-documentation
+
+- id: autogen-documentation-2026
+  title: AutoGen
+  authors: Microsoft
+  year: 2026
+  url: https://microsoft.github.io/autogen/stable/
+  accessed: 2026-07-16
+  topics: [ferramentas, agentes, multiagente]
+  modules: [4]
+  type: vendor-documentation
+
+- id: phoenix-documentation-2026
+  title: What is Arize Phoenix?
+  authors: Arize AI
+  year: 2026
+  url: https://arize.com/docs/phoenix
+  accessed: 2026-07-16
+  topics: [ferramentas, observabilidade, avaliacao]
+  modules: [5]
+  type: vendor-documentation
+
+- id: guardrails-ai-documentation-2026
+  title: Introduction
+  authors: Guardrails AI
+  year: 2026
+  url: https://guardrailsai.com/guardrails/docs
+  accessed: 2026-07-16
+  topics: [ferramentas, guardrails, confianca]
+  modules: [5]
+  type: vendor-documentation
+
 - id: avila-ahmad-chapter-1-local
   title: Fundamentals of AI System Architecture
   authors: Richard D. Avila and Imran Ahmad

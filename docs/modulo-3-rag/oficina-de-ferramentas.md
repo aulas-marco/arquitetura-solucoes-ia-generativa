@@ -22,6 +22,33 @@ Use um ambiente de busca, laboratório ou conector institucional somente se ele 
 
 Opcionalmente, repita a prática em um serviço gerenciado de RAG ou conector comercial autorizado. Declare conta, chave, possível cobrança, retenção e quais dados seriam enviados; não use dados reais. A rota comercial ou avançada não acrescenta pontos e não é necessária para comparar a decisão arquitetural.
 
+## Receita principal
+
+Use Python 3.10+ com **LangChain** e **Chroma** locais. Confira as versões e reserve disco para o ambiente virtual; a receita abaixo não chama modelo remoto nem requer chave. Em uma pasta descartável, crie `rag_local.py` com os três trechos Boreal da atividade e vetores sintéticos fixos (por exemplo, `[1,0]`, `[0,1]`, `[1,1]`) para tornar a recuperação reproduzível.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install langchain langchain-chroma chromadb
+python rag_local.py
+```
+
+O script deve criar uma coleção Chroma persistida em `./chroma-boreal`, inserir cada trecho com os metadados `id=POL-17` e `versao=v3`, consultar o vetor sintético da pergunta e imprimir os IDs, versões e textos recuperados. Não use embedding de provedor: os vetores fixos servem somente para testar proveniência e citação.
+
+## Pré-requisitos
+
+- Python 3.10+, `venv`, conexão temporária para instalar pacotes e espaço em disco para `.venv` e `chroma-boreal`.
+- Somente os três trechos sintéticos desta página e um arquivo `rag_local.py` descartável.
+- Terminal compatível com `source`; no Windows use `.venv\\Scripts\\activate`.
+
+## Resultado esperado
+
+Para a pergunta sobre compra regular, a saída lista `POL-17:v3` e o trecho de 15 dias. Para dados insuficientes, ela deve listar o trecho que exige revisão humana. A evidência observável é a lista de metadados recuperados antes da resposta citada, não uma resposta fluente sem fonte.
+
+## Limpeza e contingência
+
+Saia do ambiente com `deactivate` e remova `.venv`, `chroma-boreal` e `rag_local.py` quando terminar. Se a instalação falhar, separe manualmente a tabela da atividade em três cartões, selecione os trechos e registre seus IDs e versões antes de redigir a resposta. Essa inspeção manual é a contingência oficial e não precisa de conta ou execução externa.
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão** (ou a execução local equivalente); ela não depende de cartão. Trabalhe com o corpus sintético abaixo.

@@ -86,6 +86,8 @@ Fronteira define responsabilidade, não apenas rede. Marque:
 
 O fora de escopo evita expectativas perigosas. No Banco Lume: não aprovar, alterar cadastro, enviar comunicações, aprender com correções individuais ou tratar categorias não avaliadas. Cada exclusão precisa aparecer em interface, autorização e testes.
 
+Um **adaptador** separa contrato e fornecedor: **OpenAI SDK** e **LiteLLM** consomem modelos; **Docker Model Runner** apoia execução local. Nenhum define finalidade, dado ou autorização.
+
 ## Stakeholders e preocupações
 
 “Usuário” é uma categoria insuficiente. Analista, cliente afetado, supervisor, dono da política, encarregado de dados, Segurança, Operações, auditoria, fornecedor e equipe de manutenção enxergam riscos diferentes. Uma matriz de preocupações torna tensões visíveis:
@@ -129,5 +131,15 @@ Revisão só controla quando há competência, tempo, autoridade, evidências e 
 ## Do conceito ao requisito
 
 Ao final do desenho conceitual inicial, a equipe deve conseguir declarar: oportunidade, hipótese de valor, critérios de adequação, fora de escopo, stakeholders, cenários, modos, fronteiras e divisão de responsabilidade. A próxima etapa não é escolher um modelo; é transformar esses elementos em objetivos, requisitos significativos e critérios de aceitação que permitam comparar alternativas.
+
+## Ferramentas no mercado
+
+São exemplos; consulte o [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| OpenAI SDK | Adaptar contrato de API. | Credencial real ou fixture. | Não define política. |
+| LiteLLM | Normalizar endpoints. | Modelos, credenciais e falhas configurados. | Não elimina diferenças entre provedores. |
+| Docker Model Runner | Prototipar modelo local. | Docker, modelo e recursos. | Não substitui critérios ou operação. |
 
 **Próxima página:** [Requisitos e padrões de decisão](padroes-e-decisoes.md).
