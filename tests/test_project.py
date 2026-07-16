@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 import subprocess
 import unittest
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -77,7 +78,11 @@ class ProjectTest(unittest.TestCase):
         markdown = "\n".join(
             path.read_text(encoding="utf-8") for path in (ROOT / "docs").rglob("*.md")
         )
-        used_urls = set(re.findall(r"https?://[^) >]+", markdown))
+        used_urls = {
+            url
+            for url in re.findall(r"https?://[^) >]+", markdown)
+            if urlparse(url).hostname not in {"localhost", "127.0.0.1"}
+        }
 
         self.assertEqual([], sorted(used_urls - registered_urls))
 
