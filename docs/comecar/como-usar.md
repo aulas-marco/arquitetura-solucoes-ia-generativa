@@ -12,7 +12,7 @@ Este material pode ser lido em sequência, consultado durante uma decisão arqui
 
 ## Oficinas de ferramentas sem barreira financeira
 
-Cada módulo tem uma oficina com três rotas equivalentes: **essencial, sem cartão**, **institucional** e **comercial ou avançada**. A rota essencial não depende de cartão, conta corporativa, chave de API ou consumo pago; ela é suficiente para produzir a evidência obrigatória e receber a avaliação máxima. As rotas institucional e comercial são opcionais, devem declarar limites, retenção e custo potencial, e não acrescentam pontos.
+Cada módulo tem uma oficina prática com uma ferramenta local open source. O roteiro informa pré-requisitos, instalação, arquivos sintéticos, comandos, resultado esperado, variação controlada, entrega e limpeza. A evidência é a execução e sua interpretação arquitetural; nunca use dados reais, credenciais ou segredos.
 
 Use somente prompts, corpus, traces e configurações sintéticos. Não envie, registre ou versione dados pessoais, documentos corporativos, credenciais, chaves, tokens, URLs privadas ou qualquer outro dado sensível. O [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md) ajuda a escolher uma rota, e a oficina continua possível pela rota essencial quando uma plataforma externa falhar ou não estiver disponível.
 

@@ -15,7 +15,7 @@ Os exercícios usam seis níveis cognitivos para tornar explícito o tipo de apr
 
 | Artefato | Níveis Bloom predominantes | Como a evidência é usada |
 |---|---|---|
-| Oficinas de ferramentas dos módulos 1 a 6 | **Compreender, Aplicar e Analisar** | Tornar uma decisão arquitetural observável com dados sintéticos e uma rota essencial, sem cartão. |
+| Oficinas de ferramentas dos módulos 1 a 6 | **Compreender, Aplicar e Analisar** | Tornar uma decisão arquitetural observável com dados sintéticos e um laboratório local reproduzível. |
 | Projeto final em grupo | **Avaliar e Criar** | Comparar alternativas, defender trade-offs e propor uma arquitetura integrada com evidências. |
 
 As oficinas não substituem o projeto final: elas criam evidências curtas para compreender, aplicar e analisar decisões. No projeto, o grupo avalia essas alternativas e cria uma proposta coerente; o acesso a uma ferramenta paga não altera a qualidade esperada da entrega.

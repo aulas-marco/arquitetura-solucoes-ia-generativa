@@ -671,7 +671,7 @@ A progressão dos seis encontros pode ser resumida da seguinte forma:
 
 ## Projeto final em grupo
 
-O [projeto final em grupo](projeto-final.md) integra as seis decisões do percurso. Ele exige comparação de duas opções, evidências proporcionais ao risco e uma alternativa essencial sem cartão quando houver uso de ferramenta comercial; o uso de ferramenta paga não acrescenta pontos.
+O [projeto final em grupo](projeto-final.md) integra as seis decisões do percurso. Ele exige comparação de duas opções, evidências proporcionais ao risco e uma execução local reproduzível que permita revisar decisões de ferramenta, dados, qualidade e operação.
 
 ## 10.1 Composição sugerida
 

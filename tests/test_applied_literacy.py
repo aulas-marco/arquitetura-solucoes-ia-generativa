@@ -38,7 +38,8 @@ conteúdo da atividade
 
     def test_module_one_workshop_is_an_exploratory_ollama_lab(self):
         text = (DOCS / "modulo-1-fundamentos" / OFFICE).read_text(encoding="utf-8")
-        self.assertIn("Ferramenta:** Ollama", text)
+        self.assertIn("## Ferramenta", text)
+        self.assertIn("**Ollama**", text)
         self.assertNotIn("Essencial, sem cartão", text)
         for command in ("ollama --version", "ollama pull llama3.2:3b", "ollama run llama3.2:3b", "ollama rm llama3.2:3b"):
             self.assertIn(command, text)
@@ -75,76 +76,59 @@ conteúdo da atividade
         self.assertRegex(experiment, r"(?i)temperatura.*n.o.*prova.*factualidade")
         self.assertIn("Questões exploratórias", experiment)
 
-    def test_every_module_has_an_accessible_tool_workshop(self):
-        required = (
-            "## Decisão arquitetural em foco",
-            "## Roteiros equivalentes de acesso",
-            "Essencial, sem cartão",
-            "Institucional",
-            "Comercial ou avançada",
-            "## Atividade guiada",
-            "## Evidência a entregar",
-            "## Segurança e custo",
+    def test_every_workshop_is_a_local_executable_lab(self):
+        forbidden = re.compile(
+            r"cart[ãa]o|crédito|cobrança|sem cart[ãa]o|rota comercial|rota institucional",
+            re.IGNORECASE,
         )
-        # O Módulo 1 tem um contrato próprio de laboratório linear, coberto pelo
-        # teste específico acima; os demais preservam as três rotas de acesso.
-        for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):
+        required = (
+            "## Ferramenta",
+            "## Pré-requisitos",
+            "## Instalação",
+            "## Preparação do laboratório",
+            "## Execução",
+            "## Resultado esperado",
+            "## Interpretação",
+            "## Limpeza e contingência",
+            "## Evidência a entregar",
+        )
+        for slug in MODULES:
             text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
             with self.subTest(module=slug):
                 for marker in required:
                     self.assertIn(marker, text)
-
-                bloom_lines = re.findall(r"^.*objetivo\s+Bloom.*$", text, flags=re.MULTILINE | re.IGNORECASE)
+                self.assertRegex(text, r"(?m)^```bash$")
+                self.assertIsNone(forbidden.search(text), "linguagem de acesso antiga")
+                bloom_lines = re.findall(
+                    r"^.*objetivo\s+Bloom.*$", text, flags=re.MULTILINE | re.IGNORECASE
+                )
                 self.assertEqual(1, len(bloom_lines), "a oficina deve declarar um único objetivo Bloom")
-                bloom_declaration = bloom_lines[0].split(":", maxsplit=1)[-1]
-                bloom_declaration = re.sub(r"[*_`]", "", bloom_declaration)
-                self.assertRegex(
-                    bloom_declaration,
-                    r"^\s*(?:Compreender|Aplicar|Analisar)"
-                    r"(?:\s*(?:,|e)\s*(?:Compreender|Aplicar|Analisar))*\.?\s*$",
-                )
 
-                essential = self.section(text, "### Essencial, sem cartão")
-                institutional = self.section(text, "### Institucional")
-                commercial = self.section(text, "### Comercial ou avançada")
-                decision = self.section(text, "## Decisão arquitetural em foco")
-                activity = self.section(text, "## Atividade guiada")
-                evidence = self.section(text, "## Evidência a entregar")
-                security_cost = self.section(text, "## Segurança e custo")
-                for heading, content in (
-                    ("### Essencial, sem cartão", essential),
-                    ("### Institucional", institutional),
-                    ("### Comercial ou avançada", commercial),
-                    ("## Decisão arquitetural em foco", decision),
-                    ("## Atividade guiada", activity),
-                    ("## Evidência a entregar", evidence),
-                    ("## Segurança e custo", security_cost),
-                ):
-                    self.assertTrue(content, f"{heading} deve conter orientação utilizável")
+    def test_module_two_uses_litellm_proxy_and_a_versioned_manifest(self):
+        text = (DOCS / "modulo-2-desenho-conceitual" / OFFICE).read_text(encoding="utf-8")
+        for term in (
+            "LiteLLM Proxy",
+            "Ollama",
+            "litellm_config.yaml",
+            "boreal-local",
+            "localhost:4000",
+            "curl",
+            "troca controlada",
+        ):
+            self.assertIn(term, text)
 
-                self.assertIn("não depende de cartão", essential.casefold())
-                self.assertRegex(
-                    activity,
-                    r"(?is)obrigat.ria.*essencial, sem cart.o|essencial, sem cart.o.*obrigat.ria",
-                )
-                self.assertIn("não depende de cartão", activity.casefold())
-                for route_name, route in (
-                    ("institucional", institutional),
-                    ("comercial", commercial),
-                ):
-                    self.assertIn(
-                        "não acrescenta pontos",
-                        route.casefold(),
-                        f"a rota {route_name} não pode dar vantagem avaliativa",
-                    )
-
-                self.assertRegex(activity, r"(?i)decis.o arquitetural")
-                self.assertRegex(activity, r"(?i)evid.ncia")
-                self.assertRegex(decision, r"(?i)atividade guiada")
-                self.assertRegex(evidence, r"(?i)atividade")
-                self.assertRegex(evidence, r"(?i)seguran.a|custo")
-                self.assertRegex(security_cost, r"(?i)decis.o arquitetural")
-                self.assertRegex(security_cost, r"(?i)atividade|evid.ncia")
+    def test_module_three_provides_files_ingestion_retrieval_and_abstention(self):
+        text = (DOCS / "modulo-3-rag" / OFFICE).read_text(encoding="utf-8")
+        for term in (
+            "LangChain",
+            "Chroma",
+            "politica-reembolso.txt",
+            "rag_local.py",
+            "chroma-boreal",
+            "POL-17:v3",
+            "revisão humana",
+        ):
+            self.assertIn(term, text)
 
     def test_modules_two_to_six_offer_selectable_exploratory_experiments(self):
         for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):
@@ -157,13 +141,13 @@ conteúdo da atividade
                     self.assertIn(experiment, text)
                 self.assertGreaterEqual(text.count("Questões exploratórias"), 3)
 
-    def test_shared_guide_and_group_project_preserve_equity(self):
+    def test_shared_guide_and_group_project_prioritize_local_evidence(self):
         guide = (DOCS / "referencia" / "guia-de-ferramentas.md").read_text(encoding="utf-8").casefold()
         project = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8").casefold()
 
-        for term in ("sem cartão", "institucional", "comercial", "sdk", "framework", "gateway", "aiaas"):
+        for term in ("local", "open source", "framework", "gateway", "ollama"):
             self.assertIn(term, guide)
-        for term in ("grupo", "duas opções", "evidências", "uso de ferramenta paga não acrescenta pontos"):
+        for term in ("grupo", "evidências", "ferramenta", "reproduzível"):
             self.assertIn(term, project)
 
     def test_concepts_and_workshops_name_tools_and_reproducible_steps(self):

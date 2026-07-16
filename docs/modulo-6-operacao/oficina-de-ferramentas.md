@@ -1,112 +1,118 @@
-# Oficina de ferramentas — operar uma capacidade compartilhada
+# Oficina de ferramentas — observar uma chamada de plataforma
 
 **Objetivo Bloom:** Analisar.
 
-Esta oficina usa sinais sintéticos para decidir como uma capacidade generativa compartilhada deve proteger produtos diferentes. Ela não acessa produção, não configura gateway real e não infere causalidade a partir de um único trace.
+Esta oficina envia uma solicitação sintética por um gateway local e registra um trace OpenTelemetry no próprio terminal. Ela permite discutir o que observar sem copiar telemetria de produção.
 
-## Decisão arquitetural em foco
+## Ferramenta
 
-Gateway, quotas, roteamento e SLOs são controles de plataforma que precisam ser traduzidos em responsabilidade por produto e ações recuperáveis. A **atividade guiada** relaciona métricas a uma hipótese operacional, em vez de tratar dashboard ou fornecedor como decisão arquitetural. Consulte o [Guia de ferramentas e plataformas](../referencia/guia-de-ferramentas.md) ao escolher uma rota: a observação deve manter dados minimizados e limites explícitos.
+**OpenTelemetry** é um padrão open source de instrumentação. Nesta prática, um script cria spans de entrada, modelo e saída. O **LiteLLM Proxy** do Módulo 2 é o gateway local observado; o Ollama é o destino de inferência.
 
-## Roteiros equivalentes de acesso
-
-### Essencial, sem cartão
-
-Analise os traces e métricas sintéticas desta página em uma tabela, planilha ou arquivo local. Formule o parecer operacional sem conectar serviço algum. Esta rota não depende de cartão, conta, chave de API, credencial ou chamada remota e produz toda a evidência obrigatória.
-
-### Institucional
-
-Se existir acesso previamente autorizado, observe um dashboard ou gateway institucional sem executar mudança e sem copiar conteúdo sensível. Compare apenas os sinais necessários com os artefatos sintéticos e registre a mesma recomendação. A rota institucional não acrescenta pontos; ela apenas oferece outro ambiente de observação.
-
-### Comercial ou avançada
-
-Opcionalmente, use dashboard, gateway ou plataforma comercial autorizada para visualizar os mesmos indicadores sintéticos. Declare conta, retenção, custo, limite e qualquer dado que deixaria a fronteira local. A rota comercial ou avançada não acrescenta pontos e não é necessária para o parecer operacional.
-
-## Receita principal
-
-Use **LiteLLM Proxy** diante do Ollama local. Confira Python 3.10+, Ollama instalado e um modelo já baixado; esse cenário consome CPU, RAM e disco, mas não exige chave, cartão ou provedor remoto. Em uma pasta descartável, salve `litellm_config.yaml`:
-
-```yaml
-model_list:
-  - model_name: boreal-local
-    litellm_params:
-      model: ollama/llama3.2:3b
-      api_base: http://localhost:11434
-```
-
-Inicie o modelo e o proxy em terminais separados, então envie um prompt sintético:
-
-```bash
-ollama serve
-litellm --config litellm_config.yaml --port 4000
-curl http://localhost:4000/v1/chat/completions -H 'Content-Type: application/json' -d '{"model":"boreal-local","messages":[{"role":"user","content":"Resuma o indicador sintético tr-202 em uma frase."}]}'
-```
+**Decisão arquitetural em foco:** quais sinais devem ligar uma solicitação, um produto, uma resposta e uma ação de recuperação sem expor conteúdo além do necessário?
 
 ## Pré-requisitos
 
-- Ollama com `llama3.2:3b` já instalado, Python 3.10+ e LiteLLM Proxy instalado com `python -m pip install 'litellm[proxy]'`.
-- Portas locais 11434 e 4000 livres; o comando `ollama serve` não é necessário quando o serviço já estiver ativo.
-- Apenas o indicador sintético `tr-202`; não encaminhe telemetria, prompts ou endpoints de produção.
+- Módulo 2 concluído ou Ollama com `llama3.2:3b` e LiteLLM Proxy disponíveis.
+- Python 3.10+, terminal e portas 11434 e 4000 livres.
+- Os arquivos `litellm_config.yaml` e `request.json` do laboratório M2.
+- Somente o indicador sintético `tr-202`; não use traces, prompts ou identificadores reais.
+
+## Instalação
+
+```bash
+mkdir oficina-m6
+cd oficina-m6
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+No Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
+
+## Preparação do laboratório
+
+Baixe [telemetria_local.py](../assets/labs/modulo-6/telemetria_local.py), [litellm_config.yaml](../assets/labs/modulo-2/litellm_config.yaml) e [request.json](../assets/labs/modulo-2/request.json) para `oficina-m6`.
+
+```bash
+ls telemetria_local.py litellm_config.yaml request.json
+```
+
+O script não grava a pergunta completa como atributo do trace. Ele registra o alias do modelo, o produto sintético, o tamanho da resposta, duração e `trace_id`.
+
+## Execução
+
+Abra dois terminais na pasta `oficina-m6`. No primeiro, inicie o gateway:
+
+```bash
+source .venv/bin/activate
+litellm --config litellm_config.yaml --port 4000
+```
+
+No segundo, execute a chamada instrumentada:
+
+```bash
+source .venv/bin/activate
+python telemetria_local.py
+```
+
+## Receita principal
+
+O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa relacionar fases do fluxo, e não apenas contar chamadas.
 
 ## Resultado esperado
 
-A resposta JSON vem do modelo `boreal-local` por `localhost:4000`; o proxy torna o nome de rota e o ponto de controle observáveis. Registre que a receita não implementa quota de produção: ela apenas permite discutir a regra de quota, roteamento e SLO com base na tabela da atividade. Para telemetria, anote quais atributos OpenTelemetry seriam minimizados antes de exportar qualquer trace.
+Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e atributos minimizados. A execução não implementa quotas, SLOs ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, limiar e ação de recuperação.
 
-## Limpeza e contingência
+## Interpretação
 
-Interrompa LiteLLM e Ollama com `Ctrl+C`, apague `litellm_config.yaml` e, se não precisar mais do modelo, use `ollama rm llama3.2:3b`. Se o proxy ou o modelo local não iniciar, faça o mapeamento manual `tr-202 → boreal-local → orçamento R$ 0,25 → redução de contexto` na tabela da oficina; isso preserva a evidência sem executar gateway e sem expor dados reais.
+No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções não prova causalidade: ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
 
 ## Roteiro sugerido para aula
 
-Selecione um bloco; sinais sintéticos bastam.
+### Experimento A — trace mínimo (Essencial em aula)
 
-### Experimento A — parecer por sinal (Essencial em aula)
+**Objetivo:** reconhecer os sinais de uma chamada. **Pré-requisito:** proxy iniciado. **Execute:** rode o script. **Observe:** `trace_id`, spans e duração. **Compare:** log isolado e trace com etapas relacionadas.
 
-**Objetivo:** separar sintoma, métrica, limiar e hipótese. **Pré-requisito:** tabela Boreal. **Execute:** registre `tr-202`, dono e recuperação. **Observe:** sinal não prova causa. **Compare:** redução, fila e fallback. **Questões exploratórias:** que decisão tem dono? Que qualidade o SLO mede? Que risco há ao supor causa?
+**Questões exploratórias:**
 
-### Experimento B — controles compartilhados (Exploração em dupla)
+- Qual atributo identifica o produto sem registrar o conteúdo inteiro?
+- Que sinal permitiria separar falha do modelo e falha do gateway?
+- Quem deve ser dono do limiar de duração observado?
 
-**Objetivo:** distribuir gateway, quota e rota. **Pré-requisito:** tabela. **Execute:** defina uma regra por produto. **Observe:** custo, qualidade e prioridade. **Compare:** quota global, por produto e ausente. **Questões exploratórias:** que controle fica na plataforma? Como quota protege confiabilidade? Que risco há numa regra única?
+### Experimento B — variação controlada (Exploração em dupla)
 
-### Experimento C — incidente reversível (Extensão)
+**Objetivo:** tratar medição como hipótese. **Pré-requisito:** primeiro trace salvo. **Execute:** altere apenas `tr-202` para `tr-204`. **Observe:** duração, tamanho e erro. **Compare:** dois traces locais.
 
-**Objetivo:** distinguir parada segura e incidente. **Pré-requisito:** Experimento B. **Execute:** descreva rollback, escalonamento e trace mínimo. **Observe:** evidência antes de mudar produção. **Compare:** degradação, retry e mudança irreversível. **Questões exploratórias:** que decisão precisa rollback? Que qualidade prioriza recuperação? Que risco impede reversão automática?
+**Questões exploratórias:**
 
-## Atividade guiada
+- Por que duas amostras não demonstram causa raiz?
+- Que metadado de modelo e manifesto ajuda a reproduzir um desvio?
+- Que dado deve ficar fora do trace para preservar privacidade?
 
-A atividade obrigatória é a rota **Essencial, sem cartão**; ela não depende de cartão. Considere o recorte sintético de 15 minutos da capacidade compartilhada Boreal.
+### Experimento C — ação recuperável (Extensão)
 
-| Produto | Trace/indicador sintético | Qualidade | Custo por solicitação | p95 de latência | Falhas | Uso no período |
-|---|---|---:|---:|---:|---:|---:|
-| Copiloto de suporte | `tr-201`, recuperação versionada | 0,91 | R$ 0,08 | 1,8 s | 0,4% | 1.200 |
-| Resumo interno | `tr-202`, contexto acima do alvo | 0,86 | R$ 0,42 | 3,9 s | 0,8% | 430 |
-| Assistente de pedidos | `tr-203`, timeout no provedor | 0,93 | R$ 0,11 | 7,4 s | 5,6% | 860 |
-| Laboratório | `tr-204`, picos de tentativas | 0,72 | R$ 0,61 | 2,2 s | 1,1% | 2.900 |
+**Objetivo:** transformar sinal em decisão operacional. **Pré-requisito:** comparativo de traces. **Execute:** escolha um limiar e uma ação. **Observe:** evidência necessária antes de alterar o gateway. **Compare:** fallback, redução de contexto, fila e rollback.
 
-**Hipóteses de trabalho:** o SLO do Assistente de pedidos é p95 até 4 s e falha abaixo de 2%; o Resumo interno tem orçamento de R$ 0,25 por solicitação; o Laboratório não pode consumir mais de 20% da quota diária da capacidade; respostas com qualidade abaixo de 0,80 não seguem para ação.
+**Questões exploratórias:**
 
-1. Identifique uma hipótese para cada sinal preocupante. Diferencie sintoma, métrica, limiar e possível causa; os dados não provam a causa sozinhos.
-2. Recomende uma configuração de **gateway**, **quota** e **roteamento** para os quatro produtos. Inclua ao menos uma prioridade por produto, uma proteção contra explosão de custo e uma regra de preservação de qualidade.
-3. Defina um SLO ou orçamento operacional com métrica, limiar e proprietário. Para um desvio, escolha uma ação de recuperação: fallback aprovado, redução de contexto, fila, rollback, degradação segura ou escalonamento de incidente.
-4. Registre que trace ou amostra adicional, com metadados minimizados, seria necessário para confirmar a hipótese antes de mudar produção.
-
-A decisão arquitetural em discussão é: **como uma plataforma compartilhada aplica controles comuns sem apagar o dono, o objetivo e a recuperação de cada produto?** A evidência é um parecer operacional, não a configuração efetiva de um gateway.
+- Que produto deve ter prioridade quando a capacidade é limitada?
+- Quando uma parada segura vira incidente?
+- Qual ação deve ser reversível primeiro?
 
 ## Evidência a entregar
 
-Entregue o parecer operacional da atividade e declare que os dados são sintéticos, a rota escolhida e qualquer instalação, limite, consumo local ou custo potencial. Cada recomendação deve ter hipótese, métrica, limiar, proprietário e ação.
+Entregue as linhas `TRACE_ID` e `DURACAO_MS` de duas execuções e o quadro abaixo.
 
-| Produto ou capacidade | Hipótese | Métrica e limiar | Proprietário | Gateway, quota ou roteamento recomendado | Ação de recuperação |
-|---|---|---|---|---|---|
-| Copiloto de suporte |  |  |  |  |  |
-| Resumo interno |  |  |  |  |  |
-| Assistente de pedidos |  |  |  |  |  |
-| Laboratório |  |  |  |  |  |
+| Execução | Produto/indicador | Duração | Atributos minimizados | Hipótese | Próxima ação |
+|---|---|---:|---|---|---|
+| Inicial | tr-202 |  |  |  |  |
+| Variação | tr-204 |  |  |  |  |
 
-Conclua em até cinco linhas qual decisão deve ser reversível primeiro e qual condição transforma uma parada segura em incidente. Explique como a quota evita que a conveniência de um produto prejudique os demais.
+Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway.
 
-## Segurança e custo
+## Limpeza e contingência
 
-A decisão arquitetural é controlar uma capacidade compartilhada com observabilidade proporcional, não maximizar chamadas ou centralizar responsabilidade. Use somente os traces e métricas sintéticas; não exponha identificadores reais, prompts, respostas, URLs privadas, topologias, tokens, credenciais ou dados de telemetria de produção.
+Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e apague a pasta do laboratório se não precisar mais dela. Para liberar o modelo, use `ollama rm llama3.2:3b` somente após as demais oficinas.
 
-Uma planilha ou ferramenta local pode consumir CPU, memória, disco e energia; dashboards e gateways institucionais ou comerciais podem reter dados, impor limites e gerar cobrança. Registre essas condições na evidência da atividade. Se um dashboard não estiver disponível, use a tabela sintética e produza o mesmo parecer: a rota essencial continua possível sem cartão e sem alteração externa.
+Se ocorrer erro, confirme que `curl http://localhost:4000/health/readiness` responde, que `ollama list` mostra o modelo e que as dependências foram instaladas. Registre a mensagem e corrija a configuração local com apoio do professor; não substitua a evidência por telemetria de outro ambiente.

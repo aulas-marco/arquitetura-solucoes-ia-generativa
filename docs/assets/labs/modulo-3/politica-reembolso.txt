@@ -1,0 +1,5 @@
+ID: POL-17
+VERSAO: v3
+
+Reembolso de compra regular pode ser solicitado em até 15 dias corridos da compra.
+O atendente deve citar a política aplicada.
