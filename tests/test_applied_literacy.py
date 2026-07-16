@@ -13,14 +13,27 @@ OFFICE = "oficina-de-ferramentas.md"
 class AppliedLiteracyTest(unittest.TestCase):
     @staticmethod
     def section(text, heading):
+        level = len(heading) - len(heading.lstrip("#"))
         match = re.search(
-            rf"^{re.escape(heading)}\\s*$\\n(?P<body>.*?)(?=^## |\\Z)",
+            rf"^{re.escape(heading)}[ \t]*\r?$\n(?P<body>.*?)(?=^#{{1,{level}}}[ \t]|\Z)",
             text,
             flags=re.MULTILINE | re.DOTALL,
         )
         if match is None:
             return None
         return match.group("body").strip()
+
+    def test_section_stops_at_a_heading_of_the_same_or_higher_level(self):
+        text = """### Essencial, sem cartão
+conteúdo essencial
+### Institucional
+conteúdo institucional
+## Atividade guiada
+conteúdo da atividade
+"""
+
+        self.assertEqual("conteúdo essencial", self.section(text, "### Essencial, sem cartão"))
+        self.assertEqual("conteúdo institucional", self.section(text, "### Institucional"))
 
     def test_every_module_has_an_accessible_tool_workshop(self):
         required = (
@@ -52,6 +65,7 @@ class AppliedLiteracyTest(unittest.TestCase):
                 essential = self.section(text, "### Essencial, sem cartão")
                 institutional = self.section(text, "### Institucional")
                 commercial = self.section(text, "### Comercial ou avançada")
+                decision = self.section(text, "## Decisão arquitetural em foco")
                 activity = self.section(text, "## Atividade guiada")
                 evidence = self.section(text, "## Evidência a entregar")
                 security_cost = self.section(text, "## Segurança e custo")
@@ -59,6 +73,7 @@ class AppliedLiteracyTest(unittest.TestCase):
                     ("### Essencial, sem cartão", essential),
                     ("### Institucional", institutional),
                     ("### Comercial ou avançada", commercial),
+                    ("## Decisão arquitetural em foco", decision),
                     ("## Atividade guiada", activity),
                     ("## Evidência a entregar", evidence),
                     ("## Segurança e custo", security_cost),
@@ -83,6 +98,7 @@ class AppliedLiteracyTest(unittest.TestCase):
 
                 self.assertRegex(activity, r"(?i)decis.o arquitetural")
                 self.assertRegex(activity, r"(?i)evid.ncia")
+                self.assertRegex(decision, r"(?i)atividade guiada")
                 self.assertRegex(evidence, r"(?i)atividade")
                 self.assertRegex(evidence, r"(?i)seguran.a|custo")
                 self.assertRegex(security_cost, r"(?i)decis.o arquitetural")
