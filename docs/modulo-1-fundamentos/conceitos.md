@@ -33,6 +33,8 @@ A arquitetura Transformer, apresentada em [*Attention Is All You Need*](https://
 
 Modelos fundacionais podem ser **proprietários** ou ter pesos sob licenças mais abertas; podem ser consumidos como serviço, hospedados em nuvem dedicada ou autogerenciados. Essas dimensões não são sinônimas. “Aberto” não implica operação local simples; “como serviço” não implica ausência de controles. A escolha altera custo fixo e variável, residência de dados, elasticidade, acesso a telemetria, velocidade de atualização, portabilidade e responsabilidade operacional.
 
+**Ollama** e **LM Studio** são exemplos de executores locais; não tornam o resultado correto, autorizado ou adequado ao domínio.
+
 ## Treinamento, adaptação e inferência
 
 No **treinamento**, dados e um objetivo de otimização ajustam os parâmetros do modelo. É um processo intensivo, realizado antes do uso. Modelos fundacionais passam por pré-treinamento e podem receber etapas posteriores de alinhamento ou especialização.
@@ -80,5 +82,15 @@ Não presuma que uma interface multimodal implica entendimento uniforme. Texto e
 ## O novo contrato arquitetural
 
 Sistemas generativos combinam zonas previsíveis e zonas avaliadas. O código ainda define autenticação, limites, rotas e validações; o modelo oferece interpretação e geração dentro dessas fronteiras. A qualidade resulta da composição entre modelo, contexto, dados, controles, pessoas e operação. É por isso que substituir apenas o modelo pode melhorar uma métrica e piorar custo, latência ou segurança.
+
+## Ferramentas no mercado
+
+São categorias, não prescrição. Confirme condições no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| Ollama | Testar inferência local sintética. | Hardware, pesos e licença. | Não valida política ou qualidade. |
+| LM Studio | Explorar modelos locais. | Instalação, hardware e pesos. | Não substitui avaliação ou autorização. |
+| API de modelo | Comparar contrato hospedado. | Credencial, dados, região e custo analisados. | Provedor não controla o domínio. |
 
 Na próxima página, esses conceitos se tornam alternativas: [padrões e decisões](padroes-e-decisoes.md).

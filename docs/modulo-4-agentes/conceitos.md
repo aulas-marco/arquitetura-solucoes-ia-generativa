@@ -67,8 +67,20 @@ Em **múltiplos agentes**, papéis especializados — atendimento, política, pe
 
 Use múltiplos agentes quando houver fronteiras reais: domínios mantidos por equipes diferentes, contextos incompatíveis, competências ou credenciais separadas, ou paralelismo medido. Defina protocolo, proprietário do estado, limite de delegação, formato de entrega e regra de encerramento. Se a motivação for apenas organizar um prompt grande, módulos determinísticos ou ferramentas especializadas costumam ser mais simples.
 
+**n8n** automatiza workflows; **LangGraph** e **AutoGen** organizam estados ou agentes. Nenhum delega autoridade: política e aprovação permanecem externas.
+
 ## O critério de entrada
 
 Um agente é candidato quando: a sequência útil varia de modo difícil de enumerar; ferramentas devolvem feedback verificável; erros podem ser contidos; a tarefa tem conclusão observável; e orçamento/autoridade podem ser delimitados. Rejeite ou limite autonomia quando o caminho é estável, o efeito é irreversível, a autorização é ambígua, o feedback chega tarde ou não existe recuperação proporcional.
+
+## Ferramentas no mercado
+
+Compare contratos no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+
+| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
+|---|---|---|---|
+| n8n | Desenhar workflow. | Ambiente, credenciais e dados sintéticos. | Não autoriza ações ou garante idempotência. |
+| LangGraph | Modelar estado e retomada. | Schema, limites e ferramentas. | Não substitui política externa. |
+| AutoGen | Testar papéis de agentes. | Protocolo, orçamento e catálogo mínimo. | Mais agentes não são aprovação. |
 
 Com essa base, passamos de “o que é um agente” para “como integrá-lo sem entregar o controle”: [Padrões e decisões](padroes-e-decisoes.md).

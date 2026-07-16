@@ -33,6 +33,17 @@ Use apenas dados sintéticos nas atividades. Não cole credenciais, chaves, dado
 | Observabilidade/avaliação — Langfuse | Registrar manualmente um traço e critérios sobre entradas/saídas sintéticas, ou auto-hospedar Langfuse localmente; sem cartão e sem chave de provedor para a evidência mínima. | Instância da instituição, somente com autorização e dados sintéticos. | Cloud/Enterprise e recursos licenciados são opcionais e não acrescentam pontos. | Auto-hospedagem requer Docker e serviços de armazenamento; pode exigir conta local e consome disco/CPU. Custos de infraestrutura continuam possíveis. | [Auto-hospedagem Langfuse](https://langfuse.com/self-hosting), [implantação com Docker Compose](https://langfuse.com/self-hosting/deployment/docker-compose) — verificado em 16 jul. 2026. |
 | Gateway — LiteLLM Proxy | Instalar o proxy e apontá-lo para Ollama local, com prompt/saída sintéticos; sem conta, chave ou cartão. | Gateway institucional, se a equipe responsável autorizar o uso. | Provedores remotos, balanceamento corporativo e observabilidade comercial são opcionais e não acrescentam pontos. | Instalar `litellm[proxy]`; para provedor remoto, a respectiva chave e condições são necessárias. Um gateway não elimina custos do provedor. | [Quickstart do LiteLLM Proxy](https://docs.litellm.ai/docs/proxy/quick_start) — verificado em 16 jul. 2026. |
 
+## Ferramentas complementares por papel arquitetural
+
+Estas opções expandem as categorias acima e não criam uma rota obrigatória. A instalação, a disponibilidade e qualquer custo potencial dependem da versão, ambiente e condições do fornecedor; confirme sempre a fonte oficial antes de adotar.
+
+| Papel | Exemplos | Decisão que ainda cabe à arquitetura | Documentação oficial |
+|---|---|---|---|
+| Executor local | LM Studio; Docker Model Runner | hardware, pesos, licenças, fronteira de dados e operação. | [LM Studio](https://lmstudio.ai/docs/app); [Docker Model Runner](https://docs.docker.com/ai/model-runner/) |
+| Recuperação e índice | LlamaIndex; Chroma; Qdrant | fonte autorizada, metadados, atualização, filtros e evidência. | [LlamaIndex](https://developers.llamaindex.ai/python/framework/getting_started/installation/); [Chroma](https://docs.trychroma.com/docs/overview/introduction); [Qdrant](https://qdrant.tech/documentation/) |
+| Orquestração de agentes | LangGraph; AutoGen | estado, autoridade, aprovação, idempotência e orçamento. | [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview); [AutoGen](https://microsoft.github.io/autogen/stable/) |
+| Observação e validação | Phoenix; Guardrails AI | minimização, retenção, critérios de bloqueio e resposta a falhas. | [Phoenix](https://arize.com/docs/phoenix); [Guardrails AI](https://guardrailsai.com/guardrails/docs) |
+
 ## Matriz de seleção
 
 | Pergunta de decisão | Evidência mínima na rota essencial | Sinal para considerar rota institucional ou avançada |
