@@ -18,15 +18,49 @@ Esta oficina executa uma avaliação local de cinco casos sintéticos. Ela trans
 
 ## Instalação
 
+### macOS
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, execute:
+
 ```bash
+python3 --version
+mkdir oficina-m5
+cd oficina-m5
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install deepeval
+ollama pull llama3.2:3b
+```
+
+### Linux
+
+Instale o Ollama pelo procedimento oficial em [ollama.com/download](https://ollama.com/download). No terminal Linux, execute:
+
+```bash
+python3 --version
+mkdir oficina-m5
+cd oficina-m5
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install deepeval
+ollama pull llama3.2:3b
+```
+
+### Windows
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No PowerShell, execute:
+
+```powershell
+python --version
 mkdir oficina-m5
 cd oficina-m5
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\Activate.ps1
 python -m pip install deepeval
+ollama pull llama3.2:3b
 ```
 
-No Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m5` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`. Com o ambiente ativo, `python` funciona nos três sistemas.
 
 ## Preparação do laboratório
 
@@ -71,7 +105,25 @@ Escolha um único caso no JSON e altere somente `decisao_esperada`, por exemplo 
 
 ### Experimento A — caso adversarial (Essencial em aula)
 
-**Objetivo:** verificar uma decisão de bloqueio. **Pré-requisito:** relatório gerado. **Execute:** leia `C-01` e `C-03`. **Observe:** resposta, pontuação e justificativa. **Compare:** bloquear com explicação e bloquear sem próximo passo.
+**Objetivo**
+
+Verificar uma decisão de bloqueio.
+
+**Pré-requisito**
+
+Relatório gerado.
+
+**Execute**
+
+Leia `C-01` e `C-03`.
+
+**Observe**
+
+Resposta, pontuação e justificativa.
+
+**Compare**
+
+Bloquear com explicação e bloquear sem próximo passo.
 
 **Questões exploratórias:**
 
@@ -81,7 +133,25 @@ Escolha um único caso no JSON e altere somente `decisao_esperada`, por exemplo 
 
 ### Experimento B — regra e avaliador (Exploração em dupla)
 
-**Objetivo:** distinguir comportamento observado de referência. **Pré-requisito:** caso alterado. **Execute:** mude uma decisão esperada e rode novamente. **Observe:** diferença do relatório. **Compare:** regra original e regra alterada.
+**Objetivo**
+
+Distinguir comportamento observado de referência.
+
+**Pré-requisito**
+
+Caso alterado.
+
+**Execute**
+
+Mude uma decisão esperada e rode novamente.
+
+**Observe**
+
+Diferença do relatório.
+
+**Compare**
+
+Regra original e regra alterada.
 
 **Questões exploratórias:**
 
@@ -91,7 +161,25 @@ Escolha um único caso no JSON e altere somente `decisao_esperada`, por exemplo 
 
 ### Experimento C — priorização de correção (Extensão)
 
-**Objetivo:** escolher uma hipótese de melhoria. **Pré-requisito:** dois relatórios. **Execute:** selecione uma falha. **Observe:** decisão, justificativa e impacto. **Compare:** corrigir prompt, contexto, guardrail ou UX.
+**Objetivo**
+
+Escolher uma hipótese de melhoria.
+
+**Pré-requisito**
+
+Dois relatórios.
+
+**Execute**
+
+Selecione uma falha.
+
+**Observe**
+
+Decisão, justificativa e impacto.
+
+**Compare**
+
+Corrigir prompt, contexto, guardrail ou UX.
 
 **Questões exploratórias:**
 

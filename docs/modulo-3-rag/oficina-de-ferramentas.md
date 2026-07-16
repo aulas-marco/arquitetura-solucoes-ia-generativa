@@ -19,20 +19,55 @@ Você usará **LangChain** para organizar os componentes, **Chroma** como banco 
 
 ## Instalação
 
-Baixe o Ollama em [ollama.com/download](https://ollama.com/download). Depois, em um terminal, execute:
+### macOS
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, execute:
 
 ```bash
+python3 --version
+mkdir oficina-m3
+cd oficina-m3
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langchain langchain-chroma chromadb langchain-ollama
+ollama pull llama3.2:3b
+ollama pull nomic-embed-text
+mkdir corpus
+```
+
+### Linux
+
+Instale o Ollama pelo procedimento oficial em [ollama.com/download](https://ollama.com/download). Em seguida, execute no terminal Linux:
+
+```bash
+python3 --version
+mkdir oficina-m3
+cd oficina-m3
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langchain langchain-chroma chromadb langchain-ollama
+ollama pull llama3.2:3b
+ollama pull nomic-embed-text
+mkdir corpus
+```
+
+### Windows
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No PowerShell, execute:
+
+```powershell
+python --version
 mkdir oficina-m3
 cd oficina-m3
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\Activate.ps1
 python -m pip install langchain langchain-chroma chromadb langchain-ollama
 ollama pull llama3.2:3b
 ollama pull nomic-embed-text
 mkdir corpus
 ```
 
-No Windows PowerShell, substitua a ativação por `.venv\Scripts\Activate.ps1`.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m3` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`. Com o ambiente ativo, `python` funciona nos três sistemas.
 
 ## Preparação do laboratório
 
@@ -99,7 +134,25 @@ Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usu�
 
 ### Experimento A — ingestão e proveniência (Essencial em aula)
 
-**Objetivo:** ver como o corpus se transforma em índice. **Pré-requisito:** arquivos copiados. **Execute:** rode a primeira pergunta. **Observe:** `chroma-boreal`, IDs e versões. **Compare:** arquivo de origem e trecho recuperado.
+**Objetivo**
+
+Ver como o corpus se transforma em índice.
+
+**Pré-requisito**
+
+Arquivos copiados.
+
+**Execute**
+
+Rode a primeira pergunta.
+
+**Observe**
+
+`chroma-boreal`, IDs e versões.
+
+**Compare**
+
+Arquivo de origem e trecho recuperado.
 
 **Questões exploratórias:**
 
@@ -109,7 +162,25 @@ Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usu�
 
 ### Experimento B — resposta com fonte (Exploração em dupla)
 
-**Objetivo:** separar resposta fluente de resposta fundamentada. **Pré-requisito:** primeira execução concluída. **Execute:** localize o ID antes da resposta. **Observe:** citação e conteúdo recuperado. **Compare:** resposta sem trecho versus resposta com evidência.
+**Objetivo**
+
+Separar resposta fluente de resposta fundamentada.
+
+**Pré-requisito**
+
+Primeira execução concluída.
+
+**Execute**
+
+Localize o ID antes da resposta.
+
+**Observe**
+
+Citação e conteúdo recuperado.
+
+**Compare**
+
+Resposta sem trecho versus resposta com evidência.
 
 **Questões exploratórias:**
 
@@ -119,7 +190,25 @@ Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usu�
 
 ### Experimento C — falha e abstenção (Extensão)
 
-**Objetivo:** tratar ausência de evidência como sinal de parada. **Pré-requisito:** Experimento B. **Execute:** use `--excluir POL-17:v3` e a pergunta sem data. **Observe:** IDs ausentes e `REVISÃO_HUMANA`. **Compare:** abstenção, resposta inventada e encaminhamento.
+**Objetivo**
+
+Tratar ausência de evidência como sinal de parada.
+
+**Pré-requisito**
+
+Experimento B.
+
+**Execute**
+
+Use `--excluir POL-17:v3` e a pergunta sem data.
+
+**Observe**
+
+IDs ausentes e `REVISÃO_HUMANA`.
+
+**Compare**
+
+Abstenção, resposta inventada e encaminhamento.
 
 **Questões exploratórias:**
 

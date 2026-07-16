@@ -19,16 +19,49 @@ Esta oficina envia uma solicitação sintética por um gateway local e registra 
 
 ## Instalação
 
+### macOS
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, execute:
+
 ```bash
+python3 --version
+mkdir oficina-m6
+cd oficina-m6
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+### Linux
+
+Instale o Ollama pelo procedimento oficial em [ollama.com/download](https://ollama.com/download). No terminal Linux, execute:
+
+```bash
+python3 --version
+mkdir oficina-m6
+cd oficina-m6
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]'
+ollama pull llama3.2:3b
+```
+
+### Windows
+
+Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No PowerShell, execute:
+
+```powershell
+python --version
 mkdir oficina-m6
 cd oficina-m6
 python -m venv .venv
-source .venv/bin/activate
+.venv\Scripts\Activate.ps1
 python -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]'
 ollama pull llama3.2:3b
 ```
 
-No Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m6` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`.
 
 ## Preparação do laboratório
 
@@ -45,14 +78,30 @@ O script não grava a pergunta completa como atributo do trace. Ele registra o a
 Abra dois terminais na pasta `oficina-m6`. No primeiro, inicie o gateway:
 
 ```bash
+# macOS/Linux
 source .venv/bin/activate
+litellm --config litellm_config.yaml --port 4000
+```
+
+No Windows/PowerShell, use:
+
+```powershell
+.venv\Scripts\Activate.ps1
 litellm --config litellm_config.yaml --port 4000
 ```
 
 No segundo, execute a chamada instrumentada:
 
 ```bash
+# macOS/Linux
 source .venv/bin/activate
+python telemetria_local.py
+```
+
+No Windows/PowerShell, use:
+
+```powershell
+.venv\Scripts\Activate.ps1
 python telemetria_local.py
 ```
 
@@ -72,7 +121,25 @@ No script, altere somente o texto sintético `tr-202` por `tr-204` e execute nov
 
 ### Experimento A — trace mínimo (Essencial em aula)
 
-**Objetivo:** reconhecer os sinais de uma chamada. **Pré-requisito:** proxy iniciado. **Execute:** rode o script. **Observe:** `trace_id`, spans e duração. **Compare:** log isolado e trace com etapas relacionadas.
+**Objetivo**
+
+Reconhecer os sinais de uma chamada.
+
+**Pré-requisito**
+
+Proxy iniciado.
+
+**Execute**
+
+Rode o script.
+
+**Observe**
+
+`trace_id`, spans e duração.
+
+**Compare**
+
+Log isolado e trace com etapas relacionadas.
 
 **Questões exploratórias:**
 
@@ -82,7 +149,25 @@ No script, altere somente o texto sintético `tr-202` por `tr-204` e execute nov
 
 ### Experimento B — variação controlada (Exploração em dupla)
 
-**Objetivo:** tratar medição como hipótese. **Pré-requisito:** primeiro trace salvo. **Execute:** altere apenas `tr-202` para `tr-204`. **Observe:** duração, tamanho e erro. **Compare:** dois traces locais.
+**Objetivo**
+
+Tratar medição como hipótese.
+
+**Pré-requisito**
+
+Primeiro trace salvo.
+
+**Execute**
+
+Altere apenas `tr-202` para `tr-204`.
+
+**Observe**
+
+Duração, tamanho e erro.
+
+**Compare**
+
+Dois traces locais.
 
 **Questões exploratórias:**
 
@@ -92,7 +177,25 @@ No script, altere somente o texto sintético `tr-202` por `tr-204` e execute nov
 
 ### Experimento C — ação recuperável (Extensão)
 
-**Objetivo:** transformar sinal em decisão operacional. **Pré-requisito:** comparativo de traces. **Execute:** escolha um limiar e uma ação. **Observe:** evidência necessária antes de alterar o gateway. **Compare:** fallback, redução de contexto, fila e rollback.
+**Objetivo**
+
+Transformar sinal em decisão operacional.
+
+**Pré-requisito**
+
+Comparativo de traces.
+
+**Execute**
+
+Escolha um limiar e uma ação.
+
+**Observe**
+
+Evidência necessária antes de alterar o gateway.
+
+**Compare**
+
+Fallback, redução de contexto, fila e rollback.
 
 **Questões exploratórias:**
 
