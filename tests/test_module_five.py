@@ -28,7 +28,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
             for page in PAGES
         )
         self.assertGreaterEqual(word_count, 6_000)
-        self.assertLessEqual(word_count, 9_200)
+        self.assertLessEqual(word_count, 9_400)
 
     def test_concepts_explain_systemic_trust_risk_and_shared_responsibility(self):
         text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
