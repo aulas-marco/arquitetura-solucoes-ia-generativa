@@ -56,6 +56,22 @@ A resposta JSON vem do modelo `boreal-local` por `localhost:4000`; o proxy torna
 
 Interrompa LiteLLM e Ollama com `Ctrl+C`, apague `litellm_config.yaml` e, se não precisar mais do modelo, use `ollama rm llama3.2:3b`. Se o proxy ou o modelo local não iniciar, faça o mapeamento manual `tr-202 → boreal-local → orçamento R$ 0,25 → redução de contexto` na tabela da oficina; isso preserva a evidência sem executar gateway e sem expor dados reais.
 
+## Roteiro sugerido para aula
+
+Selecione um bloco; sinais sintéticos bastam.
+
+### Experimento A — parecer por sinal (Essencial em aula)
+
+**Objetivo:** separar sintoma, métrica, limiar e hipótese. **Pré-requisito:** tabela Boreal. **Execute:** registre `tr-202`, dono e recuperação. **Observe:** sinal não prova causa. **Compare:** redução, fila e fallback. **Questões exploratórias:** que decisão tem dono? Que qualidade o SLO mede? Que risco há ao supor causa?
+
+### Experimento B — controles compartilhados (Exploração em dupla)
+
+**Objetivo:** distribuir gateway, quota e rota. **Pré-requisito:** tabela. **Execute:** defina uma regra por produto. **Observe:** custo, qualidade e prioridade. **Compare:** quota global, por produto e ausente. **Questões exploratórias:** que controle fica na plataforma? Como quota protege confiabilidade? Que risco há numa regra única?
+
+### Experimento C — incidente reversível (Extensão)
+
+**Objetivo:** distinguir parada segura e incidente. **Pré-requisito:** Experimento B. **Execute:** descreva rollback, escalonamento e trace mínimo. **Observe:** evidência antes de mudar produção. **Compare:** degradação, retry e mudança irreversível. **Questões exploratórias:** que decisão precisa rollback? Que qualidade prioriza recuperação? Que risco impede reversão automática?
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão**; ela não depende de cartão. Considere o recorte sintético de 15 minutos da capacidade compartilhada Boreal.

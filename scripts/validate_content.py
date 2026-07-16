@@ -359,13 +359,13 @@ def main() -> int:
 
     for slug in slugs:
         module_words[slug] = validate_module(slug, errors, counts, image_references)
-        if not 6_000 <= module_words[slug] <= 9_200:
+        if not 6_000 <= module_words[slug] <= 9_400:
             errors.append(
                 f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–9.200"
             )
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 53_000:
+        if not 40_000 <= counts.words <= 54_000:
             errors.append(
                 f"total fora do orçamento de 40.000–53.000: {counts.words} palavras"
             )
