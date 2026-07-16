@@ -112,3 +112,28 @@ conteúdo da atividade
             self.assertIn(term, guide)
         for term in ("grupo", "duas opções", "evidências", "uso de ferramenta paga não acrescenta pontos"):
             self.assertIn(term, project)
+
+    def test_concepts_and_workshops_name_tools_and_reproducible_steps(self):
+        expected_tools = {
+            "modulo-1-fundamentos": ("Ollama", "LM Studio"),
+            "modulo-2-desenho-conceitual": ("LiteLLM", "OpenAI SDK"),
+            "modulo-3-rag": ("LangChain", "Chroma"),
+            "modulo-4-agentes": ("n8n", "LangGraph"),
+            "modulo-5-confianca": ("Langfuse", "Phoenix"),
+            "modulo-6-operacao": ("LiteLLM Proxy", "OpenTelemetry"),
+        }
+        for slug, tools in expected_tools.items():
+            concepts = (DOCS / slug / "conceitos.md").read_text(encoding="utf-8")
+            workshop = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
+
+            self.assertIn("## Ferramentas no mercado", concepts)
+            for tool in tools:
+                self.assertIn(tool, concepts)
+            for heading in (
+                "## Receita principal",
+                "## Pré-requisitos",
+                "## Resultado esperado",
+                "## Limpeza e contingência",
+            ):
+                self.assertIn(heading, workshop)
+            self.assertRegex(workshop, r"(?m)^```(?:bash|yaml|json)$")

@@ -10,13 +10,24 @@ MODULE = ROOT / "docs" / "modulo-1-fundamentos"
 
 
 class ModuleOneReviewRegressionTest(unittest.TestCase):
-    def test_architecture_diagram_has_one_transversal_layer_eight(self):
+    def test_component_image_and_sequence_diagram_have_distinct_jobs(self):
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
-        diagram = re.search(r"```mermaid\n(.*?)```", text, re.DOTALL)
 
-        self.assertIsNotNone(diagram)
-        self.assertEqual(1, diagram.group(1).count('["8.'))
-        self.assertIn('["8. Segurança, governança e observabilidade"]', diagram.group(1))
+        self.assertIn("m01-componentes-dependencias.png", text)
+        self.assertIn("Equivalente textual — componentes", text)
+        sequence = re.search(r"```mermaid\n(.*?)```", text, re.DOTALL)
+        self.assertIsNotNone(sequence)
+        for term in (
+            "sequenceDiagram",
+            "participant U as Usuário",
+            "participant A as Aplicação",
+            "participant O as Orquestrador",
+            "participant R as Recuperação",
+            "participant G as Gateway",
+            "participant M as Modelo",
+            "Validação",
+        ):
+            self.assertIn(term, sequence.group(1))
 
     def test_architecture_diagram_returns_typed_tool_results_to_orchestration(self):
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
