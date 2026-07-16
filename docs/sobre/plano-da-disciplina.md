@@ -13,7 +13,7 @@
 
 ## 2. Ementa
 
-Fundamentos de sistemas com inteligência artificial generativa. Modelos fundacionais e propriedades arquiteturalmente significativas dos grandes modelos de linguagem. Anatomia e ciclo de vida de soluções generativas. Desenho conceitual, requisitos e atributos de qualidade. Seleção entre prompting, RAG, uso de ferramentas, agentes e fine-tuning. Arquiteturas de recuperação de conhecimento. Agentes e integração com sistemas corporativos. Segurança, privacidade, guardrails e governança. Avaliação, observabilidade e LLMOps. Plataformas corporativas de IA generativa. Análise de trade-offs e comunicação de decisões arquiteturais.
+Fundamentos de sistemas com inteligência artificial generativa. Modelos fundacionais e propriedades arquiteturalmente significativas dos grandes modelos de linguagem. Anatomia e ciclo de vida de soluções generativas. Desenho conceitual, requisitos e atributos de qualidade. Seleção entre prompting, RAG, uso de ferramentas, agentes e fine-tuning. Arquiteturas de recuperação de conhecimento. Agentes, UX conversacional e chatbots, integração com sistemas corporativos e GenAI no desenvolvimento de software. Plataformas e bibliotecas, AI-as-a-Service (AIaaS), IA como commodity e AI Gateway. Segurança, privacidade, guardrails, portfólio, conformidade e governança. Geração e avaliação de alternativas, observabilidade, infraestrutura, FinOps, LLMOps e tendências. Análise de trade-offs e comunicação de decisões arquiteturais.
 
 ## 3. Contexto e posicionamento
 
@@ -174,15 +174,9 @@ Arquitetura de referência inicial organizada em camadas:
 
 Os alunos recebem três propostas: conexão direta com um modelo, envio integral de documentos ao contexto e arquitetura inicial com recuperação de conhecimento. A atividade consiste em identificar componentes, riscos, pressupostos e perguntas não respondidas. Não se espera o desenho completo de um RAG.
 
-### Experimento orientado
+### Oficina aplicada
 
-Comparar respostas geradas:
-
-1. Sem contexto adicional.
-2. Com um documento completo no prompt.
-3. Com trechos relevantes previamente selecionados.
-
-A turma analisa o efeito sobre qualidade, custo, latência, rastreabilidade e arquitetura.
+**Objetivo Bloom: Compreender e Aplicar.** Realize a [oficina de comportamento de modelo e contexto](../modulo-1-fundamentos/oficina-de-ferramentas.md): compare respostas sem contexto, com corpus sintético e com uma variação controlada. A evidência torna visíveis qualidade, fundamentação, latência percebida e limites sem depender de uma plataforma específica.
 
 ### Entregável avaliativo
 
@@ -263,9 +257,9 @@ Ao final do encontro, o aluno deverá conseguir:
 
 A organização quer reduzir o tempo médio de atendimento, mas possui dados sensíveis, sistemas legados e exigência de revisão humana. Os grupos devem comparar uma automação convencional, um copiloto baseado em contexto, um RAG e um agente com ferramentas.
 
-### Experimento orientado
+### Oficina aplicada
 
-Testar a mesma tarefa com três configurações de contexto e observar variação, aderência às instruções e capacidade de justificar a resposta.
+**Objetivo Bloom: Aplicar e Analisar.** Realize a [oficina de escolha da fronteira de consumo](../modulo-2-desenho-conceitual/oficina-de-ferramentas.md): compare AIaaS/SDK, modelo local ou autogerido e camada de orquestração por dados, custo, operação, portabilidade e observabilidade. A mini-ADR registra hipótese, alternativa e gatilho de revisão.
 
 ### Entregável avaliativo
 
@@ -355,9 +349,9 @@ Ao final do encontro, o aluno deverá conseguir:
 
 O sistema deve respeitar permissões individuais, citar fontes, refletir atualizações rapidamente e informar quando não possui evidência suficiente.
 
-### Experimento orientado
+### Oficina aplicada
 
-Comparar duas estratégias de segmentação e recuperação em um pequeno conjunto documental. Identificar como as escolhas alteram precisão, contexto, custo e resposta.
+**Objetivo Bloom: Aplicar e Analisar.** Realize a [oficina para observar um RAG fundamentado](../modulo-3-rag/oficina-de-ferramentas.md): use corpus sintético para contrastar resposta sem evidência, recuperação, proveniência, citação e hipótese de correção.
 
 ### Entregável avaliativo
 
@@ -446,9 +440,9 @@ Ao final do encontro, o aluno deverá conseguir:
 
 O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações exigem confirmação do cliente; outras dependem de aprovação de um supervisor.
 
-### Experimento orientado
+### Oficina aplicada
 
-Executar um protótipo com duas ferramentas simuladas. Observar seleção incorreta, parâmetros inválidos, repetição de ações e falhas de integração. Em seguida, adicionar restrições e comparar o comportamento.
+**Objetivo Bloom: Aplicar e Analisar.** Realize a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md): simule intenção, autorização, idempotência, aprovação humana e resultado autoritativo sem conectar sistemas corporativos.
 
 ### Entregável avaliativo
 
@@ -542,9 +536,9 @@ Ao final do encontro, o aluno deverá conseguir:
 
 O sistema processa documentos internos e responde sobre políticas, benefícios e situações funcionais. Ele deve proteger dados pessoais, separar conteúdos públicos e restritos e encaminhar situações sensíveis para especialistas humanos.
 
-### Experimento orientado
+### Oficina aplicada
 
-Executar cenários normais e adversariais contra um protótipo. Aplicar controles em diferentes camadas e comparar taxa de bloqueio, falsos positivos, utilidade e capacidade de auditoria.
+**Objetivo Bloom: Analisar.** Realize a [oficina para testar confiança e experiência](../modulo-5-confianca/oficina-de-ferramentas.md): examine casos sintéticos de segurança e UX, compare limites e recuperações e justifique aceitar, corrigir, escalar ou bloquear.
 
 ### Entregável avaliativo
 
@@ -635,7 +629,11 @@ Ao final do encontro, o aluno deverá conseguir:
 
 Uma organização possui protótipos independentes de copiloto, RAG e agentes. Há duplicação de componentes, contratos diferentes com fornecedores, pouca rastreabilidade e custos crescentes. Cada grupo recebe uma combinação distinta de domínio, restrições e atributos de qualidade.
 
-### Oficina e banca
+### Oficina aplicada
+
+**Objetivo Bloom: Analisar.** Realize a [oficina para operar uma capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md): formule um parecer a partir de sinais sintéticos e relacione gateway, quota, roteamento, SLO, custo e ação de recuperação por produto.
+
+### Banca
 
 Os grupos elaboram e defendem uma proposta arquitetural. A banca questiona pressupostos, alternativas, riscos, operação e evidências.
 
@@ -670,6 +668,10 @@ A progressão dos seis encontros pode ser resumida da seguinte forma:
 6. **Operar e escalar** — sustentar múltiplas soluções em produção.
 
 # 10. Avaliação da aprendizagem
+
+## Projeto final em grupo
+
+O [projeto final em grupo](projeto-final.md) integra as seis decisões do percurso. Ele exige comparação de duas opções, evidências proporcionais ao risco e uma alternativa essencial sem cartão quando houver uso de ferramenta comercial; o uso de ferramenta paga não acrescenta pontos.
 
 ## 10.1 Composição sugerida
 
@@ -784,4 +786,3 @@ A disciplina não tem como objetivos principais:
 - produzir um sistema completo pronto para produção durante as aulas.
 
 Esses limites preservam o foco na formação do arquiteto especialista: compreender o problema, tomar decisões justificadas, orientar a implementação e avaliar as consequências do sistema como um todo.
-

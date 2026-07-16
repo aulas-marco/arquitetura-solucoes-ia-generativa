@@ -49,7 +49,8 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 | 3 | [Padrões e decisões](padroes-e-decisoes.md) | entrega, recuperação e capacidades comuns |
 | 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
 | 5 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
-| 6 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
-| 7 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
+| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas e recuperação |
+| 7 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
+| 8 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 
-Siga para [Conceitos](conceitos.md), onde o ciclo operacional é construído antes das escolhas de plataforma.
+Siga para [Conceitos](conceitos.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.

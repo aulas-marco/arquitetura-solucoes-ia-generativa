@@ -39,8 +39,9 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, identidade, resiliência e intervenção humana |
 | 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, rejeição, repetição e compensação |
 | 5 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
-| 6 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
-| 7 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
+| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura |
+| 7 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
+| 8 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
 ## Um teste inicial
 

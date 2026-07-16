@@ -31,8 +31,9 @@ Ao concluir o módulo, você deverá ser capaz de:
 | **3. [Padrões e decisões](padroes-e-decisoes.md)** | Que alternativas existem e o que cada uma adiciona? | Um panorama comparável e uma ADR preliminar. |
 | **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como os componentes colaboram no caminho de uma resposta? | Uma leitura em oito camadas, com falhas e qualidades. |
 | **5. [Estudo de caso](estudo-de-caso.md)** | Como escolher uma direção para um assistente documental? | Uma recomendação sustentada por restrições e evidências. |
-| **6. [Exercícios](exercicios.md)** | Consigo recordar, aplicar e defender os conceitos? | Evidências de aprendizagem nos seis níveis de Bloom. |
-| **7. [Síntese e referências](sintese-e-referencias.md)** | O que deve permanecer depois da leitura? | Checklist, autoavaliação e fontes efetivamente usadas. |
+| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
+| **7. [Exercícios](exercicios.md)** | Consigo recordar, aplicar e defender os conceitos? | Evidências de aprendizagem nos seis níveis de Bloom. |
+| **8. [Síntese e referências](sintese-e-referencias.md)** | O que deve permanecer depois da leitura? | Checklist, autoavaliação e fontes efetivamente usadas. |
 
 ## O caso que nos acompanhará
 

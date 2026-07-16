@@ -192,7 +192,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–8.000", result.stderr)
+        self.assertIn("fora do orçamento de 6.000–9.000", result.stderr)
 
     def test_module_over_budget_is_rejected(self):
         page = self.repository / "docs/modulo-1-fundamentos/conceitos.md"
@@ -204,7 +204,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–8.000", result.stderr)
+        self.assertIn("fora do orçamento de 6.000–9.000", result.stderr)
 
     def test_total_budget_is_rejected_independently(self):
         for slug in (
@@ -220,7 +220,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("total fora do orçamento de 40.000–50.000", result.stderr)
+        self.assertIn("total fora do orçamento de 40.000–51.000", result.stderr)
 
 
 if __name__ == "__main__":

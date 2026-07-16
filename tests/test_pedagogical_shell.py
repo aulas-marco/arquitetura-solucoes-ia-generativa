@@ -16,12 +16,18 @@ class PedagogicalShellTest(unittest.TestCase):
             with self.subTest(module=slug):
                 self.assertRegex(text, r"\*\*Tempo estimado de leitura:\*\* 60[–-]90 minutos")
 
-    def test_modules_four_to_six_link_complete_seven_page_maps(self):
+    def test_modules_four_to_six_link_complete_eight_page_maps(self):
         for slug in tuple(MODULES)[3:]:
             text = (DOCS / slug / "index.md").read_text(encoding="utf-8")
             with self.subTest(module=slug):
-                for page in PAGES:
+                for page in (*PAGES, "oficina-de-ferramentas.md"):
                     self.assertRegex(text, rf"\[[^]]+\]\({re.escape(page)}\)")
+
+    def test_every_module_links_to_the_applied_workshop(self):
+        for slug in MODULES:
+            text = (DOCS / slug / "index.md").read_text(encoding="utf-8")
+            with self.subTest(module=slug):
+                self.assertIn("[Oficina de ferramentas](oficina-de-ferramentas.md)", text)
 
     def test_modules_five_and_six_end_with_self_assessment_questions(self):
         for slug in ("modulo-5-confianca", "modulo-6-operacao"):

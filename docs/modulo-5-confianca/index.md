@@ -51,7 +51,8 @@ Quarto, **responsabilidade é compartilhada, mas não diluída**. Fornecedor, pl
 | 3 | [Padrões e decisões](padroes-e-decisoes.md) | ameaças, guardrails, privacidade e governança |
 | 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | modelo de ameaças e pipeline de avaliação |
 | 5 | [Estudo de caso](estudo-de-caso.md) | RH, escalonamento e critérios de liberação |
-| 6 | [Exercícios](exercicios.md) | ameaças, controles, risco residual e projeto |
-| 7 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
+| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | avaliação, guardrails e experiência recuperável |
+| 7 | [Exercícios](exercicios.md) | ameaças, controles, risco residual e projeto |
+| 8 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
-Comece por [Conceitos](conceitos.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências.
+Comece por [Conceitos](conceitos.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências. A [Oficina de ferramentas](oficina-de-ferramentas.md) permite testar essas decisões com casos sintéticos e sem cartão.

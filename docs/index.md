@@ -6,7 +6,7 @@
 
 ## A promessa do curso
 
-Aprenda a projetar, avaliar e defender arquiteturas de soluções com IA generativa conectando comportamento probabilístico, conhecimento, integrações, controles e operação. Ao final, você não terá uma receita única: terá vocabulário, padrões e critérios para tomar decisões justificáveis em contextos diferentes.
+Aprenda a projetar, avaliar e defender arquiteturas de soluções com IA generativa conectando comportamento probabilístico, conhecimento, integrações, controles e operação. As seis oficinas aplicadas tornam decisões observáveis com evidências sintéticas e rotas de acesso equivalentes. Ao final, você não terá uma receita única nem uma certificação de fornecedor: terá vocabulário, padrões e critérios para tomar decisões justificáveis em contextos diferentes.
 
 ## Para quem é
 
@@ -22,6 +22,8 @@ Este site-livro foi preparado para estudantes de pós-graduação, arquitetos, e
 6. **[Operar e escalar — LLMOps](modulo-6-operacao/index.md):** sustentar múltiplas soluções em produção.
 
 Consulte separadamente o [Plano da disciplina](sobre/plano-da-disciplina.md) para objetivos, carga horária e programação dos seis encontros.
+
+Consulte o [Guia de ferramentas e plataformas](referencia/guia-de-ferramentas.md) para escolher uma rota de oficina e o [Projeto final em grupo](sobre/projeto-final.md) para conhecer a integração avaliativa do percurso.
 
 ## Como começar
 

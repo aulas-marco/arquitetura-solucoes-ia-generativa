@@ -11,6 +11,15 @@ Os exercícios usam seis níveis cognitivos para tornar explícito o tipo de apr
 | **Avaliar** | justificar, criticar, priorizar, defender | Defender um limite de autonomia para um agente que executa reembolsos. |
 | **Criar** | projetar, combinar, formular, elaborar | Projetar uma arquitetura corporativa com gateway, avaliação e fallback. |
 
+## Oficinas e projeto final
+
+| Artefato | Níveis Bloom predominantes | Como a evidência é usada |
+|---|---|---|
+| Oficinas de ferramentas dos módulos 1 a 6 | **Compreender, Aplicar e Analisar** | Tornar uma decisão arquitetural observável com dados sintéticos e uma rota essencial, sem cartão. |
+| Projeto final em grupo | **Avaliar e Criar** | Comparar alternativas, defender trade-offs e propor uma arquitetura integrada com evidências. |
+
+As oficinas não substituem o projeto final: elas criam evidências curtas para compreender, aplicar e analisar decisões. No projeto, o grupo avalia essas alternativas e cria uma proposta coerente; o acesso a uma ferramenta paga não altera a qualidade esperada da entrega.
+
 ## Como o feedback funciona
 
 **Feedback público** aparece nas questões de Recordar e Compreender. Depois de tentar responder, você pode abrir um bloco com a resposta esperada e corrigir lacunas de vocabulário ou interpretação.

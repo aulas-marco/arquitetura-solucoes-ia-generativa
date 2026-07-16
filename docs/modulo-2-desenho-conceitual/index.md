@@ -33,8 +33,9 @@ Ao concluir o módulo, você deverá ser capaz de:
 | **3. [Padrões e decisões](padroes-e-decisoes.md)** | Como requisitos orientam alternativas? | Requisitos significativos, critérios de aceitação e paisagem de decisões. |
 | **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como a rastreabilidade aparece em vistas e ADRs? | Um copiloto financeiro derivado do objetivo até componentes e falhas. |
 | **5. [Estudo de caso](estudo-de-caso.md)** | Que direção faz sentido sob dados sensíveis e legado? | Comparação disciplinada de quatro desenhos candidatos. |
-| **6. [Exercícios](exercicios.md)** | Consigo produzir e defender um desenho conceitual? | Evidências nos seis níveis da Taxonomia de Bloom. |
-| **7. [Síntese e referências](sintese-e-referencias.md)** | Como preservar decisões e preparar o próximo passo? | Checklist de rastreabilidade e ponte para RAG. |
+| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
+| **7. [Exercícios](exercicios.md)** | Consigo produzir e defender um desenho conceitual? | Evidências nos seis níveis da Taxonomia de Bloom. |
+| **8. [Síntese e referências](sintese-e-referencias.md)** | Como preservar decisões e preparar o próximo passo? | Checklist de rastreabilidade e ponte para RAG. |
 
 ## O caso que nos acompanhará
 

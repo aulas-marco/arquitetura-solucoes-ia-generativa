@@ -57,6 +57,7 @@ nav:
       - Padrões e decisões: modulo-1-fundamentos/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-1-fundamentos/exemplo-arquitetural.md
       - Estudo de caso: modulo-1-fundamentos/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-1-fundamentos/oficina-de-ferramentas.md
       - Exercícios: modulo-1-fundamentos/exercicios.md
       - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
   - Módulo 2 — Desenho conceitual:
@@ -65,6 +66,7 @@ nav:
       - Padrões e decisões: modulo-2-desenho-conceitual/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-2-desenho-conceitual/exemplo-arquitetural.md
       - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-2-desenho-conceitual/oficina-de-ferramentas.md
       - Exercícios: modulo-2-desenho-conceitual/exercicios.md
       - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
   - Módulo 3 — RAG:
@@ -73,6 +75,7 @@ nav:
       - Padrões e decisões: modulo-3-rag/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-3-rag/exemplo-arquitetural.md
       - Estudo de caso: modulo-3-rag/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-3-rag/oficina-de-ferramentas.md
       - Exercícios: modulo-3-rag/exercicios.md
       - Síntese e referências: modulo-3-rag/sintese-e-referencias.md
   - Módulo 4 — Agentes:
@@ -81,6 +84,7 @@ nav:
       - Padrões e decisões: modulo-4-agentes/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-4-agentes/exemplo-arquitetural.md
       - Estudo de caso: modulo-4-agentes/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-4-agentes/oficina-de-ferramentas.md
       - Exercícios: modulo-4-agentes/exercicios.md
       - Síntese e referências: modulo-4-agentes/sintese-e-referencias.md
   - Módulo 5 — Confiança:
@@ -89,6 +93,7 @@ nav:
       - Padrões e decisões: modulo-5-confianca/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-5-confianca/exemplo-arquitetural.md
       - Estudo de caso: modulo-5-confianca/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-5-confianca/oficina-de-ferramentas.md
       - Exercícios: modulo-5-confianca/exercicios.md
       - Síntese e referências: modulo-5-confianca/sintese-e-referencias.md
   - Módulo 6 — Operação:
@@ -97,14 +102,17 @@ nav:
       - Padrões e decisões: modulo-6-operacao/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-6-operacao/exemplo-arquitetural.md
       - Estudo de caso: modulo-6-operacao/estudo-de-caso.md
+      - Oficina de ferramentas: modulo-6-operacao/oficina-de-ferramentas.md
       - Exercícios: modulo-6-operacao/exercicios.md
       - Síntese e referências: modulo-6-operacao/sintese-e-referencias.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
+      - Guia de ferramentas: referencia/guia-de-ferramentas.md
       - Atributos de qualidade: referencia/atributos-de-qualidade.md
       - Template de ADR: referencia/template-adr.md
       - Método de referências: referencia/metodo-de-referencias.md
       - Bibliografia consolidada: referencia/bibliografia.md
   - Sobre:
       - Plano da disciplina: sobre/plano-da-disciplina.md
+      - Projeto final: sobre/projeto-final.md

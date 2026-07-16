@@ -30,7 +30,7 @@ MODULES = {
 PAGES = (
     "index.md", "conceitos.md", "padroes-e-decisoes.md",
     "exemplo-arquitetural.md", "estudo-de-caso.md",
-    "exercicios.md", "sintese-e-referencias.md",
+    "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
 )
 BLOOM = ("Recordar", "Compreender", "Aplicar", "Analisar", "Avaliar", "Criar")
 
@@ -359,15 +359,15 @@ def main() -> int:
 
     for slug in slugs:
         module_words[slug] = validate_module(slug, errors, counts, image_references)
-        if not 6_000 <= module_words[slug] <= 8_000:
+        if not 6_000 <= module_words[slug] <= 9_000:
             errors.append(
-                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–8.000"
+                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–9.000"
             )
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 50_000:
+        if not 40_000 <= counts.words <= 51_000:
             errors.append(
-                f"total fora do orçamento de 40.000–50.000: {counts.words} palavras"
+                f"total fora do orçamento de 40.000–51.000: {counts.words} palavras"
             )
     validate_required_images(
         slugs,

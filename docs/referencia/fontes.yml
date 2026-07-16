@@ -218,6 +218,106 @@
   modules: [6]
   type: institutional-guidance
 
+- id: chatgpt-free-tier-faq-2026
+  title: Using ChatGPT's Free Tier FAQ
+  authors: OpenAI
+  year: 2026
+  url: https://help.openai.com/en/articles/9275245-using-chatgpt-s-free-tier
+  accessed: 2026-07-16
+  topics: [ferramentas, acesso, chatgpt]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: chatgpt-general-faq-2026
+  title: What is ChatGPT FAQ
+  authors: OpenAI
+  year: 2026
+  url: https://help.openai.com/en/articles/12677804-what-is-chatgpt-faq
+  accessed: 2026-07-16
+  topics: [ferramentas, acesso, chatgpt]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: ollama-quickstart-2026
+  title: Ollama Quickstart
+  authors: Ollama
+  year: 2026
+  url: https://docs.ollama.com/quickstart
+  accessed: 2026-07-16
+  topics: [ferramentas, executor-local, modelos-abertos]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: ollama-macos-2026
+  title: Ollama for macOS
+  authors: Ollama
+  year: 2026
+  url: https://docs.ollama.com/macos
+  accessed: 2026-07-16
+  topics: [ferramentas, executor-local, macos]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: openai-api-quickstart-2026
+  title: OpenAI API Quickstart
+  authors: OpenAI
+  year: 2026
+  url: https://developers.openai.com/api/docs/quickstart
+  accessed: 2026-07-16
+  topics: [ferramentas, aiaas, sdk]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: langchain-installation-2026
+  title: LangChain installation
+  authors: LangChain
+  year: 2026
+  url: https://docs.langchain.com/oss/python/langchain/install
+  accessed: 2026-07-16
+  topics: [ferramentas, rag, orquestracao]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: n8n-hosting-2026
+  title: n8n hosting documentation
+  authors: n8n
+  year: 2026
+  url: https://docs.n8n.io/hosting/
+  accessed: 2026-07-16
+  topics: [ferramentas, agentes, automacao]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: langfuse-self-hosting-2026
+  title: Langfuse self-hosting
+  authors: Langfuse
+  year: 2026
+  url: https://langfuse.com/self-hosting
+  accessed: 2026-07-16
+  topics: [ferramentas, observabilidade, avaliacao]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: langfuse-docker-compose-2026
+  title: Langfuse self-hosting with Docker Compose
+  authors: Langfuse
+  year: 2026
+  url: https://langfuse.com/self-hosting/deployment/docker-compose
+  accessed: 2026-07-16
+  topics: [ferramentas, observabilidade, docker]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
+- id: litellm-proxy-quickstart-2026
+  title: LiteLLM Proxy quick start
+  authors: LiteLLM
+  year: 2026
+  url: https://docs.litellm.ai/docs/proxy/quick_start
+  accessed: 2026-07-16
+  topics: [ferramentas, gateway, proxy]
+  modules: [1, 2, 3, 4, 5, 6]
+  type: official-documentation
+
 - id: avila-ahmad-chapter-1-local
   title: Fundamentals of AI System Architecture
   authors: Richard D. Avila and Imran Ahmad

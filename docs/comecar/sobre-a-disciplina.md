@@ -12,7 +12,7 @@ Espera-se familiaridade com fundamentos de arquitetura de software, sistemas dis
 
 ## O que estudaremos
 
-O curso conecta seis decisões progressivas: compreender a anatomia de um sistema generativo; decidir quando e como empregar IA generativa; fundamentar respostas em conhecimento controlado; permitir ações com limites de autonomia; proteger e avaliar o sistema; e operar capacidades reutilizáveis em escala.
+O curso combina arquitetura de soluções e letramento aplicado em ferramentas. Ele conecta seis decisões progressivas: compreender a anatomia de um sistema generativo; decidir quando e como empregar IA generativa; fundamentar respostas em conhecimento controlado; permitir ações com limites de autonomia; proteger e avaliar o sistema; e operar capacidades reutilizáveis em escala. Em cada decisão, uma oficina usa dados sintéticos para tornar critérios, limites, custo e evidência observáveis — sem transformar a disciplina em certificação de fornecedor.
 
 Ao final, você deverá ser capaz de:
 
@@ -31,6 +31,6 @@ Ao final, você deverá ser capaz de:
 
 ## Limites do percurso
 
-A disciplina não é um curso de programação em Python, matemática de treinamento, certificação de nuvem ou domínio de um framework de agentes. Também não pretende cobrir todo o campo de machine learning nem produzir em aula um sistema completo pronto para produção. Os protótipos servem para testar hipóteses arquiteturais; o foco permanece em compreender o problema, justificar decisões e avaliar consequências.
+A disciplina não é um curso de programação em Python, matemática de treinamento, certificação de nuvem, certificação de fornecedor ou domínio de um framework de agentes. Também não pretende cobrir todo o campo de machine learning nem produzir em aula um sistema completo pronto para produção. Os protótipos e oficinas servem para testar hipóteses arquiteturais; o foco permanece em compreender o problema, justificar decisões e avaliar consequências.
 
 Consulte o [plano completo da disciplina](../sobre/plano-da-disciplina.md) para conhecer programação, avaliação e matriz de alinhamento.
