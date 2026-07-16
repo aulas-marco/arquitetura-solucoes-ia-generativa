@@ -35,6 +35,17 @@ conteúdo da atividade
         self.assertEqual("conteúdo essencial", self.section(text, "### Essencial, sem cartão"))
         self.assertEqual("conteúdo institucional", self.section(text, "### Institucional"))
 
+    def test_module_one_workshop_is_a_linear_ollama_lab(self):
+        text = (DOCS / "modulo-1-fundamentos" / OFFICE).read_text(encoding="utf-8")
+        self.assertIn("Ferramenta:** Ollama", text)
+        self.assertNotIn("Essencial, sem cartão", text)
+        for command in ("ollama --version", "ollama pull llama3.2:3b", "ollama run llama3.2:3b", "ollama rm llama3.2:3b"):
+            self.assertIn(command, text)
+        for step in range(1, 9):
+            self.assertRegex(text, rf"(?m)^{step}\. ")
+        for term in ("modelo", "inferência", "prompt", "corpus", "contexto", "fundamentação", "alucinação"):
+            self.assertRegex(text.casefold(), rf"\[{term}[^]]*\]\([^)]*\)")
+
     def test_every_module_has_an_accessible_tool_workshop(self):
         required = (
             "## Decisão arquitetural em foco",
