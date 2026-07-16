@@ -220,7 +220,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertNotEqual(0, result.returncode)
-        self.assertIn("total fora do orçamento de 40.000–55.000", result.stderr)
+        self.assertIn("total fora do orçamento de 40.000–51.000", result.stderr)
 
 
 if __name__ == "__main__":

@@ -365,9 +365,9 @@ def main() -> int:
             )
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 55_000:
+        if not 40_000 <= counts.words <= 51_000:
             errors.append(
-                f"total fora do orçamento de 40.000–55.000: {counts.words} palavras"
+                f"total fora do orçamento de 40.000–51.000: {counts.words} palavras"
             )
     validate_required_images(
         slugs,
