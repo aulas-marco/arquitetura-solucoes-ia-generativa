@@ -24,6 +24,31 @@ Use uma interface, laboratório ou ambiente institucional apenas se ele já tive
 
 Opcionalmente, use um assistente comercial ou uma API autorizada para repetir o procedimento, declarando que há potencial de cobrança, limites e envio de dados ao provedor. Chave própria, créditos e assinatura não são exigidos. A rota comercial ou avançada não acrescenta pontos e não deve ser usada como comparação de desempenho entre planos.
 
+## Receita principal
+
+Use **Ollama** com o modelo local `llama3.2:3b`. Confira a versão do Ollama e reserve, além do modelo, CPU, RAM, disco e tempo de download; os requisitos variam com o equipamento. Não informe cartão, chave ou dado real.
+
+```bash
+ollama pull llama3.2:3b
+ollama run llama3.2:3b
+```
+
+No prompt interativo, primeiro envie somente `Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a fonte quando ela estiver disponível.`; depois repita a pergunta seguida da Política Aurora sintética da atividade. Salve as duas saídas em uma tabela local, sem incluir qualquer conteúdo externo.
+
+## Pré-requisitos
+
+- Ollama instalado e uma conexão apenas para baixar o modelo uma vez; depois a inferência é local.
+- Espaço para o modelo e recursos compatíveis com o seu equipamento. Em máquinas sem capacidade, não tente substituir o modelo por uma API ou chave.
+- O corpus sintético desta página copiado para o prompt; não use arquivos de clientes ou da instituição.
+
+## Resultado esperado
+
+A primeira saída pode declarar incerteza ou propor um prazo sem fonte. A segunda deve apontar 15 dias para compra regular, 7 dias para campanha especial, ou pedir revisão quando faltar a data; a diferença é o artefato observável. Registre o modelo, a versão exibida por `ollama --version` e a limitação percebida.
+
+## Limpeza e contingência
+
+Interrompa a sessão com `Ctrl+C`. Quando o modelo não for mais necessário, remova-o com `ollama rm llama3.2:3b`; apague também as anotações locais que não queira manter. Se o download ou a máquina falhar, faça a comparação manual dos dois prompts usando somente o corpus: registre o comportamento esperado e o motivo da não execução, sem alterar a evidência exigida.
+
 ## Atividade guiada
 
 A atividade obrigatória é a rota **Essencial, sem cartão** (ou sua análise manual equivalente); ela não depende de cartão. Trabalhe individualmente ou em dupla, com o texto sintético abaixo.
