@@ -1,0 +1,4 @@
+ID: ENV-04
+VERSAO: v1
+
+Pedidos de estorno são registrados no portal; a confirmação depende da validação do pedido elegível.

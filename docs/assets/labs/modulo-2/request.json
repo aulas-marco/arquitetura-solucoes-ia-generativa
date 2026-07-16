@@ -1,0 +1,10 @@
+{
+  "model": "boreal-local",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Resuma: cliente fictício não consegue acessar o portal."
+    }
+  ],
+  "temperature": 0.2
+}

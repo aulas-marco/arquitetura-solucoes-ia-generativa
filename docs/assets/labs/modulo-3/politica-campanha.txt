@@ -1,0 +1,5 @@
+ID: POL-17
+VERSAO: v3
+
+Em campanha especial identificada no pedido, o prazo de reembolso é de 7 dias corridos.
+Sem a data ou o tipo de compra, o caso deve ser encaminhado para revisão humana.
