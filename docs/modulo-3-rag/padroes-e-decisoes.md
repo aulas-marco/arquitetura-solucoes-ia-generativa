@@ -118,31 +118,81 @@ Combina busca lexical e busca vetorial, frequentemente com reranking. É apropri
 
 Recupera primeiro uma representação de documento, tema ou resumo e depois trechos filhos; ou encontra o filho e expande para o pai. Serve a documentos longos cuja estrutura carrega significado.
 
-**Acrescenta:** navegação entre visão ampla e detalhe. **Cobra:** hierarquia consistente, propagação de metadados e mais etapas. **Risco:** resumo pai esconder exceção presente no trecho.
+**Acrescenta**
+
+Navegação entre visão ampla e detalhe.
+
+**Cobra**
+
+Hierarquia consistente, propagação de metadados e mais etapas.
+
+**Risco**
+
+Resumo pai esconder exceção presente no trecho.
 
 ### RAG adaptativo
 
 Classifica a consulta e escolhe caminho: resposta sem recuperação para conversa geral, lexical para código, híbrida para política ou decomposição para questão composta. Também ajusta top-k e orçamento.
 
-**Acrescenta:** custo e qualidade proporcionais à necessidade. **Cobra:** roteador, políticas de decisão e avaliação por rota. **Risco:** roteamento incorreto impedir acesso à evidência necessária.
+**Acrescenta**
+
+Custo e qualidade proporcionais à necessidade.
+
+**Cobra**
+
+Roteador, políticas de decisão e avaliação por rota.
+
+**Risco**
+
+Roteamento incorreto impedir acesso à evidência necessária.
 
 ### RAG corretivo
 
 Avalia os resultados recuperados e, se forem insuficientes, reformula a consulta, amplia fontes, muda estratégia ou recusa. A correção deve ter orçamento e limite de tentativas.
 
-**Acrescenta:** recuperação diante de primeira tentativa fraca. **Cobra:** latência, variabilidade e caminhos adicionais. **Risco:** ciclos de reformulação alterarem intenção ou buscarem fora da autorização.
+**Acrescenta**
+
+Recuperação diante de primeira tentativa fraca.
+
+**Cobra**
+
+Latência, variabilidade e caminhos adicionais.
+
+**Risco**
+
+Ciclos de reformulação alterarem intenção ou buscarem fora da autorização.
 
 ### RAG multisource
 
 Consulta fontes com semânticas e autoridades diferentes — por exemplo, políticas, contratos e registros estruturados — e compõe resultados preservando origem. Um orquestrador determina quais fontes são necessárias; cada adaptador mantém contrato e política próprios.
 
-**Acrescenta:** cobertura de perguntas que cruzam domínios. **Cobra:** resolução de identidade, tempo e conflito. **Risco:** combinar informação de momentos ou entidades diferentes.
+**Acrescenta**
+
+Cobertura de perguntas que cruzam domínios.
+
+**Cobra**
+
+Resolução de identidade, tempo e conflito.
+
+**Risco**
+
+Combinar informação de momentos ou entidades diferentes.
 
 ### RAG com dados estruturados
 
 Traduz parte da intenção em consulta validada sobre banco, API ou grafo, e usa o resultado tipado como evidência. Pode coexistir com recuperação documental.
 
-**Acrescenta:** precisão para fatos operacionais e agregações. **Cobra:** catálogo semântico, validação de consulta e autorização de linha/coluna. **Risco:** consulta sintaticamente válida, mas semanticamente errada ou excessiva.
+**Acrescenta**
+
+Precisão para fatos operacionais e agregações.
+
+**Cobra**
+
+Catálogo semântico, validação de consulta e autorização de linha/coluna.
+
+**Risco**
+
+Consulta sintaticamente válida, mas semanticamente errada ou excessiva.
 
 ## Como escolher sem acumular padrões
 

@@ -42,13 +42,25 @@ Esses números são amostra, não conclusão. A seleção manual favorece a alte
 
 O canal envia a pergunta e uma instrução versionada ao modelo. A aplicação valida a saída e informa que se trata de orientação geral.
 
-**Força:** menor tempo de implementação e boa linha de base. **Limite decisivo:** o conhecimento paramétrico não contém as políticas privadas vigentes nem permite indicar a versão consultada. O resultado de 9/30 é compatível com respostas gerais, mas insuficiente para o propósito. Esta alternativa poderia permanecer apenas para reformular texto fornecido pelo próprio usuário, não para responder sobre o acervo.
+**Força**
+
+Menor tempo de implementação e boa linha de base.
+
+**Limite decisivo**
+
+O conhecimento paramétrico não contém as políticas privadas vigentes nem permite indicar a versão consultada. O resultado de 9/30 é compatível com respostas gerais, mas insuficiente para o propósito. Esta alternativa poderia permanecer apenas para reformular texto fornecido pelo próprio usuário, não para responder sobre o acervo.
 
 ### B. Documentos completos no contexto
 
 A aplicação seleciona um conjunto de documentos e os envia integralmente com a pergunta. Não há índice de trechos.
 
-**Força:** para poucos documentos conhecidos, preserva conteúdo e reduz infraestrutura. **Questão oculta:** quem fará a seleção? Enviar os 420 arquivos é inviável; pedir que o usuário escolha contradiz a promessa de assistência. Documentos completos aumentam tokens, latência e exposição de anexos. Ainda seria necessário controlar versão e autorização antes de montar o contexto.
+**Força**
+
+Para poucos documentos conhecidos, preserva conteúdo e reduz infraestrutura.
+
+**Questão oculta**
+
+Quem fará a seleção? Enviar os 420 arquivos é inviável; pedir que o usuário escolha contradiz a promessa de assistência. Documentos completos aumentam tokens, latência e exposição de anexos. Ainda seria necessário controlar versão e autorização antes de montar o contexto.
 
 Esta opção pode ser apropriada para um primeiro recorte, por exemplo três políticas públicas de viagem sem anexos, desde que a seleção seja determinística. Não é uma resposta geral ao acervo.
 
@@ -56,7 +68,13 @@ Esta opção pode ser apropriada para um primeiro recorte, por exemplo três pol
 
 Um fluxo prepara fontes aprovadas com metadados e unidades menores. Na pergunta, a aplicação propaga identidade, recupera candidatos autorizados e envia ao modelo apenas trechos e identificadores pertinentes.
 
-**Força:** torna seleção, atualização e proveniência responsabilidades explícitas. **Custo:** adiciona ingestão, segmentação, índice, sincronização de permissões e falhas de recuperação. Uma resposta pode ser ruim porque a evidência não foi encontrada ou porque foi mal utilizada; as duas etapas precisam de avaliação separada.
+**Força**
+
+Torna seleção, atualização e proveniência responsabilidades explícitas.
+
+**Custo**
+
+Adiciona ingestão, segmentação, índice, sincronização de permissões e falhas de recuperação. Uma resposta pode ser ruim porque a evidência não foi encontrada ou porque foi mal utilizada; as duas etapas precisam de avaliação separada.
 
 O desenho é promissor para escala e atualização, mas ainda é uma hipótese. O piloto deve começar com corpus limpo e perguntas representativas, não com todos os documentos e uma confiança presumida.
 
