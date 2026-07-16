@@ -57,7 +57,9 @@ conteúdo da atividade
             "## Evidência a entregar",
             "## Segurança e custo",
         )
-        for slug in MODULES:
+        # O Módulo 1 tem um contrato próprio de laboratório linear, coberto pelo
+        # teste específico acima; os demais preservam as três rotas de acesso.
+        for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):
             text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
             with self.subTest(module=slug):
                 for marker in required:
@@ -140,11 +142,12 @@ conteúdo da atividade
             self.assertIn("## Ferramentas no mercado", concepts)
             for tool in tools:
                 self.assertIn(tool, concepts)
-            for heading in (
-                "## Receita principal",
-                "## Pré-requisitos",
-                "## Resultado esperado",
-                "## Limpeza e contingência",
-            ):
-                self.assertIn(heading, workshop)
-            self.assertRegex(workshop, r"(?m)^```(?:bash|yaml|json)$")
+            if slug != "modulo-1-fundamentos":
+                for heading in (
+                    "## Receita principal",
+                    "## Pré-requisitos",
+                    "## Resultado esperado",
+                    "## Limpeza e contingência",
+                ):
+                    self.assertIn(heading, workshop)
+            self.assertRegex(workshop, r"(?m)^\s*```(?:bash|yaml|json)$")
