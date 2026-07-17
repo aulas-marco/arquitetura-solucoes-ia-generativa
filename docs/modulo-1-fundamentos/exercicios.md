@@ -1,6 +1,6 @@
 # Exercícios
 
-Tente responder antes de abrir os blocos de feedback. Nas atividades de projeto, use as rubricas como critérios de qualidade, não como lista mecânica. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
+Tente responder antes de abrir os blocos de feedback. Nas atividades avançadas, siga o roteiro, declare suas premissas e use os critérios de avaliação para revisar a qualidade da decisão. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
 
 ## Recordar
 
@@ -80,37 +80,171 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 ### 8. Classificação de responsabilidades
 
-Para um assistente de despesas, classifique como predominantemente determinística ou probabilística: autenticar usuário; extrair valor de uma foto; verificar limite de R$ 500; redigir explicação; gravar aprovação. Justifique duas fronteiras e proponha validação para a extração.
+**Situação**
 
-**Rubrica (0–3 pontos):** 1 ponto pela classificação coerente; 1 pela qualidade das justificativas; 1 por um mecanismo de validação proporcional ao risco, com evidência verificável.
+Uma empresa fictícia quer um assistente de despesas. A entrada pode ser uma foto de recibo, mas a aprovação e o lançamento financeiro continuam sendo responsabilidades da aplicação e de uma pessoa autorizada.
+
+**Seu papel**
+
+Você é o arquiteto responsável por separar o que pode variar linguisticamente do que precisa obedecer a uma regra verificável.
+
+**Insumos disponíveis**
+
+Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), a seção de padrões e o caso fictício descrito acima. Não é necessário instalar uma ferramenta.
+
+**Como conduzir**
+
+1. Classifique autenticação, extração, verificação de limite, redação e gravação como predominantemente determinísticas ou probabilísticas.
+2. Desenhe duas fronteiras: uma entre extração e regra de negócio, e outra entre proposta e efeito financeiro.
+3. Para a foto, defina uma validação que compare o valor extraído com o recibo e encaminhe a divergência para revisão.
+
+**Entrega esperada**
+
+Entregue uma tabela com cinco linhas, duas justificativas de fronteira e um fluxo curto de validação da extração.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Classificação | 25% | Separa geração de texto e percepção de regra, sem tratar todo o sistema como “IA”. |
+| Fronteiras | 30% | Localiza onde a saída probabilística deixa de ser autoridade. |
+| Validação | 25% | Propõe comparação, limiar e revisão para um erro plausível de extração. |
+| Justificativa | 20% | Liga cada escolha a risco, responsabilidade e evidência observável. |
 
 ### 9. Cenário de qualidade
 
-Use o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) para escrever um cenário mensurável de latência para o assistente documental. Inclua as seis partes e proponha uma forma de medição.
+**Situação**
 
-**Rubrica (0–3 pontos):** 1 ponto pelas seis partes completas; 1 por medidas com percentil e condição de carga; 1 por distinguir tempo até primeiro conteúdo e resposta completa ou justificar por que apenas um deles importa.
+O assistente documental transmite uma resposta parcial enquanto trabalha. A equipe precisa saber se o usuário recebe o primeiro conteúdo em tempo aceitável e se a resposta completa chega dentro do limite do canal.
+
+**Seu papel**
+
+Você é o arquiteto que transforma a palavra “rápido” em um cenário que outra pessoa consegue medir.
+
+**Insumos disponíveis**
+
+Consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) e identifique fonte, estímulo, ambiente, artefato, resposta e medida.
+
+**Como conduzir**
+
+1. Escolha uma jornada, como uma pergunta sobre um documento, e declare quem inicia o estímulo.
+2. Preencha as seis partes do cenário sem usar “baixa latência” como medida final.
+3. Escolha percentil, população, condição de carga e janela de observação.
+4. Decida se precisa medir tempo até o primeiro conteúdo, resposta completa ou os dois, e justifique.
+
+**Entrega esperada**
+
+Entregue um cenário em seis linhas e uma ficha de medição com população, percentil, carga e decisão quando o limite falhar.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Cenário completo | 25% | Identifica as seis partes com um evento observável e um artefato específico. |
+| Medição | 35% | Define percentil, população, carga e janela que permitam repetir a medida. |
+| Escolha de tempos | 25% | Distingue primeiro conteúdo de resposta completa ou explica por que um deles basta. |
+| Ação | 15% | Define o que a equipe fará quando o limite não for atendido. |
 
 ## Analisar
 
 ### 10. Comparação arquitetural
 
-Compare geração direta, documentos completos no contexto e contexto por recuperação para o caso Horizonte. Construa uma matriz com atualização, proveniência, autorização, latência, custo, complexidade operacional e evidências disponíveis. Identifique uma incógnita que poderia inverter sua escolha.
+**Situação**
 
-**Rubrica (0–4 pontos):** 1 ponto por critérios definidos; 1 por consequências específicas, sem declarar vencedor universal; 1 por usar as evidências e reconhecer suas limitações; 1 por uma incógnita testável ligada à decisão.
+No caso Horizonte, documentos mudam, algumas perguntas exigem fonte e o acervo contém informação que não deve ser enviada para qualquer usuário. Você precisa comparar três formas de fornecer conhecimento ao modelo, não escolher uma tecnologia por popularidade.
+
+**Seu papel**
+
+Você é o arquiteto que conduz uma decisão inicial e precisa mostrar quais consequências ainda não foram medidas.
+
+**Insumos disponíveis**
+
+Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md).
+
+**Como conduzir**
+
+1. Escreva uma linha para geração direta, documentos completos no contexto e recuperação de trechos.
+2. Para cada alternativa, registre atualização, proveniência, autorização, latência, custo, operação e evidência disponível.
+3. Separe fatos do caso de hipóteses que ainda exigem medição.
+4. Escolha uma alternativa provisória e formule uma incógnita que poderia inverter a escolha.
+
+**Entrega esperada**
+
+Entregue uma matriz comparativa, uma recomendação provisória de até um parágrafo e um experimento para a incógnita.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Critérios comparáveis | 20% | Usa os mesmos eixos para as três alternativas. |
+| Consequências | 25% | Explica efeitos arquiteturais concretos, não apenas vantagens genéricas. |
+| Evidências e limites | 25% | Distingue dado fornecido, hipótese e lacuna de medição. |
+| Decisão provisória | 15% | Recomenda uma opção condicionada ao contexto, sem declarar vencedor universal. |
+| Investigação | 15% | Propõe uma medida capaz de confirmar ou refutar a hipótese principal. |
 
 ## Avaliar
 
 ### 11. Contestação da ADR
 
-A equipe propõe aceitar a ADR preliminar deste módulo porque “RAG é o padrão de mercado”. Avalie a proposta. Defenda aceitar, rejeitar ou manter como experimento e estabeleça condições de revisão.
+**Situação**
 
-**Rubrica (0–4 pontos):** 1 ponto por julgamento explícito; 1 por relacioná-lo a direcionadores; 1 por separar evidência existente de hipótese; 1 por critérios mensuráveis e gatilhos que poderiam mudar o julgamento.
+A equipe propõe aceitar uma ADR preliminar porque “RAG é o padrão de mercado”. A frase é uma justificativa de tendência, não uma evidência de adequação ao caso Horizonte.
+
+**Seu papel**
+
+Você é o revisor arquitetural. Seu trabalho é testar a decisão, localizar premissas e dizer o que precisa acontecer antes de uma adoção.
+
+**Insumos disponíveis**
+
+Leia a ADR preliminar do módulo, a matriz do exercício anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+
+**Como conduzir**
+
+1. Escreva o julgamento inicial: aceitar, rejeitar ou manter como experimento.
+2. Liste dois direcionadores do caso e mostre como eles favorecem ou enfraquecem a ADR.
+3. Separe evidência existente de hipótese e escolha uma consequência que ainda precisa ser medida.
+4. Defina limite, responsável e gatilho que fariam você rever o julgamento.
+
+**Entrega esperada**
+
+Entregue um parecer de até 300 palavras e uma tabela com evidência atual, hipótese, medida e gatilho de revisão.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Julgamento | 25% | Toma uma posição explícita e proporcional ao que se sabe. |
+| Direcionadores | 25% | Relaciona a posição a requisitos e riscos do caso, não à tendência. |
+| Evidência | 25% | Separa fato, hipótese e ausência de dado. |
+| Revisão | 25% | Define medida, limite e gatilho que podem mudar a decisão. |
 
 ## Criar
 
 ### 12. Leitura arquitetural mínima
 
-Projete uma arquitetura de referência para um assistente que resume atas fornecidas pelo usuário e, opcionalmente, consulta um diretório para normalizar nomes. O sistema não pode enviar mensagens nem manter memória após 24 horas. Produza um diagrama e uma ficha de decisão.
+**Situação**
+
+Uma equipe quer um assistente que resuma atas fornecidas pelo usuário e, opcionalmente, consulte um diretório somente para normalizar nomes. Ele não pode enviar mensagens e deve apagar a memória da conversa após 24 horas.
+
+**Seu papel**
+
+Você é o arquiteto que precisa compor um desenho mínimo, deixando claro onde existe inferência, onde existe regra e quem responde por cada efeito.
+
+**Insumos disponíveis**
+
+Use os conceitos e padrões do módulo 1, o [template de ADR](../referencia/template-adr.md) e o diagrama de exemplo arquitetural. O diretório e as atas são fictícios; não use dados reais.
+
+**Como conduzir**
+
+1. Preencha primeiro propósito, fora de escopo, stakeholders e preocupações.
+2. Separe componentes determinísticos e probabilísticos e desenhe o fluxo principal.
+3. Marque fronteiras de dados, autorização, retenção e as duas falhas mais relevantes.
+4. Escreva um cenário de qualidade e um experimento que possa refutar a hipótese de maior risco.
+5. Revise o diagrama verificando se cada seta tem um responsável e se nenhum componente promete o efeito sozinho.
+
+**Entrega esperada**
+
+Entregue a ficha abaixo preenchida e um diagrama de contexto ou componentes acompanhado do equivalente textual.
 
 **Template do entregável**
 
@@ -128,6 +262,15 @@ Hipótese de maior risco e experimento:
 Diagrama:
 ```
 
-**Rubrica (0–5 pontos):** 1 ponto por escopo e stakeholders; 1 por separação coerente entre responsabilidades; 1 por dados, retenção e autorização; 1 por falhas e cenário verificável; 1 por diagrama consistente e experimento capaz de refutar a hipótese.
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Escopo e responsabilidades | 15% | Define usuário, fora de escopo e fronteiras entre regra, modelo e aplicação. |
+| Dados e autorização | 20% | Explica acesso, retenção de 24 horas e descarte sem pressupor confiança implícita. |
+| Falhas e qualidade | 15% | Liga falhas a consequência, contenção e cenário mensurável. |
+| Diagrama e texto | 15% | Mantém componentes, fluxos e responsabilidades consistentes nas duas formas. |
+| Experimento | 15% | Define hipótese, variável, evidência e condição de revisão. |
+| Clareza arquitetural | 20% | Permite que outro arquiteto reconstrua a decisão sem adivinhar premissas. |
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).

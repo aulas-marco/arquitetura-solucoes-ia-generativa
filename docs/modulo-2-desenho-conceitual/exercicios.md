@@ -1,6 +1,6 @@
 # Exercícios
 
-Responda antes de abrir os blocos de feedback. Recordar e Compreender possuem respostas públicas; Aplicar, Analisar, Avaliar e Criar dependem de contexto e apresentam rubricas. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
+Responda antes de abrir os blocos de feedback. Recordar e Compreender possuem respostas públicas; Aplicar, Analisar, Avaliar e Criar dependem de contexto e apresentam critérios de avaliação. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
 
 ## Recordar
 
@@ -41,7 +41,7 @@ Liste cinco partes que tornam um critério probabilístico de aceitação verifi
 <details>
 <summary>Ver resposta</summary>
 
-Entre as partes estão população, amostra, métrica ou rubrica, limiar, tratamento de incerteza, falha intolerável e ação resultante. Cinco delas atendem ao pedido, desde que definidas para o caso.
+Entre as partes estão população, amostra, métrica ou critério qualitativo, limiar, tratamento de incerteza, falha intolerável e ação resultante. Cinco delas atendem ao pedido, desde que definidas para o caso.
 </details>
 
 ## Compreender
@@ -80,37 +80,173 @@ Restrição limita o espaço de solução por obrigação confirmada; preferênc
 
 ### 8. Ficha de oportunidade para triagem jurídica
 
-Um departamento quer “usar IA para revisar contratos” porque analistas relatam excesso de trabalho. Produza uma ficha com problema observável, stakeholder, baseline que falta, resultado desejado, contramétrica, hipótese de valor e experimento de descoberta. Inclua um critério que poderia levar à rejeição de GenAI.
+**Situação**
 
-**Rubrica (0–4 pontos):** 1 ponto por reformular a intenção sem pressupor solução; 1 por baseline, resultado e contramétrica mensuráveis; 1 por separar hipótese de valor e capacidade; 1 por experimento refutável e critério de rejeição coerente.
+Um departamento quer “usar IA para revisar contratos” porque analistas relatam excesso de trabalho. Ainda não sabemos em qual etapa o tempo é gasto, quais contratos variam mais nem qual erro seria inaceitável.
+
+**Seu papel**
+
+Você é o arquiteto que conduz uma triagem inicial. Antes de escolher modelo ou fornecedor, precisa descobrir se existe uma oportunidade verificável.
+
+**Insumos disponíveis**
+
+Use a seção de objetivos e requisitos deste módulo, a ficha CONOPS e o [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios e não suponha acesso a dados jurídicos reais.
+
+**Como conduzir**
+
+1. Reformule a intenção como problema observável para um stakeholder específico.
+2. Liste o baseline que falta e uma forma simples de medi-lo.
+3. Separe hipótese de valor (melhorar o trabalho) de hipótese de capacidade (o sistema consegue executar a tarefa).
+4. Proponha um experimento pequeno e um critério que faria a equipe rejeitar GenAI ou limitar seu uso.
+
+**Entrega esperada**
+
+Entregue uma ficha de uma página com problema, stakeholder, baseline, resultado, contramétrica, hipóteses, experimento e decisão de rejeição.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Problema e escopo | 25% | Reformula a intenção sem escolher solução prematuramente. |
+| Medição de valor | 30% | Define baseline, resultado e contramétrica observáveis. |
+| Hipóteses | 20% | Distingue valor do processo e capacidade da solução. |
+| Experimento e rejeição | 25% | Propõe teste refutável e limite que pode interromper a adoção. |
 
 ### 9. Aceitação de extração e síntese
 
-Para um sistema que extrai obrigações de licenças ambientais e produz um resumo revisado por especialista, escreva dois critérios: um determinístico para campos estruturados e um probabilístico para a síntese. Declare população, amostra, limiar, falha intolerável e ação quando o critério falhar.
+**Situação**
 
-**Rubrica (0–4 pontos):** 1 ponto por separar contratos determinísticos e avaliação comportamental; 1 por população e amostra representativas; 1 por limiar e falha intolerável sem esconder segmentos críticos na média; 1 por ação operacional clara de bloqueio, restrição ou revisão.
+Um sistema extrai obrigações de licenças ambientais e prepara um resumo que será revisado por especialista. Campos como data e identificador precisam obedecer ao formato; já a síntese pode variar na redação, mas não pode omitir obrigação crítica.
+
+**Seu papel**
+
+Você é o arquiteto responsável por transformar a diferença entre contrato determinístico e comportamento probabilístico em critérios de aceitação operáveis.
+
+**Insumos disponíveis**
+
+Consulte o capítulo sobre critérios probabilísticos e o catálogo de atributos. Use uma coleção fictícia de licenças com tipos de documento e exceções diferentes.
+
+**Como conduzir**
+
+1. Escreva um critério determinístico para os campos estruturados, incluindo formato e ação diante de erro.
+2. Escreva um critério probabilístico para a síntese, informando população, amostra e modo de revisão.
+3. Defina limiar, falha intolerável e tratamento; não esconda segmentos críticos em uma média.
+4. Diga que evidência permite liberar, bloquear, restringir ou encaminhar para revisão.
+
+**Entrega esperada**
+
+Entregue dois critérios em tabela, uma nota sobre a amostra e uma regra operacional para cada falha.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Contratos distintos | 25% | Separa validação de campo e julgamento de síntese. |
+| População e amostra | 25% | Inclui tipos de licença, exceções e casos críticos. |
+| Limite e falha | 25% | Define limiar e resultado intolerável sem mascarar fatias. |
+| Ação operacional | 25% | Explica quando bloquear, restringir ou exigir revisão. |
 
 ## Analisar
 
 ### 10. Paisagem de decisões para suporte técnico
 
-Uma empresa possui 600 manuais atualizados semanalmente, três sistemas somente de leitura e um processo de diagnóstico com dez sequências conhecidas. Compare: prompt com documentos selecionados versus RAG; workflow versus agente; modelo único versus múltiplos; hospedado versus autogerido; construir, comprar ou compor. Relacione cada eixo a requisitos, novas responsabilidades e evidência necessária. Proponha uma arquitetura incremental e uma incógnita capaz de inverter duas escolhas.
+**Situação**
 
-**Rubrica (0–5 pontos):** 1 ponto por tratar os cinco eixos sem acoplá-los indevidamente; 1 por consequências causais específicas; 1 por distinguir requisito, restrição e hipótese; 1 por incremento que adia complexidade sem fechar evolução; 1 por incógnita testável capaz de mudar a decisão.
+Uma empresa possui 600 manuais atualizados semanalmente, três sistemas somente de leitura e um diagnóstico com dez sequências conhecidas. A equipe pede “uma solução de IA”, mas cada eixo da decisão muda responsabilidades diferentes.
+
+**Seu papel**
+
+Você é o arquiteto que organiza uma paisagem de escolhas antes de desenhar a arquitetura-alvo.
+
+**Insumos disponíveis**
+
+Use os padrões de desenho conceitual, os conceitos de workflow, agente, RAG, hospedagem e AI Gateway e a oficina de contrato local do módulo.
+
+**Como conduzir**
+
+1. Crie uma tabela com os cinco eixos: contexto, controle, composição de modelos, hospedagem e construir/comprar/compor.
+2. Em cada eixo, escreva requisito, responsabilidade nova, risco e evidência que falta.
+3. Separe restrições confirmadas de preferências e hipóteses.
+4. Proponha um primeiro incremento que adie complexidade sem fechar evolução.
+5. Escolha uma incógnita capaz de inverter duas decisões e descreva como medi-la.
+
+**Entrega esperada**
+
+Entregue uma matriz de cinco eixos, uma arquitetura incremental em até três passos e uma hipótese de reversão.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Cobertura dos eixos | 20% | Trata cada eixo sem misturar decisões que têm responsáveis distintos. |
+| Consequências causais | 25% | Relaciona escolha a dados, operação, risco e evidência necessária. |
+| Requisitos e hipóteses | 20% | Distingue obrigação, preferência e informação ainda não medida. |
+| Incremento | 20% | Propõe evolução reversível sem criar dependência prematura. |
+| Incógnita testável | 15% | Define medida capaz de alterar a decisão. |
 
 ## Avaliar
 
 ### 11. Contestação do “agente por estratégia”
 
-O patrocinador de um sistema de compras exige um agente com ferramentas porque “os melhores produtos já são agênticos”. O processo real tem cinco etapas estáveis, aprovação humana acima de R$ 5 mil e APIs de escrita não idempotentes. Defenda aceitar, limitar a experimento ou rejeitar a proposta. Compare-a com workflow e automação convencional, estabeleça condições de revisão e escreva o núcleo de uma ADR.
+**Situação**
 
-**Rubrica (0–5 pontos):** 1 ponto por julgamento explícito; 1 por usar estabilidade, aprovação e idempotência como direcionadores; 1 por comparar alternativas sem apelo a tendência; 1 por separar evidência presente de hipótese; 1 por limites e gatilhos mensuráveis que permitam rever o julgamento.
+O patrocinador de compras exige um agente porque “os melhores produtos já são agênticos”. O processo real tem cinco etapas estáveis, aprovação humana acima de R$ 5 mil e APIs de escrita não idempotentes.
+
+**Seu papel**
+
+Você é o arquiteto que precisa contestar uma solução orientada por tendência sem desqualificar a necessidade do patrocinador.
+
+**Insumos disponíveis**
+
+Use os conceitos de workflow, agente, idempotência e aprovação, o exemplo arquitetural e o template de ADR.
+
+**Como conduzir**
+
+1. Declare se aceita, limita a experimento ou rejeita o agente como primeira opção.
+2. Compare agente, workflow e automação convencional usando estabilidade, aprovação e idempotência.
+3. Separe evidência presente da hipótese de que autonomia trará valor.
+4. Escreva condições, métricas e gatilhos que permitiriam ampliar, reduzir ou reverter a decisão.
+
+**Entrega esperada**
+
+Entregue um parecer de uma página e o núcleo de uma ADR com decisão, alternativas, consequências e revisão.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Julgamento | 25% | Assume uma posição explícita e proporcional ao contexto. |
+| Direcionadores | 25% | Usa estabilidade, aprovação e idempotência como razões arquiteturais. |
+| Alternativas | 25% | Compara opções sem apelar a tendência ou marca. |
+| Revisão | 25% | Define limites, métricas e gatilhos que podem reverter a decisão. |
 
 ## Criar
 
 ### 12. Dossiê conceitual de um assistente clínico administrativo
 
-Projete o desenho conceitual de um sistema que ajuda equipes a preparar documentação administrativa para autorização de procedimentos. Ele pode resumir registros autorizados e políticas, mas não diagnostica, prescreve nem envia solicitação sem revisão. Há dados sensíveis, fontes conflitantes e uma dependência indisponível durante manutenção semanal. Produza um dossiê independente de fornecedor.
+**Situação**
+
+Um sistema ajuda equipes a preparar documentação administrativa para autorização de procedimentos. Pode resumir registros autorizados e políticas, mas não diagnostica, prescreve nem envia solicitação sem revisão. Há dados sensíveis, fontes conflitantes e uma dependência indisponível durante manutenção semanal.
+
+**Seu papel**
+
+Você é o arquiteto que compõe um dossiê independente de fornecedor para uma decisão que ainda precisa ser discutida com domínio, segurança, privacidade e operação.
+
+**Insumos disponíveis**
+
+Use todos os conceitos e padrões do módulo, o [template de ADR](../referencia/template-adr.md), o exemplo arquitetural e a oficina de gateway local. O caso é fictício; não use prontuários ou documentos reais.
+
+**Como conduzir**
+
+1. Comece por oportunidade, baseline, stakeholders, fora de escopo e responsabilidade humana.
+2. Modele os modos normal, degradado e bloqueado antes de escolher componentes.
+3. Rastreie objetivos até requisitos, mecanismos e evidências.
+4. Compare alternativas, explicite conflitos e registre decisões reversíveis e irreversíveis.
+5. Feche com falhas, critérios de aceitação, experimento refutável e gatilhos de revisão.
+
+**Entrega esperada**
+
+Entregue o dossiê preenchido, um diagrama com equivalente textual e pelo menos uma ADR. O texto deve permitir revisão por alguém que não acompanhou sua elaboração.
 
 **Template do entregável**
 
@@ -132,6 +268,15 @@ Experimento que pode refutar a hipótese:
 Mapa objetivo → requisito → mecanismo → evidência:
 ```
 
-**Rubrica (0–7 pontos):** 1 ponto por oportunidade e escopo sem solução prematura; 1 por CONOPS, stakeholders e responsabilidade humana; 1 por objetivos e requisitos rastreáveis; 1 por critérios mensuráveis e falhas intoleráveis; 1 por alternativas e ADR com trade-offs; 1 por diagrama, fronteiras e modos de falha coerentes; 1 por experimento econômico capaz de refutar a hipótese principal.
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Oportunidade e escopo | 15% | Delimita valor, stakeholders e usos proibidos sem escolher solução cedo demais. |
+| CONOPS e responsabilidade | 20% | Explica modos de operação, revisão humana e autoridade. |
+| Rastreabilidade | 15% | Liga objetivos, requisitos, mecanismos, evidências e falhas. |
+| Alternativas e ADR | 15% | Expõe trade-offs, consequências e condições de revisão. |
+| Diagrama e modos de falha | 15% | Mantém fronteiras, fluxos e contenções coerentes. |
+| Experimento | 20% | Define teste econômico que pode refutar a hipótese principal. |
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
