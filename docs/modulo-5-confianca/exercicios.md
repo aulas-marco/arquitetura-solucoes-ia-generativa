@@ -247,7 +247,7 @@ Confira amostra, autoridade, expiração e gatilho; não confunda “não observ
 
 Você recebeu um assistente de RH que atende empregados e gestores, consulta políticas públicas e restritas e pode encaminhar casos sensíveis. A arquitetura precisa explicar onde cada controle atua e o que acontece quando ele falha.
 
-**O que é** confiança verificável? Controle, evidência e decisão com limite explícito.
+**O que é** confiança verificável? Controle, evidência e decisão com limite.
 
 **Seu papel**
 
@@ -259,7 +259,7 @@ Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](e
 
 **Como conduzir**
 
-**Campos:** ator/ativo = quem/o quê; percurso = caminho; limite = condição ou valor que restringe o comportamento aceitável; portão = bloqueio; residual = risco restante.
+**Campos:** ator/ativo = sujeito/alvo; percurso = caminho; limite = condição aceitável; portão = bloqueio; residual = risco restante.
 
 Fases, checkpoints e modelos:
 

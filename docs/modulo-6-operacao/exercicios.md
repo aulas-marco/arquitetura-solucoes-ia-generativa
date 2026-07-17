@@ -1,6 +1,6 @@
 # Exercícios: operar e escalar com controle
 
-Use o portfólio do caso. Artefato exige decisão, limite e proprietário.
+Use o caso. Artefato exige decisão, limite e proprietário.
 
 ## Recordar
 
@@ -248,7 +248,7 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 Uma organização tem copiloto, RAG e agente isolados, duplicação, fornecedores incompatíveis, pouca rastreabilidade e custo crescente. Proponha arquitetura operável e reversível.
 
-**O que é:** arquitetura operável é aquela em que mudança, decisão e recuperação têm dono e limite.
+**O que é:** arquitetura operável é aquela em que mudança, decisão e recuperação têm dono.
 
 **Seu papel**
 
