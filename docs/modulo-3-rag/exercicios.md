@@ -137,7 +137,7 @@ Verifique agora:
 
 **Situação**
 
-Um manual de 120 páginas coloca definições no início e exceções no fim. Separá-las pode produzir resposta correta, mas incompleta.
+Um manual de 120 páginas coloca definições no início e exceções no fim. Separá-las pode produzir saída aparentemente completa, mas incompleta.
 
 **Seu papel**
 

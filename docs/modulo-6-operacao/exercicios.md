@@ -126,7 +126,7 @@ Você conecta causalidade, privacidade e ação operacional.
 
 **Insumos disponíveis**
 
-Consulte o [script de telemetria](oficina-de-ferramentas.md), trace, SLO e o [catálogo](../referencia/atributos-de-qualidade.md).
+Use [script de telemetria](oficina-de-ferramentas.md#receita-principal), [trace](conceitos.md#trace-reconstruir-a-composicao), [SLO, indicador e janela](conceitos.md#slo-para-servico-util), [incidente e runbook](padroes-e-decisoes.md#incidente-generativo) e [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
@@ -141,7 +141,7 @@ Entregue um esquema de trace e duas fichas de SLO com ação de alerta e políti
 
 **Como verificar**
 
-Confira trace minimizado e todos os campos do SLO, inclusive runbook.
+Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o indicador e a janela do [SLO](conceitos.md#slo-para-servico-util), além do [runbook de incidente](padroes-e-decisoes.md#incidente-generativo).
 
 **Critérios de avaliação**
 

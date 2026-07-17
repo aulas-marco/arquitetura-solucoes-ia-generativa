@@ -80,9 +80,9 @@ Restrição limita o espaço de solução por obrigação confirmada; preferênc
 
 ### 8. Ficha de oportunidade para triagem jurídica
 
-**O que é:** ficha de oportunidade descreve problema observável, impacto e teste; não é lista de ferramentas.
+**O que é:** ficha de oportunidade descreve problema, impacto e teste; não é lista de ferramentas.
 
-**Onde encontrar:** use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), objetivos e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), as [quatro classes de objetivo](padroes-e-decisoes.md#quatro-classes-de-objetivo) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
@@ -90,11 +90,11 @@ Um departamento quer “usar IA para revisar contratos” porque analistas relat
 
 **Seu papel**
 
-Você é o arquiteto que conduz uma triagem inicial. Antes de escolher modelo ou fornecedor, precisa descobrir se existe uma oportunidade verificável.
+Você conduz uma triagem inicial. Antes de escolher modelo ou fornecedor, descubra se há oportunidade verificável.
 
 **Insumos disponíveis**
 
-Use a seção de objetivos e requisitos deste módulo, a ficha CONOPS e o [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios e não suponha acesso a dados jurídicos reais.
+Use as [quatro classes de objetivo](padroes-e-decisoes.md#quatro-classes-de-objetivo), [requisitos significativos](padroes-e-decisoes.md#do-requisito-ao-requisito-arquiteturalmente-significativo), [CONOPS](conceitos.md#conops-o-sistema-em-operacao) e o [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios; não use dados jurídicos reais.
 
 **Como conduzir**
 
@@ -120,21 +120,21 @@ Entregue uma ficha de uma página com problema, stakeholder, baseline, resultado
 
 ### 9. Aceitação de extração e síntese
 
-**O que é:** critério de aceitação define população, amostra, medida, limiar e ação para uma saída.
+**O que é:** critério de aceitação define população, amostra, medida, limiar e ação.
 
 **Onde encontrar:** consulte [critérios probabilísticos](padroes-e-decisoes.md#criterios-probabilisticos-de-aceitacao) e o [catálogo de atributos](../referencia/atributos-de-qualidade.md).
 
 **Situação**
 
-Um sistema extrai obrigações de licenças ambientais e prepara um resumo que será revisado por especialista. Campos como data e identificador precisam obedecer ao formato; já a síntese pode variar na redação, mas não pode omitir obrigação crítica.
+Um sistema extrai obrigações de licenças ambientais e prepara resumo para especialista. Data e identificador obedecem ao formato; a síntese pode variar, mas não omitir obrigação crítica.
 
 **Seu papel**
 
-Você é o arquiteto responsável por transformar a diferença entre contrato determinístico e comportamento probabilístico em critérios de aceitação operáveis.
+Você transforma a diferença entre contrato determinístico e comportamento probabilístico em critérios operáveis.
 
 **Insumos disponíveis**
 
-Consulte o capítulo sobre critérios probabilísticos e o catálogo de atributos. Use uma coleção fictícia de licenças com tipos de documento e exceções diferentes.
+Consulte [Critérios probabilísticos de aceitação](padroes-e-decisoes.md#criterios-probabilisticos-de-aceitacao) e o [catálogo de atributos](../referencia/atributos-de-qualidade.md). Use licenças fictícias com tipos e exceções diferentes.
 
 **Como conduzir**
 
@@ -162,21 +162,21 @@ Entregue dois critérios em tabela, uma nota sobre a amostra e uma regra operaci
 
 ### 10. Paisagem de decisões para suporte técnico
 
-**O que é:** paisagem de decisões separa escolhas com responsáveis e consequências diferentes.
+**O que é:** paisagem de decisões separa escolhas com responsáveis e consequências distintas.
 
-**Onde encontrar:** use [padrões de desenho conceitual](padroes-e-decisoes.md) e a [oficina local](oficina-de-ferramentas.md).
+**Onde encontrar:** use a [sequência de decisão](padroes-e-decisoes.md#uma-sequencia-de-decisao), os [padrões de desenho conceitual](padroes-e-decisoes.md) e a [oficina local](oficina-de-ferramentas.md#roteiro-sugerido-para-aula).
 
 **Situação**
 
-Uma empresa possui 600 manuais atualizados semanalmente, três sistemas somente de leitura e um diagnóstico com dez sequências conhecidas. A equipe pede “uma solução de IA”, mas cada eixo da decisão muda responsabilidades diferentes.
+Uma empresa possui 600 manuais semanais, três sistemas de leitura e diagnóstico com dez sequências. A equipe pede “uma solução de IA”, mas cada eixo muda responsabilidades.
 
 **Seu papel**
 
-Você é o arquiteto que organiza uma paisagem de escolhas antes de desenhar a arquitetura-alvo.
+Você organiza escolhas antes de desenhar a arquitetura-alvo.
 
 **Insumos disponíveis**
 
-Use os padrões de desenho conceitual, os conceitos de workflow, agente, RAG, hospedagem e AI Gateway e a oficina de contrato local do módulo.
+Use os [padrões de desenho conceitual](padroes-e-decisoes.md), [modos operacionais](conceitos.md#modos-operacionais), a [oficina de contrato local](oficina-de-ferramentas.md#receita-principal) e [workflow versus agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm).
 
 **Como conduzir**
 
@@ -208,19 +208,19 @@ Entregue uma matriz de cinco eixos, uma arquitetura incremental em até três pa
 
 **O que é:** contestação arquitetural testa necessidade comparando alternativas, condições e evidências.
 
-**Onde encontrar:** consulte [workflow e agente](conceitos.md), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [workflow e agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm), a seção de [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
-O patrocinador de compras exige um agente porque “os melhores produtos já são agênticos”. O processo real tem cinco etapas estáveis, aprovação humana acima de R$ 5 mil e APIs de escrita não idempotentes.
+O patrocinador exige um agente porque “os melhores produtos já são agênticos”. O processo tem cinco etapas, aprovação acima de R$ 5 mil e APIs de escrita não idempotentes.
 
 **Seu papel**
 
-Você é o arquiteto que precisa contestar uma solução orientada por tendência sem desqualificar a necessidade do patrocinador.
+Você contesta a solução orientada por tendência sem desqualificar a necessidade.
 
 **Insumos disponíveis**
 
-Use os conceitos de workflow, agente, idempotência e aprovação, o exemplo arquitetural e o template de ADR.
+Use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais), [workflow e agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm), o exemplo arquitetural e o template de ADR. Para idempotência e aprovação, consulte o [padrão de uso de ferramentas](../modulo-1-fundamentos/padroes-e-decisoes.md#uso-de-ferramentas).
 
 **Como conduzir**
 
@@ -250,7 +250,7 @@ Entregue um parecer de uma página e o núcleo de uma ADR com decisão, alternat
 
 **O que é:** dossiê conceitual reúne oportunidade, operação, arquitetura, riscos e evidências para revisão independente.
 
-**Onde encontrar:** consulte [conceitos e padrões](conceitos.md), [template de ADR](../referencia/template-adr.md) e [oficina local](oficina-de-ferramentas.md).
+**Onde encontrar:** consulte [conceitos e padrões](conceitos.md#do-conceito-ao-requisito), [template de ADR](../referencia/template-adr.md) e [oficina local](oficina-de-ferramentas.md#roteiro-sugerido-para-aula).
 
 **Situação**
 
@@ -262,7 +262,7 @@ Você é o arquiteto que compõe um dossiê independente de fornecedor para uma 
 
 **Insumos disponíveis**
 
-Use todos os conceitos e padrões do módulo, o [template de ADR](../referencia/template-adr.md), o exemplo arquitetural e a oficina de gateway local. O caso é fictício; não use prontuários ou documentos reais.
+Use [CONOPS e modos operacionais](conceitos.md#conops-o-sistema-em-operacao), [requisitos e padrões de decisão](padroes-e-decisoes.md), o [template de ADR](../referencia/template-adr.md), o exemplo arquitetural e a [oficina de gateway local](oficina-de-ferramentas.md#receita-principal). O caso é fictício; não use prontuários ou documentos reais.
 
 **Como conduzir**
 

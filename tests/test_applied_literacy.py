@@ -205,6 +205,25 @@ conteúdo da atividade
                     self.assertRegex(advanced, r"(?m)^\d+\. ")
                     self.assertRegex(advanced, r"(?i)(verifique|confira|revis[eã]o|complet) ")
 
+    def test_advanced_exercises_do_not_expose_answers_or_recall_precision_values(self):
+        """Enunciados avançados não publicam respostas prontas ou números de gabarito."""
+
+        answer_markers = re.compile(
+            r"<details>|</details>|ver\s+resposta|resposta\s+comentada|gabarito",
+            re.IGNORECASE,
+        )
+        numeric_retrieval_answer = re.compile(
+            r"(?:recall|precision)\s*@\s*(?:\d+|k)\s*(?:=|:|é|é)\s*\d",
+            re.IGNORECASE,
+        )
+
+        for slug in MODULES:
+            text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
+            advanced = text.split("## Aplicar", 1)[1]
+            with self.subTest(module=slug):
+                self.assertIsNone(answer_markers.search(advanced))
+                self.assertIsNone(numeric_retrieval_answer.search(advanced))
+
     def test_project_uses_percentage_assessment_criteria(self):
         text = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8")
         self.assertIn("## Critérios de avaliação", text)

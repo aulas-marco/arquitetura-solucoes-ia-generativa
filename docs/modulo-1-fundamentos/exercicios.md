@@ -82,7 +82,7 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 **O que é:** uma classificação de responsabilidades identifica quais partes do fluxo precisam de regra repetível e quais partes lidam com percepção ou linguagem incertas. Ela não classifica o sistema inteiro como “IA”.
 
-**Onde encontrar:** consulte [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico) e o [exemplo arquitetural](exemplo-arquitetural.md). Use o cenário de recibo abaixo como caso de trabalho.
+**Onde encontrar:** consulte [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico) e o [exemplo arquitetural](exemplo-arquitetural.md). Use o cenário de recibo abaixo.
 
 **Situação**
 
@@ -94,7 +94,7 @@ Você é o arquiteto responsável por separar o que pode variar linguisticamente
 
 **Insumos disponíveis**
 
-Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), a seção de padrões e o caso fictício descrito acima. Não é necessário instalar uma ferramenta.
+Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens) e o caso fictício descrito acima. Não é necessário instalar uma ferramenta.
 
 **Como conduzir**
 
@@ -164,7 +164,7 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 
 **O que é:** uma comparação arquitetural é uma matriz que coloca alternativas sob os mesmos critérios e explicita consequências, hipóteses e evidências faltantes antes da escolha.
 
-**Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](padroes-e-decisoes.md) e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md).
+**Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](padroes-e-decisoes.md#panorama-das-abordagens) e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md#o-novo-contrato-arquitetural).
 
 **Situação**
 
@@ -207,7 +207,7 @@ Entregue uma matriz comparativa, uma recomendação provisória de até um pará
 
 **O que é:** contestar uma ADR significa revisar a decisão registrada, suas alternativas, evidências e condições de reversão; não é apenas dizer se você gosta da tecnologia.
 
-**Onde encontrar:** leia a ADR preliminar do módulo, a matriz do exercício anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+**Onde encontrar:** leia a [ADR preliminar — contexto para o assistente documental](padroes-e-decisoes.md#adr-preliminar-contexto-para-o-assistente-documental), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Situação**
 
@@ -219,7 +219,7 @@ Você é o revisor arquitetural. Seu trabalho é testar a decisão, localizar pr
 
 **Insumos disponíveis**
 
-Leia a ADR preliminar do módulo, a matriz do exercício anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+Leia a [ADR preliminar — contexto para o assistente documental](padroes-e-decisoes.md#adr-preliminar-contexto-para-o-assistente-documental), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
@@ -261,7 +261,7 @@ Você é o arquiteto que precisa compor um desenho mínimo, deixando claro onde 
 
 **Insumos disponíveis**
 
-Use os conceitos e padrões do módulo 1, o [template de ADR](../referencia/template-adr.md) e o diagrama de exemplo arquitetural. O diretório e as atas são fictícios; não use dados reais.
+Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens), o [template de ADR](../referencia/template-adr.md) e o diagrama de exemplo arquitetural. O diretório e as atas são fictícios; não use dados reais.
 
 **Como conduzir**
 
