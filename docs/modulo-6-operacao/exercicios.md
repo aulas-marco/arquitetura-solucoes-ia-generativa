@@ -114,7 +114,7 @@ Confira versões, proprietários e compatibilidade do manifesto em homologação
 
 ### 9. Trace e SLO com privacidade
 
-**Span** é etapa observável do trace; **SLO** é meta de indicador numa janela (**o que é** cada um?). Consulte [trace](conceitos.md#trace-reconstruir-a-composicao).
+**Span** é etapa observável do trace; **SLO** é meta de indicador numa janela (**o que é** cada um?). Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [SLO](conceitos.md#slo-para-servico-util).
 
 **Situação**
 
@@ -157,7 +157,7 @@ Confira trace minimizado e todos os campos do SLO, inclusive runbook.
 
 ### 10. Diagnóstico de rollout composto
 
-**Canary** expõe versão a parcela; **fallback** usa alternativa; **rollback** restaura manifesto (**o que é** ação segura?). Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada).
+**Canary** expõe versão a parcela; **fallback** usa alternativa; **rollback** restaura manifesto (**o que é** ação segura?). Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
 
 **Situação**
 
@@ -200,7 +200,7 @@ Confira quatro planos, teste refutador e limite de interrupção.
 
 ### 11. Plataforma comum ou autonomia local?
 
-**Fronteira de propriedade** diz quem decide, mantém, alerta e aceita risco; **ADR** registra contexto e decisão (**o que é** responsabilidade?). Consulte [promoção](conceitos.md#ambientes-e-promocao).
+**Fronteira de propriedade** diz quem decide, mantém, alerta e aceita risco; **ADR** registra contexto e decisão (**o que é** responsabilidade?). Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
 
 **Situação**
 
@@ -260,12 +260,15 @@ Use [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportame
 
 **Como conduzir**
 
-1. Delimite contexto, dados, jornadas, efeitos permitidos e usos proibidos.
-2. Desenhe componentes e fluxos com propriedade e evidência.
-3. Monte manifesto, critérios, portões, canary, fallback, rollback, SLOs, traces, alertas e runbooks.
-4. Siga mudança de corpus até incidente e ação de usuário até auditoria; declare contenção e decisão para cada falha.
+Fases, checkpoints e modelos:
 
-Crie a arquitetura-alvo e um plano incremental para a organização que possui copiloto, RAG e agente isolados, componentes duplicados, fornecedores incompatíveis, rastreabilidade pobre e custo crescente. A entrega deve ser autocontida e conter:
+1. **Fase 1 — Contexto:** preencha `atores | jornadas | dados | efeitos | restrições`. **Checkpoint:** usos proibidos.
+2. **Fase 2 — Contratos:** preencha `componente | interface | proprietário | evidência`. **Checkpoint:** fluxos e fronteiras.
+3. **Fase 3 — Entrega:** preencha `manifesto | critério | portão | canary | rollback`. **Checkpoint:** promoção reversível.
+4. **Fase 4 — Operação:** preencha `span | SLO | indicador | janela | alerta | runbook`. **Checkpoint:** incidente reproduzível.
+5. **Fase 5 — Evolução:** preencha `hipótese | baseline | variável | parada | decisão`. **Checkpoint:** roadmap incremental.
+
+Preencha os onze artefatos:
 
 1. **contexto:** atores, jornadas, sistemas existentes, classes de dados, efeitos, restrições, pressupostos e usos proibidos;
 2. **atributos de qualidade:** ao menos oito cenários no formato fonte, estímulo, ambiente, artefato, resposta e medida, incluindo qualidade, fundamentação, latência, custo, privacidade, segurança, confiabilidade e observabilidade;
@@ -279,7 +282,7 @@ Crie a arquitetura-alvo e um plano incremental para a organização que possui c
 10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;
 11. roadmap de três incrementos que preserve valor e contenção antes da migração total.
 
-Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de produto, segurança e privacidade, operação, FinOps, domínios e dono do processo. Para cada falha — fornecedor, índice, gateway, guardrail, executor e telemetria — declare raio de impacto e contenção. Para o gateway, inclua réplicas em domínios de falha, health failover, condições de bypass com controles equivalentes e degradação por produto quando não houver caminho seguro. Nenhuma opção pode usar “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
+Mostre fronteiras de propriedade, raio de impacto e contenção para cada falha. Para o gateway, inclua réplicas, failover, bypass com controles equivalentes e degradação. Não trate “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
 
 **Entrega esperada**
 
@@ -308,3 +311,5 @@ Entregue pacote com contexto, diagramas, manifesto, ADRs, critérios, portões, 
 ## Orientação para revisão entre pares
 
 Faça uma trilha vertical da mudança de corpus ao incidente e outra horizontal da ação do usuário à auditoria. Procure saltos de responsabilidade, fallback que reduz segurança, métrica sem decisão e risco sem autoridade.
+
+Feche o módulo com a [Síntese e referências](sintese-e-referencias.md).

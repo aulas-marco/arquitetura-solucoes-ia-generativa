@@ -1,6 +1,6 @@
 # Exercícios: construir evidência de confiança
 
-Use o assistente de RH. Nos níveis superiores, entregue artefatos e revise-os pelos critérios.
+Use o [assistente de RH do caso](estudo-de-caso.md#a-proposta). Nos níveis superiores, entregue artefatos e revise-os pelos critérios.
 
 ## Recordar
 
@@ -73,7 +73,7 @@ Verificações determinísticas são reproduzíveis, mas limitadas; critérios h
 
 ### 8. Identificação de ameaças em uma nova integração
 
-**Ativo** é o que precisa ser preservado; **ameaça**, a causa potencial de incidente (**o que é** cada um?). Consulte [risco residual](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
+**Ativo** é o que precisa ser preservado; **ameaça**, a causa potencial de incidente (**o que é** cada um?). Consulte a [definição de ativo e ameaça](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
 
 **Situação**
 
@@ -247,24 +247,27 @@ Confira amostra, autoridade, expiração e gatilho; não confunda “não observ
 
 Você recebeu um assistente de RH que atende empregados e gestores, consulta políticas públicas e restritas e pode encaminhar casos sensíveis. A arquitetura precisa explicar onde cada controle atua e o que acontece quando ele falha.
 
+**O que é** confiança verificável? Controle, evidência e decisão com limite explícito.
+
 **Seu papel**
 
 Você é o arquiteto responsável por transformar ameaças em controles verificáveis, critérios de avaliação e decisão de risco residual para uma primeira liberação.
 
 **Insumos disponíveis**
 
-Use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões de governança](padroes-e-decisoes.md), a [oficina de confiança](oficina-de-ferramentas.md) e o [catálogo de qualidade](../referencia/atributos-de-qualidade.md).
-
-Escreva: **o que é** uma arquitetura de confiança verificável?
+Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](estudo-de-caso.md#decisoes-de-risco-e-governanca), os [padrões](padroes-e-decisoes.md), a [oficina](oficina-de-ferramentas.md) e o [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
-1. Liste ativos, ameaças, proprietários e fronteiras.
-2. Para cada ameaça, escolha controles em camadas e descreva limite, teste negativo e modo seguro de falha.
-3. Defina fatias, critérios de avaliação, portões de liberação e regra de aceitação do risco residual.
-4. Relacione cada decisão a evidência e responsável.
+Fases, checkpoints e modelos:
 
-Crie uma arquitetura de confiança para um assistente que atende empregados e gestores, usa políticas públicas e restritas, consulta dados pessoais e encaminha casos sensíveis. Entregue:
+1. **Fase 1 — Contexto:** preencha `atores | ativos | dados | fronteiras`. **Checkpoint:** usos permitidos e proibidos.
+2. **Fase 2 — Ameaças:** preencha `ameaça | percurso | impacto | sinal`. **Checkpoint:** cinco cenários, incluindo fornecedor e memória.
+3. **Fase 3 — Controles:** preencha `camada | controle | limite | teste | proprietário`. **Checkpoint:** teste negativo e falha segura.
+4. **Fase 4 — Avaliação:** preencha `fatia | critério | evidência | portão`. **Checkpoint:** casos comuns, raros, adversariais e recusa.
+5. **Fase 5 — Liberação:** preencha `canary | rollback | residual | autoridade | gatilho`. **Checkpoint:** decisão reversível.
+
+Preencha os oito artefatos:
 
 1. diagrama com atores, ativos, fronteiras, identidade, recuperação, modelo, ferramenta de leitura, validação, aprovação e telemetria;
 2. cinco cenários de ameaça, incluindo cadeia de fornecedores e manipulação de memória;
@@ -279,7 +282,7 @@ Crie uma arquitetura de confiança para um assistente que atende empregados e ge
 
 Entregue pacote versionado com os oito artefatos.
 
-Inclua um equivalente textual do diagrama. Justifique cada decisão por cenário e atributo de qualidade. Não use “criptografia”, “filtro” ou “humano no loop” como garantia genérica: diga onde atua, qual falha reduz e qual permanece.
+Inclua equivalente textual do diagrama e justifique decisões por cenário. Controles devem declarar atuação, falha reduzida e limite.
 
 **Como verificar**
 
@@ -303,3 +306,5 @@ Inclua um equivalente textual do diagrama. Justifique cada decisão por cenário
 ## Orientação para revisão entre pares
 
 Ao revisar, procure “impede”, “garante” e “100% seguro”. Peça evidência, universo e modo de falha; verifique responsáveis e autoridade para desligar.
+
+Feche o módulo com a [Síntese e referências](sintese-e-referencias.md).
