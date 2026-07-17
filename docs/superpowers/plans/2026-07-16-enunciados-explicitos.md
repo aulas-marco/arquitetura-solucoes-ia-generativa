@@ -30,7 +30,7 @@
 - Consumes: seis arquivos `docs/modulo-*/exercicios.md` e a função `section` já existente.
 - Produces: teste que exige orientação explícita em cada nível avançado e rejeita instruções sem referência ou procedimento.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Adicionar um teste que, para cada módulo e nível em `Aplicar`, `Analisar`, `Avaliar` e `Criar`, exija:
 
@@ -52,13 +52,13 @@ self.assertRegex(advanced, r"(?i)(verifique|confira|revis[eã]o|complet) ")
 
 O teste deve isolar cada seção Bloom para que uma explicação de outro nível não satisfaça o contrato por acidente.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `python -m unittest tests.test_applied_literacy.AppliedLiteracyTest.test_advanced_exercises_explain_artifacts_and_procedure -v`
 
 Expected: FAIL porque os exercícios atuais têm contexto e critérios, mas nem todos explicam o objeto, a referência e a verificação no próprio nível.
 
-- [ ] **Step 3: Commit the failing test**
+- [x] **Step 3: Commit the failing test**
 
 ```bash
 git add tests/test_applied_literacy.py
@@ -75,11 +75,11 @@ git commit -m "test: require explicit exercise instructions"
 - Consumes: `conceitos.md`, `padroes-e-decisoes.md`, `exemplo-arquitetural.md`, `estudo-de-caso.md`, oficinas locais e `docs/referencia/template-adr.md`.
 - Produces: quatro atividades avançadas por módulo com definição, localização, procedimento, entrega e checagem claros.
 
-- [ ] **Step 1: Map each artifact before editing**
+- [x] **Step 1: Map each artifact before editing**
 
 Para cada atividade, listar no próprio enunciado os objetos que o aluno deve produzir. No módulo 1, cobrir classificação, cenário de qualidade, comparação arquitetural, ADR e diagrama. No módulo 2, cobrir problema observável, critério probabilístico, matriz de escolhas, decisão de agente e arquitetura-alvo.
 
-- [ ] **Step 2: Rewrite the local guidance**
+- [x] **Step 2: Rewrite the local guidance**
 
 Substituir instruções genéricas por frases no formato:
 
@@ -98,13 +98,13 @@ Substituir instruções genéricas por frases no formato:
 
 Para o exemplo do recibo, declarar que a fronteira separa responsabilidades, nomear as caixas “Extração do recibo”, “Regra de limite”, “Proposta de despesa” e “Lançamento financeiro”, indicar o dado em cada seta e exigir autorização no efeito financeiro.
 
-- [ ] **Step 3: Run focused checks**
+- [x] **Step 3: Run focused checks**
 
 Run: `python -m unittest tests.test_applied_literacy.AppliedLiteracyTest.test_advanced_exercises_explain_artifacts_and_procedure tests.test_module_one tests.test_module_two -v`
 
 Expected: PASS for modules 1 and 2.
 
-- [ ] **Step 4: Commit the module pair**
+- [x] **Step 4: Commit the module pair**
 
 ```bash
 git add docs/modulo-1-fundamentos/exercicios.md docs/modulo-2-desenho-conceitual/exercicios.md
@@ -121,19 +121,19 @@ git commit -m "docs: clarify foundational and conceptual exercises"
 - Consumes: conceitos, padrões, estudos de caso, oficinas locais, scripts e templates dos módulos 3 e 4.
 - Produces: instruções executáveis para métricas RAG, chunking, autorização, seleção de padrão, contratos de ferramentas, autonomia, diagnóstico de trace e arquitetura de agente.
 
-- [ ] **Step 1: Explain retrieval artifacts in place**
+- [x] **Step 1: Explain retrieval artifacts in place**
 
 Definir chunk, conjunto de referência, `Recall@5`, `Precision@5`, proveniência, cache e citação. Linkar para os padrões e para a oficina local. Mostrar numerador, denominador, fonte da lista de relevantes e formato da tabela esperada.
 
-- [ ] **Step 2: Explain agent artifacts in place**
+- [x] **Step 2: Explain agent artifacts in place**
 
 Definir contrato de ferramenta, idempotência, timeout, estado desconhecido, nível A0–A5 e trace. Linkar para o catálogo e para a oficina. Nomear os campos a preencher e indicar como diferenciar fato observado, hipótese, contenção e reconciliação.
 
-- [ ] **Step 3: Add verification checklists**
+- [x] **Step 3: Add verification checklists**
 
 Em cada atividade avançada, incluir uma checagem que confirme autorização antes da materialização, ausência de chamada proibida, identidade e versão, ou coerência entre fluxo, efeito e aprovação.
 
-- [ ] **Step 4: Run focused checks and commit**
+- [x] **Step 4: Run focused checks and commit**
 
 Run: `python -m unittest tests.test_applied_literacy.AppliedLiteracyTest.test_advanced_exercises_explain_artifacts_and_procedure tests.test_module_three tests.test_module_four -v`
 
@@ -152,19 +152,19 @@ git commit -m "docs: clarify retrieval and agent exercises"
 - Consumes: modelos de ameaça, pipeline de avaliação, conceitos de operação, manifesto, traces, SLOs, padrões de plataforma e projeto final.
 - Produces: instruções guiadas para controles, ameaças, avaliação multidimensional, risco residual, ciclo de operação, métricas, portabilidade e arquitetura final.
 
-- [ ] **Step 1: Explain trust and governance artifacts**
+- [x] **Step 1: Explain trust and governance artifacts**
 
 Definir ativo, ameaça, controle em profundidade, teste negativo, fatia, critério de avaliação, portão e risco residual. Apontar o diagrama, o estudo de caso, a oficina de confiança e o catálogo de qualidade.
 
-- [ ] **Step 2: Explain operational artifacts**
+- [x] **Step 2: Explain operational artifacts**
 
 Definir ativo comportamental, manifesto, span, SLO, indicador, janela, canary, rollback, fallback, runbook, ADR e fronteira de propriedade. Apontar exemplos e nomear os campos que o aluno deve preencher.
 
-- [ ] **Step 3: Add vertical and horizontal verification**
+- [x] **Step 3: Add vertical and horizontal verification**
 
 Para o projeto do módulo 6, explicar como seguir uma mudança de corpus de versão a incidente e uma ação de usuário até auditoria, com uma tabela de etapas, responsável, evidência e decisão.
 
-- [ ] **Step 4: Run focused checks and commit**
+- [x] **Step 4: Run focused checks and commit**
 
 Run: `python -m unittest tests.test_applied_literacy.AppliedLiteracyTest.test_advanced_exercises_explain_artifacts_and_procedure tests.test_module_five tests.test_module_six -v`
 
@@ -183,7 +183,7 @@ git commit -m "docs: clarify trust and operations exercises"
 - Consumes: seis páginas revisadas e o contrato de clareza.
 - Produces: nenhum termo operacional sem definição ou referência na primeira ocorrência relevante.
 
-- [ ] **Step 1: Search for residual opaque directives**
+- [x] **Step 1: Search for residual opaque directives**
 
 Run:
 
@@ -193,13 +193,13 @@ rg -n "Desenhe|Preencha|Calcule|Defina|Compare|Relacione|Separe|Marque|Trace|SLO
 
 Para cada ocorrência, confirmar que a seção contém definição, link e critério de verificação; reescrever somente quando faltar um deles.
 
-- [ ] **Step 2: Check link targets and answer policy**
+- [x] **Step 2: Check link targets and answer policy**
 
 Run: `python scripts/validate_content.py --all`
 
 Expected: no broken local references, no missing Bloom levels, no public answer blocks in advanced sections and no forbidden editorial markers.
 
-- [ ] **Step 3: Commit residual fixes**
+- [x] **Step 3: Commit residual fixes**
 
 ```bash
 git add docs/modulo-*/exercicios.md tests/test_applied_literacy.py
@@ -215,25 +215,25 @@ git commit -m "docs: remove remaining hermetic exercise prompts"
 - Consumes: todos os commits anteriores.
 - Produces: site MkDocs estrito sem erros e evidência registrada para integração.
 
-- [ ] **Step 1: Run the complete test suite**
+- [x] **Step 1: Run the complete test suite**
 
 Run: `python -m unittest discover -s tests`
 
 Expected: all tests pass.
 
-- [ ] **Step 2: Run the content validator**
+- [x] **Step 2: Run the content validator**
 
 Run: `python scripts/validate_content.py --all`
 
 Expected: validation completes without errors.
 
-- [ ] **Step 3: Build MkDocs strictly**
+- [x] **Step 3: Build MkDocs strictly**
 
 Run: `mkdocs build --strict --site-dir /tmp/arquitetura-solucoes-ia-generativa-final`
 
 Expected: exit code 0. The Material for MkDocs advisory about MkDocs 2.0 is informational and does not fail the build.
 
-- [ ] **Step 4: Review the diff and commit if needed**
+- [x] **Step 4: Review the diff and commit if needed**
 
 Run: `git diff --check && git status -sb && git log --oneline -8`
 
