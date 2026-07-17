@@ -248,7 +248,7 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 Uma organização tem copiloto, RAG e agente isolados, duplicação, fornecedores incompatíveis, pouca rastreabilidade e custo crescente. Proponha arquitetura operável e reversível.
 
-**O que é:** arquitetura operável? Mudança, decisão e recuperação têm dono e limite.
+**O que é:** arquitetura operável é aquela em que mudança, decisão e recuperação têm dono e limite.
 
 **Seu papel**
 

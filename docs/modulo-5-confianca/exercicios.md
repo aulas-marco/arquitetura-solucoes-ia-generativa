@@ -259,7 +259,7 @@ Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](e
 
 **Como conduzir**
 
-**Campos:** ator/ativo = quem/o quê; percurso = caminho; limite = cobertura ausente; portão = bloqueio; residual = risco restante.
+**Campos:** ator/ativo = quem/o quê; percurso = caminho; limite = condição ou valor que restringe o comportamento aceitável; portão = bloqueio; residual = risco restante.
 
 Fases, checkpoints e modelos:
 
