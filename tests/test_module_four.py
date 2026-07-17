@@ -176,7 +176,7 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         self.assertEqual(3, sections["Compreender"].count("<details>"))
         for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
             self.assertNotIn("<details>", sections[level])
-            self.assertIn("**Rubrica", sections[level])
+            self.assertIn("**Critérios de avaliação", sections[level])
 
         exercise_text = text.casefold()
         for challenge in (

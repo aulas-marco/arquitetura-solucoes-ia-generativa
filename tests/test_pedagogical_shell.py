@@ -41,18 +41,18 @@ class PedagogicalShellTest(unittest.TestCase):
 
 
 class PublicExerciseAnswerPolicyTest(unittest.TestCase):
-    def test_advanced_sections_have_rubrics_but_no_public_answer_blocks(self):
+    def test_advanced_sections_have_criteria_but_no_public_answer_blocks(self):
         for slug in MODULES:
             text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
             sections = bloom_sections(text)
             for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
                 body = sections[level]
                 with self.subTest(module=slug, level=level):
-                    self.assertIn("Rubrica", body)
+                    self.assertIn("Critérios de avaliação", body)
                     self.assertNotIn("<details", body.casefold())
                     self.assertNotRegex(body.casefold(), r"resposta\s+(comentada|esperada|correta)")
 
-    def test_advanced_rubrics_do_not_reveal_computed_or_canonical_answers(self):
+    def test_advanced_criteria_do_not_reveal_computed_or_canonical_answers(self):
         forbidden = (
             r"recall@\d+\s*=", r"precision@\d+\s*=",
             r"hipótese da primeira reserva ter concluído",
@@ -63,9 +63,9 @@ class PublicExerciseAnswerPolicyTest(unittest.TestCase):
             text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
             sections = bloom_sections(text)
             advanced = "\n".join(sections[level] for level in ("Aplicar", "Analisar", "Avaliar", "Criar"))
-            rubrics = "\n".join(
-                line for line in advanced.splitlines() if line.startswith("**Rubrica")
+            criteria = "\n".join(
+                line for line in advanced.splitlines() if line.startswith("**Critérios de avaliação")
             ).casefold()
             with self.subTest(module=slug):
                 for pattern in forbidden:
-                    self.assertNotRegex(rubrics, pattern)
+                    self.assertNotRegex(criteria, pattern)

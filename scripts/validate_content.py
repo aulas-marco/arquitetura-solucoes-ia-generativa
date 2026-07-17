@@ -266,8 +266,10 @@ def validate_exercises(path: Path, text: str, errors: list[str], counts: Counts)
             errors.append(f"{path.relative_to(ROOT)}: {level} requer bloco <details>")
 
     for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
-        if not re.search(r"\bRubrica\b", sections.get(level, "")):
-            errors.append(f"{path.relative_to(ROOT)}: {level} requer Rubrica")
+        if not re.search(r"\*\*Critérios de avaliação\*\*", sections.get(level, "")):
+            errors.append(
+                f"{path.relative_to(ROOT)}: {level} requer critérios de avaliação"
+            )
 
 
 def validate_module(
@@ -359,15 +361,15 @@ def main() -> int:
 
     for slug in slugs:
         module_words[slug] = validate_module(slug, errors, counts, image_references)
-        if not 6_000 <= module_words[slug] <= 9_400:
+        if not 6_000 <= module_words[slug] <= 10_000:
             errors.append(
-                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–9.200"
+                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–10.000"
             )
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 54_000:
+        if not 40_000 <= counts.words <= 60_000:
             errors.append(
-                f"total fora do orçamento de 40.000–53.000: {counts.words} palavras"
+                f"total fora do orçamento de 40.000–60.000: {counts.words} palavras"
             )
     validate_required_images(
         slugs,

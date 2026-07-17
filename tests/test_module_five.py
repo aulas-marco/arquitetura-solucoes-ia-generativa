@@ -98,7 +98,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
 
         for evaluation_topic in (
             "verificações determinísticas",
-            "rubricas humanas",
+            "critérios humanos",
             "avaliação assistida por modelo",
             "conjunto de referência",
             "casos adversariais",
@@ -147,7 +147,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
 
         for edge in (
             'X --> SAMP["Amostra estratificada de execuções"]',
-            'RUB["Rubrica humana versionada"] --> HJ',
+            'RUB["Critérios humanos versionados"] --> HJ',
             'SAMP --> HJ["Julgamentos humanos com proveniência"]',
             'J --> AM["Resultados assistidos com proveniência"]',
             'AM --> CAL["Calibração e checagem de viés"]',
@@ -156,7 +156,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(edge, text, edge)
 
-        self.assertNotIn('H["Rubrica humana calibrada"] --> G', text)
+        self.assertNotIn('H["Critérios humanos calibrados"] --> G', text)
         self.assertNotIn('J --> G', text)
 
     def test_exercises_preserve_bloom_policy_and_required_challenges(self):
@@ -179,13 +179,13 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
         self.assertEqual(3, sections["Compreender"].count("<details>"))
         for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
             self.assertNotIn("<details>", sections[level])
-            self.assertIn("**Rubrica", sections[level])
+            self.assertIn("**Critérios de avaliação", sections[level])
 
         exercise_text = text.casefold()
         for challenge in (
             "identificação de ameaças",
             "mapeamento de controles",
-            "rubrica de avaliação",
+            "critérios de avaliação",
             "julgamento de risco residual",
             "arquitetura de confiança",
         ):

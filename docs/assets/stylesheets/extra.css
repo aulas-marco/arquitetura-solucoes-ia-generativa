@@ -496,8 +496,8 @@ body {
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Rubrics are already labelled in the Markdown; color never carries the label. */
-.md-typeset .rubric {
+/* Assessment criteria are already labelled in the Markdown; color never carries the label. */
+.md-typeset .criteria {
   position: relative;
   padding: var(--space-5) var(--space-4) var(--space-4);
   background: #F8FAFD;
@@ -506,17 +506,17 @@ body {
   border-radius: var(--radius-sm);
 }
 
-.md-typeset .rubric::before {
+.md-typeset .criteria::before {
   position: absolute;
   top: var(--space-2);
   left: var(--space-4);
   color: var(--course-cobalt);
-  content: "RUBRICA";
+  content: "CRITÉRIOS";
   font: 800 0.54rem/1 var(--course-meta-font);
   letter-spacing: 0.11em;
 }
 
-.md-typeset .rubric > strong:first-child {
+.md-typeset .criteria > strong:first-child {
   color: var(--course-cobalt);
   font-family: var(--course-meta-font);
 }

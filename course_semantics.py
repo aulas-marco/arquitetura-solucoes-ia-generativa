@@ -120,7 +120,7 @@ def on_page_content(html: str, **_kwargs) -> str:
 
     html = _class_opening_tags(
         html,
-        r"<p(?:\s[^>]*)?>(?=<strong>Rubrica\b)",
-        "rubric",
+        r"<p(?:\s[^>]*)?>(?=<strong>Critérios de avaliação\b)",
+        "criteria",
     )
     return html

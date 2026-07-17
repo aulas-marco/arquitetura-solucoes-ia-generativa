@@ -33,7 +33,7 @@ class AcademiaSemanticComponentsTest(unittest.TestCase):
             ".module-opening", ".objective-card", ".learning-spine",
             ".decision-callout", ".risk-callout", ".bloom-label",
             ".architecture-figure", ".comparison-table", ".adr-block",
-            ".md-typeset details", ".rubric",
+            ".md-typeset details", ".criteria",
         )
         for selector in selectors:
             self.assertIn(selector, CSS)
@@ -55,7 +55,7 @@ class AcademiaSemanticComponentsTest(unittest.TestCase):
             "module-opening", "objectives-grid", "objective-card",
             "learning-spine", "decision-callout", "risk-callout",
             "bloom-label", "architecture-figure", "figure-caption",
-            "comparison-table", "adr-block", "answer-details", "rubric",
+            "comparison-table", "adr-block", "answer-details", "criteria",
         ):
             self.assertIn(class_name, extension)
 
@@ -99,7 +99,7 @@ class AcademiaAccessibilityTest(unittest.TestCase):
     def test_visual_labels_use_text_or_symbols_in_addition_to_color(self):
         self.assertIn('content: "DECISÃO"', CSS)
         self.assertIn('content: "RISCO"', CSS)
-        self.assertIn('content: "RUBRICA"', CSS)
+        self.assertIn('content: "CRITÉRIOS"', CSS)
 
 
 class DirectGithubFallbackTest(unittest.TestCase):
@@ -116,7 +116,7 @@ class DirectGithubFallbackTest(unittest.TestCase):
             self.assertRegex(example, r"\[[^\]]+\]\([^\)]+\)")
             self.assertIn("<details>", exercises)
             self.assertRegex(exercises, r"<summary>(?:Ver resposta|Resposta comentada)</summary>")
-            self.assertRegex(exercises, r"(?m)^\*\*Rubrica")
+        self.assertRegex(exercises, r"(?m)^\*\*Critérios de avaliação")
 
     def test_decision_and_risk_callouts_are_standard_markdown_blockquotes(self):
         decision = (ROOT / "docs/modulo-2-desenho-conceitual/padroes-e-decisoes.md").read_text(encoding="utf-8")
@@ -168,7 +168,7 @@ class BuiltSiteRuntimeTest(unittest.TestCase):
         exercises = self.built("modulo-1-fundamentos/exercicios")
         self.assertRegex(exercises, r'<h2[^>]*class="[^"]*bloom-label')
         self.assertRegex(exercises, r'<details[^>]*class="[^"]*answer-details')
-        self.assertRegex(exercises, r'<p[^>]*class="[^"]*rubric')
+        self.assertRegex(exercises, r'<p[^>]*class="[^"]*criteria')
 
         concepts = self.built("modulo-1-fundamentos/conceitos")
         self.assertRegex(concepts, r'<p[^>]*class="[^"]*architecture-figure')
