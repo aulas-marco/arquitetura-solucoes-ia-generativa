@@ -159,6 +159,33 @@ conteúdo da atividade
         for term in ("grupo", "evidências", "ferramenta", "reproduzível"):
             self.assertIn(term, project)
 
+    def test_advanced_exercises_are_guided_and_use_percentage_criteria(self):
+        for slug in MODULES:
+            text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
+            with self.subTest(module=slug):
+                advanced = text.split("## Aplicar", 1)[1]
+                for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
+                    self.assertIn(f"## {level}", text)
+                for label in (
+                    "Situação",
+                    "Seu papel",
+                    "Insumos disponíveis",
+                    "Como conduzir",
+                    "Entrega esperada",
+                    "Critérios de avaliação",
+                ):
+                    self.assertIn(f"**{label}**", advanced)
+                self.assertNotIn("Rubrica", text)
+                self.assertNotRegex(advanced.casefold(), r"\b\d+\s+pontos?\b|pontuação")
+                self.assertRegex(advanced, r"\|[^\n]*\|\s*\d+%\s*\|")
+
+    def test_project_uses_percentage_assessment_criteria(self):
+        text = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8")
+        self.assertIn("## Critérios de avaliação", text)
+        self.assertEqual(6, len(re.findall(r"\|[^\n|]+\|\s*\d+%\s*\|", text)))
+        self.assertNotIn("Rubrica", text)
+        self.assertNotRegex(text.casefold(), r"\b\d+\s+pontos?\b|pontuação")
+
     def test_concepts_and_workshops_name_tools_and_reproducible_steps(self):
         expected_tools = {
             "modulo-1-fundamentos": ("Ollama", "LM Studio"),
