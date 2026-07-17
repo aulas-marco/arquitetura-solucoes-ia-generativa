@@ -1,6 +1,6 @@
 # Exercícios: operar e escalar com controle
 
-Use o portfólio do estudo de caso quando não houver outro contexto. Nos níveis iniciais, tente antes de abrir a resposta. Nos níveis superiores, entregue artefatos verificáveis; nomes de ferramentas sem decisão, limite ou proprietário não recebem pontuação integral.
+Use o portfólio do estudo de caso quando não houver outro contexto. Nos níveis iniciais, tente antes de abrir a resposta. Nos níveis superiores, entregue artefatos verificáveis; nomes de ferramentas sem decisão, limite ou proprietário não demonstram atendimento adequado.
 
 ## Recordar
 
@@ -73,31 +73,148 @@ Ela reduz credenciais dispersas, controles divergentes e telemetria incompatíve
 
 ### 8. Manifesto e portão de regressão
 
-O RAG de políticas trocará modelo de embedding, chunking e prompt no mesmo release. Crie um manifesto com versões de todos os ativos comportamentais, compatibilidades, evidências, proprietário e rota de retorno. Depois especifique um **portão de regressão** com verificações determinísticas, avaliação por componente e ponta a ponta, fatias, casos adversariais, limiares de bloqueio e trade-offs revisáveis. Inclua como testar se o rollback restaura índice, prompt e modelo compatíveis.
+**Situação**
 
-**Rubrica (10 pontos).** 2 pontos por inventário completo e imutável; 2 por compatibilidade e reprodução; 2 por cobertura multidimensional e por fatia; 2 por critérios de bloqueio separados de metas; 2 por rollback ensaiável. Uma lista sem versão de corpus, avaliador ou conjunto recebe no máximo 6 pontos.
+O RAG de políticas trocará modelo de embedding, chunking e prompt no mesmo release. Uma falha de compatibilidade pode parecer uma regressão do modelo, mas pode ter nascido no corpus, no índice ou no avaliador.
+
+**Seu papel**
+
+Você é o arquiteto de operação que precisa tornar a mudança reproduzível e decidir quando bloquear a promoção.
+
+**Insumos disponíveis**
+
+Use o conceito de ativo comportamental, o manifesto da oficina de operação, o conjunto de referência e os padrões de promoção e rollback.
+
+**Como conduzir**
+
+1. Liste versões, dependências, compatibilidades, evidências, proprietário e rota de retorno.
+2. Separe verificações determinísticas, avaliação por componente, ponta a ponta, fatias e casos adversariais.
+3. Defina limiares de bloqueio diferentes de metas de melhoria.
+4. Descreva um ensaio que confirme que rollback restaura índice, prompt e modelo compatíveis.
+
+**Entrega esperada**
+
+Entregue manifesto, portão de regressão e roteiro de ensaio do rollback.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Inventário | 20% | Versiona todos os ativos comportamentais e seus responsáveis. |
+| Compatibilidade | 20% | Explica dependências e como reproduzir a configuração. |
+| Cobertura | 20% | Inclui dimensões, fatias e casos adversariais. |
+| Bloqueio | 20% | Separa limites de segurança de metas de melhoria. |
+| Rollback | 20% | Define ensaio que verifica restauração compatível. |
 
 ### 9. Trace e SLO com privacidade
 
-Desenhe o trace de uma consulta que recupera documentos, chama um modelo e pode abrir rascunho de solicitação. Para cada span, declare identificadores, versões, tempos, decisão de política e conteúdo que não será coletado. Defina dois SLOs: um de resposta útil e outro de ação sem duplicidade. Especifique janela, população elegível, indicador, meta, fonte, atraso, alerta, runbook e comportamento diante de evento intolerável.
+**Situação**
 
-**Rubrica (10 pontos).** 2 pontos por causalidade entre prompt, contexto, recuperação, ferramenta e resposta; 2 por versões e política; 2 por minimização, segregação e retenção; 2 por SLOs mensuráveis e centrados no usuário; 2 por alertas acionáveis. Guardar todas as conversas “para observabilidade” zera o item de privacidade.
+Uma consulta recupera documentos, chama um modelo e pode abrir um rascunho de solicitação. O trace precisa permitir diagnóstico sem guardar a pergunta completa ou dados pessoais desnecessários.
+
+**Seu papel**
+
+Você é o arquiteto de observabilidade que conecta causalidade, privacidade e ação operacional.
+
+**Insumos disponíveis**
+
+Use o script de telemetria local, os conceitos de trace e SLO e o catálogo de atributos de qualidade.
+
+**Como conduzir**
+
+1. Para cada span, escolha identificadores, versões, tempos, política e conteúdo que será minimizado.
+2. Defina um SLO de resposta útil e outro de ação sem duplicidade.
+3. Preencha janela, população, indicador, meta, fonte, atraso, alerta e runbook.
+4. Diga o que acontece quando um evento intolerável é detectado.
+
+**Entrega esperada**
+
+Entregue um esquema de trace e duas fichas de SLO com ação de alerta e política de retenção.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Causalidade | 20% | Relaciona prompt, contexto, recuperação, ferramenta e resposta. |
+| Versões e política | 20% | Registra configuração e decisão de acesso necessárias. |
+| Privacidade | 20% | Minimiza, segrega e retém dados com finalidade explícita. |
+| SLOs | 20% | Define indicadores mensuráveis centrados no usuário. |
+| Alertas | 20% | Liga sinal a proprietário, runbook e ação. |
 
 ## Analisar
 
 ### 10. Diagnóstico de rollout composto
 
-Um canary reduz custo por chamada em 25% e p95 em 15%. Ao mesmo tempo, tarefas concluídas caem 6%, tokens por tarefa sobem, fundamentação piora apenas em português, erros do gateway permanecem estáveis e uma ferramenta dobra chamadas após timeout. O avaliador automático declara melhora geral. Analise hipóteses separadas para roteamento, modelo, recuperação, ferramenta, avaliador e experiência. Relacione métricas de produto, modelo, operação e negócio; indique traces e experimentos que refutariam cada hipótese; decida pausar, reverter, degradar ou ampliar.
+**Situação**
 
-**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por relacionar métricas sem tratá-las como equivalentes; 2 pela qualidade da análise por fatia e do avaliador; 2 pela análise de efeitos sob incerteza; 2 por experimentos refutáveis; 1 por decisão coerente com as evidências.
+Um canary reduz custo por chamada em 25% e p95 em 15%, mas tarefas concluídas caem 6%, tokens por tarefa sobem, fundamentação piora em português e uma ferramenta dobra chamadas após timeout. O avaliador automático declara melhora geral.
+
+**Seu papel**
+
+Você é o arquiteto de rollout que deve separar economia técnica de valor entregue e decidir pausar, reverter, degradar ou ampliar.
+
+**Insumos disponíveis**
+
+Use os quatro planos de métricas, o trace da oficina de operação e os conceitos de canary, fallback e rollback.
+
+**Como conduzir**
+
+1. Organize sinais por produto, modelo, operação e negócio.
+2. Separe hipóteses de roteamento, modelo, recuperação, ferramenta, avaliador e experiência.
+3. Indique trace, amostra ou experimento que refutaria cada hipótese.
+4. Decida uma ação provisória e registre o limite que a faria mudar.
+
+**Entrega esperada**
+
+Entregue tabela hipótese → evidência → teste → ação e parecer de rollout de até 400 palavras.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Decomposição causal | 25% | Não trata variação média como causa única. |
+| Métricas relacionadas | 20% | Conecta planos sem considerá-los equivalentes. |
+| Fatias e avaliador | 20% | Considera idioma, tarefa e limites do avaliador. |
+| Experimentos | 20% | Define testes capazes de refutar hipóteses. |
+| Decisão | 15% | Liga evidência a pausa, reversão, degradação ou ampliação. |
 
 ## Avaliar
 
 ### 11. Plataforma comum ou autonomia local?
 
-A plataforma propõe gateway, prompt registry, RAG, ferramentas e guardrails comuns. Atendimento quer capacidade específica de streaming; Jurídico exige índice fisicamente isolado; Compras precisa de executor transacional; FinOps quer chargeback imediato. Produza parecer com capacidades que devem ser comuns, específicas ou adiadas. Avalie reuso versus acoplamento, ponto único de falha, portabilidade, estratégia multimodelo, identidade, tenancy, política, equipes, cotas e modelo econômico. Registre ao menos três ADRs e gatilhos de revisão.
+**Situação**
 
-**Rubrica (12 pontos).** 2 pontos por contexto e critérios; 2 por fronteiras coerentes; 2 por riscos de concentração e contenção; 2 por autonomia governada e portabilidade graduada; 2 por responsabilidades e FinOps; 2 por ADRs com consequências e gatilhos. “Centralizar tudo” ou “cada time escolhe tudo” sem análise recebe no máximo 5 pontos.
+A plataforma propõe gateway, registro de prompts, RAG, ferramentas e guardrails comuns. Atendimento quer streaming específico; Jurídico exige índice isolado; Compras precisa de executor transacional; FinOps quer atribuição de custo imediata.
+
+**Seu papel**
+
+Você é o arquiteto que decide o que deve ser plataforma comum, capacidade específica ou trabalho adiado.
+
+**Insumos disponíveis**
+
+Use o estudo de caso, o catálogo de padrões de plataforma e os conceitos de portabilidade, tenancy, identidade, cotas e modelo econômico.
+
+**Como conduzir**
+
+1. Separe capacidades comuns, específicas e adiadas com uma razão verificável.
+2. Compare reuso, acoplamento, concentração de falha e portabilidade.
+3. Explicite responsabilidades de plataforma, produto, segurança, operação e FinOps.
+4. Registre três ADRs e um gatilho de revisão para cada decisão relevante.
+
+**Entrega esperada**
+
+Entregue parecer com matriz de responsabilidades, três ADRs resumidas e gatilhos.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Contexto e critérios | 15% | Liga decisões às necessidades dos quatro domínios. |
+| Fronteiras | 20% | Define o que é comum, específico ou adiado. |
+| Concentração e contenção | 20% | Trata ponto único de falha e controles equivalentes. |
+| Autonomia e portabilidade | 15% | Preserva evolução sem permitir escolhas sem governança. |
+| Responsabilidades e FinOps | 15% | Nomeia proprietário, cotas e modelo econômico. |
+| ADRs e gatilhos | 15% | Registra consequências e condição de revisão. |
 
 ## Criar
 
@@ -119,7 +236,19 @@ Crie a arquitetura-alvo e um plano incremental para a organização que possui c
 
 Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de produto, segurança e privacidade, operação, FinOps, domínios e dono do processo. Para cada falha — fornecedor, índice, gateway, guardrail, executor e telemetria — declare raio de impacto e contenção. Para o gateway, inclua réplicas em domínios de falha, health failover, condições de bypass com controles equivalentes e degradação por produto quando não houver caminho seguro. Nenhuma opção pode usar “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
 
-**Rubrica (24 pontos).** 3 pontos por contexto e qualidade mensurável; 3 por arquitetura, componentes e contratos; 3 por fluxos completos e equivalentes textuais; 2 por ADRs e trade-offs; 3 por guardrails e autoridade; 3 por avaliação e portões; 3 por operações, recuperação e privacidade; 2 por riscos residuais; 2 por experimentos e roadmap. Sem identidade propagada, teste negativo de tenancy, rollback do manifesto ou modo seguro para ação, a entrega recebe no máximo 14 pontos.
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Contexto e qualidade | 12% | Delimita atores, jornadas, restrições e cenários mensuráveis. |
+| Arquitetura e contratos | 12% | Define componentes, fronteiras, responsabilidades e interfaces. |
+| Fluxos e ADRs | 12% | Fecha fluxos, equivalentes textuais, alternativas e consequências. |
+| Guardrails e autoridade | 12% | Define controles, limites, proprietários e modo de falha. |
+| Avaliação e portões | 12% | Usa fatias, casos, critérios, canary e condição de bloqueio. |
+| Operação e recuperação | 12% | Inclui SLOs, traces, alertas, rollback e degradação. |
+| Privacidade e riscos residuais | 10% | Declara minimização, afetados, autoridade e gatilho. |
+| Experimentos e roadmap | 10% | Define hipóteses refutáveis e incrementos reversíveis. |
+| Propriedade e comunicação | 8% | Torna responsabilidades e decisões compreensíveis para os envolvidos. |
 
 ## Orientação para revisão entre pares
 

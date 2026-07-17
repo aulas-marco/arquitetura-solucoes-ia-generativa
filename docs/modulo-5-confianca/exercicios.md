@@ -1,6 +1,6 @@
 # Exercícios: construir evidência de confiança
 
-Use o assistente de RH quando não houver outro contexto. Nos níveis iniciais, consulte a resposta após tentar. Nos superiores, entregue os artefatos e revise-os pela rubrica.
+Use o assistente de RH quando não houver outro contexto. Nos níveis iniciais, consulte a resposta após tentar. Nos superiores, entregue os artefatos e revise-os pelos critérios de avaliação.
 
 ## Recordar
 
@@ -60,12 +60,12 @@ Rastreabilidade requer reconstruir versões, fontes, decisões, aprovações e r
 
 </details>
 
-### 7. Compare verificações determinísticas, rubricas humanas e avaliação assistida por modelo.
+### 7. Compare verificações determinísticas, critérios humanos e avaliação assistida por modelo.
 
 <details>
 <summary>Resposta comentada</summary>
 
-Verificações determinísticas são reproduzíveis para propriedades codificáveis, mas não capturam toda nuance. Rubricas humanas trazem contexto, mas têm custo, fadiga e divergência. Avaliação assistida por modelo amplia escala, porém introduz variância, viés e correlação. A combinação calibrada produz evidência mais diversa; nenhuma é padrão-ouro universal.
+Verificações determinísticas são reproduzíveis para propriedades codificáveis, mas não capturam toda nuance. Critérios humanos trazem contexto, mas têm custo, fadiga e divergência. Avaliação assistida por modelo amplia escala, porém introduz variância, viés e correlação. A combinação calibrada produz evidência mais diversa; nenhuma é padrão-ouro universal.
 
 </details>
 
@@ -73,35 +73,151 @@ Verificações determinísticas são reproduzíveis para propriedades codificáv
 
 ### 8. Identificação de ameaças em uma nova integração
 
-O assistente de RH passará a ler anexos enviados por empregados e a criar um rascunho de chamado. Para cinco ameaças — incluindo ao menos injeção indireta, vazamento e consumo econômico — produza uma tabela com: ativo, ator, precondição, percurso, impacto, sinal de detecção e risco inerente. Diferencie “anexo autorizado para o usuário” de “anexo confiável como instrução”.
+**Situação**
 
-**Rubrica (10 pontos).** 2 pontos por ativos e atores específicos; 2 por precondições e percursos plausíveis; 2 por impactos sobre pessoas e organização; 2 por sinais observáveis; 2 por distinguir autorização de integridade. Respostas que apenas copiam nomes do OWASP sem conectá-los ao fluxo recebem no máximo 4 pontos.
+O assistente de RH passará a ler anexos enviados por empregados e a criar um rascunho de chamado. O anexo pode ser autorizado para aquele usuário sem ser confiável como instrução. Há risco de injeção indireta, vazamento e consumo econômico.
+
+**Seu papel**
+
+Você é o arquiteto responsável por construir um primeiro modelo de ameaças ligado ao fluxo real, e não apenas copiar nomes de um catálogo.
+
+**Insumos disponíveis**
+
+Use as seis camadas de guardrails do módulo, o diagrama do exemplo arquitetural e os casos sintéticos da oficina de confiança.
+
+**Como conduzir**
+
+1. Desenhe o fluxo anexo → contexto → modelo → rascunho de chamado.
+2. Para cinco ameaças, registre ativo, ator, precondição, percurso, impacto e sinal observável.
+3. Separe autorização de acesso e integridade do conteúdo.
+4. Marque uma hipótese que precisa de teste negativo antes de qualquer piloto.
+
+**Entrega esperada**
+
+Entregue uma tabela com cinco ameaças e um parágrafo explicando a diferença entre anexo autorizado e instrução confiável.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Ativos e atores | 20% | Nomeia o que pode ser afetado e quem participa do percurso. |
+| Percursos | 20% | Descreve precondições e caminhos plausíveis até o impacto. |
+| Impacto | 20% | Relaciona ameaça a pessoas, organização e efeito operacional. |
+| Sinais | 20% | Define evidência que permitiria detectar ou investigar. |
+| Autorização e integridade | 20% | Não confunde acesso permitido com conteúdo confiável. |
 
 ### 9. Mapeamento de controles por camada
 
-Escolha três ameaças do exercício anterior e monte uma matriz com controles nas camadas de entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Para cada controle, declare o que ele reduz, o que não garante, proprietário, modo de falha e evidência de teste. Inclua ao menos uma degradação segura quando um guardrail estiver indisponível.
+**Situação**
 
-**Rubrica (10 pontos).** 2 pontos pela cobertura das seis camadas; 2 pela relação causal entre ameaça e controle; 2 por limites precisos; 2 por propriedade e modo de falha; 2 por testes e degradação. A frase “a IA detecta ataques” sem mecanismo e evidência não pontua como controle.
+Escolha três ameaças da tabela anterior. O objetivo não é preencher seis caixas com palavras genéricas, mas mostrar qual controle reduz qual percurso e o que permanece possível quando o controle falha.
+
+**Seu papel**
+
+Você é o arquiteto que transforma ameaças em defesa em profundidade, com proprietário e teste.
+
+**Insumos disponíveis**
+
+Use as camadas de entrada, contexto, recuperação, ferramenta, saída e aprovação humana e o relatório da oficina local.
+
+**Como conduzir**
+
+1. Para cada ameaça, escolha controles em camadas diferentes.
+2. Declare redução esperada, limite, proprietário e modo de falha.
+3. Inclua evidência de teste, especialmente um teste negativo de autorização.
+4. Descreva uma degradação segura se um guardrail estiver indisponível.
+
+**Entrega esperada**
+
+Entregue uma matriz ameaça → camadas → controle → limite → teste → proprietário.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Cobertura de camadas | 20% | Usa as seis camadas sem presumir que uma delas resolve tudo. |
+| Relação causal | 25% | Liga ameaça, controle e redução esperada. |
+| Limites e propriedade | 20% | Nomeia o que o controle não garante e quem responde por ele. |
+| Testes | 20% | Define evidência reproduzível, incluindo negação. |
+| Degradação | 15% | Mantém caminho seguro quando o guardrail falha. |
 
 ## Analisar
 
 ### 10. Diagnóstico de uma regressão composta
 
-Após trocar modelo e reindexar políticas, a factualidade média sobe de 3,2 para 3,5 em 4, mas a recuperação de documentos vigentes cai de 96% para 91%; perguntas de gestores melhoram, perguntas de terceirizados pioram; dois de 80 casos obrigatórios deixam de escalar; latência p95 aumenta 40%; e o avaliador automático quase nunca discorda do novo modelo. Analise por que a média não sustenta liberação. Separe hipóteses de recuperação, geração, avaliador e composição. Proponha investigações que possam refutar cada hipótese e indique quais portões interrompem o rollout.
+**Situação**
 
-**Rubrica (12 pontos).** 3 pontos por decomposição causal; 2 por análise de fatias; 2 pela coerência entre severidade, evidência e decisão de liberação; 2 pela crítica ao avaliador; 2 por experimentos refutáveis; 1 por conclusão explícita. Confundir correlação com causa reduz a nota em até 3 pontos.
+Após trocar modelo e reindexar políticas, a factualidade média sobe de 3,2 para 3,5 em 4, mas recuperação de documentos vigentes cai de 96% para 91%; gestores melhoram, terceirizados pioram; dois de 80 casos obrigatórios deixam de escalar; latência p95 aumenta 40%; e o avaliador quase nunca discorda.
+
+**Seu papel**
+
+Você é o arquiteto que decide se o rollout pode avançar, separando regressão de recuperação, geração, avaliador e composição.
+
+**Insumos disponíveis**
+
+Use o pipeline de avaliação, as métricas por fatia e os cinco casos sintéticos da oficina. A média global não é suficiente para liberar.
+
+**Como conduzir**
+
+1. Liste sinais por dimensão: factualidade, recuperação, escalonamento, latência e comportamento do avaliador.
+2. Formule uma hipótese causal para cada dimensão e diga que evidência a sustentaria.
+3. Separe casos de gestores e terceirizados e casos obrigatórios dos demais.
+4. Defina experimentos refutáveis e portões que pausam ou bloqueiam o rollout.
+
+**Entrega esperada**
+
+Entregue uma tabela causa → evidência → teste → decisão e um parecer de liberação de até 400 palavras.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Decomposição causal | 25% | Não trata a variação média como causa única. |
+| Fatias e severidade | 20% | Considera população, casos obrigatórios e afetados. |
+| Avaliador | 15% | Questiona concordância automática e possíveis vieses. |
+| Experimentos | 20% | Define testes que podem refutar hipóteses. |
+| Decisão de rollout | 20% | Liga evidência a portão, ação e comunicação. |
 
 ## Avaliar
 
 ### 11. Julgamento de risco residual
 
-Um piloto encontrou zero vazamentos em 2 mil casos, 99% de escalonamento obrigatório, custo dentro do orçamento e 8% de falsas recusas. Um vazamento teria alto impacto; uma falsa recusa leva ao canal humano em até um dia. Segurança propõe ampliar para toda a empresa com monitoramento; RH quer corrigir primeiro o 1% de falhas de escalonamento. Produza um parecer de uma página que recomende aceitar, reduzir, transferir, suspender ou combinar tratamentos. Declare incerteza amostral, pessoas afetadas, apetite de risco, controles compensatórios, autoridade para aceitar, prazo e gatilhos de revisão.
+**Situação**
 
-**Rubrica (12 pontos).** 2 pontos por distinguir ausência observada de risco zero; 2 por severidade e afetados; 2 por avaliar separadamente falha de escalonamento e falsa recusa; 2 por tratamento proporcional; 2 por autoridade, prazo e gatilhos; 2 por conclusão coerente com as evidências. Uma recomendação sem explicitar risco residual recebe no máximo 6 pontos.
+Um piloto encontrou zero vazamentos em 2 mil casos, 99% de escalonamento obrigatório, custo dentro do orçamento e 8% de falsas recusas. Vazamento teria alto impacto; falsa recusa leva ao canal humano em um dia. Segurança quer ampliar; RH quer corrigir primeiro 1% de falhas de escalonamento.
+
+**Seu papel**
+
+Você é o arquiteto que recomenda tratamento de risco residual, deixando claro quem tem autoridade para aceitar e quando a decisão será revista.
+
+**Insumos disponíveis**
+
+Use as definições de risco inerente e residual, o prisma de avaliação, as métricas do piloto e os critérios do caso.
+
+**Como conduzir**
+
+1. Separe ausência observada de risco zero e descreva a incerteza da amostra.
+2. Compare severidade, pessoas afetadas, falsa recusa e falha de escalonamento.
+3. Escolha aceitar, reduzir, transferir, suspender ou combinar tratamentos.
+4. Defina autoridade, prazo, controle compensatório e gatilho de revisão.
+
+**Entrega esperada**
+
+Entregue parecer de uma página com recomendação, riscos residuais, responsáveis, prazo e gatilhos.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Incerteza | 15% | Não transforma zero casos observados em risco zero. |
+| Severidade e afetados | 20% | Diferencia impacto de vazamento, recusa e falha de escalonamento. |
+| Tratamento | 20% | Recomenda controles proporcionais ao risco residual. |
+| Autoridade e prazo | 20% | Nomeia quem aceita, trata ou suspende e em quanto tempo. |
+| Gatilhos e coerência | 25% | Liga decisão, evidência e revisão futura. |
 
 ## Criar
 
-### 12. Arquitetura de confiança e rubrica de avaliação
+### 12. Arquitetura de confiança e critérios de avaliação
 
 Crie uma arquitetura de confiança para um assistente que atende empregados e gestores, usa políticas públicas e restritas, consulta dados pessoais e encaminha casos sensíveis. Entregue:
 
@@ -109,14 +225,25 @@ Crie uma arquitetura de confiança para um assistente que atende empregados e ge
 2. cinco cenários de ameaça, incluindo cadeia de fornecedores e manipulação de memória;
 3. controles em profundidade com limitações e modo seguro de falha;
 4. governança de minimização, retenção, segregação, catálogo, versões, auditoria e política de uso;
-5. uma **rubrica de avaliação** de quatro níveis para factualidade, fundamentação, segurança e utilidade;
+5. critérios de avaliação em quatro níveis para factualidade, fundamentação, segurança e utilidade;
 6. conjunto de referência com fatias comuns, raras, adversariais e de recusa;
 7. pipeline de avaliação por componente e ponta a ponta, com verificações determinísticas, avaliador assistido por modelo e amostra humana;
 8. portões de liberação, canary, rollback e regra de aceitação do risco residual.
 
 Inclua um equivalente textual do diagrama. Justifique cada decisão por cenário e atributo de qualidade. Não use “criptografia”, “filtro” ou “humano no loop” como garantia genérica: diga onde atua, qual falha reduz e qual permanece.
 
-**Rubrica (20 pontos).** 3 pontos por modelo de ameaças e fronteiras; 3 por identidade e segregação; 3 por defesas independentes e seus limites; 2 por privacidade no ciclo de vida; 2 por governança e responsabilidades; 3 por desenho multidimensional da avaliação; 2 por portões, canary e rollback; 2 por clareza, rastreabilidade e coerência entre diagrama e texto. Uma solução sem escalonamento obrigatório ou sem teste negativo de autorização recebe no máximo 12 pontos.
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Ameaças e fronteiras | 15% | Liga ativos, identidade, percursos e efeitos a controles. |
+| Identidade e segregação | 15% | Restringe acesso por perfil e impede confiança implícita. |
+| Defesas e limites | 15% | Usa camadas independentes e declara falhas residuais. |
+| Privacidade | 10% | Define minimização, retenção e acesso no ciclo de vida. |
+| Governança | 10% | Nomeia proprietários, responsabilidades e autoridade. |
+| Avaliação | 15% | Define critérios multidimensionais, casos e calibração humana. |
+| Portões e recuperação | 10% | Inclui canary, rollback e escalonamento obrigatório. |
+| Rastreabilidade | 10% | Mantém diagrama, texto, evidências e decisões coerentes. |
 
 ## Orientação para revisão entre pares
 
