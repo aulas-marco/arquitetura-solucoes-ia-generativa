@@ -73,7 +73,7 @@ Ela reduz credenciais dispersas e telemetria incompatível, mas concentra depend
 
 ### 8. Manifesto e portão de regressão
 
-**Ativo comportamental** muda resposta, decisão, custo, latência, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção (**o que é** cada um?). Consulte [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental).
+**O que é:** **ativo comportamental** muda resposta, decisão, custo, latência, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção. Consulte [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental).
 
 **Situação**
 
@@ -85,7 +85,7 @@ Você torna a mudança reproduzível e decide quando bloquear.
 
 **Insumos disponíveis**
 
-Consulte o [manifesto da oficina](oficina-de-ferramentas.md), o conjunto de referência e os [padrões](padroes-e-decisoes.md).
+Use [manifesto](oficina-de-ferramentas.md#preparacao-do-laboratorio), [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laboratorio) e [padrões](padroes-e-decisoes.md).
 
 **Como conduzir**
 
@@ -114,7 +114,7 @@ Confira versões, proprietários e compatibilidade do manifesto em homologação
 
 ### 9. Trace e SLO com privacidade
 
-**Span** é etapa observável do trace; **SLO** é meta de indicador numa janela (**o que é** cada um?). Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [SLO](conceitos.md#slo-para-servico-util).
+**O que é:** **span** é etapa observável do trace; **SLO** é meta de indicador numa janela. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [SLO](conceitos.md#slo-para-servico-util).
 
 **Situação**
 
@@ -137,7 +137,7 @@ Use [script de telemetria](oficina-de-ferramentas.md#receita-principal), [trace]
 
 **Entrega esperada**
 
-Entregue um esquema de trace e duas fichas de SLO com ação de alerta e política de retenção.
+Entregue esquema de trace e duas fichas de SLO com alerta e retenção.
 
 **Como verificar**
 
@@ -157,7 +157,7 @@ Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o ind
 
 ### 10. Diagnóstico de rollout composto
 
-**Canary** expõe versão a parcela; **fallback** usa alternativa; **rollback** restaura manifesto (**o que é** ação segura?). Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
+**O que é:** **canary** expõe versão a parcela; **fallback** usa alternativa; **rollback** restaura manifesto. Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
 
 **Situação**
 
@@ -169,7 +169,7 @@ Você separa economia técnica de valor e decide pausar, reverter, degradar ou a
 
 **Insumos disponíveis**
 
-Consulte os quatro planos, o [trace da oficina](oficina-de-ferramentas.md) e os conceitos de canary, fallback e rollback.
+Consulte os [quatro planos de métricas](conceitos.md#quatro-planos-de-metricas), o [trace da oficina](oficina-de-ferramentas.md#receita-principal) e [canary, fallback e rollback](conceitos.md#avaliacao-continua-e-entrega-controlada).
 
 **Como conduzir**
 
@@ -200,7 +200,7 @@ Confira quatro planos, teste refutador e limite de interrupção.
 
 ### 11. Plataforma comum ou autonomia local?
 
-**Fronteira de propriedade** diz quem decide, mantém, alerta e aceita risco; **ADR** registra contexto e decisão (**o que é** responsabilidade?). Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
+**O que é:** **fronteira de propriedade** diz quem decide, mantém, alerta e aceita risco; **ADR** registra contexto e decisão. Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
 
 **Situação**
 
@@ -276,10 +276,10 @@ Preencha os onze artefatos:
 4. **fluxos:** consulta fundamentada, ação aprovada, ingestão, promoção, canary, fallback, rollback, degradação e incidente; forneça diagrama e equivalente textual;
 5. ao menos quatro **ADRs** sobre fronteira da plataforma, portabilidade ou multimodelo, isolamento e modelo econômico, com alternativas, consequências e gatilhos;
 6. **guardrails:** controles por entrada, contexto, recuperação, ferramenta, saída e aprovação, declarando limite, proprietário, modo de falha e teste;
-7. **avaliação:** conjunto de referência, fatias, casos adversariais, critérios, instrumentos, calibração humana, testes por componente e ponta a ponta, portões e critérios de canary;
+7. **avaliação:** [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fatias](conceitos.md#avaliacao-continua-e-entrega-controlada), casos adversariais, critérios, instrumentos, calibração humana, testes por componente e ponta a ponta, portões e critérios de canary;
 8. **operações:** manifesto, ambientes, SLOs, traces, logs com preservação de privacidade, alertas, runbooks, plantão, quotas, showback ou chargeback e resposta a incidente;
 9. **riscos residuais:** probabilidade, impacto, afetados, controles, autoridade de aceitação, prazo e gatilho de revisão;
-10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;
+10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos [quatro planos](conceitos.md#quatro-planos-de-metricas), guardrails, critério de parada e decisão possível;
 11. roadmap de três incrementos que preserve valor e contenção antes da migração total.
 
 Mostre fronteiras de propriedade, raio de impacto e contenção para cada falha. Para o gateway, inclua réplicas, failover, bypass com controles equivalentes e degradação. Não trate “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.

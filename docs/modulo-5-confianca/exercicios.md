@@ -73,7 +73,7 @@ Verificações determinísticas são reproduzíveis, mas limitadas; critérios h
 
 ### 8. Identificação de ameaças em uma nova integração
 
-**Ativo** é o que precisa ser preservado; **ameaça**, a causa potencial de incidente (**o que é** cada um?). Consulte a [definição de ativo e ameaça](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
+**O que é:** **ativo** é o que precisa ser preservado; **ameaça** é a causa potencial de incidente. Consulte a [definição de ativo e ameaça](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
 
 **Situação**
 
@@ -114,7 +114,7 @@ Confira ativo, ameaça, impacto e sinal nos anexos benigno e malicioso.
 
 ### 9. Mapeamento de controles por camada
 
-**Controle em profundidade** é uma barreira numa camada; seu limite diz o que ainda pode ocorrer (**o que é** controle?). Leia [responsabilidade](conceitos.md#responsabilidade-compartilhada-papeis-identificaveis).
+**O que é:** **controle em profundidade** é uma barreira numa camada; seu limite diz o que ainda pode ocorrer. Leia [responsabilidade](conceitos.md#responsabilidade-compartilhada-papeis-identificaveis).
 
 **Situação**
 
@@ -157,7 +157,7 @@ Confira percurso, controle, modo de falha e testes negativos.
 
 ### 10. Diagnóstico de uma regressão composta
 
-**Fatia** é subconjunto que pode revelar diferença; **portão**, condição que bloqueia promoção (**o que é** cada um?). Consulte [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
+**O que é:** **fatia** é subconjunto que pode revelar diferença; **portão** é condição que bloqueia promoção. Consulte [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
 
 **Situação**
 
@@ -200,7 +200,7 @@ Confira métricas por fatia, portão e evidência refutadora.
 
 ### 11. Julgamento de risco residual
 
-**Risco residual** permanece após controles; **critério de avaliação** é regra observável (**o que é** cada um?). Consulte [risco](conceitos.md#do-perigo-ao-risco-residual).
+**O que é:** **risco residual** permanece após controles; **critério de avaliação** é regra observável. Consulte [risco](conceitos.md#do-perigo-ao-risco-residual).
 
 **Situação**
 

@@ -90,7 +90,7 @@ Arquiteto de recuperação.
 
 **Insumos disponíveis**
 
-Consulte [padrões](padroes-e-decisoes.md), [conceitos](conceitos.md) e [oficina](oficina-de-ferramentas.md).
+Consulte [avaliação de recuperação](padroes-e-decisoes.md#recuperacao), [segmentação e decisão de recuperação](conceitos.md#segmentacao-e-decisao-de-recuperacao) e a [oficina](oficina-de-ferramentas.md#receita-principal).
 
 **O que é cada artefato**
 
@@ -239,7 +239,7 @@ Arquiteto de composição.
 
 **Insumos disponíveis**
 
-Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo nos [padrões](padroes-e-decisoes.md) e na [oficina](oficina-de-ferramentas.md). Básico usa uma rota; híbrido combina lexical/vetorial; hierárquico preserva seções; adaptativo escolhe; corretivo reavalia evidência.
+Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo nos [padrões e trade-offs](padroes-e-decisoes.md#padroes-de-rag-e-seus-trade-offs) e na [receita da oficina](oficina-de-ferramentas.md#receita-principal). Básico usa uma rota; híbrido combina lexical/vetorial; hierárquico preserva seções; adaptativo escolhe; corretivo reavalia evidência.
 
 **O que significa escolher um padrão**
 
@@ -287,7 +287,7 @@ Arquiteto de fluxos RAG.
 
 **Insumos disponíveis**
 
-Use [padrões RAG](padroes-e-decisoes.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md) e [oficina](oficina-de-ferramentas.md).
+Use [padrões RAG](padroes-e-decisoes.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md), [SLO](../modulo-6-operacao/conceitos.md#slo-para-servico-util) e [oficina](oficina-de-ferramentas.md#receita-principal).
 
 **O que é uma arquitetura RAG completa**
 

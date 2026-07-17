@@ -139,7 +139,7 @@ Você é o arquiteto que define limites de autonomia e explica como eles podem m
 
 **Insumos disponíveis**
 
-Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia), os exemplos de estado e memória em [conceitos de agentes](conceitos.md) e o trace da [oficina local](oficina-de-ferramentas.md). Trate todos os pedidos como fictícios.
+Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia), [estado, memória e contexto](conceitos.md#estado-memoria-e-contexto) e o trace da [oficina local](oficina-de-ferramentas.md#receita-principal). Trate todos os pedidos como fictícios.
 
 **O que significa A0–A5**
 

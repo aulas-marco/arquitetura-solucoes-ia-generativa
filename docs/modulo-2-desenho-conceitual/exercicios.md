@@ -1,6 +1,6 @@
 # Exercícios
 
-Responda antes de abrir os blocos de feedback. Recordar e Compreender possuem respostas públicas; Aplicar, Analisar, Avaliar e Criar dependem de contexto e apresentam critérios de avaliação. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
+Responda antes do feedback. Recordar e Compreender têm respostas públicas; os níveis avançados têm critérios. Veja a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
 
 ## Recordar
 
@@ -90,11 +90,11 @@ Um departamento quer “usar IA para revisar contratos” porque analistas relat
 
 **Seu papel**
 
-Você conduz uma triagem inicial. Antes de escolher modelo ou fornecedor, descubra se há oportunidade verificável.
+Você conduz a triagem como arquiteto. Antes de escolher modelo ou fornecedor, descubra se há oportunidade verificável.
 
 **Insumos disponíveis**
 
-Use as [quatro classes de objetivo](padroes-e-decisoes.md#quatro-classes-de-objetivo), [requisitos significativos](padroes-e-decisoes.md#do-requisito-ao-requisito-arquiteturalmente-significativo), [CONOPS](conceitos.md#conops-o-sistema-em-operacao) e o [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios; não use dados jurídicos reais.
+Use [objetivos](padroes-e-decisoes.md#quatro-classes-de-objetivo), [requisitos significativos](padroes-e-decisoes.md#do-requisito-ao-requisito-arquiteturalmente-significativo), [CONOPS](conceitos.md#conops-o-sistema-em-operacao) e [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios; não use dados jurídicos reais.
 
 **Como conduzir**
 
@@ -126,7 +126,7 @@ Entregue uma ficha de uma página com problema, stakeholder, baseline, resultado
 
 **Situação**
 
-Um sistema extrai obrigações de licenças ambientais e prepara resumo para especialista. Data e identificador obedecem ao formato; a síntese pode variar, mas não omitir obrigação crítica.
+Um sistema extrai obrigações de licenças ambientais e prepara resumo para especialista. O contrato determinístico exige que data e identificador obedeçam ao formato; a síntese pode variar na redação, mas não omitir obrigação crítica. Um especialista revisa a saída antes de qualquer uso.
 
 **Seu papel**
 
@@ -168,15 +168,15 @@ Entregue dois critérios em tabela, uma nota sobre a amostra e uma regra operaci
 
 **Situação**
 
-Uma empresa possui 600 manuais semanais, três sistemas de leitura e diagnóstico com dez sequências. A equipe pede “uma solução de IA”, mas cada eixo muda responsabilidades.
+Uma empresa possui 600 manuais atualizados semanalmente, três sistemas somente de leitura e diagnóstico com dez sequências conhecidas. A equipe pede “uma solução de IA”, mas cada eixo muda responsabilidades: produto cuida da jornada, dados da autoridade, plataforma do contrato e operação da disponibilidade.
 
 **Seu papel**
 
-Você organiza escolhas antes de desenhar a arquitetura-alvo.
+Você organiza escolhas e responsabilidades antes da arquitetura-alvo.
 
 **Insumos disponíveis**
 
-Use os [padrões de desenho conceitual](padroes-e-decisoes.md), [modos operacionais](conceitos.md#modos-operacionais), a [oficina de contrato local](oficina-de-ferramentas.md#receita-principal) e [workflow versus agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm).
+Use [padrões](padroes-e-decisoes.md), [modos operacionais](conceitos.md#modos-operacionais), [oficina de contrato](oficina-de-ferramentas.md#receita-principal) e [workflow versus agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm). Relacione cada eixo ao responsável pelo risco.
 
 **Como conduzir**
 
@@ -274,7 +274,7 @@ Use [CONOPS e modos operacionais](conceitos.md#conops-o-sistema-em-operacao), [r
 
 **Entrega esperada**
 
-Entregue o dossiê preenchido, um diagrama com equivalente textual e pelo menos uma ADR. O texto deve permitir revisão por alguém que não acompanhou sua elaboração.
+Entregue o dossiê, um diagrama com equivalente textual e uma ADR. O texto deve permitir revisão independente.
 
 **Template do entregável**
 
