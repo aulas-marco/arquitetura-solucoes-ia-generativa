@@ -90,7 +90,7 @@ Você é o arquiteto que decide quais capacidades o modelo pode solicitar e quai
 
 **Insumos disponíveis**
 
-Use o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta), o contrato de saída estruturada em [conceitos de agentes](conceitos.md), e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
+Use o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta), o [contrato de saída estruturada](conceitos.md#uso-de-ferramentas-e-saidas-estruturadas) e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
 
 **O que é o artefato que você vai produzir**
 
@@ -139,11 +139,11 @@ Você é o arquiteto que define limites de autonomia e explica como eles podem m
 
 **Insumos disponíveis**
 
-Use a escala A0–A5, o [padrão de aprovação](padroes-e-decisoes.md), os exemplos de estado e memória em [conceitos de agentes](conceitos.md) e o trace da [oficina local](oficina-de-ferramentas.md). Trate todos os pedidos como fictícios.
+Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia), os exemplos de estado e memória em [conceitos de agentes](conceitos.md) e o trace da [oficina local](oficina-de-ferramentas.md). Trate todos os pedidos como fictícios.
 
 **O que significa A0–A5**
 
-A0–A5 é uma escala de autonomia operacional: em A0 o sistema apenas informa; nos níveis seguintes ele pode preparar, executar ações limitadas ou encadear passos, sempre com controles proporcionais. O nível não é uma propriedade do produto: depende da ferramenta, do efeito, da reversibilidade, da identidade e da aprovação. Para cada linha da matriz, diga o que o modelo pode propor, o que a aplicação executa e qual pessoa ou regra pode interromper.
+A0–A5 é uma escala por ação. Siga a matriz: **A0** não usa escolha do modelo; **A1** informa sem ferramenta de efeito; **A2** recomenda e a pessoa executa; **A3** age de modo reversível e limitado; **A4** aguarda aprovação antes de efeito material; **A5** escolhe sequência dentro de classes aprovadas e limites estreitos. Para cada nível, registre escolha, efeito, identidade, aprovação/revisão e orçamento; o nível depende do cenário, não do produto.
 
 **Como conduzir**
 
@@ -200,7 +200,7 @@ Reconstrua causas e violações. Indique evidências ausentes, contenção, reco
 
 **Situação**
 
-O trace mostra duas tentativas de reservar o mesmo item, um timeout, uma chave diferente e um conflito de versão, mas termina como `completed`. Ele não prova sozinho se a primeira tentativa teve efeito.
+Há uma observação externa de duas reservas e nenhum cancelamento. O trace prova duas propostas, duas chaves, um timeout, uma reserva `R2`, um conflito e o estado `completed`; não prova se a chamada que expirou teve efeito. Separe essa observação externa do que o trace demonstra.
 
 **Seu papel**
 
@@ -314,7 +314,7 @@ Use os conceitos de workflow, ferramentas, estado, memória e autonomia em [conc
 
 **O que é um agente controlado neste exercício**
 
-É um componente que pode escolher o próximo passo, mas só executa ferramentas com contrato, identidade delegada e política verificável. **Estado** é o registro autoritativo da execução; **memória** é informação reutilizável sob finalidade; **trace** é a evidência minimizada das decisões e efeitos. A matriz A0–A5 deve aparecer por ação, não como uma etiqueta única do produto. Ferramentas de consulta, proposta e efeito precisam de fronteiras diferentes.
+É um componente que escolhe o próximo passo, mas executa ferramentas com contrato, identidade delegada e política verificável. **Estado** é o registro autoritativo; **memória** é informação reutilizável sob finalidade; **trace** é evidência minimizada de decisões e efeitos. ADR significa registro de decisão arquitetural: preencha contexto, decisão, alternativas, consequências, evidência e gatilho. A matriz A0–A5 aparece por ação; consulta, proposta e efeito têm fronteiras diferentes.
 
 **Como conduzir**
 

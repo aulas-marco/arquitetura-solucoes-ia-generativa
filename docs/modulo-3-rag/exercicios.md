@@ -86,26 +86,36 @@ Uma pergunta do corpus Boreal tem relevantes A, C e F. O mecanismo devolveu A, B
 
 **Seu papel**
 
-Você é o arquiteto responsável por verificar se a recuperação traz evidência suficiente antes de discutir a qualidade da resposta do modelo.
+Arquiteto de recuperação.
 
 **Insumos disponíveis**
 
-Use [padrões e decisões](padroes-e-decisoes.md), [conceitos de RAG](conceitos.md) e a [oficina local](oficina-de-ferramentas.md). A lista de relevantes é a referência.
+Consulte [padrões](padroes-e-decisoes.md), [conceitos](conceitos.md) e [oficina](oficina-de-ferramentas.md).
 
 **O que é cada artefato**
 
-**Chunk** é trecho recuperável com ID e metadados. A referência é a lista de relevantes preparada antes: `{A, C, F}`. `Recall@5 = 2/3`; `Precision@5 = 2/5` (numeradores e denominadores devem aparecer). Essas medidas avaliam recuperação, não a resposta.
+**Chunk** é trecho recuperável com ID e metadados. A referência, preparada antes, é `{A, C, F}`. Use `Recall@5 = [relevantes recuperados] / [relevantes existentes]` e `Precision@5 = [relevantes recuperados] / 5`; preencha os numeradores. Essas medidas avaliam recuperação, não resposta.
 
 **Como conduzir**
 
 1. Conte trechos relevantes recuperados e trechos retornados.
 2. Calcule Recall@5 e Precision@5, mostrando numerador e denominador.
-3. Explique o que cada medida diz e o que não permite concluir sobre a resposta gerada.
-4. Proponha uma investigação para separar consulta, chunking, ranking ou referência incompleta.
+3. Interprete o que cada medida permite e não permite concluir.
+4. Proponha teste que separe consulta, chunking, ranking ou referência.
 
 **Entrega esperada**
 
 Entregue os cálculos, uma interpretação de até 150 palavras e uma hipótese testável com próxima medida.
+
+Use esta tabela de trabalho (uma linha por resultado):
+
+| posição | `chunk_id` | relevante? | fonte da referência |
+|---:|---|---|---|
+| 1 | ___ | ___ | ___ |
+| 2 | ___ | ___ | ___ |
+| 3 | ___ | ___ | ___ |
+| 4 | ___ | ___ | ___ |
+| 5 | ___ | ___ | ___ |
 
 **Checklist de verificação**
 
@@ -131,26 +141,26 @@ Um manual de 120 páginas coloca definições no início e exceções no fim. Se
 
 **Seu papel**
 
-Você é o arquiteto que compara segmentação antes de escolher um índice.
+Arquiteto de segmentação.
 
 **Insumos disponíveis**
 
-Use [conceitos de RAG](conceitos.md), [padrões](padroes-e-decisoes.md) e documentos da [oficina](oficina-de-ferramentas.md).
+Use [conceitos de RAG](conceitos.md), [padrões](padroes-e-decisoes.md) e os três documentos da [oficina](oficina-de-ferramentas.md): [portal-estorno.txt](../assets/labs/modulo-3/portal-estorno.txt), [politica-campanha.txt](../assets/labs/modulo-3/politica-campanha.txt) e [politica-reembolso.txt](../assets/labs/modulo-3/politica-reembolso.txt). O script executável é [rag_local.py](../assets/labs/modulo-3/rag_local.py).
 
 **O que é chunking e o que deve permanecer rastreável**
 
-**Chunking** divide a fonte em unidades recuperáveis; compare tamanho fixo, seção, semântica e pai–filho. **Proveniência** liga chunk a fonte, versão, localização e transformação; pai–filho abre contexto sem perder origem.
+**Chunking** divide a fonte em unidades; compare tamanho fixo, seção, semântica e pai–filho. **Proveniência** liga chunk a fonte, versão e localização; pai–filho abre contexto sem perder origem.
 
 **Como conduzir**
 
-1. Descreva como cada estratégia trata uma definição e sua exceção.
-2. Para cada uma, liste ganho, perda e risco de perder localização ou versão.
-3. Escreva duas perguntas de teste: uma de definição e outra que exige exceção.
-4. Defina métricas de recuperação, completude do contexto e vínculo entre pai e filho.
+1. Descreva como cada estratégia trata definição e exceção.
+2. Liste ganho, perda e risco de localização ou versão.
+3. Escreva uma pergunta de definição e outra que exija exceção.
+4. Defina métricas de recuperação, contexto e vínculo pai–filho.
 
 **Entrega esperada**
 
-Entregue matriz das três estratégias, duas perguntas, métricas e um controle de proveniência por alternativa.
+Entregue matriz das quatro estratégias, duas perguntas, métricas e um controle de proveniência por alternativa.
 
 **Checklist de verificação**
 
@@ -178,7 +188,7 @@ Após mudança de equipe, uma pessoa perde acesso ao Cliente Norte. O índice fo
 
 **Seu papel**
 
-Você é o arquiteto que conduz o diagnóstico e precisa dizer onde a política deveria ter sido aplicada e que evidência comprova a contenção.
+Arquiteto de autorização.
 
 **Insumos disponíveis**
 
@@ -186,14 +196,14 @@ Use o [estudo de caso](estudo-de-caso.md), o [diagrama](exemplo-arquitetural.md#
 
 **O que é a fronteira de autorização neste diagnóstico**
 
-Autorização filtra fontes **antes** de chunks, ranking, contexto ou cache. **Cache** é cópia reutilizável com chave de identidade/política e versão. **Citação** liga afirmação ao trecho autorizado; **proveniência** registra origem. Apagar a resposta não prova remoção.
+Autorização filtra fontes **antes** de chunks, ranking, contexto ou cache. **Cache** é cópia com chave de identidade/política e versão. **Citação** liga afirmação ao trecho; **proveniência** registra origem. Apagar resposta não prova remoção.
 
 **Como conduzir**
 
-1. Desenhe as fronteiras entre identidade, filtro, cache, contexto e citação.
-2. Formule causa provável e separe fatos de explicações ainda não confirmadas.
-3. Separe ativos expostos, contenção imediata, recuperação e comunicação.
-4. Proponha testes negativos para consulta, cache e citação, sem reproduzir conteúdo proibido.
+1. Desenhe fronteiras entre identidade, filtro, cache, contexto e citação.
+2. Separe fato, hipótese causal e evidência ausente.
+3. Separe exposição, contenção, recuperação e comunicação.
+4. Proponha testes negativos de consulta, cache e citação, sem conteúdo proibido.
 
 **Entrega esperada**
 
@@ -225,7 +235,7 @@ Uma base combina políticas curtas, contratos longos, códigos exatos e pergunta
 
 **Seu papel**
 
-Você é o arquiteto que recomenda uma composição inicial e diz sob quais sinais ela deve evoluir.
+Arquiteto de composição.
 
 **Insumos disponíveis**
 
@@ -233,14 +243,14 @@ Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo nos [padrõe
 
 **O que significa escolher um padrão**
 
-Escolher padrão é hipótese, não vencedor universal. `p95` cobre 95% das execuções; compare-o a quatro segundos. Proveniência explica fonte/versão; operação inclui custo e fallback.
+Escolher padrão é hipótese, não vencedor universal. `p95` cobre 95% das execuções; compare-o a quatro segundos. Proveniência explica fonte/versão; operação inclui custo.
 
 **Como conduzir**
 
-1. Indique o tipo de fonte ou pergunta atendido por cada padrão.
-2. Relacione cada etapa a latência, custo, proveniência e operação.
-3. Escolha composição inicial e trate separadamente consultas complexas.
-4. Defina evidência que justificaria acrescentar ou remover cada etapa.
+1. Indique fonte ou pergunta atendida por cada padrão.
+2. Relacione etapas a latência, custo, proveniência e operação.
+3. Escolha composição inicial e rota para consultas complexas.
+4. Defina evidência para acrescentar ou remover etapas.
 
 **Entrega esperada**
 
@@ -273,7 +283,7 @@ Um assistente consulta documentos e tabelas vigentes, atualizados a cada quinze 
 
 **Seu papel**
 
-Você é o arquiteto que compõe fluxos offline e online e torna explícitos autoridade, rollback, abstenção e avaliação.
+Arquiteto de fluxos RAG.
 
 **Insumos disponíveis**
 
@@ -281,15 +291,15 @@ Use [padrões RAG](padroes-e-decisoes.md), [template de ADR](../referencia/templ
 
 **O que é uma arquitetura RAG completa**
 
-Liga ingestão/publicação e consulta/resposta. **Proveniência** acompanha fonte, versão, localização, índice e citação. **Suficiência** decide se há evidência; **abstenção** sai quando não há; **rollback** mantém a versão anterior. Declare quem autoriza, mede e interrompe.
+Liga ingestão/publicação e consulta/resposta. **Proveniência** acompanha fonte, versão, localização, índice e citação. **Suficiência** decide se há evidência; **abstenção** sai quando não há; **rollback** mantém versão anterior. ADR é registro de decisão arquitetural: preencha contexto, decisão, alternativas, consequências, evidência e gatilho. Declare quem autoriza, mede e interrompe.
 
 **Como conduzir**
 
-1. Comece por fontes, donos, autoridade, classificação e SLO.
-2. Desenhe ingestão/publicação e consulta/resposta como dois fluxos versionados.
-3. Inclua autorização antes da materialização, proveniência, suficiência, conflito e abstenção.
-4. Relacione cada falha a contenção, recuperação, avaliação e ADR.
-5. Faça uma revisão vertical: afirmação, fonte, versão, acesso e medida.
+1. Liste fontes, donos, autoridade, classificação e SLO.
+2. Desenhe ingestão/publicação e consulta/resposta versionadas.
+3. Inclua autorização prévia, proveniência, suficiência, conflito e abstenção.
+4. Relacione falhas a contenção, recuperação, avaliação e ADR.
+5. Revise verticalmente: afirmação, fonte, versão, acesso e medida.
 
 **Entrega esperada**
 

@@ -41,6 +41,16 @@ class PedagogicalShellTest(unittest.TestCase):
 
 
 class PublicExerciseAnswerPolicyTest(unittest.TestCase):
+    def test_advanced_retrieval_exercises_do_not_reveal_metric_values(self):
+        """Enunciados de recuperação deixam o cálculo para o aluno."""
+        text = (DOCS / "modulo-3-rag" / "exercicios.md").read_text(encoding="utf-8")
+        sections = bloom_sections(text)
+        advanced = "\n".join(
+            sections[level] for level in ("Aplicar", "Analisar", "Avaliar", "Criar")
+        )
+        self.assertNotRegex(advanced.casefold(), r"recall@\d+\s*=\s*\d")
+        self.assertNotRegex(advanced.casefold(), r"precision@\d+\s*=\s*\d")
+
     def test_advanced_sections_have_criteria_but_no_public_answer_blocks(self):
         for slug in MODULES:
             text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
