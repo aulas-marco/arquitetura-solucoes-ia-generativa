@@ -61,7 +61,7 @@ Dados de produção em avaliação exigem o mesmo rigor. Prefira casos sintétic
 
 Um **catálogo** registra caso de uso, finalidade, públicos, proprietário, criticidade, modelos, fontes, ferramentas, fornecedores, classes de dados, controles, métricas e status. Catálogo sem reconciliação com o ambiente vira inventário histórico; automatize referências a implantações e revise divergências.
 
-**Versionamento** precisa abranger o pacote comportamental: modelo, parâmetros, prompt, política, corpus, pipeline de indexação, avaliadores, rubricas, ferramentas e dependências. Uma versão permite reproduzir a configuração, não necessariamente repetir a mesma saída probabilística. Preserve sementes quando suportadas, entradas e faixas de variação.
+**Versionamento** precisa abranger o pacote comportamental: modelo, parâmetros, prompt, política, corpus, pipeline de indexação, avaliadores, critérios de avaliação, ferramentas e dependências. Uma versão permite reproduzir a configuração, não necessariamente repetir a mesma saída probabilística. Preserve sementes quando suportadas, entradas e faixas de variação.
 
 **Auditoria** registra quem aprovou finalidade, mudança, acesso, exceção e risco residual, além das decisões de execução relevantes. Log imutável ajuda a detectar alteração; não comprova que o evento registrado foi correto. Proteja a própria trilha, separe funções e teste consultas de investigação.
 

@@ -6,7 +6,7 @@
 
 ## O objeto operado é um pacote comportamental
 
-Em IA generativa, a unidade de mudança excede a versão do código. Chamaremos de **ativo comportamental** qualquer artefato cuja alteração possa mudar resposta, decisão, custo, latência, acesso ou efeito: modelo e revisão do provedor; parâmetros de inferência; prompt e exemplos; política e guardrails; corpus, permissões e snapshot do índice; modelo de embedding e estratégia de recuperação; esquemas e versões de ferramentas; memória; código de orquestração; rubricas, avaliadores e conjuntos de referência; dependências e configuração de infraestrutura.
+Em IA generativa, a unidade de mudança excede a versão do código. Chamaremos de **ativo comportamental** qualquer artefato cuja alteração possa mudar resposta, decisão, custo, latência, acesso ou efeito: modelo e revisão do provedor; parâmetros de inferência; prompt e exemplos; política e guardrails; corpus, permissões e snapshot do índice; modelo de embedding e estratégia de recuperação; esquemas e versões de ferramentas; memória; código de orquestração; critérios de avaliação, avaliadores e conjuntos de referência; dependências e configuração de infraestrutura.
 
 O manifesto de uma liberação registra versões, proprietário, finalidade, evidências, aprovação e compatibilidade. “Versão 2 do chatbot” não basta se ela não permite descobrir qual índice, modelo e política estavam ativos. Hashes ajudam a verificar integridade, mas precisam de metadados compreensíveis. Para provedores sem revisão fixável, registre identificador, região, data, parâmetros e testes sentinela: a variação é risco explícito.
 

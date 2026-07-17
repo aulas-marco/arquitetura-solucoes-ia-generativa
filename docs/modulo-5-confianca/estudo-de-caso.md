@@ -10,7 +10,7 @@ Essa redução não torna o produto seguro; torna ativos, efeitos e evidências 
 
 ## Decisões de risco e governança
 
-O registro de riscos destaca quatro cenários. Primeiro, um documento restrito pode aparecer para empregado comum por metadado errado. O controle é classificação na origem, filtro de autorização antes da recuperação e teste negativo por perfil. Segundo, um documento pode conter injeção indireta. O controle combina revisão de ingestão, tratamento como dado e executor sem escrita; o risco residual permanece porque o modelo ainda interpreta texto adversarial. Terceiro, uma conversa sobre saúde pode entrar em log amplo. O controle minimiza trace, mascara campos e retém conteúdo completo apenas em amostra autorizada por prazo curto. Quarto, um avaliador automático pode aprovar resposta discriminatória ou inútil. O controle é rubrica humana calibrada, análise por fatias e canal de contestação.
+O registro de riscos destaca quatro cenários. Primeiro, um documento restrito pode aparecer para empregado comum por metadado errado. O controle é classificação na origem, filtro de autorização antes da recuperação e teste negativo por perfil. Segundo, um documento pode conter injeção indireta. O controle combina revisão de ingestão, tratamento como dado e executor sem escrita; o risco residual permanece porque o modelo ainda interpreta texto adversarial. Terceiro, uma conversa sobre saúde pode entrar em log amplo. O controle minimiza trace, mascara campos e retém conteúdo completo apenas em amostra autorizada por prazo curto. Quarto, um avaliador automático pode aprovar resposta discriminatória ou inútil. O controle é aplicação de critérios humanos calibrados, análise por fatias e canal de contestação.
 
 Responsabilidades ficam nomeadas. RH é proprietário da finalidade, das políticas, das categorias de escalonamento e da aceitação de risco residual. Segurança lidera o modelo de ameaças; privacidade define classes, acesso e retenção; a plataforma mantém identidade, gateway e versões; produto mede experiência; operação responde a alertas; jurídico interpreta obrigações aplicáveis; autores respondem pela vigência do conteúdo. O fornecedor responde ao contrato e ao serviço contratado, não à decisão trabalhista da organização.
 
@@ -23,10 +23,10 @@ A equipe rejeita “acurácia de 90%” como requisito único. Define as dimens�
 | Dimensão | Pergunta de avaliação | Evidência e exemplo de critério |
 |---|---|---|
 | **factualidade** | as afirmações correspondem à política vigente e ao dado autoritativo? | revisão de afirmações factuais; erro material bloqueia o caso |
-| **relevância** | a resposta aborda a intenção sem distrair ou expor informação extra? | rubrica de 1 a 4 e análise por categoria de pergunta |
+| **relevância** | a resposta aborda a intenção sem distrair ou expor informação extra? | critérios de 1 a 4 e análise por categoria de pergunta |
 | **fundamentação** | afirmações normativas estão apoiadas em trechos autorizados e suficientes? | cobertura de afirmações por citação e inspeção de entailment por amostra |
 | **segurança** | a resposta preserva acesso, dados, política e escalonamento? | casos negativos; vazamento ou ausência de encaminhamento obrigatório é portão crítico |
-| **utilidade** | o empregado sabe o que pode fazer, inclusive em recusa? | rubrica humana com próximo passo, clareza e adequação do limite |
+| **utilidade** | o empregado sabe o que pode fazer, inclusive em recusa? | critérios humanos com próximo passo, clareza e adequação do limite |
 | **latência** | o tempo é aceitável por rota comum e escalonada? | percentis 50, 95 e 99, incluindo recuperação e validações |
 | **custo** | o consumo por resposta e por resolução cabe no orçamento? | média, percentil 95 e custo de casos adversariais, não só tokens do modelo |
 
@@ -36,9 +36,9 @@ O estudo [HELM](https://arxiv.org/abs/2211.09110) sustenta uma visão holística
 
 **Verificações determinísticas** examinam esquema, autorização, identificador do titular, existência e vigência de citação, categorias de escalonamento, campos proibidos, tamanho, tempo e custo. Elas são rápidas e reproduzíveis. Não determinam por si se uma explicação ambígua é útil nem se uma citação realmente sustenta a nuance da afirmação.
 
-**Rubricas humanas** definem níveis observáveis. Para utilidade: 1 é enganosa ou sem próximo passo; 2 é parcialmente útil, mas omite limite importante; 3 resolve com limite e próximo passo; 4 resolve de forma clara, proporcional e apoiada. Dois avaliadores julgam uma amostra, discutem divergências e refinam exemplos. Humanos trazem contexto, mas sofrem fadiga, viés, diferença de conhecimento e pressão por concordar.
+**Critérios humanos** definem níveis observáveis. Para utilidade: 1 é enganosa ou sem próximo passo; 2 é parcialmente útil, mas omite limite importante; 3 resolve com limite e próximo passo; 4 resolve de forma clara, proporcional e apoiada. Dois avaliadores julgam uma amostra, discutem divergências e refinam exemplos. Humanos trazem contexto, mas sofrem fadiga, viés, diferença de conhecimento e pressão por concordar.
 
-A **avaliação assistida por modelo** aplica rubrica em escala e produz justificativa referenciada à resposta e às evidências. Use versão identificada, temperatura controlada quando disponível, exemplos, ordem alternada e calibração periódica. Ela não substitui rubricas humanas nem se torna independente só porque usa outro modelo. O **viés do avaliador** pode favorecer respostas longas, estilo específico ou famílias semelhantes; monitore discordância por fatia e envie casos de baixa confiança para pessoas.
+A **avaliação assistida por modelo** aplica critérios de avaliação em escala e produz justificativa referenciada à resposta e às evidências. Use versão identificada, temperatura controlada quando disponível, exemplos, ordem alternada e calibração periódica. Ela não substitui critérios humanos nem se torna independente só porque usa outro modelo. O **viés do avaliador** pode favorecer respostas longas, estilo específico ou famílias semelhantes; monitore discordância por fatia e envie casos de baixa confiança para pessoas.
 
 ## Conjuntos, componentes e regressão
 

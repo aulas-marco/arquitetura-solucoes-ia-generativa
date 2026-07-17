@@ -47,7 +47,7 @@ Um componente probabilístico não exige critérios frouxos; exige critérios es
 
 1. **população:** quais casos, idiomas, grupos e faixas de risco são cobertos;
 2. **amostra:** como o conjunto representa frequência, severidade e bordas;
-3. **métrica ou rubrica:** o que será observado e por quem;
+3. **métrica ou critério qualitativo:** o que será observado e por quem;
 4. **limiar:** valor global e, quando necessário, por segmento crítico;
 5. **incerteza:** tamanho amostral, intervalo ou regra de repetição;
 6. **falha intolerável:** evento que reprova independentemente da média;

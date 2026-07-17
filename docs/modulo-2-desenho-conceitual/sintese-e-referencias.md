@@ -8,7 +8,7 @@
 4. **CONOPS torna o uso concreto.** Atores, informação, efeitos, modos, exceções e evidências revelam responsabilidades que um diagrama de chat esconde.
 5. **Revisão humana precisa ser projetada.** Competência, tempo, autoridade, evidência e possibilidade de discordar diferenciam controle de aprovação ritual.
 6. **Objetivos têm camadas.** Negócio, produto, dados e IA precisam se conectar sem que uma métrica intermediária substitua o resultado.
-7. **Probabilístico não significa imensurável.** População, amostra, rubrica, limiar, incerteza, falha intolerável e ação produzem aceitação honesta.
+7. **Probabilístico não significa imensurável.** População, amostra, critérios de avaliação, limiar, incerteza, falha intolerável e ação produzem aceitação honesta.
 8. **Padrões acrescentam responsabilidades.** RAG, fine-tuning, agentes, múltiplos modelos e autogestão só fazem sentido quando seu mecanismo responde a um direcionador.
 9. **ADRs preservam contexto e reversibilidade.** Evidências faltantes e gatilhos de revisão são tão importantes quanto a escolha.
 10. **Rastreabilidade funciona nos dois sentidos.** Todo mecanismo deve apontar para um requisito; toda prioridade deve chegar a uma evidência.

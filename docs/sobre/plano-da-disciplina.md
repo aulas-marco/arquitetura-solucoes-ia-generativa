@@ -524,7 +524,7 @@ Ao final do encontro, o aluno deverá conseguir:
 
 - Qualidade como conceito multidimensional.
 - Avaliação de factualidade, relevância, fundamentação e segurança.
-- Critérios determinísticos, rubricas humanas e avaliação apoiada por modelos.
+- Critérios determinísticos, critérios humanos e avaliação apoiada por modelos.
 - Conjuntos de referência e cenários adversariais.
 - Testes de regressão.
 - Avaliação de componentes e de ponta a ponta.
@@ -693,7 +693,7 @@ O [projeto final em grupo](projeto-final.md) integra as seis decisões do percur
 | Avaliabilidade | Definição de métricas, cenários, experimentos e critérios de aceitação |
 | Comunicação | Diagramas legíveis, argumentação objetiva e reconhecimento de incertezas |
 
-## 10.3 Rubrica do estudo de caso final
+## 10.3 Critérios de avaliação do estudo de caso final
 
 | Dimensão | Peso |
 |---|---:|
@@ -713,7 +713,7 @@ O [projeto final em grupo](projeto-final.md) integra as seis decisões do percur
 - Estudos de caso em pequenos grupos.
 - Protótipos mínimos para testar hipóteses.
 - Bancas rápidas de arquitetura.
-- Revisão por pares orientada por rubricas.
+- Revisão por pares orientada por critérios explícitos.
 - Registros de decisão arquitetural.
 - Discussão de incidentes e modos de falha.
 
@@ -771,7 +771,7 @@ Para cada encontro, o professor deverá preparar:
 5. Estudo de caso com contexto, restrições e dados suficientes.
 6. Protótipo ou evidência previamente testada.
 7. Template do entregável.
-8. Rubrica curta para feedback.
+8. Critérios curtos para feedback.
 9. Síntese com padrões, anti-padrões e perguntas em aberto.
 
 # 16. Limites de escopo

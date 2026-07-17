@@ -70,7 +70,7 @@ flowchart TD
     X --> J["Avaliador assistido por modelo"]
     J --> AM["Resultados assistidos com proveniência"]
     X --> SAMP["Amostra estratificada de execuções"]
-    RUB["Rubrica humana versionada"] --> HJ
+    RUB["Critérios humanos versionados"] --> HJ
     RUB --> J
     SAMP --> HJ["Julgamentos humanos com proveniência"]
     AM --> CAL["Calibração e checagem de viés"]
@@ -87,13 +87,13 @@ flowchart TD
     R --> A
 ```
 
-**Equivalente textual do pipeline de avaliação.** Casos versionados entram no executor. Cada execução alimenta verificações determinísticas, métricas de componentes, avaliador assistido e amostragem estratificada. A rubrica é o instrumento: revisores a aplicam e produzem julgamentos com proveniência; ela também orienta o avaliador. Resultados automáticos e humanos passam por calibração e checagem de viés antes da agregação por dimensão e fatia. Falha em portão leva a correção e nova execução; aprovação permite canary com rollback. Amostras e incidentes online passam por revisão e curadoria antes de virar casos.
+**Equivalente textual do pipeline de avaliação.** Casos versionados entram no executor. Cada execução alimenta verificações determinísticas, métricas de componentes, avaliador assistido e amostragem estratificada. Os critérios humanos versionados são o instrumento: revisores os aplicam e produzem julgamentos com proveniência; eles também orientam o avaliador. Resultados automáticos e humanos passam por calibração e checagem de viés antes da agregação por dimensão e fatia. Falha em portão leva a correção e nova execução; aprovação permite canary com rollback. Amostras e incidentes online passam por revisão e curadoria antes de virar casos.
 
 O conjunto de referência inclui resposta, evidência, recusa, escalonamento e rótulos. Casos adversariais cobrem extração, acesso cruzado, conflito, codificação, prompt longo, repetição e pergunta sensível disfarçada. Separe desenvolvimento do portão para reduzir ajuste excessivo.
 
 As **verificações determinísticas** testam esquema, citações existentes, autorização, presença de escalonamento, campos proibidos, orçamento e latência. São reproduzíveis para propriedades codificáveis, mas não julgam sozinhas utilidade ou interpretação. A **avaliação por componente** mede recuperação — cobertura, precisão de contexto, vigência e negação — e ferramenta — política, identidade e resultado. Ela localiza falhas; não prova experiência ponta a ponta.
 
-A **avaliação assistida por modelo** pontua factualidade, relevância, fundamentação e utilidade com rubrica e evidências. Pode escalar cobertura, mas tem viés, variância, sensibilidade à ordem e possíveis falhas correlacionadas com o sistema avaliado. Use versão fixa, ordem balanceada, repetição quando necessário e calibração contra julgamento humano. O trabalho [G-Eval](https://aclanthology.org/2023.emnlp-main.153/) é pesquisa original sobre avaliação de geração com modelos; não transforma o avaliador em padrão-ouro.
+A **avaliação assistida por modelo** pontua factualidade, relevância, fundamentação e utilidade com critérios de avaliação e evidências. Pode escalar cobertura, mas tem viés, variância, sensibilidade à ordem e possíveis falhas correlacionadas com o sistema avaliado. Use versão fixa, ordem balanceada, repetição quando necessário e calibração contra julgamento humano. O trabalho [G-Eval](https://aclanthology.org/2023.emnlp-main.153/) é pesquisa original sobre avaliação de geração com modelos; não transforma o avaliador em padrão-ouro.
 
 ![Prisma de avaliação do assistente de RH, mostrando factualidade, relevância, fundamentação, segurança, utilidade, latência e custo ao redor do contexto de uso](../assets/images/m05-prisma-avaliacao.png "Prisma multidimensional de avaliação")
 
@@ -101,7 +101,7 @@ A **avaliação assistida por modelo** pontua factualidade, relevância, fundame
 
 ## Exemplo de portões
 
-Para o piloto, a equipe define: zero acesso cruzado e zero chamada fora da identidade nos casos testados; 100% dos casos obrigatórios encaminhados; toda afirmação normativa importante ligada a fonte vigente; percentil 95 de latência abaixo da meta do canal; custo médio e de cauda dentro do orçamento. Factualidade, relevância e utilidade usam rubrica de quatro níveis e meta por fatia, não apenas média global.
+Para o piloto, a equipe define: zero acesso cruzado e zero chamada fora da identidade nos casos testados; 100% dos casos obrigatórios encaminhados; toda afirmação normativa importante ligada a fonte vigente; percentil 95 de latência abaixo da meta do canal; custo médio e de cauda dentro do orçamento. Factualidade, relevância e utilidade usam critérios de quatro níveis e meta por fatia, não apenas média global.
 
 “Zero nos casos testados” não significa risco zero. Um vazamento ou falha de escalonamento bloqueia o lançamento porque o impacto é alto, mas a ausência observada só limita a taxa sob as hipóteses do conjunto. O canary reduz exposição, monitora eventos e mantém desligamento. O dono de RH aceita formalmente o risco residual com segurança, privacidade e operação, por prazo definido.
 

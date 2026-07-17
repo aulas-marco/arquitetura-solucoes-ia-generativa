@@ -20,7 +20,7 @@ Ao final, você deverá conseguir:
 4. distribuir guardrails entre entrada, contexto, recuperação, ferramenta, saída e aprovação humana;
 5. especificar minimização, retenção, segregação, catálogo, versionamento, auditoria e política de uso;
 6. decompor qualidade em factualidade, relevância, fundamentação, segurança, utilidade, latência e custo;
-7. combinar verificações determinísticas, rubricas humanas e avaliação assistida por modelo sem confundir uma delas com verdade;
+7. combinar verificações determinísticas, critérios humanos e avaliação assistida por modelo sem confundir uma delas com verdade;
 8. construir conjuntos de referência e casos adversariais para componentes e fluxos ponta a ponta;
 9. julgar risco residual e defender uma arquitetura de confiança com evidências.
 

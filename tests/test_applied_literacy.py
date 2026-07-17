@@ -175,7 +175,7 @@ conteúdo da atividade
                     "Critérios de avaliação",
                 ):
                     self.assertIn(f"**{label}**", advanced)
-                self.assertNotIn("Rubrica", text)
+                self.assertNotRegex(text.casefold(), r"\brubricas?\b")
                 self.assertNotRegex(advanced.casefold(), r"\b\d+\s+pontos?\b|pontuação")
                 self.assertRegex(advanced, r"\|[^\n]*\|\s*\d+%\s*\|")
 
@@ -183,8 +183,16 @@ conteúdo da atividade
         text = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8")
         self.assertIn("## Critérios de avaliação", text)
         self.assertEqual(6, len(re.findall(r"\|[^\n|]+\|\s*\d+%\s*\|", text)))
-        self.assertNotIn("Rubrica", text)
+        self.assertNotRegex(text.casefold(), r"\brubricas?\b")
         self.assertNotRegex(text.casefold(), r"\b\d+\s+pontos?\b|pontuação")
+
+    def test_published_docs_use_criteria_vocabulary(self):
+        for path in DOCS.rglob("*.md"):
+            if "superpowers" in path.parts:
+                continue
+            with self.subTest(path=path.relative_to(DOCS)):
+                text = path.read_text(encoding="utf-8")
+                self.assertNotRegex(text.casefold(), r"\brubricas?\b")
 
     def test_concepts_and_workshops_name_tools_and_reproducible_steps(self):
         expected_tools = {

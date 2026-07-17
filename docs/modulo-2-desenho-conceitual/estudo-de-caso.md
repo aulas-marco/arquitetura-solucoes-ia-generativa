@@ -95,7 +95,7 @@ Antes de decidir, formule perguntas e experimentos. Considere:
 - quantos tipos de caso possuem sequência estável e quantos exigem investigação aberta?
 - os 42% de busca e transcrição caem com melhor integração sem geração?
 - políticas possuem metadados confiáveis de vigência, campanha e público?
-- especialistas concordam numa rubrica de qualidade de resumo e explicação?
+- especialistas concordam em critérios de qualidade para resumo e explicação?
 - que campos podem atravessar a fronteira de inferência depois de minimização?
 - o sistema legado suporta consultas adicionais no volume previsto?
 - qual falha individual seria intolerável mesmo com boa média?

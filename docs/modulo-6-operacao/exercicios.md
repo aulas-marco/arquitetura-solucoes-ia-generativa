@@ -228,7 +228,7 @@ Crie a arquitetura-alvo e um plano incremental para a organização que possui c
 4. **fluxos:** consulta fundamentada, ação aprovada, ingestão, promoção, canary, fallback, rollback, degradação e incidente; forneça diagrama e equivalente textual;
 5. ao menos quatro **ADRs** sobre fronteira da plataforma, portabilidade ou multimodelo, isolamento e modelo econômico, com alternativas, consequências e gatilhos;
 6. **guardrails:** controles por entrada, contexto, recuperação, ferramenta, saída e aprovação, declarando limite, proprietário, modo de falha e teste;
-7. **avaliação:** conjunto de referência, fatias, casos adversariais, rubricas, instrumentos, calibração humana, testes por componente e ponta a ponta, portões e critérios de canary;
+7. **avaliação:** conjunto de referência, fatias, casos adversariais, critérios, instrumentos, calibração humana, testes por componente e ponta a ponta, portões e critérios de canary;
 8. **operações:** manifesto, ambientes, SLOs, traces, logs com preservação de privacidade, alertas, runbooks, plantão, quotas, showback ou chargeback e resposta a incidente;
 9. **riscos residuais:** probabilidade, impacto, afetados, controles, autoridade de aceitação, prazo e gatilho de revisão;
 10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;

@@ -22,7 +22,7 @@ ADR-03 escolhe estratégia multimodelo apenas para consulta pública. Testes mos
 
 ## Guardrails, avaliação e operação
 
-Guardrails comuns tratam tamanho, dados sensíveis, modelos permitidos, budgets e saída. Produtos acrescentam regras de domínio: vigência e citação no RAG; efeito e aprovação no agente. A avaliação combina testes determinísticos, rubricas humanas calibradas e avaliador assistido por modelo. Casos são segmentados por tenant, idioma, fonte e rota. Mudança de prompt, corpus, ferramenta ou modelo percorre o mesmo portão.
+Guardrails comuns tratam tamanho, dados sensíveis, modelos permitidos, budgets e saída. Produtos acrescentam regras de domínio: vigência e citação no RAG; efeito e aprovação no agente. A avaliação combina testes determinísticos, critérios humanos calibrados e avaliador assistido por modelo. Casos são segmentados por tenant, idioma, fonte e rota. Mudança de prompt, corpus, ferramenta ou modelo percorre o mesmo portão.
 
 Traces registram metadados minimizados; conteúdo completo fica em amostra segregada com prazo. SLOs ligam disponibilidade a resposta útil. Alertas têm runbook e proprietário. Canary começa em tenants voluntários; rollback referencia o manifesto inteiro. Se recuperação falhar, RAG mostra busca oficial; se política ou executor falhar, agente não escreve. Incidentes atualizam risco, avaliação e arquitetura.
 

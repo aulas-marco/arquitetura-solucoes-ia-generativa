@@ -9,7 +9,7 @@ Um atributo só orienta arquitetura quando é expresso como cenário verificáve
 - **Ambiente:** operação normal, com versões aprovadas de modelo e prompt.
 - **Artefato:** fluxo de geração de resposta.
 - **Resposta:** produz conteúdo relevante, correto para a tarefa e coerente com as instruções.
-- **Medida:** ao menos 90% dos casos críticos atingem nota mínima 4/5 na rubrica aprovada.
+- **Medida:** ao menos 90% dos casos críticos atingem nota mínima 4/5 nos critérios de avaliação aprovados.
 
 ## Fundamentação (grounding)
 
