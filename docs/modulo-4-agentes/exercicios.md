@@ -182,7 +182,9 @@ Antes de entregar, verifique os itens abaixo:
 
 ### 10. Diagnóstico de trace
 
-Faça o **diagnóstico de trace** abaixo. O cliente recebeu duas reservas e nenhum cancelamento:
+**Situação**
+
+O cliente recebeu duas reservas e nenhum cancelamento:
 
 ```text
 10:00:00 execution E7 budget.steps=6
@@ -196,10 +198,6 @@ Faça o **diagnóstico de trace** abaixo. O cliente recebeu duas reservas e nenh
 10:00:04 execution completed
 ```
 
-Reconstrua causas e violações. Indique evidências ausentes, contenção, reconciliação, compensação, correções de idempotência/estado e testes de não recorrência. Discuta os significados possíveis do timeout e avalie se o estado `completed` é sustentado pelas evidências.
-
-**Situação**
-
 Há uma observação externa de duas reservas e nenhum cancelamento. O trace prova duas propostas, duas chaves, um timeout, uma reserva `R2`, um conflito e o estado `completed`; não prova se a chamada que expirou teve efeito. Separe essa observação externa do que o trace demonstra.
 
 **Seu papel**
@@ -212,9 +210,11 @@ Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido 
 
 **O que é trace, timeout e estado desconhecido**
 
-Um **trace** é a sequência correlacionada de propostas, políticas, chamadas, tentativas, versões e resultados de uma execução. **Timeout** encerra a espera local; não prova que o destino não executou. Por isso uma escrita que excede o prazo entra em **estado desconhecido** (`outcome_unknown`) até reconciliação no sistema de destino pela mesma chave. Fato observado, hipótese (“a primeira reserva foi criada”), contenção e reconciliação devem aparecer em colunas separadas.
+Um [**trace**](padroes-e-decisoes.md#auditoria-e-observabilidade) é a sequência correlacionada de propostas, políticas, chamadas, tentativas, versões e resultados de uma execução. **Timeout** encerra a espera local; não prova que o destino não executou. Por isso uma escrita que excede o prazo entra em **estado desconhecido** (`outcome_unknown`) até reconciliação no sistema de destino pela mesma chave. Fato observado, hipótese (“a primeira reserva foi criada”), contenção e reconciliação devem aparecer em colunas separadas.
 
 **Como conduzir**
+
+Faça o **diagnóstico de trace** usando a sequência acima.
 
 1. Reescreva a sequência em linha do tempo com chamada, política, chave e resultado.
 2. Marque o que o trace prova e formule hipóteses para timeout e reserva duplicada.

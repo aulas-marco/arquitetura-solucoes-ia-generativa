@@ -246,9 +246,9 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 **Situação**
 
-Uma organização tem copiloto, RAG e agente isolados, duplicação, fornecedores incompatíveis, pouca rastreabilidade e custo crescente. Proponha arquitetura operável, mensurável e reversível.
+Uma organização tem copiloto, RAG e agente isolados, duplicação, fornecedores incompatíveis, pouca rastreabilidade e custo crescente. Proponha arquitetura operável e reversível.
 
-Aqui, **o que é** arquitetura operável? Mudança, evidência, decisão e recuperação têm dono e limite.
+**O que é:** arquitetura operável? Mudança, decisão e recuperação têm dono e limite.
 
 **Seu papel**
 
@@ -260,7 +260,9 @@ Use [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportame
 
 **Como conduzir**
 
-Fases, checkpoints e modelos:
+**Campos:** ator = participante; proprietário = responsável; evidência = registro; portão = bloqueio; baseline = medida inicial; variável = mudança; parada = limite.
+
+Fases e checkpoints:
 
 1. **Fase 1 — Contexto:** preencha `atores | jornadas | dados | efeitos | restrições`. **Checkpoint:** usos proibidos.
 2. **Fase 2 — Contratos:** preencha `componente | interface | proprietário | evidência`. **Checkpoint:** fluxos e fronteiras.
@@ -270,7 +272,7 @@ Fases, checkpoints e modelos:
 
 Preencha os onze artefatos:
 
-Links: [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fatias](conceitos.md#avaliacao-continua-e-entrega-controlada) e [quatro planos](conceitos.md#quatro-planos-de-metricas).
+Links: [referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fatias](conceitos.md#avaliacao-continua-e-entrega-controlada) e [quatro planos](conceitos.md#quatro-planos-de-metricas).
 
 1. **contexto:** atores, jornadas, sistemas existentes, classes de dados, efeitos, restrições, pressupostos e usos proibidos;
 2. **atributos de qualidade:** ao menos oito cenários no formato fonte, estímulo, ambiente, artefato, resposta e medida, incluindo qualidade, fundamentação, latência, custo, privacidade, segurança, confiabilidade e observabilidade;
@@ -284,7 +286,7 @@ Links: [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laborat
 10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;
 11. roadmap de três incrementos que preserve valor e contenção antes da migração total.
 
-Mostre fronteiras de propriedade, raio de impacto e contenção para cada falha. Para o gateway, inclua réplicas, failover, bypass com controles equivalentes e degradação. Não trate “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
+Mostre propriedade, impacto e contenção de cada falha. No gateway, inclua réplicas, failover, bypass e degradação; não trate “humano no loop”, “monitoramento” ou “multimodelo” como garantia.
 
 **Entrega esperada**
 

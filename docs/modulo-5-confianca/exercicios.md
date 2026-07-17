@@ -251,13 +251,15 @@ Você recebeu um assistente de RH que atende empregados e gestores, consulta pol
 
 **Seu papel**
 
-Você é o arquiteto responsável por transformar ameaças em controles verificáveis, critérios de avaliação e decisão de risco residual para uma primeira liberação.
+Você é o arquiteto responsável por transformar ameaças em controles verificáveis, critérios de avaliação e decisão de risco residual para uma liberação.
 
 **Insumos disponíveis**
 
 Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](estudo-de-caso.md#decisoes-de-risco-e-governanca), os [padrões](padroes-e-decisoes.md), a [oficina](oficina-de-ferramentas.md) e o [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
+
+**Campos:** ator/ativo = quem/o quê; percurso = caminho; limite = cobertura ausente; portão = bloqueio; residual = risco restante.
 
 Fases, checkpoints e modelos:
 
@@ -282,7 +284,7 @@ Preencha os oito artefatos:
 
 Entregue pacote versionado com os oito artefatos.
 
-Inclua equivalente textual do diagrama e justifique decisões por cenário. Controles devem declarar atuação, falha reduzida e limite.
+Inclua equivalente textual; declare atuação, falha e limite.
 
 **Como verificar**
 
