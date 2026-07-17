@@ -80,6 +80,10 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 ### 8. Classificação de responsabilidades
 
+**O que é:** uma classificação de responsabilidades identifica quais partes do fluxo precisam de regra repetível e quais partes lidam com percepção ou linguagem incertas. Ela não classifica o sistema inteiro como “IA”.
+
+**Onde encontrar:** consulte [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico) e o [exemplo arquitetural](exemplo-arquitetural.md). Use o cenário de recibo abaixo como caso de trabalho.
+
 **Situação**
 
 Uma empresa fictícia quer um assistente de despesas. A entrada pode ser uma foto de recibo, mas a aprovação e o lançamento financeiro continuam sendo responsabilidades da aplicação e de uma pessoa autorizada.
@@ -95,8 +99,9 @@ Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#m
 **Como conduzir**
 
 1. Classifique autenticação, extração, verificação de limite, redação e gravação como predominantemente determinísticas ou probabilísticas.
-2. Desenhe duas fronteiras: uma entre extração e regra de negócio, e outra entre proposta e efeito financeiro.
-3. Para a foto, defina uma validação que compare o valor extraído com o recibo e encaminhe a divergência para revisão.
+2. Desenhe um diagrama de componentes com quatro caixas nomeadas: **Extração do recibo**, **Regra de limite**, **Proposta de despesa** e **Lançamento financeiro**. A primeira fronteira fica entre “Extração do recibo” e “Regra de limite”; a segunda fica entre “Proposta de despesa” e “Lançamento financeiro”.
+3. Rotule cada seta com o dado que atravessa a fronteira: imagem e campos extraídos; valor, moeda e política vigente; proposta com justificativa; comando de lançamento com identificador do aprovador. A última seta somente pode existir depois de autorização explícita.
+4. Para a foto, defina uma validação que compare o valor extraído com o recibo e encaminhe a divergência para revisão. Registre quem pode corrigir o campo e quem pode autorizar o efeito financeiro.
 
 **Entrega esperada**
 
@@ -111,7 +116,13 @@ Entregue uma tabela com cinco linhas, duas justificativas de fronteira e um flux
 | Validação | 25% | Propõe comparação, limiar e revisão para um erro plausível de extração. |
 | Justificativa | 20% | Liga cada escolha a risco, responsabilidade e evidência observável. |
 
+**Como verificar antes de entregar:** confirme que as quatro caixas aparecem com esses nomes, que as duas fronteiras estão desenhadas, que cada seta tem dado e responsável e que “Lançamento financeiro” exige autorização registrada. Verifique também se uma divergência de extração não vira lançamento automático.
+
 ### 9. Cenário de qualidade
+
+**O que é:** um cenário de qualidade transforma uma expectativa como “responder rápido” em evento, condição e medida observáveis, permitindo repetir a avaliação.
+
+**Onde encontrar:** consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md), especialmente as seis partes do cenário e os exemplos de percentil.
 
 **Situação**
 
@@ -145,9 +156,15 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 | Escolha de tempos | 25% | Distingue primeiro conteúdo de resposta completa ou explica por que um deles basta. |
 | Ação | 15% | Define o que a equipe fará quando o limite não for atendido. |
 
+**Como verificar antes de entregar:** confira se fonte, estímulo, ambiente, artefato, resposta e medida estão identificados; se a medida tem população, percentil, carga e janela; e se há uma ação definida para o caso de falha.
+
 ## Analisar
 
 ### 10. Comparação arquitetural
+
+**O que é:** uma comparação arquitetural é uma matriz que coloca alternativas sob os mesmos critérios e explicita consequências, hipóteses e evidências faltantes antes da escolha.
+
+**Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](padroes-e-decisoes.md) e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md).
 
 **Situação**
 
@@ -182,9 +199,15 @@ Entregue uma matriz comparativa, uma recomendação provisória de até um pará
 | Decisão provisória | 15% | Recomenda uma opção condicionada ao contexto, sem declarar vencedor universal. |
 | Investigação | 15% | Propõe uma medida capaz de confirmar ou refutar a hipótese principal. |
 
+**Como verificar antes de entregar:** confira que as três alternativas ocupam as mesmas colunas, que cada célula distingue fato de hipótese, que a recomendação tem condição explícita e que o experimento mede a incógnita capaz de inverter a escolha.
+
 ## Avaliar
 
 ### 11. Contestação da ADR
+
+**O que é:** contestar uma ADR significa revisar a decisão registrada, suas alternativas, evidências e condições de reversão; não é apenas dizer se você gosta da tecnologia.
+
+**Onde encontrar:** leia a ADR preliminar do módulo, a matriz do exercício anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Situação**
 
@@ -218,9 +241,15 @@ Entregue um parecer de até 300 palavras e uma tabela com evidência atual, hip�
 | Evidência | 25% | Separa fato, hipótese e ausência de dado. |
 | Revisão | 25% | Define medida, limite e gatilho que podem mudar a decisão. |
 
+**Como verificar antes de entregar:** confira se o parecer declara aceitar, rejeitar ou experimentar; se cada razão aponta para um direcionador do caso; se fato, hipótese e lacuna estão separados; e se limite, responsável e gatilho permitem rever a decisão.
+
 ## Criar
 
 ### 12. Leitura arquitetural mínima
+
+**O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras, falhas e evidências de qualidade.
+
+**Onde encontrar:** use os [conceitos e padrões do módulo 1](conceitos.md), o [template de ADR](../referencia/template-adr.md) e o [diagrama de exemplo arquitetural](exemplo-arquitetural.md).
 
 **Situação**
 
@@ -272,5 +301,7 @@ Diagrama:
 | Diagrama e texto | 15% | Mantém componentes, fluxos e responsabilidades consistentes nas duas formas. |
 | Experimento | 15% | Define hipótese, variável, evidência e condição de revisão. |
 | Clareza arquitetural | 20% | Permite que outro arquiteto reconstrua a decisão sem adivinhar premissas. |
+
+**Como verificar antes de entregar:** confira se o diagrama tem equivalente textual, se cada seta possui origem, destino e responsável, se retenção e autorização estão marcadas, se as duas falhas têm contenção e se o experimento pode refutar a hipótese de maior risco.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).

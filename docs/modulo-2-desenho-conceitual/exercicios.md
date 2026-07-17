@@ -80,6 +80,10 @@ Restrição limita o espaço de solução por obrigação confirmada; preferênc
 
 ### 8. Ficha de oportunidade para triagem jurídica
 
+**O que é:** ficha de oportunidade descreve problema observável, impacto e teste; não é lista de ferramentas.
+
+**Onde encontrar:** use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), objetivos e o [template de ADR](../referencia/template-adr.md).
+
 **Situação**
 
 Um departamento quer “usar IA para revisar contratos” porque analistas relatam excesso de trabalho. Ainda não sabemos em qual etapa o tempo é gasto, quais contratos variam mais nem qual erro seria inaceitável.
@@ -112,7 +116,13 @@ Entregue uma ficha de uma página com problema, stakeholder, baseline, resultado
 | Hipóteses | 20% | Distingue valor do processo e capacidade da solução. |
 | Experimento e rejeição | 25% | Propõe teste refutável e limite que pode interromper a adoção. |
 
+**Como verificar antes de entregar:** confira problema, baseline, contramétrica, hipóteses separadas e limite de rejeição.
+
 ### 9. Aceitação de extração e síntese
+
+**O que é:** critério de aceitação define população, amostra, medida, limiar e ação para uma saída.
+
+**Onde encontrar:** consulte [critérios probabilísticos](padroes-e-decisoes.md#criterios-probabilisticos-de-aceitacao) e o [catálogo de atributos](../referencia/atributos-de-qualidade.md).
 
 **Situação**
 
@@ -146,9 +156,15 @@ Entregue dois critérios em tabela, uma nota sobre a amostra e uma regra operaci
 | Limite e falha | 25% | Define limiar e resultado intolerável sem mascarar fatias. |
 | Ação operacional | 25% | Explica quando bloquear, restringir ou exigir revisão. |
 
+**Como verificar antes de entregar:** confira formato, amostra, segmentos críticos e ação para cada falha.
+
 ## Analisar
 
 ### 10. Paisagem de decisões para suporte técnico
+
+**O que é:** paisagem de decisões separa escolhas com responsáveis e consequências diferentes.
+
+**Onde encontrar:** use [padrões de desenho conceitual](padroes-e-decisoes.md) e a [oficina local](oficina-de-ferramentas.md).
 
 **Situação**
 
@@ -184,9 +200,15 @@ Entregue uma matriz de cinco eixos, uma arquitetura incremental em até três pa
 | Incremento | 20% | Propõe evolução reversível sem criar dependência prematura. |
 | Incógnita testável | 15% | Define medida capaz de alterar a decisão. |
 
+**Como verificar antes de entregar:** confira cinco eixos, responsáveis, riscos, evidências e reversibilidade.
+
 ## Avaliar
 
 ### 11. Contestação do “agente por estratégia”
+
+**O que é:** contestação arquitetural testa necessidade comparando alternativas, condições e evidências.
+
+**Onde encontrar:** consulte [workflow e agente](conceitos.md), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
@@ -220,9 +242,15 @@ Entregue um parecer de uma página e o núcleo de uma ADR com decisão, alternat
 | Alternativas | 25% | Compara opções sem apelar a tendência ou marca. |
 | Revisão | 25% | Define limites, métricas e gatilhos que podem reverter a decisão. |
 
+**Como verificar antes de entregar:** confira posição, comparação, hipótese separada, métricas e gatilhos de reversão.
+
 ## Criar
 
 ### 12. Dossiê conceitual de um assistente clínico administrativo
+
+**O que é:** dossiê conceitual reúne oportunidade, operação, arquitetura, riscos e evidências para revisão independente.
+
+**Onde encontrar:** consulte [conceitos e padrões](conceitos.md), [template de ADR](../referencia/template-adr.md) e [oficina local](oficina-de-ferramentas.md).
 
 **Situação**
 
@@ -278,5 +306,7 @@ Mapa objetivo → requisito → mecanismo → evidência:
 | Alternativas e ADR | 15% | Expõe trade-offs, consequências e condições de revisão. |
 | Diagrama e modos de falha | 15% | Mantém fronteiras, fluxos e contenções coerentes. |
 | Experimento | 20% | Define teste econômico que pode refutar a hipótese principal. |
+
+**Como verificar antes de entregar:** confira modos, rastreabilidade, fronteiras, detecção, recuperação e gatilhos na ADR.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
