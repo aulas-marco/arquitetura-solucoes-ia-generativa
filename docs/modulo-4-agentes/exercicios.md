@@ -90,7 +90,11 @@ Você é o arquiteto que decide quais capacidades o modelo pode solicitar e quai
 
 **Insumos disponíveis**
 
-Use o catálogo de ferramentas, o contrato de saída estruturada e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
+Use o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta), o contrato de saída estruturada em [conceitos de agentes](conceitos.md), e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
+
+**O que é o artefato que você vai produzir**
+
+Um **contrato de ferramenta** é a interface estreita que declara entrada, saída, efeito, identidade, versão, erros e limites; não é um prompt dizendo “cancele o pedido”. **Idempotência** é a propriedade de repetir a mesma intenção sem criar um segundo efeito lógico: registre uma chave estável e o resultado autoritativo. A sequência deve separar consulta (sem efeito), regra de elegibilidade, proposta (ainda sem efeito) e escrita financeira (efeito material). O modelo pode propor, mas a política e o executor decidem se uma chamada é permitida.
 
 **Como conduzir**
 
@@ -102,6 +106,16 @@ Use o catálogo de ferramentas, o contrato de saída estruturada e o [workflow d
 **Entrega esperada**
 
 Entregue uma sequência ou diagrama, catálogo mínimo de contratos e matriz de aprovação e parada.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada ferramenta tem entrada, saída, efeito, identidade, versão, erro e chave de idempotência explícitos.
+- [ ] O diagrama mostra consulta e regra antes da proposta e da escrita financeira.
+- [ ] Pedido despachado, pagamento indisponível e estado desconhecido levam a parada ou encaminhamento, não a retry cego.
+- [ ] A aprovação contém objeto imutável, consequência, identidade do aprovador e expiração.
+- [ ] Nenhuma chamada real ou credencial é necessária para avaliar o desenho.
 
 **Critérios de avaliação**
 
@@ -125,7 +139,11 @@ Você é o arquiteto que define limites de autonomia e explica como eles podem m
 
 **Insumos disponíveis**
 
-Use a escala A0–A5, o padrão de aprovação e os exemplos de estado e memória do módulo. Trate todos os pedidos como fictícios.
+Use a escala A0–A5, o [padrão de aprovação](padroes-e-decisoes.md), os exemplos de estado e memória em [conceitos de agentes](conceitos.md) e o trace da [oficina local](oficina-de-ferramentas.md). Trate todos os pedidos como fictícios.
+
+**O que significa A0–A5**
+
+A0–A5 é uma escala de autonomia operacional: em A0 o sistema apenas informa; nos níveis seguintes ele pode preparar, executar ações limitadas ou encadear passos, sempre com controles proporcionais. O nível não é uma propriedade do produto: depende da ferramenta, do efeito, da reversibilidade, da identidade e da aprovação. Para cada linha da matriz, diga o que o modelo pode propor, o que a aplicação executa e qual pessoa ou regra pode interromper.
 
 **Como conduzir**
 
@@ -137,6 +155,16 @@ Use a escala A0–A5, o padrão de aprovação e os exemplos de estado e memóri
 **Entrega esperada**
 
 Entregue uma matriz A0–A5 e explique dois casos em que a mesma interface precisa de controles diferentes.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada ação tem nível, efeito, reversibilidade, identidade e orçamento próprios.
+- [ ] A matriz distingue aprovação antes da ação de revisão depois da ação.
+- [ ] O mesmo canal pode receber níveis diferentes sem esconder a fronteira no prompt.
+- [ ] Há evidência observável para promover ou reduzir autonomia.
+- [ ] Nenhuma promoção de nível depende apenas de uma resposta “parecer boa”.
 
 **Critérios de avaliação**
 
@@ -180,7 +208,11 @@ Você é o arquiteto de confiabilidade que separa fato, hipótese e estado autor
 
 **Insumos disponíveis**
 
-Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido e o script da oficina de agentes.
+Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido em [conceitos de agentes](conceitos.md), as regras de [padrões e decisões](padroes-e-decisoes.md) e o script da [oficina de agentes](oficina-de-ferramentas.md).
+
+**O que é trace, timeout e estado desconhecido**
+
+Um **trace** é a sequência correlacionada de propostas, políticas, chamadas, tentativas, versões e resultados de uma execução. **Timeout** encerra a espera local; não prova que o destino não executou. Por isso uma escrita que excede o prazo entra em **estado desconhecido** (`outcome_unknown`) até reconciliação no sistema de destino pela mesma chave. Fato observado, hipótese (“a primeira reserva foi criada”), contenção e reconciliação devem aparecer em colunas separadas.
 
 **Como conduzir**
 
@@ -192,6 +224,16 @@ Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido 
 **Entrega esperada**
 
 Entregue linha do tempo anotada, decisão sobre `completed` e plano de recuperação e não recorrência.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] A linha do tempo preserva `execution_id`, chave de cada tentativa, política, versão e resultado.
+- [ ] O timeout é tratado como estado desconhecido até consulta autoritativa no destino.
+- [ ] A decisão sobre `completed` cita evidência; não usa apenas a última linha do trace.
+- [ ] A contenção impede nova escrita antes da reconciliação e prevê compensação se houver efeito.
+- [ ] Os testes cobrem repetição, conflito de versão, timeout com efeito e timeout sem efeito.
 
 **Critérios de avaliação**
 
@@ -217,7 +259,11 @@ Você é o arquiteto que critica a composição e propõe o menor redesenho capa
 
 **Insumos disponíveis**
 
-Use o modelo de interação e controle, o catálogo de ferramentas e os padrões de agente único, multiagente e workflow.
+Use o [modelo de interação e controle](conceitos.md), o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta) e os padrões de agente único, multiagente e workflow descritos em [padrões e decisões](padroes-e-decisoes.md).
+
+**O que significa comparar essas composições**
+
+Compare três composições concretas: um agente único, vários agentes com handoffs e um workflow determinístico com módulos de geração. Para cada uma, indique onde ficam identidade, decisão, autorização, efeito, trace e revisão. Use métricas de tarefa (conclusão, negação correta, duplicação) e de operação (latência, custo, incidentes); “mais agentes” não é por si só uma melhoria.
 
 **Como conduzir**
 
@@ -229,6 +275,16 @@ Use o modelo de interação e controle, o catálogo de ferramentas e os padrões
 **Entrega esperada**
 
 Entregue parecer de até 500 palavras, matriz de riscos e experimento de revisão.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada risco aponta para uma causa, um efeito e uma evidência que pode ser observada.
+- [ ] A proposta não usa conta administrativa ou histórico completo sem finalidade e controle.
+- [ ] Retries têm limite, condição e idempotência; revisão semanal não substitui bloqueio prévio.
+- [ ] A alternativa mínima preserva autoridade final e permite rollback.
+- [ ] O experimento define grupo de comparação, métrica, duração e gatilho de decisão.
 
 **Critérios de avaliação**
 
@@ -254,7 +310,11 @@ Você é o arquiteto que desenha um agente controlado, deixando visíveis inten�
 
 **Insumos disponíveis**
 
-Use os conceitos de workflow, ferramentas, estado, memória e autonomia, o diagrama de exemplo e o [template de ADR](../referencia/template-adr.md). O caso é sintético.
+Use os conceitos de workflow, ferramentas, estado, memória e autonomia em [conceitos de agentes](conceitos.md), o [diagrama de exemplo](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md). O caso é sintético.
+
+**O que é um agente controlado neste exercício**
+
+É um componente que pode escolher o próximo passo, mas só executa ferramentas com contrato, identidade delegada e política verificável. **Estado** é o registro autoritativo da execução; **memória** é informação reutilizável sob finalidade; **trace** é a evidência minimizada das decisões e efeitos. A matriz A0–A5 deve aparecer por ação, não como uma etiqueta única do produto. Ferramentas de consulta, proposta e efeito precisam de fronteiras diferentes.
 
 **Como conduzir**
 
@@ -267,6 +327,16 @@ Use os conceitos de workflow, ferramentas, estado, memória e autonomia, o diagr
 **Entrega esperada**
 
 Entregue o roteiro preenchido, diagramas com equivalentes textuais, três ADRs e quatro testes de comportamento.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] O objetivo e as falhas intoleráveis definem o limite do agente antes dos componentes.
+- [ ] Cada contrato declara parâmetros, identidade, aprovação, idempotência, timeout e resultado tipado.
+- [ ] Estado, memória, contexto e trace têm finalidade, retenção e controle de acesso definidos.
+- [ ] O caminho de efeito passa por política antes e depois de esperas, conflitos ou retomadas.
+- [ ] Os quatro testes cobrem caminho feliz, negação, repetição e compensação sem usar dados reais.
 
 ```text
 Objetivo, atores, restrições e falhas intoleráveis:

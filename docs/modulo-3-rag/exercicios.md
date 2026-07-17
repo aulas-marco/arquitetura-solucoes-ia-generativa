@@ -90,7 +90,11 @@ Você é o arquiteto responsável por verificar se a recuperação traz evidênc
 
 **Insumos disponíveis**
 
-Use as definições de Recall e Precision em [padrões e decisões](padroes-e-decisoes.md) e a saída da oficina local de RAG. A lista de relevantes é o conjunto de referência desta pergunta.
+Use as definições de Recall e Precision em [padrões e decisões](padroes-e-decisoes.md), a explicação de recuperação em [conceitos de RAG](conceitos.md) e a saída da [oficina local de RAG](oficina-de-ferramentas.md). A lista de relevantes é o conjunto de referência desta pergunta.
+
+**O que é cada artefato**
+
+Um **chunk** é um trecho recuperável, com identificador e metadados de fonte; não é necessariamente um parágrafo inteiro. O **conjunto de referência** é a lista que um avaliador preparou antes da consulta, neste caso `{A, C, F}`. Ele informa quais trechos contam como relevantes para esta pergunta. `Recall@5` mede quantos relevantes foram recuperados: relevantes recuperados ÷ relevantes existentes, portanto `2 ÷ 3`. `Precision@5` mede quantos dos cinco retornados são relevantes: relevantes recuperados ÷ retornados, portanto `2 ÷ 5`. O `@5` significa que somente a primeira lista de cinco resultados entra na conta. Registre numerador, denominador e a fonte da lista de referência; não trate a média como qualidade da resposta gerada.
 
 **Como conduzir**
 
@@ -102,6 +106,16 @@ Use as definições de Recall e Precision em [padrões e decisões](padroes-e-de
 **Entrega esperada**
 
 Entregue os cálculos, uma interpretação de até 150 palavras e uma hipótese testável com próxima medida.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] O conjunto de referência está identificado e não foi alterado depois de ver os resultados.
+- [ ] Recall@5 e Precision@5 mostram numerador, denominador e resultado.
+- [ ] A tabela separa `chunk_id`, posição, relevante (sim/não) e fonte da referência.
+- [ ] A interpretação não confunde recuperação com fidelidade, citação ou correção da resposta.
+- [ ] A próxima medida testa consulta, chunking, ranking ou referência, e não todos ao mesmo tempo.
 
 **Critérios de avaliação**
 
@@ -124,7 +138,11 @@ Você é o arquiteto que compara segmentação antes de escolher um índice.
 
 **Insumos disponíveis**
 
-Use os conceitos de chunking, proveniência e contexto e os três documentos sintéticos da oficina de RAG. Não precisa implementar os três índices.
+Use os conceitos de chunking, proveniência e contexto em [conceitos de RAG](conceitos.md), a comparação de padrões em [padrões e decisões](padroes-e-decisoes.md) e os três documentos sintéticos da [oficina de RAG](oficina-de-ferramentas.md). Não precisa implementar os três índices.
+
+**O que é chunking e o que deve permanecer rastreável**
+
+**Chunking** é a decisão de dividir uma fonte em unidades que possam ser encontradas e enviadas ao modelo. Tamanho fixo, seção, semântica e pai–filho são estratégias diferentes; nenhuma é “a correta” sem perguntas de teste. **Proveniência** é o caminho que liga cada chunk à fonte, versão, seção/página e transformação usada. Para esta atividade, o vínculo pai–filho permite recuperar um trecho pequeno e abrir o contexto maior sem perder a localização original.
 
 **Como conduzir**
 
@@ -136,6 +154,16 @@ Use os conceitos de chunking, proveniência e contexto e os três documentos sin
 **Entrega esperada**
 
 Entregue matriz das três estratégias, duas perguntas, métricas e um controle de proveniência por alternativa.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada alternativa diz onde ficam definição e exceção e qual contexto é perdido ou preservado.
+- [ ] As perguntas de teste estão escritas exatamente como serão executadas na oficina.
+- [ ] A matriz informa como medir Recall@5, Precision@5 e completude do contexto.
+- [ ] Todo chunk de exemplo possui `chunk_id`, fonte, versão, localização e relação pai–filho.
+- [ ] A escolha final é condicionada aos resultados; não é justificada apenas por tamanho em tokens.
 
 **Critérios de avaliação**
 
@@ -160,7 +188,11 @@ Você é o arquiteto que conduz o diagnóstico e precisa dizer onde a política 
 
 **Insumos disponíveis**
 
-Use o estudo de caso de RAG, o diagrama de consulta e os conceitos de autorização antecipada, cache, citação e proveniência.
+Use o [estudo de caso de RAG](estudo-de-caso.md), o [diagrama de consulta](exemplo-arquitetural.md#fluxo-de-consulta) e os conceitos de autorização antecipada, cache, citação e proveniência em [conceitos de RAG](conceitos.md).
+
+**O que é a fronteira de autorização neste diagnóstico**
+
+Autorização antecipada significa filtrar o universo de fontes **antes** de materializar chunks, ranking, contexto ou cache. **Cache** é uma cópia reutilizável de decisão, resultado ou contexto; sua chave precisa incluir identidade/política e versão quando esses dados mudam. **Citação** é o vínculo verificável entre uma afirmação e o trecho autorizado que a sustenta. **Proveniência** registra de onde veio esse trecho. Use esses quatro significados para localizar a falha; “apagar a resposta” não prova que o material proibido deixou de estar no índice ou no cache.
 
 **Como conduzir**
 
@@ -172,6 +204,16 @@ Use o estudo de caso de RAG, o diagrama de consulta e os conceitos de autorizaç
 **Entrega esperada**
 
 Entregue linha do tempo causal, matriz de fronteiras e plano de contenção, recuperação e não recorrência.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] A identidade e a decisão de política aparecem antes de índice, reranking, contexto e cache.
+- [ ] O diagnóstico distingue fato observado, hipótese causal e evidência ainda ausente.
+- [ ] A contenção invalida cache e bloqueia nova materialização sem copiar o contrato exposto.
+- [ ] O teste negativo cobre consulta, reuso de cache e abertura de citação após revogação.
+- [ ] O plano registra versão da política, corpus, cache e trace para permitir reconstrução.
 
 **Critérios de avaliação**
 
@@ -196,7 +238,11 @@ Você é o arquiteto que recomenda uma composição inicial e diz sob quais sina
 
 **Insumos disponíveis**
 
-Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo usando os padrões do módulo e as métricas da oficina local.
+Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo usando os [padrões do módulo](padroes-e-decisoes.md) e as métricas da [oficina local](oficina-de-ferramentas.md). RAG básico recupera e gera em uma rota simples; híbrido combina busca lexical e vetorial; hierárquico preserva relações de seção; adaptativo escolhe rota conforme a pergunta; corretivo reavalia ou busca novamente quando a evidência é insuficiente.
+
+**O que significa escolher um padrão**
+
+Escolher um padrão é propor uma hipótese de arquitetura para um perfil de fontes e consultas, não declarar que um rótulo vence sempre. `p95` é o tempo abaixo do qual ficam 95% das execuções; compare-o com o limite de quatro segundos. Proveniência é a capacidade de explicar fonte, versão e transformação; operação inclui custo, atualização, fallback e manutenção.
 
 **Como conduzir**
 
@@ -208,6 +254,16 @@ Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo usando os pa
 **Entrega esperada**
 
 Entregue tabela comparativa, recomendação condicionada e mapa de métricas e gatilhos.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] A tabela usa os mesmos tipos de pergunta e conjunto de teste para todos os padrões.
+- [ ] A recomendação explicita p95, custo, cobertura, autorização e proveniência.
+- [ ] Consultas complexas têm rota ou critério de abstenção próprios.
+- [ ] Cada evolução tem métrica, limiar e plano de reversão.
+- [ ] O gatilho de mudança é observável e não depende de “pareceu melhor”.
 
 **Critérios de avaliação**
 
@@ -233,7 +289,11 @@ Você é o arquiteto que compõe fluxos offline e online e torna explícitos aut
 
 **Insumos disponíveis**
 
-Use os padrões RAG, o [template de ADR](../referencia/template-adr.md), o exemplo arquitetural e os arquivos sintéticos da oficina. O hospital é fictício.
+Use os [padrões RAG](padroes-e-decisoes.md), o [template de ADR](../referencia/template-adr.md), o [exemplo arquitetural](exemplo-arquitetural.md) e os arquivos sintéticos da [oficina](oficina-de-ferramentas.md). O hospital é fictício.
+
+**O que é uma arquitetura RAG completa**
+
+Uma arquitetura RAG completa liga dois fluxos: ingestão/publicação da fonte e consulta/resposta. **Proveniência** deve acompanhar fonte, versão, localização, transformação, índice, contexto e citação. **Suficiência** é a regra que decide se há evidência aplicável e completa; **abstenção** é a saída explícita quando essa regra falha. **Rollback** mantém a versão anterior ativa quando a candidata não passa nos testes. Desenhe cada fronteira e escreva quem autoriza, quem transforma, quem mede e quem pode interromper.
 
 **Como conduzir**
 
@@ -246,6 +306,16 @@ Use os padrões RAG, o [template de ADR](../referencia/template-adr.md), o exemp
 **Entrega esperada**
 
 Preencha o roteiro, entregue os diagramas com equivalentes textuais e escreva três ADRs rastreáveis aos requisitos.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada afirmação de exemplo aponta para fonte, versão, localização e citação autorizada.
+- [ ] A política é aplicada antes da materialização e novamente ao abrir uma citação.
+- [ ] O fluxo trata conflito, fonte desatualizada, exclusão, rollback e abstenção.
+- [ ] O pacote de versões permite reproduzir uma resposta sem armazenar conteúdo sensível desnecessário.
+- [ ] Os ADRs registram alternativa rejeitada, consequência, evidência e gatilho de revisão.
 
 ```text
 Fontes, donos, autoridade, classificação e SLO:
