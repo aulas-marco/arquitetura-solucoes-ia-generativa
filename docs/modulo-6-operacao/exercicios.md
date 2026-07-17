@@ -1,6 +1,6 @@
 # Exercícios: operar e escalar com controle
 
-Use o portfólio do estudo de caso quando não houver outro contexto. Nos níveis iniciais, tente antes de abrir a resposta. Nos níveis superiores, entregue artefatos verificáveis; nomes de ferramentas sem decisão, limite ou proprietário não demonstram atendimento adequado.
+Use o portfólio do caso. Artefato exige decisão, limite e proprietário.
 
 ## Recordar
 
@@ -9,7 +9,7 @@ Use o portfólio do estudo de caso quando não houver outro contexto. Nos nívei
 <details>
 <summary>Resposta comentada</summary>
 
-É qualquer artefato cuja mudança pode alterar resposta, decisão, custo, latência, acesso ou efeito. Inclui modelo e parâmetros, prompt, política, corpus, snapshot do índice, embedding, recuperação, ferramenta, memória, avaliador, conjunto de referência, orquestração e dependências. Versionar apenas código não reconstrói o comportamento de uma solução generativa.
+É qualquer artefato cuja mudança altera resposta, decisão, custo, latência, acesso ou efeito: modelo, prompt, política, corpus, índice, embedding, ferramenta, memória, avaliador, orquestração e dependências. Versionar só código não reconstrói comportamento.
 
 </details>
 
@@ -18,7 +18,7 @@ Use o portfólio do estudo de caso quando não houver outro contexto. Nos nívei
 <details>
 <summary>Resposta comentada</summary>
 
-Fallback usa uma alternativa durante uma falha ou condição, como outro modelo ou busca sem geração. Rollback restaura um manifesto anterior conhecido. Fallback deve preservar classe de dados e guardrails; rollback precisa manter compatibilidade entre todos os ativos. Efeitos externos já realizados podem exigir reconciliação ou compensação, não apenas rollback.
+Fallback usa alternativa durante falha; rollback restaura manifesto anterior. Fallback preserva classe de dados e guardrails; rollback mantém ativos compatíveis. Efeitos externos podem exigir compensação.
 
 </details>
 
@@ -27,7 +27,7 @@ Fallback usa uma alternativa durante uma falha ou condição, como outro modelo 
 <details>
 <summary>Resposta comentada</summary>
 
-Produto, modelo, operação e negócio. Eles conectam jornada e resultado, qualidade comportamental, saúde técnica e valor organizacional. Nenhum plano substitui os outros: disponibilidade não prova utilidade, e satisfação não revela uma violação rara de segurança.
+Produto, modelo, operação e negócio conectam jornada, comportamento, saúde técnica e valor. Disponibilidade não prova utilidade; satisfação não revela violação rara.
 
 </details>
 
@@ -36,7 +36,7 @@ Produto, modelo, operação e negócio. Eles conectam jornada e resultado, quali
 <details>
 <summary>Resposta comentada</summary>
 
-Showback mostra consumo e custo atribuído às unidades, sem transferência contábil. Chargeback transfere o custo. Showback ajuda a validar medição e ensinar comportamento. Chargeback exige tags confiáveis, regra transparente para custos comuns e contestação; aplicado cedo, pode incentivar subnotificação ou uso fora da plataforma.
+Showback mostra consumo sem transferência contábil; chargeback transfere custo. Chargeback exige tags, regra para custos comuns e contestação.
 
 </details>
 
@@ -47,7 +47,7 @@ Showback mostra consumo e custo atribuído às unidades, sem transferência cont
 <details>
 <summary>Resposta comentada</summary>
 
-Inferência pode variar por amostragem, hardware, concorrência ou atualização invisível do provedor. A reprodução operacional reconstrói configuração, entradas, versões e decisões suficientes para comparar critérios e distribuições. Seeds e parâmetros são registrados quando existem; repetições e intervalos tratam variância quando identidade bit a bit não é possível.
+Inferência varia por amostragem, hardware, concorrência ou provedor. Reprodução reconstrói configuração, entradas, versões e decisões; registre seeds quando existirem e use repetições para tratar variância.
 
 </details>
 
@@ -56,7 +56,7 @@ Inferência pode variar por amostragem, hardware, concorrência ou atualização
 <details>
 <summary>Resposta comentada</summary>
 
-O modelo alternativo precisa ser permitido para a classe de dados, região, finalidade, ferramentas e qualidade exigidas. Trocar automaticamente para um modelo público pode remover fundamentação ou enviar dados restritos a um fornecedor não aprovado. Quando não há alternativa semanticamente compatível, a resposta correta é degradar capacidade e comunicar o limite.
+O alternativo deve ser permitido para classe de dados, região, finalidade, ferramentas e qualidade. Modelo público pode remover fundamentação ou expor dados; sem alternativa compatível, degrade e comunique o limite.
 
 </details>
 
@@ -65,7 +65,7 @@ O modelo alternativo precisa ser permitido para a classe de dados, região, fina
 <details>
 <summary>Resposta comentada</summary>
 
-Ela reduz credenciais dispersas, controles divergentes e telemetria incompatível. Entretanto concentra dependência: uma falha no gateway ou guardrail comum alcança vários produtos; abstrações podem ocultar diferenças entre fornecedores; política genérica pode ser aplicada fora do contexto. Contratos, isolamento, rollout gradual, extensão governada e propriedade de produto equilibram o trade-off.
+Ela reduz credenciais dispersas e telemetria incompatível, mas concentra dependência: falha no gateway alcança produtos e abstração oculta diferenças. Contratos, isolamento, rollout e propriedade equilibram o trade-off.
 
 </details>
 
@@ -73,17 +73,19 @@ Ela reduz credenciais dispersas, controles divergentes e telemetria incompatíve
 
 ### 8. Manifesto e portão de regressão
 
+**Ativo comportamental** muda resposta, decisão, custo, latência, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção (**o que é** cada um?). Consulte [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental).
+
 **Situação**
 
 O RAG de políticas trocará modelo de embedding, chunking e prompt no mesmo release. Uma falha de compatibilidade pode parecer uma regressão do modelo, mas pode ter nascido no corpus, no índice ou no avaliador.
 
 **Seu papel**
 
-Você é o arquiteto de operação que precisa tornar a mudança reproduzível e decidir quando bloquear a promoção.
+Você torna a mudança reproduzível e decide quando bloquear.
 
 **Insumos disponíveis**
 
-Use o conceito de ativo comportamental, o manifesto da oficina de operação, o conjunto de referência e os padrões de promoção e rollback.
+Consulte o [manifesto da oficina](oficina-de-ferramentas.md), o conjunto de referência e os [padrões](padroes-e-decisoes.md).
 
 **Como conduzir**
 
@@ -95,6 +97,10 @@ Use o conceito de ativo comportamental, o manifesto da oficina de operação, o 
 **Entrega esperada**
 
 Entregue manifesto, portão de regressão e roteiro de ensaio do rollback.
+
+**Como verificar**
+
+Confira versões, proprietários e compatibilidade do manifesto em homologação.
 
 **Critérios de avaliação**
 
@@ -108,17 +114,19 @@ Entregue manifesto, portão de regressão e roteiro de ensaio do rollback.
 
 ### 9. Trace e SLO com privacidade
 
+**Span** é etapa observável do trace; **SLO** é meta de indicador numa janela (**o que é** cada um?). Consulte [trace](conceitos.md#trace-reconstruir-a-composicao).
+
 **Situação**
 
 Uma consulta recupera documentos, chama um modelo e pode abrir um rascunho de solicitação. O trace precisa permitir diagnóstico sem guardar a pergunta completa ou dados pessoais desnecessários.
 
 **Seu papel**
 
-Você é o arquiteto de observabilidade que conecta causalidade, privacidade e ação operacional.
+Você conecta causalidade, privacidade e ação operacional.
 
 **Insumos disponíveis**
 
-Use o script de telemetria local, os conceitos de trace e SLO e o catálogo de atributos de qualidade.
+Consulte o [script de telemetria](oficina-de-ferramentas.md), trace, SLO e o [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
@@ -130,6 +138,10 @@ Use o script de telemetria local, os conceitos de trace e SLO e o catálogo de a
 **Entrega esperada**
 
 Entregue um esquema de trace e duas fichas de SLO com ação de alerta e política de retenção.
+
+**Como verificar**
+
+Confira trace minimizado e todos os campos do SLO, inclusive runbook.
 
 **Critérios de avaliação**
 
@@ -145,17 +157,19 @@ Entregue um esquema de trace e duas fichas de SLO com ação de alerta e políti
 
 ### 10. Diagnóstico de rollout composto
 
+**Canary** expõe versão a parcela; **fallback** usa alternativa; **rollback** restaura manifesto (**o que é** ação segura?). Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada).
+
 **Situação**
 
 Um canary reduz custo por chamada em 25% e p95 em 15%, mas tarefas concluídas caem 6%, tokens por tarefa sobem, fundamentação piora em português e uma ferramenta dobra chamadas após timeout. O avaliador automático declara melhora geral.
 
 **Seu papel**
 
-Você é o arquiteto de rollout que deve separar economia técnica de valor entregue e decidir pausar, reverter, degradar ou ampliar.
+Você separa economia técnica de valor e decide pausar, reverter, degradar ou ampliar.
 
 **Insumos disponíveis**
 
-Use os quatro planos de métricas, o trace da oficina de operação e os conceitos de canary, fallback e rollback.
+Consulte os quatro planos, o [trace da oficina](oficina-de-ferramentas.md) e os conceitos de canary, fallback e rollback.
 
 **Como conduzir**
 
@@ -167,6 +181,10 @@ Use os quatro planos de métricas, o trace da oficina de operação e os conceit
 **Entrega esperada**
 
 Entregue tabela hipótese → evidência → teste → ação e parecer de rollout de até 400 palavras.
+
+**Como verificar**
+
+Confira quatro planos, teste refutador e limite de interrupção.
 
 **Critérios de avaliação**
 
@@ -182,17 +200,19 @@ Entregue tabela hipótese → evidência → teste → ação e parecer de rollo
 
 ### 11. Plataforma comum ou autonomia local?
 
+**Fronteira de propriedade** diz quem decide, mantém, alerta e aceita risco; **ADR** registra contexto e decisão (**o que é** responsabilidade?). Consulte [promoção](conceitos.md#ambientes-e-promocao).
+
 **Situação**
 
 A plataforma propõe gateway, registro de prompts, RAG, ferramentas e guardrails comuns. Atendimento quer streaming específico; Jurídico exige índice isolado; Compras precisa de executor transacional; FinOps quer atribuição de custo imediata.
 
 **Seu papel**
 
-Você é o arquiteto que decide o que deve ser plataforma comum, capacidade específica ou trabalho adiado.
+Você decide o que é plataforma comum, específico ou adiado.
 
 **Insumos disponíveis**
 
-Use o estudo de caso, o catálogo de padrões de plataforma e os conceitos de portabilidade, tenancy, identidade, cotas e modelo econômico.
+Consulte o [caso](estudo-de-caso.md) e os [padrões](padroes-e-decisoes.md).
 
 **Como conduzir**
 
@@ -204,6 +224,10 @@ Use o estudo de caso, o catálogo de padrões de plataforma e os conceitos de po
 **Entrega esperada**
 
 Entregue parecer com matriz de responsabilidades, três ADRs resumidas e gatilhos.
+
+**Como verificar**
+
+Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 **Critérios de avaliação**
 
@@ -219,6 +243,27 @@ Entregue parecer com matriz de responsabilidades, três ADRs resumidas e gatilho
 ## Criar
 
 ### 12. Capstone — arquitetura e plano operacional da organização
+
+**Situação**
+
+Uma organização tem copiloto, RAG e agente isolados, duplicação, fornecedores incompatíveis, pouca rastreabilidade e custo crescente. Proponha arquitetura operável, mensurável e reversível.
+
+Aqui, **o que é** arquitetura operável? Mudança, evidência, decisão e recuperação têm dono e limite.
+
+**Seu papel**
+
+Você fecha fronteiras de propriedade, contratos operacionais e decisões de liberação.
+
+**Insumos disponíveis**
+
+Use [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental), [trace](conceitos.md#trace-reconstruir-a-composicao), [SLO](conceitos.md#slo-para-servico-util) e [exemplo](exemplo-arquitetural.md).
+
+**Como conduzir**
+
+1. Delimite contexto, dados, jornadas, efeitos permitidos e usos proibidos.
+2. Desenhe componentes e fluxos com propriedade e evidência.
+3. Monte manifesto, critérios, portões, canary, fallback, rollback, SLOs, traces, alertas e runbooks.
+4. Siga mudança de corpus até incidente e ação de usuário até auditoria; declare contenção e decisão para cada falha.
 
 Crie a arquitetura-alvo e um plano incremental para a organização que possui copiloto, RAG e agente isolados, componentes duplicados, fornecedores incompatíveis, rastreabilidade pobre e custo crescente. A entrega deve ser autocontida e conter:
 
@@ -236,6 +281,16 @@ Crie a arquitetura-alvo e um plano incremental para a organização que possui c
 
 Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de produto, segurança e privacidade, operação, FinOps, domínios e dono do processo. Para cada falha — fornecedor, índice, gateway, guardrail, executor e telemetria — declare raio de impacto e contenção. Para o gateway, inclua réplicas em domínios de falha, health failover, condições de bypass com controles equivalentes e degradação por produto quando não houver caminho seguro. Nenhuma opção pode usar “humano no loop”, “monitoramento” ou “multimodelo” como garantia sem mecanismo.
 
+**Entrega esperada**
+
+Entregue pacote com contexto, diagramas, manifesto, ADRs, critérios, portões, SLOs, traces, runbooks, riscos, experimentos e roadmap.
+
+**Como verificar**
+
+- Percorra uma mudança de corpus completa: versão, avaliação, promoção, trace, SLO, incidente e aprendizado.
+- Percorra uma ação de usuário completa: identidade, gateway, política, ferramenta, aprovação, sistema externo e auditoria.
+- Confira que cada SLO possui indicador, janela, meta, fonte, proprietário e runbook; que cada ADR possui alternativa e gatilho; e que cada risco residual possui autoridade e prazo.
+
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
@@ -252,6 +307,4 @@ Mostre as **fronteiras de propriedade** entre equipe de plataforma, equipes de p
 
 ## Orientação para revisão entre pares
 
-Faça uma trilha vertical: escolha uma mudança de corpus e siga versão, avaliação, promoção, trace, SLO, incidente e aprendizagem. Depois faça uma trilha horizontal: escolha uma ação e siga usuário, identidade, gateway, política, ferramenta, aprovação, sistema e auditoria. Procure saltos de responsabilidade, fallback que reduz segurança, métrica sem decisão e risco sem autoridade.
-
-Feche o curso com a [Síntese e referências](sintese-e-referencias.md).
+Faça uma trilha vertical da mudança de corpus ao incidente e outra horizontal da ação do usuário à auditoria. Procure saltos de responsabilidade, fallback que reduz segurança, métrica sem decisão e risco sem autoridade.

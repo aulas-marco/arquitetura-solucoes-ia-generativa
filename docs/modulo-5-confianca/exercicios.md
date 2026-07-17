@@ -1,6 +1,6 @@
 # Exercícios: construir evidência de confiança
 
-Use o assistente de RH quando não houver outro contexto. Nos níveis iniciais, consulte a resposta após tentar. Nos superiores, entregue os artefatos e revise-os pelos critérios de avaliação.
+Use o assistente de RH. Nos níveis superiores, entregue artefatos e revise-os pelos critérios.
 
 ## Recordar
 
@@ -9,7 +9,7 @@ Use o assistente de RH quando não houver outro contexto. Nos níveis iniciais, 
 <details>
 <summary>Resposta comentada</summary>
 
-Confiança sistêmica é uma expectativa justificada sobre a solução no contexto de uso. Inclui modelo, dados, recuperação, ferramentas, identidade, políticas, pessoas, fornecedores e operação. Avaliar apenas o modelo ignora falhas de composição, como acesso indevido, fonte contaminada ou aprovação humana sem informação.
+Confiança sistêmica é expectativa justificada sobre a solução em uso, considerando modelo, dados, recuperação, ferramentas, identidade, políticas, pessoas, fornecedores e operação. Avaliar só o modelo ignora falhas de composição.
 
 </details>
 
@@ -18,7 +18,7 @@ Confiança sistêmica é uma expectativa justificada sobre a solução no contex
 <details>
 <summary>Resposta comentada</summary>
 
-Risco inerente é avaliado antes de considerar controles. Risco residual é o que permanece após controles e condições operacionais. Controle pode reduzir probabilidade, impacto, tempo de detecção ou recuperação, mas não transforma automaticamente risco em zero. A aceitação do residual cabe a um proprietário com autoridade.
+Risco inerente é avaliado antes dos controles; residual permanece depois deles. Controles reduzem probabilidade, impacto, detecção ou recuperação, mas não tornam risco zero. A aceitação cabe a proprietário com autoridade.
 
 </details>
 
@@ -27,7 +27,7 @@ Risco inerente é avaliado antes de considerar controles. Risco residual é o qu
 <details>
 <summary>Resposta comentada</summary>
 
-Entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Elas cobrem modos de falha diferentes. A ordem não implica que a última camada seja infalível: aprovação pode falhar por fadiga, viés ou contexto enganoso.
+Entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Cada camada cobre falhas diferentes; aprovação também pode falhar por fadiga, viés ou contexto enganoso.
 
 </details>
 
@@ -36,7 +36,7 @@ Entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Elas 
 <details>
 <summary>Resposta comentada</summary>
 
-Factualidade, relevância, fundamentação, segurança, utilidade, latência e custo. Dimensões críticas podem ser portões; dimensões negociáveis podem ter metas. Uma média única não deve compensar um evento intolerável.
+Factualidade, relevância, fundamentação, segurança, utilidade, latência e custo. Dimensões críticas podem ser portões; média não compensa evento intolerável.
 
 </details>
 
@@ -47,7 +47,7 @@ Factualidade, relevância, fundamentação, segurança, utilidade, latência e c
 <details>
 <summary>Resposta comentada</summary>
 
-Marcação de fronteiras, contexto mínimo e tratamento da fonte como dado tornam a intenção arquitetural mais clara e reduzem algumas confusões. Porém o modelo continua processando linguagem de instrução e conteúdo com o mesmo mecanismo, e ataques novos podem atravessar a separação. Por isso autorização e execução de ferramentas permanecem fora do modelo, com catálogo mínimo, política, validação e aprovação por risco.
+Fronteiras e contexto mínimo reduzem confusão, mas o modelo processa instruções e conteúdo juntos. Autorização e execução devem ficar fora dele, com catálogo, política, validação e aprovação por risco.
 
 </details>
 
@@ -56,7 +56,7 @@ Marcação de fronteiras, contexto mínimo e tratamento da fonte como dado torna
 <details>
 <summary>Resposta comentada</summary>
 
-Rastreabilidade requer reconstruir versões, fontes, decisões, aprovações e resultados relevantes; não exige guardar todo conteúdo indefinidamente. Identificadores, hashes, categorias, métricas e amostras controladas podem fornecer evidência com menos exposição. Quando o texto completo for necessário, acesso, finalidade e prazo devem ser explícitos.
+Rastreabilidade reconstrói versões, fontes, decisões, aprovações e resultados; não exige guardar tudo. Identificadores, hashes, categorias, métricas e amostras controladas reduzem exposição; texto completo exige acesso, finalidade e prazo.
 
 </details>
 
@@ -65,7 +65,7 @@ Rastreabilidade requer reconstruir versões, fontes, decisões, aprovações e r
 <details>
 <summary>Resposta comentada</summary>
 
-Verificações determinísticas são reproduzíveis para propriedades codificáveis, mas não capturam toda nuance. Critérios humanos trazem contexto, mas têm custo, fadiga e divergência. Avaliação assistida por modelo amplia escala, porém introduz variância, viés e correlação. A combinação calibrada produz evidência mais diversa; nenhuma é padrão-ouro universal.
+Verificações determinísticas são reproduzíveis, mas limitadas; critérios humanos trazem contexto com custo e divergência; avaliador-modelo escala com variância e viés. Combine-os com calibração.
 
 </details>
 
@@ -73,17 +73,19 @@ Verificações determinísticas são reproduzíveis para propriedades codificáv
 
 ### 8. Identificação de ameaças em uma nova integração
 
+**Ativo** é o que precisa ser preservado; **ameaça**, a causa potencial de incidente (**o que é** cada um?). Consulte [risco residual](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
+
 **Situação**
 
 O assistente de RH passará a ler anexos enviados por empregados e a criar um rascunho de chamado. O anexo pode ser autorizado para aquele usuário sem ser confiável como instrução. Há risco de injeção indireta, vazamento e consumo econômico.
 
 **Seu papel**
 
-Você é o arquiteto responsável por construir um primeiro modelo de ameaças ligado ao fluxo real, e não apenas copiar nomes de um catálogo.
+Você é o arquiteto que modela ameaças no fluxo real.
 
 **Insumos disponíveis**
 
-Use as seis camadas de guardrails do módulo, o diagrama do exemplo arquitetural e os casos sintéticos da oficina de confiança.
+Consulte [exemplo](exemplo-arquitetural.md) e [oficina](oficina-de-ferramentas.md).
 
 **Como conduzir**
 
@@ -95,6 +97,10 @@ Use as seis camadas de guardrails do módulo, o diagrama do exemplo arquitetural
 **Entrega esperada**
 
 Entregue uma tabela com cinco ameaças e um parágrafo explicando a diferença entre anexo autorizado e instrução confiável.
+
+**Como verificar**
+
+Confira ativo, ameaça, impacto e sinal nos anexos benigno e malicioso.
 
 **Critérios de avaliação**
 
@@ -108,17 +114,19 @@ Entregue uma tabela com cinco ameaças e um parágrafo explicando a diferença e
 
 ### 9. Mapeamento de controles por camada
 
+**Controle em profundidade** é uma barreira numa camada; seu limite diz o que ainda pode ocorrer (**o que é** controle?). Leia [responsabilidade](conceitos.md#responsabilidade-compartilhada-papeis-identificaveis).
+
 **Situação**
 
 Escolha três ameaças da tabela anterior. O objetivo não é preencher seis caixas com palavras genéricas, mas mostrar qual controle reduz qual percurso e o que permanece possível quando o controle falha.
 
 **Seu papel**
 
-Você é o arquiteto que transforma ameaças em defesa em profundidade, com proprietário e teste.
+Você é o arquiteto que transforma ameaças em controles testáveis.
 
 **Insumos disponíveis**
 
-Use as camadas de entrada, contexto, recuperação, ferramenta, saída e aprovação humana e o relatório da oficina local.
+Consulte as camadas no [padrão](padroes-e-decisoes.md) e o relatório da [oficina](oficina-de-ferramentas.md).
 
 **Como conduzir**
 
@@ -130,6 +138,10 @@ Use as camadas de entrada, contexto, recuperação, ferramenta, saída e aprova�
 **Entrega esperada**
 
 Entregue uma matriz ameaça → camadas → controle → limite → teste → proprietário.
+
+**Como verificar**
+
+Confira percurso, controle, modo de falha e testes negativos.
 
 **Critérios de avaliação**
 
@@ -145,17 +157,19 @@ Entregue uma matriz ameaça → camadas → controle → limite → teste → pr
 
 ### 10. Diagnóstico de uma regressão composta
 
+**Fatia** é subconjunto que pode revelar diferença; **portão**, condição que bloqueia promoção (**o que é** cada um?). Consulte [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
+
 **Situação**
 
 Após trocar modelo e reindexar políticas, a factualidade média sobe de 3,2 para 3,5 em 4, mas recuperação de documentos vigentes cai de 96% para 91%; gestores melhoram, terceirizados pioram; dois de 80 casos obrigatórios deixam de escalar; latência p95 aumenta 40%; e o avaliador quase nunca discorda.
 
 **Seu papel**
 
-Você é o arquiteto que decide se o rollout pode avançar, separando regressão de recuperação, geração, avaliador e composição.
+Você decide se o rollout avança, separando recuperação, geração, avaliador e composição.
 
 **Insumos disponíveis**
 
-Use o pipeline de avaliação, as métricas por fatia e os cinco casos sintéticos da oficina. A média global não é suficiente para liberar.
+Consulte o [pipeline](estudo-de-caso.md) e os casos da [oficina](oficina-de-ferramentas.md); média global não libera.
 
 **Como conduzir**
 
@@ -167,6 +181,10 @@ Use o pipeline de avaliação, as métricas por fatia e os cinco casos sintétic
 **Entrega esperada**
 
 Entregue uma tabela causa → evidência → teste → decisão e um parecer de liberação de até 400 palavras.
+
+**Como verificar**
+
+Confira métricas por fatia, portão e evidência refutadora.
 
 **Critérios de avaliação**
 
@@ -182,17 +200,19 @@ Entregue uma tabela causa → evidência → teste → decisão e um parecer de 
 
 ### 11. Julgamento de risco residual
 
+**Risco residual** permanece após controles; **critério de avaliação** é regra observável (**o que é** cada um?). Consulte [risco](conceitos.md#do-perigo-ao-risco-residual).
+
 **Situação**
 
 Um piloto encontrou zero vazamentos em 2 mil casos, 99% de escalonamento obrigatório, custo dentro do orçamento e 8% de falsas recusas. Vazamento teria alto impacto; falsa recusa leva ao canal humano em um dia. Segurança quer ampliar; RH quer corrigir primeiro 1% de falhas de escalonamento.
 
 **Seu papel**
 
-Você é o arquiteto que recomenda tratamento de risco residual, deixando claro quem tem autoridade para aceitar e quando a decisão será revista.
+Você recomenda tratamento do risco residual, com autoridade e revisão.
 
 **Insumos disponíveis**
 
-Use as definições de risco inerente e residual, o prisma de avaliação, as métricas do piloto e os critérios do caso.
+Consulte [risco residual](conceitos.md#do-perigo-ao-risco-residual) e [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
 
 **Como conduzir**
 
@@ -204,6 +224,10 @@ Use as definições de risco inerente e residual, o prisma de avaliação, as m�
 **Entrega esperada**
 
 Entregue parecer de uma página com recomendação, riscos residuais, responsáveis, prazo e gatilhos.
+
+**Como verificar**
+
+Confira amostra, autoridade, expiração e gatilho; não confunda “não observado” com “impossível”.
 
 **Critérios de avaliação**
 
@@ -219,6 +243,27 @@ Entregue parecer de uma página com recomendação, riscos residuais, responsáv
 
 ### 12. Arquitetura de confiança e critérios de avaliação
 
+**Situação**
+
+Você recebeu um assistente de RH que atende empregados e gestores, consulta políticas públicas e restritas e pode encaminhar casos sensíveis. A arquitetura precisa explicar onde cada controle atua e o que acontece quando ele falha.
+
+**Seu papel**
+
+Você é o arquiteto responsável por transformar ameaças em controles verificáveis, critérios de avaliação e decisão de risco residual para uma primeira liberação.
+
+**Insumos disponíveis**
+
+Use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões de governança](padroes-e-decisoes.md), a [oficina de confiança](oficina-de-ferramentas.md) e o [catálogo de qualidade](../referencia/atributos-de-qualidade.md).
+
+Escreva: **o que é** uma arquitetura de confiança verificável?
+
+**Como conduzir**
+
+1. Liste ativos, ameaças, proprietários e fronteiras.
+2. Para cada ameaça, escolha controles em camadas e descreva limite, teste negativo e modo seguro de falha.
+3. Defina fatias, critérios de avaliação, portões de liberação e regra de aceitação do risco residual.
+4. Relacione cada decisão a evidência e responsável.
+
 Crie uma arquitetura de confiança para um assistente que atende empregados e gestores, usa políticas públicas e restritas, consulta dados pessoais e encaminha casos sensíveis. Entregue:
 
 1. diagrama com atores, ativos, fronteiras, identidade, recuperação, modelo, ferramenta de leitura, validação, aprovação e telemetria;
@@ -230,7 +275,17 @@ Crie uma arquitetura de confiança para um assistente que atende empregados e ge
 7. pipeline de avaliação por componente e ponta a ponta, com verificações determinísticas, avaliador assistido por modelo e amostra humana;
 8. portões de liberação, canary, rollback e regra de aceitação do risco residual.
 
+**Entrega esperada**
+
+Entregue pacote versionado com os oito artefatos.
+
 Inclua um equivalente textual do diagrama. Justifique cada decisão por cenário e atributo de qualidade. Não use “criptografia”, “filtro” ou “humano no loop” como garantia genérica: diga onde atua, qual falha reduz e qual permanece.
+
+**Como verificar**
+
+- Siga um caso permitido e um caso adversarial do usuário até recuperação, modelo, ferramenta, aprovação e telemetria.
+- Confirme que cada controle tem proprietário, teste, limite e ação de contenção.
+- Verifique se critérios, portões, canary, rollback e risco residual aparecem tanto no diagrama quanto no texto.
 
 **Critérios de avaliação**
 
@@ -247,6 +302,4 @@ Inclua um equivalente textual do diagrama. Justifique cada decisão por cenário
 
 ## Orientação para revisão entre pares
 
-Ao revisar, procure “impede”, “garante” e “100% seguro”. Peça evidência, universo testado e modo de falha. Verifique ainda quem mantém, responde ao alerta, aceita o risco e pode desligar. A revisão revela premissas ocultas pelo diagrama.
-
-Feche o módulo com a [Síntese e referências](sintese-e-referencias.md).
+Ao revisar, procure “impede”, “garante” e “100% seguro”. Peça evidência, universo e modo de falha; verifique responsáveis e autoridade para desligar.
