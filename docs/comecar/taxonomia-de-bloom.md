@@ -24,6 +24,8 @@ As oficinas não substituem o projeto final: elas criam evidências curtas para 
 
 **Feedback público** aparece nas questões de Recordar e Compreender. Depois de tentar responder, você pode abrir um bloco com a resposta esperada e corrigir lacunas de vocabulário ou interpretação.
 
-**Feedback orientado pelo professor** é usado em Aplicar, Analisar, Avaliar e Criar. Nessas atividades raramente existe uma única resposta universal. A página publica rubricas e critérios; durante a aula ou na devolutiva, o professor considera contexto, coerência, trade-offs, evidências e clareza da defesa. Exemplos de solução podem ser apresentados depois da entrega sem se tornarem “gabaritos” transplantáveis para qualquer situação.
+**Feedback orientado pelo professor** é usado em Aplicar, Analisar, Avaliar e Criar. Nessas atividades raramente existe uma única resposta universal. A página publica critérios de avaliação; durante a aula ou na devolutiva, o professor considera contexto, coerência, trade-offs, evidências e clareza da defesa. Exemplos de solução podem ser apresentados depois da entrega sem se tornarem “gabaritos” transplantáveis para qualquer situação.
+
+Nos exercícios avançados, o enunciado conduz o início do trabalho: apresenta uma situação, define o papel do arquiteto, lista os insumos e propõe uma sequência de análise. A entrega esperada informa o tamanho e o formato do artefato. Os percentuais ajudam a distribuir atenção entre critérios; não correspondem a pontos automáticos.
 
 Antes de responder, observe o verbo principal. Se a tarefa pede para **avaliar**, descrever componentes não basta: é necessário estabelecer critérios, comparar consequências e chegar a um julgamento justificável.

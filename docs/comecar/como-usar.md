@@ -33,7 +33,9 @@ No site MkDocs, use as abas e o menu lateral para navegar, a busca para localiza
 
 ## Respostas, casos e feedback
 
-As questões de recordar e compreender trazem respostas públicas em blocos expansíveis. Elas servem para autocorreção imediata, não para substituir sua tentativa inicial. Atividades de aplicar, analisar, avaliar e criar apresentam critérios ou rubricas; a resposta depende do contexto e deve explicitar pressupostos, alternativas e evidências.
+As questões de recordar e compreender trazem respostas públicas em blocos expansíveis. Elas servem para autocorreção imediata, não para substituir sua tentativa inicial. Atividades de aplicar, analisar, avaliar e criar apresentam critérios de avaliação; a resposta depende do contexto e deve explicitar pressupostos, alternativas e evidências.
+
+Nos níveis avançados, leia primeiro a situação e identifique seu papel. Em seguida, reúna os insumos indicados, siga os passos de condução e confira se a entrega responde ao formato pedido. Os percentuais mostram o peso relativo de cada critério; não são uma lista de pontos a acumular. Use a coluna “o que evidencia atendimento adequado” para revisar clareza, evidência, limites e consequências antes de enviar.
 
 Os estudos de caso são independentes. Leia primeiro o contexto, registre dúvidas e restrições, produza sua proposta e só depois compare com os padrões do módulo. Quando houver feedback do professor, ele poderá incluir exemplos adicionais, comentários sobre a defesa e referências às decisões discutidas em aula.
 

@@ -35,17 +35,16 @@ A evidência central deve ser reproduzível em uma execução local: entrada sin
 
 O grupo deve apresentar uma execução local que outra equipe consiga repetir com os mesmos arquivos sintéticos. Registrem versões, dependências, modelo, parâmetros, limite observado e limpeza do ambiente. A comparação de ferramentas deve discutir efeitos arquiteturais — dados, portabilidade, qualidade, operação e remoção — e não preferência por marca.
 
-## Rubrica
+## Critérios de avaliação
 
 | Critério | Peso | O que será observado |
 |---|---:|---|
-| problema e requisitos | 15 pontos | escopo, usuários, hipóteses e atributos de qualidade verificáveis |
-| arquitetura e ADRs | 20 pontos | fronteiras, contratos, justificativas e consequências das decisões |
-| comparação de ferramentas | 15 pontos | duas opções, critérios explícitos e alternativa acessível equivalente |
-| evidências | 20 pontos | reprodução com dados sintéticos, resultado, avaliação e limites |
-| segurança e governança | 15 pontos | minimização de dados, segredos, riscos, acesso e responsabilidade humana |
-| operação e custo | 15 pontos | observabilidade, falhas, custo potencial, capacidade e caminho de remoção |
-| **Total** | **100 pontos** |  |
+| problema e requisitos | 15% | Delimita usuários, hipótese de valor, fora de escopo e atributos de qualidade mensuráveis. Evite descrever solução antes de explicar o problema. |
+| arquitetura e ADRs | 20% | Mostra fronteiras, contratos, responsabilidades, alternativas e consequências das decisões. |
+| comparação de ferramentas | 15% | Compara duas opções pelos mesmos critérios e registra alternativa local ou open source equivalente. |
+| evidências | 20% | Permite repetir a execução com dados sintéticos, mostrando resultado, método de avaliação e limites. |
+| segurança e governança | 15% | Explica minimização, segredos, acesso, risco residual, responsabilidade humana e contestação. |
+| operação e custo | 15% | Define observabilidade, falhas, capacidade, custo potencial, recuperação e remoção. |
 
 ## Apresentação
 
