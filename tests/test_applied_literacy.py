@@ -179,6 +179,32 @@ conteúdo da atividade
                 self.assertNotRegex(advanced.casefold(), r"\b\d+\s+pontos?\b|pontuação")
                 self.assertRegex(advanced, r"\|[^\n]*\|\s*\d+%\s*\|")
 
+    def test_advanced_exercises_explain_artifacts_and_procedure(self):
+        """Cada nível avançado deve orientar o aluno sem depender de outro nível."""
+
+        levels = ("Aplicar", "Analisar", "Avaliar", "Criar")
+        markers = (
+            "**Situação**",
+            "**Seu papel**",
+            "**Insumos disponíveis**",
+            "**Como conduzir**",
+            "**Entrega esperada**",
+            "**Critérios de avaliação**",
+        )
+
+        for slug in MODULES:
+            text = (DOCS / slug / "exercicios.md").read_text(encoding="utf-8")
+            for level in levels:
+                with self.subTest(module=slug, level=level):
+                    advanced = self.section(text, f"## {level}")
+                    self.assertIsNotNone(advanced, f"nível ausente: {level}")
+                    for marker in markers:
+                        self.assertIn(marker, advanced)
+                    self.assertRegex(advanced, r"(?i)(o que é|significa)")
+                    self.assertRegex(advanced, r"\[[^\]]+\]\([^\)]+\)")
+                    self.assertRegex(advanced, r"(?m)^\d+\. ")
+                    self.assertRegex(advanced, r"(?i)(verifique|confira|revis[eã]o|complet) ")
+
     def test_project_uses_percentage_assessment_criteria(self):
         text = (DOCS / "sobre" / "projeto-final.md").read_text(encoding="utf-8")
         self.assertIn("## Critérios de avaliação", text)
