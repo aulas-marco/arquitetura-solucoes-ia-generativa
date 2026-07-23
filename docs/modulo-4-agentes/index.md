@@ -24,6 +24,12 @@ Ao final, você deverá conseguir:
 8. classificar autonomia por ação e risco, com aprovação humana e fallback;
 9. comparar agente único e múltiplos agentes por evidência operacional.
 
+## Fio aplicado: desenvolvimento guiado por especificação
+
+O caso mais concreto de autonomia com ferramentas é o agente que constrói software. Neste módulo, o **Spec Kit** conduz o fluxo `constitution → spec → plan → tasks → implement → verify`; a pessoa arquiteta preserva a responsabilidade pela spec, pelos critérios de aceite e pelos gates humanos.
+
+Siga o fio em [Conceitos](conceitos.md#do-agente-que-age-ao-agente-que-constroi-software), no padrão de [Desenvolvimento guiado por especificação](padroes-e-decisoes.md#padrao-desenvolvimento-guiado-por-especificacao), no [pipeline SDD e squad híbrida](exemplo-arquitetural.md#pipeline-sdd-com-gates-humanos) e na [extensão prática com Spec Kit](oficina-de-ferramentas.md#extensao-mini-fluxo-spec-kit).
+
 ## Pré-requisitos e princípio de continuidade
 
 Retomaremos a [sequência de decisão](../modulo-2-desenho-conceitual/padroes-e-decisoes.md#uma-sequencia-de-decisao): gerar, acessar conhecimento, agir e só então conceder autonomia. Também reutilizaremos autorização, proveniência e suficiência do [Módulo 3](../modulo-3-rag/index.md). Uma evidência recuperada não concede permissão de escrita; uma ferramenta disponível não precisa ser oferecida ao modelo; uma saída estruturada válida não prova que a ação é apropriada.
@@ -35,9 +41,9 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem e limites de autonomia |
-| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória e topologias |
-| 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, identidade, resiliência e intervenção humana |
-| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, rejeição, repetição e compensação |
+| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória, topologias e SDD |
+| 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, SDD, identidade, resiliência e intervenção humana |
+| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 5 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
 | 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura |
 | 7 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
