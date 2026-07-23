@@ -30,7 +30,7 @@ O conteúdo distribui-se pelas páginas existentes do módulo:
 | Exercícios | praticar SDD nos seis níveis de Bloom, sem gabarito nos níveis superiores |
 | Síntese | conectar SDD aos limites de autonomia, confiança e operação |
 
-Kiro, BMAD-METHOD, Tessl, OpenAI Model Spec e a palestra de Sean Grove entram como variações, contrastes ou fundamentos conceituais breves. Um apêndice de materiais adicionais concentra a relação ampliada, impedindo que essas referências concorram com o Spec Kit na narrativa principal.
+Kiro, BMAD-METHOD, Tessl, OpenAI Model Spec e a palestra de Sean Grove entram como variações, contrastes ou fundamentos conceituais breves. O repositório de [skills de engenharia de Matt Pocock](https://github.com/mattpocock/skills/tree/main/docs/engineering) entra como referência complementar direta: sua esteira `grill-with-docs → to-spec → to-tickets → implement → code-review` permite comparar o Spec Kit com um método que enfatiza *vertical slices*, módulos profundos e testes nas interfaces públicas. Um apêndice de materiais adicionais concentra a relação ampliada, impedindo que essas referências concorram com o Spec Kit na narrativa principal.
 
 ## Tendências no Módulo 6
 
@@ -44,7 +44,7 @@ O validador continua contando palavras e imagens para fins informativos, mas dei
 
 ## Referências e apêndice
 
-As URLs externas novas são registradas em `fontes.yml` e refletidas na bibliografia, conforme a regra já validada pelo projeto. O apêndice contém os materiais adicionais e suas descrições curtas: GitHub Spec Kit e documentação, anúncio GitHub, Microsoft for Developers, Kiro, BMAD-METHOD, Tessl, OpenAI Model Spec e a palestra “The New Code”.
+As URLs externas novas são registradas em `fontes.yml` e refletidas na bibliografia, conforme a regra já validada pelo projeto. O apêndice contém os materiais adicionais e suas descrições curtas: GitHub Spec Kit e documentação, anúncio GitHub, Microsoft for Developers, Kiro, BMAD-METHOD, Tessl, OpenAI Model Spec, as skills de engenharia de Matt Pocock e a palestra “The New Code”.
 
 ## Critérios de aceite
 
