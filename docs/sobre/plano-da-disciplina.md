@@ -373,6 +373,8 @@ O sistema deve respeitar permissões individuais, citar fontes, refletir atualiz
 
 ## Encontro 4 — Agentes e integração com sistemas corporativos
 
+> **Integração curricular:** SDD é a aplicação central deste encontro: agentes de codificação usam ferramentas, contratos, testes e gates humanos para transformar uma spec em software verificável.
+
 ### Propósito
 
 Projetar soluções que utilizam modelos para selecionar ferramentas, coordenar etapas e executar ações, mantendo limites claros de autonomia e controle.
@@ -559,6 +561,8 @@ O sistema processa documentos internos e responde sobre políticas, benefícios 
 <a id="modulo-6"></a>
 
 ## Encontro 6 — Operação, LLMOps e plataformas corporativas
+
+> **Fechamento curricular:** tendências e futuro conectam contexto longo, multimodalidade, desenvolvimento agêntico, plataformas, portabilidade e regulação às capacidades de operação e governança estudadas no curso.
 
 ### Propósito
 
@@ -750,6 +754,8 @@ Capítulos e materiais utilizados:
 *Fundamentos da Arquitetura de Sistemas de Inteligência Artificial*.
 
 # 14. Matriz de alinhamento
+
+SDD/GenAI no desenvolvimento é tratado no Encontro 4; tendências e futuro da arquitetura com GenAI fecham o Encontro 6. A progressão é fundamentos → desenho → RAG → agentes e SDD → confiança → operação e tendências.
 
 | Encontro | Decisão arquitetural dominante | Artefato principal | Capítulos-base |
 |---|---|---|---|

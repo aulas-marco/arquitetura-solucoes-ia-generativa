@@ -275,3 +275,27 @@ Identificação controlada das versões de modelos, prompts, dados, índices, fe
 ### Workflow com LLM
 Fluxo de etapas predefinidas no qual uma ou mais etapas usam um modelo, sem delegar a ele todo o controle.  
 *Primeiro módulo:* [Módulo 1 — Fundamentos](../sobre/plano-da-disciplina.md#modulo-1)
+
+### SDD
+Desenvolvimento guiado por especificação: método que transforma princípios, requisitos, critérios de aceite, plano, tarefas, implementação e verificação em artefatos revisáveis.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Spec
+Artefato que descreve problema, comportamento esperado, riscos, critérios de aceite e evidências de verificação antes da implementação.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Constitution
+Conjunto versionado de princípios, limites e decisões que orienta specifications e implementação.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### EARS
+Notação de requisitos que formula condições e respostas esperadas de modo testável.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Vibe coding
+Prática de pedir implementação por linguagem natural sem tornar requisitos, testes e critérios de aceite artefatos explícitos.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Agente de codificação
+Agente que lê, altera e verifica artefatos de software por ferramentas controladas e gates humanos.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)

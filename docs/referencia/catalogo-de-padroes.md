@@ -88,6 +88,14 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Consequências.** Amplia capacidade mantendo uma fronteira verificável, mas cada ferramenta aumenta superfície de ataque, integração e testes.  
 **Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
 
+### Desenvolvimento guiado por especificação
+
+**Contexto.** Agentes de codificação podem alterar muitos artefatos com rapidez.  
+**Problema.** Pedido informal não oferece critério estável para teste, revisão ou aceite.  
+**Solução.** Usar constitution, spec, plan, tasks, implementação e verificação como sequência de artefatos, com gates humanos.  
+**Consequências.** Aumenta preparo e rastreabilidade, mas reduz interpretação silenciosa e facilita revisão por aderência à spec.  
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+
 ### Aprovação humana por risco
 
 **Contexto.** Algumas ações têm impacto financeiro, jurídico, operacional ou pessoal incompatível com autonomia total.  
