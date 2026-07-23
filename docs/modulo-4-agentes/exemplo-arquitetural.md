@@ -160,14 +160,14 @@ sequenceDiagram
         O->>X: Executor: reservar P20, expected=v17, K-845-1
         X->>D: Adaptador invoca reserva com K-845-1
         D-->>X: Reserva R9 criada no destino
-        X--xO: Timeout; confirmação não chega
+        X--xO: Timeout, confirmação não chega
         O->>S: Marcar K-845-1 como outcome_unknown
         O->>X: Reconciliar K-845-1 no destino
         X->>D: Consultar operação por K-845-1
         D-->>X: R9, completed, reserva-v1
         X-->>O: Confirmar R9 como resultado autoritativo
         O->>S: Persistir completed e resultado R9
-        Note over O,D: Só após reconciliação; nenhuma segunda reserva é enviada
+        Note over O,D: Só após reconciliação, nenhuma segunda reserva é enviada
         O-->>C: Retoma a partir da reserva existente
     else Compensação após falha posterior
         P-->>O: allow
@@ -189,7 +189,7 @@ sequenceDiagram
         D-->>X: Conflito: pedido atual v18
         X-->>O: conflict, expected=v17, actual=v18
         O->>S: Persistir conflito e compensation_required
-        O->>P: Revalidar identidade, política e reserva-v1; autorizar compensação
+        O->>P: Revalidar identidade, política e reserva-v1 para autorizar compensação
         P-->>O: allow para liberar R9
         O->>S: Persistir compensação C-K-845-1 e estado compensation_pending
         O->>X: Executor: liberar R9, expected=reserva-v1, C-K-845-1

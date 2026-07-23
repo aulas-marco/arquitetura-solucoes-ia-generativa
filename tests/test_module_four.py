@@ -139,6 +139,17 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(path, folded, path)
 
+    def test_sequence_messages_do_not_use_mermaid_statement_separator(self):
+        text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+        sequence = re.search(r"```mermaid\nsequenceDiagram\n(.*?)```", text, re.DOTALL)
+
+        self.assertIsNotNone(sequence)
+        self.assertNotIn(
+            ";",
+            sequence.group(1),
+            "Ponto e vírgula encerra a instrução no parser de sequenceDiagram",
+        )
+
     def test_agent_image_accessibility_and_manifest_close_result_return_path(self):
         example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
         manifest = (
