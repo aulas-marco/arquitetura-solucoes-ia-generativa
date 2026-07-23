@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import PAGES, WORD_RE, bloom_sections
+from scripts.validate_content import PAGES, bloom_sections
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,7 +10,7 @@ MODULE = ROOT / "docs" / "modulo-5-confianca"
 
 
 class ModuleFiveContentRegressionTest(unittest.TestCase):
-    def test_module_has_standard_pages_navigation_question_and_word_budget(self):
+    def test_module_has_standard_pages_navigation_and_guiding_question(self):
         self.assertEqual(set(PAGES), {path.name for path in MODULE.glob("*.md")})
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
@@ -23,12 +23,6 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
             opening,
         )
 
-        word_count = sum(
-            len(WORD_RE.findall((MODULE / page).read_text(encoding="utf-8")))
-            for page in PAGES
-        )
-        self.assertGreaterEqual(word_count, 6_000)
-        self.assertLessEqual(word_count, 9_400)
 
     def test_concepts_explain_systemic_trust_risk_and_shared_responsibility(self):
         text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()

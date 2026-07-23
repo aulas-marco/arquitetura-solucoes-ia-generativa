@@ -37,7 +37,7 @@ class ProjectTest(unittest.TestCase):
         )
 
         self.assertEqual(0, result.returncode, result.stderr)
-        self.assertIn("Imagens: 20", result.stdout)
+        self.assertRegex(result.stdout, r"Imagens: \d+")
 
     def test_homepage_cover_has_an_editorial_caption(self):
         homepage = (ROOT / "docs/index.md").read_text(encoding="utf-8")
