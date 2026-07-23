@@ -256,6 +256,31 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
         self.assertGreaterEqual(text.count("- [ ]"), 12)
         self.assertIn("prática viva", text)
 
+    def test_trends_section_has_validated_depth_and_architectural_radar(self):
+        text = (MODULE / "sintese-e-referencias.md").read_text(encoding="utf-8")
+        section = text.split("## Tendências e futuro da arquitetura com GenAI", 1)[1]
+        section = section.split("## Autoavaliação", 1)[0]
+
+        word_count = len(section.split())
+        self.assertGreaterEqual(word_count, 1_500)
+        self.assertLessEqual(word_count, 2_000)
+
+        folded = section.casefold()
+        for trend in (
+            "contexto longo",
+            "multimodalidade",
+            "modelos abertos",
+            "agentes",
+            "sdd",
+            "plataformas corporativas",
+            "regulação",
+            "interfaces generativas",
+            "portabilidade",
+            "sinal",
+            "hype",
+        ):
+            self.assertIn(trend, folded, trend)
+
     def test_registered_sources_cover_operations_platform_and_course_case(self):
         registry = (ROOT / "docs" / "referencia" / "fontes.yml").read_text(
             encoding="utf-8"

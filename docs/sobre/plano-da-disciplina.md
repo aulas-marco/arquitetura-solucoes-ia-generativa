@@ -388,7 +388,10 @@ Ao final do encontro, o aluno deverá conseguir:
 - projetar ferramentas e contratos de integração seguros;
 - modelar estado, memória e fluxo de execução;
 - incorporar aprovação humana e contenção de falhas;
-- analisar arquiteturas de agente único e múltiplos agentes.
+- analisar arquiteturas de agente único e múltiplos agentes;
+- conduzir uma mudança de software por constitution, spec, plano, tarefas e evidências;
+- transformar requisitos ambíguos em critérios verificáveis e fatias verticais;
+- revisar separadamente aderência à especificação e qualidade de engenharia.
 
 ### Conceitos
 
@@ -436,6 +439,17 @@ Ao final do encontro, o aluno deverá conseguir:
 - Memória versus privacidade.
 - Acoplamento com ferramentas e fornecedores.
 
+#### 6. SDD como arquitetura do trabalho com agentes
+
+- Especificação viva como fonte de intenção, não documentação retrospectiva.
+- Spec Kit: constitution, specify, clarify, plan, tasks, analyze e implement.
+- Ledger epistemológico: fatos, hipóteses, desconhecidos e fora de escopo.
+- Critérios de aceite em EARS e cenários BDD.
+- Fatias verticais, testes nas interfaces públicas, módulos profundos e seams estáveis.
+- Revisão em dois eixos: conformidade com a spec e padrões do repositório.
+- Gates humanos antes do plano, da execução e da integração.
+- Consistência e rastreabilidade entre os artefatos.
+
 ### Estudo de caso
 
 **Agente de resolução de solicitações de clientes.**
@@ -444,7 +458,7 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Aplicar e Analisar.** Realize a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md): simule intenção, autorização, idempotência, aprovação humana e resultado autoritativo sem conectar sistemas corporativos.
+**Objetivo Bloom: Aplicar e Analisar.** A oficina combina dois percursos. Primeiro, [simule workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) para observar intenção, autorização, idempotência e resultado autoritativo. Depois, conduza uma mini-iniciativa com Spec Kit: explicite princípios, refine uma spec, aprove o plano, implemente uma fatia testada e realize revisão por aderência e por qualidade.
 
 ### Entregável avaliativo
 
@@ -453,6 +467,10 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 - Matriz de autonomia.
 - Contrato conceitual de duas ferramentas.
 - Estratégia de tratamento de falhas.
+- Constitution e spec com critérios de aceite.
+- Plano técnico e tarefas em fatias verticais.
+- Matriz de rastreabilidade entre requisito, tarefa, teste e evidência.
+- Registro dos três gates humanos e da revisão em dois eixos.
 
 ### Leitura-base
 
@@ -460,6 +478,8 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 - *Conceptual Design for AI Systems*.
 - *Design, Integration, and Testing*.
 - *Architecting a Generative AI System – A Case Study*.
+- [GitHub Spec Kit](https://github.com/github/spec-kit).
+- [Engineering Skills, de Matt Pocock](https://github.com/mattpocock/skills/tree/main/docs/engineering), como variação comparativa.
 
 ---
 

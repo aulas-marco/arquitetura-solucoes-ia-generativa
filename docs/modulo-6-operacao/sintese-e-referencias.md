@@ -67,9 +67,206 @@ Use o [Mapa de aprendizagem](../comecar/mapa-de-aprendizagem.md) para percorrer 
 
 ## Tendências e futuro da arquitetura com GenAI
 
-Contexto longo não elimina seleção, autorização e proveniência; multimodalidade amplia classificação, privacidade e avaliação. Modelos abertos e hospedados mudam custo, portabilidade e operação, mas não removem a necessidade de gateways, estratégia multimodelo e evidências comparáveis.
+Prever produtos vencedores é uma base frágil para arquitetura. O fechamento do curso usa outra pergunta: **que direção pode alterar decisões, riscos ou experimentos, e quais capacidades continuam necessárias independentemente do fornecedor?** Tendências são tratadas como hipóteses com evidência e horizonte, não como lista de novidades.
 
-O desenvolvimento agêntico de software e o SDD do Módulo 4 são uma tendência em consolidação: specs, testes e gates tornam a autonomia verificável. Regulação emergente reforça rastreabilidade, responsabilidade e avaliação. Um **sinal** muda uma decisão ou experimento com evidência; **hype** anuncia capacidade sem dispensar os controles permanentes do arquiteto: atributos de qualidade, limites, portabilidade, governança e operação.
+### Contexto longo muda o limite, não elimina arquitetura de contexto
+
+Janelas maiores permitem analisar documentos extensos, históricos e conjuntos de código que antes exigiam segmentação agressiva. Isso reduz algumas perdas locais, mas não transforma contexto em memória autoritativa nem torna todo conteúdo relevante.
+
+Mesmo com milhões de tokens, permanecem decisões:
+
+- que fontes podem ser usadas por identidade e finalidade;
+- qual versão e vigência valem;
+- como ordenar evidências contraditórias;
+- quanto custa e demora processar o contexto;
+- como minimizar dados pessoais;
+- como medir se informação crítica foi utilizada;
+- quando recuperar seletivamente é superior a enviar tudo.
+
+O sinal arquitetural não é apenas o tamanho anunciado da janela. É a combinação de qualidade em posições distantes, custo por trajetória, latência, controles de acesso e resultado em tarefas reais. Um experimento deve comparar contexto amplo, recuperação seletiva e abordagem híbrida com o mesmo conjunto de casos.
+
+O que permanece: proveniência, autorização, seleção, versionamento, avaliação e observabilidade.
+
+### Multimodalidade amplia superfícies e seams
+
+Texto, imagem, áudio, vídeo e interfaces tornam-se entradas e saídas de uma mesma trajetória. Isso permite inspeção visual, assistência por voz, análise documental e geração de artefatos ricos. Também amplia superfície de ataque e avaliação.
+
+Uma imagem pode carregar instrução adversarial; áudio pode conter dados biométricos; vídeo exige segmentação temporal; OCR introduz erro antes do modelo; uma resposta visual pode parecer correta e ainda distorcer escala ou omitir categoria. A arquitetura precisa rastrear transformações: arquivo original, extração, recorte, modelo, saída e revisão.
+
+Perguntas de desenho:
+
+1. Qual modalidade é autoritativa em caso de divergência?
+2. Que pré-processamento altera significado?
+3. Como consentimento e retenção variam por modalidade?
+4. Que fallback existe para acessibilidade?
+5. Como avaliar conteúdo e apresentação separadamente?
+6. Que ferramentas podem produzir efeitos a partir de uma interpretação visual?
+
+O sinal é desempenho verificável em uma jornada multimodal relevante, com erros e populações conhecidos. Demo impressionante sem conjunto de avaliação é hype.
+
+O que permanece: contratos por etapa, acessibilidade, minimização, avaliação por componente e responsabilidade pela saída composta.
+
+### Modelos abertos, fechados, locais e especializados
+
+A fronteira não é simplesmente aberto versus hospedado. Há pesos disponíveis com licença restritiva, modelos pequenos especializados, APIs proprietárias, execução local, serviço gerenciado e arranjos híbridos. A escolha distribui responsabilidades:
+
+| Dimensão | Hospedado | Aberto/autogerido |
+|---|---|---|
+| atualização | fornecedor controla ritmo | organização escolhe versão |
+| operação | abstraída parcialmente | capacidade, runtime e otimização internos |
+| dados | contrato e controles do serviço | controle maior, responsabilidade integral |
+| customização | recursos oferecidos | amplo ajuste, com custo e risco |
+| portabilidade | depende de API e semântica | depende de runtime, hardware e licença |
+| evidência | documentação e testes próprios | testes próprios e transparência possível |
+
+Modelos pequenos podem deslocar tarefas de classificação, extração ou roteamento para borda e reduzir custo. Modelos maiores podem permanecer em trajetórias complexas. Isso reforça arquitetura multimodelo, mas roteamento acrescenta outra decisão probabilística. É necessário medir erro de roteamento, qualidade mínima, fallback e custo total.
+
+O sinal não é benchmark geral. É uma fronteira custo–qualidade–latência–risco melhor para tarefas e volumes da organização.
+
+O que permanece: abstração suficiente para portabilidade, acesso a capacidades específicas quando justificadas, catálogo versionado e avaliação comparável.
+
+### Agentes passam de conversa a trajetórias operacionais
+
+Agentes tendem a executar trabalhos mais longos, usar computadores, coordenar ferramentas e retomar estado. O desafio muda de “o modelo chama uma função?” para “o sistema mantém uma trajetória segura através de horas, falhas e mudanças externas?”.
+
+Isso exige:
+
+- estado durável separado do contexto;
+- checkpoints e retomada;
+- identidade e credenciais por ferramenta;
+- orçamento global e por fase;
+- precondições revalidadas;
+- idempotência e reconciliação;
+- supervisão por risco;
+- testes de trajetória e modos degradados;
+- telemetria que reconstrua escolhas observáveis.
+
+Mais autonomia aumenta o valor de ambientes isolados, permissões temporárias e execução reversível. Um agente que opera navegador ou terminal não deve herdar todas as credenciais da pessoa. Catálogos de ferramentas e políticas precisam ser mínimos por tarefa.
+
+O sinal é taxa de conclusão com erros contidos, custo, intervenção e recuperação medidos. “Funcionou numa gravação” não caracteriza confiabilidade operacional.
+
+O que permanece: autoridade fora do modelo, contratos estreitos, estados explícitos e responsabilidade humana.
+
+### Desenvolvimento agêntico e SDD
+
+O SDD do Módulo 4 é uma tendência porque modelos tornam especificações transformáveis em planos, testes e código. A unidade de trabalho pode migrar de “escrever função” para “governar a transformação de intenção em implementação”.
+
+Possíveis efeitos:
+
+- specs e ADRs ganham papel operacional;
+- tarefas tornam-se pacotes de contexto para agentes;
+- revisão separa aderência à intenção de qualidade técnica;
+- testes e avaliações funcionam como gates executáveis;
+- agentes especializados trabalham em fronteiras paralelas;
+- produção retroalimenta requisitos e experimentos;
+- repositórios são desenhados para navegabilidade por pessoas e agentes.
+
+Isso não torna código descartável. Sistemas existentes carregam dados, migrações, contratos e história. Regenerar sem preservar compatibilidade pode destruir valor. A tendência relevante é elevar o nível de intenção mantendo disciplina de engenharia.
+
+O sinal é redução de retrabalho e defeitos, maior rastreabilidade e lead time sustentável. Volume de código gerado ou quantidade de agentes não são medidas suficientes.
+
+O que permanece: linguagem de domínio, modularidade, testes duráveis, revisão, configuração, migração e operação.
+
+### Plataformas corporativas tornam IA uma capacidade governada
+
+À medida que produtos proliferam, cada equipe não deve reconstruir identidade, gateway, telemetria, avaliação, guardrails e catálogo. Plataformas internas tendem a oferecer capacidades comuns:
+
+- gateway e roteamento de modelos;
+- identidade, tenancy, quotas e políticas;
+- registro de prompts, specs e avaliadores;
+- serviços de RAG e ferramentas;
+- observabilidade e custos;
+- ambientes de experimentação;
+- catálogo de modelos e usos aprovados;
+- esteiras de avaliação e promoção.
+
+O risco é criar uma plataforma central que absorve decisões do domínio, padroniza cedo demais ou vira gargalo. O produto continua responsável por finalidade, dados, qualidade e experiência. A plataforma oferece mecanismos e evidência.
+
+O sinal é redução mensurável de duplicação e tempo de adoção sem aumento de incidentes ou bloqueio de capacidades justificadas.
+
+O que permanece: fronteiras de propriedade, contratos, SLOs, extensão governada e modos de falha.
+
+### Regulação e governança tornam evidência parte da arquitetura
+
+Leis e padrões evoluem por jurisdição, setor e impacto. Arquitetura não deve tentar adivinhar um texto regulatório futuro, mas pode construir capacidade de responder:
+
+- inventário de sistemas, modelos, dados e responsáveis;
+- finalidade e usos proibidos;
+- avaliação de risco e impacto;
+- proveniência e versionamento;
+- supervisão e contestação;
+- incidentes, mudanças e exceções;
+- evidência de testes e decisões;
+- retenção, acesso e descarte.
+
+Governança emergente favorece sistemas que conseguem explicar processo e autoridade, não raciocínio interno completo do modelo. Traces, ADRs, specs, avaliações e registros de aprovação compõem evidência.
+
+O sinal é requisito aplicável com prazo, autoridade e consequência. “A regulação vai proibir” sem fonte ou análise contextual é hype.
+
+O que permanece: gestão de risco, privacidade, segurança, accountability e documentação verificável.
+
+### Interfaces generativas e confiança calibrada
+
+Interfaces podem migrar de menus estáticos para composição dinâmica, conversação e ações sugeridas. O risco é confundir fluidez com autoridade. Usuários precisam entender:
+
+- quando conteúdo é gerado;
+- que fonte e data sustentam a resposta;
+- que ação será executada;
+- quais campos foram inferidos;
+- como corrigir, desfazer ou escalar;
+- quando o sistema não possui evidência suficiente.
+
+Personalização pode melhorar relevância e ampliar manipulação ou filtragem indevida. Memória persistente requer consentimento, correção e exclusão. Interfaces adaptativas precisam manter acessibilidade e previsibilidade em tarefas críticas.
+
+O sinal é melhora em tarefa, confiança calibrada e recuperação de erro, não preferência estética numa demonstração.
+
+O que permanece: design centrado em pessoas, divulgação de limites, confirmação proporcional e recurso.
+
+### Arquitetura para substituição e opcionalidade
+
+Mudanças rápidas valorizam **opcionalidade**, mas abstração universal pode esconder capacidades e criar menor denominador comum. Uma estratégia equilibrada:
+
+1. isola contratos voláteis em adaptadores;
+2. mantém semântica do domínio fora do SDK;
+3. versiona prompts, modelos e políticas;
+4. possui conjunto de avaliação portátil;
+5. permite capacidades específicas por extensão explícita;
+6. testa migração e fallback antes da necessidade;
+7. registra custo de saída e dados que precisam ser movidos.
+
+Portabilidade não significa troca instantânea. Significa compreender dependências, possuir evidência comparável e reduzir decisões irreversíveis sem benefício.
+
+### Um radar baseado em decisão
+
+Avalie tendências com uma ficha comum:
+
+| Campo | Pergunta |
+|---|---|
+| alegação | que capacidade está sendo prometida? |
+| fonte | é documentação, benchmark, estudo, demo ou opinião? |
+| maturidade | pesquisa, preview, produto ou prática operacional? |
+| decisão afetada | muda componente, contrato, risco ou operação? |
+| evidência local | que experimento reproduz a alegação no nosso contexto? |
+| custo de opção | quanto custa preparar sem adotar? |
+| gatilho | que resultado autoriza adoção, espera ou abandono? |
+| horizonte | agora, 6–18 meses ou exploração longa? |
+
+O radar evita dois extremos: perseguir toda novidade e ignorar mudanças até virarem urgência.
+
+### Sinal, hype e permanência
+
+Considere **sinal** quando há mecanismo compreensível, evidência reproduzível, impacto sobre uma decisão e trajetória de maturidade. Trate como **hype** quando a alegação depende de demonstração selecionada, linguagem absoluta, benchmark sem contexto ou promessa de eliminar controles.
+
+Pergunte sempre:
+
+1. Que problema antigo esta tendência resolve?
+2. Que risco novo introduz?
+3. Qual suposição arquitetural ela invalida?
+4. Qual evidência precisamos antes de mudar?
+5. Que investimento reversível preserva opção?
+6. O que continua necessário se a tendência não se confirmar?
+
+O futuro muda ferramentas e fronteiras econômicas. O trabalho do arquiteto permanece reconhecer contexto, explicitar trade-offs, desenhar limites, produzir evidência e manter opções. A competência durável não é prever qual modelo vencerá, mas construir sistemas capazes de aprender e mudar sem perder controle.
 
 ## Autoavaliação
 

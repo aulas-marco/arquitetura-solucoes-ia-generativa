@@ -44,9 +44,19 @@ Defina idempotência, timeout, retry, circuit breaker e compensação.
 Idempotência evita efeitos lógicos duplicados; timeout limita espera sem provar ausência de efeito; retry repete falha transitória de modo limitado e seguro; circuit breaker interrompe pressão sobre dependência degradada; compensação desfaz ou neutraliza um efeito confirmado quando rollback global não existe.
 </details>
 
+### 5. Artefatos do SDD
+
+Associe constitution, spec, plan, tasks, implement e verify à pergunta principal que cada artefato responde.
+
+<details>
+<summary>Ver resposta</summary>
+
+Constitution responde quais princípios governam o projeto; spec define o que e por que construir; plan registra como a arquitetura realiza a intenção; tasks decompõe em fatias e dependências; implement executa cada fatia com testes; verify demonstra aderência à spec e qualidade técnica.
+</details>
+
 ## Compreender
 
-### 5. Saída estruturada não é autorização
+### 6. Saída estruturada não é autorização
 
 Explique por que um objeto JSON válido ainda pode produzir ação indevida.
 
@@ -56,7 +66,7 @@ Explique por que um objeto JSON válido ainda pode produzir ação indevida.
 O esquema garante forma, não intenção, regra de negócio, propriedade do recurso ou limite de risco. Política determinística deve avaliar identidade, ferramenta, parâmetros, estado e delegação imediatamente antes da execução.
 </details>
 
-### 6. Aprovar antes e revisar depois
+### 7. Aprovar antes e revisar depois
 
 Diferencie aprovação humana antes da ação de revisão humana depois da ação.
 
@@ -66,7 +76,7 @@ Diferencie aprovação humana antes da ação de revisão humana depois da açã
 A aprovação prévia bloqueia o efeito até uma pessoa aceitar objeto imutável, evidência e consequência. A revisão posterior detecta e corrige desvios já ocorridos; só é adequada a efeitos aceitáveis, reversíveis ou baixos e não autoriza dano retroativamente.
 </details>
 
-### 7. Agente único, múltiplos agentes e fluxo spec-driven
+### 8. Agente único, múltiplos agentes e fluxo spec-driven
 
 Por que especializar papéis não prova que múltiplos agentes serão melhores, e como uma spec e critérios de aceite limitam essa decisão?
 
@@ -76,9 +86,19 @@ Por que especializar papéis não prova que múltiplos agentes serão melhores, 
 Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. Uma spec e critérios de aceite tornam o objetivo e a evidência explícitos; o benefício ainda precisa ser comparado ao agente único e a ferramentas/módulos determinísticos por métricas de tarefa e operação.
 </details>
 
+### 9. Spec viva não é documentação extensa
+
+Explique por que o tamanho de uma spec não demonstra que ela é viva ou executável.
+
+<details>
+<summary>Ver resposta</summary>
+
+Uma spec é viva quando mudanças de intenção, regra, risco e evidência atualizam o contrato versionado. É executável quando critérios e interfaces conseguem derivar ou verificar planos, tarefas e testes. Um documento longo pode continuar vago, divergente do código e incapaz de decidir aceite.
+</details>
+
 ## Aplicar
 
-### 8. Seleção de ferramentas
+### 10. Seleção de ferramentas
 
 **Situação**
 
@@ -127,7 +147,7 @@ Antes de entregar, verifique os itens abaixo:
 | Aprovação e parada | 20% | Exige aprovação proporcional e interrompe estados não confirmados. |
 | Falhas e comunicação | 15% | Degrada sem prometer conclusão e informa próximo passo. |
 
-### 9. Classificação de autonomia
+### 11. Classificação de autonomia
 
 **Situação**
 
@@ -178,9 +198,35 @@ Antes de entregar, verifique os itens abaixo:
 
  
 
+### 12. Clarificação e critérios de aceite
+
+**Situação:** uma área solicita “permita reabrir uma avaliação encerrada”, sem informar autoridade, prazo, efeito sobre notas publicadas, auditoria ou reversão.
+
+**Seu papel:** você responde pelo Gate 1 e deve tornar a intenção implementável sem escolher tecnologia.
+
+**Como conduzir**
+
+1. Construa um ledger com fatos, hipóteses, desconhecidos e fora de escopo.
+2. Formule oito perguntas de clarificação ordenadas pelo impacto.
+3. Escolha respostas fictícias e declare-as decisões do exercício.
+4. Escreva cinco requisitos EARS e três cenários BDD: sucesso, negação e conflito.
+5. Defina dois atributos de qualidade mensuráveis e quatro itens fora de escopo.
+
+**Entrega esperada:** mini-spec de duas a quatro páginas que outra pessoa revise sem a conversa original.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Incerteza explícita | 20% | Não transforma hipótese em fato. |
+| Perguntas | 20% | Cobrem autoridade, estado, consequência e reversibilidade. |
+| Requisitos | 25% | Condição e resposta são observáveis. |
+| Aceite e qualidade | 25% | Cenários e medidas permitem decidir. |
+| Escopo | 10% | Evita implementação especulativa. |
+
 ## Analisar
 
-### 10. Diagnóstico de trace
+### 13. Diagnóstico de trace
 
 **Situação**
 
@@ -245,9 +291,33 @@ Antes de entregar, verifique os itens abaixo:
 | Recuperação | 20% | Propõe contenção, reconciliação e compensação proporcionais. |
 | Testes | 20% | Define casos que diferenciam hipóteses. |
 
+### 14. Consistência entre spec, plano, tarefas e testes
+
+**Situação:** a spec exige autorização por unidade, expiração em 24 horas e auditoria sem conteúdo. O plano descreve link público por sete dias. As tarefas incluem envio por e-mail, embora esteja fora de escopo. Os testes validam apenas geração do arquivo.
+
+**Como conduzir**
+
+1. Construa a matriz `requisito → plano → tarefa → teste`.
+2. Classifique achados como lacuna, contradição, ambiguidade ou *scope creep*.
+3. Indique o artefato que deve mudar e a autoridade que aprova.
+4. Separe bloqueios de riscos residuais.
+5. Proponha tarefas como fatias verticais com bloqueadores.
+
+**Entrega esperada:** relatório de consistência com severidade, evidência, correção e decisão de gate.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Cobertura | 25% | Mapeia requisitos e fora de escopo. |
+| Classificação | 20% | Distingue tipos de inconsistência. |
+| Autoridade | 15% | Agente não redefine produto ou risco. |
+| Fatias | 25% | Cada tarefa entrega comportamento. |
+| Gate | 15% | Bloqueios são proporcionais. |
+
 ## Avaliar
 
-### 11. Crítica arquitetural
+### 15. Crítica arquitetural
 
 **Situação**
 
@@ -296,9 +366,33 @@ Antes de entregar, verifique os itens abaixo:
 | Comparação | 20% | Compara arquiteturas com métricas e condições. |
 | Revisão | 20% | Define teste e gatilho capazes de alterar o julgamento. |
 
+### 16. Comparação de fluxos SDD
+
+**Situação:** o fluxo A usa um agente para especificar, implementar e revisar. O fluxo B usa Spec Kit, revisões separadas de Spec e Standards e três gates. B dobra a preparação, mas reduz retrabalho; A produz protótipos mais cedo.
+
+**Como conduzir**
+
+1. Defina critérios de risco, reversibilidade, coordenação, rastreabilidade, lead time e retrabalho.
+2. Pondere-os para protótipo descartável e autorização financeira.
+3. Avalie independência das revisões e risco de aprovação automática.
+4. Considere uma opção híbrida.
+5. Declare evidências de 60 dias que poderiam inverter a escolha.
+
+**Entrega esperada:** matriz, recomendação por classe, riscos residuais e experimento de adoção.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Contexto | 25% | Pesos mudam por classe. |
+| Trade-offs | 25% | Considera preparação e retrabalho. |
+| Governança | 20% | Avalia autoridade e independência. |
+| Recomendação | 15% | Decorre da matriz. |
+| Experimento | 15% | Métricas podem inverter a decisão. |
+
 ## Criar
 
-### 12. Arquitetura de agente controlado
+### 17. Arquitetura de agente controlado
 
 **Situação**
 
@@ -369,5 +463,34 @@ Três ADRs com alternativas, consequências e gatilhos:
 | Operação e observabilidade | 10% | Define orçamento, fallback, trace e retenção proporcional. |
 | Diagramas, testes e ADRs | 20% | Mantém artefatos coerentes e verificáveis. |
 | Clareza da composição | 15% | Permite revisar o fluxo sem inferir responsabilidades ocultas. |
+
+### 18. Iniciativa completa com SDD
+
+Escolha uma feature do projeto final que atravesse interface, regra, dados, integração e operação, com ao menos um risco de segurança e um atributo de qualidade.
+
+**Como conduzir**
+
+1. Escreva constitution com cinco princípios acionáveis.
+2. Produza spec com histórias, EARS, BDD, RNFs, segurança e fora de escopo.
+3. Compare duas arquiteturas e registre um ADR.
+4. Identifique seams e estratégia de testes.
+5. Fatia o plano e desenhe dependências.
+6. Defina papéis humanos, agentes e três gates.
+7. Crie matriz `requisito → decisão → tarefa → teste → evidência`.
+8. Defina métricas e feedback de produção para a spec.
+
+**Entrega esperada:** pacote versionável que outra equipe consiga implementar sem decisões ocultas em conversa.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Intenção e domínio | 15% | Problema e escopo explícitos. |
+| Arquitetura e ADR | 15% | Alternativas ligadas a requisitos. |
+| Fatias e seams | 20% | Trabalho integrável e testável. |
+| Segurança e qualidade | 15% | Riscos entram antes do código. |
+| Governança | 15% | Autoridade, agentes e gates claros. |
+| Rastreabilidade | 10% | Matriz navegável nos dois sentidos. |
+| Evolução | 10% | Produção retroalimenta a spec. |
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).

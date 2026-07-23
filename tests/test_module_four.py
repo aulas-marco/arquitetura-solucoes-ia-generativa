@@ -43,6 +43,60 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(concept, text, concept)
 
+    def test_sdd_is_a_deep_curricular_thread_not_a_sidebar(self):
+        pages = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in MODULE.glob("*.md")
+        }
+        combined = "\n".join(pages.values()).casefold()
+
+        for concept in (
+            "specification-driven development",
+            "constitution",
+            "ledger epistemológico",
+            "ears",
+            "bdd",
+            "fatias verticais",
+            "módulos profundos",
+            "seams",
+            "revisão de spec",
+            "revisão de standards",
+            "gate 1",
+            "gate 2",
+            "gate 3",
+            "feedback de produção",
+        ):
+            self.assertIn(concept, combined, concept)
+
+        for page in (
+            "index.md",
+            "conceitos.md",
+            "padroes-e-decisoes.md",
+            "exemplo-arquitetural.md",
+            "oficina-de-ferramentas.md",
+            "exercicios.md",
+            "sintese-e-referencias.md",
+        ):
+            folded = pages[page].casefold()
+            self.assertTrue(
+                "sdd" in folded or "desenvolvimento guiado por especificação" in folded,
+                page,
+            )
+
+        total_words = sum(len(text.split()) for text in pages.values())
+        self.assertGreaterEqual(total_words, 19_000)
+        self.assertLessEqual(total_words, 22_000)
+
+        syllabus = (
+            ROOT / "docs" / "sobre" / "plano-da-disciplina.md"
+        ).read_text(encoding="utf-8").casefold()
+        capstone = (
+            ROOT / "docs" / "sobre" / "projeto-final.md"
+        ).read_text(encoding="utf-8").casefold()
+        for evidence in ("constitution", "spec", "fatias verticais", "gates"):
+            self.assertIn(evidence, syllabus, evidence)
+            self.assertIn(evidence, capstone, evidence)
+
     def test_patterns_cover_enterprise_integration_and_control_mechanisms(self):
         text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8").casefold()
 
@@ -160,20 +214,20 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)
         expected_counts = {
-            "Recordar": 4,
-            "Compreender": 3,
-            "Aplicar": 2,
-            "Analisar": 1,
-            "Avaliar": 1,
-            "Criar": 1,
+            "Recordar": 5,
+            "Compreender": 4,
+            "Aplicar": 3,
+            "Analisar": 2,
+            "Avaliar": 2,
+            "Criar": 2,
         }
 
         for level, expected in expected_counts.items():
             questions = re.findall(r"(?m)^### \d+\.", sections[level])
             self.assertEqual(expected, len(questions), level)
 
-        self.assertEqual(4, sections["Recordar"].count("<details>"))
-        self.assertEqual(3, sections["Compreender"].count("<details>"))
+        self.assertEqual(5, sections["Recordar"].count("<details>"))
+        self.assertEqual(4, sections["Compreender"].count("<details>"))
         for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
             self.assertNotIn("<details>", sections[level])
             self.assertIn("**Critérios de avaliação", sections[level])

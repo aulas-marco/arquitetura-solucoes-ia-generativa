@@ -6,7 +6,11 @@ Em grupo, desenhem e defendam uma solução de IA generativa para um problema de
 
 ## Método de construção
 
-Os grupos podem usar SDD para tornar a entrega rastreável: registrar constitution e spec, derivar plan e tasks, definir critérios de aceite e testes, e submeter mudanças a gates humanos. O método não substitui ADRs, evidências de avaliação ou responsabilidade do grupo.
+Os grupos usarão SDD como arquitetura do trabalho, e não como documentação adicional no fim da entrega. Cada grupo deve manter uma **constitution** curta com princípios de engenharia, uma **spec** da capacidade principal, um plano técnico e tarefas organizadas em fatias verticais. Requisitos relevantes precisam apontar para critérios de aceite; tarefas precisam apontar para testes ou outra evidência verificável. Questões ainda abertas devem permanecer explícitas, sem serem convertidas silenciosamente em decisões.
+
+O projeto terá três gates: aprovação da spec antes do plano, aprovação do plano antes da execução e aprovação das evidências antes da integração. No último gate, a revisão deve separar duas perguntas: “a solução implementa o comportamento especificado?” e “a implementação respeita segurança, arquitetura, testabilidade e padrões do repositório?”. O grupo pode usar agentes para elaborar e executar partes do fluxo, mas conserva autoria das decisões e responsabilidade pela entrega.
+
+Spec Kit é o fio operacional recomendado para produzir e relacionar esses artefatos. Fluxos equivalentes são aceitáveis quando preservam intenção versionada, clarificação, rastreabilidade e gates. O método não substitui ADRs, threat model, evidências de avaliação ou análise dos atributos de qualidade; ele conecta esses elementos ao processo de construção.
 
 ## Formação de grupos
 
