@@ -497,3 +497,103 @@
   topics: [arquitetura, fundamentos, material-didatico]
   modules: [1]
   type: local-course-source
+
+- id: github-spec-kit
+  title: Spec Kit
+  authors: GitHub
+  year: 2026
+  url: https://github.com/github/spec-kit
+  accessed: 2026-07-23
+  topics: [sdd, especificacao, engenharia-agentica]
+  modules: [4]
+  type: official-repository
+
+- id: github-spec-kit-docs
+  title: Spec Kit Documentation
+  authors: GitHub
+  year: 2026
+  url: https://github.github.com/spec-kit/
+  accessed: 2026-07-23
+  topics: [sdd, especificacao]
+  modules: [4]
+  type: official-documentation
+
+- id: github-spec-kit-blog
+  title: Spec-driven development with AI
+  authors: GitHub
+  year: 2026
+  url: https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/
+  accessed: 2026-07-23
+  topics: [sdd, desenvolvimento]
+  modules: [4]
+  type: institutional-guidance
+
+- id: microsoft-spec-kit
+  title: Spec-driven development with Spec Kit
+  authors: Microsoft for Developers
+  year: 2026
+  url: https://developer.microsoft.com/blog/spec-driven-development-spec-kit/
+  accessed: 2026-07-23
+  topics: [sdd, desenvolvimento]
+  modules: [4]
+  type: institutional-guidance
+
+- id: matt-pocock-engineering-skills
+  title: Engineering Skills
+  authors: Matt Pocock
+  year: 2026
+  url: https://github.com/mattpocock/skills/tree/main/docs/engineering
+  accessed: 2026-07-23
+  topics: [sdd, vertical-slices, testes]
+  modules: [4]
+  type: official-repository
+
+- id: aws-kiro-specs
+  title: Kiro Specs
+  authors: AWS Kiro
+  year: 2026
+  url: https://kiro.dev/docs/specs/
+  accessed: 2026-07-23
+  topics: [sdd, requisitos]
+  modules: [4]
+  type: official-documentation
+
+- id: bmad-method
+  title: BMAD-METHOD
+  authors: BMad Code Organization
+  year: 2026
+  url: https://github.com/bmad-code-org/BMAD-METHOD
+  accessed: 2026-07-23
+  topics: [agentes, desenvolvimento]
+  modules: [4]
+  type: official-repository
+
+- id: tessl
+  title: Tessl
+  authors: Tessl
+  year: 2026
+  url: https://tessl.io
+  accessed: 2026-07-23
+  topics: [especificacao, desenvolvimento]
+  modules: [4]
+  type: vendor-site
+
+- id: openai-model-spec
+  title: OpenAI Model Spec
+  authors: OpenAI
+  year: 2026
+  url: https://github.com/openai/model_spec
+  accessed: 2026-07-23
+  topics: [spec, avaliacao, governanca]
+  modules: [4]
+  type: official-repository
+
+- id: sean-grove-new-code
+  title: The New Code
+  authors: Sean Grove
+  year: 2025
+  url: https://www.youtube.com/watch?v=8rABwKRsec4
+  accessed: 2026-07-23
+  topics: [especificacao, desenvolvimento]
+  modules: [4]
+  type: conference-talk

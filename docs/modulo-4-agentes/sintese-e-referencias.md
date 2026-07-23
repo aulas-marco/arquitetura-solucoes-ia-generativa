@@ -40,6 +40,12 @@ Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Pad
 
 O [perfil do NIST para IA generativa](https://doi.org/10.6028/NIST.AI.600-1), o [perfil SSDF do NIST](https://doi.org/10.6028/NIST.SP.800-218A) e o [OWASP Top 10 para aplicações com LLM](https://genai.owasp.org/llm-top-10/) orientam risco, desenvolvimento seguro e ameaças. As [convenções de OpenTelemetry para IA generativa](https://github.com/open-telemetry/semantic-conventions-genai) apoiam vocabulário de observabilidade. O capítulo local *Architecting a Generative AI System — A Case Study* (`avila-ahmad-chapter-7-local`) fornece o material do livro sobre integração e estudo de caso. Todas as fontes estão no [registro editorial](../referencia/fontes.yml) e na [Bibliografia consolidada](../referencia/bibliografia.md).
 
+## Materiais adicionais sobre SDD
+
+O [GitHub Spec Kit](https://github.com/github/spec-kit) é o fio operacional desta disciplina: constitution, specification, plan, tasks, implementação e verificação deixam decisões e critérios de aceite visíveis. As [skills de engenharia de Matt Pocock](https://github.com/mattpocock/skills/tree/main/docs/engineering) oferecem uma variação disciplinada, com *vertical slices*, testes nas interfaces públicas e revisão separada por aderência à spec e padrões do repositório.
+
+[Kiro Specs](https://kiro.dev/docs/specs/), [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) e [Tessl](https://tessl.io) mostram escolhas diferentes de ambiente, papéis e persistência da especificação. O [OpenAI Model Spec](https://github.com/openai/model_spec) ajuda a discutir regras verificáveis, enquanto a palestra [The New Code](https://www.youtube.com/watch?v=8rABwKRsec4) provoca a tratar especificação como competência de engenharia. São comparações: não substituem o fluxo principal do Spec Kit.
+
 ## Conexão com o próximo módulo
 
 Controles de ferramenta reduzem risco, mas não demonstram que o sistema é seguro, justo ou adequado para todas as populações. O [Módulo 5 — Confiança, segurança, avaliação e governança](../sobre/plano-da-disciplina.md#modulo-5) aprofundará ameaças, privacidade, guardrails, avaliação e evidências de governança. A matriz de autonomia e o contrato de ferramenta tornam-se entradas: cada nível precisa de casos adversariais, critérios de aceitação e monitoramento proporcional ao efeito.

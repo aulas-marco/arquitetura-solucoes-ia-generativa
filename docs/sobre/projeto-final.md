@@ -4,6 +4,10 @@
 
 Em grupo, desenhem e defendam uma solução de IA generativa para um problema delimitado. O objetivo é demonstrar decisão arquitetural: requisitos, contratos, dados, segurança, avaliação, operação, custo e remoção — não acumular ferramentas ou chamadas a modelos.
 
+## Método de construção
+
+Os grupos podem usar SDD para tornar a entrega rastreável: registrar constitution e spec, derivar plan e tasks, definir critérios de aceite e testes, e submeter mudanças a gates humanos. O método não substitui ADRs, evidências de avaliação ou responsabilidade do grupo.
+
 ## Formação de grupos
 
 Formem grupos de três a cinco pessoas. Definam papéis de facilitação, arquitetura, evidências e revisão; todos respondem pelo conteúdo final. Grupos com outra composição só podem ser combinados com a docência antes da entrega.

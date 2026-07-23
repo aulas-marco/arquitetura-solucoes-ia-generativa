@@ -65,6 +65,12 @@ Fontes oficiais fornecem vocabulário dentro de seu escopo. A arquitetura propos
 
 Use o [Mapa de aprendizagem](../comecar/mapa-de-aprendizagem.md) para percorrer novamente contexto, arquitetura, conhecimento, ação, confiança e operação em um sistema real.
 
+## Tendências e futuro da arquitetura com GenAI
+
+Contexto longo não elimina seleção, autorização e proveniência; multimodalidade amplia classificação, privacidade e avaliação. Modelos abertos e hospedados mudam custo, portabilidade e operação, mas não removem a necessidade de gateways, estratégia multimodelo e evidências comparáveis.
+
+O desenvolvimento agêntico de software e o SDD do Módulo 4 são uma tendência em consolidação: specs, testes e gates tornam a autonomia verificável. Regulação emergente reforça rastreabilidade, responsabilidade e avaliação. Um **sinal** muda uma decisão ou experimento com evidência; **hype** anuncia capacidade sem dispensar os controles permanentes do arquiteto: atributos de qualidade, limites, portabilidade, governança e operação.
+
 ## Autoavaliação
 
 1. Consigo reproduzir o pacote comportamental promovido?
