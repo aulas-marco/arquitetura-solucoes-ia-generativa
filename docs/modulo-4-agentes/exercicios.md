@@ -66,14 +66,14 @@ Diferencie aprovação humana antes da ação de revisão humana depois da açã
 A aprovação prévia bloqueia o efeito até uma pessoa aceitar objeto imutável, evidência e consequência. A revisão posterior detecta e corrige desvios já ocorridos; só é adequada a efeitos aceitáveis, reversíveis ou baixos e não autoriza dano retroativamente.
 </details>
 
-### 7. Agente único versus múltiplos agentes
+### 7. Agente único, múltiplos agentes e fluxo spec-driven
 
-Por que especializar papéis não prova que múltiplos agentes serão melhores?
+Por que especializar papéis não prova que múltiplos agentes serão melhores, e como uma spec e critérios de aceite limitam essa decisão?
 
 <details>
 <summary>Ver resposta</summary>
 
-Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. O benefício precisa ser comparado ao agente único e a ferramentas/módulos determinísticos por métricas de tarefa e operação.
+Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. Uma spec e critérios de aceite tornam o objetivo e a evidência explícitos; o benefício ainda precisa ser comparado ao agente único e a ferramentas/módulos determinísticos por métricas de tarefa e operação.
 </details>
 
 ## Aplicar

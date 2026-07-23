@@ -205,6 +205,37 @@ sequenceDiagram
 
 ## Estado e invariantes
 
+## Pipeline SDD com gates humanos
+
+```mermaid
+flowchart LR
+  C[Constitution] --> S[Specification]
+  S --> G1{Gate 1: escopo e riscos}
+  G1 --> P[Plan] --> T[Tasks] --> I[Implement] --> V[Verify]
+  V --> G2{Gate 2: testes e spec} --> G3{Gate 3: revisão humana}
+```
+
+*Figura — Pipeline SDD: a specification governa implementação e verificação.*
+
+**Equivalente textual 3.** Constitution e specification antecedem plan e tasks. O Gate 1 valida escopo e riscos; Verify produz evidências; o Gate 2 compara testes e spec; o Gate 3 aprova a revisão humana antes da liberação.
+
+```mermaid
+flowchart TB
+  H1[Arquiteto] --> G1[Gate 1]
+  H2[Responsável de produto] --> G1
+  G1 --> A1[Agente de discovery]
+  A1 --> A2[Agente de spec]
+  A2 --> A3[Agente de plan]
+  A3 --> A4[Agente implementador]
+  A4 --> A5[Agente verificador]
+  A5 --> G2[Gate 2]
+  G2 --> G3[Gate 3]
+```
+
+*Figura — Squad híbrida: 2 papéis humanos, 5 agentes de IA e 3 gates.*
+
+**Equivalente textual 4.** O arquiteto e o responsável de produto definem o primeiro gate. Cinco agentes atuam em discovery, spec, plan, implementação e verificação. Os gates 2 e 3 retêm validação de evidência e revisão humana.
+
 O registro da execução pode ser resumido assim:
 
 ```text

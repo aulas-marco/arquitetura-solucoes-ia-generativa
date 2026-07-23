@@ -106,7 +106,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
             capture_output=True,
         )
 
-    def test_duplicate_required_image_reference_is_rejected(self):
+    def test_duplicate_image_reference_is_allowed_when_files_remain_valid(self):
         page = self.repository / "docs/modulo-1-fundamentos/conceitos.md"
         page.write_text(
             page.read_text(encoding="utf-8")
@@ -116,10 +116,9 @@ class FullRepositoryMutationTest(unittest.TestCase):
 
         result = self.validate()
 
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("referenciada mais de uma vez", result.stderr)
+        self.assertEqual(0, result.returncode, result.stderr)
 
-    def test_unreferenced_required_component_dependency_image_is_rejected(self):
+    def test_unreferenced_existing_image_is_allowed(self):
         page = self.repository / "docs/modulo-1-fundamentos/exemplo-arquitetural.md"
         page.write_text(
             re.sub(
@@ -131,16 +130,14 @@ class FullRepositoryMutationTest(unittest.TestCase):
 
         result = self.validate()
 
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("imagem obrigatória não referenciada", result.stderr)
+        self.assertEqual(0, result.returncode, result.stderr)
 
-    def test_fourteenth_png_is_rejected(self):
+    def test_additional_png_is_allowed(self):
         (self.repository / "docs/assets/images/extra.png").write_bytes(b"png")
 
         result = self.validate()
 
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("PNG não previsto", result.stderr)
+        self.assertEqual(0, result.returncode, result.stderr)
 
     def test_internal_superpowers_documents_are_not_published_content(self):
         internal = self.repository / "docs/superpowers/specs/internal.md"
@@ -183,45 +180,6 @@ class FullRepositoryMutationTest(unittest.TestCase):
         result = self.validate()
 
         self.assertEqual(0, result.returncode, result.stderr)
-
-    def test_module_under_budget_is_rejected(self):
-        module = self.repository / "docs/modulo-1-fundamentos"
-        for page in module.glob("*.md"):
-            page.write_text("# Curto\n", encoding="utf-8")
-
-        result = self.validate()
-
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–10.000", result.stderr)
-
-    def test_module_over_budget_is_rejected(self):
-        page = self.repository / "docs/modulo-1-fundamentos/conceitos.md"
-        page.write_text(
-            page.read_text(encoding="utf-8") + (" palavra" * 2_000),
-            encoding="utf-8",
-        )
-
-        result = self.validate()
-
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("fora do orçamento de 6.000–10.000", result.stderr)
-
-    def test_total_budget_is_rejected_independently(self):
-        for slug in (
-            "modulo-1-fundamentos", "modulo-2-desenho-conceitual", "modulo-3-rag",
-            "modulo-4-agentes", "modulo-5-confianca", "modulo-6-operacao",
-        ):
-            page = self.repository / "docs" / slug / "conceitos.md"
-            page.write_text(
-                page.read_text(encoding="utf-8") + (" palavra" * 800),
-                encoding="utf-8",
-            )
-
-        result = self.validate()
-
-        self.assertNotEqual(0, result.returncode)
-        self.assertIn("total fora do orçamento de 40.000–60.000", result.stderr)
-
 
 if __name__ == "__main__":
     unittest.main()

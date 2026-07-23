@@ -84,3 +84,9 @@ Compare contratos no [Guia de ferramentas](../referencia/guia-de-ferramentas.md)
 | AutoGen | Testar papéis de agentes. | Protocolo, orçamento e catálogo mínimo. | Mais agentes não são aprovação. |
 
 Com essa base, passamos de “o que é um agente” para “como integrá-lo sem entregar o controle”: [Padrões e decisões](padroes-e-decisoes.md).
+
+## Do agente que age ao agente que constrói software
+
+*Vibe coding* pede ao modelo uma solução e julga o resultado depois. Desenvolvimento **spec-driven** introduz atrito útil: `constitution → spec → plan → tasks → implement → verify`. A **constitution** registra princípios e limites; a **spec** descreve problema, usuários, critérios de aceite, riscos e testes; plan e tasks fatiam a entrega; implement e verify deixam evidências rastreáveis.
+
+O agente de codificação é, portanto, outro agente com ferramentas e efeitos: cria ou altera arquivos, executa testes e propõe commits. O arquiteto permanece dono da spec e dos gates humanos. Uma saída que compila não é suficiente: o primeiro gate confirma escopo e risco, o segundo confirma testes e aderência à spec, e o terceiro revisa a mudança antes de liberar. O Spec Kit materializa esse fluxo; outras abordagens podem variar, mas não eliminam a responsabilidade por contrato, evidência e reversibilidade.

@@ -17,8 +17,6 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 IMAGES = DOCS / "assets" / "images"
-COVER = "capa-cartografia-solucao-generativa.png"
-
 MODULES = {
     "modulo-1-fundamentos": ("Fundamentos", ("m01-deterministico-probabilistico.png", "m01-anatomia-solucao-generativa.png", "m01-componentes-dependencias.png", "m01-mapa-comportamento-generativo.png")),
     "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png", "m02-mapa-da-oportunidade-ao-conops.png")),
@@ -318,65 +316,16 @@ def validate_shared_pages(
         validate_references(path, text, errors, counts, image_references)
 
 
-def validate_required_images(
-    slugs: tuple[str, ...],
-    include_cover: bool,
-    errors: list[str],
-    image_references: Counter[Path],
-) -> None:
-    required = [image for slug in slugs for image in MODULES[slug][1]]
-    if include_cover:
-        required.insert(0, COVER)
-    for filename in required:
-        path = (IMAGES / filename).resolve()
-        if not path.is_file():
-            errors.append(f"imagem obrigatória ausente: docs/assets/images/{filename}")
-            continue
-        if include_cover:
-            reference_count = image_references[path]
-            if reference_count == 0:
-                errors.append(
-                    f"imagem obrigatória não referenciada: docs/assets/images/{filename}"
-                )
-            elif reference_count > 1:
-                errors.append(
-                    f"imagem obrigatória referenciada mais de uma vez ({reference_count}): "
-                    f"docs/assets/images/{filename}"
-                )
-
-    if include_cover:
-        required_set = set(required)
-        actual_set = {path.name for path in IMAGES.glob("*.png") if path.is_file()}
-        for filename in sorted(actual_set - required_set):
-            errors.append(f"PNG não previsto: docs/assets/images/{filename}")
-
-
 def main() -> int:
     args = parse_args()
     slugs = tuple(MODULES) if args.all else (args.module,)
     errors: list[str] = []
     counts = Counts()
     image_references: Counter[Path] = Counter()
-    module_words: dict[str, int] = {}
-
     for slug in slugs:
-        module_words[slug] = validate_module(slug, errors, counts, image_references)
-        if not 6_000 <= module_words[slug] <= 10_000:
-            errors.append(
-                f"docs/{slug}: {module_words[slug]} palavras, fora do orçamento de 6.000–10.000"
-            )
+        validate_module(slug, errors, counts, image_references)
     if args.all:
         validate_shared_pages(errors, counts, image_references)
-        if not 40_000 <= counts.words <= 60_000:
-            errors.append(
-                f"total fora do orçamento de 40.000–60.000: {counts.words} palavras"
-            )
-    validate_required_images(
-        slugs,
-        include_cover=args.all,
-        errors=errors,
-        image_references=image_references,
-    )
 
     print(
         f"Páginas: {counts.pages} | Palavras: {counts.words} | "

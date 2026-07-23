@@ -30,6 +30,19 @@ Esta bibliografia apresenta as fontes do registro editorial por área de uso. A 
 - Schick et al. (2023). [*Toolformer: Language Models Can Teach Themselves to Use Tools*](https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html). (`schick-et-al-toolformer-2023`)
 - Model Context Protocol Project (2025). [*Model Context Protocol Specification 2025-11-25*](https://modelcontextprotocol.io/specification/2025-11-25). (`mcp-specification-2025-11-25`)
 
+## Desenvolvimento guiado por especificação
+
+- GitHub (2026). [*Spec Kit*](https://github.com/github/spec-kit). (`github-spec-kit`)
+- GitHub (2026). [*Spec Kit Documentation*](https://github.github.com/spec-kit/). (`github-spec-kit-docs`)
+- GitHub (2026). [*Spec-driven development with AI*](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/). (`github-spec-kit-blog`)
+- Microsoft for Developers (2026). [*Spec-driven development with Spec Kit*](https://developer.microsoft.com/blog/spec-driven-development-spec-kit/). (`microsoft-spec-kit`)
+- Pocock, Matt (2026). [*Engineering Skills*](https://github.com/mattpocock/skills/tree/main/docs/engineering). (`matt-pocock-engineering-skills`)
+- AWS Kiro (2026). [*Kiro Specs*](https://kiro.dev/docs/specs/). (`aws-kiro-specs`)
+- BMad Code Organization (2026). [*BMAD-METHOD*](https://github.com/bmad-code-org/BMAD-METHOD). (`bmad-method`)
+- Tessl (2026). [*Tessl*](https://tessl.io). (`tessl`)
+- OpenAI (2026). [*OpenAI Model Spec*](https://github.com/openai/model_spec). (`openai-model-spec`)
+- Grove, Sean (2025). [*The New Code*](https://www.youtube.com/watch?v=8rABwKRsec4). (`sean-grove-new-code`)
+
 ## Trust
 
 - NIST (2023). [*Artificial Intelligence Risk Management Framework (AI RMF 1.0)*](https://doi.org/10.6028/NIST.AI.100-1). (`nist-ai-rmf-1-0-2023`)

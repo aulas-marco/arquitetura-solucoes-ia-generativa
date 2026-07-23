@@ -100,3 +100,15 @@ O fallback para **workflow determinístico** é uma rota projetada: por exemplo,
 Comece com agente único e ferramentas estreitas. Adote múltiplos agentes apenas se um experimento demonstrar benefício de especialização, isolamento de contexto/autoridade ou paralelismo. Compare taxa de conclusão, ações indevidas, handoffs, latência, custo e capacidade de reconstruir traces. Um supervisor não elimina falha: precisa de contrato de delegação, orçamento global, regra de consenso e autoridade para interromper. Nunca permita que subagentes ampliem escopo, criem credenciais ou deleguem indefinidamente.
 
 Esses mecanismos aparecem juntos no [Exemplo arquitetural](exemplo-arquitetural.md).
+
+## Padrão — Desenvolvimento guiado por especificação
+
+**Contexto.** Um agente de codificação pode alterar múltiplos artefatos e executar ferramentas rapidamente.
+
+**Problema.** Pedidos vagos transformam implementação em interpretação silenciosa; testes podem passar sem atender à necessidade original.
+
+**Solução.** Manter constitution, spec, plan e tasks como contratos explícitos. Implementar em fatias verificáveis, testar nas interfaces acordadas e revisar separadamente padrões do repositório e aderência à spec.
+
+**Consequências.** Há mais preparação e gates, mas decisões, critérios de aceite e riscos permanecem auditáveis. O modelo ganha autonomia limitada para implementar; não ganha autoridade para redefinir o objetivo.
+
+> **Decisão arquitetural:** posicione gates humanos após a specification, após verify e antes da liberação. Um gate deve receber artefatos imutáveis, evidência de testes e o diff correspondente.

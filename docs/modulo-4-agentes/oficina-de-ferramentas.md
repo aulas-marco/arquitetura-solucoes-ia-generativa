@@ -197,3 +197,7 @@ Explique qual condição impede a reserva, como a repetição é contida e como 
 ## Limpeza e contingência
 
 Saia do ambiente com `deactivate` e apague a pasta `oficina-m4` quando terminar. Se houver erro, confira `python --version`, a ativação do ambiente e `python -m pip show langgraph`. Registre a mensagem e corrija a instalação local antes de continuar; não conecte o exercício a sistemas reais.
+
+## Extensão — mini-fluxo Spec Kit
+
+Em uma pasta descartável e com uma feature-brinquedo, execute `/speckit.specify`, `/speckit.plan`, `/speckit.tasks` e `/speckit.implement`. Use somente dados sintéticos: por exemplo, uma regra de status para um pedido fictício. Compare spec, critérios de aceite, plano, tarefas, diff e teste executado. A alternativa demonstrativa, se o CLI não estiver disponível, é produzir esses quatro artefatos em Markdown e revisar manualmente os mesmos gates. Ao terminar, apague a pasta do experimento; a limpeza impede que credenciais ou dados reais entrem no laboratório.
