@@ -219,7 +219,8 @@ Consulte o [caso](estudo-de-caso.md) e os [padrões](padroes-e-decisoes.md).
 1. Separe capacidades comuns, específicas e adiadas com uma razão verificável.
 2. Compare reuso, acoplamento, concentração de falha e portabilidade.
 3. Explicite responsabilidades de plataforma, produto, segurança, operação e FinOps.
-4. Registre três ADRs e um gatilho de revisão para cada decisão relevante.
+4. Compare hospedado, autogerido e composto para uma capacidade compartilhada.
+5. Registre três ADRs, uma fitness function e um gatilho de revisão para cada decisão relevante.
 
 **Entrega esperada**
 
@@ -238,7 +239,7 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 | Concentração e contenção | 20% | Trata ponto único de falha e controles equivalentes. |
 | Autonomia e portabilidade | 15% | Preserva evolução sem permitir escolhas sem governança. |
 | Responsabilidades e FinOps | 15% | Nomeia proprietário, cotas e modelo econômico. |
-| ADRs e gatilhos | 15% | Registra consequências e condição de revisão. |
+| ADRs, fitness functions e gatilhos | 15% | Registra consequências, verificação contínua e condição de revisão. |
 
 ## Criar
 
@@ -266,8 +267,8 @@ Fases e checkpoints:
 
 1. **Fase 1 — Contexto:** preencha `atores | jornadas | dados | efeitos | restrições`. **Checkpoint:** usos proibidos.
 2. **Fase 2 — Contratos:** preencha `componente | interface | proprietário | evidência`. **Checkpoint:** fluxos e fronteiras.
-3. **Fase 3 — Entrega:** preencha `manifesto | critério | portão | canary | rollback`. **Checkpoint:** promoção reversível.
-4. **Fase 4 — Operação:** preencha `span | SLO | indicador | janela | alerta | runbook`. **Checkpoint:** incidente reproduzível.
+3. **Fase 3 — Entrega:** preencha `manifesto | critério | portão | canary | rollback | fitness function`. **Checkpoint:** promoção reversível.
+4. **Fase 4 — Operação:** preencha `span | SLO | indicador | janela | alerta | runbook`. Declare prioridade e tensão entre segurança, privacidade, confiabilidade, latência, custo, auditabilidade e modificabilidade. **Checkpoint:** incidente reproduzível.
 5. **Fase 5 — Evolução:** preencha `hipótese | baseline | variável | parada | decisão`. **Checkpoint:** roadmap incremental.
 
 Preencha os onze artefatos:
@@ -285,6 +286,7 @@ Links: [referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fati
 9. **riscos residuais:** probabilidade, impacto, afetados, controles, autoridade de aceitação, prazo e gatilho de revisão;
 10. três **experimentos:** hipótese refutável, baseline, variável, população, duração, métricas dos quatro planos, guardrails, critério de parada e decisão possível;
 11. roadmap de três incrementos que preserve valor e contenção antes da migração total.
+12. fitness functions para manifesto, trace, bypass, fallback e ensaio de recuperação, com responsável e reação à falha.
 
 Mostre propriedade, impacto e contenção de cada falha. No gateway, inclua réplicas, failover, bypass e degradação; não trate “humano no loop”, “monitoramento” ou “multimodelo” como garantia.
 
@@ -296,6 +298,7 @@ Entregue pacote com contexto, diagramas, manifesto, ADRs, critérios, portões, 
 
 - Percorra uma mudança de corpus completa: versão, avaliação, promoção, trace, SLO, incidente e aprendizado.
 - Percorra uma ação de usuário completa: identidade, gateway, política, ferramenta, aprovação, sistema externo e auditoria.
+- Confira que cada fitness function possui limiar, responsável e reação diante da falha.
 - Confira que cada SLO possui indicador, janela, meta, fonte, proprietário e runbook; que cada ADR possui alternativa e gatilho; e que cada risco residual possui autoridade e prazo.
 
 **Critérios de avaliação**
@@ -306,7 +309,7 @@ Entregue pacote com contexto, diagramas, manifesto, ADRs, critérios, portões, 
 | Arquitetura e contratos | 12% | Define componentes, fronteiras, responsabilidades e interfaces. |
 | Fluxos e ADRs | 12% | Fecha fluxos, equivalentes textuais, alternativas e consequências. |
 | Guardrails e autoridade | 12% | Define controles, limites, proprietários e modo de falha. |
-| Avaliação e portões | 12% | Usa fatias, casos, critérios, canary e condição de bloqueio. |
+| Avaliação, portões e fitness functions | 12% | Usa fatias, casos, critérios, canary e condição verificável de bloqueio. |
 | Operação e recuperação | 12% | Inclui SLOs, traces, alertas, rollback e degradação. |
 | Privacidade e riscos residuais | 10% | Declara minimização, afetados, autoridade e gatilho. |
 | Experimentos e roadmap | 10% | Define hipóteses refutáveis e incrementos reversíveis. |

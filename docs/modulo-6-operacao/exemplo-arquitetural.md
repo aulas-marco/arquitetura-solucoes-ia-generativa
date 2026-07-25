@@ -184,6 +184,8 @@ flowchart LR
 
 O feedback não conecta log bruto diretamente ao dataset. Há seleção autorizada, desidentificação, revisão de ataque e versionamento. Também não existe promoção automática a partir de uma nota única: o dono apropriado decide exceções e consequências.
 
+As fitness functions da plataforma verificam manifesto e regressão antes de promoção, trace minimizado com `release_id` para execução crítica, controles equivalentes em bypass, fallback catalogado para cada classe de dado e ensaio de rollback, failover e reconciliação. Segurança e Privacidade respondem por violação de acesso; Plataforma pela execução de versões, rotas e recuperação; Produto e domínio pela adequação da jornada e do conteúdo; Operação pela resposta coordenada. Falha em qualquer condição reduz a exposição ou interrompe a rota.
+
 ## Fluxos operacionais essenciais
 
 **Liberação normal.** A equipe de produto altera prompt e recuperação, cria manifesto, executa avaliação e obtém revisão quando o trade-off muda. A plataforma promove o mesmo artefato. Canary recebe 5% de um tenant voluntário, sem ações irreversíveis. Após volume e janela mínimos, amplia por etapas.

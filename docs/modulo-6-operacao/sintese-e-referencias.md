@@ -39,6 +39,7 @@ O capstone é um argumento rastreável do contexto à operação: propósito, qu
 - [ ] Cotas protegem cargas críticas; showback ou chargeback possui atribuição contestável.
 - [ ] Equipes de plataforma, produto, operação, segurança, privacidade, FinOps e domínio conhecem seus limites.
 - [ ] Riscos residuais têm autoridade, prazo, gatilho e experimento quando falta evidência.
+- [ ] Fitness functions verificam manifesto, trace, bypass, fallback e ensaio de recuperação, com responsável e reação à falha.
 
 ## Fontes oficiais e primárias
 
@@ -275,3 +276,4 @@ O futuro muda ferramentas e fronteiras econômicas. O trabalho do arquiteto perm
 3. Distingo parada segura de experimento e incidente real?
 4. Projeto fallback e rollback que preservam controles essenciais?
 5. Delimito capacidades comuns, autonomia local e raio de impacto?
+6. Consigo declarar prioridade, tensão, responsável e fitness function para cada capacidade crítica?

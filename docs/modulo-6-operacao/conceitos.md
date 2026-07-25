@@ -57,6 +57,18 @@ Métricas formam uma cadeia de hipóteses, não um placar único:
 
 Correlação não prova causa. Mais tokens podem acompanhar melhor resolução porque casos difíceis são longos. Um experimento controlado, com guardrails equivalentes, é necessário para inferir contribuição. Métrica de negócio também precisa de contrafactual: “10 mil respostas” mede atividade, não valor.
 
+## Prioridades e tensões operacionais
+
+| Característica | Prioridade | Tensão aceita | Medida e responsável |
+|---|---|---|---|
+| Segurança, privacidade e autorização | Não negociável | bloqueio e segregação podem reduzir disponibilidade | acesso indevido ou ação sem política: zero; Segurança e Privacidade |
+| Confiabilidade e recuperação | Alta | redundância, ensaios e reconciliação aumentam custo e operação | recuperação dentro da janela e efeitos duplicados: zero; Operação e Plataforma |
+| Auditabilidade | Alta | traces preservam metadados sob retenção limitada | execução crítica reconstruível por `release_id`; Auditoria e Operação |
+| Latência, custo e utilidade | Importante | orçamento e degradação podem encaminhar ou limitar jornadas | p95, custo por resultado e abandono por rota; Produto e FinOps |
+| Modificabilidade e portabilidade | Importante | adaptadores, contratos e regressão elevam complexidade | mudança localizada e ensaio de saída; Arquitetura e Plataforma |
+
+Operação sustentável atende a essas prioridades no cenário. Não maximiza simultaneamente disponibilidade, autonomia, coleta de telemetria, velocidade de mudança e opcionalidade.
+
 ## Logs com preservação de privacidade
 
 **Logs com preservação de privacidade** aplicam minimização antes da coleta. Por padrão, registre identificadores pseudonimizados, tamanhos, versões, categorias, hashes controlados, decisões e métricas. Mascare campos sensíveis antes do coletor; separe telemetria operacional de conteúdo para avaliação; criptografe e controle acesso; defina retenção por classe; audite consultas; descarte também exportações e backups.

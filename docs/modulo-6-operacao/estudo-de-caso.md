@@ -36,6 +36,8 @@ Depois de doze semanas, dois produtos usam a base comum. O agente permanece parc
 
 A organização ganha comparabilidade, rota de recuperação e custo atribuível. Ainda restam lock-in em embeddings, mudança invisível de fornecedor, cobertura limitada de idiomas, dependência do gateway e capacidade de plantão. Esses **riscos residuais** têm proprietários, prazos e gatilhos: ensaio trimestral de saída, sentinelas diárias, ampliação de amostras, teste regional e revisão de SLO.
 
+Segurança, privacidade e autorização são bloqueios; confiabilidade, recuperação e auditabilidade têm prioridade alta; latência, custo e portabilidade são otimizados dentro desses limites. O gateway e a telemetria podem ser capacidades hospedadas ou compostas, mas política de domínio, decisão de degradação útil e aceitação de risco não são delegadas ao fornecedor. Manifesto, trace, fallback e ensaios de recuperação funcionam como fitness functions de operação.
+
 O caso demonstra que escala não é quantidade de componentes centralizados. É consistência seletiva: controles transversais comuns, autonomia de produto onde o contexto diverge e contratos que tornam a composição observável. A questão final não é “temos uma plataforma?”, mas “conseguimos mudar, conter e aprender sem perder responsabilidade?”.
 
 ## Entrega requerida para este caso final

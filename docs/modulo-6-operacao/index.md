@@ -26,6 +26,7 @@ Ao final, você deverá conseguir:
 10. decidir entre portabilidade, estratégia multimodelo, reuso e acoplamento consciente;
 11. distribuir responsabilidades, cotas, showback e chargeback entre plataforma e produtos;
 12. integrar os seis módulos em uma arquitetura pronta para evoluir em produção.
+13. priorizar características operacionais, declarar tensões, atribuir responsáveis e definir fitness functions para promoção e recuperação.
 
 ## Continuidade com o curso
 
