@@ -14,6 +14,8 @@ Confiabilidade não reside no modelo isolado. Ela emerge, de forma imperfeita e 
 - **Qualidade é multidimensional.** Factualidade, relevância, fundamentação, segurança, utilidade, latência e custo precisam de critérios próprios e análise por fatias.
 - **Avaliação não é garantia.** Conjuntos e avaliadores amostram comportamentos sob hipóteses. Casos adversariais, canary, monitoramento e resposta cobrem parte do que a avaliação offline não prevê.
 - **Governança precisa ser executável.** Catálogo, pacote de versões, portões, exceções, auditoria e rollback conectam decisão a mudança real.
+- **Prioridades tornam trade-offs revisáveis.** Segurança, privacidade, auditabilidade, confiabilidade, utilidade, latência, custo e modificabilidade precisam de limite, medida e responsável.
+- **Fitness functions sustentam confiança em operação.** Autorização, regressão, escalonamento, trace e mudança de dependência exigem verificação contínua e reação definida à falha.
 
 ## O que vem dos referenciais e o que é recomendação do curso
 
@@ -48,7 +50,7 @@ Essa distinção evita dois erros. O primeiro é transformar orientação volunt
 
 ## Checklist de saída
 
-Antes de chamar uma solução de “pronta”, confirme contexto e usos proibidos; dados e ferramentas mínimos; ameaças por fronteira; testes negativos; escalonamento; casos adversariais; resultados por dimensão e fatia; limites; versões; responsáveis; risco residual; canary, rollback e resposta a incidente.
+Antes de chamar uma solução de “pronta”, confirme contexto e usos proibidos; dados e ferramentas mínimos; ameaças por fronteira; testes negativos; escalonamento; casos adversariais; resultados por dimensão e fatia; limites; versões; responsáveis; fitness functions; risco residual; canary, rollback e resposta a incidente.
 
 Sem evidência para item crítico, reduza escopo, produza-a ou não libere. No [Módulo 6](../sobre/plano-da-disciplina.md#modulo-6), a arquitetura vira prática operacional: LLMOps, observabilidade, SLOs, mudanças e plataforma.
 
@@ -59,3 +61,4 @@ Sem evidência para item crítico, reduza escopo, produza-a ou não libere. No [
 3. Distingo autorização, integridade, privacidade e qualidade?
 4. Avalio dimensões críticas por fatia, sem escondê-las na média?
 5. Declaro risco residual, autoridade, prazo e gatilho de revisão?
+6. Consigo definir uma fitness function com responsável e reação à falha para cada controle crítico?

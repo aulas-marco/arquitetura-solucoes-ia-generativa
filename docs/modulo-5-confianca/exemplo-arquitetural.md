@@ -105,4 +105,6 @@ Para o piloto, a equipe define: zero acesso cruzado e zero chamada fora da ident
 
 “Zero nos casos testados” não significa risco zero. Um vazamento ou falha de escalonamento bloqueia o lançamento porque o impacto é alto, mas a ausência observada só limita a taxa sob as hipóteses do conjunto. O canary reduz exposição, monitora eventos e mantém desligamento. O dono de RH aceita formalmente o risco residual com segurança, privacidade e operação, por prazo definido.
 
+As fitness functions do piloto verificam autorização rastreável antes de conteúdo restrito ou dado pessoal, regressão antes de qualquer mudança do pacote comportamental, encaminhamento de todos os casos obrigatórios, trace minimizado reconstruível e plano de reversão para mudança de dependência. Segurança e Privacidade respondem pelas violações de acesso; RH pelo escalonamento e risco residual; Plataforma pela execução de versões, rollback e telemetria. Se uma delas falhar, o canary não avança.
+
 O próximo capítulo transforma esse desenho em decisão de caso: [Estudo de caso](estudo-de-caso.md).

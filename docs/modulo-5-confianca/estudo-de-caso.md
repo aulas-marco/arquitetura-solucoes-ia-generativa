@@ -56,4 +56,6 @@ Toda alteração executa **regressão** no conjunto fixo e em casos novos, compa
 
 A proposta original não é liberada: escrita, corpus amplo e retenção vaga excedem a evidência. A versão reduzida entra em piloto; o dono de RH aceita por 60 dias resposta incorreta não crítica e falsa recusa como riscos residuais. Vazamento, acesso cruzado, falta de escalonamento obrigatório ou mudança não avaliada interrompem o piloto.
 
+Segurança e privacidade têm prioridade não negociável; fundamentação e confiabilidade são altas; latência, custo e utilidade são otimizados dentro desses limites. A equipe trata ausência de regressão, rastreabilidade minimizada e escalonamento obrigatório como fitness functions de liberação. O gateway de modelo pode ser hospedado, mas política de RH, identidade, retenção e decisão de risco permanecem sob controle explícito da organização.
+
 A decisão é temporal. “Aprovado” significa aprovado para esta configuração, público, finalidade, período e capacidade de resposta — não certificado para qualquer uso. Agora aplique o raciocínio nos [Exercícios](exercicios.md).

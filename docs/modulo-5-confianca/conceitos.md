@@ -58,6 +58,12 @@ Rastreabilidade também não equivale a explicação causal do modelo. O sistema
 
 Contratos com fornecedores definem disponibilidade, uso de dados, localização, subprocessadores, notificação, portabilidade e encerramento. Porém contrato não impede tecnicamente uma injeção nem valida a política de RH. Controles técnicos, operacionais e contratuais se complementam.
 
+## Fronteiras de responsabilidade
+
+A **recuperação** seleciona evidência autorizada, mas não decide regra de domínio; o **guardrail** detecta ou limita um desvio, mas não aceita risco residual; a **política de domínio** determina uso permitido; a **avaliação** produz evidência, mas não aprova lançamento; o **dono do processo** aceita ou rejeita o risco com apoio de segurança, privacidade e operação; e a **observabilidade** registra evidência minimizada, sem se tornar memória ou retenção irrestrita. Essas fronteiras permitem alterar um modelo, avaliador ou fornecedor sem transferir autoridade a eles.
+
+Separar responsabilidades acrescenta integração e operação. A fronteira se justifica quando protege ativo, isola privilégio, permite ciclo de mudança próprio ou torna uma característica arquitetural verificável.
+
 ## Qualidade tem várias dimensões
 
 Uma resposta “boa” precisa ser decomposta:
@@ -73,6 +79,18 @@ Uma resposta “boa” precisa ser decomposta:
 As dimensões não são substituíveis. Alta relevância não compensa vazamento; baixa latência não compensa política desatualizada. Defina **critérios de bloqueio** para eventos intoleráveis e **metas** para dimensões negociáveis. Meça também por fatias — público, idioma, tipo de pergunta, nível de acesso e rota de fallback — porque a média mascara grupos frágeis.
 
 A avaliação fornece evidência sobre uma distribuição de casos observados. Ela não garante comportamento para toda entrada possível. Essa limitação conduz ao próximo capítulo: controles em profundidade e decisões de governança que permanecem ativos quando o teste não antecipou o caso.
+
+## Prioridades e tensões da confiança
+
+| Característica | Prioridade | Tensão aceita | Medida e responsável |
+|---|---|---|---|
+| Segurança e privacidade | Não negociável | bloqueios e minimização podem reduzir utilidade | acesso cruzado e dado sensível exposto: zero; Segurança e Privacidade |
+| Confiabilidade e fundamentação | Alta | recuperação e validação elevam latência e custo | respostas com evidência vigente e escalonamentos corretos; Produto e domínio |
+| Auditabilidade | Alta | trace preserva metadados técnicos sob retenção limitada | execução reconstruível por versão; Operação e Auditoria |
+| Utilidade, latência e custo | Importante | orçamento e filtros podem encaminhar mais casos | p95, custo por jornada e falsa recusa por fatia; Produto e Plataforma |
+| Modificabilidade | Importante | contratos, adaptadores e regressão acrescentam componentes | mudança localizada e teste de contrato; Arquitetura |
+
+Uma solução confiável atende às prioridades declaradas no cenário. Ela não maximiza simultaneamente coleta, velocidade, automação e cobertura de casos.
 
 ## Ferramentas no mercado
 
