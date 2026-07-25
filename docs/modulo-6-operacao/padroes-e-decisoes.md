@@ -10,6 +10,18 @@ Portões não devem congelar melhoria. Um limiar absoluto protege o mínimo; um 
 
 Shadow traffic pode executar o candidato sem mostrar a saída nem realizar efeitos. É útil para latência e comparação, mas ainda processa dados e incorre em custo; ferramentas devem ser simuladas. A/B testa uma hipótese de produto quando ambas as variantes já são aceitáveis. Não se usa experimento para descobrir se uma variante viola um guardrail crítico.
 
+## Fitness functions operacionais
+
+Fitness functions verificam continuamente se a operação mantém o contrato arquitetural:
+
+- toda execução crítica contém `release_id`, rota, versão de política e resultado no trace minimizado;
+- promoção exige manifesto completo, regressão compatível e autoridade registrada para exceção;
+- bypass do gateway preserva controles equivalentes, prazo, escopo e proprietário, ou a rota degrada;
+- fallback para dado restrito usa somente modelo, região e capacidade catalogados e avaliados para a classe;
+- rollback, failover e recuperação de efeitos são ensaiados na janela definida, com resultado e responsáveis registrados.
+
+Falha em uma dessas verificações interrompe promoção, reduz exposição, ativa degradação ou abre incidente conforme impacto. A fitness function não substitui julgamento de risco; ela torna verificável a condição operacional que não pode ser violada.
+
 ## Roteamento, fallback e degradação
 
 **Roteamento** escolhe modelo ou fluxo por classe de dado, risco, idioma, capacidade, latência, custo, região e saúde. A regra é determinística e versionada. Um classificador probabilístico pode fornecer sinal, mas decisões sensíveis recebem confirmação ou rota conservadora. A estratégia deve evitar loops e respeitar afinidade quando estado não é portável.
@@ -48,6 +60,10 @@ Um **serviço compartilhado de guardrails** entrega detectores, políticas, vali
 
 Serviços comuns promovem **reuso**, mas aumentam **acoplamento** operacional e semântico. Extraia apenas capacidades com vários consumidores, contrato relativamente estável e equipe mantenedora. Duplicação temporária pode ser mais barata que uma abstração prematura; duplicação de identidade, auditoria ou controle de custo costuma ser mais perigosa.
 
+## Mecanismos de plataforma e decisões de domínio
+
+Gateway, catálogo, telemetria, avaliação, identidade técnica e guardrails comuns oferecem **mecanismos**: aplicam contratos, registram evidência e limitam caminhos. Eles não decidem finalidade, qualidade suficiente, regra de negócio, exceção contextual ou aceitação de risco residual. Produto e domínio continuam responsáveis por essas decisões; Segurança, Privacidade e Operação mantêm autoridades próprias. Essa divisão evita que uma plataforma comum se torne uma camada central que concentra tecnologia e autoridade indevidamente.
+
 ## Catálogo, identidade, tenancy e política
 
 O **catálogo de modelos** registra fornecedor, revisão, capacidades, modalidades, regiões, classes de dados permitidas, contexto, limites, custo, avaliação, riscos, status e data de revisão. “Aprovado” sempre tem finalidade e condições. Catálogo sem reconciliação com tráfego real vira planilha; o gateway deve apontar uso não catalogado.
@@ -65,6 +81,10 @@ O **catálogo de modelos** registra fornecedor, revisão, capacidades, modalidad
 Uma **estratégia multimodelo** pode buscar resiliência, adequação por tarefa, soberania ou negociação econômica. Cada modelo adicional multiplica avaliação, contrato, competência e modos de falha. “Temos dois fornecedores” não garante continuidade se ambos dependem da mesma região ou se o índice só funciona com um embedding. Modele dependências comuns e ensaie failover.
 
 Registre ADR: contexto, alternativas, critérios, decisão, consequências e gatilhos de revisão. Evite escolher multimodelo por medo abstrato. Um único modelo com rota de saída testada pode ser melhor que três modelos mal avaliados.
+
+## Obtenção de capacidade de plataforma
+
+Gateway, telemetria, avaliação, armazenamento de traces e execução podem ser hospedados, autogeridos ou compostos. Serviço hospedado acelera capacidade, mas cria fronteiras de dados, versões, disponibilidade, portabilidade e resposta a incidente; operação autogerida amplia controle e assume escala, atualização, segurança e plantão. **Construir** se justifica para política, integração ou contrato que diferencia o domínio; **comprar** atende capacidade padronizada; **compor** combina serviços especializados com identidade, política e evidência corporativas. Compare custo total, tempo objetivo de saída, dependências comuns, evidência de recuperação e responsabilidades contratuais antes de delegar uma capacidade.
 
 ## Modelo operacional da plataforma
 

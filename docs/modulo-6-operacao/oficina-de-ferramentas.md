@@ -212,7 +212,7 @@ Entregue as linhas `TRACE_ID` e `DURACAO_MS` de duas execuções e o quadro abai
 | Inicial | tr-202 |  |  |  |  |
 | Variação | tr-204 |  |  |  |  |
 
-Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway.
+Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma fitness function, seu responsável e a reação diante da falha.
 
 ## Limpeza e contingência
 
