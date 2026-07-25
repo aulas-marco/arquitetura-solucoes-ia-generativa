@@ -249,8 +249,9 @@ Escolher padrão é hipótese, não vencedor universal. `p95` cobre 95% das exec
 
 1. Indique fonte ou pergunta atendida por cada padrão.
 2. Relacione etapas a latência, custo, proveniência e operação.
-3. Escolha composição inicial e rota para consultas complexas.
-4. Defina evidência para acrescentar ou remover etapas.
+3. Declare a característica prioritária, a tensão aceita e o responsável pela medida.
+4. Escolha composição inicial e rota para consultas complexas.
+5. Defina evidência e fitness function para acrescentar ou remover etapas.
 
 **Entrega esperada**
 
@@ -260,7 +261,7 @@ Entregue tabela comparativa, recomendação condicionada e mapa de métricas e g
 
 Verifique agora:
 
-- [ ] Padrões usam as mesmas perguntas; a recomendação explicita p95, custo, cobertura e proveniência.
+- [ ] Padrões usam as mesmas perguntas; a recomendação explicita p95, custo, cobertura, proveniência, prioridade e tensão aceita.
 - [ ] Consultas complexas têm abstenção; evolução tem métrica, limiar e reversão.
 
 **Critérios de avaliação**
@@ -299,7 +300,8 @@ Liga ingestão/publicação e consulta/resposta. **Proveniência** acompanha fon
 2. Desenhe ingestão/publicação e consulta/resposta versionadas.
 3. Inclua autorização prévia, proveniência, suficiência, conflito e abstenção.
 4. Relacione falhas a contenção, recuperação, avaliação e ADR.
-5. Revise verticalmente: afirmação, fonte, versão, acesso e medida.
+5. Defina fitness functions de autorização, atualização, recuperação e proveniência, com responsáveis.
+6. Revise verticalmente: afirmação, fonte, versão, acesso e medida.
 
 **Entrega esperada**
 
@@ -324,6 +326,7 @@ Critério de suficiência, conflito e abstenção:
 Proveniência e pacote de versões:
 Falhas, contenção, recuperação e modo degradado:
 Conjunto de avaliação e métricas por camada:
+Prioridades, tensões aceitas, responsáveis e fitness functions:
 Três ADRs com alternativas e gatilhos de revisão:
 Diagramas de ingestão, consulta e sequência com equivalentes textuais:
 ```

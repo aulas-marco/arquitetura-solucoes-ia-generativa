@@ -47,4 +47,6 @@ RAG hierárquico será testado se cláusulas isoladas perderem definições. RAG
 
 O caso demonstra o princípio central: índice, modelo e prompt são substituíveis; identidade, proveniência, atualização, suficiência e avaliação definem se a resposta é confiável no sistema.
 
+Antes da implementação, a equipe deve registrar se índice, embedding e reranking serão hospedados, autogeridos ou compostos; a decisão compara fronteira de dados, custo total, capacidade operacional, portabilidade e evidência de saída. As fitness functions de autorização, atualização e cobertura bloqueiam a promoção de qualquer opção.
+
 **Próxima página:** [Exercícios](exercicios.md).

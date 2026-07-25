@@ -21,6 +21,8 @@ Antes de liberar uma solução, verifique:
 - falhas têm detecção, contenção, recuperação e estado preservado;
 - traces permitem reconstrução sem copiar dados sensíveis desnecessários;
 - toda complexidade adicional possui hipótese, evidência e gatilho de remoção.
+- características prioritárias, tensões aceitas, responsáveis e fitness functions estão registrados antes da promoção;
+- índice, embedding, reranking e observabilidade têm decisão explícita de hospedagem, autogestão ou composição.
 
 ## Autoavaliação
 
@@ -30,6 +32,8 @@ Antes de liberar uma solução, verifique:
 4. Sei impedir que reranker, cache e abertura de fonte atravessem permissões?
 5. Consigo distinguir “não existe”, “não encontrei” e “não está disponível para você”?
 6. Sei escolher entre RAG básico, hierárquico, adaptativo, corretivo, multisource e estruturado?
+7. Consigo atribuir responsabilidade a política, recuperação, ranking, contexto, validação e adaptadores?
+8. Sei definir uma fitness function que bloqueie promoção quando autorização, atualização, recuperação ou proveniência falham?
 
 Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Padrões e decisões](padroes-e-decisoes.md) e os exercícios 8, 10 e 12.
 

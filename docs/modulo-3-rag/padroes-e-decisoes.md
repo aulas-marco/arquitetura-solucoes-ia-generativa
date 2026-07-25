@@ -1,6 +1,6 @@
 # Padrões e decisões: recuperar, autorizar e sustentar
 
-Cada mecanismo de RAG responde a uma falha possível. A decisão não é “qual banco vetorial usar?”, mas “qual evidência precisa ser encontrada, sob quais direitos, com que atualidade, custo e capacidade de explicação?”. Esta página segue o encadeamento do [framework de decisão](../modulo-2-desenho-conceitual/padroes-e-decisoes.md): direcionador → alternativa → consequência → evidência → gatilho de revisão.
+Cada mecanismo de RAG responde a uma falha possível. A decisão central é: “qual evidência precisa ser encontrada, sob quais direitos, com que atualidade, custo e capacidade de explicação?”. Esta página segue o encadeamento do [framework de decisão](../modulo-2-desenho-conceitual/padroes-e-decisoes.md): direcionador → alternativa → consequência → evidência → gatilho de revisão.
 
 ## Antes da busca: transformar sem perder a intenção
 
@@ -55,7 +55,7 @@ Reranking pode elevar precisão nas primeiras posições, mas acrescenta latênc
 
 ## Montagem de contexto
 
-Contexto não é concatenação cega dos primeiros resultados. O montador precisa:
+O montador de contexto organiza evidências dentro de um orçamento e precisa:
 
 - reservar orçamento para instruções, pergunta e resposta;
 - preservar título, versão, vigência, seção e identificador de citação;
@@ -102,11 +102,13 @@ Avalie **abstenção correta** e **abstenção indevida**. Recusar sempre é seg
 
 ## Padrões de RAG e seus trade-offs
 
+As opções abaixo são estratégias de recuperação e composição, não estilos arquiteturais completos. Um mesmo sistema pode usar mais de uma; a escolha continua subordinada às características arquiteturais, ao domínio e às restrições.
+
 ### RAG básico com dois fluxos
 
 Uma ingestão prepara chunks e um fluxo online recupera top-k, monta contexto e gera. É o ponto de partida quando uma coleção homogênea e perguntas simples demonstram cobertura suficiente.
 
-**Acrescenta:** atualização externa e proveniência. **Cobra:** operação de pipeline, índice e avaliação. **Evite quando:** o contexto necessário já é pequeno e selecionável por regra.
+**Acrescenta:** atualização externa e possibilidade de preservar proveniência. **Cobra:** operação de pipeline, índice e avaliação. **Evite quando:** o contexto necessário já é pequeno e selecionável por regra.
 
 ### RAG híbrido
 
@@ -209,7 +211,32 @@ Comece com a menor composição que satisfaz o cenário de qualidade. Uma matriz
 | fatos em sistemas diferentes | RAG multisource | identidade, temporalidade e autoridade são reconciliáveis |
 | agregação e estado atual | consulta estruturada validada | texto não representa o fato com segurança |
 
-Registre em ADR: população de perguntas, fontes, restrições, métrica-base, alternativa rejeitada, risco residual, custo e gatilho de revisão. “Mais avançado” não é atributo de qualidade.
+Registre em ADR: população de perguntas, fontes, restrições, métrica-base, alternativa rejeitada, risco residual, custo e gatilho de revisão. A sofisticação da solução só se justifica quando atende a uma característica priorizada.
+
+## Prioridades, plataforma e evolução
+
+| Característica | Prioridade no caso | Tensão aceita | Medida e responsável |
+|---|---|---|---|
+| Autorização e privacidade | Não negociável | filtros antecipados podem reduzir cobertura aparente | item proibido nunca materializado; Segurança e Privacidade |
+| Proveniência e atualidade | Alta | metadados, versionamento e validação adicionam latência | fonte, versão e vigência por afirmação; dono do conhecimento |
+| Qualidade de recuperação | Alta | híbrido e reranking elevam custo e operação | Recall@k e nDCG por segmento; produto e arquitetura |
+| Confiabilidade | Alta | fallback pode reduzir qualidade | SLO de atualização e modo degradado; Operações |
+| Latência e custo | Importante | limites podem restringir top-k, reranking ou contexto | p95 e custo por consulta; plataforma |
+| Modificabilidade | Importante | adaptadores e contratos adicionam componentes | troca localizada e teste de contrato; arquitetura |
+
+**Hospedado versus autogerido:** um serviço hospedado de índice, embedding ou reranking acelera capacidade e elasticidade, mas cria fronteiras de fornecedor para dados, versões, disponibilidade e portabilidade. Operação autogerida aumenta controle e também assume capacidade, atualização, segurança, escala e plantão. Compare custo total e risco residual no volume esperado.
+
+**Construir, comprar ou compor:** compre uma capacidade padronizada quando a diligência e a saída forem proporcionais ao risco; construa onde contrato, política ou diferenciação exigirem; componha índice, conectores, políticas e avaliação quando as responsabilidades forem distintas. Preserve manifestos, métricas e conjuntos de avaliação para substituir componentes sem perder evidência.
+
+## Fitness functions de RAG
+
+Fitness functions transformam características prioritárias em verificações contínuas que impedem promoção ou acionam revisão:
+
+- **autorização:** nenhum item proibido é materializado no recuperador, reranker, cache ou contexto em testes por tenant e grupo;
+- **atualidade:** publicação, revogação e exclusão atingem seus SLOs por fonte; falha bloqueia a promoção do índice;
+- **recuperação:** Recall@k, nDCG e cobertura de evidência não caem abaixo dos limites acordados por segmento crítico;
+- **proveniência:** toda afirmação material expõe fonte, versão, localização e transformação de contexto compatíveis com a política;
+- **evolução:** alterações em chunking, embedding, ranking, prompt ou modelo produzem manifesto de versões e comparação reproduzível antes de canário ou troca gradual.
 
 ## Avaliação por camada e ponta a ponta
 
