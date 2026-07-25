@@ -177,6 +177,10 @@ Separe métricas por componente para não culpar o modelo por atraso de ingestã
 
 Um painel deve permitir filtrar por versão do corpus, estratégia de chunking, embedding, rota, política, reranker, prompt e modelo. Compare sempre segmentos críticos; médias podem ocultar vazamento raro ou baixa cobertura num tipo de contrato.
 
+### Prioridades e fitness functions
+
+Autorização, privacidade e proveniência prevalecem sobre ganho marginal de latência; o exemplo aceita uma etapa adicional de validação para preservar essas características. Fitness functions bloqueiam promoção quando um candidato proibido é materializado, uma revogação ultrapassa o SLO, Recall@k de um segmento crítico cai abaixo do limite ou uma afirmação material perde fonte, versão ou localização. Segurança, dono do conhecimento, Operações e produto respondem, respectivamente, por essas medidas.
+
 ## Decisões de referência
 
 Para este exemplo, duas ADRs seriam prioritárias:

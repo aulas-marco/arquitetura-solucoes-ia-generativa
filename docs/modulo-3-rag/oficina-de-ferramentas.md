@@ -228,6 +228,8 @@ Entregue a tabela preenchida e uma conclusão de até cinco linhas.
 
 Na conclusão, responda: quando a arquitetura deve responder, quando deve pedir informação e quando deve encaminhar para revisão humana? Declare que o corpus é sintético e registre o modelo de embedding e o modelo de chat usados.
 
+Registre também uma fitness function: por exemplo, “nenhuma resposta é exibida sem ID, versão e fonte recuperada” ou “a exclusão de `POL-17:v3` impede sua recuperação na próxima consulta”. Indique quem verificaria essa condição em operação.
+
 ## Limpeza e contingência
 
 Encerre a execução, saia do ambiente com `deactivate` e apague `.venv` e `chroma-boreal` se não precisar mais deles. Para remover modelos que não serão usados, execute `ollama rm nomic-embed-text` e `ollama rm llama3.2:3b`.

@@ -20,7 +20,7 @@ INFOGRAPHICS = {
     "modulo-3-rag": (
         "m03-mapa-rag-dos-dois-pipelines.png",
         "Mapa RAG dos dois pipelines",
-        "Conhecimento paramétrico não é repositório corporativo",
+        "Conhecimento paramétrico e fontes corporativas",
     ),
     "modulo-4-agentes": (
         "m04-mapa-autonomia-controlada.png",
