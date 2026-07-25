@@ -59,39 +59,54 @@ Na **inferência**, um modelo já treinado processa uma entrada e gera uma saíd
 
 Como qualquer decisão arquitetural, essa escolha tem consequências e pode ser registrada como tal — o [template de ADR](../referencia/template-adr.md) mostra como.
 
+## O que essas propriedades decidem
+
+As próximas propriedades — token, contexto, prompt, temperatura, embedding e conhecimento paramétrico — parecem detalhes de engenharia de modelo. Não são: cada uma distribui custo, risco ou responsabilidade, a marca de uma decisão arquitetural. Não é preciso saber como o modelo calcula atenção entre tokens, o algoritmo exato de tokenização ou a matemática por trás da geração. É preciso reconhecer quando cada propriedade vira restrição, quando ela é um atributo de qualidade em tensão e quando ela é uma decisão de componente ou conector — a mesma leitura de qualquer arquitetura: elementos, fronteiras, mecanismos e por quê.
+
+| Propriedade | Em uma frase | Decisão arquitetural |
+|---|---|---|
+| Token | Custo e processamento | Orçamento de latência e custo |
+| Contexto / janela | O que entra na execução | Evidência, proveniência e limite |
+| Prompt | Artefato que orienta a geração | Contrato de interface a versionar |
+| Temperatura | Parâmetro de variabilidade | Previsibilidade × criatividade |
+| Embedding | Vetor de semelhança | Arquitetura de busca (Módulo 3) |
+| Conhecimento paramétrico | Fatos implícitos nos pesos | Dependência congelada |
+
+O mapa não substitui a leitura de cada propriedade — orienta por onde começar.
+
 ## Tokens, contexto e janela de contexto
 
-Um **token** é a unidade processada pelo modelo: pode corresponder a palavra, parte de palavra, pontuação ou outra unidade da modalidade. Custos e limites de serviços costumam ser medidos em tokens, não em páginas. A relação entre caracteres e tokens varia por idioma e conteúdo; por isso, estimativas devem ser medidas com o modelo escolhido.
+Um **token** é a unidade que o provedor cobra e limita: o que decide quanto uma chamada custa e quanto demora. Pode corresponder a palavra, parte de palavra, pontuação ou outra unidade da modalidade. Custos e limites de serviços costumam ser medidos em tokens, não em páginas. A relação entre caracteres e tokens varia por idioma e conteúdo; por isso, estimativas devem ser medidas com o modelo escolhido.
 
-O **contexto** é a informação disponibilizada durante uma interação: instruções, mensagens, exemplos, trechos recuperados, resultados de ferramentas e estado relevante. A **janela de contexto** limita quanto disso pode ser processado em uma chamada, incluindo entrada e saída. Janela grande amplia possibilidades, mas não garante que todo conteúdo seja usado igualmente bem. Mais contexto também aumenta custo, latência, exposição de dados e oportunidade de conflito entre instruções.
+O **contexto** é tudo que o arquiteto decide disponibilizar ao modelo antes de uma resposta: instruções, mensagens, exemplos, trechos recuperados, resultados de ferramentas e estado relevante. A **janela de contexto** é uma restrição, não uma escolha de estilo: ela limita quanto disso pode ser processado em uma chamada, incluindo entrada e saída, e mais contexto amplia custo, latência, exposição de dados e a chance de conflito entre instruções. A restrição não desaparece enviando mais texto. Resolve-se decidindo o que merece entrar.
 
-Um documento “caber” na janela é condição de capacidade, não evidência de qualidade. Se vinte políticas entram juntas, o modelo ainda precisa localizar a passagem correta, resolver versões e não misturar permissões. O arquiteto deve perguntar o que merece entrar, com qual proveniência, em que ordem e por quanto tempo.
+Um documento “caber” na janela é condição de capacidade, não evidência de qualidade. Se vinte políticas entram juntas, o modelo ainda precisa localizar a passagem correta, resolver versões e não misturar permissões. O arquiteto deve perguntar o que merece entrar, com qual proveniência, em que ordem e por quanto tempo. Um contexto bem projetado é, ele mesmo, um cenário de atributo de qualidade — com fonte, ambiente e medida, não um saco de texto.
 
 ## Prompts, mensagens e parâmetros
 
-Um **prompt** reúne instruções e dados que orientam uma geração. Em aplicações reais ele é um artefato composto: política do sistema, pedido do usuário, exemplos, contexto e especificação de saída podem ser montados por componentes diferentes. Deve ser versionado, testado e relacionado ao modelo compatível.
+Um **prompt** é o contrato que orienta uma geração — como qualquer contrato de interface, deve ser versionado, testado e relacionado ao modelo compatível, não escrito solto. Em aplicações reais ele é um artefato composto: política do sistema, pedido do usuário, exemplos, contexto e especificação de saída podem ser montados por componentes diferentes.
 
-Parâmetros como **temperatura** influenciam a seleção de tokens e a variabilidade. Reduzi-la pode tornar respostas mais estáveis, mas não converte uma afirmação em verdadeira. Restrições de formato e validação posterior aumentam previsibilidade sintática; também não garantem correção semântica.
+Parâmetros como **temperatura** são a primeira lei da arquitetura de software em ação: ajustá-los troca variabilidade por previsibilidade — não elimina a tensão entre atributos, apenas a desloca. Reduzir a temperatura pode tornar respostas mais estáveis, mas não converte uma afirmação em verdadeira. Restrições de formato e validação posterior aumentam previsibilidade sintática; também não garantem correção semântica.
 
-**Exemplo:** um prompt versionado pede uma síntese de até cinco tópicos, preservando datas e nomes do texto fornecido. **Contraexemplo:** uma frase escondida no documento manda ignorar a política e revelar dados. Conteúdo externo deve ser tratado como dado não confiável, não como instrução soberana.
+**Exemplo:** um prompt versionado pede uma síntese de até cinco tópicos, preservando datas e nomes do texto fornecido. **Contraexemplo:** uma frase escondida no documento manda ignorar a política e revelar dados. Conteúdo externo deve ser tratado como dado não confiável, não como instrução soberana — a mesma fronteira entre determinístico e probabilístico do início do módulo, agora aplicada à segurança.
 
 ## Embeddings e representação semântica
 
-Um **embedding** é um vetor numérico que representa propriedades aprendidas de um conteúdo. Textos semanticamente relacionados podem ocupar regiões próximas do espaço vetorial, permitindo recuperar candidatos por similaridade mesmo sem termos idênticos. Isso é útil para busca, agrupamento e recomendação.
+Um **embedding** é a peça técnica por trás de uma decisão de arquitetura: como o sistema vai buscar o que sabe. É um vetor numérico que representa propriedades aprendidas de um conteúdo — textos semanticamente relacionados podem ocupar regiões próximas do espaço vetorial, permitindo recuperar candidatos por similaridade mesmo sem termos idênticos. Útil para busca, agrupamento e recomendação.
 
 Embedding não é resumo legível, prova de equivalência nem banco de fatos. Similaridade alta significa proximidade segundo o modelo e a configuração, não autorização, atualidade ou verdade. Uma consulta sobre “desligamento” pode recuperar conteúdos trabalhistas e também instruções de desligar equipamentos; metadados, filtros, busca lexical e avaliação continuam necessários.
 
 ## Conhecimento paramétrico, variabilidade e alucinação
 
-**Conhecimento paramétrico** é o conteúdo implicitamente representado nos pesos após o treinamento. Ele permite responder sem uma fonte externa, mas tem três limites arquiteturais importantes: não oferece atualização sob demanda, nem proveniência granular, nem garantia de cobertura. A pesquisa de [Brown et al. sobre aprendizagem com poucos exemplos](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html) demonstra ampla adaptação por contexto, mas capacidade geral não equivale a compromisso com fatos de um domínio privado.
+**Conhecimento paramétrico** é uma dependência congelada: o conteúdo implicitamente representado nos pesos após o treinamento, sem canal próprio de atualização. Permite responder sem uma fonte externa, mas tem três limites arquiteturais importantes: não oferece atualização sob demanda, nem proveniência granular, nem garantia de cobertura. Reconhece-se o limite e desenha-se em torno dele; não se espera que ele mude sozinho. A pesquisa de [Brown et al. sobre aprendizagem com poucos exemplos](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html) demonstra ampla adaptação por contexto, mas capacidade geral não equivale a compromisso com fatos de um domínio privado.
 
-**Variabilidade** é a mudança possível entre saídas ou versões. Pode ser benéfica em ideação e problemática em classificação regulada. **Alucinação** é conteúdo plausível sem sustentação nos fatos, no contexto ou nas evidências disponíveis. Uma resposta inventada com tom seguro é perigosa justamente porque legibilidade e factualidade são propriedades diferentes.
+**Variabilidade** é a mudança possível entre saídas ou versões. Pode ser benéfica em ideação e problemática em classificação regulada. **Alucinação** é o risco que qualquer cenário de confiabilidade ou fundamentação precisa conter: conteúdo plausível sem sustentação nos fatos, no contexto ou nas evidências disponíveis. Uma resposta inventada com tom seguro é perigosa justamente porque legibilidade e factualidade são propriedades diferentes.
 
 Mitigar não significa prometer “zero alucinação” por configuração. A arquitetura combina escopo, evidências, instrução para declarar insuficiência, validação, revisão humana conforme o risco e avaliação contínua. O sistema também deve comunicar limites para que o usuário não confunda assistência com autoridade.
 
 ## Multimodalidade
 
-Um sistema **multimodal** processa ou produz mais de um tipo de dado, como texto, imagem, áudio ou vídeo. Um modelo pode ler uma fotografia de nota fiscal e explicar campos; a aplicação ainda precisa validar valores, identidade, formato e política de reembolso. Cada modalidade introduz pipeline, ameaças, acessibilidade e métricas próprios.
+Um sistema **multimodal** processa ou produz mais de um tipo de dado — cada modalidade é um adaptador novo, com seu próprio pipeline, ameaças, acessibilidade e métricas. Um modelo pode ler uma fotografia de nota fiscal e explicar campos; a aplicação ainda precisa validar valores, identidade, formato e política de reembolso.
 
 Não presuma que uma interface multimodal implica entendimento uniforme. Texto embutido em imagem pode sofrer erros; áudio pode conter ruído e informação biométrica; documentos podem combinar tabelas, assinaturas e instruções conflitantes. A pergunta permanece arquitetural: que capacidade pertence ao modelo, que evidência precisa ser preservada e que controle deve permanecer determinístico?
 

@@ -1,6 +1,6 @@
 # Padrões e decisões
 
-Os conceitos anteriores descrevem propriedades; padrões organizam respostas recorrentes a elas. Eles não formam uma escada obrigatória. A solução mais simples que satisfaz cenários de qualidade e risco costuma ser preferível, e padrões podem ser combinados. Use o [Catálogo de padrões arquiteturais](../referencia/catalogo-de-padroes.md) para a formulação completa dos padrões que serão aprofundados adiante.
+Os conceitos anteriores descrevem propriedades; padrões organizam respostas recorrentes a elas. Eles não formam uma escada obrigatória. A solução mais simples que satisfaz cenários de qualidade e risco costuma ser preferível, e padrões podem ser combinados. Comparar essas abordagens é aplicar a **análise de trade-offs** de Richards e Ford: nenhuma vence em todos os atributos — vence a que atende aos cenários priorizados ([*Fundamentals of Software Architecture*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/)). Use o [Catálogo de padrões arquiteturais](../referencia/catalogo-de-padroes.md) para a formulação completa dos padrões que serão aprofundados adiante.
 
 ## Panorama das abordagens
 
