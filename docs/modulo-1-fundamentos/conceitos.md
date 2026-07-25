@@ -4,6 +4,8 @@
 
 *Figura — O modelo transforma contexto em uma saída provável, não garantida; por isso avaliação, segurança e observabilidade pertencem à arquitetura desde a primeira decisão.*
 
+Os conceitos a seguir não são vocabulário solto: cada um sustenta uma decisão arquitetural. Ao ler cada seção, aplique o mesmo teste — **por que isso interessa a quem decide a arquitetura?** — antes de seguir para a próxima.
+
 ## Do determinístico ao probabilístico
 
 Um **componente determinístico** aplica regras explícitas: dadas a mesma entrada e o mesmo estado, produz a mesma saída. Uma função que calcula imposto por uma tabela versionada é um exemplo. Se o resultado estiver errado, procuramos defeitos na regra, nos dados ou na implementação.
@@ -17,6 +19,8 @@ Isso não significa que “tudo virou aleatório”. Autenticação, autorizaç�
 
 **Exemplo:** pedir “reescreva este aviso em linguagem simples” admite várias saídas válidas e combina bem com geração. **Contraexemplo:** pedir ao modelo que determine sozinho se uma transferência excede o limite legal converte uma regra verificável em julgamento instável. O modelo pode ajudar a extrair valores; a decisão final deve permanecer sob regra e evidência apropriadas.
 
+Onde passar essa fronteira é, ela mesma, uma decisão arquitetural, com as mesmas consequências de qualquer outra: restringe o que pode mudar depois e determina o que fica auditável no sistema.
+
 ## Modelo, aplicação e sistema sociotécnico
 
 Um **modelo** é um artefato treinado que recebe entradas e produz saídas. Uma **aplicação de IA** envolve esse modelo com interface, instruções, regras, dados e integrações para atender uma necessidade. Um **sistema de IA** inclui, além da aplicação, pessoas, processos, fornecedores, dados, políticas e efeitos no ambiente.
@@ -25,11 +29,21 @@ As três unidades não são intercambiáveis. Um modelo pode ter bom desempenho 
 
 O [AI Risk Management Framework do NIST](https://doi.org/10.6028/NIST.AI.100-1) trata riscos ao longo do ciclo de vida e reforça essa perspectiva mais ampla. Para o arquiteto, a unidade relevante é quase sempre o sistema: é nela que benefícios, dependências, controles e responsabilidade se encontram.
 
+## Atributos de qualidade e o custo de cada escolha
+
+Definido o nível — o sistema —, a pergunta seguinte é como julgá-lo. Não por uma medida única, mas por **atributos de qualidade**: propriedades verificáveis que expressam como o sistema deve se comportar sob determinadas condições, como modificabilidade, desempenho, disponibilidade, segurança e observabilidade. Cada atributo só orienta arquitetura quando é especificado como cenário — fonte, estímulo, ambiente, artefato, resposta e medida — conforme o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+
+Richards e Ford chamam de primeira lei da arquitetura de software o fato de que **tudo é trade-off**: melhorar um atributo quase sempre custa algo em outro ([*Fundamentals of Software Architecture*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/)). Essa lei explica por que um modelo pode ir bem em um *benchmark* e ainda compor uma aplicação inadequada, como descrito acima: o benchmark mede o modelo isolado; o sistema é julgado pela composição inteira. Arquitetar uma solução generativa é decidir conscientemente quais atributos priorizar e quais aceitar em tensão — nunca prometer maximizar todos.
+
+Essa mesma lei acompanha a próxima escolha: adquirir um modelo fundacional. Aberto ou proprietário, hospedado ou local, cada eixo é mais um trade-off, não uma escala de melhor para pior.
+
 ## Modelos fundacionais e LLMs
 
 Um **modelo fundacional** é treinado em dados amplos e pode ser adaptado a muitas tarefas. O termo chama atenção para a reutilização e também para riscos que se propagam às aplicações derivadas, como discutido em [*On the Opportunities and Risks of Foundation Models*](https://arxiv.org/abs/2108.07258). Um **grande modelo de linguagem (LLM)** é um modelo voltado a padrões de linguagem em larga escala; nem todo modelo fundacional é textual, e nem todo modelo útil precisa ser grande.
 
-A arquitetura Transformer, apresentada em [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html), organizou o processamento de sequências em torno da autoatenção, sem recorrer a redes recorrentes ou convolucionais como estrutura principal. Essa escolha ampliou o paralelismo no treinamento e favoreceu a escalabilidade para modelos maiores. Para esta disciplina, importa menos reproduzir a matemática e mais reconhecer consequências: o modelo processa representações de tokens no contexto disponível, não “abre” automaticamente a base corporativa nem verifica cada afirmação em uma fonte.
+A arquitetura **Transformer** — a rede neural por trás dos LLMs atuais — foi apresentada em [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html), que organizou o processamento de sequências em torno da autoatenção, sem recorrer a redes recorrentes ou convolucionais como estrutura principal. Essa escolha ampliou o paralelismo no treinamento e favoreceu a escalabilidade para modelos maiores. Para esta disciplina, importa menos reproduzir a matemática e mais reconhecer consequências: o modelo processa representações de tokens no contexto disponível, não “abre” automaticamente a base corporativa nem verifica cada afirmação em uma fonte.
+
+Essas consequências são **restrições** do modelo, não **premissas** a revisar depois: não se resolvem com mais dados de treinamento, mais poder computacional ou um prompt melhor escrito. Confundir as duas fragiliza a arquitetura — uma restrição limita opções e não se negocia; uma premissa é condição a validar com evidência, e pode mudar. A arquitetura em torno do modelo, não o modelo, é quem oferece atualização, proveniência e verificação — tema do Módulo 3.
 
 Modelos fundacionais podem ser **proprietários** ou ter pesos sob licenças mais abertas; podem ser consumidos como serviço, hospedados em nuvem dedicada ou autogerenciados. Essas dimensões não são sinônimas. “Aberto” não implica operação local simples; “como serviço” não implica ausência de controles. A escolha altera custo fixo e variável, residência de dados, elasticidade, acesso a telemetria, velocidade de atualização, portabilidade e responsabilidade operacional.
 
@@ -42,6 +56,8 @@ No **treinamento**, dados e um objetivo de otimização ajustam os parâmetros d
 Na **inferência**, um modelo já treinado processa uma entrada e gera uma saída. É o caminho online que o usuário percebe: envolve serializar mensagens, tokenizar, executar o modelo e decodificar tokens. Latência, disponibilidade e custo por interação aparecem aqui.
 
 **Fine-tuning** é uma adaptação dos parâmetros com dados específicos. Pode ensinar estilo, formato ou comportamento recorrente. Não é, em geral, o mecanismo ideal para manter fatos corporativos que mudam toda semana: atualizar, provar a origem e excluir um fato parametrizado é mais difícil do que atualizar uma fonte externa. Essa distinção evita a confusão “se o modelo não sabe nossos documentos, precisamos treiná-lo”.
+
+Como qualquer decisão arquitetural, essa escolha tem consequências e pode ser registrada como tal — o [template de ADR](../referencia/template-adr.md) mostra como.
 
 ## Tokens, contexto e janela de contexto
 
@@ -81,7 +97,7 @@ Não presuma que uma interface multimodal implica entendimento uniforme. Texto e
 
 ## O novo contrato arquitetural
 
-Sistemas generativos combinam zonas previsíveis e zonas avaliadas. O código ainda define autenticação, limites, rotas e validações; o modelo oferece interpretação e geração dentro dessas fronteiras. A qualidade resulta da composição entre modelo, contexto, dados, controles, pessoas e operação. É por isso que substituir apenas o modelo pode melhorar uma métrica e piorar custo, latência ou segurança.
+Sistemas generativos combinam zonas previsíveis e zonas avaliadas. O código ainda define autenticação, limites, rotas e validações; o modelo oferece interpretação e geração dentro dessas fronteiras. A qualidade resulta da composição entre modelo, contexto, dados, controles, pessoas e operação. É por isso que substituir apenas o modelo pode melhorar uma métrica e piorar custo, latência ou segurança — a primeira lei, de novo, agora aplicada ao sistema inteiro.
 
 ## Ferramentas no mercado
 

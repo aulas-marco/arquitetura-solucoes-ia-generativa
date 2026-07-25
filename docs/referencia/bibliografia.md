@@ -4,6 +4,7 @@ Esta bibliografia apresenta as fontes do registro editorial por área de uso. A 
 
 ## Foundations
 
+- Richards e Ford (2020). [*Fundamentals of Software Architecture — An Engineering Approach*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/). (`richards-ford-fundamentals-software-architecture-2020`)
 - Vaswani et al. (2017). [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html). (`vaswani-et-al-attention-2017`)
 - Brown et al. (2020). [*Language Models are Few-Shot Learners*](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html). (`brown-et-al-few-shot-2020`)
 - Bommasani et al. (2021). [*On the Opportunities and Risks of Foundation Models*](https://arxiv.org/abs/2108.07258). (`bommasani-et-al-foundation-models-2021`)

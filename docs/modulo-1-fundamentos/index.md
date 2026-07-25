@@ -4,6 +4,8 @@
 
 Arquitetar uma solução generativa não é apenas acrescentar uma API de modelo a um software convencional. O modelo introduz uma forma probabilística de produzir resultados: duas execuções semelhantes podem variar, uma resposta fluente pode estar errada e uma mudança de contexto pode alterar o comportamento sem que o código da aplicação tenha mudado. Isso desloca parte do trabalho arquitetural de “garantir uma saída por regra” para “delimitar, medir e governar um espaço de comportamentos”.
 
+Adotar um componente generativo é, em si, uma **decisão arquitetural**: afeta interesses importantes, restringe escolhas posteriores e custa caro reverter. Por isso, este módulo trata cada conceito com o mesmo teste — o mesmo que se aplica a qualquer decisão de arquitetura, com ou sem modelo generativo envolvido: **por que isso interessa a quem decide a arquitetura?**
+
 Este módulo constrói o vocabulário necessário para fazer essa leitura. Primeiro separaremos modelo, aplicação e sistema sociotécnico; depois reconheceremos as propriedades técnicas que influenciam contexto, custo, qualidade e risco. Só então veremos padrões de solução e aplicaremos o raciocínio a um assistente interno de documentos.
 
 ## Antes de começar

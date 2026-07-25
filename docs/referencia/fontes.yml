@@ -1,3 +1,13 @@
+- id: richards-ford-fundamentals-software-architecture-2020
+  title: Fundamentals of Software Architecture — An Engineering Approach
+  authors: Mark Richards e Neal Ford
+  year: 2020
+  url: https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/
+  accessed: 2026-07-14
+  topics: [arquitetura, atributos-de-qualidade, trade-offs, decisao-arquitetural]
+  modules: [1, 2]
+  type: published-book
+
 - id: vaswani-et-al-attention-2017
   title: Attention Is All You Need
   authors: Ashish Vaswani et al.

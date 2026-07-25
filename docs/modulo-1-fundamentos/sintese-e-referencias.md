@@ -51,6 +51,7 @@ Este módulo ensinou a **ler** uma solução. O [Módulo 2 — Desenho conceitua
 
 Somente as fontes abaixo foram usadas para sustentar afirmações deste módulo. O registro editorial completo está na [Bibliografia consolidada](../referencia/bibliografia.md).
 
+- Richards, M. e Ford, N. (2020). [*Fundamentals of Software Architecture — An Engineering Approach*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/). Primeira lei da arquitetura de software (tudo é trade-off) e o vocabulário de atributos de qualidade em cenário.
 - Vaswani, A. et al. (2017). [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html). Introdução da arquitetura Transformer.
 - Brown, T. B. et al. (2020). [*Language Models are Few-Shot Learners*](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html). Evidência primária de adaptação de modelos de linguagem por contexto e exemplos.
 - Bommasani, R. et al. (2021). [*On the Opportunities and Risks of Foundation Models*](https://arxiv.org/abs/2108.07258). Formulação e análise do paradigma de modelos fundacionais.
