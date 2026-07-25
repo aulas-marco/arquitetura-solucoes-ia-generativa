@@ -18,6 +18,8 @@ Antes de liberar um sistema que age, verifique:
 - níveis de autonomia são atribuídos por ação, risco e reversibilidade;
 - aprovação prévia vincula objeto imutável; revisão posterior não substitui consentimento;
 - orçamento limita etapas, tempo, custo, tokens, handoffs, tentativas e ações;
+- prioridades de segurança, confiabilidade, auditabilidade, latência, custo e modificabilidade declaram tensões e responsáveis;
+- fitness functions verificam autorização, idempotência, aprovação imutável, compensação e reconstrução do trace;
 - fallback determinístico preserva identidade, estado e verdade sobre o resultado;
 - agente único é o padrão inicial; múltiplos agentes exigem fronteira ou benefício medido;
 - traces permitem reconstrução sem reter segredos e dados pessoais desnecessários;
@@ -31,6 +33,7 @@ Antes de liberar um sistema que age, verifique:
 4. Sei preservar identidade do usuário sem expor credenciais ao modelo?
 5. Consigo classificar autonomia por ação e definir intervenção humana proporcional?
 6. Sei defender agente único, múltiplos agentes ou workflow com métricas capazes de inverter a decisão?
+7. Consigo atribuir responsabilidades entre planejador, executor, política, estado e aprovação, sem conceder autoridade ao modelo?
 
 Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Padrões e decisões](padroes-e-decisoes.md) e os exercícios de SDD em [Exercícios](exercicios.md).
 
@@ -96,6 +99,7 @@ Ser “dono da spec” não significa escrever toda a prosa. Significa responder
 - [ ] Tarefas são fatias demonstráveis com bloqueadores.
 - [ ] Cada requisito prioritário possui tarefa e teste planejado.
 - [ ] Gates identificam pessoa, versão, evidência e consequência.
+- [ ] Fitness functions têm limiar, responsável e consequência diante da falha.
 
 ## Checklist antes do merge
 

@@ -23,6 +23,7 @@ Ao final, você deverá conseguir:
 7. aplicar timeout, retry, circuit breaker e compensação sem duplicar efeitos;
 8. classificar autonomia por ação e risco, com aprovação humana e fallback;
 9. comparar agente único e múltiplos agentes por evidência operacional.
+10. priorizar segurança, confiabilidade, auditabilidade, latência, custo e modificabilidade, declarando tensões, responsáveis e fitness functions.
 
 ## Fio aplicado: desenvolvimento guiado por especificação
 

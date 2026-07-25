@@ -89,6 +89,22 @@ Autonomia é atribuída por **ação e cenário**, não por produto inteiro. Os 
 
 **Revisão humana depois da ação** detecta desvio, corrige política e permite recurso; não retroativamente autoriza dano. Só serve quando o efeito é aceitável, reversível ou de baixo risco. Amostragem, alertas e prazo de contestação devem ser definidos. Ação crítica continua exigindo aprovação prévia, como pede o cenário de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia).
 
+## Fitness functions para autonomia
+
+Fitness functions verificam continuamente se a autonomia permanece dentro do contrato:
+
+- toda ação material possui decisão de política válida, identidade delegada e chave de idempotência;
+- aprovação referencia ferramenta, parâmetros, evidência, prazo e versão de estado imutáveis;
+- repetição da mesma ferramenta com argumentos canônicos e estado idêntico interrompe a trajetória;
+- execução em `compensation_pending` permanece aberta e alerta Operações até reconciliação;
+- trace contém versões de política, ferramenta, estado e resultado, sem conteúdo sensível além da retenção permitida.
+
+Falha em uma dessas verificações bloqueia promoção de versão, reduz autonomia ou encaminha o caso para workflow humano, conforme risco.
+
+## Plataforma e obtenção de capacidade
+
+Orquestração, estado, identidade, telemetria e catálogo de ferramentas podem ser hospedados, autogeridos ou compostos. Serviço hospedado acelera capacidade, mas cria fronteira de fornecedor para dados, disponibilidade, versões e portabilidade; operação autogerida amplia controle e assume escala, atualização, segurança e plantão. **Construir** faz sentido para políticas ou contratos diferenciadores; **comprar** acelera capacidade padronizada; **compor** permite combinar identidade corporativa, executor próprio e observabilidade compartilhada. Compare custo total, risco residual e evidência de saída antes de delegar uma responsabilidade operacional.
+
 ## Orçamentos, interrupção e fallback
 
 Um agente recebe **orçamento de etapas**, **orçamento de tempo** e **orçamento de custo**, além de limites de tokens, chamadas e ações de efeito. O contador é externo ao modelo e inclui retries, handoffs e compensações. Limites diferentes podem valer por classe de tarefa. Ao se aproximar do teto, o sistema resume estado, evita nova ação material e escolhe conclusão parcial, solicitação de dado, pausa ou escalonamento.

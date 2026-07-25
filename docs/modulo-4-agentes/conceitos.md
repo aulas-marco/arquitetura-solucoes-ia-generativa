@@ -4,7 +4,7 @@
 
 *Figura — Autonomia não é uma propriedade binária: ela cresce com a capacidade de decidir e agir, e deve encontrar políticas e aprovação antes de cruzar fronteiras materiais.*
 
-## Quatro formas que não devem ser confundidas
+## Quatro formas de controle operacional
 
 Um **chatbot** oferece interação conversacional. Pode responder por conhecimento paramétrico, contexto fornecido ou RAG. Conversar em várias rodadas não implica escolher ferramentas nem produzir efeitos externos. A conversa é uma forma de interface.
 
@@ -59,6 +59,12 @@ Políticas determinam quais ferramentas e parâmetros estão disponíveis para a
 
 Uma decisão de política pode retornar `allow`, `deny` ou `require_approval`, acompanhada de versão, motivo e obrigações: mascarar campo, limitar valor, exigir confirmação do cliente ou escolher aprovador. Negação vira resultado explícito; o agente não deve contorná-la por outra ferramenta equivalente.
 
+## Responsabilidades e fronteiras de componente
+
+O **planejador** propõe próximo passo; o **executor** valida e realiza a chamada; o **motor de políticas** decide permissão; o **estado** preserva a trajetória autorizada; a **aprovação** vincula pessoa, objeto imutável e prazo; o **catálogo** expõe somente ferramentas permitidas; e a **telemetria** registra evidências minimizadas. O planejador não recebe credenciais, o executor não redefine política, a aprovação não altera parâmetros e a telemetria não vira memória de trabalho. Essas fronteiras reduzem acoplamento e permitem trocar modelo ou orquestrador sem alterar autoridade ou efeito.
+
+Separar componentes também acrescenta chamadas, latência e operação. A fronteira se justifica quando responsabilidade, risco, ciclo de mudança ou atributo de qualidade exigem independência.
+
 ## Agente único e múltiplos agentes
 
 No **agente único**, um planejador recebe objetivo e catálogo limitado. Há menos mensagens, estados e pontos de coordenação. É a opção inicial quando uma trajetória cabe num contexto controlável e uma equipe pode manter os contratos.
@@ -72,6 +78,18 @@ Use múltiplos agentes quando houver fronteiras reais: domínios mantidos por eq
 ## O critério de entrada
 
 Um agente é candidato quando: a sequência útil varia de modo difícil de enumerar; ferramentas devolvem feedback verificável; erros podem ser contidos; a tarefa tem conclusão observável; e orçamento/autoridade podem ser delimitados. Rejeite ou limite autonomia quando o caminho é estável, o efeito é irreversível, a autorização é ambígua, o feedback chega tarde ou não existe recuperação proporcional.
+
+## Características e tensões da autonomia
+
+| Característica | Prioridade | Tensão aceita | Medida e responsável |
+|---|---|---|---|
+| Segurança e autorização | Não negociável | validação adicional aumenta latência | ação material sem política válida: zero; Segurança |
+| Confiabilidade | Alta | idempotência e compensação aumentam estado | efeitos duplicados e compensações pendentes; Operações |
+| Auditabilidade | Alta | trace retém metadados técnicos | execução reconstruível por versão; Auditoria |
+| Latência e custo | Importante | orçamento pode limitar autonomia | p95, chamadas e custo por execução; Produto e plataforma |
+| Modificabilidade | Importante | adaptadores e contratos acrescentam componentes | troca localizada e teste de contrato; Arquitetura |
+
+Autonomia adequada é a que atende essas prioridades no cenário, não a que maximiza o número de ferramentas ou etapas escolhidas pelo modelo.
 
 ## Ferramentas no mercado
 

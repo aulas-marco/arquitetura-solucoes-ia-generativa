@@ -192,7 +192,7 @@ Entregue as três saídas ou uma tabela equivalente e uma conclusão de até cin
 | Com aprovação |  |  |  |  |
 | Repetição |  |  |  |  |
 
-Explique qual condição impede a reserva, como a repetição é contida e como você trataria `outcome_unknown`.
+Explique qual condição impede a reserva, como a repetição é contida e como você trataria `outcome_unknown`. Registre também uma fitness function verificável — por exemplo, a mesma intenção com a mesma chave não pode produzir dois efeitos — e quem responde por seu alerta.
 
 ## Limpeza e contingência
 
