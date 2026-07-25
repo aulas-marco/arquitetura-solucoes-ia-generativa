@@ -24,7 +24,7 @@ Ao concluir o módulo, você deverá ser capaz de:
 2. **Aplicar** decisões de aquisição, extração, normalização, segmentação, metadados, embeddings, indexação, atualização e proveniência.
 3. **Analisar** recuperação lexical, vetorial e híbrida; filtros de autorização; reranking; montagem de contexto; citação e evidência insuficiente.
 4. **Avaliar** padrões básico, híbrido, hierárquico, adaptativo, corretivo, multisource e orientado a dados estruturados.
-5. **Criar** uma arquitetura RAG completa, com fluxos offline e online, fronteiras de confiança, métricas, recuperação e degradação segura.
+5. **Criar** uma arquitetura RAG completa, com fluxos offline e online, fronteiras de confiança, responsabilidades de componente, prioridades, tensões, métricas e degradação segura.
 
 ## Roteiro do módulo
 
@@ -49,6 +49,8 @@ Para cada afirmação importante, a arquitetura deve conseguir responder:
 4. quais trechos entraram no contexto e sob quais identificadores;
 5. qual configuração de prompt e modelo produziu a saída;
 6. quais verificações aprovaram, limitaram ou recusaram a resposta.
+
+Também deve declarar qual característica prevalece quando cobertura, latência, custo, privacidade ou atualidade entram em tensão, quem responde pela medida e qual fitness function interrompe uma promoção.
 
 Essa cadeia não garante verdade universal. Ela torna o comportamento inspecionável e permite medir onde ocorreu uma falha. O trabalho original de [Lewis et al. sobre RAG](https://proceedings.neurips.cc/paper/2020/hash/6b493230-Abstract.html) combina memória paramétrica e memória não paramétrica recuperada. Em arquitetura corporativa, ampliamos a ideia para incluir ciclo de vida do conhecimento, políticas de acesso, operação e responsabilização.
 
