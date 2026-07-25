@@ -160,15 +160,15 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 
 ## Analisar
 
-### 10. Comparação arquitetural
+### 10. Comparação das quatro decisões
 
-**O que é:** uma comparação arquitetural é uma matriz que coloca alternativas sob os mesmos critérios e explicita consequências, hipóteses e evidências faltantes antes da escolha.
+**O que é:** separar produção, conhecimento, efeito e operação evita que “usar um modelo” esconda decisões independentes.
 
 **Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](padroes-e-decisoes.md#panorama-das-abordagens) e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md#o-novo-contrato-arquitetural).
 
 **Situação**
 
-No caso Horizonte, documentos mudam, algumas perguntas exigem fonte e o acervo contém informação que não deve ser enviada para qualquer usuário. Você precisa comparar três formas de fornecer conhecimento ao modelo, não escolher uma tecnologia por popularidade.
+No caso Horizonte, documentos mudam, algumas perguntas exigem fonte e poucos casos podem abrir chamado após confirmação. A liderança pede um agente completo. Você precisa comparar alternativas sem condensar tudo nessa preferência.
 
 **Seu papel**
 
@@ -180,38 +180,38 @@ Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo
 
 **Como conduzir**
 
-1. Escreva uma linha para geração direta, documentos completos no contexto e recuperação de trechos.
-2. Para cada alternativa, registre atualização, proveniência, autorização, latência, custo, operação e evidência disponível.
-3. Separe fatos do caso de hipóteses que ainda exigem medição.
-4. Escolha uma alternativa provisória e formule uma incógnita que poderia inverter a escolha.
+1. Crie linhas para produção, conhecimento, efeito e operação.
+2. Em cada linha, compare ao menos uma alternativa convencional e uma generativa.
+3. Registre capacidade, responsabilidade, característica afetada e evidência disponível.
+4. Separe fatos de hipóteses e formule a incógnita que poderia inverter cada direção.
 
 **Entrega esperada**
 
-Entregue uma matriz comparativa, uma recomendação provisória de até um parágrafo e um experimento para a incógnita.
+Entregue uma matriz das quatro decisões, recomendação incremental e experimento para a incógnita de maior risco.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Critérios comparáveis | 20% | Usa os mesmos eixos para as três alternativas. |
+| Decisões separadas | 20% | Não confunde produção, conhecimento, efeito e operação. |
 | Consequências | 25% | Explica efeitos arquiteturais concretos, não apenas vantagens genéricas. |
 | Evidências e limites | 25% | Distingue dado fornecido, hipótese e lacuna de medição. |
 | Decisão provisória | 15% | Recomenda uma opção condicionada ao contexto, sem declarar vencedor universal. |
 | Investigação | 15% | Propõe uma medida capaz de confirmar ou refutar a hipótese principal. |
 
-**Como verificar antes de entregar:** confira que as três alternativas ocupam as mesmas colunas, que cada célula distingue fato de hipótese, que a recomendação tem condição explícita e que o experimento mede a incógnita capaz de inverter a escolha.
+**Como verificar antes de entregar:** confira que cada decisão possui alternativa convencional, responsabilidade e evidência; que fato e hipótese estão separados; e que o experimento pode inverter uma direção.
 
 ## Avaliar
 
-### 11. Contestação da ADR
+### 11. Contestação da ficha de decisão
 
-**O que é:** contestar uma ADR significa revisar a decisão registrada, suas alternativas, evidências e condições de reversão; não é apenas dizer se você gosta da tecnologia.
+**O que é:** contestar uma ficha inicial significa verificar se ela contém problema, responsabilidades, alternativas e evidência suficientes para seguir ao desenho conceitual.
 
-**Onde encontrar:** leia a [ADR preliminar — contexto para o assistente documental](padroes-e-decisoes.md#adr-preliminar-contexto-para-o-assistente-documental), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Situação**
 
-A equipe propõe aceitar uma ADR preliminar porque “RAG é o padrão de mercado”. A frase é uma justificativa de tendência, não uma evidência de adequação ao caso Horizonte.
+A equipe quer seguir diretamente para RAG e agente porque “são o padrão de mercado”. A frase não demonstra adequação ao caso Horizonte.
 
 **Seu papel**
 
@@ -219,12 +219,12 @@ Você é o revisor arquitetural. Seu trabalho é testar a decisão, localizar pr
 
 **Insumos disponíveis**
 
-Leia a [ADR preliminar — contexto para o assistente documental](padroes-e-decisoes.md#adr-preliminar-contexto-para-o-assistente-documental), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+Leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
 1. Escreva o julgamento inicial: aceitar, rejeitar ou manter como experimento.
-2. Liste dois direcionadores do caso e mostre como eles favorecem ou enfraquecem a ADR.
+2. Liste dois direcionadores e mostre como favorecem ou enfraquecem as direções propostas.
 3. Separe evidência existente de hipótese e escolha uma consequência que ainda precisa ser medida.
 4. Defina limite, responsável e gatilho que fariam você rever o julgamento.
 
@@ -249,7 +249,7 @@ Entregue um parecer de até 300 palavras e uma tabela com evidência atual, hip�
 
 **O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras, falhas e evidências de qualidade.
 
-**Onde encontrar:** use os [conceitos e padrões do módulo 1](conceitos.md), o [template de ADR](../referencia/template-adr.md) e o [diagrama de exemplo arquitetural](exemplo-arquitetural.md).
+**Onde encontrar:** use os [conceitos](conceitos.md), a [ficha de decisão](padroes-e-decisoes.md#ficha-de-decisao-inicial), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) e o [exemplo Horizonte](exemplo-arquitetural.md).
 
 **Situação**
 
@@ -261,15 +261,16 @@ Você é o arquiteto que precisa compor um desenho mínimo, deixando claro onde 
 
 **Insumos disponíveis**
 
-Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens), o [template de ADR](../referencia/template-adr.md) e o diagrama de exemplo arquitetural. O diretório e as atas são fictícios; não use dados reais.
+Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens), a [ficha inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) e o mapa de exemplo. O diretório e as atas são fictícios; não use dados reais.
 
 **Como conduzir**
 
 1. Preencha primeiro propósito, fora de escopo, stakeholders e preocupações.
-2. Separe componentes determinísticos e probabilísticos e desenhe o fluxo principal.
-3. Marque fronteiras de dados, autorização, retenção e as duas falhas mais relevantes.
-4. Escreva um cenário de qualidade e um experimento que possa refutar a hipótese de maior risco.
-5. Revise o diagrama verificando se cada seta tem um responsável e se nenhum componente promete o efeito sozinho.
+2. Separe geração, decisão, autorização e efeito; desenhe o fluxo principal.
+3. Classifique conhecimento, contexto, estado, memória, evidência e trace usados.
+4. Registre modelo, parâmetros, prompt, fontes, ferramentas, políticas e implantação que compõem a superfície comportamental.
+5. Escreva um cenário, um teste de software, uma avaliação comportamental e uma fitness function.
+6. Defina um experimento que possa refutar a hipótese de maior risco.
 
 **Entrega esperada**
 
@@ -282,11 +283,14 @@ Propósito e fora de escopo:
 Stakeholders e duas preocupações:
 Componentes determinísticos:
 Componente(s) probabilístico(s):
+Geração — decisão — autorização — efeito:
 Fluxo principal:
-Fronteiras de dados e autorização:
+Conhecimento — contexto — estado — memória — evidência — trace:
+Superfície comportamental:
 Falha 1 — consequência — contenção:
 Falha 2 — consequência — contenção:
 Cenário de qualidade mensurável:
+Teste — avaliação — fitness function:
 Hipótese de maior risco e experimento:
 Diagrama:
 ```
@@ -295,13 +299,13 @@ Diagrama:
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Escopo e responsabilidades | 15% | Define usuário, fora de escopo e fronteiras entre regra, modelo e aplicação. |
-| Dados e autorização | 20% | Explica acesso, retenção de 24 horas e descarte sem pressupor confiança implícita. |
+| Escopo e responsabilidades | 15% | Define usuário, fora de escopo e separa geração, decisão, autorização e efeito. |
+| Ciclos de informação | 20% | Separa conhecimento, contexto, estado, memória, evidência e trace. |
 | Falhas e qualidade | 15% | Liga falhas a consequência, contenção e cenário mensurável. |
 | Diagrama e texto | 15% | Mantém componentes, fluxos e responsabilidades consistentes nas duas formas. |
-| Experimento | 15% | Define hipótese, variável, evidência e condição de revisão. |
+| Verificação e experimento | 15% | Distingue teste, avaliação, fitness function e experimento refutável. |
 | Clareza arquitetural | 20% | Permite que outro arquiteto reconstrua a decisão sem adivinhar premissas. |
 
-**Como verificar antes de entregar:** confira se o diagrama tem equivalente textual, se cada seta possui origem, destino e responsável, se retenção e autorização estão marcadas, se as duas falhas têm contenção e se o experimento pode refutar a hipótese de maior risco.
+**Como verificar antes de entregar:** confira o equivalente textual, os quatro verbos de responsabilidade, os seis ciclos de informação, a superfície comportamental, as três formas de verificação e a hipótese refutável.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).

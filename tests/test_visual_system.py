@@ -111,7 +111,11 @@ class DirectGithubFallbackTest(unittest.TestCase):
             self.assertRegex(opening, r"(?m)^# .+")
             self.assertRegex(opening, r"(?m)^> ")
             self.assertRegex(opening + example, r"(?m)^\|.+\|$")
-            self.assertRegex(example, r"!\[[^\]]+\]\([^\)]+\)")
+            self.assertTrue(
+                re.search(r"!\[[^\]]+\]\([^\)]+\)", example)
+                or "```mermaid" in example,
+                f"{slug}/exemplo-arquitetural.md precisa de imagem ou diagrama Mermaid",
+            )
             self.assertRegex(example, r"(?m)^\*Figura \d+ — .+\*$")
             self.assertRegex(example, r"\[[^\]]+\]\([^\)]+\)")
             self.assertIn("<details>", exercises)

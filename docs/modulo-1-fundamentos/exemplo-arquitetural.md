@@ -1,29 +1,54 @@
-# Exemplo arquitetural: oito camadas de uma solução generativa
+# Exemplo arquitetural: atendimento Horizonte
 
-Uma arquitetura de referência ajuda a fazer perguntas; não prescreve produtos. A solução abaixo recebe uma pergunta, obtém contexto autorizado e produz uma resposta apoiada em evidências. As oito camadas separam responsabilidades que têm ciclos de mudança, riscos e métricas diferentes.
+Este exemplo aplica o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) a um incremento concreto. A Horizonte quer reduzir o tempo gasto por analistas para localizar e explicar políticas. O primeiro incremento responde sobre viagens com fontes autorizadas e pode preparar uma proposta de chamado, mas não executa a abertura.
 
-![Anatomia de uma solução generativa organizada em oito camadas, do canal do usuário às capacidades transversais de segurança, governança, avaliação e observabilidade](../assets/images/m01-anatomia-solucao-generativa.png)
-*Figura 2 — Visão de referência: capacidades transversais atravessam o caminho completo; não são uma etapa final acrescentada depois da geração.*
+## Escopo e responsabilidades
 
-## As camadas
+| Atividade | Responsável | Limite |
+|---|---|---|
+| localizar política elegível | serviço de conhecimento | não interpreta direito nem amplia acesso |
+| montar contexto | orquestrador | usa somente versão vigente e finalidade atendimento |
+| redigir orientação | modelo | não decide conflito nem cria chamado |
+| verificar suporte | validador e analista | ausência de evidência interrompe conclusão |
+| decidir encaminhamento | analista | chamado permanece apenas como proposta |
+| aprovar vigência | dono da política | não delega autoridade ao modelo |
 
-1. **Canais e experiência.** Chat, portal, aplicativo ou API capturam intenção, anexos, consentimento e feedback. A interface deve comunicar limites, origem da resposta e caminhos de correção.
-2. **Aplicação, serviços e APIs.** Autentica, aplica regras de negócio, mantém contratos, controla sessão e transforma a experiência em solicitação estruturada.
-3. **Orquestração e contexto.** Escolhe o fluxo aprovado, monta mensagens, aplica orçamento de tokens, coordena recuperação e decide fallback. Não delega política ao modelo.
-4. **Modelos e inferência.** Oferece geração ou embeddings por interfaces controladas. Um gateway pode aplicar roteamento, cotas e abstração de fornecedor.
-5. **Conhecimento, dados e memória.** Mantém fontes, metadados, índices e estado permitido. Conhecimento corporativo, histórico de conversa e memória duradoura têm finalidades e retenções distintas.
-6. **Ferramentas e sistemas corporativos.** Expõe consultas e ações por contratos mínimos, com identidade, autorização, validação e auditoria.
-7. **Infraestrutura e operação.** Provê execução, redes, segredos, capacidade, implantação, recuperação e gestão de dependências.
-8. **Segurança, governança, avaliação e observabilidade.** Define políticas e evidências de ponta a ponta: versões, traces, conjuntos de teste, aprovações, privacidade e resposta a incidentes.
+Ficam fora do incremento: documentos sem dono, anexos pessoais, decisões sobre direito, memória persistente, escrita em sistemas e comunicação externa.
 
-## Componentes e dependências
+## Composição escolhida
 
-![Componentes de uma solução generativa fundamentada: canal do usuário, aplicação e API e orquestrador de contexto formam o caminho principal; o orquestrador consulta conhecimento autorizado, usa gateway de modelos e aciona ferramentas corporativas apenas por um fluxo governado. Segurança, governança, avaliação e observabilidade atravessam os componentes, sustentados por infraestrutura e operação.](../assets/images/m01-componentes-dependencias.png)
-*Figura 3 — Componentes e dependências de uma solução generativa fundamentada.*
+O corpus piloto contém vinte políticas de viagem com dono e vigência confirmados. A aplicação compara busca lexical e recuperação híbrida, mas ambas obedecem ao mesmo contrato de evidência. O modelo recebe trechos e identificadores; a interface mostra fonte e permite abrir o documento original.
 
-**Equivalente textual — componentes.** O canal do usuário encaminha a solicitação à aplicação e API, que autentica a sessão e entrega um pedido estruturado ao orquestrador de contexto. O orquestrador consulta conhecimento autorizado e monta o contexto mínimo; em seguida, solicita inferência por um gateway de modelos. Ferramentas corporativas não recebem chamadas do modelo: somente o orquestrador pode acioná-las, depois de uma decisão de política e com contrato, identidade e escopo autorizados. Os resultados tipados retornam ao orquestrador — em notação de dependência, `T -. "resultado tipado" .-> O` — para que ele valide e componha a resposta. Segurança, governança, avaliação e observabilidade aplicam políticas e produzem evidências ao longo de todo o caminho, enquanto infraestrutura e operação sustentam os componentes.
+```mermaid
+flowchart LR
+    U[Analista] --> A[Aplicação]
+    A --> P[Política de acesso]
+    P --> R[Conhecimento de viagens]
+    R --> O[Montador de contexto]
+    O --> M[Inferência]
+    M --> V[Validação de suporte]
+    V --> A
+    A --> H[Dono da política ou atendimento]
+```
 
-## Sequência de uma consulta fundamentada
+*Figura 1 — Composição do primeiro incremento do atendimento Horizonte.*
+
+**Equivalente textual.** A aplicação autentica o analista e consulta política antes da fonte. O serviço de conhecimento retorna trechos autorizados com versão; o montador cria contexto; a inferência redige; validação compara afirmações e evidências. Sem suporte ou diante de conflito, a aplicação encaminha à pessoa responsável.
+
+## Superfície comportamental do incremento
+
+| Elemento | Registro necessário |
+|---|---|
+| modelo e parâmetros | identificador de versão, temperatura e limites |
+| prompt | versão e contrato de saída |
+| fontes | política, versão, vigência e nível de acesso |
+| recuperação | consulta, filtro e identificadores dos candidatos |
+| políticas | finalidade, perfil e regra de retenção |
+| estado | solicitação e rascunho até a conclusão |
+| memória | nenhuma entre sessões |
+| implantação | aplicação e fontes internas; endpoint de inferência aprovado |
+
+## Sequência principal
 
 ```mermaid
 sequenceDiagram
@@ -35,51 +60,46 @@ sequenceDiagram
     participant G as Gateway
     participant M as Modelo
     participant V as Validação
-    U->>A: pergunta e sessão
+    U->>A: pergunta sobre viagem
     A->>O: solicitação autenticada
-    O->>P: finalidade e atributos
+    O->>P: identidade e finalidade
     P-->>O: predicado autorizado
-    O->>R: consulta com predicado
-    R-->>O: evidências autorizadas
+    O->>R: consulta limitada ao corpus piloto
+    R-->>O: trechos, versões e identificadores
     O->>G: prompt e contexto mínimo
-    G->>M: inferência aprovada
-    M-->>G: proposta de resposta
-    G-->>O: resposta do modelo
-    O->>V: resposta, fontes e política
-    V-->>A: resposta validada e citações
-    A-->>U: resposta utilizável
+    G->>M: inferência
+    M-->>G: proposta de orientação
+    G-->>O: saída e metadados
+    O->>V: afirmações e evidências
+    V-->>A: resposta sustentada ou lacuna
+    A-->>U: orientação, fontes ou encaminhamento
 ```
 
-A sequência mostra o caminho online principal. A ingestão, segmentação, geração de embeddings e indexação pertencem ao caminho offline: produzem e promovem o índice autorizado, mas não são chamadas de modo síncrono por cada consulta.
+*Figura 2 — Sequência principal da consulta a uma política de viagem.*
 
-## Caminho crítico de uma resposta
+## Falhas e degradação
 
-O caminho crítico online começa na recepção da pergunta e termina quando o usuário recebe conteúdo utilizável. Para o assistente documental, ele inclui: autenticar; classificar a solicitação; recuperar trechos autorizados; montar o contexto; invocar o modelo; validar suporte e formato; entregar texto e fontes. A latência total é a soma e a interação entre essas etapas, não apenas o tempo do modelo.
+| Falha | Contenção | Estado oferecido ao analista |
+|---|---|---|
+| política vencida ou conflitante | não concluir; encaminhar ao dono | fontes encontradas e motivo do bloqueio |
+| fonte proibida para o perfil | filtrar antes da recuperação | nenhuma indicação do conteúdo restrito |
+| inferência indisponível | oferecer resultados da busca sem síntese | links autorizados e pergunta preservada |
+| resposta sem suporte | remover conclusão e destacar lacuna | trechos recuperados para revisão |
+| mudança de modelo com regressão | impedir promoção | versão anterior permanece ativa |
 
-Algumas atividades ficam fora desse caminho: extrair documentos, segmentar, gerar embeddings, aprovar versões e indexar são do fluxo offline. Separá-los evita reprocessar o corpus em cada pergunta, mas cria uma obrigação de sincronização. Um documento aprovado que ainda não chegou ao índice é uma falha de atualidade mesmo que todos os serviços estejam disponíveis.
+## Evidência antes de ampliar
 
-## Três modos de falha e suas consequências
+| Tipo | Verificação |
+|---|---|
+| Teste de software | perfil sem acesso nunca recebe identificador ou trecho restrito |
+| Avaliação comportamental | perguntas respondíveis medem recuperação, suporte, utilidade e recusa |
+| Verificação arquitetural | p95, custo, isolamento e degradação permanecem nos limites |
+| Fitness function | promoção é bloqueada se houver vazamento ou queda de suporte abaixo do limiar |
 
-### 1. Evidência errada ou ausente
+A proposta de chamado fica para outro incremento. Se for adotada, deverá acrescentar contrato, política, confirmação humana e executor idempotente. Essa decisão pertence à trajetória de ação aprofundada no Módulo 4, não ao fluxo documental atual.
 
-A recuperação pode não encontrar a política correta, selecionar versão vencida ou trazer trecho apenas parecido. O modelo então responde com base fraca ou preenche a lacuna. **Qualidades afetadas:** fundamentação, qualidade, explicabilidade e confiança do usuário. Contenções incluem metadados de vigência, avaliação da recuperação, limiar de suficiência e recusa explícita. Adicionar uma frase “cite fontes” ao prompt não corrige um candidato errado.
+## Leitura do exemplo
 
-### 2. Dependência lenta ou indisponível
+O desenho demonstra uma composição, não uma arquitetura universal. O Módulo 2 poderá questionar se os direcionadores justificam a estrutura; o Módulo 3 detalhará conhecimento; o Módulo 5 testará ameaças e controles; o Módulo 6 governará versões e promoção.
 
-Índice, gateway ou modelo pode exceder o timeout. Retry indiscriminado aumenta latência e custo; se houver ferramenta com efeito, pode duplicar ação. **Qualidades afetadas:** latência, confiabilidade, custo e experiência. O desenho precisa de orçamento de tempo por etapa, retry seguro, circuit breaker quando aplicável e fallback honesto, como busca documental sem síntese ou encaminhamento humano.
-
-### 3. Contexto não autorizado ou malicioso
-
-Uma permissão desatualizada pode expor documento restrito; um arquivo recuperado pode conter instrução para ignorar políticas. **Qualidades afetadas:** segurança, privacidade, governança e conformidade. A identidade deve chegar à recuperação, conteúdo deve permanecer separado de instruções e ações devem ser autorizadas fora do modelo. Logs também precisam de minimização: observar não autoriza armazenar todo o conteúdo.
-
-## Por que a oitava camada é transversal
-
-Avaliar somente o texto final não mostra onde a falha nasceu. Um trace correlacionado pode registrar, respeitando privacidade, versão do prompt, modelo, identificadores de fontes, tempo por etapa, validações e fallback. Isso permite distinguir baixa recuperação de má síntese. Da mesma forma, governança não é um comitê distante: aparece na lista de modelos aprovados, na retenção da conversa, na autorização da fonte e no responsável por aceitar risco residual.
-
-Sistemas de aprendizado de máquina acumulam dependências de dados, configurações e processos além do código, uma forma de dívida técnica descrita por [Sculley et al.](https://proceedings.neurips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html). A visão em camadas torna essas dependências discutíveis, mas não as elimina. Cada componente só merece existir quando responde a um direcionador e quando a equipe consegue operá-lo.
-
-## Como ler qualquer diagrama generativo
-
-Faça cinco perguntas: onde estão as regras determinísticas? Que informação entra no contexto e com qual autorização? Que componente pode causar efeito externo? Onde são registradas versões e evidências? Qual é a degradação quando modelo, dado ou integração falha? Se o diagrama não permite responder, ele ainda não sustenta uma decisão operacional.
-
-**Próxima página:** [Estudo de caso do assistente interno](estudo-de-caso.md).
+**Próxima página:** [Estudo de caso do atendimento interno](estudo-de-caso.md).

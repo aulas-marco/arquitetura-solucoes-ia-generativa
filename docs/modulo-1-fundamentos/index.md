@@ -1,52 +1,64 @@
 # Módulo 1 — Fundamentos de sistemas com IA generativa
 
-> **Pergunta-guia:** O que muda quando parte do sistema deixa de ser determinística?
+> **Pergunta-guia:** O que muda quando parte do sistema produz comportamento probabilístico?
 
-Arquitetar uma solução generativa não é apenas acrescentar uma API de modelo a um software convencional. O modelo introduz uma forma probabilística de produzir resultados: duas execuções semelhantes podem variar, uma resposta fluente pode estar errada e uma mudança de contexto pode alterar o comportamento sem que o código da aplicação tenha mudado. Isso desloca parte do trabalho arquitetural de “garantir uma saída por regra” para “delimitar, medir e governar um espaço de comportamentos”.
+Um modelo generativo acrescenta ao software uma capacidade de interpretação e produção cuja saída não é determinada apenas por regras explícitas. Respostas semelhantes podem variar, fluência pode ocultar erro e uma mudança de modelo, prompt ou contexto pode alterar o comportamento sem modificar o código da aplicação. A arquitetura passa a delimitar, medir e governar um espaço de comportamentos.
 
-Adotar um componente generativo é, em si, uma **decisão arquitetural**: afeta interesses importantes, restringe escolhas posteriores e custa caro reverter. Por isso, este módulo trata cada conceito com o mesmo teste — o mesmo que se aplica a qualquer decisão de arquitetura, com ou sem modelo generativo envolvido: **por que isso interessa a quem decide a arquitetura?**
+Isso não torna toda chamada a modelo uma decisão arquitetural. A escolha se torna **arquiteturalmente significativa** quando altera estruturas fundamentais, características prioritárias, dependências, responsabilidades ou custo de mudança. O sistema — software, modelos, dados, pessoas, políticas, fornecedores e efeitos — continua sendo a unidade principal de julgamento.
 
-Este módulo constrói o vocabulário necessário para fazer essa leitura. Primeiro separaremos modelo, aplicação e sistema sociotécnico; depois reconheceremos as propriedades técnicas que influenciam contexto, custo, qualidade e risco. Só então veremos padrões de solução e aplicaremos o raciocínio a um assistente interno de documentos.
+Este módulo constrói o vocabulário comum do curso. Primeiro separa modelo, aplicação e sistema sociotécnico. Depois mostra a superfície que determina o comportamento e distingue geração, decisão, autorização e efeito. Por fim, compara formas de compor geração com conhecimento, ferramentas, controles e operação.
 
 ## Antes de começar
 
-Você deve reconhecer noções básicas de arquitetura de software: componente, interface, dependência, fluxo de dados, requisito funcional, atributo de qualidade e trade-off. Não é necessário conhecer aprendizado de máquina, estatística ou a matemática dos transformadores. Quando um termo controlado aparecer, consulte o [Glossário](../referencia/glossario.md); para transformar uma qualidade desejada em cenário verificável, use o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+Você deve reconhecer componente, interface, dependência, fluxo de dados, requisito funcional, atributo de qualidade e trade-off. Não é necessário conhecer aprendizado de máquina, estatística ou a matemática dos transformadores. Consulte o [Glossário](../referencia/glossario.md) e o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) quando precisar de uma definição controlada ou de um cenário mensurável.
 
-**Tempo estimado de leitura:** 60–90 minutos, sem contar os exercícios de projeto.
+**Tempo estimado de leitura:** 60–90 minutos, sem contar a oficina e os exercícios.
 
 ## Objetivos de aprendizagem
 
 Ao concluir o módulo, você deverá ser capaz de:
 
-1. **Compreender** e explicar por que modelo generativo, aplicação de IA e sistema de IA são unidades de análise diferentes.
-2. **Compreender** e distinguir componentes determinísticos e probabilísticos, relacionando variabilidade, alucinação e conhecimento paramétrico.
-3. **Aplicar** o vocabulário de tokens, contexto, prompts, embeddings, inferência e multimodalidade à leitura de uma solução.
-4. **Analisar** o que geração direta, contexto fornecido, RAG, ferramentas, workflows, agentes e fine-tuning acrescentam à arquitetura.
-5. **Analisar** uma arquitetura em camadas e antecipar consequências para qualidade, latência, custo, privacidade, segurança e operação.
+1. **Compreender** por que modelo, aplicação e sistema sociotécnico são unidades de análise diferentes.
+2. **Compreender** as fronteiras entre componentes determinísticos e probabilísticos.
+3. **Aplicar** tokens, contexto, prompts, embeddings, inferência e multimodalidade à leitura de uma solução.
+4. **Analisar** a superfície comportamental formada por modelo, parâmetros, prompt, contexto, fontes, ferramentas, políticas, estado, memória e implantação.
+5. **Analisar** a separação entre geração, decisão, autorização e efeito.
+6. **Avaliar** geração direta, contexto fornecido, RAG, ferramentas, workflows, agentes e fine-tuning pelas responsabilidades que acrescentam.
+7. **Distinguir** teste de software, avaliação comportamental e verificação arquitetural.
 
 ## Roteiro do módulo
 
 | Página | Questão central | Resultado esperado |
 |---|---|---|
-| **1. Abertura** | O que vamos aprender e em qual ordem? | Um contrato de aprendizagem comum. |
-| **2. [Conceitos](conceitos.md)** | Que propriedades técnicas mudam nossas decisões? | Um vocabulário para ler sistemas generativos. |
-| **3. [Padrões e decisões](padroes-e-decisoes.md)** | Que alternativas existem e o que cada uma adiciona? | Um panorama comparável e uma ADR preliminar. |
-| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como os componentes colaboram no caminho de uma resposta? | Uma leitura em oito camadas, com falhas e qualidades. |
-| **5. [Estudo de caso](estudo-de-caso.md)** | Como escolher uma direção para um assistente documental? | Uma recomendação sustentada por restrições e evidências. |
-| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
-| **7. [Exercícios](exercicios.md)** | Consigo recordar, aplicar e defender os conceitos? | Evidências de aprendizagem nos seis níveis de Bloom. |
-| **8. [Síntese e referências](sintese-e-referencias.md)** | O que deve permanecer depois da leitura? | Checklist, autoavaliação e fontes efetivamente usadas. |
+| **1. Abertura** | Qual vocabulário sustenta o curso? | Um mapa das perguntas que serão aprofundadas. |
+| **2. [Conceitos](conceitos.md)** | O que determina o comportamento do sistema? | Unidades de análise, superfície comportamental e formas de verificação. |
+| **3. [Padrões e decisões](padroes-e-decisoes.md)** | Que composições acrescentam quais responsabilidades? | Panorama, mapa de responsabilidades e ficha de decisão inicial. |
+| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como aplicar o mapa a um incremento? | Atendimento Horizonte com escopo, fluxo, falhas e evidências. |
+| **5. [Estudo de caso](estudo-de-caso.md)** | Como comparar uma direção sem antecipar a solução? | Recomendação equilibrada entre conhecimento, efeito, confiança e operação. |
+| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | O que uma execução local permite observar? | Evidência limitada sobre contexto, variabilidade e configuração. |
+| **7. [Exercícios](exercicios.md)** | Consigo aplicar o vocabulário a outro sistema? | Evidências nos seis níveis da Taxonomia de Bloom. |
+| **8. [Síntese e referências](sintese-e-referencias.md)** | O que deve permanecer para os próximos módulos? | Checklist transversal, autoavaliação e fontes. |
+
+## Como este módulo prepara os demais
+
+| Continuação | Pergunta preparada aqui |
+|---|---|
+| [Módulo 2 — Desenho conceitual](../modulo-2-desenho-conceitual/index.md) | Que problema, RAS, vistas, táticas e evidências justificam uma direção? |
+| [Módulo 3 — RAG](../modulo-3-rag/index.md) | Como uma fonte externa se torna evidência atualizada, autorizada e recuperável? |
+| [Módulo 4 — Agentes](../modulo-4-agentes/index.md) | Quando o modelo pode escolher passos ou propor ações, e quem governa o efeito? |
+| [Módulo 5 — Confiança](../modulo-5-confianca/index.md) | Que riscos, controles e avaliações tornam o uso aceitável para uma finalidade? |
+| [Módulo 6 — Operação](../modulo-6-operacao/index.md) | Como preservar propriedades quando modelos, prompts, fontes, ferramentas e políticas mudam? |
 
 ## O caso que nos acompanhará
 
-Uma organização quer um **assistente interno de documentos**. Pessoas de atendimento precisam perguntar “qual é o prazo para reembolso?” ou “que aprovação esta contratação exige?” e receber uma resposta útil. Os documentos mudam, têm níveis distintos de acesso e às vezes se contradizem. A primeira intuição é conectar um modelo e escrever um bom prompt. A pergunta arquitetural é mais exigente: **de onde virá a evidência, como a autorização será preservada e como saberemos que a resposta é aceitável?**
+Uma organização quer apoiar atendimento interno. Algumas solicitações pedem reformulação de texto; outras dependem de políticas atualizadas; poucas permitem consultar um sistema corporativo, sem escrita automática. As fontes têm níveis de acesso, versões e responsáveis diferentes.
 
-Ao longo do módulo, compararemos três direções: usar apenas o modelo; enviar documentos inteiros a cada pergunta; ou recuperar trechos pertinentes antes de gerar. Não construiremos ainda um RAG completo. O objetivo é aprender a enxergar responsabilidades, fronteiras e consequências antes de escolher tecnologias.
+A primeira intuição é “conectar um modelo”. A leitura arquitetural separa quatro perguntas: que saída pode ser gerada, que evidência precisa sustentá-la, quem decide, e que efeito — se houver — pode ser autorizado. O caso permitirá comparar alternativas sem pressupor RAG ou agente.
 
 ## Como estudar
 
-Percorra as páginas na ordem. Conceitos precedem padrões porque nomes de soluções sem um modelo mental viram receitas. Ao encontrar uma afirmação arquitetural, pergunte: “qual requisito ou evidência justifica isto?” Ao encontrar uma camada, pergunte: “qual falha ela contém e qual nova dependência ela introduz?”. Use os blocos de resposta apenas depois de formular sua própria explicação.
+Ao encontrar um componente, pergunte qual responsabilidade ele assume, que falha contém e que nova dependência introduz. Ao encontrar uma medida, pergunte se ela avalia código, comportamento ou propriedade arquitetural. Ao encontrar uma escolha, pergunte que evidência poderia restringi-la ou revertê-la.
 
-O módulo não promete eliminar incerteza. Ele ensina a transformá-la em decisões explícitas, cenários verificáveis, testes e mecanismos de contenção. Essa mudança de postura é o fundamento do restante da disciplina.
+O objetivo não é eliminar incerteza. É localizá-la e atribuir a ela uma forma de aprendizagem, contenção ou decisão.
 
 **Próxima página:** [Conceitos fundamentais](conceitos.md).

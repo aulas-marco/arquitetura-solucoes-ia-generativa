@@ -4,15 +4,27 @@
 
 ## Ferramenta
 
-**Ollama** é um executor local de modelos open source. Você vai observar como contexto e temperatura alteram uma resposta gerada. Tempo estimado: 35 minutos.
+**Ollama** é um executor local de modelos. Você vai observar como contexto e temperatura alteram uma resposta gerada e registrar a configuração suficiente para comparar execuções. Tempo estimado: 35 minutos.
 
 Use somente material sintético; não cole dados pessoais, institucionais ou de clientes.
+
+## Alternativas instrumentais
+
+A oficina usa Ollama porque ele oferece execução local e uma API simples para controlar contexto e parâmetros. O mesmo objetivo poderia ser explorado pelo LM Studio ou por uma API de modelo hospedada, desde que modelo, versão, prompt, contexto e parâmetros fossem registrados.
+
+| Alternativa | O que permite observar | Limite da observação |
+|---|---|---|
+| Ollama | execução local e variação controlada pela API | não demonstra qualidade ou prontidão operacional |
+| LM Studio | exploração visual de modelos e configurações locais | não substitui avaliação representativa |
+| API de modelo | contrato e comportamento de um serviço hospedado | acrescenta decisões sobre dados, região, custo e dependência |
+
+O [Guia de ferramentas](../referencia/guia-de-ferramentas.md) compara os instrumentos usados ao longo do curso. A ferramenta serve ao experimento; ela não determina o desenho arquitetural.
 
 ## Pré-requisitos
 
 - Computador com espaço em disco para um modelo local e um terminal.
 - Conexão temporária para baixar o instalador e o modelo.
-- A Política Aurora desta página: ela é o corpus de treinamento da prática.
+- A Política Aurora desta página: ela é a fonte sintética da prática.
 
 ## Instalação
 
@@ -50,7 +62,7 @@ curl.exe --version
 
 Você integra a equipe de atendimento da **empresa fictícia Aurora**. Uma pessoa pergunta qual é o prazo para pedir reembolso. A **Política Aurora** é sintética para treinamento.
 
-Um **[corpus](conceitos.md#tokens-contexto-e-janela-de-contexto)** é o conjunto de documentos que um sistema pode consultar; aqui, o corpus tem apenas a Política Aurora. O **[contexto](conceitos.md#tokens-contexto-e-janela-de-contexto)** é a parte do corpus enviada ao modelo junto da pergunta. A **[fundamentação](../referencia/glossario.md#fundamentacao-grounding)** é o apoio da resposta nesse documento.
+Um **[corpus](../modulo-3-rag/conceitos.md)** é um conjunto de documentos elegíveis para consulta; aqui, contém apenas a Política Aurora. O **[contexto](conceitos.md#tokens-contexto-e-janela-de-contexto)** é a informação selecionada e enviada ao modelo nesta execução. A **[fundamentação](../referencia/glossario.md#fundamentacao-grounding)** é o apoio da resposta na fonte. A política não treina o modelo: ela participa apenas do contexto.
 
 Execute:
 
@@ -97,7 +109,7 @@ Qual é o prazo para solicitar reembolso? Responda em uma frase e informe a font
 
 **Observe**
 
-O modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem a Política Aurora, ele só dispõe do que foi aprendido antes do uso; isso não prova que a resposta vale para a empresa fictícia.
+O modelo pode declarar incerteza, sugerir um prazo sem fonte ou inventar uma regra. Sem a Política Aurora no contexto, ele depende de sua configuração e do conteúdo paramétrico; isso não prova que a resposta vale para a empresa fictícia.
 
 **Compare**
 
@@ -252,11 +264,19 @@ Uma [alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucina
 
 ## Interpretação
 
-A decisão não é “qual resposta venceu”, mas quando a arquitetura deve fornecer contexto, preservar sua fonte e encaminhar limites para revisão humana. A temperatura pode alterar a forma da resposta; contexto, fonte e revisão humana sustentam a decisão.
+A oficina altera uma parte pequena da **superfície comportamental**: contexto, sessão e temperatura. A decisão não é “qual resposta venceu”, mas quando a arquitetura deve fornecer contexto, preservar sua fonte e encaminhar limites para revisão humana.
+
+Classifique as verificações realizadas:
+
+- os comandos e o formato JSON são **testes de software** possíveis;
+- comparar algumas respostas é uma amostra de **avaliação comportamental**, ainda insuficiente para generalização;
+- latência, isolamento, custo e recuperação exigiriam **verificação arquitetural** em condições representativas.
+
+Uma fitness function futura poderia bloquear uma configuração que omita a fonte exigida ou ultrapasse o limite de exposição definido. Esta oficina não mede esses limites em produção.
 
 ## Evidência a entregar
 
-Entregue a tabela preenchida e as respostas às questões exploratórias. Declare o corpus sintético, a versão exibida por `ollama --version` e qualquer limitação percebida (tempo, memória, disco ou variação entre saídas).
+Entregue a tabela preenchida e as respostas às questões exploratórias. Declare fonte sintética, modelo, versão exibida por `ollama --version`, parâmetros, prompt, contexto e qualquer limitação percebida. Indique que mudança exigiria repetir a avaliação.
 
 ## Limpeza e contingência
 

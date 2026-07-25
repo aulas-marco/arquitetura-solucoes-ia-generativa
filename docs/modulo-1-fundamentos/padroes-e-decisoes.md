@@ -1,100 +1,122 @@
 # Padrões e decisões
 
-Os conceitos anteriores descrevem propriedades; padrões organizam respostas recorrentes a elas. Eles não formam uma escada obrigatória. A solução mais simples que satisfaz cenários de qualidade e risco costuma ser preferível, e padrões podem ser combinados. Comparar essas abordagens é aplicar a **análise de trade-offs** de Richards e Ford: nenhuma vence em todos os atributos — vence a que atende aos cenários priorizados ([*Fundamentals of Software Architecture*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/)). Use o [Catálogo de padrões arquiteturais](../referencia/catalogo-de-padroes.md) para a formulação completa dos padrões que serão aprofundados adiante.
+As abordagens desta página são famílias de composição, não degraus de maturidade. Cada uma acrescenta capacidade e responsabilidade. A comparação começa pelo problema e pelas características prioritárias; o Módulo 2 transformará esse raciocínio em RAS, táticas, vistas e ADRs.
 
 ## Panorama das abordagens
 
-| Abordagem | O que acrescenta | Quando ajuda | Nova responsabilidade arquitetural |
+| Abordagem | Capacidade acrescentada | Quando pode ajudar | Responsabilidade nova |
 |---|---|---|---|
-| **Geração direta** | Prompt versionado, chamada ao modelo e tratamento da saída | Tarefas de baixo risco apoiadas no pedido do usuário ou na capacidade geral do modelo | Avaliar variabilidade, qualidade e custo por modelo/prompt |
-| **Contexto fornecido** | Conteúdo selecionado enviado junto à solicitação | Poucos materiais conhecidos e estáveis cabem no contexto | Selecionar, autorizar, versionar e montar o contexto |
-| **RAG** | Ingestão, índice, recuperação e evidências antes da geração | Conhecimento amplo, mutável ou que exige proveniência | Operar dois fluxos e avaliar recuperação separada da geração |
-| **Uso de ferramentas** | Contratos para consultar ou agir em sistemas externos | O modelo precisa de dado atual ou de uma capacidade executável | Validar autorização, parâmetros, efeitos e idempotência |
-| **Workflow com LLM** | Ordem determinística com etapas generativas delimitadas | Processo conhecido contém interpretação ou redação | Modelar estado, exceções, retries e contratos entre etapas |
-| **Agente** | Escolha dinâmica de próximos passos e ferramentas | Caminho não pode ser totalmente antecipado e o ganho justifica autonomia | Limitar orçamento, permissões, memória e aprovação humana |
-| **Fine-tuning** | Alteração dos parâmetros para comportamento especializado | Padrão recorrente de estilo, formato ou tarefa não resolvido por contexto | Curar dados, avaliar versões, implantar e reverter o modelo adaptado |
+| **Geração direta** | interpretação ou produção sem fonte externa específica | redação, reformulação e classificação de baixo risco | avaliar combinação de modelo, prompt, parâmetros e saída |
+| **Contexto fornecido** | conteúdo conhecido incluído na execução | poucos materiais selecionáveis e compatíveis com a janela | autorizar, minimizar, versionar e montar contexto |
+| **RAG** | localização de evidência externa antes da geração | fontes amplas, mutáveis ou que exigem proveniência | operar ingestão e consulta; avaliar recuperação e geração |
+| **Ferramentas** | consulta ou ação por contrato | dado atual ou efeito em sistema externo | validar identidade, autorização, parâmetros e efeito |
+| **Workflow com LLM** | etapas e transições conhecidas com geração delimitada | processo enumerável que contém interpretação | manter estado, exceções, recuperação e contratos |
+| **Agente** | escolha variável de passos ou ferramentas | adaptação do percurso produz valor demonstrável | limitar autonomia, orçamento, memória, parada e aprovação |
+| **Fine-tuning** | adaptação paramétrica de comportamento recorrente | formato, estilo ou tarefa não atendidos por alternativas menores | curar dados, avaliar versões, implantar e reverter |
 
-### Geração direta
+### Geração direta e contexto fornecido
 
-Na geração direta, a aplicação monta instruções e entrada, chama o modelo e entrega ou transforma a saída. É uma boa linha de base para redação, ideação e reformulação sem conhecimento privado crítico. A arquitetura continua precisando de versão de prompt e modelo, timeout, observação de tokens e avaliação. “Direta” significa poucos componentes, não ausência de engenharia.
+Geração direta oferece a menor linha de base. “Direta” não dispensa timeout, versão e avaliação. Quando o conteúdo relevante já é conhecido, a aplicação pode fornecê-lo no contexto; caber na janela não elimina autorização, minimização ou conflito de versões.
 
-### Contexto fornecido
+### Conhecimento externo
 
-Em vez de depender apenas dos parâmetros, a aplicação inclui material relevante na chamada. Para comparar duas cláusulas que o próprio usuário anexou, isso pode bastar. O contexto precisa respeitar autorização e limite de tamanho, preservar separação entre instruções e conteúdo e informar ao modelo como lidar com divergências. Quando a seleção manual deixa de escalar, surge a necessidade de recuperação.
+RAG acrescenta aquisição, transformação, índice, recuperação e evidências. É candidato quando a aplicação precisa localizar fontes; não é requisito para toda resposta fundamentada. O [Módulo 3](../modulo-3-rag/index.md) separa os fluxos de ingestão e consulta e mostra como autorização, proveniência e avaliação atravessam ambos.
 
-### RAG
+### Ferramentas, workflows e agentes
 
-**Retrieval-Augmented Generation** separa conhecimento externo dos parâmetros: um fluxo prepara e indexa fontes; outro recupera evidências para a pergunta e as fornece à geração. O trabalho original de [Lewis et al.](https://proceedings.neurips.cc/paper/2020/hash/6b493230-Abstract.html) estabeleceu a combinação de memória paramétrica e não paramétrica para tarefas intensivas em conhecimento. Em arquitetura corporativa, RAG acrescenta atualização e proveniência possíveis, mas também segmentação, permissões, índice, sincronização, ranking e avaliação por etapa. O [Módulo 3](../sobre/plano-da-disciplina.md#modulo-3) tratará esse desenho em profundidade.
-
-### Uso de ferramentas
-
-Uma ferramenta expõe ao sistema uma consulta ou ação por contrato: buscar saldo, calcular frete, criar chamado. O modelo pode propor a chamada; um componente determinístico deve validar esquema, identidade, autorização e política antes da execução. Ferramentas ampliam capacidade e superfície de ataque. Operações com efeito exigem idempotência, limites e, conforme o risco, aprovação humana.
-
-### Workflows com LLM
-
-Um workflow mantém sequência e transições explícitas: receber documento, extrair campos, validar, encaminhar exceção e redigir resposta. O modelo atua onde interpretação é útil; o processo não depende dele para inventar a próxima etapa. Essa abordagem é adequada quando o caminho é conhecido e auditabilidade importa.
-
-### Agentes
-
-Um agente usa um modelo para escolher próximos passos e ferramentas em busca de um objetivo dentro de limites. Ele se justifica quando tarefas abertas demandam adaptação que um workflow fixo não oferece. Autonomia é uma decisão graduada, não um interruptor. Orçamento de etapas, ferramentas mínimas, identidade delegada, memória controlada, critérios de parada e aprovação por risco devem fazer parte do desenho. O [Módulo 4](../sobre/plano-da-disciplina.md#modulo-4) aprofundará esses limites.
+Uma ferramenta expõe consulta ou ação por contrato. O modelo pode propor argumentos; componentes externos validam identidade, política e esquema antes da execução. Um workflow define transições; um agente delega ao modelo parte da escolha do percurso. O [Módulo 4](../modulo-4-agentes/index.md) compara autonomia pelo valor da adaptação e pelo risco do efeito.
 
 ### Fine-tuning
 
-Fine-tuning altera comportamento paramétrico. Pode reduzir exemplos longos no prompt ou melhorar consistência em uma tarefa especializada. Não substitui controles da aplicação nem é um banco de dados atualizável. Antes de adotá-lo, compare uma linha de base com prompt, exemplos e contexto; registre o ganho observado e o custo de dados, avaliação, hospedagem e regressão.
+Fine-tuning altera comportamento paramétrico. Antes de adotá-lo, compare uma linha de base com prompt, exemplos, contexto e regras. Conhecimento mutável continua exigindo fonte, vigência e avaliação próprias.
 
-## Anti-padrão: “LLM conectado diretamente a toda necessidade”
+## Quatro decisões independentes
 
-O anti-padrão aparece quando a mesma chamada ao modelo recebe documentos, decide autorização, calcula regras, consulta sistemas, escolhe ações e produz o texto final. Sua aparente simplicidade esconde contratos distintos dentro de uma caixa probabilística.
+Evite condensar todo o desenho na pergunta “qual modelo usar?”. Separe:
 
-Os sintomas incluem prompt crescente, credenciais amplas, dificuldade de reproduzir falhas, retries que repetem ações, resposta sem fonte e testes baseados em poucos exemplos felizes. Uma mudança de modelo passa a afetar todas as responsabilidades ao mesmo tempo.
+| Decisão | Alternativas iniciais | Evidência mínima |
+|---|---|---|
+| Produção | regra, template, geração ou combinação | casos representativos e critério de utilidade |
+| Conhecimento | entrada do usuário, fonte selecionada, recuperação ou parâmetros | cobertura, atualização, autorização e proveniência |
+| Efeito | nenhum efeito, proposta, workflow aprovado ou autonomia limitada | contratos, simulação de falha e responsabilidade |
+| Operação | endpoint hospedado, dedicado ou autogerido; integração local ou comum | custo total, residência, disponibilidade, reversão e suporte |
 
-A correção não é criar microsserviços para cada frase. É separar responsabilidades onde há qualidade ou risco diferente: regras explícitas permanecem determinísticas; conhecimento ganha fonte e proveniência; ações passam por contrato e autorização; geração recebe escopo; observabilidade correlaciona o caminho. A fronteira deve ser proporcional ao caso.
+Essas decisões interagem, mas não são equivalentes. Escolher RAG não define autonomia; escolher agente não define implantação; usar um modelo local não prova segurança ou qualidade.
 
-## ADR preliminar — contexto para o assistente documental
+## Anti-padrão: uma caixa probabilística para tudo
 
-### Status
+O anti-padrão aparece quando a mesma chamada recebe conteúdo, decide acesso, calcula regras, escolhe ações e produz a resposta. Prompt crescente, credenciais amplas, falhas irreproduzíveis e retries com efeito duplicado são sintomas.
 
-Proposta para experimento em 14 de julho de 2026.
+A correção consiste em separar contratos conforme risco e mudança: regras permanecem explícitas; conhecimento conserva fonte; ferramentas passam por política; geração recebe escopo; estado e memória têm retenção; observabilidade correlaciona versões. Isso não exige um microsserviço para cada responsabilidade.
 
-### Contexto
+## Mapa de responsabilidades
 
-O atendimento interno precisa responder perguntas sobre 420 documentos corporativos. Cerca de 8% mudam por mês, há quatro níveis de acesso e respostas sobre compras e pessoas devem indicar a fonte. O piloto atenderá 150 usuários. Não existe ainda conjunto de avaliação representativo nem medição de latência em produção.
+O mapa abaixo organiza perguntas recorrentes; não prescreve um estilo arquitetural nem exige todos os elementos em toda solução.
 
-### Direcionadores da decisão
+![Anatomia de uma solução generativa organizada em responsabilidades, do canal do usuário às capacidades transversais de segurança, governança, avaliação e observabilidade](../assets/images/m01-anatomia-solucao-generativa.png)
+*Figura — Anatomia de referência: responsabilidades transversais atravessam o fluxo e não constituem uma etapa final.*
 
-- Fundamentação: afirmações sobre políticas devem apontar evidência autorizada.
-- Privacidade e segurança: nenhum conteúdo pode atravessar níveis de acesso.
-- Atualização: uma versão aprovada deve aparecer no assistente no mesmo dia útil.
-- Latência: p95 preliminar de resposta completa inferior a oito segundos.
-- Manutenibilidade: trocar modelo ou regra de recuperação sem alterar o canal.
+| Grupo | Responsabilidade |
+|---|---|
+| Canais e experiência | capturar intenção, consentimento, anexos e feedback; comunicar limites |
+| Aplicação e APIs | autenticar, aplicar regras e transformar interação em solicitação estruturada |
+| Orquestração | selecionar fluxo, coordenar componentes, preservar estado e recuperar falhas |
+| Contexto e evidência | selecionar informação autorizada, registrar origem e montar contexto |
+| Modelos e inferência | produzir geração ou representações por interfaces controladas |
+| Ferramentas e efeitos | consultar ou agir por contratos, políticas e identidades delimitadas |
+| Infraestrutura e operação | sustentar execução, redes, segredos, implantação e dependências |
+| Capacidades transversais | aplicar segurança, governança, avaliação e observabilidade |
 
-### Opções consideradas
+Conhecimento, contexto, estado, memória, evidência e trace atravessam esses grupos com finalidades e retenções próprias. Eles não formam uma única camada.
 
-1. **Geração direta com conhecimento paramétrico.** Menor complexidade, porém não atende atualização, acesso e proveniência.
-2. **Documentos inteiros no contexto.** Viável para um subconjunto pequeno, mas seleção, custo e conflito de versões pioram com o corpus.
-3. **RAG básico com autorização antes da recuperação.** Acrescenta ingestão e índice, mas separa fontes, seleção e geração e permite citar trechos.
-4. **Fine-tuning com os documentos.** Pode ajustar comportamento, mas não oferece exclusão, atualização e proveniência compatíveis.
+### Componentes e dependências
 
-### Decisão
+![Componentes de uma solução generativa: canal, aplicação, orquestrador, conhecimento autorizado, gateway de modelos e ferramentas corporativas sob segurança, governança, avaliação, observabilidade e operação](../assets/images/m01-componentes-dependencias.png)
+*Figura — Um arranjo possível para discutir dependências; cada componente precisa de um direcionador.*
 
-Executar um piloto da opção 3. O fluxo offline registrará fonte, versão, vigência e nível de acesso antes da indexação. O fluxo online propagará identidade, filtrará candidatos autorizados, fornecerá trechos com identificadores e instruirá o modelo a declarar insuficiência. O canal acessará a solução por uma API, sem integração direta ao fornecedor do modelo.
+**Equivalente textual — componentes.** O canal envia uma solicitação à aplicação, que autentica a sessão e entrega um pedido estruturado ao orquestrador. O orquestrador pode solicitar evidência autorizada, montar contexto e pedir inferência. Se houver proposta de ferramenta, política e aplicação validam identidade, escopo e contrato antes de um executor determinístico produzir efeito. O resultado tipado retorna ao orquestrador — na notação da figura, `T -. "resultado tipado" .-> O`. Segurança, avaliação, observabilidade e operação atravessam o percurso.
 
-### Consequências
+### Três trajetórias
 
-Ganhamos uma hipótese verificável para atualização e fundamentação, além de fronteiras para substituir componentes. Assumimos pipeline de ingestão, índice, sincronização de permissões e mais latência. Persistem riscos de recuperação incompleta, documento contraditório e resposta que extrapola a evidência. O piloto não autoriza decisões automáticas nem escrita em sistemas corporativos.
+| Trajetória | Encadeamento | Responsabilidade dominante |
+|---|---|---|
+| Resposta | entrada → inferência → validação → rascunho | avaliar geração sob escopo |
+| Evidência | identidade → política → recuperação → contexto → geração → validação | preservar fonte, autorização e suficiência |
+| Ação | intenção → proposta → política → aprovação → executor → confirmação | separar geração, decisão, autorização e efeito |
 
-### Evidências
+Na trajetória de ação, o modelo gera proposta estruturada; política e responsável decidem e autorizam; executor idempotente produz o efeito. Na trajetória de evidência, recuperar um trecho não prova que ele sustenta a afirmação. Cada composição exige teste de software, avaliação comportamental e verificação arquitetural proporcionais.
 
-Ainda não há evidência suficiente para aceitar a decisão. O experimento usará 80 perguntas representativas, incluindo 20 sem resposta e 20 com restrição de acesso. Medirá presença de fonte relevante nos cinco primeiros candidatos, suporte das afirmações, recusas corretas, vazamento entre perfis, p95 e custo por interação. A adoção dependerá de limiares aprovados com as áreas responsáveis.
+## Ficha de decisão inicial
 
-### Gatilhos de revisão
+Antes de uma ADR, registre o suficiente para decidir que hipótese merece análise no Módulo 2:
 
-- qualquer vazamento de conteúdo restrito;
-- menos de 90% das perguntas respondíveis com evidência relevante recuperada;
-- resposta sem suporte em mais de 5% das afirmações críticas;
-- p95 acima de oito segundos ou custo mensal projetado acima do orçamento;
-- corpus pequeno e estável tornar o contexto integral comprovadamente mais simples e equivalente.
+| Campo | Pergunta |
+|---|---|
+| Situação | Que resultado ou problema observável motivou a análise? |
+| Responsabilidades | O que gera, decide, autoriza e executa? |
+| Características prioritárias | Que qualidades entram em tensão? |
+| Alternativas | Qual é a opção convencional e quais composições generativas competem? |
+| Consequências | Que dependências, dados, operação e riscos cada opção acrescenta? |
+| Evidência existente | O que já foi observado e sob quais condições? |
+| Incógnita decisiva | Que desconhecimento poderia inverter a direção? |
+| Próximo experimento | Qual teste barato pode confirmar, restringir ou rejeitar a hipótese? |
 
-Esta ADR é preliminar porque explicita hipóteses, não certezas. Use o [template de ADR](../referencia/template-adr.md) para registrar decisões do seu caso.
+### Exemplo resumido: atendimento interno
 
-**Próxima página:** [Exemplo arquitetural em oito camadas](exemplo-arquitetural.md).
+| Campo | Registro |
+|---|---|
+| Situação | analistas gastam tempo localizando políticas e explicando-as |
+| Responsabilidades | sistema localiza e redige; analista interpreta; dono da política decide conflito; aplicação controla acesso |
+| Prioridades | fundamentação e privacidade antes de cobertura; p95 inferior a oito segundos |
+| Alternativas | busca convencional, contexto selecionado e recuperação; nenhuma ação de escrita |
+| Evidência | 24 de 30 perguntas foram aceitáveis com documentos escolhidos manualmente |
+| Incógnita | seleção automática preserva acesso e recupera a versão correta? |
+| Experimento | corpus piloto, perguntas estratificadas, perfis distintos e falhas de fonte |
+
+A ficha não registra uma decisão arquitetural completa. Ela explicita o problema e a lacuna de conhecimento. O [Módulo 2](../modulo-2-desenho-conceitual/padroes-e-decisoes.md) mostrará como transformar essa análise em descrição arquitetural, táticas, trade-offs e ADR.
+
+## Ponte para confiança e operação
+
+Qualquer alternativa precisa responder a duas perguntas transversais. O [Módulo 5](../modulo-5-confianca/index.md) perguntará quais riscos, controles e avaliações tornam o uso aceitável. O [Módulo 6](../modulo-6-operacao/index.md) perguntará quais versões, fitness functions, rollouts e modos degradados preservam essa aceitação no tempo.
+
+**Próxima página:** [Exemplo arquitetural — atendimento Horizonte](exemplo-arquitetural.md).

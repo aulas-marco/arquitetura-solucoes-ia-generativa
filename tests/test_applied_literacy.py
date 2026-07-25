@@ -252,9 +252,13 @@ conteúdo da atividade
             concepts = (DOCS / slug / "conceitos.md").read_text(encoding="utf-8")
             workshop = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
 
-            self.assertIn("## Ferramentas no mercado", concepts)
+            material = concepts + "\n" + workshop
             for tool in tools:
-                self.assertIn(tool, concepts)
+                self.assertIn(tool, material)
+            self.assertRegex(
+                material,
+                r"## (?:Ferramentas no mercado|Alternativas instrumentais)",
+            )
             if slug != "modulo-1-fundamentos":
                 for heading in (
                     "## Receita principal",

@@ -1,127 +1,189 @@
 # Conceitos fundamentais
 
+Arquitetar uma solução com IA generativa não começa pela escolha do modelo. Começa pela definição do resultado que o sistema deve produzir, das condições em que esse resultado é aceitável e das responsabilidades que não podem ser delegadas à geração probabilística.
+
+O trabalho do arquiteto é transformar uma capacidade ampla — interpretar, resumir, redigir, classificar ou propor passos — em comportamento útil dentro de limites conhecidos. Para isso, ele precisa:
+
+- delimitar onde a geração participa e onde permanecem regras, decisões humanas e operações determinísticas;
+- identificar os elementos que alteram o comportamento, mesmo quando o código da aplicação não muda;
+- relacionar riscos e atributos de qualidade a mecanismos de contenção, medição e recuperação;
+- distribuir responsabilidades entre software, modelos, dados, pessoas, políticas e fornecedores;
+- definir que evidências permitem adotar, promover, restringir ou abandonar uma composição.
+
+Essas tarefas mudam a pergunta inicial. Em vez de “qual modelo usar?”, a análise procura saber **que comportamento o sistema deve sustentar, quem responde por cada parte e como verificar se os limites continuam válidos**.
+
+## Um mapa para orientar a leitura
+
+A figura a seguir apresenta os elementos que participam do comportamento generativo. Ela não representa uma arquitetura pronta nem uma sequência obrigatória. Serve para localizar três questões que atravessam esta página:
+
+1. o que pertence ao modelo e o que pertence ao sistema;
+2. quais elementos tornam a saída variável;
+3. quais controles e evidências precisam acompanhar essa variabilidade.
+
 ![Mapa do comportamento generativo: entrada e contexto atravessam prompt, tokens e parâmetros até um modelo fundacional e uma saída variável; conhecimento paramétrico, avaliação, segurança e observabilidade circundam esse comportamento probabilístico](../assets/images/m01-mapa-comportamento-generativo.png "Mapa do comportamento generativo")
+*Figura — A saída do modelo é apenas uma parte do comportamento do sistema; avaliação, segurança e observabilidade pertencem à composição desde o início.*
 
-*Figura — O modelo transforma contexto em uma saída provável, não garantida; por isso avaliação, segurança e observabilidade pertencem à arquitetura desde a primeira decisão.*
+## O que muda no sistema
 
-Os conceitos a seguir não são vocabulário solto: cada um sustenta uma decisão arquitetural. Ao ler cada seção, aplique o mesmo teste — **por que isso interessa a quem decide a arquitetura?** — antes de seguir para a próxima.
+A introdução de geração probabilística não substitui o software determinístico. Ela cria uma zona em que a saída precisa ser julgada por adequação, enquanto autenticação, cálculo, validação de esquema e execução de transações continuam sujeitos a regras explícitas.
 
-## Do determinístico ao probabilístico
+### Do determinístico ao probabilístico
 
-Um **componente determinístico** aplica regras explícitas: dadas a mesma entrada e o mesmo estado, produz a mesma saída. Uma função que calcula imposto por uma tabela versionada é um exemplo. Se o resultado estiver errado, procuramos defeitos na regra, nos dados ou na implementação.
-
-Um **componente probabilístico** produz resultados segundo distribuições aprendidas. Um modelo de linguagem estima, a cada passo, quais tokens são plausíveis no contexto recebido. Parâmetros de geração e variações da infraestrutura podem fazer a saída mudar. Mesmo com baixa variabilidade, a resposta não se torna uma prova lógica nem uma consulta garantida a fatos.
+Um **componente determinístico** deve produzir a mesma saída quando recebe a mesma entrada no mesmo estado. Um **componente probabilístico** produz saídas segundo distribuições aprendidas. Um modelo de linguagem estima tokens plausíveis no contexto recebido; duas respostas diferentes podem ser aceitáveis, e uma resposta estável pode continuar errada.
 
 ![Comparação visual entre um fluxo determinístico, que segue regras explícitas, e um fluxo probabilístico, que produz respostas variáveis dentro de limites](../assets/images/m01-deterministico-probabilistico.png)
-*Figura 1 — Mesma intenção, contratos diferentes: regras determinísticas permitem asserções exatas; geração probabilística requer avaliação de comportamento e contenção de falhas.*
+*Figura 1 — Regras determinísticas permitem asserções exatas; geração probabilística exige avaliação sobre casos e contenção de falhas.*
 
-Isso não significa que “tudo virou aleatório”. Autenticação, autorização, cálculo, validação de esquema e execução de transações continuam melhores como controles determinísticos. O ponto arquitetural é reconhecer a fronteira. Podemos testar que um filtro sempre rejeita um campo inválido; para uma explicação gerada, normalmente avaliamos um conjunto representativo com critérios como correção, relevância e fundamentação.
+A fronteira entre essas zonas define responsabilidades. O modelo pode extrair valores de um recibo ou redigir uma explicação. Regras verificam limites; uma pessoa autorizada aprova; um serviço transacional produz o efeito. A chamada ao modelo participa de uma composição maior.
 
-**Exemplo:** pedir “reescreva este aviso em linguagem simples” admite várias saídas válidas e combina bem com geração. **Contraexemplo:** pedir ao modelo que determine sozinho se uma transferência excede o limite legal converte uma regra verificável em julgamento instável. O modelo pode ajudar a extrair valores; a decisão final deve permanecer sob regra e evidência apropriadas.
+### Modelo, aplicação e sistema sociotécnico
 
-Onde passar essa fronteira é, ela mesma, uma decisão arquitetural, com as mesmas consequências de qualquer outra: restringe o que pode mudar depois e determina o que fica auditável no sistema.
+Essa composição pode ser observada em três unidades. Um **modelo** é um artefato treinado que recebe entradas e produz saídas. Uma **aplicação de IA** combina modelo, interface, instruções, regras, dados e integrações para atender uma necessidade. Um **sistema de IA** inclui também pessoas, processos, fornecedores, políticas, responsabilidades e efeitos no ambiente.
 
-## Modelo, aplicação e sistema sociotécnico
+| Unidade | Pergunta |
+|---|---|
+| Modelo | Que capacidade e limites aparecem sob determinada configuração? |
+| Aplicação | Como software, contexto e controles transformam essa capacidade em função? |
+| Sistema sociotécnico | Que resultado, risco e responsabilidade emergem no uso real? |
 
-Um **modelo** é um artefato treinado que recebe entradas e produz saídas. Uma **aplicação de IA** envolve esse modelo com interface, instruções, regras, dados e integrações para atender uma necessidade. Um **sistema de IA** inclui, além da aplicação, pessoas, processos, fornecedores, dados, políticas e efeitos no ambiente.
+Um benchmark do modelo não mede autorização, utilidade no processo, carga de revisão ou recuperação. O [AI Risk Management Framework do NIST](https://doi.org/10.6028/NIST.AI.100-1) trata riscos ao longo do ciclo de vida. Para a arquitetura, o sistema sociotécnico é a unidade principal de julgamento; o modelo é uma de suas dependências.
 
-As três unidades não são intercambiáveis. Um modelo pode ter bom desempenho em um benchmark e ainda compor uma aplicação inadequada: o prompt pode omitir restrições, o contexto pode conter conteúdo desatualizado ou a interface pode induzir confiança excessiva. Da mesma forma, uma aplicação tecnicamente sólida pode falhar como sistema sociotécnico se ninguém assumir a revisão de respostas sensíveis ou se o processo não oferecer recurso a uma pessoa afetada.
+Essa distinção leva à pergunta seguinte: se o comportamento não vem apenas do modelo, que conjunto de elementos o produz?
 
-O [AI Risk Management Framework do NIST](https://doi.org/10.6028/NIST.AI.100-1) trata riscos ao longo do ciclo de vida e reforça essa perspectiva mais ampla. Para o arquiteto, a unidade relevante é quase sempre o sistema: é nela que benefícios, dependências, controles e responsabilidade se encontram.
+## De onde emerge o comportamento
 
-## Atributos de qualidade e o custo de cada escolha
+### Superfície comportamental
 
-Definido o nível — o sistema —, a pergunta seguinte é como julgá-lo. Não por uma medida única, mas por **atributos de qualidade**: propriedades verificáveis que expressam como o sistema deve se comportar sob determinadas condições, como modificabilidade, desempenho, disponibilidade, segurança e observabilidade. Cada atributo só orienta arquitetura quando é especificado como cenário — fonte, estímulo, ambiente, artefato, resposta e medida — conforme o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+O comportamento observado resulta da configuração inteira usada em uma execução:
 
-Richards e Ford chamam de primeira lei da arquitetura de software o fato de que **tudo é trade-off**: melhorar um atributo quase sempre custa algo em outro ([*Fundamentals of Software Architecture*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/)). Essa lei explica por que um modelo pode ir bem em um *benchmark* e ainda compor uma aplicação inadequada, como descrito acima: o benchmark mede o modelo isolado; o sistema é julgado pela composição inteira. Arquitetar uma solução generativa é decidir conscientemente quais atributos priorizar e quais aceitar em tensão — nunca prometer maximizar todos.
+```text
+modelo e versão
++ parâmetros de geração
++ prompt e exemplos
++ contexto e fontes
++ recuperação
++ ferramentas disponíveis
++ políticas e guardrails
++ estado e memória
++ configuração de implantação
+```
 
-Essa mesma lei acompanha a próxima escolha: adquirir um modelo fundacional. Aberto ou proprietário, hospedado ou local, cada eixo é mais um trade-off, não uma escala de melhor para pior.
+Essa combinação é a **superfície comportamental**. Uma alteração em qualquer elemento pode mudar qualidade, custo, latência, segurança ou efeito sem modificar o código da aplicação. Por isso, avaliar apenas o modelo oferece evidência insuficiente para aceitar o sistema.
 
-## Modelos fundacionais e LLMs
+### Modelos fundacionais e LLMs
 
-Um **modelo fundacional** é treinado em dados amplos e pode ser adaptado a muitas tarefas. O termo chama atenção para a reutilização e também para riscos que se propagam às aplicações derivadas, como discutido em [*On the Opportunities and Risks of Foundation Models*](https://arxiv.org/abs/2108.07258). Um **grande modelo de linguagem (LLM)** é um modelo voltado a padrões de linguagem em larga escala; nem todo modelo fundacional é textual, e nem todo modelo útil precisa ser grande.
+Um **modelo fundacional** é treinado em dados amplos e pode ser adaptado a várias tarefas. Um **grande modelo de linguagem (LLM)** trabalha com padrões de linguagem em larga escala; nem todo modelo fundacional é textual e nem todo modelo útil precisa ser grande.
 
-A arquitetura **Transformer** — a rede neural por trás dos LLMs atuais — foi apresentada em [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html), que organizou o processamento de sequências em torno da autoatenção, sem recorrer a redes recorrentes ou convolucionais como estrutura principal. Essa escolha ampliou o paralelismo no treinamento e favoreceu a escalabilidade para modelos maiores. Para esta disciplina, importa menos reproduzir a matemática e mais reconhecer consequências: o modelo processa representações de tokens no contexto disponível, não “abre” automaticamente a base corporativa nem verifica cada afirmação em uma fonte.
+LLMs contemporâneos usam arquiteturas como Transformer, apresentadas em [*Attention Is All You Need*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html). Para o desenho da solução, interessa que o modelo processa representações no contexto disponível. Ele não consulta automaticamente fontes corporativas, preserva permissões ou verifica cada afirmação.
 
-Essas consequências são **restrições** do modelo, não **premissas** a revisar depois: não se resolvem com mais dados de treinamento, mais poder computacional ou um prompt melhor escrito. Confundir as duas fragiliza a arquitetura — uma restrição limita opções e não se negocia; uma premissa é condição a validar com evidência, e pode mudar. A arquitetura em torno do modelo, não o modelo, é quem oferece atualização, proveniência e verificação — tema do Módulo 3.
+Pesos podem ser abertos ou proprietários; a execução pode ocorrer como serviço, em ambiente dedicado ou sob gestão própria. Essas escolhas afetam residência de dados, elasticidade, telemetria, atualização, portabilidade, custo e responsabilidade operacional.
 
-Modelos fundacionais podem ser **proprietários** ou ter pesos sob licenças mais abertas; podem ser consumidos como serviço, hospedados em nuvem dedicada ou autogerenciados. Essas dimensões não são sinônimas. “Aberto” não implica operação local simples; “como serviço” não implica ausência de controles. A escolha altera custo fixo e variável, residência de dados, elasticidade, acesso a telemetria, velocidade de atualização, portabilidade e responsabilidade operacional.
+### Treinamento, adaptação e inferência
 
-**Ollama** e **LM Studio** são exemplos de executores locais; não tornam o resultado correto, autorizado ou adequado ao domínio.
+No **treinamento**, dados e um objetivo de otimização ajustam parâmetros. Na **inferência**, uma versão treinada processa entradas e produz saídas. Latência, disponibilidade e custo por interação aparecem no caminho de inferência.
 
-## Treinamento, adaptação e inferência
+**Fine-tuning** adapta parâmetros com dados específicos e pode melhorar formato, estilo ou comportamento recorrente. Fatos que exigem atualização, exclusão e proveniência granular precisam de fontes administráveis. A escolha entre fine-tuning, prompt, exemplos, contexto e regras depende do tipo de mudança que o sistema deverá absorver.
 
-No **treinamento**, dados e um objetivo de otimização ajustam os parâmetros do modelo. É um processo intensivo, realizado antes do uso. Modelos fundacionais passam por pré-treinamento e podem receber etapas posteriores de alinhamento ou especialização.
+### Tokens, contexto e janela de contexto
 
-Na **inferência**, um modelo já treinado processa uma entrada e gera uma saída. É o caminho online que o usuário percebe: envolve serializar mensagens, tokenizar, executar o modelo e decodificar tokens. Latência, disponibilidade e custo por interação aparecem aqui.
+Um **token** é uma unidade de processamento do modelo. Serviços usam tokens para limites e cobrança, mas sua relação com caracteres, preço e capacidade varia. Essas diferenças tornam custo e latência propriedades a medir, não valores dedutíveis apenas pelo tamanho do texto.
 
-**Fine-tuning** é uma adaptação dos parâmetros com dados específicos. Pode ensinar estilo, formato ou comportamento recorrente. Não é, em geral, o mecanismo ideal para manter fatos corporativos que mudam toda semana: atualizar, provar a origem e excluir um fato parametrizado é mais difícil do que atualizar uma fonte externa. Essa distinção evita a confusão “se o modelo não sabe nossos documentos, precisamos treiná-lo”.
+O **contexto** reúne o que a aplicação disponibiliza ao modelo numa execução: instruções, pedido, exemplos, trechos, resultados de ferramentas e estado permitido. A **janela de contexto** limita a entrada e a saída processadas na chamada. Um documento caber nessa janela não demonstra atualização, autorização, localização ou uso correto.
 
-Como qualquer decisão arquitetural, essa escolha tem consequências e pode ser registrada como tal — o [template de ADR](../referencia/template-adr.md) mostra como.
+### Prompts, mensagens e parâmetros
 
-## O que essas propriedades decidem
+Um **prompt** orienta a geração e pode combinar política do sistema, pedido do usuário, exemplos, contexto e especificação de saída. Quando participa de comportamento relevante, precisa de versão e avaliação. Seu contrato inclui entradas, saída esperada, modelo compatível, parâmetros, políticas, validação e tratamento de falha.
 
-As próximas propriedades — token, contexto, prompt, temperatura, embedding e conhecimento paramétrico — parecem detalhes de engenharia de modelo. Não são: cada uma distribui custo, risco ou responsabilidade, a marca de uma decisão arquitetural. Não é preciso saber como o modelo calcula atenção entre tokens, o algoritmo exato de tokenização ou a matemática por trás da geração. É preciso reconhecer quando cada propriedade vira restrição, quando ela é um atributo de qualidade em tensão e quando ela é uma decisão de componente ou conector — a mesma leitura de qualquer arquitetura: elementos, fronteiras, mecanismos e por quê.
+Parâmetros como **temperatura** influenciam a distribuição de saída. Temperatura menor pode reduzir diversidade, mas não garante verdade. Da mesma forma, inserir conteúdo no prompt não o converte em instrução confiável; origem, finalidade e autorização continuam pertencendo ao sistema.
 
-| Propriedade | Em uma frase | Decisão arquitetural |
+### Conhecimento paramétrico, variabilidade e alucinação
+
+**Conhecimento paramétrico** é conteúdo implicitamente representado nos parâmetros de uma versão do modelo. Ele não oferece atualização sob demanda, proveniência granular ou garantia de cobertura. Uma troca de versão também pode alterar o que aparece nas respostas.
+
+**Variabilidade** é a mudança possível entre saídas ou versões. Pode contribuir para ideação e comprometer processos que exigem repetibilidade. **Alucinação** é conteúdo plausível sem sustentação adequada nos fatos, no contexto ou nas evidências disponíveis. Escopo, evidências, abstenção, validação, revisão e avaliação tratam dimensões diferentes desse problema.
+
+Conhecer a superfície explica onde o comportamento pode mudar. Ainda é preciso distinguir a informação que atravessa esses elementos e a finalidade de cada registro.
+
+## Que informação atravessa o sistema
+
+Informação entra no sistema como pedido, instrução, fonte, resultado intermediário ou registro operacional. O mesmo conteúdo não deve conservar automaticamente a mesma finalidade ao mudar de etapa. Um documento autorizado para consulta, por exemplo, pode ser usado como evidência sem se tornar memória de conversa ou conteúdo integral de telemetria.
+
+### Artefatos com ciclos de vida diferentes
+
+| Elemento | Função | Questão de ciclo de vida |
 |---|---|---|
-| Token | Custo e processamento | Orçamento de latência e custo |
-| Contexto / janela | O que entra na execução | Evidência, proveniência e limite |
-| Prompt | Artefato que orienta a geração | Contrato de interface a versionar |
-| Temperatura | Parâmetro de variabilidade | Previsibilidade × criatividade |
-| Embedding | Vetor de semelhança | Arquitetura de busca (Módulo 3) |
-| Conhecimento paramétrico | Fatos implícitos nos pesos | Dependência congelada |
+| Conhecimento | conteúdo mantido por uma fonte responsável | versão, vigência, autorização e descarte |
+| Contexto | informação selecionada para uma execução | finalidade, minimização e expiração |
+| Estado | posição e resultados intermediários de um fluxo | consistência, recuperação e concorrência |
+| Memória | informação preservada entre interações | escopo, consentimento, retenção e correção |
+| Evidência | registro que sustenta ou refuta uma afirmação ou decisão | origem, autoridade, transformação e uso |
+| Trace | encadeamento de eventos e versões de uma execução | correlação, minimização, acesso e retenção |
 
-O mapa não substitui a leitura de cada propriedade — orienta por onde começar.
+**Proveniência** registra de onde a informação veio, por quais transformações passou e quais versões participaram do resultado. Ela permite reconstruir a cadeia de custódia, mas não prova sozinha que a fonte era correta, atual ou autorizada para aquela finalidade.
 
-## Tokens, contexto e janela de contexto
+Recuperar um documento não o transforma em memória. Histórico de conversa não é fonte de verdade. Trace não autoriza armazenar todo o conteúdo. Essas distinções determinam fronteiras de acesso, retenção e responsabilidade.
 
-Um **token** é a unidade que o provedor cobra e limita: o que decide quanto uma chamada custa e quanto demora. Pode corresponder a palavra, parte de palavra, pontuação ou outra unidade da modalidade. Custos e limites de serviços costumam ser medidos em tokens, não em páginas. A relação entre caracteres e tokens varia por idioma e conteúdo; por isso, estimativas devem ser medidas com o modelo escolhido.
+### Embeddings e representação semântica
 
-O **contexto** é tudo que o arquiteto decide disponibilizar ao modelo antes de uma resposta: instruções, mensagens, exemplos, trechos recuperados, resultados de ferramentas e estado relevante. A **janela de contexto** é uma restrição, não uma escolha de estilo: ela limita quanto disso pode ser processado em uma chamada, incluindo entrada e saída, e mais contexto amplia custo, latência, exposição de dados e a chance de conflito entre instruções. A restrição não desaparece enviando mais texto. Resolve-se decidindo o que merece entrar.
+Um **embedding** é uma representação vetorial aprendida de um conteúdo. A proximidade entre vetores pode ajudar a localizar candidatos semanticamente relacionados, agrupar itens ou comparar representações.
 
-Um documento “caber” na janela é condição de capacidade, não evidência de qualidade. Se vinte políticas entram juntas, o modelo ainda precisa localizar a passagem correta, resolver versões e não misturar permissões. O arquiteto deve perguntar o que merece entrar, com qual proveniência, em que ordem e por quanto tempo. Um contexto bem projetado é, ele mesmo, um cenário de atributo de qualidade — com fonte, ambiente e medida, não um saco de texto.
+O embedding preserva uma representação útil para cálculo, não a autoridade da fonte. Um mecanismo de recuperação ainda precisa de consulta, índices, metadados, filtros, ranking e avaliação. O [Módulo 3](../modulo-3-rag/index.md) mostrará como origem, versão e autorização atravessam ingestão e consulta.
 
-## Prompts, mensagens e parâmetros
+Depois de identificar o que circula, o arquiteto pode decidir quem gera, quem julga e quem produz efeitos.
 
-Um **prompt** é o contrato que orienta uma geração — como qualquer contrato de interface, deve ser versionado, testado e relacionado ao modelo compatível, não escrito solto. Em aplicações reais ele é um artefato composto: política do sistema, pedido do usuário, exemplos, contexto e especificação de saída podem ser montados por componentes diferentes.
+## Como distribuir responsabilidade
 
-Parâmetros como **temperatura** são a primeira lei da arquitetura de software em ação: ajustá-los troca variabilidade por previsibilidade — não elimina a tensão entre atributos, apenas a desloca. Reduzir a temperatura pode tornar respostas mais estáveis, mas não converte uma afirmação em verdadeira. Restrições de formato e validação posterior aumentam previsibilidade sintática; também não garantem correção semântica.
+A distribuição começa pelas condições que tornam o sistema aceitável. **Atributos de qualidade** descrevem como ele deve responder em situações relevantes: segurança, disponibilidade, desempenho, modificabilidade, observabilidade e outras características. Cada atributo precisa de cenário, medida e prioridade para orientar o desenho.
 
-**Exemplo:** um prompt versionado pede uma síntese de até cinco tópicos, preservando datas e nomes do texto fornecido. **Contraexemplo:** uma frase escondida no documento manda ignorar a política e revelar dados. Conteúdo externo deve ser tratado como dado não confiável, não como instrução soberana — a mesma fronteira entre determinístico e probabilístico do início do módulo, agora aplicada à segurança.
+### Atributos de qualidade, trade-offs e significância
 
-## Embeddings e representação semântica
+Mais contexto pode ampliar cobertura e piorar latência, custo e exposição. Trace detalhado pode ajudar diagnóstico e ferir minimização. Fallback pode melhorar disponibilidade e reduzir a qualidade da resposta. A primeira lei de Richards e Ford — “tudo é trade-off” — aplica-se à composição inteira ([*Fundamentals of Software Architecture*](https://www.oreilly.com/library/view/fundamentals-of-software-architecture/9781492043454/)).
 
-Um **embedding** é a peça técnica por trás de uma decisão de arquitetura: como o sistema vai buscar o que sabe. É um vetor numérico que representa propriedades aprendidas de um conteúdo — textos semanticamente relacionados podem ocupar regiões próximas do espaço vetorial, permitindo recuperar candidatos por similaridade mesmo sem termos idênticos. Útil para busca, agrupamento e recomendação.
+Uma escolha é **arquiteturalmente significativa** quando influencia estruturas fundamentais, características prioritárias, dependências, responsabilidades ou custo de mudança. Reformular uma frase descartável pode permanecer uma decisão local. Enviar dados pessoais a um provedor, permitir ferramentas ou criar uma plataforma comum tende a exigir análise arquitetural.
 
-Embedding não é resumo legível, prova de equivalência nem banco de fatos. Similaridade alta significa proximidade segundo o modelo e a configuração, não autorização, atualidade ou verdade. Uma consulta sobre “desligamento” pode recuperar conteúdos trabalhistas e também instruções de desligar equipamentos; metadados, filtros, busca lexical e avaliação continuam necessários.
+### Geração, decisão, autorização e efeito
 
-## Conhecimento paramétrico, variabilidade e alucinação
+Quatro responsabilidades ajudam a traçar essas fronteiras:
 
-**Conhecimento paramétrico** é uma dependência congelada: o conteúdo implicitamente representado nos pesos após o treinamento, sem canal próprio de atualização. Permite responder sem uma fonte externa, mas tem três limites arquiteturais importantes: não oferece atualização sob demanda, nem proveniência granular, nem garantia de cobertura. Reconhece-se o limite e desenha-se em torno dele; não se espera que ele mude sozinho. A pesquisa de [Brown et al. sobre aprendizagem com poucos exemplos](https://proceedings.neurips.cc/paper_files/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html) demonstra ampla adaptação por contexto, mas capacidade geral não equivale a compromisso com fatos de um domínio privado.
+| Responsabilidade | Pergunta |
+|---|---|
+| Geração | Que proposta o modelo produz? |
+| Decisão | Que opção será seguida e por qual critério? |
+| Autorização | Quem permite a ação sobre este recurso e finalidade? |
+| Efeito | Que componente executa, confirma e recupera a mudança? |
 
-**Variabilidade** é a mudança possível entre saídas ou versões. Pode ser benéfica em ideação e problemática em classificação regulada. **Alucinação** é o risco que qualquer cenário de confiabilidade ou fundamentação precisa conter: conteúdo plausível sem sustentação nos fatos, no contexto ou nas evidências disponíveis. Uma resposta inventada com tom seguro é perigosa justamente porque legibilidade e factualidade são propriedades diferentes.
+O modelo **gera** uma proposta ou sugere um próximo passo. Uma regra, workflow ou pessoa **decide** conforme o caso. Uma política externa **autoriza** identidade, escopo e finalidade. Um componente transacional **executa** e registra o efeito. A separação permite testar contratos, restringir credenciais e atribuir responsabilidade sem exigir que toda solução tenha a mesma estrutura.
 
-Mitigar não significa prometer “zero alucinação” por configuração. A arquitetura combina escopo, evidências, instrução para declarar insuficiência, validação, revisão humana conforme o risco e avaliação contínua. O sistema também deve comunicar limites para que o usuário não confunda assistência com autoridade.
+### Multimodalidade
 
-## Multimodalidade
+Um sistema **multimodal** processa ou produz mais de um tipo de dado. Imagem, áudio e documentos digitalizados acrescentam etapas de extração, ameaças, acessibilidade e métricas próprias. Um modelo pode ler uma nota fiscal; regras ainda validam valores, e uma autoridade ainda aprova o efeito. Mudar a modalidade amplia a superfície, mas não transfere essas responsabilidades ao modelo.
 
-Um sistema **multimodal** processa ou produz mais de um tipo de dado — cada modalidade é um adaptador novo, com seu próprio pipeline, ameaças, acessibilidade e métricas. Um modelo pode ler uma fotografia de nota fiscal e explicar campos; a aplicação ainda precisa validar valores, identidade, formato e política de reembolso.
+O [Módulo 4](../modulo-4-agentes/index.md) aprofundará autonomia e ferramentas; o [Módulo 5](../modulo-5-confianca/index.md) tratará ameaças, controles e risco residual. Antes dessas decisões, porém, é necessário definir que evidência sustenta a aceitação do sistema.
 
-Não presuma que uma interface multimodal implica entendimento uniforme. Texto embutido em imagem pode sofrer erros; áudio pode conter ruído e informação biométrica; documentos podem combinar tabelas, assinaturas e instruções conflitantes. A pergunta permanece arquitetural: que capacidade pertence ao modelo, que evidência precisa ser preservada e que controle deve permanecer determinístico?
+## Como verificar e governar
 
-## O novo contrato arquitetural
+As zonas da composição pedem formas de verificação diferentes. Contratos e regras permitem asserções exatas. Saídas generativas exigem observação sobre conjuntos de casos. Propriedades como latência, isolamento e recuperação dependem do sistema em condições representativas.
 
-Sistemas generativos combinam zonas previsíveis e zonas avaliadas. O código ainda define autenticação, limites, rotas e validações; o modelo oferece interpretação e geração dentro dessas fronteiras. A qualidade resulta da composição entre modelo, contexto, dados, controles, pessoas e operação. É por isso que substituir apenas o modelo pode melhorar uma métrica e piorar custo, latência ou segurança — a primeira lei, de novo, agora aplicada ao sistema inteiro.
+### Três tipos de verificação
 
-## Ferramentas no mercado
+| Tipo | O que verifica | Exemplo |
+|---|---|---|
+| **Teste de software** | comportamento determinístico de contratos, regras e componentes | campo proibido é rejeitado; transação duplicada não é aplicada |
+| **Avaliação comportamental** | distribuição de qualidade sobre uma população de casos | cobertura, fundamentação e recusa em conjunto representativo |
+| **Verificação arquitetural** | característica sistêmica ao longo da evolução | p95, isolamento entre perfis, custo por jornada, recuperação de falha |
 
-São categorias, não prescrição. Confirme condições no [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
+Uma **fitness function** é uma verificação automatizada e contínua de uma característica arquitetural. Ela pode impedir promoção quando latência, vazamento, fundamentação ou compatibilidade sai do limite. O mecanismo não substitui julgamento humano nem transforma uma métrica intermediária em objetivo de negócio.
 
-| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
-|---|---|---|---|
-| Ollama | Testar inferência local sintética. | Hardware, pesos e licença. | Não valida política ou qualidade. |
-| LM Studio | Explorar modelos locais. | Instalação, hardware e pesos. | Não substitui avaliação ou autorização. |
-| API de modelo | Comparar contrato hospedado. | Credencial, dados, região e custo analisados. | Provedor não controla o domínio. |
+### O novo contrato arquitetural
 
-Na próxima página, esses conceitos se tornam alternativas: [padrões e decisões](padroes-e-decisoes.md).
+Sistemas generativos combinam zonas testadas por asserção e zonas avaliadas por amostragem. A arquitetura define fronteiras, responsabilidades, medidas e recuperação. O modelo oferece interpretação e geração; o sistema preserva identidade, finalidade, autorização, evidência e efeito.
+
+Esse contrato organiza a continuidade do curso:
+
+- o [Módulo 2](../modulo-2-desenho-conceitual/index.md) transforma oportunidade em descrição e decisão;
+- o [Módulo 3](../modulo-3-rag/index.md) governa conhecimento externo;
+- o [Módulo 4](../modulo-4-agentes/index.md) governa autonomia e efeitos;
+- o [Módulo 5](../modulo-5-confianca/index.md) distribui controles e avaliação;
+- o [Módulo 6](../modulo-6-operacao/index.md) governa mudança e operação da superfície comportamental.
+
+Na próxima página, esses conceitos orientam a comparação entre [padrões e decisões](padroes-e-decisoes.md).
