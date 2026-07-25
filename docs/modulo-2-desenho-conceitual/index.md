@@ -22,7 +22,7 @@ Ao concluir o módulo, você deverá ser capaz de:
 2. **Aplicar** critérios de adequação e rejeição para decidir se IA generativa participa da solução e qual responsabilidade permanece humana.
 3. **Analisar** objetivos e requisitos para identificar requisitos arquiteturalmente significativos, restrições e critérios probabilísticos de aceitação.
 4. **Avaliar** alternativas como prompt, RAG, fine-tuning, workflow, agente, modelo único ou múltiplos modelos, hospedagem gerenciada ou autogerida e construir, comprar ou compor.
-5. **Criar** um desenho conceitual rastreável, com vistas, cenários de falha, ADRs, evidências e gatilhos de revisão.
+5. **Criar** um desenho conceitual rastreável, com vistas, cenários de falha, ADRs, proveniência de evidências, tensões priorizadas e gatilhos de revisão.
 
 ## Roteiro do módulo
 
@@ -45,7 +45,7 @@ O objetivo não será confirmar a preferência inicial. Investigaremos se a melh
 
 ## Um princípio de trabalho
 
-Leia cada seta nos dois sentidos: **objetivo → cenário → requisito significativo → mecanismo → evidência**; depois pergunte qual necessidade justifica cada componente, permissão e dependência. Sem resposta, há lacuna de rastreabilidade.
+Leia cada seta nos dois sentidos: **objetivo → cenário → requisito significativo → mecanismo → evidência**; depois pergunte qual necessidade justifica cada componente, permissão e dependência. Para toda evidência, registre origem, autoridade, versão, transformação e uso. Sem resposta, há lacuna de rastreabilidade ou proveniência.
 
 O [NIST AI RMF Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) reforça que riscos e impactos devem ser compreendidos no contexto de uso, e não inferidos apenas das capacidades gerais de um modelo. Esse princípio orientará o módulo: arquitetura é uma disciplina de escolha contextual, não um catálogo de caixas.
 

@@ -33,6 +33,8 @@ flowchart LR
 
 **Equivalente textual 1:** o analista autenticado abre um caso no copiloto. O copiloto consulta o serviço de casos e o repositório de políticas sob a identidade e a finalidade autorizadas, minimiza o contexto e solicita um rascunho ao serviço de inferência. O analista inspeciona fontes, corrige e recomenda; o supervisor aprova ou devolve antes de qualquer gravação oficial. Políticas, auditoria e observabilidade atravessam copiloto, inferência e registro. O modelo não acessa sistemas legados nem grava decisões diretamente.
 
+Para cada afirmação material, o copiloto preserva proveniência: identificador da fonte, versão e vigência da política, identidade e finalidade autorizadas, regra de seleção ou mascaramento aplicada e trecho usado no rascunho. A rastreabilidade não exige guardar o conteúdo cru em telemetria.
+
 As fronteiras críticas são: organização–fornecedor de inferência; identidade do analista–dados de outros clientes; conteúdo de política–instruções da aplicação; proposta–decisão oficial. O fora de escopo inclui alteração cadastral, bloqueio de cartão, comunicação ao cliente, casos empresariais e aprendizado automático com correções.
 
 ## 3. Cenários arquiteturalmente significativos
@@ -118,6 +120,10 @@ flowchart TB
 **Detecção:** referência ausente, evidência contraditória ou cobertura abaixo do limiar. **Contenção:** substituir recomendação conclusiva por declaração de insuficiência, destacar lacunas e exigir investigação do analista. **Recuperação:** classificar se a causa foi fonte, seleção, contexto, instrução ou modelo; corrigir o componente responsável e adicionar o caso ao conjunto de regressão.
 
 ## 6. Registros de decisão
+
+### Tensões priorizadas
+
+Privacidade, revisão humana e proveniência têm precedência sobre latência do rascunho. O primeiro incremento aceita a latência adicional de selecionar e registrar evidências; não aceita reduzir a revisão ou enviar campos sem finalidade para ganhar velocidade. Produto mede tempo e custo por caso; Segurança mede exposição; o dono da política mede cobertura de fonte.
 
 ### ADR-001 — Adotar workflow assistivo sem autonomia de ferramentas
 

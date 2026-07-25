@@ -4,309 +4,289 @@ Responda antes do feedback. Recordar e Compreender têm respostas públicas; os 
 
 ## Recordar
 
-### 1. Elementos do CONOPS
+### 1. Oportunidade e requisito
 
-Liste seis elementos que um conceito de operações deve explicitar.
+Qual é a diferença entre uma oportunidade de negócio e um requisito arquiteturalmente significativo?
 
 <details>
 <summary>Ver resposta</summary>
 
-Uma resposta possível: atores e responsabilidades; informação e autoridade; atividades humanas; modos operacionais; efeitos permitidos e proibidos; degradação e recuperação. Evidências e condições de contestação também são elementos válidos.
+Uma oportunidade descreve uma melhoria desejada em uma situação; não escolhe tecnologia. Um requisito arquiteturalmente significativo (RAS) influencia estrutura, interfaces, mecanismos ou uma decisão difícil de reverter. Um RAS pode surgir da oportunidade, mas não é a própria oportunidade.
 </details>
 
-### 2. Classes de objetivo
+### 2. IA como componente
 
-Nomeie as quatro classes de objetivo usadas para evitar confundir resultado final e métrica intermediária.
+Nomeie três aspectos que o desenho conceitual deve prever quando um modelo de linguagem é integrado a um sistema maior.
 
 <details>
 <summary>Ver resposta</summary>
 
-Objetivo de negócio, objetivo de produto, objetivo de dados e objetivo de IA.
+Conhecimento e dados autorizados, integrações com APIs ou ferramentas e controles de autonomia e segurança são três aspectos. Fronteiras de confiança, observabilidade, responsabilidades humanas e operação também são respostas válidas.
 </details>
 
-### 3. Requisito significativo
+### 3. Seis partes de um cenário de qualidade
 
-Defina requisito arquiteturalmente significativo e cite dois sinais usados para identificá-lo.
+Liste as seis partes usadas para descrever um cenário de atributo de qualidade.
 
 <details>
 <summary>Ver resposta</summary>
 
-É um requisito cuja satisfação influencia de modo relevante estrutura, interfaces ou mecanismos. Sinais incluem atravessar componentes ou fronteiras, determinar atributo de qualidade, responder a risco ou obrigação alta e restringir opções de difícil reversão.
+Fonte, estímulo, ambiente, artefato, resposta e medida. Prioridade, dono, verificação e origem podem complementar o cenário para torná-lo rastreável.
 </details>
 
-### 4. Partes do critério probabilístico
+### 4. Critério probabilístico
 
-Liste cinco partes que tornam um critério probabilístico de aceitação verificável.
+Liste cinco elementos que tornam verificável um critério de aceitação para comportamento probabilístico.
 
 <details>
 <summary>Ver resposta</summary>
 
-Entre as partes estão população, amostra, métrica ou critério qualitativo, limiar, tratamento de incerteza, falha intolerável e ação resultante. Cinco delas atendem ao pedido, desde que definidas para o caso.
+População, amostra, métrica ou critério qualitativo, limiar, tratamento de incerteza, falha intolerável e ação resultante. Cinco deles atendem ao pedido, desde que estejam definidos para o caso.
 </details>
 
 ## Compreender
 
-### 5. Valor versus capacidade
+### 5. Componente, não solução completa
 
-Explique por que demonstrar que um modelo resume bem documentos não confirma que um copiloto reduzirá o tempo de um processo.
+Explique por que uma boa demonstração de um modelo não prova que a solução está pronta para uso organizacional.
 
 <details>
 <summary>Ver resposta</summary>
 
-O resumo demonstra uma hipótese de capacidade sob entradas selecionadas. O valor depende também de coleta e autorização de dados, integração ao trabalho, cobertura de casos, revisão, confiança calibrada e contramétricas. O processo pode continuar lento antes ou depois da geração.
+Uma demonstração avalia uma capacidade sob condições selecionadas. Uma solução também precisa de dados e autorizações, integrações, limites de autonomia, evidências, operação, recuperação e responsáveis. O modelo é um componente; não substitui esses elementos arquiteturais.
 </details>
 
-### 6. Revisão humana efetiva
+### 6. RAG e fine-tuning
 
-Explique por que exigir um clique de aprovação não é, por si só, controle humano.
+Explique por que RAG costuma ser mais adequado que fine-tuning para conhecimento factual que muda com frequência e precisa ser citado.
 
 <details>
 <summary>Ver resposta</summary>
 
-O revisor precisa de competência, tempo, autoridade, evidências e interface para discordar. Sem essas condições, a aprovação pode virar ritual e aumentar dependência da recomendação. Responsabilidades, exceções e registro de correções devem estar no desenho.
+RAG recupera evidências externas no momento da inferência, permitindo atualização e proveniência por fonte. Fine-tuning altera parâmetros e tendências de comportamento; atualizar fatos exige novo ciclo de curadoria, treinamento e avaliação. RAG também cria riscos próprios de recuperação, autorização e latência.
 </details>
 
-### 7. Restrição versus preferência
+### 7. Gateway e mediador
 
-Distinga restrição de preferência e explique o efeito de classificá-las incorretamente.
+Distinga o papel de um gateway de IA do papel de um mediador entre um agente e uma API de negócio.
 
 <details>
 <summary>Ver resposta</summary>
 
-Restrição limita o espaço de solução por obrigação confirmada; preferência favorece uma opção, mas pode ser negociada. Tratar preferência como restrição elimina alternativas prematuramente; tratar obrigação como preferência admite soluções inviáveis ou não conformes.
+O gateway aplica controles transversais, como quotas, redação de dados, fallback e telemetria. O mediador recebe uma intenção ou chamada proposta pelo agente e executa a ação de forma determinística, validando autorização, contrato e registro. Um não substitui o outro.
 </details>
 
 ## Aplicar
 
-### 8. Ficha de oportunidade para triagem jurídica
+### 8. Decisão de conhecimento para suporte técnico
 
-**O que é:** ficha de oportunidade descreve problema, impacto e teste; não é lista de ferramentas.
+**O que é:** uma decisão de conhecimento define de onde o sistema obtém informação e como preserva atualização, autorização e evidência.
 
-**Onde encontrar:** use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), as [quatro classes de objetivo](padroes-e-decisoes.md#quatro-classes-de-objetivo) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [critérios de adequação](conceitos.md#criterios-de-adequacao-da-ia-generativa), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo) e o [processo de desenho](padroes-e-decisoes.md#processo-de-desenho).
 
 **Situação**
 
-Um departamento quer “usar IA para revisar contratos” porque analistas relatam excesso de trabalho. Ainda não sabemos em qual etapa o tempo é gasto, quais contratos variam mais nem qual erro seria inaceitável.
+Uma equipe quer responder dúvidas sobre 800 manuais técnicos, atualizados semanalmente. Parte das perguntas é sobre dados de uma ordem de serviço já aberta; outra exige localizar uma política vigente. O patrocinador propõe treinar um modelo com todos os manuais.
 
 **Seu papel**
 
-Você conduz a triagem como arquiteto. Antes de escolher modelo ou fornecedor, descubra se há oportunidade verificável.
+Você conduz a primeira decisão arquitetural. Deve separar o que é dado estruturado, contexto já selecionado e conhecimento que precisa ser localizado.
 
 **Insumos disponíveis**
 
-Use [objetivos](padroes-e-decisoes.md#quatro-classes-de-objetivo), [requisitos significativos](padroes-e-decisoes.md#do-requisito-ao-requisito-arquiteturalmente-significativo), [CONOPS](conceitos.md#conops-o-sistema-em-operacao) e [template de ADR](../referencia/template-adr.md). Trabalhe com contratos fictícios; não use dados jurídicos reais.
+Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), o trecho sobre prompt, RAG e fine-tuning em [padrões de decisão](padroes-e-decisoes.md#processo-de-desenho) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
 
 **Como conduzir**
 
-1. Reformule a intenção como problema observável para um stakeholder específico.
-2. Liste o baseline que falta e uma forma simples de medi-lo.
-3. Separe hipótese de valor (melhorar o trabalho) de hipótese de capacidade (o sistema consegue executar a tarefa).
-4. Proponha um experimento pequeno e um critério que faria a equipe rejeitar GenAI ou limitar seu uso.
+1. Classifique três perguntas do cenário por fonte: consulta estruturada, contexto fornecido ou recuperação de conhecimento.
+2. Compare prompt com contexto, RAG e fine-tuning para as políticas que mudam semanalmente.
+3. Declare dados, permissões, atualização e proveniência da evidência: origem, versão, transformação e uso na resposta.
+4. Registre uma decisão provisória e uma condição que a faria ser revista.
 
 **Entrega esperada**
 
-Entregue uma ficha de uma página com problema, stakeholder, baseline, resultado, contramétrica, hipóteses, experimento e decisão de rejeição.
+Entregue uma matriz de decisão e o núcleo de uma ADR com contexto, alternativas, decisão, consequências e gatilho de revisão.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Problema e escopo | 25% | Reformula a intenção sem escolher solução prematuramente. |
-| Medição de valor | 30% | Define baseline, resultado e contramétrica observáveis. |
-| Hipóteses | 20% | Distingue valor do processo e capacidade da solução. |
-| Experimento e rejeição | 25% | Propõe teste refutável e limite que pode interromper a adoção. |
+| Classificação do conhecimento | 25% | Distingue dado de ordem, contexto selecionado e informação a localizar. |
+| Trade-offs | 30% | Compara atualização, proveniência, custo e complexidade das alternativas. |
+| Fronteiras e controles | 20% | Explicita autorização, versão, transformação e uso da evidência. |
+| Decisão revisável | 25% | Registra consequência e medida capaz de alterar a escolha. |
 
-**Como verificar antes de entregar:** confira problema, baseline, contramétrica, hipóteses separadas e limite de rejeição.
+**Como verificar antes de entregar:** confira se a proposta não usa fine-tuning como banco de dados e se cada fonte possui controle de acesso e atualização.
 
-### 9. Aceitação de extração e síntese
+### 9. Critérios para uma cadeia de extração
 
-**O que é:** critério de aceitação define população, amostra, medida, limiar e ação.
+**O que é:** pipes-and-filters separa etapas de geração e validação para impedir que um erro probabilístico avance sem controle.
 
-**Onde encontrar:** consulte [critérios probabilísticos](padroes-e-decisoes.md#criterios-probabilisticos-de-aceitacao) e o [catálogo de atributos](../referencia/atributos-de-qualidade.md).
+**Onde encontrar:** consulte [atributos de qualidade](../referencia/atributos-de-qualidade.md), [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia) e [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao).
 
 **Situação**
 
-Um sistema extrai obrigações de licenças ambientais e prepara resumo para especialista. O contrato determinístico exige que data e identificador obedeçam ao formato; a síntese pode variar na redação, mas não omitir obrigação crítica. Um especialista revisa a saída antes de qualquer uso.
+Um sistema extrai obrigações de licenças ambientais, valida datas e identificadores e prepara uma síntese para especialista. Campos estruturados têm formato obrigatório; a síntese pode variar, mas não pode omitir uma obrigação crítica. A saída só segue ao especialista depois das validações.
 
 **Seu papel**
 
-Você transforma a diferença entre contrato determinístico e comportamento probabilístico em critérios operáveis.
+Você desenha a cadeia de tarefas e os critérios que determinam quando cada resultado pode avançar, ser corrigido ou ser bloqueado.
 
 **Insumos disponíveis**
 
-Consulte [Critérios probabilísticos de aceitação](padroes-e-decisoes.md#criterios-probabilisticos-de-aceitacao) e o [catálogo de atributos](../referencia/atributos-de-qualidade.md). Use licenças fictícias com tipos e exceções diferentes.
+Use os [modos operacionais](conceitos.md#modos-operacionais), o padrão de encadeamento em [processo de desenho](padroes-e-decisoes.md#processo-de-desenho) e os critérios probabilísticos. Use licenças fictícias com exceções.
 
 **Como conduzir**
 
-1. Escreva um critério determinístico para os campos estruturados, incluindo formato e ação diante de erro.
-2. Escreva um critério probabilístico para a síntese, informando população, amostra e modo de revisão.
-3. Defina limiar, falha intolerável e tratamento; não esconda segmentos críticos em uma média.
-4. Diga que evidência permite liberar, bloquear, restringir ou encaminhar para revisão.
+1. Desenhe quatro etapas: extração, validação determinística, síntese e revisão humana.
+2. Defina o contrato de entrada, saída e falha para cada filtro.
+3. Escreva um critério determinístico para campos e um probabilístico para a síntese.
+4. Defina uma falha intolerável, o modo acionado e a pessoa informada.
 
 **Entrega esperada**
 
-Entregue dois critérios em tabela, uma nota sobre a amostra e uma regra operacional para cada falha.
+Entregue o fluxo com equivalente textual, dois critérios de aceitação e uma regra operacional de bloqueio ou recuperação.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Contratos distintos | 25% | Separa validação de campo e julgamento de síntese. |
-| População e amostra | 25% | Inclui tipos de licença, exceções e casos críticos. |
-| Limite e falha | 25% | Define limiar e resultado intolerável sem mascarar fatias. |
-| Ação operacional | 25% | Explica quando bloquear, restringir ou exigir revisão. |
+| Encadeamento | 25% | Separa geração, validação e revisão em responsabilidades compreensíveis. |
+| Contratos | 25% | Define entradas, saídas e ação diante de falha em cada etapa. |
+| Critérios | 30% | Distingue validação determinística de aceitação probabilística. |
+| Operação | 20% | Indica bloqueio, preservação do estado e retorno seguro. |
 
-**Como verificar antes de entregar:** confira formato, amostra, segmentos críticos e ação para cada falha.
+**Como verificar antes de entregar:** confira se nenhuma síntese avança quando o filtro de campos falha e se a revisão possui evidências para discordar.
 
 ## Analisar
 
-### 10. Paisagem de decisões para suporte técnico
+### 10. Arquitetura de ação para reembolso
 
-**O que é:** paisagem de decisões separa escolhas com responsáveis e consequências distintas.
+**O que é:** uma decisão de autonomia compara o valor de delegar passos ao modelo com os novos riscos de ferramentas e efeitos no negócio.
 
-**Onde encontrar:** use a [sequência de decisão](padroes-e-decisoes.md#uma-sequencia-de-decisao), os [padrões de desenho conceitual](padroes-e-decisoes.md) e a [oficina local](oficina-de-ferramentas.md#roteiro-sugerido-para-aula).
+**Onde encontrar:** use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais) e [padrões de ação e autonomia](padroes-e-decisoes.md#processo-de-desenho).
 
 **Situação**
 
-Uma empresa possui 600 manuais atualizados semanalmente, três sistemas somente de leitura e diagnóstico com dez sequências conhecidas. A equipe pede “uma solução de IA”, mas cada eixo muda responsabilidades: produto cuida da jornada, dados da autoridade, plataforma do contrato e operação da disponibilidade.
+Um processo de reembolso tem regras estáveis para elegibilidade, mas analistas precisam interpretar justificativas e reunir anexos. A equipe sugere um agente que consulte cadastro, calcule valor e envie a solicitação. As APIs de envio não são idempotentes e valores acima de R$ 5 mil exigem aprovação.
 
 **Seu papel**
 
-Você organiza escolhas e responsabilidades antes da arquitetura-alvo.
+Você analisa onde a IA agrega interpretação e onde regras, workflow, mediador e aprovação devem manter o controle.
 
 **Insumos disponíveis**
 
-Use [padrões](padroes-e-decisoes.md), [modos operacionais](conceitos.md#modos-operacionais), [oficina de contrato](oficina-de-ferramentas.md#receita-principal) e [workflow versus agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm). Relacione cada eixo ao responsável pelo risco.
+Use o [quando rejeitar GenAI](conceitos.md#quando-rejeitar-ia-generativa), [fronteiras de decisão](conceitos.md#fronteiras-e-fora-de-escopo), o padrão de mediador e o [template de ADR](../referencia/template-adr.md).
 
 **Como conduzir**
 
-1. Crie uma tabela com os cinco eixos: contexto, controle, composição de modelos, hospedagem e construir/comprar/compor.
-2. Em cada eixo, escreva requisito, responsabilidade nova, risco e evidência que falta.
-3. Separe restrições confirmadas de preferências e hipóteses.
-4. Proponha um primeiro incremento que adie complexidade sem fechar evolução.
-5. Escolha uma incógnita capaz de inverter duas decisões e descreva como medi-la.
+1. Separe as atividades em regra, interpretação, proposta e efeito externo.
+2. Compare automação convencional, workflow com LLM e agente para cada atividade.
+3. Descreva um mediador para as APIs: intenção permitida, validação, aprovação, idempotência e registro.
+4. Defina modos normal, baixa confiança e bloqueado para o fluxo.
+5. Aponte a evidência que poderia justificar ampliar a autonomia.
 
 **Entrega esperada**
 
-Entregue uma matriz de cinco eixos, uma arquitetura incremental em até três passos e uma hipótese de reversão.
+Entregue uma matriz de atividades e controles, um fluxo de responsabilidade e uma ADR curta.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Cobertura dos eixos | 20% | Trata cada eixo sem misturar decisões que têm responsáveis distintos. |
-| Consequências causais | 25% | Relaciona escolha a dados, operação, risco e evidência necessária. |
-| Requisitos e hipóteses | 20% | Distingue obrigação, preferência e informação ainda não medida. |
-| Incremento | 20% | Propõe evolução reversível sem criar dependência prematura. |
-| Incógnita testável | 15% | Define medida capaz de alterar a decisão. |
+| Decomposição | 20% | Distingue decisão determinística, interpretação e efeito externo. |
+| Alternativas | 25% | Compara workflow, agente e automação com razões do contexto. |
+| Mediação e aprovação | 25% | Protege a API por contrato, autorização, idempotência e evidência. |
+| Modos operacionais | 15% | Define transições, estado preservado e pessoa informada. |
+| Revisão | 15% | Define medida e limite para ampliar ou reduzir autonomia. |
 
-**Como verificar antes de entregar:** confira cinco eixos, responsáveis, riscos, evidências e reversibilidade.
+**Como verificar antes de entregar:** confira se o modelo não executa diretamente a API de envio e se aprovação não é reduzida a um clique sem evidências.
 
 ## Avaliar
 
-### 11. Contestação do “agente por estratégia”
+### 11. Gateway, chassi e múltiplos modelos
 
-**O que é:** contestação arquitetural testa necessidade comparando alternativas, condições e evidências.
+**O que é:** uma decisão de plataforma avalia controles compartilhados e diversidade de modelos sem confundir padronização com uma solução única.
 
-**Onde encontrar:** consulte [workflow e agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm), a seção de [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [ferramentas no mercado](conceitos.md#ferramentas-no-mercado), [stakeholders](conceitos.md#stakeholders-e-preocupacoes) e [integração e infraestrutura](padroes-e-decisoes.md#processo-de-desenho).
 
 **Situação**
 
-O patrocinador exige um agente porque “os melhores produtos já são agênticos”. O processo tem cinco etapas, aprovação acima de R$ 5 mil e APIs de escrita não idempotentes.
+Três produtos internos querem usar modelos hospedados. Atendimento precisa de baixa latência; jurídico exige redação de dados pessoais e rastreabilidade; pesquisa tolera maior custo para tarefas complexas. A plataforma propõe um gateway obrigatório e um roteador entre modelo principal e fallback local.
 
 **Seu papel**
 
-Você contesta a solução orientada por tendência sem desqualificar a necessidade.
+Você emite uma recomendação sobre gateway, chassi compartilhado e modelo único ou múltiplos modelos, sem assumir que redundância é sempre segura.
 
 **Insumos disponíveis**
 
-Use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais), [workflow e agente](../modulo-1-fundamentos/padroes-e-decisoes.md#workflows-com-llm), o exemplo arquitetural e o template de ADR. Para idempotência e aprovação, consulte o [padrão de uso de ferramentas](../modulo-1-fundamentos/padroes-e-decisoes.md#uso-de-ferramentas).
+Use a tabela de [stakeholders e preocupações](conceitos.md#stakeholders-e-preocupacoes), a seção de gateway e chassi em [padrões de decisão](padroes-e-decisoes.md#processo-de-desenho), o [guia de ferramentas](../referencia/guia-de-ferramentas.md) e o template de ADR.
 
 **Como conduzir**
 
-1. Declare se aceita, limita a experimento ou rejeita o agente como primeira opção.
-2. Compare agente, workflow e automação convencional usando estabilidade, aprovação e idempotência.
-3. Separe evidência presente da hipótese de que autonomia trará valor.
-4. Escreva condições, métricas e gatilhos que permitiriam ampliar, reduzir ou reverter a decisão.
+1. Liste controles que pertencem ao gateway e controles que continuam no produto.
+2. Compare modelo único e roteamento por tarefa quanto a contrato, avaliação, custo, latência e degradação.
+3. Avalie se o fallback atende à mesma categoria de risco e quais testes periódicos são necessários.
+4. Declare a menor diversidade suficiente e as condições para adicionar ou remover um modelo.
 
 **Entrega esperada**
 
-Entregue um parecer de uma página e o núcleo de uma ADR com decisão, alternativas, consequências e revisão.
+Entregue um parecer de uma página, uma tabela de controles e uma ADR com recomendação condicionada.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Julgamento | 25% | Assume uma posição explícita e proporcional ao contexto. |
-| Direcionadores | 25% | Usa estabilidade, aprovação e idempotência como razões arquiteturais. |
-| Alternativas | 25% | Compara opções sem apelar a tendência ou marca. |
-| Revisão | 25% | Define limites, métricas e gatilhos que podem reverter a decisão. |
+| Controles transversais | 25% | Localiza quotas, redação, telemetria e fallback na fronteira adequada. |
+| Comparação | 25% | Relaciona diversidade de modelos a contratos, avaliações e operação. |
+| Risco de degradação | 25% | Verifica compatibilidade e teste do fallback para cada categoria. |
+| Recomendação | 25% | Assume posição condicionada por evidências e gatilhos explícitos. |
 
-**Como verificar antes de entregar:** confira posição, comparação, hipótese separada, métricas e gatilhos de reversão.
+**Como verificar antes de entregar:** confira se o gateway não substitui política do produto e se o fallback não é declarado seguro sem teste.
 
 ## Criar
 
-### 12. Dossiê conceitual de um assistente clínico administrativo
+### 12. Dossiê conceitual de um assistente administrativo clínico
 
-**O que é:** dossiê conceitual reúne oportunidade, operação, arquitetura, riscos e evidências para revisão independente.
+**O que é:** dossiê conceitual reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
 
-**Onde encontrar:** consulte [conceitos e padrões](conceitos.md#do-conceito-ao-requisito), [template de ADR](../referencia/template-adr.md) e [oficina local](oficina-de-ferramentas.md#roteiro-sugerido-para-aula).
+**Onde encontrar:** consulte [o desenho conceitual](conceitos.md), [processo de desenho](padroes-e-decisoes.md#processo-de-desenho), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
-Um sistema ajuda equipes a preparar documentação administrativa para autorização de procedimentos. Pode resumir registros autorizados e políticas, mas não diagnostica, prescreve nem envia solicitação sem revisão. Há dados sensíveis, fontes conflitantes e uma dependência indisponível durante manutenção semanal.
+Um sistema ajuda equipes a preparar documentação administrativa para autorização de procedimentos. Pode resumir registros autorizados e políticas, mas não diagnostica, prescreve nem envia solicitação sem revisão. Há dados sensíveis, fontes conflitantes e uma dependência indisponível em manutenção semanal.
 
 **Seu papel**
 
-Você é o arquiteto que compõe um dossiê independente de fornecedor para uma decisão que ainda precisa ser discutida com domínio, segurança, privacidade e operação.
+Você é o arquiteto que compõe um dossiê independente de fornecedor para decisão conjunta com domínio, privacidade, segurança e operações.
 
 **Insumos disponíveis**
 
-Use [CONOPS e modos operacionais](conceitos.md#conops-o-sistema-em-operacao), [requisitos e padrões de decisão](padroes-e-decisoes.md), o [template de ADR](../referencia/template-adr.md), o exemplo arquitetural e a [oficina de gateway local](oficina-de-ferramentas.md#receita-principal). O caso é fictício; não use prontuários ou documentos reais.
+Use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo), [modos](conceitos.md#modos-operacionais), [responsabilidade](conceitos.md#responsabilidade-humanoia), padrões de conhecimento, ação e infraestrutura, e o template de ADR. O caso é fictício; não use prontuários reais.
 
 **Como conduzir**
 
-1. Comece por oportunidade, baseline, stakeholders, fora de escopo e responsabilidade humana.
-2. Modele os modos normal, degradado e bloqueado antes de escolher componentes.
-3. Rastreie objetivos até requisitos, mecanismos e evidências.
-4. Compare alternativas, explicite conflitos e registre decisões reversíveis e irreversíveis.
-5. Feche com falhas, critérios de aceitação, experimento refutável e gatilhos de revisão.
+1. Declare oportunidade, baseline, stakeholders, finalidade, fora de escopo e responsabilidades por verbo.
+2. Descreva os modos normal, baixa confiança, degradado e bloqueado, com transições e trabalho manual.
+3. Escolha e justifique o padrão de conhecimento, a cadeia de validação, os controles de gateway e a autonomia permitida.
+4. Rastreie objetivos de negócio, produto, dados e IA até RAS, mecanismos, critérios e evidências; priorize as características e declare a tensão aceita.
+5. Compare alternativas em uma ADR e encerre com experimento, falhas intoleráveis e gatilhos de revisão.
 
 **Entrega esperada**
 
 Entregue o dossiê, um diagrama com equivalente textual e uma ADR. O texto deve permitir revisão independente.
 
-**Template do entregável**
-
-```text
-Oportunidade, baseline e hipótese de valor:
-Critérios de adequação e rejeição de GenAI:
-Stakeholders, preocupações e fora de escopo:
-CONOPS — modo normal, degradado e bloqueado:
-Matriz de responsabilidade humano–IA:
-Objetivos de negócio, produto, dados e IA:
-Três cenários de atributo de qualidade com seis partes:
-Critérios probabilísticos e falhas intoleráveis:
-Comparação de ao menos três alternativas:
-Diagrama de contexto e equivalente textual:
-Componentes e fronteiras de confiança:
-Falhas — detecção — contenção — recuperação:
-ADR com evidências e gatilhos de revisão:
-Experimento que pode refutar a hipótese:
-Mapa objetivo → requisito → mecanismo → evidência:
-```
-
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Oportunidade e escopo | 15% | Delimita valor, stakeholders e usos proibidos sem escolher solução cedo demais. |
-| CONOPS e responsabilidade | 20% | Explica modos de operação, revisão humana e autoridade. |
-| Rastreabilidade | 15% | Liga objetivos, requisitos, mecanismos, evidências e falhas. |
-| Alternativas e ADR | 15% | Expõe trade-offs, consequências e condições de revisão. |
-| Diagrama e modos de falha | 15% | Mantém fronteiras, fluxos e contenções coerentes. |
-| Experimento | 20% | Define teste econômico que pode refutar a hipótese principal. |
+| Escopo e operação | 15% | Delimita finalidade, fora de escopo, modos e trabalho humano. |
+| Decisões arquiteturais | 20% | Justifica conhecimento, autonomia, cadeia e controles compartilhados. |
+| Fronteiras e responsabilidades | 15% | Explicita dados, decisão, fornecedor e autoridade humana. |
+| Rastreabilidade | 20% | Liga objetivos, RAS, mecanismos, critérios e evidências. |
+| Alternativas e ADR | 15% | Expõe consequências e condições de revisão sem apelar a marca. |
+| Experimento e falhas | 15% | Define teste refutável, falhas intoleráveis e recuperação. |
 
-**Como verificar antes de entregar:** confira modos, rastreabilidade, fronteiras, detecção, recuperação e gatilhos na ADR.
+**Como verificar antes de entregar:** confira modos, fronteiras, fontes, controles, critérios, ADR e gatilhos de revisão.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
