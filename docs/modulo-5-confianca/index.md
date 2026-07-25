@@ -23,6 +23,7 @@ Ao final, você deverá conseguir:
 7. combinar verificações determinísticas, critérios humanos e avaliação assistida por modelo sem confundir uma delas com verdade;
 8. construir conjuntos de referência e casos adversariais para componentes e fluxos ponta a ponta;
 9. julgar risco residual e defender uma arquitetura de confiança com evidências.
+10. priorizar características arquiteturais, declarar tensões, atribuir responsáveis e definir fitness functions para controles críticos.
 
 ## Continuidade com RAG, agentes e atributos de qualidade
 

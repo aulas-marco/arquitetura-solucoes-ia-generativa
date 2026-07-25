@@ -199,7 +199,7 @@ Entregue `relatorio-confianca.json` ou a tabela preenchida e uma conclusão de a
 | C-04 |  |  |  |  |
 | C-05 |  |  |  |  |
 
-Indique uma falha que exigiria bloqueio, uma que exigiria melhoria de experiência e uma que precisaria de revisão humana.
+Indique uma falha que exigiria bloqueio, uma que exigiria melhoria de experiência e uma que precisaria de revisão humana. Registre também uma fitness function, seu responsável e a ação automática ou humana quando ela falhar.
 
 ## Limpeza e contingência
 

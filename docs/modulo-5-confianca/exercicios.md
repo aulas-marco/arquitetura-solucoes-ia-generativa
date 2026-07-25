@@ -219,7 +219,7 @@ Consulte [risco residual](conceitos.md#do-perigo-ao-risco-residual) e [qualidade
 1. Separe ausência observada de risco zero e descreva a incerteza da amostra.
 2. Compare severidade, pessoas afetadas, falsa recusa e falha de escalonamento.
 3. Escolha aceitar, reduzir, transferir, suspender ou combinar tratamentos.
-4. Defina autoridade, prazo, controle compensatório e gatilho de revisão.
+4. Defina autoridade, prazo, controle compensatório, fitness function e gatilho de revisão.
 
 **Entrega esperada**
 
@@ -237,7 +237,7 @@ Confira amostra, autoridade, expiração e gatilho; não confunda “não observ
 | Severidade e afetados | 20% | Diferencia impacto de vazamento, recusa e falha de escalonamento. |
 | Tratamento | 20% | Recomenda controles proporcionais ao risco residual. |
 | Autoridade e prazo | 20% | Nomeia quem aceita, trata ou suspende e em quanto tempo. |
-| Gatilhos e coerência | 25% | Liga decisão, evidência e revisão futura. |
+| Gatilhos, fitness functions e coerência | 25% | Liga decisão, evidência verificável e revisão futura. |
 
 ## Criar
 
@@ -265,9 +265,9 @@ Fases, checkpoints e modelos:
 
 1. **Fase 1 — Contexto:** preencha `atores | ativos | dados | fronteiras`. **Checkpoint:** usos permitidos e proibidos.
 2. **Fase 2 — Ameaças:** preencha `ameaça | percurso | impacto | sinal`. **Checkpoint:** cinco cenários, incluindo fornecedor e memória.
-3. **Fase 3 — Controles:** preencha `camada | controle | limite | teste | proprietário`. **Checkpoint:** teste negativo e falha segura.
-4. **Fase 4 — Avaliação:** preencha `fatia | critério | evidência | portão`. **Checkpoint:** casos comuns, raros, adversariais e recusa.
-5. **Fase 5 — Liberação:** preencha `canary | rollback | residual | autoridade | gatilho`. **Checkpoint:** decisão reversível.
+3. **Fase 3 — Controles:** preencha `camada | controle | limite | teste | proprietário`. Declare que recuperação, guardrail, política, avaliação, aprovação e observabilidade não decidem no lugar um do outro. **Checkpoint:** teste negativo e falha segura.
+4. **Fase 4 — Avaliação:** preencha `fatia | critério | evidência | portão`. Declare prioridade e tensão entre segurança, privacidade, auditabilidade, confiabilidade, utilidade, latência, custo e modificabilidade. **Checkpoint:** casos comuns, raros, adversariais e recusa.
+5. **Fase 5 — Liberação:** preencha `canary | rollback | residual | autoridade | fitness function | gatilho`. **Checkpoint:** decisão reversível.
 
 Preencha os oito artefatos:
 
@@ -279,6 +279,7 @@ Preencha os oito artefatos:
 6. conjunto de referência com fatias comuns, raras, adversariais e de recusa;
 7. pipeline de avaliação por componente e ponta a ponta, com verificações determinísticas, avaliador assistido por modelo e amostra humana;
 8. portões de liberação, canary, rollback e regra de aceitação do risco residual.
+9. fitness functions para autorização, regressão, escalonamento, trace e mudança de dependência, com responsável e reação à falha.
 
 **Entrega esperada**
 
@@ -290,6 +291,7 @@ Inclua equivalente textual; declare atuação, falha e limite.
 
 - Siga um caso permitido e um caso adversarial do usuário até recuperação, modelo, ferramenta, aprovação e telemetria.
 - Confirme que cada controle tem proprietário, teste, limite e ação de contenção.
+- Verifique se cada fitness function tem limiar, responsável e reação quando a condição falhar.
 - Verifique se critérios, portões, canary, rollback e risco residual aparecem tanto no diagrama quanto no texto.
 
 **Critérios de avaliação**
@@ -302,7 +304,7 @@ Inclua equivalente textual; declare atuação, falha e limite.
 | Privacidade | 10% | Define minimização, retenção e acesso no ciclo de vida. |
 | Governança | 10% | Nomeia proprietários, responsabilidades e autoridade. |
 | Avaliação | 15% | Define critérios multidimensionais, casos e calibração humana. |
-| Portões e recuperação | 10% | Inclui canary, rollback e escalonamento obrigatório. |
+| Portões, fitness functions e recuperação | 10% | Inclui canary, rollback, escalonamento e reação à falha. |
 | Rastreabilidade | 10% | Mantém diagrama, texto, evidências e decisões coerentes. |
 
 ## Orientação para revisão entre pares

@@ -47,6 +47,18 @@ O padrão **guardrails em profundidade** evita depender de uma barreira. Indepen
 
 Filtros também criam dano por falso positivo. Registre motivo de bloqueio, ofereça contestação adequada e meça desempenho por idioma e grupo. Guardrail invisível e sem telemetria vira segurança teatral: aparece no diagrama, mas ninguém sabe se está ativo, eficaz ou contornável.
 
+## Fitness functions de confiança
+
+Fitness functions verificam continuamente se os controles preservam o contrato do sistema:
+
+- nenhuma resposta usa conteúdo restrito ou dado pessoal sem decisão de autorização rastreável;
+- nenhuma versão de modelo, prompt, política, corpus, ferramenta ou avaliador é promovida sem a regressão aplicável;
+- todo caso de escalonamento obrigatório é encaminhado, ou a liberação é bloqueada;
+- trace contém versões, decisões e resultado necessários à investigação, sem ultrapassar retenção e acesso permitidos;
+- mudança de fornecedor ou dependência abre avaliação de impacto, rota de reversão e responsável pela decisão.
+
+Falha em uma fitness function interrompe a promoção, reduz o escopo ou ativa rollback e resposta a incidente, conforme a severidade. A função não prova ausência de risco; ela torna explícita a condição que a arquitetura não aceita violar.
+
 ## Privacidade por ciclo de vida
 
 **Minimização** começa na finalidade: quais campos são necessários para responder, avaliar, auditar e operar? Reduza coleta, contexto, saída e log separadamente. Pseudonimização diminui associação direta, mas não torna dados automaticamente anônimos nem elimina obrigação de proteção.
@@ -68,6 +80,10 @@ Um **catálogo** registra caso de uso, finalidade, públicos, proprietário, cri
 A **política de uso** declara usuários, finalidades, dados, ações, proibições, revisão humana, comunicação de limites, escalonamento e consequências de desvio. Publique-a na interface e transforme itens executáveis em política técnica. Texto sozinho depende de adesão; controle técnico sozinho não cobre julgamento e contexto social.
 
 O [ISO/IEC 42001:2023](https://www.iso.org/standard/42001) especifica requisitos para um sistema de gestão de IA quando uma organização escolhe adotá-lo ou buscar conformidade. Ele não prescreve uma arquitetura única nem certifica cada resposta. O NIST AI RMF permanece voluntário. Neste curso, catálogo, pacote de versões e portões de avaliação são recomendações arquiteturais para materializar governança; não devem ser apresentados como cláusulas literais desses documentos.
+
+## Plataforma e obtenção de capacidade
+
+Telemetria, gateway, avaliação, armazenamento de traces e guardrails podem ser hospedados, autogeridos ou compostos. Serviço hospedado acelera capacidade, mas desloca fronteiras de dados, versões, disponibilidade, portabilidade e resposta a incidente; operação autogerida amplia controle e assume escala, atualização, segurança e plantão. **Construir** é justificável para política de domínio, regras diferenciadoras ou integração que concentra risco; **comprar** atende capacidade padronizada; **compor** permite combinar identidade corporativa, controles próprios e observabilidade compartilhada. Compare custo total, risco residual, evidência de saída e responsabilidades contratuais antes de delegar uma capacidade de confiança.
 
 ## Critério de decisão
 
