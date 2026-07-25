@@ -30,7 +30,7 @@ class ModuleTwoContentRegressionTest(unittest.TestCase):
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 
         self.assertIn("m02-oportunidade-arquitetura.png", text)
-        self.assertIn("m02-paisagem-decisoes.png", text)
+        self.assertIn("| Alternativa | Direcionador atendido |", text)
         self.assertGreaterEqual(text.count("```mermaid"), 2)
         self.assertGreaterEqual(text.count("**Equivalente textual"), 2)
         self.assertIn("### ADR-001", text)
@@ -41,6 +41,57 @@ class ModuleTwoContentRegressionTest(unittest.TestCase):
             "resposta sem suporte",
         ):
             self.assertIn(failure, text.casefold())
+
+    def test_architecture_description_taxonomy_is_explicit_and_not_conflated(self):
+        concepts = (MODULE / "conceitos.md").read_text(encoding="utf-8")
+        decisions = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+
+        for term in (
+            "Ponto de vista",
+            "Vista",
+            "Modelo arquitetural",
+            "Cenário de qualidade",
+            "ADR",
+        ):
+            self.assertIn(term, concepts)
+        self.assertIn("É memória de decisão, não modelo do sistema.", concepts)
+        self.assertIn("| Entrada da análise | Cenário de qualidade |", decisions)
+        self.assertIn("| Registro | ADR |", decisions)
+
+    def test_module_covers_five_views_and_correspondence_rules(self):
+        concepts = (MODULE / "conceitos.md").read_text(encoding="utf-8")
+        example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for view in (
+            "Contexto",
+            "Responsabilidades",
+            "Interação",
+            "Informação",
+            "Implantação",
+        ):
+            self.assertIn(view, concepts)
+            self.assertIn(view, example)
+        self.assertIn("Correspondências entre vistas", concepts)
+        self.assertIn("Correspondências verificadas", example)
+
+    def test_tactics_are_linked_to_quality_tradeoffs_and_evidence(self):
+        concepts = (MODULE / "conceitos.md").read_text(encoding="utf-8")
+        decisions = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
+
+        for term in (
+            "Tática",
+            "Mecanismo",
+            "Padrão",
+            "Estilo arquitetural",
+            "Ponto de sensibilidade",
+            "Ponto de trade-off",
+            "Risco arquitetural",
+        ):
+            self.assertIn(term, concepts)
+        self.assertIn("árvore de utilidade reduzida", decisions.casefold())
+        self.assertIn("Árvore de utilidade reduzida", example)
+        self.assertIn("Registro de risco e incerteza", example)
 
     def test_case_compares_all_four_conceptual_directions(self):
         text = (MODULE / "estudo-de-caso.md").read_text(encoding="utf-8").casefold()

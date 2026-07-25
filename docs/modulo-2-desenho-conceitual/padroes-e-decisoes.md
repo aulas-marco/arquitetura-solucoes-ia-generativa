@@ -1,153 +1,151 @@
-# Requisitos e padrões de decisão
+# Do problema às decisões arquiteturais
 
-## Quatro classes de objetivo
+Uma oportunidade não escolhe arquitetura. “Reduzir o tempo de preparação de contestações” ainda não informa quais dados podem circular, quem mantém a decisão, como a solução falha ou que resultado justificaria o investimento. O desenho começa ao tornar essas perguntas explícitas.
 
-Separar objetivos reduz o risco de usar uma métrica intermediária como prova de sucesso.
+Neste curso, **dossiê conceitual** é o conjunto mínimo de entradas, vistas, análises, decisões e evidências que mantém o raciocínio conectado. Não é um documento normativo nem uma nova vista: é a organização didática da memória de por que uma estrutura foi escolhida e de que sinal exigirá revê-la.
 
-### Objetivo de negócio
+## 1. Descrever o sistema antes da solução
 
-Expressa resultado organizacional ou social, com baseline, prazo, população e contramétricas. Exemplo: “reduzir em 25% a mediana de preparação em três meses, sem elevar devoluções acima do baseline de 8%”.
+<a id="uma-sequencia-de-decisao"></a><a id="sequencia-de-decisao"></a>
 
-### Objetivo de produto
+Uma equipe pode querer reduzir busca e consolidação sem delegar decisão ou registro ao modelo. Ela começa por população, baseline, contramétricas, atividades humanas, CONOPS, fronteiras e fora de escopo. Esses elementos delimitam o problema; nenhuma escolha de modelo é necessária nesse momento.
 
-Expressa comportamento útil: apresentar resumo, inspecionar fontes, preservar correções e comunicar insuficiência. Adoção não substitui utilidade.
+Para enxergar o caso por ângulos distintos, a equipe produz vistas complementares e conserva os artefatos que as orientam:
 
-### Objetivo de dados
+| Categoria | Artefato | Pergunta respondida |
+|---|---|---|
+| Entrada | Cenário operacional | Como o trabalho ocorre em situação normal, degradada e bloqueada? |
+| Vista | Contexto | Quem interage com o sistema e quais fronteiras ele atravessa? |
+| Vista | Responsabilidades | Quem coleta, seleciona, gera, valida, decide e registra? |
+| Vista | Interação | Em que ordem informação, decisão e efeito atravessam fronteiras? |
+| Vista | Informação | De onde vem o dado, como muda, onde persiste e quando é descartado? |
+| Vista | Implantação | Onde componentes e dados executam e que fronteiras tecnológicas atravessam? |
+| Entrada da análise | Cenário de qualidade | Como o sistema deve responder a um estímulo sob uma condição? |
+| Registro | ADR | Por que uma direção foi escolhida e quando será revista? |
 
-Expressa cobertura, qualidade, atualização, autorização e proveniência. Exemplo: “políticas aprovadas ficam consultáveis em duas horas e exclusões propagam-se em quinze minutos”.
+![Entradas, cinco vistas, análise, decisão e evidência no desenho arquitetural](../assets/images/m02-descricao-arquitetural.png)
 
-### Objetivo de IA
+*Figura — Entradas orientam cinco vistas complementares; análise liga RAS a táticas e riscos; ADRs e evidências preservam a decisão e alimentam sua revisão.*
 
-Expressa comportamento probabilístico numa tarefa e população. Exemplo: “em casos elegíveis com evidência, 92% dos resumos recebem nota 4/5 e nenhuma afirmação material contradiz a fonte”. O estudo [Holistic Evaluation of Language Models](https://arxiv.org/abs/2211.09110) mostra por que uma pontuação única não representa qualidade universal.
+A vista de contexto não explica o comportamento degradado; uma sequência não mostra onde o dado persiste; uma ADR não substitui nenhuma das vistas. O conjunto evita que um único diagrama receba perguntas que não consegue responder.
 
-## Do requisito ao requisito arquiteturalmente significativo
+Antes de desenhar, declare o ponto de vista: preocupações atendidas, público, convenções e informação excluída. Depois verifique correspondências. Se a interação consulta uma política, a política precisa existir no contexto, ter ciclo de vida na vista de informação, responsável na vista de responsabilidades e alocação na vista de implantação.
 
-Um **requisito arquiteturalmente significativo (RAS)** altera estrutura, interfaces, mecanismos ou decisões difíceis de reverter. Nem todo requisito funcional é um RAS. “Exibir o nome do analista” pode ser local; “nenhum dado pessoal cru pode atravessar a fronteira do serviço de inferência” exige classificação, minimização, mascaramento, contrato de fornecedor, telemetria e testes.
+## 2. Identificar o que exige arquitetura
 
-Identifique RAS por quatro sinais:
+Objetivos de negócio, produto, dados e IA mostram resultados desejados. Alguns deles exigem somente trabalho local; outros mudam fronteiras, responsabilidades, interfaces ou opções futuras. Estes são os **requisitos arquiteturalmente significativos (RAS)**.
 
-- afeta vários componentes ou uma fronteira de confiança;
-- determina um atributo de qualidade sob condição extrema ou frequente;
-- impõe risco alto, obrigação regulatória ou dependência externa;
-- restringe opções e torna mudança posterior cara.
+Um RAS costuma atravessar componentes, proteger uma característica sob condição relevante, impor obrigação ou dependência externa, ou tornar uma mudança posterior cara. Para cada um, descreva fonte, estímulo, ambiente, artefato, resposta e medida; acrescente prioridade, responsável e verificação.
 
-Use o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md): **fonte, estímulo, ambiente, artefato, resposta e medida**. Acrescente prioridade, dono, verificação e origem para rastrear qualidade até mecanismos e evidências.
+![Fluxo do objetivo ao requisito arquiteturalmente significativo, à estrutura, fronteiras, evidência e ADR](../assets/images/m02-direcionador-estrutura.png)
 
-<a id="uma-sequencia-de-decisao"></a>
+*Figura — Uma preocupação se torna arquitetura quando exige uma escolha estrutural e uma forma de verificar sua consequência.*
 
-## Processo de desenho
+Exemplo: “nenhum dado pessoal cru atravessa a inferência” exige táticas de minimização, mascaramento e autorização por finalidade; essas táticas levam a uma fronteira de dados, uma responsabilidade de seleção de contexto, um fluxo de informação e testes de campos proibidos. A consequência é latência e manutenção adicionais; a decisão só faz sentido porque privacidade é prioritária.
 
-Nesta etapa do desenho conceitual, o arquiteto deixa de lado a curiosidade pelo modelo e assume o controle do sistema. O objetivo é converter a oportunidade de negócio em uma **progressão de decisões justificadas**. Para isso, utilizamos padrões de arquitetura de software para "envelopar" o comportamento probabilístico da IA, garantindo que os **atributos de qualidade** (segurança, custo, latência e confiabilidade) sejam atendidos.
+## 3. Realizar RAS com táticas arquiteturais
 
-### O framework de decisão: perguntas antes de componentes
+Uma **tática arquitetural** é uma resposta recorrente que realiza um atributo de qualidade ou atende um RAS. Ela não é o cenário, o stakeholder, o componente ou a ADR. Esses elementos ajudam a descobrir, aplicar ou justificar a tática.
 
-O desenho conceitual não é um evento único, mas uma sequência de perguntas. Cada resposta deve registrar direcionadores, alternativas, consequência, evidência e gatilho de revisão:
-
-- **É preciso gerar?** Regra, cálculo, busca ou template podem atender melhor uma saída determinística.
-- **É preciso conhecimento externo?** Contexto selecionado, consulta estruturada, RAG e fine-tuning respondem a necessidades distintas.
-- **É preciso agir?** Uma resposta informativa não autoriza ferramenta com efeito.
-- **É preciso autonomia?** Workflow preserva caminhos enumeráveis; agente só se justifica quando a variabilidade do plano cria valor.
-- **Onde fica a responsabilidade operacional?** Serviço hospedado e execução autogerida deslocam controle, capacidade, custo e risco de formas diferentes.
-- **Como a capacidade será obtida?** Construir, comprar e compor distribuem diferenciação, portabilidade, competência e custo de mudança.
-
-### Padrões de conhecimento: RAG versus fine-tuning
-
-Uma das decisões mais críticas no desenho conceitual é como o modelo terá acesso à verdade. Sob a lente da arquitetura, tratamos isso como um **padrão de integração de dados**.
-
-**Prompt e contexto fornecido** servem quando o material cabe na chamada, muda pouco e já foi selecionado por fonte confiável ou usuário. Ainda exigem controle de tamanho, instruções conflitantes, sensibilidade e versão.
-
-**RAG** é candidato quando conhecimento é amplo, muda de forma independente, exige localização, filtros de autorização e evidência granular. O artigo original de [Retrieval-Augmented Generation](https://proceedings.neurips.cc/paper/2020/hash/6b493230-Abstract.html) combina memória paramétrica e não paramétrica para tarefas intensivas em conhecimento. Em produto corporativo, adotar RAG acrescenta ingestão, segmentação, índice, atualização, recuperação, montagem de contexto, proveniência e avaliação separada.
-
-Pergunta decisiva: **o problema é orientar comportamento ou localizar conhecimento?** Prompt governa a execução atual; RAG seleciona evidências externas. Muitas soluções usam ambos. Não adote RAG quando existe uma pequena ficha estruturada consultável diretamente, nem envie todo o repositório ao prompt só porque cabe na janela.
-
-Em resumo:
-
-A. RAG (Retrieval-Augmented Generation)
-
-- **O Padrão:** Conecta o modelo a uma fonte de dados externa (geralmente um banco de dados vetorial) em tempo real.
-- **Racional arquitetural:** escolhido quando a **atualidade dos dados** e a **verificabilidade** (citação de fontes) são requisitos primordiais.
-- **Trade-offs:** reduz alucinações e custos de treinamento, mas introduz complexidade na infraestrutura de busca e aumenta a latência da resposta devido à etapa extra de recuperação.
-
-B. Fine-tuning (Ajuste Fino)
-
-- **O Padrão:** Treina o modelo para aprender um vocabulário ou comportamento específico.
-- **Racional arquitetural:** escolhido para cenários de alta especialização de domínio ou quando o formato da saída deve ser rigidamente controlado.
-- **Trade-offs:** melhora a performance em tarefas específicas, mas o conhecimento torna-se **estático**. Qualquer atualização nos dados exige um novo ciclo de treinamento (custo operacional alto).
-
-### Padrões de ação e autonomia: o arquiteto como orquestrador
-
-Em **workflow com LLM**, a equipe define etapas, transições e pontos de decisão; o modelo interpreta ou gera dentro dessas etapas. É preferível quando o processo é conhecido, efeitos são sensíveis e auditabilidade exige caminhos enumeráveis.
-
-Em **agente**, o modelo escolhe próximos passos e ferramentas dentro de limites. É candidato quando a sequência não pode ser enumerada economicamente, o ambiente fornece feedback confiável e o objetivo admite diferentes estratégias. Acrescenta autonomia, estado, orçamento de passos, contratos de ferramenta, autorização por ação, prevenção de loops e avaliação de trajetórias.
-
-Ao avançar para a decisão de "Agir", o arquiteto deve decidir como a IA interagirá com o ecossistema de APIs da organização.
-
-- **Padrão Mediator para Agentes:** Em vez de permitir que o modelo chame APIs diretamente, utilizamos um mediador. A IA decide *o que* fazer, mas o código determinístico do sistema executa a ação, aplica logs e valida a segurança. Isso garante que a autonomia seja **controlada e observável**.
-- **Encadeamento de Tarefas (Chains):** Para fluxos complexos, aplicamos o estilo de **Pipes and Filters**. O resultado de uma chamada de IA passa por um "filtro" de validação antes de seguir para o próximo componente, garantindo que erros probabilísticos não se propaguem em cascata pelo sistema distribuído.
-
-### Integração e infraestrutura: o uso de gateways e chassi
-
-Para que a solução seja **operável**, o desenho conceitual deve prever padrões de governança transversais.
-
-- **AI Gateway (Gateway de API Mínimo):** Assim como em microsserviços tradicionais, utilizamos gateways para gerenciar o tráfego. No contexto de IA, o gateway é responsável por:
-
-  - **Throttling e Quotas:** Controlar o consumo de tokens para evitar custos explosivos.
-  - **Segurança (Redactions):** Filtrar dados sensíveis (PII) antes que eles saiam para provedores de nuvem externos.
-  - **Fallback:** Alternar entre modelos (ex: de um GPT-4 para um modelo local menor) caso o provedor principal falhe ou a latência aumente.
-  - **Chassi Arquitetural para IA:** Um conjunto de bibliotecas e padrões que todas as soluções de IA da empresa devem seguir, padronizando a **observabilidade** (rastreamento de prompts) e a injeção de configurações.
-- **Escolha do modelo:** considere capacidades, forças e limitações do catálogo de modelos disponível; o nome do fornecedor não substitui avaliação para a tarefa e o risco definidos.
-- **Modelo único ou vários modelos:**
-  - Um **modelo único** simplifica integração, avaliação e operação. Pode custar demais em tarefas mais específicas e concentrar a dependência.
-  - **Múltiplos modelos** permitem roteamento por tarefa, risco, custo ou disponibilidade, mas multiplicam contratos, versões e avaliações. O roteador precisa de critério explícito e evidência para usar o modelo mais apropriado ao contexto.
-  - Dica - Comece com a menor diversidade suficiente. Redundância requer compatibilidade, capacidade, teste periódico e degradação.
-
-Um gateway ou chassi não é obrigatório. Ele reduz duplicação de controles e aumenta consistência de telemetria, mas pode centralizar dependências, criar fila de evolução, aumentar latência e virar ponto de falha. Adote-o quando os controles e contratos são realmente compartilhados; mantenha no produto a política de finalidade, autorização e decisão que depende do domínio.
-
-### Hospedado, autogerido e obtenção de capacidade
-
-No **serviço hospedado**, outra organização opera a inferência: há velocidade e elasticidade, mas surgem fronteiras de fornecedor para dados, disponibilidade, versões e portabilidade. No **modelo autogerido**, a organização controla infraestrutura e assume capacidade, atualização, otimização, segurança, escala e plantão. Compare custo total e risco residual no volume e nível de serviço esperados; uma prova em notebook não estima operação autogerida, e preço por token não estima todo o custo hospedado.
-
-**Construir** controla capacidade diferenciadora, assumindo evolução e operação. **Comprar** acelera uma capacidade padronizada, exigindo diligência e saída proporcional ao risco. **Compor** combina serviços, dados e componentes próprios. Decida por capacidade: uma solução pode comprar inferência, reutilizar identidade e construir regras. Preserve dados, métricas, histórico e substituição para evitar dependência sem evidência exportável.
-
-### Formalização da arquitetura: ADRs e evidências
-
-O resultado final deste módulo não é apenas um diagrama, mas um conjunto de **decisões justificáveis**.
-
-- **ADRs (Architecture Decision Records):** cada escolha deve registrar contexto, decisão e consequências técnicas.
-- **Evidências sintéticas:** o arquiteto deve definir como provará que a solução funciona, inclusive sob estresse ou diante de entradas maliciosas.
-
-> **Decisão arquitetural:** Uma matriz ajuda a tornar consequências visíveis, mas não decide sozinha. Registre a escolha no [Template de ADR](../referencia/template-adr.md) com contexto, direcionadores, opções, decisão, consequências, evidências e gatilhos de revisão. Diferencie fato medido, restrição confirmada e pressuposto. Quando a evidência é insuficiente, a decisão adequada pode ser “experimento limitado”, com critério explícito de promoção ou abandono.
-
-Ao expandir o desenho conceitual com esses padrões, o arquiteto garante que a IA Generativa não seja um "puxadinho" tecnológico, mas uma **extensão robusta da plataforma de APIs e dados da organização**. O foco sai da "mágica" do prompt e entra no **racional arquitetural**, onde cada componente tem uma função clara, um custo previsto e um risco mitigado.
-
-Requisitos ligam o CONOPS à arquitetura. Em sistemas generativos, essa ligação precisa acomodar comportamento estatístico sem transformar expectativa em promessa vaga. “Responder bem”, “não alucinar” e “ser seguro” não são requisitos verificáveis. Precisamos declarar população, condição, medida, limiar e resposta quando o limiar não for atingido.
-
-## Priorizar características e tensões
-
-| Característica | Prioridade no caso | Tensão aceita | Medida e dono |
+| Intenção | RAS típico | Táticas | Estrutura que pode aplicá-las |
 |---|---|---|---|
-| Privacidade e segurança | Não negociável | minimização pode reduzir detalhe disponível | exposição cruzada zero; Segurança e Privacidade |
-| Proveniência | Alta | seleção e registro adicionam latência e armazenamento técnico | afirmações materiais com fonte, versão e finalidade; dono da política |
-| Confiabilidade | Alta | fallback pode reduzir capacidade ou cobertura | modo degradado e recuperação testados; Operações |
-| Latência e custo | Importante | limites podem restringir modelos ou contexto | p95 e custo por caso; produto e plataforma |
-| Modificabilidade | Importante | adaptadores e interfaces aumentam componentes | troca localizada e teste de contrato; arquitetura |
+| Segurança e privacidade | dado sensível não atravessa inferência sem necessidade | minimização, mascaramento, autorização por finalidade, segregação | política de acesso, montador de contexto, adaptador de inferência |
+| Fundamentação | afirmação material precisa de suporte | seleção de evidência, vínculo afirmação–fonte, abstenção, vigência | contexto, validação e interface de revisão |
+| Confiabilidade | falha não perde trabalho nem confirma efeito | timeout, preservação de estado, idempotência, fallback, degradação, compensação e reconciliação | orquestrador, adaptadores e workflow |
+| Modificabilidade | troca de fornecedor não reescreve o fluxo | encapsulamento, contrato estável, adaptador, configuração versionada | interface de capacidade e adaptadores |
+| Observabilidade | decisão crítica precisa ser reconstruível | proveniência, correlação, trace, registro de versão, métricas e auditoria | telemetria, log de decisão e repositório de evidência |
+| Custo e latência | uso precisa caber no orçamento e no tempo do caso | orçamento, limite de contexto, quota, cache seguro, rate limiting e rota proporcional | gateway, roteador e política de execução |
 
-Prioridade é contextual: uma decisão pode sacrificar latência para preservar proveniência em um caso regulado, mas não deve esconder esse custo.
+O Módulo 2 usa essas táticas para comparar direções. Os módulos 3 a 6 aprofundam suas realizações em conhecimento, autonomia, confiança e operação.
 
-## Como medir a aderência - critérios probabilísticos de aceitação
+Tática, mecanismo, padrão e estilo não são sinônimos. A tática descreve a resposta pretendida; o mecanismo a concretiza neste sistema; um padrão organiza uma composição recorrente de elementos; um estilo restringe a organização geral de componentes e conectores. A ADR registra por que uma dessas combinações foi escolhida.
 
-Um componente probabilístico não exige critérios frouxos; exige critérios estatisticamente honestos. Um critério completo declara:
+> **Decisão arquitetural:** selecione táticas a partir dos RAS prioritários, concretize-as em mecanismos identificáveis nas vistas e registre em ADR somente as escolhas que alteram estrutura, fronteira, dependência ou responsabilidade.
 
-1. **população:** quais casos, idiomas, grupos e faixas de risco são cobertos;
-2. **amostra:** como o conjunto representa frequência, severidade e bordas;
-3. **métrica ou critério qualitativo:** o que será observado e por quem;
-4. **limiar:** valor global e, quando necessário, por segmento crítico;
-5. **incerteza:** tamanho amostral, intervalo ou regra de repetição;
-6. **falha intolerável:** evento que reprova independentemente da média;
-7. **ação:** liberar, restringir, voltar versão ou encaminhar.
+### Analisar composições, não itens isolados
 
-Exemplo: “em 400 contestações estratificadas por categoria e complexidade, pelo menos 90% dos resumos atingem 4/5 em cobertura, com limite inferior do intervalo acordado acima de 87%; zero caso crítico expõe dado de outro cliente; toda afirmação material possui suporte; abaixo desses limites, a categoria afetada permanece fora do escopo”.
+Uma combinação pode ajudar uma característica e prejudicar outra. Antes de decidir, complete esta leitura:
 
-Avaliação por outro modelo pode ampliar escala, mas não é verdade de referência. O trabalho primário [G-Eval](https://aclanthology.org/2023.emnlp-main.153/) demonstra uma técnica de avaliação de geração com modelos e alinhamento humano; arquiteturalmente, isso cria nova dependência que deve ser calibrada com especialistas, versionada e auditada. Combine regras, julgamentos humanos, métricas de tarefa e avaliações automatizadas conforme o risco.
+| Escolha candidata | Resposta desejada | Sensibilidade | Trade-off | Evidência necessária |
+|---|---|---|---|---|
+| cache de evidências | reduzir latência | validade do conteúdo e chave de autorização | desempenho × atualização e privacidade | teste de expiração, isolamento e revogação |
+| fallback de modelo | manter disponibilidade | compatibilidade de contrato e categoria | disponibilidade × qualidade, residência e custo | regressão por categoria e simulação de falha |
+| trace de geração | reconstruir falhas | conteúdo e nível de detalhe capturado | auditabilidade × minimização e retenção | inspeção de campos e teste de expurgo |
+| revisão obrigatória | conter efeito inadequado | tempo e informação disponíveis ao revisor | segurança × latência e carga humana | estudo de concordância, correção e tempo |
 
-**Próxima página:** [Exemplo arquitetural — Banco Lume](exemplo-arquitetural.md).
+O **ponto de sensibilidade** indica o parâmetro que mais altera a resposta. O **ponto de trade-off** indica uma decisão que afeta características concorrentes. Ambos devem aparecer no risco e na evidência, não apenas na conversa da equipe.
+
+### Priorizar com uma árvore de utilidade reduzida
+
+Para cada um dos três a cinco cenários de qualidade prioritários, registre:
+
+```text
+objetivo → característica → cenário → prioridade
+        → tática e mecanismo → sensibilidade → trade-off
+        → risco ou premissa → experimento
+```
+
+Prioridade combina importância para o negócio e dificuldade ou risco arquitetural. A árvore não calcula a decisão; ela impede que uma preferência técnica receba o mesmo peso de uma obrigação ou que dez características sejam declaradas igualmente críticas.
+
+## 4. Comparar a menor capacidade suficiente e preparar os próximos módulos
+
+<a id="alternativas-de-conhecimento"></a><a id="alternativas-de-acao"></a><a id="alternativas-de-integracao-e-plataforma"></a>
+
+Com RAS e cenários visíveis, a equipe compara alternativas pelo que elas acrescentam ao sistema.
+
+| Decisão | Alternativas | Responsabilidade adicional |
+|---|---|---|
+| Conhecimento | consulta estruturada, contexto selecionado, RAG, fine-tuning | seleção, ingestão ou curadoria; vigência e proveniência continuam explícitas |
+| Ação | regra, workflow, agente | autorização, contratos, recuperação e avaliação proporcionais ao efeito |
+| Plataforma | integração local, capacidade comum, serviço hospedado ou autogerido | operação, dependências, portabilidade e custo total |
+
+Contexto selecionado serve quando a fonte já é conhecida e pequena. RAG é candidato quando localização, atualização e autorização de fontes exigem recuperação própria; o Módulo 3 detalha essa decisão. Fine-tuning muda comportamento em tarefa repetida, mas não governa vigência ou proveniência. Workflow mantém transições conhecidas; agente só se justifica quando a sequência variável cria valor mensurável, tema do Módulo 4. Gateway e serviços compartilhados atendem controles realmente comuns; o Módulo 6 trata sua operação.
+
+Antes de ampliar capacidade, defina a menor evidência que permite decidir: teste de contrato, casos representativos, modo sombra ou experimento limitado. Uma alternativa pode ser rejeitada quando uma regra, consulta ou melhoria de processo atende o mesmo objetivo com menos risco.
+
+Esta comparação não encerra o desenho; ela escolhe qual família de táticas precisa de detalhamento posterior. Uma escolha estrutural pode combinar várias famílias e precisa aparecer nas vistas afetadas.
+
+| Se o RAS exige… | O módulo seguinte aprofunda… | Táticas que serão detalhadas |
+|---|---|---|
+| conhecimento atualizado, autorizado e explicável | [Módulo 3 — RAG](../modulo-3-rag/index.md) | ingestão, segmentação, proveniência, vigência, filtro de autorização, recuperação e abstenção |
+| efeito controlado ou sequência variável | [Módulo 4 — Agentes](../modulo-4-agentes/index.md) | contratos de ferramenta, política externa, aprovação, orçamento, idempotência, compensação e reconciliação |
+| proteção contra abuso, exposição ou decisão inadequada | [Módulo 5 — Confiança](../modulo-5-confianca/index.md) | modelagem de ameaça, guardrails em profundidade, minimização, segregação, retenção, avaliação e bloqueio |
+| mudança contínua, falha de dependência ou escala compartilhada | [Módulo 6 — Operação](../modulo-6-operacao/index.md) | manifesto, regressão, canary, rollback, circuit breaker, fallback, trace, SLO e resposta a incidente |
+
+O Módulo 2 já introduz essas táticas como repertório de desenho. Os módulos seguintes mostram como combiná-las, testá-las e operá-las em cada contexto.
+
+## 5. Registrar a escolha e sua revisão
+
+Uma **ADR** registra decisão relevante para que ela sobreviva ao contexto da conversa. Use-a quando a escolha altera estrutura, fronteira, dependência, responsabilidade ou característica prioritária.
+
+![Comparação entre modelo estrutural, cenário de comportamento e ADR para a mesma solução](../assets/images/m02-modelo-cenario-adr.png)
+
+*Figura — O modelo mostra a estrutura; o cenário mostra o comportamento; a ADR explica a escolha.*
+
+Uma ADR contém status, contexto, preocupações, RAS, opções, racional, decisão, vistas afetadas, consequências, riscos residuais, premissas, evidência esperada e gatilho de revisão. O registro antigo permanece como histórico quando uma decisão é substituída.
+
+## 6. Verificar correspondência e risco residual
+
+Antes de aprovar uma direção, percorra o desenho nos dois sentidos:
+
+| Verificação | Pergunta |
+|---|---|
+| contexto ↔ interação | todo participante e dependência da sequência existe no contexto? |
+| interação ↔ responsabilidades | cada passo tem responsável, autoridade e contrato? |
+| interação ↔ informação | cada leitura, transformação, persistência e envio está representado? |
+| informação ↔ implantação | região, provedor, armazenamento, identidade e rede preservam finalidade e classificação? |
+| RAS ↔ tática ↔ vistas | a resposta de qualidade altera elementos identificáveis e possui critério de verificação? |
+| ADR ↔ análise | o racional cita sensibilidades, trade-offs, riscos, premissas e alternativas? |
+| evidência ↔ decisão | o experimento pode confirmar, restringir ou refutar a escolha? |
+
+Registre separadamente **risco**, **premissa**, **incerteza** e **dependência**. Dar o mesmo nome a todos esconde a ação necessária: risco pede contenção; premissa pede confirmação; incerteza pede aprendizagem; dependência pede acordo e acompanhamento.
+
+## Critérios de aceitação para comportamento probabilístico
+
+<a id="como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao"></a>
+
+Uma capacidade probabilística precisa de população, amostra, critério, limiar, incerteza, falha intolerável e ação. Exemplo: em 400 contestações estratificadas, ao menos 90% dos resumos atingem cobertura 4/5; nenhum caso crítico expõe outro cliente; abaixo do limite, a categoria fica fora do escopo.
+
+Avaliação automatizada pode ampliar cobertura, mas exige calibração humana, versão e registro de limitações. A evidência não encerra a decisão: ela define se o próximo passo é ampliar, restringir, corrigir ou abandonar.
+
+Continue no [Exemplo arquitetural — Banco Lume](exemplo-arquitetural.md), onde o mesmo raciocínio aparece em modelos, RAS, alternativas e ADRs.

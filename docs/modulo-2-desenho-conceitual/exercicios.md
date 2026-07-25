@@ -82,7 +82,7 @@ O gateway aplica controles transversais, como quotas, redação de dados, fallba
 
 **O que é:** uma decisão de conhecimento define de onde o sistema obtém informação e como preserva atualização, autorização e evidência.
 
-**Onde encontrar:** consulte [critérios de adequação](conceitos.md#criterios-de-adequacao-da-ia-generativa), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo) e o [processo de desenho](padroes-e-decisoes.md#processo-de-desenho).
+**Onde encontrar:** consulte [critérios de adequação](conceitos.md#criterios-de-adequacao-da-ia-generativa), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo) e a [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao).
 
 **Situação**
 
@@ -94,7 +94,7 @@ Você conduz a primeira decisão arquitetural. Deve separar o que é dado estrut
 
 **Insumos disponíveis**
 
-Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), o trecho sobre prompt, RAG e fine-tuning em [padrões de decisão](padroes-e-decisoes.md#processo-de-desenho) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
+Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), as [alternativas de conhecimento](padroes-e-decisoes.md#alternativas-de-conhecimento) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
 
 **Como conduzir**
 
@@ -134,7 +134,7 @@ Você desenha a cadeia de tarefas e os critérios que determinam quando cada res
 
 **Insumos disponíveis**
 
-Use os [modos operacionais](conceitos.md#modos-operacionais), o padrão de encadeamento em [processo de desenho](padroes-e-decisoes.md#processo-de-desenho) e os critérios probabilísticos. Use licenças fictícias com exceções.
+Use os [modos operacionais](conceitos.md#modos-operacionais), a [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao) e os critérios probabilísticos. Use licenças fictícias com exceções.
 
 **Como conduzir**
 
@@ -164,7 +164,7 @@ Entregue o fluxo com equivalente textual, dois critérios de aceitação e uma r
 
 **O que é:** uma decisão de autonomia compara o valor de delegar passos ao modelo com os novos riscos de ferramentas e efeitos no negócio.
 
-**Onde encontrar:** use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais) e [padrões de ação e autonomia](padroes-e-decisoes.md#processo-de-desenho).
+**Onde encontrar:** use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais) e [alternativas de ação](padroes-e-decisoes.md#alternativas-de-acao).
 
 **Situação**
 
@@ -204,11 +204,11 @@ Entregue uma matriz de atividades e controles, um fluxo de responsabilidade e um
 
 ## Avaliar
 
-### 11. Gateway, chassi e múltiplos modelos
+### 11. Plataforma comum e múltiplos modelos
 
 **O que é:** uma decisão de plataforma avalia controles compartilhados e diversidade de modelos sem confundir padronização com uma solução única.
 
-**Onde encontrar:** consulte [ferramentas no mercado](conceitos.md#ferramentas-no-mercado), [stakeholders](conceitos.md#stakeholders-e-preocupacoes) e [integração e infraestrutura](padroes-e-decisoes.md#processo-de-desenho).
+**Onde encontrar:** consulte [ferramentas no mercado](conceitos.md#ferramentas-no-mercado), [stakeholders](conceitos.md#stakeholders-e-preocupacoes) e [alternativas de integração e plataforma](padroes-e-decisoes.md#alternativas-de-integracao-e-plataforma).
 
 **Situação**
 
@@ -216,11 +216,11 @@ Três produtos internos querem usar modelos hospedados. Atendimento precisa de b
 
 **Seu papel**
 
-Você emite uma recomendação sobre gateway, chassi compartilhado e modelo único ou múltiplos modelos, sem assumir que redundância é sempre segura.
+Você emite uma recomendação sobre gateway, capacidade comum de plataforma e modelo único ou múltiplos modelos, sem assumir que redundância é sempre segura.
 
 **Insumos disponíveis**
 
-Use a tabela de [stakeholders e preocupações](conceitos.md#stakeholders-e-preocupacoes), a seção de gateway e chassi em [padrões de decisão](padroes-e-decisoes.md#processo-de-desenho), o [guia de ferramentas](../referencia/guia-de-ferramentas.md) e o template de ADR.
+Use a tabela de [stakeholders e preocupações](conceitos.md#stakeholders-e-preocupacoes), as [alternativas de integração e plataforma](padroes-e-decisoes.md#alternativas-de-integracao-e-plataforma), o [guia de ferramentas](../referencia/guia-de-ferramentas.md) e o template de ADR.
 
 **Como conduzir**
 
@@ -250,7 +250,7 @@ Entregue um parecer de uma página, uma tabela de controles e uma ADR com recome
 
 **O que é:** dossiê conceitual reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
 
-**Onde encontrar:** consulte [o desenho conceitual](conceitos.md), [processo de desenho](padroes-e-decisoes.md#processo-de-desenho), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [o dossiê conceitual](conceitos.md#o-dossie-conceitual), [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
@@ -269,24 +269,27 @@ Use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), [fronteiras](conceitos.
 1. Declare oportunidade, baseline, stakeholders, finalidade, fora de escopo e responsabilidades por verbo.
 2. Descreva os modos normal, baixa confiança, degradado e bloqueado, com transições e trabalho manual.
 3. Escolha e justifique o padrão de conhecimento, a cadeia de validação, os controles de gateway e a autonomia permitida.
-4. Rastreie objetivos de negócio, produto, dados e IA até RAS, mecanismos, critérios e evidências; priorize as características e declare a tensão aceita.
-5. Compare alternativas em uma ADR e encerre com experimento, falhas intoleráveis e gatilhos de revisão.
+4. Produza vistas de contexto, responsabilidades, interação, informação e implantação; declare ao menos uma exclusão de cada ponto de vista.
+5. Verifique correspondências entre participantes, passos, dados, alocações, fronteiras, RAS e controles.
+6. Rastreie objetivos até RAS, táticas, mecanismos, elementos das vistas, critérios e evidências.
+7. Construa uma árvore de utilidade reduzida com três cenários, sensibilidades, trade-offs, riscos e premissas.
+8. Compare alternativas em uma ADR e encerre com experimento, falhas intoleráveis e gatilhos de revisão.
 
 **Entrega esperada**
 
-Entregue o dossiê, um diagrama com equivalente textual e uma ADR. O texto deve permitir revisão independente.
+Entregue o dossiê, as cinco vistas com equivalentes textuais, a matriz de correspondência, a árvore de utilidade e uma ADR. O texto deve permitir revisão independente.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Escopo e operação | 15% | Delimita finalidade, fora de escopo, modos e trabalho humano. |
-| Decisões arquiteturais | 20% | Justifica conhecimento, autonomia, cadeia e controles compartilhados. |
-| Fronteiras e responsabilidades | 15% | Explicita dados, decisão, fornecedor e autoridade humana. |
-| Rastreabilidade | 20% | Liga objetivos, RAS, mecanismos, critérios e evidências. |
-| Alternativas e ADR | 15% | Expõe consequências e condições de revisão sem apelar a marca. |
-| Experimento e falhas | 15% | Define teste refutável, falhas intoleráveis e recuperação. |
+| Escopo e operação | 10% | Delimita finalidade, fora de escopo, modos e trabalho humano. |
+| Vistas e correspondências | 25% | Representa contexto, responsabilidades, interação, informação e implantação sem contradições. |
+| Análise arquitetural | 20% | Liga cenários a táticas e explicita sensibilidades, trade-offs, riscos e premissas. |
+| Rastreabilidade | 20% | Liga objetivos, RAS, mecanismos, elementos das vistas, critérios e evidências. |
+| Alternativas e ADR | 15% | Expõe racional, vistas afetadas, consequências e revisão sem apelar a marca. |
+| Experimento e falhas | 10% | Define teste refutável, falhas intoleráveis e recuperação. |
 
-**Como verificar antes de entregar:** confira modos, fronteiras, fontes, controles, critérios, ADR e gatilhos de revisão.
+**Como verificar antes de entregar:** percorra cada correspondência nos dois sentidos e confira modos, fontes, alocação, controles, riscos, ADR e gatilhos de revisão.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).

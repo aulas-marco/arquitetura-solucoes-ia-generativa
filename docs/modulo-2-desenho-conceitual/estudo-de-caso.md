@@ -1,6 +1,6 @@
-# Estudo de caso: Central Aurora de renegociação
+# Caso de transferência: Central Aurora de renegociação
 
-Este caso é independente do exemplo anterior. Sua tarefa não é reproduzir a arquitetura do Banco Lume, mas construir uma recomendação a partir de evidências incompletas. Leia tudo antes de escolher uma direção.
+Este caso transfere o método usado no Banco Lume para outro domínio. Sua tarefa não é reproduzir a arquitetura anterior, mas construir a mesma classe de descrição e análise a partir de evidências incompletas. Leia tudo antes de escolher uma direção.
 
 ## Contexto
 
@@ -112,10 +112,12 @@ Prepare uma proposta de desenho conceitual com:
 5. quatro objetivos separados: negócio, produto, dados e IA;
 6. três requisitos arquiteturalmente significativos no formato de cenário, incluindo um de proveniência;
 7. matriz das quatro direções e recomendação por incremento;
-8. diagrama de contexto com equivalente textual;
-9. uma ADR proposta, com evidências faltantes e gatilhos de revisão;
-10. experimento mais barato capaz de refutar a hipótese central.
+8. vistas de contexto, responsabilidades, interação, informação e implantação, com equivalentes textuais;
+9. verificação de correspondência entre participantes, passos, dados, alocação, RAS e controles;
+10. árvore de utilidade reduzida com três cenários prioritários, táticas, sensibilidades, trade-offs e riscos;
+11. uma ADR proposta, com vistas afetadas, evidências faltantes e gatilhos de revisão;
+12. experimento mais barato capaz de refutar a hipótese central.
 
-Sua proposta pode concluir que o primeiro incremento não deve usar IA generativa. O julgamento será avaliado pela coerência entre problema, restrições, alternativas, evidências e decisão — não pela quantidade de componentes de IA.
+Sua proposta pode concluir que o primeiro incremento não deve usar IA generativa. Separe fatos, premissas, incertezas, riscos e dependências. O julgamento será avaliado pela coerência entre problema, vistas, análise, alternativas, evidências e decisão — não pela quantidade de componentes de IA.
 
 Depois de elaborar o caso, prossiga para os [Exercícios](exercicios.md).

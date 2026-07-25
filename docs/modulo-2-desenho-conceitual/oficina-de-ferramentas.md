@@ -2,7 +2,7 @@
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina cria um gateway local para tornar uma fronteira de consumo visível. O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente.
+Esta oficina testa uma única hipótese do dossiê conceitual: uma fronteira de consumo reduz acoplamento suficiente para justificar uma capacidade comum? O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente. O experimento observa um mecanismo de adaptador; não prova, sozinho, a modificabilidade da arquitetura inteira.
 
 ## Ferramenta
 
@@ -201,6 +201,18 @@ Resultados de A e B.
 
 Complete a mini-ADR.
 
+Antes de redigi-la, registre a correspondência observada:
+
+| Elemento | Evidência da oficina |
+|---|---|
+| RAS de modificabilidade | troca de endpoint não altera o contrato do cliente |
+| Tática | encapsulamento por interface estável |
+| Mecanismo | gateway e manifesto versionado |
+| Vistas afetadas | responsabilidades, interação e implantação |
+| Sensibilidade | diferenças semânticas escondidas pelo contrato |
+| Trade-off | portabilidade versus acesso a recursos específicos |
+| Incerteza | equivalência de comportamento entre os modelos |
+
 **Observe**
 
 Evidência disponível e limite não medido.
@@ -234,6 +246,7 @@ Entregue a tabela e uma mini-ADR de até 250 palavras.
 - **Escolha provisória:**
 - **Alternativa considerada:**
 - **Evidência do laboratório:**
+- **O que esta evidência não decide no dossiê:**
 - **Gatilho de revisão:**
 ```
 

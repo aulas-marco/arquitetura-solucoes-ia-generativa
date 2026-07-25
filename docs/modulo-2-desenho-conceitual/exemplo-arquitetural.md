@@ -1,218 +1,200 @@
-# Exemplo arquitetural: copiloto de contestações do Banco Lume
+# Exemplo de dossiê conceitual: Banco Lume
 
-Este exemplo percorre a rastreabilidade de uma decisão sem apresentar uma arquitetura universal. Os números são metas de desenho a validar, não resultados de produção. O primeiro incremento cobre apenas contestações de compra não reconhecida em contas individuais; qualquer decisão e comunicação externa continuam humanas.
+Este exemplo mostra como uma oportunidade vira desenho arquitetural. Ele não é uma implementação pronta: cada escolha permanece condicional às evidências descritas ao final.
 
-![Da oportunidade de reduzir o tempo de preparação à arquitetura, passando por hipótese de valor, cenários, requisitos significativos, mecanismos e evidências](../assets/images/m02-oportunidade-arquitetura.png)
-*Figura 1 — A oportunidade só chega à arquitetura depois de atravessar hipóteses e critérios verificáveis; cada mecanismo deve conservar a ligação com seu direcionador.*
+![Da oportunidade à arquitetura, passando por hipótese de valor, cenários, requisitos significativos, estrutura e evidências](../assets/images/m02-oportunidade-arquitetura.png)
 
-## 1. Objetivo e hipótese de valor
+*Figura — O dossiê mantém rastreável o caminho do problema até a decisão estrutural e sua evidência.*
 
-**Baseline:** analistas gastam mediana de 22 minutos preparando um caso; supervisores devolvem 8% por evidência incompleta; 4% ultrapassam o prazo interno.
+## 1. Oportunidade, baseline e hipótese
 
-**Objetivo de negócio:** reduzir a mediana para 15 minutos e a cauda p90 para 28 minutos, sem elevar devolução, erro material, exposição de dados ou casos fora do prazo.
+Analistas preparam contestações de compra não reconhecida consultando casos, cadastro e políticas. A mediana é de 22 minutos; 8% dos casos voltam por evidência incompleta e 4% ultrapassam o prazo interno. A redução de tempo é a métrica principal; devolução, erro material, exposição de dados e atraso são **contramétricas**.
 
-**Hipótese de valor:** se o sistema reunir dados autorizados, localizar política vigente e apresentar um rascunho rastreável, o analista reduzirá busca e consolidação manuais sem delegar julgamento.
+A hipótese é: se dados autorizados e política vigente forem reunidos em um rascunho rastreável, o analista reduzirá busca e transcrição sem delegar julgamento, aprovação ou comunicação externa.
 
-**Experimento inicial:** 120 casos históricos desidentificados, estratificados por complexidade, executados em modo sombra. Analistas comparam fluxo atual e proposta sem alterar decisões. A hipótese avança apenas se tempo cair ao menos 20%, cobertura de evidência não piorar e nenhum critério intolerável ocorrer.
+O primeiro experimento usa 120 casos desidentificados em **modo sombra**. A proposta roda em paralelo, mas não altera registro ou decisão. Ela só avança se reduzir o tempo em 20%, não piorar cobertura de evidência e não produzir falha intolerável.
 
-## 2. Contexto, fronteiras e fluxo
+## 2. CONOPS e limites
+
+No modo normal, o analista abre um caso, recebe um rascunho com evidências, corrige e recomenda; o supervisor aprova ou devolve antes do registro oficial. No modo degradado, o sistema preserva o trabalho e apresenta fontes já autorizadas sem síntese. No modo bloqueado, ausência de finalidade, autorização ou evidência suficiente interrompe a proposta e orienta o fluxo manual.
+
+Ficam fora de escopo: alteração cadastral, bloqueio de cartão, comunicação ao cliente, casos empresariais e aprendizagem automática a partir de correções. O modelo não acessa legados nem grava decisões.
+
+## 3. Cinco vistas arquiteturais
+
+Cada vista declara uma pergunta e deixa as demais para outras representações. O conjunto descreve o mesmo sistema sob preocupações diferentes.
+
+### Contexto
 
 ```mermaid
 flowchart LR
-    A["Analista autenticado"] -->|"abre caso"| C["Copiloto"]
-    C -->|"consulta autorizada"| CSE["Serviço de casos"]
-    C -->|"busca política vigente"| POL["Repositório de políticas"]
-    C -->|"contexto minimizado"| MOD["Serviço de inferência"]
-    C -->|"rascunho e evidências"| A
-    A -->|"corrige e recomenda"| SUP["Supervisor"]
-    SUP -->|"aprova ou devolve"| REG["Registro oficial"]
-    GOV["Políticas, auditoria e observabilidade"] -.-> C
-    GOV -.-> MOD
-    GOV -.-> REG
+    A[Analista] --> C[Copiloto]
+    C --> S[Serviço de casos]
+    C --> P[Políticas vigentes]
+    C --> I[Inferência]
+    C --> U[Supervisor]
+    U --> R[Registro oficial]
+    G[Identidade, finalidade e auditoria] -.-> C
+    G -.-> I
 ```
 
-**Equivalente textual 1:** o analista autenticado abre um caso no copiloto. O copiloto consulta o serviço de casos e o repositório de políticas sob a identidade e a finalidade autorizadas, minimiza o contexto e solicita um rascunho ao serviço de inferência. O analista inspeciona fontes, corrige e recomenda; o supervisor aprova ou devolve antes de qualquer gravação oficial. Políticas, auditoria e observabilidade atravessam copiloto, inferência e registro. O modelo não acessa sistemas legados nem grava decisões diretamente.
+**Equivalente textual.** O copiloto recebe a solicitação autenticada, consulta somente dados e políticas autorizados e envia contexto minimizado à inferência. O supervisor é a fronteira entre proposta e registro oficial. A organização controla política, identidade e auditoria; o fornecedor de inferência não decide finalidade nem autorização.
 
-Para cada afirmação material, o copiloto preserva proveniência: identificador da fonte, versão e vigência da política, identidade e finalidade autorizadas, regra de seleção ou mascaramento aplicada e trecho usado no rascunho. A rastreabilidade não exige guardar o conteúdo cru em telemetria.
+### Responsabilidades
 
-As fronteiras críticas são: organização–fornecedor de inferência; identidade do analista–dados de outros clientes; conteúdo de política–instruções da aplicação; proposta–decisão oficial. O fora de escopo inclui alteração cadastral, bloqueio de cartão, comunicação ao cliente, casos empresariais e aprendizado automático com correções.
+| Responsabilidade | Componente conceitual | Não pode decidir |
+|---|---|---|
+| selecionar dados e política | montador de contexto | mérito da contestação |
+| minimizar e mascarar | fronteira de dados | ampliar finalidade |
+| gerar rascunho | serviço de inferência | acessar legado ou registrar decisão |
+| validar suporte e escopo | validação | aprovar caso |
+| recomendar e aprovar | analista e supervisor | delegar responsabilidade ao modelo |
 
-## 3. Cenários arquiteturalmente significativos
+### Interação: sequência e falha
 
-### Fundamentação
-
-- **Fonte:** analista autorizado.
-- **Estímulo:** solicita rascunho para caso elegível.
-- **Ambiente:** políticas e sistemas legados disponíveis.
-- **Artefato:** coleta de dados, seleção de política e geração.
-- **Resposta:** apresenta apenas afirmações materiais ligadas a evidências identificadas; declara lacunas.
-- **Medida:** em 300 casos de aceitação, pelo menos 95% das afirmações materiais têm suporte correto e nenhum caso crítico sem suporte recebe recomendação conclusiva.
-
-### Privacidade
-
-- **Fonte:** caso contendo dados pessoais e financeiros.
-- **Estímulo:** o fluxo prepara contexto para inferência.
-- **Ambiente:** operação normal e diagnóstico.
-- **Artefato:** conectores, orquestrador, contexto, logs e fornecedor.
-- **Resposta:** aplica seleção por finalidade, minimização e mascaramento; impede dado de outra identidade e não registra conteúdo cru em telemetria.
-- **Medida:** 100% dos campos classificados recebem tratamento; zero exposição cruzada no conjunto adversarial; rastros preservam identificadores técnicos sem conteúdo proibido.
-
-### Confiabilidade e revisão
-
-- **Fonte:** dependência externa.
-- **Estímulo:** retorna timeout por 10 segundos.
-- **Ambiente:** carga normal com caso em edição.
-- **Artefato:** orquestração e interface.
-- **Resposta:** interrompe geração, preserva o trabalho, oferece fontes e fluxo manual e não multiplica gravações.
-- **Medida:** modo degradado disponível em até 3 segundos após timeout; zero perda de edição e zero decisão oficial sem revisão do supervisor.
-
-## 4. Vista de componentes
+O analista abre o caso; identidade e finalidade filtram consultas; o montador seleciona dados e política; a inferência devolve rascunho; validação exige referências e comunica lacunas; o analista revisa; o supervisor aprova ou devolve. Se política ou inferência falhar, o sistema não inventa uma resposta: preserva o trabalho e oferece a consulta manual.
 
 ```mermaid
-flowchart TB
-    UI["Workspace do analista"] --> ORQ["Orquestrador de caso"]
-    ORQ --> IAM["Política de identidade e finalidade"]
-    ORQ --> ADP["Adaptadores de legado"]
-    ADP --> CASE["Casos e cadastro"]
-    ADP --> DOC["Políticas versionadas"]
-    ORQ --> CTX["Montador de contexto"]
-    CTX --> RED["Minimização e mascaramento"]
-    RED --> GW["Adaptador de inferência"]
-    GW --> LLM["Modelo"]
-    LLM --> VAL["Validação de saída e suporte"]
-    VAL --> UI
-    UI --> APR["Workflow de revisão humana"]
-    APR --> REC["Registro oficial"]
-    OBS["Avaliação, auditoria e telemetria"] -.-> ORQ
-    OBS -.-> GW
-    OBS -.-> VAL
-    OBS -.-> APR
+sequenceDiagram
+    participant A as Analista
+    participant C as Copiloto
+    participant P as Política
+    participant I as Inferência
+    participant S as Supervisor
+    A->>C: abre caso
+    C->>P: valida finalidade e dados
+    P-->>C: contexto autorizado
+    C->>I: solicita rascunho minimizado
+    I-->>C: proposta com referências
+    C-->>A: apresenta proposta ou lacunas
+    A->>S: recomenda após revisão
+    S-->>A: aprova ou devolve
 ```
 
-**Equivalente textual 2:** o workspace chama o orquestrador. Antes de cada consulta, a política de identidade e finalidade restringe o acesso. Adaptadores encapsulam diferenças dos sistemas de caso, cadastro e política. O montador de contexto seleciona dados; minimização e mascaramento antecedem o adaptador de inferência. A saída do modelo passa por validação de estrutura e suporte antes de voltar ao workspace. Um workflow separado exige revisão humana antes do registro oficial. Avaliação, auditoria e telemetria observam orquestração, inferência, validação e aprovação.
+**Equivalente textual.** A inferência ocorre somente depois da seleção autorizada; ela produz proposta, não decisão. A aprovação é uma atividade do supervisor fora do modelo.
 
-![Paisagem de decisões do copiloto: conhecimento por contexto ou recuperação, controle por workflow ou agente, estratégia de modelos, hospedagem e obtenção de capacidades](../assets/images/m02-paisagem-decisoes.png)
-*Figura 2 — As decisões são eixos relacionados, mas independentes: escolher RAG não exige agente, e usar serviço hospedado não determina comprar toda a aplicação.*
+Os três sinais de falha recebem contenção específica: **dados sensíveis** fora da finalidade bloqueiam a montagem de contexto; **indisponibilidade do modelo** preserva o caso e ativa a consulta manual; **resposta sem suporte** remove a recomendação conclusiva e destaca lacunas para investigação.
 
-### Responsabilidades por componente
+### Informação e ciclo de vida
 
-| Componente | Responsabilidade | O que deliberadamente não faz |
+| Informação | Origem e autoridade | Transformação | Persistência e descarte |
+|---|---|---|---|
+| dados do caso | serviço de casos, finalidade contestação | seleção de campos e mascaramento | referência no rascunho; conteúdo temporário descartado ao encerrar |
+| política | repositório oficial, dono da política | seleção por categoria e vigência | versão e trecho preservados com a recomendação |
+| contexto de inferência | montador de contexto | composição de dados minimizados e evidências | não reutilizado para treinamento; expira após a execução |
+| rascunho | serviço de inferência | validação de suporte e marcação de lacunas | editável até aprovação; versão final ligada às evidências |
+| decisão oficial | supervisor | aprovação ou devolução | sistema de registro segundo retenção institucional |
+| trace operacional | componentes do copiloto | redação de campos sensíveis e correlação | retenção mínima para diagnóstico e auditoria |
+
+**Equivalente textual.** Dados do caso e políticas possuem autoridades diferentes. O montador cria um contexto derivado e minimizado; a inferência produz um rascunho, não um registro oficial. Origem, versão, transformação e uso formam a proveniência. Conteúdo temporário e trace seguem finalidades e prazos distintos.
+
+### Implantação e fronteiras tecnológicas
+
+```mermaid
+flowchart LR
+    subgraph B["Ambiente controlado pelo banco"]
+        UI[Interface do analista]
+        O[Orquestrador]
+        M[Montador e validação]
+        D[(Rascunhos e evidências)]
+        L[Adaptadores de legados]
+        UI --> O
+        O --> M
+        O --> D
+        O --> L
+    end
+    subgraph F["Fornecedor de inferência"]
+        I[Endpoint de modelo]
+    end
+    M -->|contexto minimizado; identidade de serviço| I
+    I -->|rascunho| M
+```
+
+**Equivalente textual.** Interface, orquestração, seleção, validação, rascunhos e adaptadores permanecem no ambiente controlado pelo banco. Somente contexto minimizado atravessa a fronteira do fornecedor por uma identidade de serviço dedicada. O endpoint não recebe credenciais de usuário nem acessa legados ou repositórios diretamente.
+
+## 4. RAS que moldam a estrutura
+
+| RAS | Escolha estrutural | Consequência e evidência |
 |---|---|---|
-| Política de identidade e finalidade | autoriza sujeito, caso, campo e operação | não delega autorização ao prompt |
-| Adaptadores de legado | normalizam contratos, erros e versões | não expõem interfaces internas ao modelo |
-| Montador de contexto | seleciona evidência e preserva origem | não decide o mérito da contestação |
-| Modelo | propõe síntese conforme contexto | não consulta nem grava sistemas |
-| Validação | verifica esquema, referências e regras de escopo | não transforma fluência em evidência |
-| Workflow humano | registra correção, recomendação e aprovação | não reduz revisão a clique automático |
+| nenhum dado pessoal cru atravessa a inferência | fronteira de minimização antes do adaptador | campos proibidos bloqueados em teste; alguma latência adicional |
+| afirmações materiais precisam de suporte | contexto preserva origem, versão e trecho | amostra revisada mede cobertura e declara lacunas |
+| decisão oficial continua humana | workflow separa proposta, recomendação e aprovação | zero registro sem supervisor no modo sombra |
+| dependência pode falhar | modo degradado preserva estado e fontes disponíveis | simulação de timeout sem perda de edição |
 
-## 5. Cenários de falha e contenção
+### Árvore de utilidade reduzida
 
-### Dados sensíveis atravessam a fronteira errada
+| Objetivo e característica | Cenário priorizado | Tática e mecanismo | Sensibilidade, trade-off e risco |
+|---|---|---|---|
+| reduzir tempo sem expor dados — privacidade | ao montar contexto, nenhum campo proibido atravessa a inferência | minimização, mascaramento e autorização no montador | sensível à lista de campos; privacidade compete com cobertura; risco de remoção insuficiente ou excessiva |
+| reduzir devoluções — fundamentação | toda afirmação material apresenta política vigente e trecho de suporte | vínculo afirmação–fonte, validação e abstenção | sensível ao limiar de suporte; cobertura compete com concisão; risco de referência apenas decorativa |
+| preservar trabalho — confiabilidade | timeout de inferência mantém edição e oferece fluxo manual | timeout, estado persistido e degradação | sensível ao limite de tempo; disponibilidade compete com custo e espera; risco de duplicar tentativas |
+| permitir troca — modificabilidade | substituir endpoint não altera workflow ou autorização | contrato estável e adaptador | sensível às diferenças semânticas entre modelos; portabilidade compete com acesso a recursos específicos |
 
-**Detecção:** teste de contrato e política identifica campo proibido antes da chamada; telemetria registra classe e regra, não o valor. **Contenção:** bloqueio fechado, descarte do contexto e encaminhamento manual. **Recuperação:** investigar origem, corrigir mapeamento, reexecutar suíte de privacidade e revisar casos potencialmente afetados. Mascarar depois do envio seria tarde demais.
+### Correspondências verificadas
 
-### Indisponibilidade do modelo
+| Regra | Evidência no exemplo |
+|---|---|
+| participante da interação existe no contexto | analista, copiloto, política, inferência e supervisor aparecem nas duas vistas |
+| passo tem responsabilidade | seleção, geração, validação, recomendação e aprovação estão atribuídas |
+| dado manipulado tem ciclo de vida | caso, política, contexto, rascunho, decisão e trace constam da vista de informação |
+| componente executável tem alocação | interface, orquestrador, montador, adaptadores, repositório e endpoint constam da implantação |
+| travessia de confiança tem controle | apenas contexto minimizado cruza a fronteira por identidade de serviço |
+| RAS chega a tática e evidência | a tabela acima liga cenário, estrutura, consequência e teste |
 
-**Detecção:** timeout e circuito aberto no adaptador de inferência. **Contenção:** não repetir indefinidamente; preservar caso e disponibilizar política e dados já autorizados sem resumo. **Recuperação:** sondagem fora do caminho crítico, retorno gradual e comunicação clara. Um modelo alternativo só pode ser fallback se passou pelos mesmos critérios daquela categoria.
+## 5. Alternativas, riscos e decisão inicial
 
-### Resposta sem suporte suficiente
+| Alternativa | Direcionador atendido | Responsabilidade adicional | Decisão neste incremento |
+|---|---|---|---|
+| Automação convencional | cálculo e coleta previsíveis | representar todas as exceções em regras | manter para cálculo; insuficiente para síntese de evidências |
+| Contexto selecionado | ficha estruturada e doze políticas curtas | manter mapeamento de categoria, fonte e vigência | adotar |
+| RAG | corpus amplo ou recuperação granular | ingestão, índice, autorização e avaliação de recuperação | adiar até a evidência justificar |
+| Agente de leitura | sequência aberta com feedback confiável | contratos de ferramenta, orçamento e avaliação de trajetória | rejeitar: o fluxo é enumerável |
+| Fine-tuning | comportamento repetido com exemplos curados | curadoria, reavaliação e ciclo de atualização | rejeitar: não resolve vigência de políticas |
 
-**Detecção:** referência ausente, evidência contraditória ou cobertura abaixo do limiar. **Contenção:** substituir recomendação conclusiva por declaração de insuficiência, destacar lacunas e exigir investigação do analista. **Recuperação:** classificar se a causa foi fonte, seleção, contexto, instrução ou modelo; corrigir o componente responsável e adicionar o caso ao conjunto de regressão.
+A matriz torna a escolha verificável: contexto selecionado por regras atende o primeiro incremento; RAG permanece alternativa futura se a cobertura exceder seleção explícita ou exigir recuperação granular; agente é rejeitado porque não há efeito autônomo autorizado.
 
-## 6. Registros de decisão
+### Registro de risco e incerteza
 
-### Tensões priorizadas
+| Tipo | Registro | Tratamento |
+|---|---|---|
+| Risco | mascaramento pode preservar identificador indireto | teste adversarial de campos e revisão de Privacidade antes do modo sombra |
+| Risco | referência pode existir sem sustentar a afirmação | avaliação afirmação–fonte e abstenção abaixo do limiar |
+| Premissa | doze políticas cobrem a categoria inicial | dono da política confirma corpus e vigência antes do experimento |
+| Incerteza | revisão pode consumir o tempo economizado na busca | medir tempo por atividade e taxa de correção no modo sombra |
+| Dependência | fornecedor deve cumprir residência e não treinamento | validar contrato e configuração antes de enviar qualquer dado |
 
-Privacidade, revisão humana e proveniência têm precedência sobre latência do rascunho. O primeiro incremento aceita a latência adicional de selecionar e registrar evidências; não aceita reduzir a revisão ou enviar campos sem finalidade para ganhar velocidade. Produto mede tempo e custo por caso; Segurança mede exposição; o dono da política mede cobertura de fonte.
+### ADR-001 — Workflow assistivo, sem ferramentas autônomas
 
-### ADR-001 — Adotar workflow assistivo sem autonomia de ferramentas
+**Contexto.** O objetivo é reduzir busca e consolidação, não automatizar a decisão sobre a contestação. Revisão por analista e aprovação por supervisor são restrições confirmadas; gravação e comunicação externa pelo modelo estão fora de escopo. A sequência atual — consultar, sintetizar, revisar e aprovar — é conhecida e repetível.
 
-#### Status
+**Opções avaliadas.** A automação convencional preservaria todo o fluxo, mas não atenderia bem à síntese de justificativas e documentos heterogêneos. Um workflow assistivo manteria transições e efeitos determinísticos, usando geração apenas no rascunho. Um agente de leitura poderia decidir a ordem de consultas, mas acrescentaria estado, contratos, orçamento de passos e avaliação de trajetórias sem evidência de que a sequência variável gera valor.
 
-Aceita para o primeiro incremento; revisão após experimento em modo sombra.
+**Racional da escolha.** Escolhemos workflow assistivo porque ele isola a variabilidade onde ela é útil — a síntese — e mantém responsabilidade, autorização e efeito em fronteiras determinísticas. A escolha atende revisão obrigatória, segregação de funções, rastreabilidade e recuperação simples. Ela não pressupõe que mais autonomia reduz tempo ou melhora a recomendação.
 
-#### Contexto
+**Decisão.** O orquestrador segue consultas e transições definidas; o modelo produz apenas o rascunho contextualizado. Analista recomenda e supervisor aprova ou devolve antes do registro oficial.
 
-As etapas são conhecidas, os sistemas são legados e qualquer decisão exige analista e supervisor. A proposta inicial do patrocinador era um agente que consultasse e atualizasse tudo.
+**Vistas afetadas.** Responsabilidades e interação separam geração, recomendação e aprovação; informação distingue rascunho de decisão oficial; implantação impede acesso direto do endpoint aos legados.
 
-#### Direcionadores da decisão
+**Consequências e risco residual.** O fluxo é menos flexível para casos atípicos e exige manter regras de seleção, mas reduz superfície de falha e permite comparar a hipótese em modo sombra sem efeitos irreversíveis. Permanece o risco de revisão ritual, tratado pela medição de correções, discordâncias e tempo de análise.
 
-- revisão humana obrigatória e segregação de funções;
-- rastreabilidade de cada transição;
-- nenhuma gravação iniciada pelo modelo;
-- degradação para trabalho manual durante falhas.
+**Evidência e gatilho.** Reavaliar somente se uma atividade adicional demonstrar, em casos representativos, sequência não enumerável, benefício mensurável acima do workflow, autoridade clara por ferramenta e recuperação proporcional diante de falha.
 
-#### Opções
+### ADR-002 — Contexto selecionado antes de RAG
 
-1. Automação convencional de coleta e regras, sem geração.
-2. Workflow definido com geração apenas para rascunho.
-3. Agente que escolhe consultas e atualiza sistemas sob aprovação.
+**Contexto.** O primeiro incremento cobre apenas uma categoria de contestação, com ficha estruturada e doze políticas curtas, versionadas e mapeáveis por categoria. O prazo serve para testar a hipótese de valor; ainda não há evidência de que recuperação sobre corpus amplo seja necessária.
 
-#### Decisão
+**Opções avaliadas.** Enviar todo o repositório ao prompt não preservaria seleção, autorização ou vigência. RAG ampliaria cobertura e localização de fontes, mas introduziria ingestão, segmentação, índice, autorização de recuperação e avaliação própria antes de comprovar a necessidade. Fine-tuning não resolveria vigência ou proveniência de políticas. Contexto selecionado por regras usa a ficha e a política correspondente já conhecidas.
 
-Adotar opção 2. O orquestrador define consultas e transições; o modelo apenas sintetiza contexto preparado. Gravação oficial pertence ao workflow humano.
+**Racional da escolha.** Escolhemos contexto selecionado porque entrega a menor capacidade capaz de testar a hipótese: o analista recebe síntese de dados e política vigentes, com origem identificável, sem criar uma nova cadeia operacional de conhecimento. A decisão preserva a opção de adotar recuperação posteriormente ao definir uma interface de evidência desde o início.
 
-#### Consequências
+**Decisão.** Adaptadores obtêm campos permitidos e a política correspondente; o montador registra origem, versão, vigência e transformação do contexto. Não há índice ou recuperação semântica no primeiro incremento.
 
-Ganhamos caminhos enumeráveis, testes por etapa e menor superfície de ação. Mantemos código de orquestração e não exploramos estratégias autônomas em casos fora do fluxo. Casos não enumerados são encaminhados, não improvisados.
+**Vistas afetadas.** Responsabilidades atribuem seleção ao montador; informação registra fonte, versão, transformação e descarte; interação posiciona seleção antes da inferência; implantação mantém o repositório de políticas no ambiente do banco.
 
-#### Evidências
+**Consequências e risco residual.** A cobertura fica limitada às categorias mapeadas e regras de seleção exigem manutenção. Em troca, o experimento separa a hipótese de síntese do risco e do custo de uma plataforma de recuperação. Permanece a incerteza sobre crescimento do corpus, acompanhada pela cobertura por categoria.
 
-O processo atual possui sequência estável e a revisão é restrição confirmada. O ganho da síntese ainda é hipótese a medir em 120 casos sombra.
+**Evidência e gatilho.** Reavaliar se a cobertura de evidência ficar abaixo de 95% apesar de fontes disponíveis, o corpus superar a seleção explícita, ou uma necessidade de autorização e proveniência granular justificar recuperação.
 
-#### Gatilhos de revisão
+## 6. Evidência e próximo passo
 
-- mais de 20% dos casos elegíveis exigirem sequências não modeladas;
-- novo efeito autônomo ser legal e operacionalmente autorizado;
-- experimento demonstrar valor adicional de planejamento com zero violação crítica e custo justificável.
-
-### ADR-002 — Usar contexto selecionado antes de implantar RAG completo
-
-#### Status
-
-Proposta experimental.
-
-#### Contexto
-
-O primeiro escopo usa uma ficha estruturada e doze políticas curtas versionadas. RAG ampliaria a cobertura futura, mas acrescentaria ingestão, índice e avaliação de recuperação antes de haver evidência de necessidade.
-
-#### Direcionadores da decisão
-
-- política vigente e citável;
-- autorização e minimização antes da inferência;
-- prazo curto para validar hipótese de valor;
-- preparação para corpus maior sem antecipar operação desnecessária.
-
-#### Opções
-
-1. Prompt com toda informação disponível sem seleção.
-2. Contexto selecionado deterministicamente por categoria e vigência.
-3. RAG com recuperação e avaliação separada.
-4. Fine-tuning com políticas.
-
-#### Decisão
-
-Experimentar opção 2. Adaptadores obtêm campos permitidos e a política correspondente; o montador conserva identificadores de origem. Definir interface de evidência que possa receber recuperação no futuro, sem criar índice agora.
-
-#### Consequências
-
-Reduzimos componentes e isolamos a hipótese de síntese. A cobertura permanece limitada às categorias mapeadas e a seleção exige manutenção de regras. Fine-tuning não é usado como armazenamento factual.
-
-#### Evidências
-
-Inventário confirma doze políticas e mapeamento unívoco nas categorias iniciais. Ainda faltam resultados de qualidade, latência e custo; por isso o status não é aceito para produção.
-
-#### Gatilhos de revisão
-
-- corpus superar o limite operacional de seleção explícita;
-- categorias dependerem de pesquisa em múltiplos documentos;
-- cobertura de evidência ficar abaixo de 95% apesar de fontes disponíveis;
-- necessidade de autorização ou proveniência granular justificar recuperação.
-
-## 7. Leitura da rastreabilidade
-
-O objetivo de tempo justifica pré-coleta e síntese; a contramétrica de devolução justifica cobertura de evidência; privacidade justifica política antes dos conectores e minimização antes da inferência; revisão obrigatória justifica separar proposta de registro; indisponibilidade do legado justifica modo degradado. Nenhum componente existe “porque soluções de IA têm essa caixa”.
-
-O próximo caso remove parte da evidência confortável e exige que você compare quatro direções antes de recomendar uma.
-
-**Próxima página:** [Estudo de caso](estudo-de-caso.md).
+O dossiê permite decidir o que construir agora e o que ainda é hipótese. Antes do módulo 3, a equipe precisa medir tempo, cobertura de evidência, devoluções, falhas de autorização e comportamento degradado. Se os limites forem atendidos, o próximo desenho detalha ingestão e consulta; se não forem, a equipe reduz escopo, melhora integração convencional ou abandona a capacidade generativa.

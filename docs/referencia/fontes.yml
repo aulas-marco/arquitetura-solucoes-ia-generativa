@@ -607,3 +607,53 @@
   topics: [especificacao, desenvolvimento]
   modules: [4]
   type: conference-talk
+
+- id: iso-42010-2022
+  title: "ISO/IEC/IEEE 42010:2022 — Software, systems and enterprise — Architecture description"
+  authors: ISO; IEC; IEEE
+  year: 2022
+  url: https://www.iso.org/standard/74393.html
+  accessed: 2026-07-25
+  topics: [arquitetura, descricao-arquitetural, vistas]
+  modules: [2]
+  type: international-standard
+
+- id: sei-modifiability-tactics
+  title: Modifiability Tactics
+  authors: Software Engineering Institute
+  year: 2026
+  url: https://www.sei.cmu.edu/library/modifiability-tactics/
+  accessed: 2026-07-25
+  topics: [arquitetura, atributos-de-qualidade, taticas]
+  modules: [2]
+  type: institutional-guidance
+
+- id: c4-model
+  title: The C4 model for visualising software architecture
+  authors: Simon Brown
+  year: 2026
+  url: https://c4model.com/
+  accessed: 2026-07-25
+  topics: [arquitetura, visualizacao, vistas]
+  modules: [2]
+  type: official-documentation
+
+- id: arc42-introduction-goals
+  title: Introduction and Goals
+  authors: arc42
+  year: 2026
+  url: https://docs.arc42.org/section-1/
+  accessed: 2026-07-25
+  topics: [arquitetura, objetivos-de-qualidade, stakeholders]
+  modules: [2]
+  type: official-documentation
+
+- id: arc42-architecture-decisions
+  title: Architecture Decisions
+  authors: arc42
+  year: 2026
+  url: https://docs.arc42.org/section-9/
+  accessed: 2026-07-25
+  topics: [arquitetura, decisoes, adr]
+  modules: [2]
+  type: official-documentation

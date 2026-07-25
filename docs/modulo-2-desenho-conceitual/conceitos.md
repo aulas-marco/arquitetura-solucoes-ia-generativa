@@ -1,41 +1,170 @@
-# O que é o desenho conceitual?
+# Conceitos: do problema ao dossiê conceitual
 
-O desenho conceitual é o momento em que a arquitetura de software e a IA generativa se fundem para transformar uma ideia em um **sistema governado e operável**. Nesta etapa, o arquiteto não busca apenas "fazer a IA funcionar", mas sim garantir que o modelo seja um **componente integrado** que respeite os fundamentos de APIs, dados e sistemas distribuídos.
+Desenho conceitual é a etapa que define **o que vale a pena resolver, sob quais limites e com que evidência** antes de escolher modelos, padrões ou fornecedores. Seu resultado não é um diagrama de tecnologia. É uma descrição arquitetural suficiente para comparar direções e tornar decisões revisáveis.
 
-## O racional da conversão: oportunidade versus requisito
+## O dossiê conceitual
 
-O cerne deste módulo é a capacidade de **converter oportunidades em requisitos e escolhas justificadas**. Sob a lente do arquiteto, uma oportunidade de negócio (ex: "automatizar o suporte") só se torna um desenho conceitual quando o **racional arquitetural** define como o comportamento probabilístico da IA será controlado.
+Neste curso, chamaremos de **dossiê conceitual** o pacote de trabalho produzido nesta etapa. O nome é uma convenção didática, não um tipo documental prescrito pelo mercado. O dossiê conecta oito campos que devem permanecer coerentes:
 
-- **Decisões explícitas:** cada escolha no desenho conceitual deve ser **explícita e verificável**, evitando que a solução seja uma "caixa preta".
-- **Análise de trade-offs:** o arquiteto compara consequências sobre as características priorizadas; monólito modular e serviços distribuídos são estilos possíveis, enquanto gateway e chassi são capacidades compartilhadas que podem ou não ser necessárias.
+1. oportunidade, população, baseline e contramétricas;
+2. hipótese de valor e atividades que continuam humanas;
+3. CONOPS, exceções e modos operacionais;
+4. stakeholders, fronteiras e fora de escopo;
+5. objetivos de negócio, produto, dados e IA;
+6. requisitos arquiteturalmente significativos e cenários de qualidade;
+7. alternativas, responsabilidades adicionais e decisões rejeitadas;
+8. evidências, experimento inicial, ADRs e gatilhos de revisão.
+
+O modelo de IA é apenas um candidato dentro desse dossiê. Uma decisão é boa quando o contexto, as alternativas, as consequências e a evidência necessária podem ser explicados sem recorrer à preferência por uma tecnologia.
+
+## Como uma descrição arquitetural é organizada
+
+Arquitetura é o conjunto de estruturas necessárias para raciocinar sobre o sistema; **descrição arquitetural** é a forma usada para comunicá-las. Confundir o sistema com um desenho específico leva a dois erros: acreditar que um diagrama representa tudo ou tratar qualquer artefato do projeto como modelo arquitetural.
+
+Use o vocabulário abaixo:
+
+- **Stakeholder** é a pessoa, grupo ou organização que tem interesse ou responsabilidade em relação ao sistema.
+- **Preocupação** (*concern*) é um interesse relevante para um ou mais stakeholders, como privacidade, recuperação de falha ou contestabilidade.
+- **Ponto de vista** (*viewpoint*) define propósito, público, convenções e tipos de modelo usados para tratar determinadas preocupações.
+- **Vista** (*view*) representa este sistema segundo um ponto de vista. Uma vista pode combinar texto, tabelas e diagramas.
+- **Modelo arquitetural** representa um aspecto específico da arquitetura dentro de uma ou mais vistas, como relações entre responsabilidades ou alocação de componentes em ambientes.
+- **Cenário de qualidade** especifica como o sistema deve responder a um estímulo sob determinada condição. É entrada para análise e verificação, não uma vista da arquitetura.
+- **ADR** registra uma decisão arquitetural e seu racional. É memória de decisão, não modelo do sistema.
+
+O dossiê organiza esses elementos em cinco grupos:
+
+| Grupo | Conteúdo | Pergunta |
+|---|---|---|
+| Entradas da análise | stakeholders, preocupações, objetivos, restrições, premissas, CONOPS e cenários de qualidade | O que orienta e limita o desenho? |
+| Descrição arquitetural | vistas de contexto, responsabilidades, interação, informação e implantação | Que estruturas respondem às preocupações? |
+| Análise arquitetural | RAS, táticas, sensibilidades, trade-offs, riscos e alternativas | Por que essa estrutura é adequada? |
+| Registros de decisão | ADRs e alternativas rejeitadas | O que foi escolhido e por quê? |
+| Evidências | experimentos, medições e critérios de aceitação | O que sustenta ou refuta a escolha? |
+
+### Cinco vistas mínimas
+
+Não existe uma quantidade universal de vistas. Para o desenho conceitual de uma solução de IA generativa, estas cinco costumam revelar as decisões iniciais:
+
+| Vista | Preocupações atendidas | Modelos ou representações úteis |
+|---|---|---|
+| Contexto | atores, sistemas externos, responsabilidades organizacionais e fronteiras de confiança | mapa de contexto e tabela de dependências |
+| Responsabilidades | decomposição, autoridade, coesão e acoplamento | mapa de responsabilidades e contratos conceituais |
+| Interação | ordem, estados, efeitos, exceções e recuperação | sequência normal, degradada e bloqueada |
+| Informação | origem, classificação, finalidade, transformação, proveniência, retenção e descarte | fluxo e ciclo de vida dos dados |
+| Implantação | alocação em ambientes, regiões e provedores; identidades, redes e dependências operacionais | mapa de implantação e fronteiras tecnológicas |
+
+O ponto de vista deve declarar o que deixa de fora. A vista de contexto não explica a ordem de uma chamada; a vista de interação não mostra onde o dado é armazenado; a vista de implantação não atribui autoridade humana.
+
+### Correspondências entre vistas
+
+As vistas são complementares, mas precisam descrever o mesmo sistema. **Correspondência** é uma relação que permite verificar essa coerência. Adote pelo menos estas regras:
+
+1. todo ator ou sistema externo usado numa interação aparece na vista de contexto;
+2. todo passo da interação tem uma responsabilidade e um responsável;
+3. todo dado criado, transformado, persistido ou enviado aparece na vista de informação;
+4. todo componente executável e repositório de dados é alocado na vista de implantação;
+5. toda travessia de fronteira de confiança tem controle e evidência associados;
+6. todo RAS chega a uma ou mais táticas, a elementos afetados nas vistas e a um método de verificação;
+7. toda ADR referencia as preocupações, RAS e vistas que motivou ou alterou.
+
+Uma inconsistência entre vistas é um defeito arquitetural do material, mesmo que cada diagrama pareça correto isoladamente.
+
+### Vocabulário para iniciar o dossiê
+
+- **População** é o conjunto de pessoas, casos ou situações para o qual a decisão vale; não é apenas o número de usuários que acessou uma demonstração.
+- **Baseline** é a medida inicial do processo atual, usada como comparação. Exemplo: a mediana atual de preparação de um caso é 22 minutos.
+- **Hipótese de valor** relaciona uma mudança a um resultado esperado e verificável: “se reduzirmos a busca manual com fontes rastreáveis, o tempo de preparação cairá sem piorar a qualidade”. Ela ainda não é uma conclusão.
+- **Contramétrica** mede um efeito indesejado que pode crescer enquanto a métrica principal melhora. Se o objetivo é reduzir tempo, devoluções, erros materiais, exposição de dados ou abandono podem ser contramétricas. Ela impede declarar sucesso apenas porque uma medida subiu ou caiu na direção desejada.
+- **Evidência** é um registro usado para sustentar ou refutar uma hipótese ou decisão: resultado de teste, caso revisado, restrição confirmada, dado de operação ou parecer especializado. Uma demonstração isolada é evidência fraca, não prova geral.
+- **Gatilho de revisão** é a condição observável que obriga a reexaminar uma decisão, como a cobertura de fonte cair abaixo do limite, mudar a política aplicável ou surgir uma nova classe de dado.
+- **Finalidade** é o uso autorizado para um dado ou capacidade. Ter acesso técnico não autoriza reutilizar informação para outro objetivo.
+- **Limiar** é o valor que separa resultado aceitável de resultado que exige ação; **falha intolerável** é um evento que bloqueia a decisão mesmo quando as demais medidas parecem boas.
+- **Reversibilidade** é a capacidade de voltar a um estado seguro ou limitar o efeito de uma escolha. Nem toda consequência pode ser desfeita; nesses casos, o dossiê precisa reduzir escopo ou exigir aprovação antes do efeito.
+- **ADR** (*Architecture Decision Record*) registra contexto, alternativas, decisão, consequências, evidências e gatilhos de revisão para uma escolha arquitetural relevante.
 
 ## A IA como componente de um sistema maior
 
-Um arquiteto de soluções entende que o modelo de linguagem não é a solução completa, mas um **componente dentro de uma arquitetura de backend**. O desenho conceitual deve prever como esse componente se conecta a:
+Um modelo de linguagem participa de um sistema que também contém dados, integrações, controles e pessoas. O desenho conceitual deve prever como essa capacidade se conecta a:
 
 - **Conhecimento:** como os dados corporativos serão acessados de forma segura.
 - **Integrações:** como as APIs existentes servirão de contexto ou ferramentas para a IA.
 - **Controles:** quais são os limites de autonomia e segurança impostos ao sistema.
 
-## Atributos de qualidade no contexto generativo
+## Atributos de qualidade e RAS no contexto generativo
 
 Diferente de sistemas determinísticos, o desenho conceitual para IA exige que o arquiteto defina **critérios de aceitação para comportamentos probabilísticos**. Isso significa que os atributos de qualidade clássicos (performance, segurança, escalabilidade) devem ser estendidos para incluir a **confiabilidade e a observabilidade das respostas**.
 
-- O arquiteto utiliza o **vocabulário e padrões** da disciplina para tomar decisões que possam ser defendidas perante stakeholders técnicos e de negócio.
-
 Características arquiteturais não são uma lista de desejos. Segurança, privacidade, proveniência, latência, custo, confiabilidade, observabilidade e modificabilidade competem entre si. A equipe precisa limitar as prioritárias, declarar a tensão aceita e definir medida, responsável e momento de revisão; a arquitetura adequada é a menos ruim para esse contexto, não a que maximiza uma característica isolada.
+
+Um **requisito arquiteturalmente significativo (RAS)** é um requisito cuja satisfação influencia estruturas fundamentais, atravessa responsabilidades, cria dependência relevante, protege uma característica prioritária ou torna mudanças posteriores caras. Um cenário de qualidade bem formado — fonte, estímulo, ambiente, artefato, resposta e medida — ajuda a expressá-lo sem adjetivos vagos.
+
+### Da característica à estrutura
+
+Uma **tática arquitetural** é uma decisão de desenho dirigida à resposta de um atributo de qualidade. Ela é mais específica que uma intenção e menos concreta que sua implementação. Os termos próximos têm funções diferentes:
+
+| Elemento | Função | Exemplo |
+|---|---|---|
+| Cenário de qualidade ou RAS | declara a resposta exigida | preservar a edição quando a inferência exceder dois segundos |
+| Tática | controla a resposta ao atributo | timeout e preservação de estado |
+| Mecanismo | realiza a tática neste sistema | limite no adaptador e rascunho persistido |
+| Padrão | organiza uma solução recorrente | circuit breaker ou workflow com aprovação |
+| Estilo arquitetural | impõe uma organização ampla a componentes e conectores | monólito modular ou serviços distribuídos |
+| ADR | registra por que a combinação foi escolhida | adotar timeout de dois segundos e fluxo manual |
+
+Uma tática não é necessariamente um componente. “Abstenção” pode exigir validação, interface e workflow; “proveniência” atravessa coleta, transformação, geração e auditoria. Um padrão pode combinar várias táticas, e o mesmo mecanismo pode participar de mais de uma.
+
+### Composição e tensão entre táticas
+
+Táticas raramente atuam sozinhas. A análise deve registrar efeitos colaterais:
+
+| Tática ou combinação | Benefício pretendido | Tensão criada |
+|---|---|---|
+| cache seguro | reduz latência e custo | pode servir conteúdo desatualizado e amplia retenção |
+| fallback de modelo | melhora disponibilidade | pode alterar qualidade, residência ou política de dados |
+| trace detalhado | melhora diagnóstico e auditoria | pode expor conteúdo e elevar armazenamento |
+| minimização antes da inferência | reduz exposição | pode remover contexto necessário à qualidade |
+| revisão humana obrigatória | contém efeitos inadequados | aumenta tempo e pode virar aprovação ritual |
+
+Não se escolhe uma tática por seu benefício isolado. A equipe avalia a resposta produzida, as características prejudicadas e o risco residual.
+
+## Análise arquitetural leve
+
+Uma árvore de utilidade reduzida prioriza o que realmente deve orientar a estrutura:
+
+```text
+objetivo de negócio
+└── característica arquitetural
+    └── cenário de qualidade priorizado
+        ├── tática e mecanismo candidato
+        ├── ponto de sensibilidade
+        ├── ponto de trade-off
+        ├── risco ou incerteza
+        └── experimento ou evidência
+```
+
+- **Ponto de sensibilidade** é uma propriedade cuja pequena variação altera de modo relevante a resposta de qualidade, como tamanho do contexto sobre latência e cobertura.
+- **Ponto de trade-off** afeta mais de uma característica em direções concorrentes, como retenção de traces sobre auditabilidade e privacidade.
+- **Risco arquitetural** é uma consequência adversa plausível associada a uma decisão ou lacuna de conhecimento.
+- **Premissa** é algo tratado provisoriamente como verdadeiro; precisa de responsável e data de confirmação.
+- **Incerteza** é o que ainda não sabemos com confiança suficiente para decidir; deve levar a experimento, pesquisa ou redução de escopo.
+
+O objetivo não é produzir pontuação aparente. É selecionar de três a cinco cenários prioritários, localizar decisões sensíveis e descobrir o que precisa ser provado antes de ampliar o compromisso.
 
 ## O processo de decisão e o uso de ADRs
 
-Seguindo o princípio de um **processo mínimo de arquitetura**, o desenho conceitual deve ser documentado através de **ADRs (Architecture Decision Records)**. No contexto do Módulo 2, isso garante que:
+ADRs preservam escolhas arquiteturais relevantes, não substituem vistas ou análise. Uma ADR registra:
 
-- O contexto da decisão (a oportunidade original) esteja claro.
-- As alternativas técnicas consideradas (diferentes modelos ou abordagens de integração) sejam registradas.
-- As **consequências e evidências sintéticas** de que a decisão foi a correta estejam acessíveis para revisão futura.
+- status, contexto e preocupações;
+- RAS e direcionadores;
+- alternativas comparadas e racional da escolha;
+- decisão e elementos afetados nas vistas;
+- consequências, riscos residuais e premissas;
+- evidências esperadas e gatilhos de revisão;
+- relação com ADRs anteriores, quando substitui uma decisão.
 
 ## Preparação para a progressão de decisões
 
-Este módulo estabelece a fundação para as etapas subsequentes da solução: **RAG, Agentes e Confiança**. Sem um desenho conceitual sólido, focado em requisitos técnicos e não apenas em "promessas", a solução corre o risco de falhar em produção por falta de **sustentabilidade e escala**.
+Este módulo estabelece a fundação para RAG, agentes, confiança e operação. Os módulos 3 a 6 detalham mecanismos; o Módulo 2 estabelece por que eles seriam necessários, que RAS realizam, que vistas alteram e como sua consequência será verificada.
 
 ## Critérios de adequação da IA generativa
 
