@@ -79,6 +79,7 @@ Construa uma matriz que trate, no mínimo:
 - previsibilidade da coleta e do cálculo;
 - qualidade e atualização do conhecimento;
 - proveniência e explicação ao especialista;
+- prioridade de características, tensão aceita, medida e responsável;
 - autorização, minimização e residência;
 - comportamento com conflito, ausência e indisponibilidade;
 - esforço de integração com sistemas legados;
@@ -109,7 +110,7 @@ Prepare uma proposta de desenho conceitual com:
 3. CONOPS com modo normal, degradado e bloqueado;
 4. fronteiras, fora de escopo e matriz de responsabilidade humano–IA;
 5. quatro objetivos separados: negócio, produto, dados e IA;
-6. três requisitos arquiteturalmente significativos no formato de cenário;
+6. três requisitos arquiteturalmente significativos no formato de cenário, incluindo um de proveniência;
 7. matriz das quatro direções e recomendação por incremento;
 8. diagrama de contexto com equivalente textual;
 9. uma ADR proposta, com evidências faltantes e gatilhos de revisão;

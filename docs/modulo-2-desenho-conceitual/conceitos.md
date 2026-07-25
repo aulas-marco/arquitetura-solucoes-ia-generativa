@@ -1,30 +1,41 @@
-# Conceitos: da oportunidade ao conceito de operações
+# O que é o desenho conceitual?
 
-![Mapa da oportunidade ao CONOPS: uma oportunidade é testada por hipóteses de valor e capacidade, passa por uma decisão de adequação da IA e se converte em CONOPS, partes interessadas, modos operacionais, responsabilidade humano–IA e requisitos significativos; a rejeição da IA é uma saída válida](../assets/images/m02-mapa-da-oportunidade-ao-conops.png "Mapa da oportunidade ao CONOPS")
+O desenho conceitual é o momento em que a arquitetura de software e a IA generativa se fundem para transformar uma ideia em um **sistema governado e operável**. Nesta etapa, o arquiteto não busca apenas "fazer a IA funcionar", mas sim garantir que o modelo seja um **componente integrado** que respeite os fundamentos de APIs, dados e sistemas distribuídos.
 
-*Figura — A decisão arquitetural começa antes do modelo: uma oportunidade só merece solução depois que seu valor, sua capacidade e seu modo de operação podem ser defendidos.*
+## O racional da conversão: oportunidade versus requisito
 
-O desenho conceitual descreve **o que o sistema será no contexto de uso**, antes de comprometer a solução com produtos. Ele conecta intenção, experiência, informação, responsabilidades humanas e capacidades técnicas com precisão suficiente para revelar decisões e riscos.
+O cerne deste módulo é a capacidade de **converter oportunidades em requisitos e escolhas justificadas**. Sob a lente do arquiteto, uma oportunidade de negócio (ex: "automatizar o suporte") só se torna um desenho conceitual quando o **racional arquitetural** define como o comportamento probabilístico da IA será controlado.
 
-## Oportunidade não é solução
+- **Decisões explícitas:** cada escolha no desenho conceitual deve ser **explícita e verificável**, evitando que a solução seja uma "caixa preta".
+- **Análise de trade-offs:** o arquiteto compara consequências sobre as características priorizadas; monólito modular e serviços distribuídos são estilos possíveis, enquanto gateway e chassi são capacidades compartilhadas que podem ou não ser necessárias.
 
-Uma oportunidade combina uma situação observada, um grupo afetado e uma melhoria desejada. “Adotar IA generativa no atendimento” não é oportunidade; já pressupõe tecnologia. Uma formulação melhor seria: “analistas gastam 35% do tempo localizando políticas e consolidando evidências, o que aumenta o prazo e a inconsistência das contestações”. Essa formulação aceita respostas diferentes: melhorar busca, redesenhar processo, criar regras, oferecer um copiloto ou não mudar o software.
+## A IA como componente de um sistema maior
 
-Resultado atual mensurado, resultado desejado e hipótese causal evitam a solução prematura.
+Um arquiteto de soluções entende que o modelo de linguagem não é a solução completa, mas um **componente dentro de uma arquitetura de backend**. O desenho conceitual deve prever como esse componente se conecta a:
 
-Uma métrica de atividade, como número de respostas geradas, não demonstra valor. Tempo de ciclo, retrabalho, conformidade, taxa de resolução e compreensão do usuário estão mais próximos do resultado. Mesmo assim, precisam de contramétricas: reduzir tempo elevando decisões incorretas não é sucesso.
+- **Conhecimento:** como os dados corporativos serão acessados de forma segura.
+- **Integrações:** como as APIs existentes servirão de contexto ou ferramentas para a IA.
+- **Controles:** quais são os limites de autonomia e segurança impostos ao sistema.
 
-## Hipótese de valor e hipótese de capacidade
+## Atributos de qualidade no contexto generativo
 
-A **hipótese de valor** afirma que uma mudança no sistema sociotécnico melhora um resultado relevante. A **hipótese de capacidade** afirma que um mecanismo consegue executar uma tarefa sob condições definidas. Confundi-las produz provas de conceito impressionantes e produtos inúteis.
+Diferente de sistemas determinísticos, o desenho conceitual para IA exige que o arquiteto defina **critérios de aceitação para comportamentos probabilísticos**. Isso significa que os atributos de qualidade clássicos (performance, segurança, escalabilidade) devem ser estendidos para incluir a **confiabilidade e a observabilidade das respostas**.
 
-No Banco Lume:
+- O arquiteto utiliza o **vocabulário e padrões** da disciplina para tomar decisões que possam ser defendidas perante stakeholders técnicos e de negócio.
 
-> Se analistas receberem um resumo rastreável de evidências e políticas aplicáveis, poderão preparar contestações em menos tempo sem elevar correções do supervisor.
+Características arquiteturais não são uma lista de desejos. Segurança, privacidade, proveniência, latência, custo, confiabilidade, observabilidade e modificabilidade competem entre si. A equipe precisa limitar as prioritárias, declarar a tensão aceita e definir medida, responsável e momento de revisão; a arquitetura adequada é a menos ruim para esse contexto, não a que maximiza uma característica isolada.
 
-Essa é a hipótese de valor. “Um modelo resume dez documentos com nota média 4/5” é uma hipótese de capacidade. Ela pode ser necessária, mas não prova que o fluxo reduz tempo, que a evidência chega correta ou que as pessoas confiam nela na medida adequada.
+## O processo de decisão e o uso de ADRs
 
-Uma boa ficha registra problema, resultado, baseline, intervenção, evidência refutável e dono da decisão. Pergunte sempre o que não pode piorar e quem decide interromper.
+Seguindo o princípio de um **processo mínimo de arquitetura**, o desenho conceitual deve ser documentado através de **ADRs (Architecture Decision Records)**. No contexto do Módulo 2, isso garante que:
+
+- O contexto da decisão (a oportunidade original) esteja claro.
+- As alternativas técnicas consideradas (diferentes modelos ou abordagens de integração) sejam registradas.
+- As **consequências e evidências sintéticas** de que a decisão foi a correta estejam acessíveis para revisão futura.
+
+## Preparação para a progressão de decisões
+
+Este módulo estabelece a fundação para as etapas subsequentes da solução: **RAG, Agentes e Confiança**. Sem um desenho conceitual sólido, focado em requisitos técnicos e não apenas em "promessas", a solução corre o risco de falhar em produção por falta de **sustentabilidade e escala**.
 
 ## Critérios de adequação da IA generativa
 
@@ -86,23 +97,31 @@ Fronteira define responsabilidade, não apenas rede. Marque:
 
 O fora de escopo evita expectativas perigosas. No Banco Lume: não aprovar, alterar cadastro, enviar comunicações, aprender com correções individuais ou tratar categorias não avaliadas. Cada exclusão precisa aparecer em interface, autorização e testes.
 
+### Proveniência
+
+**Proveniência** é a cadeia verificável que permite explicar uma evidência: **de onde veio**, **sob qual autoridade foi acessada**, **qual versão e vigência possuía**, **quais transformações ou seleções sofreu** e **onde foi usada na resposta ou decisão**. Não é apenas uma URL ou citação. Em um sistema generativo, ela liga fonte, identidade, finalidade, transformação, trecho recuperado, versão de política, modelo e saída. Essa cadeia permite contestar uma recomendação, revogar uma fonte e investigar uma resposta sem conservar conteúdo além do necessário.
+
 Um **adaptador** separa contrato e fornecedor: **OpenAI SDK** e **LiteLLM** consomem modelos; **Docker Model Runner** apoia execução local. Nenhum define finalidade, dado ou autorização.
 
 ## Stakeholders e preocupações
 
 “Usuário” é uma categoria insuficiente. Analista, cliente afetado, supervisor, dono da política, encarregado de dados, Segurança, Operações, auditoria, fornecedor e equipe de manutenção enxergam riscos diferentes. Uma matriz de preocupações torna tensões visíveis:
 
-| Stakeholder | Resultado desejado | Preocupação arquitetural |
-|---|---|---|
-| Analista | preparar caso com menos busca manual | utilidade, latência, fontes compreensíveis |
-| Supervisor | revisar decisões consistentes | destaque de incerteza, histórico e comparação |
-| Cliente | tratamento justo e tempestivo | contestabilidade, privacidade, ausência de dano |
-| Dono da política | aplicar versão vigente | atualização, semântica e resolução de conflitos |
-| Segurança e Privacidade | limitar exposição e abuso | minimização, autorização, retenção e auditoria |
-| Operações | manter serviço recuperável | dependências, fallback, observabilidade e custo |
-| Auditoria | reconstruir decisão | identidade, versões, evidências e ações humanas |
+| Stakeholder             | Resultado desejado                   | Preocupação arquitetural                        |
+| ----------------------- | ------------------------------------ | ----------------------------------------------- |
+| Analista                | preparar caso com menos busca manual | utilidade, latência, fontes compreensíveis      |
+| Supervisor              | revisar decisões consistentes        | destaque de incerteza, histórico e comparação   |
+| Cliente                 | tratamento justo e tempestivo        | contestabilidade, privacidade, ausência de dano |
+| Dono da política        | aplicar versão vigente               | atualização, semântica e resolução de conflitos |
+| Segurança e Privacidade | limitar exposição e abuso            | minimização, autorização, retenção e auditoria  |
+| Operações               | manter serviço recuperável           | dependências, fallback, observabilidade e custo |
+| Auditoria               | reconstruir decisão                  | identidade, versões, evidências e ações humanas |
 
 Treinamento, processo, papéis e contestação também respondem a preocupações do sistema sociotécnico.
+
+## Modularidade e fronteiras de componente
+
+Componentes devem ter responsabilidade coesa e dependências deliberadas. O **orquestrador** coordena o caso, mas não deve conhecer peculiaridades de cada legado; **adaptadores** isolam contratos, versões e falhas de fornecedor; o **montador de contexto** seleciona evidências; o **gateway** aplica controles transversais; a **validação** verifica saída e suporte. Essa separação reduz acoplamento: trocar um fornecedor ou uma fonte deve afetar seu adaptador, não reescrever a política de autorização nem o workflow humano. Separar sem motivo também cria chamadas, latência e operação adicionais; a fronteira só se justifica por mudança independente, risco ou atributo de qualidade.
 
 ## Modos operacionais
 
@@ -136,10 +155,10 @@ Ao final do desenho conceitual inicial, a equipe deve conseguir declarar: oportu
 
 São exemplos; consulte o [Guia de ferramentas](../referencia/guia-de-ferramentas.md).
 
-| Ferramenta | Quando ajuda | Pré-requisito | Limite arquitetural |
-|---|---|---|---|
-| OpenAI SDK | Adaptar contrato de API. | Credencial real ou fixture. | Não define política. |
-| LiteLLM | Normalizar endpoints. | Modelos, credenciais e falhas configurados. | Não elimina diferenças entre provedores. |
-| Docker Model Runner | Prototipar modelo local. | Docker, modelo e recursos. | Não substitui critérios ou operação. |
+| Ferramenta          | Quando ajuda             | Pré-requisito                               | Limite arquitetural                      |
+| ------------------- | ------------------------ | ------------------------------------------- | ---------------------------------------- |
+| OpenAI SDK          | Adaptar contrato de API. | Credencial real ou fixture.                 | Não define política.                     |
+| LiteLLM             | Normalizar endpoints.    | Modelos, credenciais e falhas configurados. | Não elimina diferenças entre provedores. |
+| Docker Model Runner | Prototipar modelo local. | Docker, modelo e recursos.                  | Não substitui critérios ou operação.     |
 
 **Próxima página:** [Requisitos e padrões de decisão](padroes-e-decisoes.md).

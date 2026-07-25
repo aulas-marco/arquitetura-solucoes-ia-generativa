@@ -11,7 +11,7 @@
 7. **Probabilístico não significa imensurável.** População, amostra, critérios de avaliação, limiar, incerteza, falha intolerável e ação produzem aceitação honesta.
 8. **Padrões acrescentam responsabilidades.** RAG, fine-tuning, agentes, múltiplos modelos e autogestão só fazem sentido quando seu mecanismo responde a um direcionador.
 9. **ADRs preservam contexto e reversibilidade.** Evidências faltantes e gatilhos de revisão são tão importantes quanto a escolha.
-10. **Rastreabilidade funciona nos dois sentidos.** Todo mecanismo deve apontar para um requisito; toda prioridade deve chegar a uma evidência.
+10. **Rastreabilidade e proveniência funcionam nos dois sentidos.** Todo mecanismo deve apontar para um requisito; toda prioridade deve chegar a uma evidência cuja origem, autoridade, versão, transformação e uso possam ser explicados.
 
 ## Checklist de desenho conceitual
 
@@ -24,9 +24,11 @@ Antes de aprovar o início da construção, verifique:
 - CONOPS cobre modos normal, degradado, bloqueado, manutenção e incidente conforme o risco;
 - responsabilidades humanas usam verbos e incluem autoridade para discordar;
 - objetivos de negócio, produto, dados e IA não se contradizem;
+- características prioritárias declaram tensão aceita, medida e responsável;
 - requisitos arquiteturalmente significativos têm origem, prioridade, cenário e método de verificação;
 - restrições confirmadas estão separadas de preferências e pressupostos;
 - critérios probabilísticos cobrem segmentos críticos e falhas intoleráveis;
+- proveniência registra origem, autorização, versão, transformação e uso de evidências materiais;
 - alternativas convencionais foram comparadas antes de opções generativas mais complexas;
 - cada padrão declara capacidade adicionada e nova responsabilidade operacional;
 - vistas de contexto e componentes possuem equivalentes textuais;
