@@ -169,8 +169,9 @@ A0–A5 é uma escala por ação. Siga a matriz: **A0** não usa escolha do mode
 
 1. Classifique cada ação por efeito, reversibilidade e risco.
 2. Para cada nível, registre identidade, aprovação antes, revisão depois e orçamento.
-3. Escreva condição concreta que aumentaria ou reduziria o nível.
-4. Verifique se o mesmo produto pode ter níveis diferentes por ação.
+3. Priorize segurança, confiabilidade, auditabilidade, latência, custo e modificabilidade; declare uma tensão aceita.
+4. Escreva uma fitness function e condição concreta que aumentaria ou reduziria o nível.
+5. Verifique se o mesmo produto pode ter níveis diferentes por ação.
 
 **Entrega esperada**
 
@@ -184,6 +185,7 @@ Antes de entregar, verifique os itens abaixo:
 - [ ] A matriz distingue aprovação antes da ação de revisão depois da ação.
 - [ ] O mesmo canal pode receber níveis diferentes sem esconder a fronteira no prompt.
 - [ ] Há evidência observável para promover ou reduzir autonomia.
+- [ ] Uma fitness function detecta quebra de autorização, duplicação ou trace insuficiente.
 - [ ] Nenhuma promoção de nível depende apenas de uma resposta “parecer boa”.
 
 **Critérios de avaliação**
@@ -194,7 +196,7 @@ Antes de entregar, verifique os itens abaixo:
 | Efeito e reversibilidade | 25% | Liga nível ao dano possível e à capacidade de desfazer. |
 | Aprovação e revisão | 20% | Define controles antes e depois do efeito. |
 | Limites | 15% | Usa orçamento, identidade e parâmetros observáveis. |
-| Gatilhos | 15% | Define evidência para promover ou reduzir autonomia. |
+| Gatilhos e fitness functions | 15% | Define evidência verificável para promover, reduzir ou interromper autonomia. |
 
  
 
@@ -414,9 +416,10 @@ Use os conceitos de workflow, ferramentas, estado, memória e autonomia em [conc
 
 1. Declare objetivo, atores, restrições e falhas intoleráveis antes de listar componentes.
 2. Compare chatbot, copiloto, workflow e agente e escolha evolução incremental.
-3. Defina contratos de duas ferramentas, identidade delegada, estado, memória e autonomia.
-4. Desenhe aprovação, idempotência, timeout, compensação, fallback e retomada.
-5. Feche com trace minimizado, testes, ADRs e condição de evolução.
+3. Defina responsabilidades de planejador, executor, política, estado e aprovação; o planejador não recebe credenciais nem redefine política.
+4. Defina contratos de duas ferramentas, identidade delegada, estado, memória e autonomia.
+5. Desenhe aprovação, idempotência, timeout, compensação, fallback e retomada.
+6. Feche com trace minimizado, fitness functions, testes, ADRs e condição de evolução.
 
 **Entrega esperada**
 
@@ -430,6 +433,7 @@ Antes de entregar, verifique os itens abaixo:
 - [ ] Cada contrato declara parâmetros, identidade, aprovação, idempotência, timeout e resultado tipado.
 - [ ] Estado, memória, contexto e trace têm finalidade, retenção e controle de acesso definidos.
 - [ ] O caminho de efeito passa por política antes e depois de esperas, conflitos ou retomadas.
+- [ ] Fitness functions cobrem autorização, duplicação, compensação pendente e reconstrução do trace.
 - [ ] Os quatro testes cobrem caminho feliz, negação, repetição e compensação sem usar dados reais.
 
 ```text
@@ -437,6 +441,7 @@ Objetivo, atores, restrições e falhas intoleráveis:
 Comparação chatbot/copiloto/workflow/agente e decisão incremental:
 Catálogo mínimo e contratos completos de duas ferramentas:
 Identidade, autorização delegada, segredos e políticas:
+Responsabilidades e fronteiras entre planejador, executor, política, estado e aprovação:
 Estado, memória de trabalho, memória persistente e contexto:
 Matriz de autonomia por ação e justificativas:
 Aprovação antes, revisão depois e experiência de contestação:
@@ -447,6 +452,7 @@ Orçamentos de etapas, tempo, custo, tokens e ações:
 Fallback determinístico, interrupção e retomada:
 Agente único versus múltiplos agentes e critério de evolução:
 Trace/auditoria com minimização e retenção:
+Fitness functions, métricas, responsáveis e ação diante da falha:
 Diagrama de componentes e sequência com equivalentes textuais:
 Teste do caminho feliz, negação, repetição e compensação:
 Três ADRs com alternativas, consequências e gatilhos:
@@ -461,7 +467,7 @@ Três ADRs com alternativas, consequências e gatilhos:
 | Identidade, estado e autonomia | 15% | Propaga identidade e controla memória, contexto e efeitos. |
 | Aprovação e resiliência | 15% | Inclui aprovação, timeout, idempotência, compensação e retomada. |
 | Operação e observabilidade | 10% | Define orçamento, fallback, trace e retenção proporcional. |
-| Diagramas, testes e ADRs | 20% | Mantém artefatos coerentes e verificáveis. |
+| Diagramas, testes, ADRs e fitness functions | 20% | Mantém artefatos coerentes e verificáveis. |
 | Clareza da composição | 15% | Permite revisar o fluxo sem inferir responsabilidades ocultas. |
 
 ### 18. Iniciativa completa com SDD

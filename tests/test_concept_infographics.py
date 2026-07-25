@@ -25,7 +25,7 @@ INFOGRAPHICS = {
     "modulo-4-agentes": (
         "m04-mapa-autonomia-controlada.png",
         "Mapa da autonomia controlada",
-        "Quatro formas que não devem ser confundidas",
+        "Quatro formas de controle operacional",
     ),
     "modulo-5-confianca": (
         "m05-mapa-confianca-sistemica.png",

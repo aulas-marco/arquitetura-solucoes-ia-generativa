@@ -45,4 +45,6 @@ O conjunto de teste cruza intenção, status do pedido, valor, estoque, identida
 
 Promova A3 somente se superar o workflow em tempo de resolução sem falha intolerável e com traces reconstruíveis. Reduza autonomia quando compensações, revisões ou loops ultrapassarem limites. Expanda ferramenta ou nível apenas com hipótese, teste e ADR. O resultado desejado não é “mais autonomia”; é resolução útil com autoridade e recuperação proporcionais.
 
+O planejador propõe, o executor realiza chamadas autorizadas, a política decide permissão e o estado preserva a trajetória. Antes de adotar um serviço hospedado para qualquer um desses papéis, compare a velocidade inicial com as fronteiras de dados, versões, disponibilidade e saída do fornecedor; capacidade padronizada pode ser comprada, mas política e contrato que diferenciam o domínio merecem controle explícito.
+
 Pratique as decisões em [Exercícios](exercicios.md).

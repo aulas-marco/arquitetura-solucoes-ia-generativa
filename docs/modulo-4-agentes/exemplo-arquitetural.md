@@ -203,6 +203,12 @@ sequenceDiagram
 
 **Equivalente textual 2.** A execução começa com identidade e orçamento. O modelo escolhe leituras; política, executor e adaptadores mediam CRM e pedidos. No **caminho feliz**, antes de cada escrita o sistema revalida identidade, política e versão do recurso, persiste intenção e chave estável e só então o executor chama o adaptador. Depois da espera humana, a confirmação não reutiliza autorização antiga: revalida a aprovação e o pedido v17. Confirmar a troca e registrar o CRM repetem a fronteira determinística e preservam precondições e auditoria. Na **ação rejeitada**, a política nega porque o pedido foi despachado; nenhuma ferramenta de efeito é executada. Na **prevenção de chamada repetida**, o timeout deixa K-845-1 em `outcome_unknown`; o executor consulta o sistema de pedidos pela chave, recebe R9 como resultado autoritativo e só então o estado reutiliza o resultado, sem segunda reserva. No caminho de **compensação**, reserva e confirmação atravessam a mesma fronteira. O conflito de versão exige nova autorização para compensar, intenção `compensation_pending` e chave estável; executor e adaptador liberam R9 com precondição `reserva-v1`, e estado/auditoria preservam versões e efeito residual.
 
+## Prioridades e fitness functions
+
+Segurança, autorização e auditabilidade prevalecem sobre a menor latência. Confiabilidade exige idempotência, reconciliação e compensação; modificabilidade justifica adaptadores e contratos explícitos. Produto e plataforma acompanham tempo e custo, enquanto Segurança responde pela política e Operações pelas execuções pendentes.
+
+As fitness functions bloqueiam promoção quando uma ação material não possui decisão de política, identidade delegada e chave de idempotência válidas; quando uma aprovação não referencia objeto e parâmetros imutáveis; quando uma compensação permanece pendente sem alerta; ou quando o trace não permite reconstruir versões de estado, política, ferramenta e resultado. Elas transformam os limites arquiteturais em verificações contínuas, não em intenções de projeto.
+
 ## Pipeline SDD com gates humanos
 
 ```mermaid
