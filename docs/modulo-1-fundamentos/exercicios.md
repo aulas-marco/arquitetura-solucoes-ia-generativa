@@ -107,18 +107,18 @@ Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#m
 
 **Entrega esperada**
 
-Entregue uma tabela com cinco linhas, duas justificativas de fronteira e um fluxo curto de validação da extração.
+Entregue três itens: (1) a tabela de classificação com as cinco atividades — autenticação, extração, verificação de limite, redação e gravação; (2) o diagrama de componentes com as quatro caixas e as duas fronteiras rotuladas (passos 2 e 3); (3) o fluxo curto de validação da extração para o exemplo do recibo (passo 4).
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Classificação | 25% | Separa geração de texto e percepção de regra, sem tratar todo o sistema como “IA”. |
-| Fronteiras | 30% | Localiza onde a saída probabilística deixa de ser autoridade. |
-| Validação | 25% | Propõe comparação, limiar e revisão para o exemplo do recibo. |
+| Classificação (item 1) | 25% | Separa geração de texto e percepção de regra, sem tratar todo o sistema como “IA”. |
+| Diagrama e fronteiras (item 2) | 30% | Localiza, no diagrama, onde a saída probabilística deixa de ser autoridade. |
+| Validação (item 3) | 25% | Propõe comparação, limiar e revisão para o exemplo do recibo. |
 | Justificativa | 20% | Liga cada escolha a risco, responsabilidade e evidência observável. |
 
-**Como verificar antes de entregar:** confirme que as quatro caixas aparecem com esses nomes, que as duas fronteiras estão desenhadas, que cada seta tem dado e responsável e que “Lançamento financeiro” exige autorização registrada. Verifique também se uma divergência de extração não vira lançamento automático.
+**Como verificar antes de entregar:** confirme que os três itens foram entregues; que as quatro caixas do diagrama aparecem com esses nomes; que as duas fronteiras estão desenhadas; que cada seta tem dado e responsável; e que “Lançamento financeiro” exige autorização registrada. Verifique também se uma divergência de extração não vira lançamento automático.
 
 ### 9. Cenário de qualidade
 
@@ -265,9 +265,9 @@ Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [p
 
 **Como conduzir**
 
-1. Preencha propósito, fora de escopo, stakeholders e duas preocupações (privacidade e correção de nomes, por exemplo).
+1. Preencha propósito, fora de escopo, stakeholders e duas preocupações (privacidade e correção de nomes, por exemplo); classifique os componentes do fluxo — leitura da ata, consulta ao diretório, redação do resumo — como determinísticos ou probabilísticos.
 2. Separe geração, decisão, autorização e efeito para o fluxo de resumo; desenhe o fluxo principal com o exemplo de ata acima.
-3. Classifique o que o assistente usa como conhecimento (diretório), contexto (ata colada) e memória (nenhuma além de 24 horas) — e registre modelo, prompt e fontes que compõem a superfície comportamental.
+3. Classifique o que o assistente usa como conhecimento (diretório), contexto (ata colada) e memória (nenhuma além de 24 horas).
 4. Escreva um cenário de qualidade mensurável e uma forma de verificação (um teste de software **ou** uma avaliação comportamental) para a falha mais provável: o assistente citar um nome incorreto do diretório.
 
 **Entrega esperada**
@@ -293,11 +293,11 @@ Diagrama:
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Escopo e responsabilidades | 25% | Define stakeholders, fora de escopo e separa geração, decisão, autorização e efeito. |
+| Escopo e responsabilidades | 25% | Define stakeholders, fora de escopo, classifica os componentes do fluxo como determinísticos ou probabilísticos e separa geração, decisão, autorização e efeito. |
 | Informação usada | 25% | Separa conhecimento (diretório), contexto (ata) e memória (24 horas), sem confundir os três. |
 | Falha e qualidade | 25% | Liga a falha mais provável a consequência, contenção e um cenário mensurável. |
 | Diagrama e texto | 25% | Mantém componentes e fluxo consistentes entre o diagrama e o equivalente textual. |
 
-**Como verificar antes de entregar:** confira o equivalente textual, os quatro verbos de responsabilidade, a separação entre conhecimento, contexto e memória, e se a falha de nome incorreto tem contenção definida.
+**Como verificar antes de entregar:** confira o equivalente textual, a classificação determinístico/probabilístico dos três componentes, os quatro verbos de responsabilidade, a separação entre conhecimento, contexto e memória, e se a falha de nome incorreto tem contenção definida.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
