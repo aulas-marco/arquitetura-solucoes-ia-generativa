@@ -86,7 +86,9 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 **Situação**
 
-Uma empresa fictícia quer um assistente de despesas. A entrada pode ser uma foto de recibo, mas a aprovação e o lançamento financeiro continuam sendo responsabilidades da aplicação e de uma pessoa autorizada.
+A Contafácil é uma fintech fictícia de gestão de despesas corporativas. Hoje um analista recebe a foto de um recibo, digita valor, moeda e categoria à mão e só então o lançamento segue para aprovação. A diretoria quer um assistente que leia a foto e proponha o lançamento, mas duas regras não podem mudar: nenhum valor entra no sistema financeiro sem checagem contra a política de limite vigente, e nenhum lançamento é efetivado sem aprovação de uma pessoa autorizada.
+
+**Exemplo de recibo:** foto de um recibo de locadora de veículos, valor R$ 187,40, categoria “transporte”. A política de viagem define limite diário de R$ 250 para essa categoria — o valor está dentro do limite, mas o sistema só pode confirmar isso depois de extrair o valor corretamente.
 
 **Seu papel**
 
@@ -94,14 +96,14 @@ Você é o arquiteto responsável por separar o que pode variar linguisticamente
 
 **Insumos disponíveis**
 
-Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens) e o caso fictício descrito acima. Não é necessário instalar uma ferramenta.
+Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens) e o caso Contafácil descrito acima. Não é necessário instalar uma ferramenta.
 
 **Como conduzir**
 
 1. Classifique autenticação, extração, verificação de limite, redação e gravação como predominantemente determinísticas ou probabilísticas.
 2. Desenhe um diagrama de componentes com quatro caixas nomeadas: **Extração do recibo**, **Regra de limite**, **Proposta de despesa** e **Lançamento financeiro**. A primeira fronteira fica entre “Extração do recibo” e “Regra de limite”; a segunda fica entre “Proposta de despesa” e “Lançamento financeiro”.
-3. Rotule cada seta com o dado que atravessa a fronteira: imagem e campos extraídos; valor, moeda e política vigente; proposta com justificativa; comando de lançamento com identificador do aprovador. A última seta somente pode existir depois de autorização explícita.
-4. Para a foto, defina uma validação que compare o valor extraído com o recibo e encaminhe a divergência para revisão. Registre quem pode corrigir o campo e quem pode autorizar o efeito financeiro.
+3. Rotule cada seta com o dado que atravessa a fronteira: imagem e campos extraídos (ex.: R$ 187,40, “transporte”); valor, moeda e política vigente; proposta com justificativa; comando de lançamento com identificador do aprovador. A última seta só existe depois de autorização explícita.
+4. Usando o exemplo do recibo, defina uma validação que compare o valor extraído com o recibo e encaminhe qualquer divergência para revisão. Registre quem pode corrigir o campo e quem pode autorizar o efeito financeiro.
 
 **Entrega esperada**
 
@@ -113,7 +115,7 @@ Entregue uma tabela com cinco linhas, duas justificativas de fronteira e um flux
 |---|---:|---|
 | Classificação | 25% | Separa geração de texto e percepção de regra, sem tratar todo o sistema como “IA”. |
 | Fronteiras | 30% | Localiza onde a saída probabilística deixa de ser autoridade. |
-| Validação | 25% | Propõe comparação, limiar e revisão para um erro plausível de extração. |
+| Validação | 25% | Propõe comparação, limiar e revisão para o exemplo do recibo. |
 | Justificativa | 20% | Liga cada escolha a risco, responsabilidade e evidência observável. |
 
 **Como verificar antes de entregar:** confirme que as quatro caixas aparecem com esses nomes, que as duas fronteiras estão desenhadas, que cada seta tem dado e responsável e que “Lançamento financeiro” exige autorização registrada. Verifique também se uma divergência de extração não vira lançamento automático.
@@ -122,11 +124,11 @@ Entregue uma tabela com cinco linhas, duas justificativas de fronteira e um flux
 
 **O que é:** um cenário de qualidade transforma uma expectativa como “responder rápido” em evento, condição e medida observáveis, permitindo repetir a avaliação.
 
-**Onde encontrar:** consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md), especialmente as seis partes do cenário e os exemplos de percentil.
+**Onde encontrar:** consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) — o próprio cenário de **Latência** já está totalmente preenchido lá e serve de modelo de formato. Não copie os valores dele: o caso abaixo tem canal, população e limite próprios.
 
 **Situação**
 
-O assistente documental transmite uma resposta parcial enquanto trabalha. A equipe precisa saber se o usuário recebe o primeiro conteúdo em tempo aceitável e se a resposta completa chega dentro do limite do canal.
+O Redator é um assistente documental embutido no chat interno da empresa Malbec Jurídico, hoje usado por cerca de 500 consultas por dia. Ele transmite a resposta token a token enquanto gera, como texto sendo digitado. Nas últimas semanas, usuários reclamaram que “a tela fica travada por 6 a 9 segundos antes de aparecer qualquer coisa”. A liderança pediu à equipe uma definição de “rápido” que possa ser medida, não apenas prometida.
 
 **Seu papel**
 
@@ -134,29 +136,29 @@ Você é o arquiteto que transforma a palavra “rápido” em um cenário que o
 
 **Insumos disponíveis**
 
-Consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) e identifique fonte, estímulo, ambiente, artefato, resposta e medida.
+Consulte o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md), identifique fonte, estímulo, ambiente, artefato, resposta e medida, e observe como o cenário de **Latência** já publicado usa p95 para dois momentos distintos (primeiro conteúdo e resposta completa).
 
 **Como conduzir**
 
-1. Escolha uma jornada, como uma pergunta sobre um documento, e declare quem inicia o estímulo.
-2. Preencha as seis partes do cenário sem usar “baixa latência” como medida final.
-3. Escolha percentil, população, condição de carga e janela de observação.
-4. Decida se precisa medir tempo até o primeiro conteúdo, resposta completa ou os dois, e justifique.
+1. Escolha uma jornada do Redator, como “um analista pergunta sobre uma cláusula de contrato”, e declare quem inicia o estímulo.
+2. Preencha as seis partes do cenário para essa jornada, sem usar “baixa latência” como medida final.
+3. Escolha percentil, população (todos os usuários? só os do plano mais lento?) e janela de observação.
+4. Decida se o Redator precisa medir tempo até o primeiro conteúdo, resposta completa ou os dois, e justifique com base na reclamação relatada.
 
 **Entrega esperada**
 
-Entregue um cenário em seis linhas e uma ficha de medição com população, percentil, carga e decisão quando o limite falhar.
+Entregue um cenário em seis linhas e uma ficha de medição com população, percentil, janela e decisão para quando o limite falhar.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Cenário completo | 25% | Identifica as seis partes com um evento observável e um artefato específico. |
-| Medição | 35% | Define percentil, população, carga e janela que permitam repetir a medida. |
+| Cenário completo | 25% | Identifica as seis partes com um evento observável e um artefato específico do Redator. |
+| Medição | 35% | Define percentil, população e janela que permitam repetir a medida. |
 | Escolha de tempos | 25% | Distingue primeiro conteúdo de resposta completa ou explica por que um deles basta. |
 | Ação | 15% | Define o que a equipe fará quando o limite não for atendido. |
 
-**Como verificar antes de entregar:** confira se fonte, estímulo, ambiente, artefato, resposta e medida estão identificados; se a medida tem população, percentil, carga e janela; e se há uma ação definida para o caso de falha.
+**Como verificar antes de entregar:** confira se fonte, estímulo, ambiente, artefato, resposta e medida estão identificados; se a medida tem população, percentil e janela; e se há uma ação definida para o caso de falha.
 
 ## Analisar
 
@@ -168,7 +170,9 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 
 **Situação**
 
-No caso Horizonte, documentos mudam, algumas perguntas exigem fonte e poucos casos podem abrir chamado após confirmação. A liderança pede um agente completo. Você precisa comparar alternativas sem condensar tudo nessa preferência.
+No [caso Horizonte](exemplo-arquitetural.md), o piloto atende perguntas sobre vinte políticas de viagem com dono e vigência confirmados; em um teste com 30 perguntas, 24 foram respondidas de forma aceitável usando documentos escolhidos manualmente. As políticas mudam de versão com frequência, algumas perguntas exigem citar a fonte, e poucos casos poderiam abrir um chamado depois de confirmação humana. Depois de ver o piloto funcionar, a liderança pediu à equipe: “por que não fazemos logo um agente completo, que decide sozinho e já abre o chamado quando tiver certeza?”. Seu trabalho é comparar alternativas para as quatro decisões sem deixar essa preferência decidir por você.
+
+**Exemplo parcial (linha “Produção”):** alternativa convencional = manter a busca atual, com o analista lendo o documento inteiro; alternativa generativa = manter a redação automática já testada no piloto; evidência disponível = 24 de 30 respostas aceitáveis. Complete as três linhas restantes seguindo esse mesmo padrão.
 
 **Seu papel**
 
@@ -180,26 +184,24 @@ Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo
 
 **Como conduzir**
 
-1. Crie linhas para produção, conhecimento, efeito e operação.
-2. Em cada linha, compare ao menos uma alternativa convencional e uma generativa.
-3. Registre capacidade, responsabilidade, característica afetada e evidência disponível.
-4. Separe fatos de hipóteses e formule a incógnita que poderia inverter cada direção.
+1. Crie linhas para produção, conhecimento, efeito e operação; comece pela linha “Produção” já iniciada acima.
+2. Em cada linha, compare ao menos uma alternativa convencional e uma generativa, registrando capacidade, responsabilidade e evidência disponível.
+3. Separe fatos (como o 24 de 30) de hipóteses (como “um agente completo reduziria mais tempo”).
+4. Para a linha “Efeito”, formule a incógnita que poderia inverter a direção — por exemplo, se abrir chamado sozinho preservaria a taxa de acerto observada no piloto.
 
 **Entrega esperada**
 
-Entregue uma matriz das quatro decisões, recomendação incremental e experimento para a incógnita de maior risco.
+Entregue a matriz das quatro decisões e uma recomendação incremental para a incógnita da linha “Efeito”.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Decisões separadas | 20% | Não confunde produção, conhecimento, efeito e operação. |
-| Consequências | 25% | Explica efeitos arquiteturais concretos, não apenas vantagens genéricas. |
-| Evidências e limites | 25% | Distingue dado fornecido, hipótese e lacuna de medição. |
-| Decisão provisória | 15% | Recomenda uma opção condicionada ao contexto, sem declarar vencedor universal. |
-| Investigação | 15% | Propõe uma medida capaz de confirmar ou refutar a hipótese principal. |
+| Decisões separadas | 25% | Não confunde produção, conhecimento, efeito e operação. |
+| Evidências e limites | 35% | Distingue dado fornecido (como o 24 de 30), hipótese e lacuna de medição. |
+| Decisão provisória | 40% | Recomenda uma opção condicionada ao contexto para a incógnita de “Efeito”, sem declarar vencedor universal. |
 
-**Como verificar antes de entregar:** confira que cada decisão possui alternativa convencional, responsabilidade e evidência; que fato e hipótese estão separados; e que o experimento pode inverter uma direção.
+**Como verificar antes de entregar:** confira que cada decisão possui alternativa convencional, responsabilidade e evidência; que fato e hipótese estão separados; e que a incógnita de “Efeito” está formulada de forma testável.
 
 ## Avaliar
 
@@ -207,53 +209,51 @@ Entregue uma matriz das quatro decisões, recomendação incremental e experimen
 
 **O que é:** contestar uma ficha inicial significa verificar se ela contém problema, responsabilidades, alternativas e evidência suficientes para seguir ao desenho conceitual.
 
-**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) — reproduzida abaixo com os dados do caso Horizonte — e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Se você já fez o exercício 10, reaproveite sua matriz das quatro decisões.
 
 **Situação**
 
-A equipe quer seguir diretamente para RAG e agente porque “são o padrão de mercado”. A frase não demonstra adequação ao caso Horizonte.
+A ficha de decisão do caso Horizonte já registra: *situação* — analistas gastam tempo localizando políticas e explicando-as; *prioridades* — fundamentação e privacidade antes de cobertura, p95 abaixo de oito segundos; *evidência* — 24 de 30 perguntas aceitáveis com documentos escolhidos manualmente. Mesmo com esses dados na mesa, um membro da equipe argumenta em uma reunião: “RAG e agente são o padrão de mercado, vamos direto para lá”. A frase não cita nenhum dado da ficha.
 
 **Seu papel**
 
-Você é o revisor arquitetural. Seu trabalho é testar a decisão, localizar premissas e dizer o que precisa acontecer antes de uma adoção.
+Você é o revisor arquitetural. Seu trabalho é testar a afirmação “é o padrão de mercado” contra a ficha e dizer o que precisa acontecer antes de uma adoção.
 
 **Insumos disponíveis**
 
-Leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial), a matriz anterior e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+Leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Use os dados do caso Horizonte reproduzidos acima.
 
 **Como conduzir**
 
-1. Escreva o julgamento inicial: aceitar, rejeitar ou manter como experimento.
-2. Liste dois direcionadores e mostre como favorecem ou enfraquecem as direções propostas.
-3. Separe evidência existente de hipótese e escolha uma consequência que ainda precisa ser medida.
-4. Defina limite, responsável e gatilho que fariam você rever o julgamento.
+1. Escreva o julgamento inicial: aceitar, rejeitar ou manter como experimento a proposta de ir direto para RAG e agente.
+2. Aponte dois dados da ficha (por exemplo, o 24 de 30 e o p95 de oito segundos) que a frase “padrão de mercado” ignora.
+3. Defina um limite e um gatilho que fariam você rever o julgamento — por exemplo, uma taxa de suporte abaixo de 80% em teste piloto.
 
 **Entrega esperada**
 
-Entregue um parecer de até 300 palavras e uma tabela com evidência atual, hipótese, medida e gatilho de revisão.
+Entregue um parecer de até 200 palavras citando os dois dados da ficha e o gatilho de revisão.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Julgamento | 25% | Toma uma posição explícita e proporcional ao que se sabe. |
-| Direcionadores | 25% | Relaciona a posição a requisitos e riscos do caso, não à tendência. |
-| Evidência | 25% | Separa fato, hipótese e ausência de dado. |
-| Revisão | 25% | Define medida, limite e gatilho que podem mudar a decisão. |
+| Julgamento | 30% | Toma uma posição explícita (aceitar, rejeitar ou experimentar). |
+| Evidência da ficha | 40% | Cita ao menos dois dados concretos da ficha, não a tendência de mercado. |
+| Gatilho de revisão | 30% | Define um limite e uma condição que fariam a decisão ser revista. |
 
-**Como verificar antes de entregar:** confira se o parecer declara aceitar, rejeitar ou experimentar; se cada razão aponta para um direcionador do caso; se fato, hipótese e lacuna estão separados; e se limite, responsável e gatilho permitem rever a decisão.
+**Como verificar antes de entregar:** confira se o parecer declara aceitar, rejeitar ou experimentar; se cita pelo menos dois dados da ficha (não “padrão de mercado”); e se o gatilho de revisão é mensurável.
 
 ## Criar
 
 ### 12. Leitura arquitetural mínima
 
-**O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras, falhas e evidências de qualidade.
+**O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras e evidências de qualidade. Este exercício reúne, em um único caso, os elementos praticados nos exercícios 8 a 11.
 
 **Onde encontrar:** use os [conceitos](conceitos.md), a [ficha de decisão](padroes-e-decisoes.md#ficha-de-decisao-inicial), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) e o [exemplo Horizonte](exemplo-arquitetural.md).
 
 **Situação**
 
-Uma equipe quer um assistente que resuma atas fornecidas pelo usuário e, opcionalmente, consulte um diretório somente para normalizar nomes. Ele não pode enviar mensagens e deve apagar a memória da conversa após 24 horas.
+A Registra é uma equipe fictícia de secretaria executiva. Ela quer um assistente que resuma atas de reunião coladas pelo próprio usuário — por exemplo, um trecho como “presentes: Ana, Bruno e o fornecedor externo; decidido adiar a integração para o próximo trimestre”. Opcionalmente, o assistente pode consultar um diretório interno (nomes e cargos, sem dados de contato) apenas para corrigir a grafia de nomes citados na ata. Por exigência de privacidade da equipe jurídica, o assistente **não pode enviar mensagens** a ninguém e deve **apagar a memória da conversa após 24 horas** — ele só ajuda a redigir o resumo; não distribui nada.
 
 **Seu papel**
 
@@ -265,33 +265,27 @@ Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [p
 
 **Como conduzir**
 
-1. Preencha primeiro propósito, fora de escopo, stakeholders e preocupações.
-2. Separe geração, decisão, autorização e efeito; desenhe o fluxo principal.
-3. Classifique conhecimento, contexto, estado, memória, evidência e trace usados.
-4. Registre modelo, parâmetros, prompt, fontes, ferramentas, políticas e implantação que compõem a superfície comportamental.
-5. Escreva um cenário, um teste de software, uma avaliação comportamental e uma fitness function.
-6. Defina um experimento que possa refutar a hipótese de maior risco.
+1. Preencha propósito, fora de escopo, stakeholders e duas preocupações (privacidade e correção de nomes, por exemplo).
+2. Separe geração, decisão, autorização e efeito para o fluxo de resumo; desenhe o fluxo principal com o exemplo de ata acima.
+3. Classifique o que o assistente usa como conhecimento (diretório), contexto (ata colada) e memória (nenhuma além de 24 horas) — e registre modelo, prompt e fontes que compõem a superfície comportamental.
+4. Escreva um cenário de qualidade mensurável e uma forma de verificação (um teste de software **ou** uma avaliação comportamental) para a falha mais provável: o assistente citar um nome incorreto do diretório.
 
 **Entrega esperada**
 
-Entregue a ficha abaixo preenchida e um diagrama de contexto ou componentes acompanhado do equivalente textual.
+Entregue a ficha abaixo preenchida e um diagrama de componentes acompanhado do equivalente textual.
 
 **Template do entregável**
 
 ```text
 Propósito e fora de escopo:
 Stakeholders e duas preocupações:
-Componentes determinísticos:
-Componente(s) probabilístico(s):
+Componentes determinísticos e probabilístico(s):
 Geração — decisão — autorização — efeito:
-Fluxo principal:
-Conhecimento — contexto — estado — memória — evidência — trace:
-Superfície comportamental:
-Falha 1 — consequência — contenção:
-Falha 2 — consequência — contenção:
+Fluxo principal (use o exemplo de ata):
+Conhecimento — contexto — memória usados:
+Falha mais provável — consequência — contenção:
 Cenário de qualidade mensurável:
-Teste — avaliação — fitness function:
-Hipótese de maior risco e experimento:
+Verificação (teste ou avaliação):
 Diagrama:
 ```
 
@@ -299,13 +293,11 @@ Diagrama:
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Escopo e responsabilidades | 15% | Define usuário, fora de escopo e separa geração, decisão, autorização e efeito. |
-| Ciclos de informação | 20% | Separa conhecimento, contexto, estado, memória, evidência e trace. |
-| Falhas e qualidade | 15% | Liga falhas a consequência, contenção e cenário mensurável. |
-| Diagrama e texto | 15% | Mantém componentes, fluxos e responsabilidades consistentes nas duas formas. |
-| Verificação e experimento | 15% | Distingue teste, avaliação, fitness function e experimento refutável. |
-| Clareza arquitetural | 20% | Permite que outro arquiteto reconstrua a decisão sem adivinhar premissas. |
+| Escopo e responsabilidades | 25% | Define stakeholders, fora de escopo e separa geração, decisão, autorização e efeito. |
+| Informação usada | 25% | Separa conhecimento (diretório), contexto (ata) e memória (24 horas), sem confundir os três. |
+| Falha e qualidade | 25% | Liga a falha mais provável a consequência, contenção e um cenário mensurável. |
+| Diagrama e texto | 25% | Mantém componentes e fluxo consistentes entre o diagrama e o equivalente textual. |
 
-**Como verificar antes de entregar:** confira o equivalente textual, os quatro verbos de responsabilidade, os seis ciclos de informação, a superfície comportamental, as três formas de verificação e a hipótese refutável.
+**Como verificar antes de entregar:** confira o equivalente textual, os quatro verbos de responsabilidade, a separação entre conhecimento, contexto e memória, e se a falha de nome incorreto tem contenção definida.
 
 Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
