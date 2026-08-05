@@ -657,3 +657,343 @@
   topics: [arquitetura, decisoes, adr]
   modules: [2]
   type: official-documentation
+
+- id: lm-studio
+  title: LM Studio
+  authors: LM Studio
+  year: 2026
+  url: https://lmstudio.ai
+  accessed: 2026-08-05
+  topics: [modelos-locais, interface, ferramentas]
+  modules: [1]
+  type: vendor-site
+
+- id: vllm-docs
+  title: vLLM
+  authors: vLLM Project
+  year: 2026
+  url: https://docs.vllm.ai/
+  accessed: 2026-08-05
+  topics: [inferencia, throughput, ferramentas]
+  modules: [1]
+  type: official-documentation
+
+- id: llama-cpp
+  title: llama.cpp
+  authors: ggml-org
+  year: 2026
+  url: https://github.com/ggml-org/llama.cpp
+  accessed: 2026-08-05
+  topics: [inferencia, quantizacao, ferramentas]
+  modules: [1]
+  type: official-repository
+
+- id: huggingface-hub
+  title: Hugging Face Hub
+  authors: Hugging Face
+  year: 2026
+  url: https://huggingface.co/models
+  accessed: 2026-08-05
+  topics: [catalogo-de-modelos, modelos-abertos]
+  modules: [1]
+  type: vendor-site
+
+- id: open-webui
+  title: Open WebUI
+  authors: Open WebUI
+  year: 2026
+  url: https://openwebui.com
+  accessed: 2026-08-05
+  topics: [interface, modelos-locais]
+  modules: [1]
+  type: vendor-site
+
+- id: lmarena
+  title: LMArena
+  authors: LMArena
+  year: 2026
+  url: https://lmarena.ai
+  accessed: 2026-08-05
+  topics: [benchmark, avaliacao-comportamental]
+  modules: [1]
+  type: vendor-site
+
+- id: openrouter
+  title: OpenRouter
+  authors: OpenRouter
+  year: 2026
+  url: https://openrouter.ai
+  accessed: 2026-08-05
+  topics: [gateway, catalogo-de-modelos]
+  modules: [2]
+  type: vendor-site
+
+- id: portkey
+  title: Portkey
+  authors: Portkey
+  year: 2026
+  url: https://portkey.ai
+  accessed: 2026-08-05
+  topics: [gateway, governanca, observabilidade]
+  modules: [2]
+  type: vendor-site
+
+- id: kong-ai-gateway
+  title: Kong AI Gateway
+  authors: Kong Inc.
+  year: 2026
+  url: https://konghq.com/products/kong-ai-gateway
+  accessed: 2026-08-05
+  topics: [gateway, api-management]
+  modules: [2]
+  type: vendor-site
+
+- id: cloudflare-ai-gateway
+  title: Cloudflare AI Gateway
+  authors: Cloudflare
+  year: 2026
+  url: https://developers.cloudflare.com/ai-gateway/
+  accessed: 2026-08-05
+  topics: [gateway, cache, observabilidade]
+  modules: [2]
+  type: official-documentation
+
+- id: aws-bedrock
+  title: Amazon Bedrock
+  authors: Amazon Web Services
+  year: 2026
+  url: https://aws.amazon.com/bedrock/
+  accessed: 2026-08-05
+  topics: [gateway, modelos-gerenciados]
+  modules: [2]
+  type: vendor-site
+
+- id: azure-ai-foundry
+  title: Azure AI Foundry
+  authors: Microsoft
+  year: 2026
+  url: https://azure.microsoft.com/en-us/products/ai-foundry
+  accessed: 2026-08-05
+  topics: [gateway, plataforma-corporativa]
+  modules: [2]
+  type: vendor-site
+
+- id: qdrant
+  title: Qdrant
+  authors: Qdrant
+  year: 2026
+  url: https://qdrant.tech
+  accessed: 2026-08-05
+  topics: [banco-vetorial, recuperacao]
+  modules: [3]
+  type: vendor-site
+
+- id: weaviate
+  title: Weaviate
+  authors: Weaviate
+  year: 2026
+  url: https://weaviate.io
+  accessed: 2026-08-05
+  topics: [banco-vetorial, busca-hibrida]
+  modules: [3]
+  type: vendor-site
+
+- id: pgvector
+  title: pgvector
+  authors: pgvector
+  year: 2026
+  url: https://github.com/pgvector/pgvector
+  accessed: 2026-08-05
+  topics: [banco-vetorial, postgresql]
+  modules: [3]
+  type: official-repository
+
+- id: llamaindex
+  title: LlamaIndex
+  authors: LlamaIndex
+  year: 2026
+  url: https://www.llamaindex.ai
+  accessed: 2026-08-05
+  topics: [rag, indexacao, recuperacao]
+  modules: [3]
+  type: vendor-site
+
+- id: cohere-rerank
+  title: Cohere Rerank
+  authors: Cohere
+  year: 2026
+  url: https://cohere.com/rerank
+  accessed: 2026-08-05
+  topics: [reranking, recuperacao]
+  modules: [3]
+  type: vendor-site
+
+- id: ragas-github
+  title: RAGAs (repositório)
+  authors: Exploding Gradients
+  year: 2026
+  url: https://github.com/explodinggradients/ragas
+  accessed: 2026-08-05
+  topics: [rag, avaliacao]
+  modules: [3]
+  type: official-repository
+
+- id: crewai
+  title: CrewAI
+  authors: CrewAI
+  year: 2026
+  url: https://www.crewai.com
+  accessed: 2026-08-05
+  topics: [agentes, orquestracao-multiagente]
+  modules: [4]
+  type: vendor-site
+
+- id: google-adk
+  title: Google Agent Development Kit
+  authors: Google
+  year: 2026
+  url: https://google.github.io/adk-docs/
+  accessed: 2026-08-05
+  topics: [agentes, sdk]
+  modules: [4]
+  type: official-documentation
+
+- id: openai-agents-sdk
+  title: OpenAI Agents SDK
+  authors: OpenAI
+  year: 2026
+  url: https://openai.github.io/openai-agents-python/
+  accessed: 2026-08-05
+  topics: [agentes, sdk]
+  modules: [4]
+  type: official-documentation
+
+- id: claude-agent-sdk
+  title: Claude Agent SDK
+  authors: Anthropic
+  year: 2026
+  url: https://platform.claude.com/docs/en/agent-sdk/overview
+  accessed: 2026-08-05
+  topics: [agentes, sdk]
+  modules: [4]
+  type: official-documentation
+
+- id: ag2
+  title: AG2
+  authors: AG2AI
+  year: 2026
+  url: https://github.com/ag2ai/ag2
+  accessed: 2026-08-05
+  topics: [agentes, multiagente]
+  modules: [4]
+  type: official-repository
+
+- id: promptfoo
+  title: Promptfoo
+  authors: Promptfoo
+  year: 2026
+  url: https://www.promptfoo.dev
+  accessed: 2026-08-05
+  topics: [avaliacao, red-teaming]
+  modules: [5]
+  type: vendor-site
+
+- id: nvidia-garak
+  title: Garak
+  authors: NVIDIA
+  year: 2026
+  url: https://github.com/NVIDIA/garak
+  accessed: 2026-08-05
+  topics: [red-teaming, seguranca]
+  modules: [5]
+  type: official-repository
+
+- id: microsoft-pyrit
+  title: PyRIT
+  authors: Microsoft
+  year: 2026
+  url: https://github.com/Azure/PyRIT
+  accessed: 2026-08-05
+  topics: [red-teaming, seguranca]
+  modules: [5]
+  type: official-repository
+
+- id: giskard
+  title: Giskard
+  authors: Giskard
+  year: 2026
+  url: https://www.giskard.ai
+  accessed: 2026-08-05
+  topics: [avaliacao, seguranca]
+  modules: [5]
+  type: vendor-site
+
+- id: nvidia-nemo-guardrails
+  title: NeMo Guardrails
+  authors: NVIDIA
+  year: 2026
+  url: https://github.com/NVIDIA/NeMo-Guardrails
+  accessed: 2026-08-05
+  topics: [guardrails, seguranca]
+  modules: [5]
+  type: official-repository
+
+- id: arize-phoenix
+  title: Arize Phoenix
+  authors: Arize AI
+  year: 2026
+  url: https://phoenix.arize.com
+  accessed: 2026-08-05
+  topics: [avaliacao, observabilidade]
+  modules: [5]
+  type: vendor-site
+
+- id: langfuse
+  title: Langfuse
+  authors: Langfuse
+  year: 2026
+  url: https://langfuse.com
+  accessed: 2026-08-05
+  topics: [observabilidade, llmops]
+  modules: [6]
+  type: vendor-site
+
+- id: langsmith
+  title: LangSmith
+  authors: LangChain
+  year: 2026
+  url: https://www.langchain.com/langsmith
+  accessed: 2026-08-05
+  topics: [observabilidade, avaliacao]
+  modules: [6]
+  type: vendor-site
+
+- id: helicone
+  title: Helicone
+  authors: Helicone
+  year: 2026
+  url: https://www.helicone.ai
+  accessed: 2026-08-05
+  topics: [observabilidade, custo]
+  modules: [6]
+  type: vendor-site
+
+- id: wandb-weave
+  title: Weights & Biases Weave
+  authors: Weights & Biases
+  year: 2026
+  url: https://wandb.ai/site/weave/
+  accessed: 2026-08-05
+  topics: [observabilidade, avaliacao]
+  modules: [6]
+  type: vendor-site
+
+- id: launchdarkly
+  title: LaunchDarkly
+  authors: LaunchDarkly
+  year: 2026
+  url: https://launchdarkly.com
+  accessed: 2026-08-05
+  topics: [feature-flags, entrega-controlada]
+  modules: [6]
+  type: vendor-site

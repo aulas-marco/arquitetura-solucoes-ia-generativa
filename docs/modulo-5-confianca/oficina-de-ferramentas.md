@@ -204,3 +204,16 @@ Indique uma falha que exigiria bloqueio, uma que exigiria melhoria de experiênc
 ## Limpeza e contingência
 
 Saia do ambiente com `deactivate`. Apague `relatorio-confianca.json` se não quiser preservar a evidência local. Se o script falhar, confira `ollama list`, `python -m pip show deepeval` e a existência dos dois arquivos. Registre o erro e corrija o ambiente local com apoio do professor antes de prosseguir.
+
+## Ferramentas adicionais
+
+O laboratório usou DeepEval com um juiz local para transformar "parece seguro" em casos, critério e relatório. O mercado tem ferramentas de avaliação, guardrails e red teaming com o mesmo objetivo em escopos distintos. Investigação livre, fora do escopo avaliado desta oficina.
+
+| Ferramenta | Site | Propósito |
+|---|---|---|
+| Promptfoo | [promptfoo.dev](https://www.promptfoo.dev) | Framework open source de teste e red teaming de prompts, com dezenas de tipos de vulnerabilidade e integração a esteiras de CI |
+| Garak | [github.com/NVIDIA/garak](https://github.com/NVIDIA/garak) | Scanner de vulnerabilidades para LLMs mantido pela NVIDIA, com dezenas de sondas (probes) automatizadas |
+| PyRIT | [github.com/Azure/PyRIT](https://github.com/Azure/PyRIT) | Framework de red teaming da Microsoft para ataques de múltiplos turnos e múltiplas modalidades |
+| Giskard | [giskard.ai](https://www.giskard.ai) | Plataforma de testes de qualidade e segurança para modelos de aprendizado de máquina e LLM |
+| NeMo Guardrails | [github.com/NVIDIA/NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) | Biblioteca da NVIDIA para adicionar trilhos de segurança programáveis a assistentes conversacionais |
+| Arize Phoenix | [phoenix.arize.com](https://phoenix.arize.com) | Plataforma open source de avaliação e observabilidade para aplicações de RAG e agentes |

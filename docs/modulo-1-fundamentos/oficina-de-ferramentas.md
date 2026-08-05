@@ -287,3 +287,16 @@ ollama rm llama3.2:3b
 ```
 
 Se a instalação, o download ou a capacidade da máquina impedir a execução, peça ao professor saídas sintéticas de referência, preencha a mesma tabela e declare a limitação. Essas saídas preservam o objetivo do laboratório, mas não transformam a amostra em prova de qualidade geral: uma decisão real também precisa de casos representativos, critérios de aceitação, evidência de fonte e revisão proporcional ao risco.
+
+## Ferramentas adicionais
+
+A oficina fixou o Ollama para manter o experimento local e comparável. O mercado tem variações da mesma família — outros executores, interfaces e catálogos de modelo — que ampliam a mesma pergunta: como contexto, parâmetros e origem do modelo mudam o comportamento observado. Investigação livre, fora do escopo avaliado desta oficina.
+
+| Ferramenta | Site | Propósito |
+|---|---|---|
+| LM Studio | [lmstudio.ai](https://lmstudio.ai) | Interface gráfica para baixar, configurar e conversar com modelos locais; alternativa à linha de comando do Ollama |
+| vLLM | [docs.vllm.ai](https://docs.vllm.ai/) | Motor de inferência de alto throughput, referência para servir modelos a muitos usuários simultâneos em produção |
+| llama.cpp | [github.com/ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | Motor de inferência em C/C++ que alimenta o Ollama e outros executores; expõe controle fino de quantização e hardware |
+| Hugging Face Hub | [huggingface.co/models](https://huggingface.co/models) | Catálogo público de modelos abertos, pesos e cartões de modelo (model cards) com documentação de treinamento e limitações |
+| Open WebUI | [openwebui.com](https://openwebui.com) | Interface web para conversar com modelos servidos por Ollama ou vLLM; útil para inspecionar histórico e contexto acumulado |
+| LMArena | [lmarena.ai](https://lmarena.ai) | Ranking público de modelos por votação humana pareada, referência para acompanhar o estado da arte comportamental |

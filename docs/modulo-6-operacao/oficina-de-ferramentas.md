@@ -219,3 +219,16 @@ Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exi
 Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e apague a pasta do laboratório se não precisar mais dela. Para liberar o modelo, use `ollama rm llama3.2:3b` somente após as demais oficinas.
 
 Se ocorrer erro, confirme que `curl http://localhost:4000/health/readiness` responde, que `ollama list` mostra o modelo e que as dependências foram instaladas. Registre a mensagem e corrija a configuração local com apoio do professor; não substitua a evidência por telemetria de outro ambiente.
+
+## Ferramentas adicionais
+
+O laboratório usou OpenTelemetry para expor spans de uma chamada de plataforma. O mercado tem plataformas dedicadas de observabilidade, gateways e controle de entrega que assumem esse sinal e o transformam em operação contínua. Investigação livre, fora do escopo avaliado desta oficina.
+
+| Ferramenta | Site | Propósito |
+|---|---|---|
+| Langfuse | [langfuse.com](https://langfuse.com) | Plataforma open source de observabilidade e avaliação para aplicações de LLM, agnóstica de framework |
+| LangSmith | [langchain.com/langsmith](https://www.langchain.com/langsmith) | Observabilidade e avaliação integradas ao ecossistema LangChain/LangGraph |
+| Helicone | [helicone.ai](https://www.helicone.ai) | Observabilidade de custo e uso com múltiplos provedores de modelo, integração leve por proxy |
+| Weights & Biases Weave | [wandb.ai/site/weave](https://wandb.ai/site/weave/) | Rastreamento de execuções e avaliação para aplicações de IA generativa, integrado ao ecossistema W&B |
+| LaunchDarkly | [launchdarkly.com](https://launchdarkly.com) | Plataforma de feature flags e liberação progressiva (canary), aplicável ao rollout controlado de mudanças em produtos de IA |
+| OpenTelemetry GenAI Semantic Conventions | [github.com/open-telemetry/semantic-conventions-genai](https://github.com/open-telemetry/semantic-conventions-genai) | Convenções semânticas específicas para spans de chamadas de modelo, tokens e ferramentas |

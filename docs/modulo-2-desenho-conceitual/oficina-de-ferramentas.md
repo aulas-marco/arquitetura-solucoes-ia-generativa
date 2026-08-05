@@ -255,3 +255,16 @@ Entregue a tabela e uma mini-ADR de até 250 palavras.
 Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e remova a pasta `oficina-m2` se não precisar mais da evidência. Para liberar o espaço do modelo, use `ollama rm llama3.2:3b` somente se ele não será usado nas próximas oficinas.
 
 Se a instalação falhar, registre a mensagem de erro, verifique `python --version`, `ollama --version` e as portas indicadas. A contingência é corrigir o ambiente local com o professor; não substitua a execução por uma resposta inventada ou por dados reais.
+
+## Ferramentas adicionais
+
+O laboratório usou o LiteLLM Proxy para isolar a aplicação do modelo por um contrato estável. O mercado tem gateways com o mesmo papel e escopos diferentes de operação, governança e observabilidade. Investigação livre, fora do escopo avaliado desta oficina.
+
+| Ferramenta | Site | Propósito |
+|---|---|---|
+| OpenRouter | [openrouter.ai](https://openrouter.ai) | Catálogo hospedado de mais de cem modelos atrás de uma única API, com fallback automático entre provedores |
+| Portkey | [portkey.ai](https://portkey.ai) | Gateway com guardrails, cache semântico e observabilidade integrados, sem exigir operação própria de infraestrutura |
+| Kong AI Gateway | [konghq.com/products/kong-ai-gateway](https://konghq.com/products/kong-ai-gateway) | Gateway de LLM integrado a uma plataforma de gestão de API já madura, com autenticação e limitação de taxa |
+| Cloudflare AI Gateway | [developers.cloudflare.com/ai-gateway](https://developers.cloudflare.com/ai-gateway/) | Gateway totalmente gerenciado na borda da Cloudflare, com cache e análise de uso sem operação própria |
+| Amazon Bedrock | [aws.amazon.com/bedrock](https://aws.amazon.com/bedrock/) | Serviço gerenciado da AWS para acessar múltiplos modelos fundacionais sob um único contrato de nuvem |
+| Azure AI Foundry | [azure.microsoft.com/products/ai-foundry](https://azure.microsoft.com/en-us/products/ai-foundry) | Plataforma gerenciada da Microsoft para orquestrar modelos, avaliação e implantação corporativa |

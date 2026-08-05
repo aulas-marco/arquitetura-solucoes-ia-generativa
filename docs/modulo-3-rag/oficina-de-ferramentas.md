@@ -235,3 +235,16 @@ Registre também uma fitness function: por exemplo, “nenhuma resposta é exibi
 Encerre a execução, saia do ambiente com `deactivate` e apague `.venv` e `chroma-boreal` se não precisar mais deles. Para remover modelos que não serão usados, execute `ollama rm nomic-embed-text` e `ollama rm llama3.2:3b`.
 
 Se houver falha, primeiro confirme `python --version`, `ollama list`, a existência de `corpus/` e os nomes dos quatro arquivos. Registre a mensagem de erro e peça apoio ao professor para corrigir a instalação local. Não substitua o corpus por políticas reais, contratos ou dados de atendimento.
+
+## Ferramentas adicionais
+
+O laboratório combinou LangChain, Chroma e Ollama para observar ingestão, recuperação e proveniência num RAG mínimo. O mercado tem bancos vetoriais, frameworks e serviços de recuperação com escala e maturidade diferentes. Investigação livre, fora do escopo avaliado desta oficina.
+
+| Ferramenta | Site | Propósito |
+|---|---|---|
+| Qdrant | [qdrant.tech](https://qdrant.tech) | Banco vetorial open source em Rust, referência de desempenho em recuperação por similaridade |
+| Weaviate | [weaviate.io](https://weaviate.io) | Banco vetorial com busca híbrida nativa (vetorial e lexical) e esquema tipado |
+| pgvector | [github.com/pgvector/pgvector](https://github.com/pgvector/pgvector) | Extensão vetorial para PostgreSQL; opção quando embeddings e dados relacionais devem conviver na mesma base |
+| LlamaIndex | [llamaindex.ai](https://www.llamaindex.ai) | Framework especializado em indexação e recuperação, alternativa ao LangChain para pipelines de RAG |
+| Cohere Rerank | [cohere.com/rerank](https://cohere.com/rerank) | Serviço de reranking para refinar a ordem dos trechos recuperados antes da geração |
+| RAGAs | [github.com/explodinggradients/ragas](https://github.com/explodinggradients/ragas) | Framework de avaliação específico para RAG: fidelidade, relevância e recall da recuperação |
