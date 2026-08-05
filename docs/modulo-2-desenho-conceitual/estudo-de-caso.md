@@ -10,6 +10,22 @@ O processo envolve dados sensíveis: renda, saldo, atraso, eventos familiares in
 
 Política interna estabelece **revisão humana obrigatória** por especialista e aprovação por pessoa distinta antes de qualquer oferta. O sistema não pode alterar contrato, limite, taxa ou status do cliente. Comunicações externas usam uma plataforma separada e ficam fora do primeiro incremento.
 
+### O processo hoje
+
+```mermaid
+flowchart LR
+    CL[Cliente] -->|pede renegociação| ESP[Especialista]
+    ESP --> CT[Contratos]
+    ESP --> PG[Pagamentos]
+    ESP --> PC[Política de campanha vigente]
+    ESP --> RC[Registro de contato]
+    ESP -->|redige| PR[Proposta de renegociação]
+    PR --> AP[Aprovador distinto]
+    AP -->|aprova ou devolve| ESP
+```
+
+**Equivalente textual.** O especialista recebe o pedido do cliente e consulta, manualmente, contratos, pagamentos, política de campanha vigente e registro de contato antes de redigir a proposta; um aprovador distinto decide antes de qualquer oferta. Nenhuma composição de IA generativa está representada aqui — este é o processo hoje, o material a partir do qual as quatro direções candidatas devem ser comparadas.
+
 ## Situação observada
 
 Em uma amostra de 180 solicitações:
@@ -37,39 +53,47 @@ Os dados não isolam causa: tempo foi autorrelatado e complexidade pode estar de
 | Operações | sobreviver às janelas e erros dos sistemas legados |
 | Auditoria | reconstruir dados, regras, versões, proposta e intervenções humanas |
 
-Restrições confirmadas: revisão humana obrigatória; segregação entre quem propõe e quem aprova; nenhuma gravação por modelo; residência nacional dos dados classificados; retenção de conteúdo de inferência por no máximo 24 horas; rastreabilidade da versão de política; suporte ao fluxo manual durante indisponibilidade.
+**Restrições confirmadas:**
 
-Preferências ainda não confirmadas: usar um único produto; entregar em oito semanas; evitar qualquer componente autogerido; incluir todas as campanhas na primeira versão.
+- revisão humana obrigatória;
+- segregação entre quem propõe e quem aprova;
+- nenhuma gravação por modelo;
+- residência nacional dos dados classificados;
+- retenção de conteúdo de inferência por no máximo 24 horas;
+- rastreabilidade da versão de política;
+- suporte ao fluxo manual durante indisponibilidade.
+
+**Preferências ainda não confirmadas:**
+
+- usar um único produto;
+- entregar em oito semanas;
+- evitar qualquer componente autogerido;
+- incluir todas as campanhas na primeira versão.
 
 ## Cenários que a arquitetura deve enfrentar
 
-1. **Caso normal:** especialista autorizado abre solicitação, consulta informações, prepara proposta, corrige e envia para aprovação.
-2. **Políticas conflitantes:** duas fontes vigentes parecem indicar condições diferentes; o sistema deve expor conflito, não escolher silenciosamente.
-3. **Dado sensível excessivo:** anotação livre contém informação sem finalidade para renegociação.
-4. **Sistema legado indisponível:** saldo atualizado não pode ser obtido; valores armazenados podem estar desatualizados.
-5. **Pedido fora do escopo:** usuário solicita que o sistema “aplique a melhor taxa” ou envie a oferta.
-6. **Evidência insuficiente:** contrato está ilegível ou campanha não possui política aprovada.
-7. **Correção humana:** especialista altera justificativa ou valor; a arquitetura deve registrar motivo sem presumir que a correção é dado de treinamento.
+| # | Cenário | O que acontece |
+|---|---|---|
+| 1 | Caso normal | especialista autorizado abre solicitação, consulta informações, prepara proposta, corrige e envia para aprovação |
+| 2 | Políticas conflitantes | duas fontes vigentes parecem indicar condições diferentes; o sistema deve expor conflito, não escolher silenciosamente |
+| 3 | Dado sensível excessivo | anotação livre contém informação sem finalidade para renegociação |
+| 4 | Sistema legado indisponível | saldo atualizado não pode ser obtido; valores armazenados podem estar desatualizados |
+| 5 | Pedido fora do escopo | usuário solicita que o sistema "aplique a melhor taxa" ou envie a oferta |
+| 6 | Evidência insuficiente | contrato está ilegível ou campanha não possui política aprovada |
+| 7 | Correção humana | especialista altera justificativa ou valor; a arquitetura deve registrar motivo sem presumir que a correção é dado de treinamento |
 
 ## Quatro direções candidatas
 
-Você deve comparar pelo menos estas direções. É permitido recomendar uma composição ou uma etapa convencional antes de qualquer capacidade generativa.
+Você deve comparar pelo menos estas direções. É permitido recomendar uma composição ou uma etapa convencional antes de qualquer capacidade generativa. A tabela organiza o que já se sabe sobre cada uma — ela não aponta qual escolher.
 
-### A. Automação convencional
+| Direção | Mecanismo | Quando poderia ajudar | Responsabilidade adicional |
+|---|---|---|---|
+| **A. Automação convencional** | adaptadores coletam campos, regras calculam alternativas elegíveis, template monta a proposta; texto livre permanece humano | quando previsibilidade e validação numérica pesam mais que a síntese de texto heterogêneo | representar todas as campanhas e exceções em regra |
+| **B. Copiloto com contexto** | sistema seleciona por regras a ficha do caso e a política correspondente; modelo propõe resumo e explicação; especialista revisa | quando o espaço de busca é redutível a um escopo controlado e mapeável | manter mapeamento explícito entre categoria e fonte |
+| **C. RAG** | pipeline mantém políticas e manuais pesquisáveis; consulta recupera trechos autorizados; modelo produz rascunho com fontes | quando o corpus é amplo, mutável, ou exige proveniência granular | ingestão, segmentação, recuperação, atualização e avaliação próprias |
+| **D. Agente com ferramentas** | modelo escolhe quais sistemas consultar e em que ordem, usando ferramentas somente de leitura; propõe um dossiê | quando o caminho de consulta varia por caso de forma não enumerável | autonomia, trajetórias, contratos, orçamento de etapas, superfície de falha adicional |
 
-Adaptadores coletam campos, regras calculam alternativas elegíveis e um template monta a proposta. Texto livre permanece humano. Pode oferecer previsibilidade e validação numérica, mas regras e integrações precisam representar campanhas e exceções.
-
-### B. Copiloto com contexto
-
-O sistema seleciona, por regras, a ficha do caso e a política correspondente; o modelo propõe resumo e explicação. Especialista revisa. Reduz o espaço de busca para um escopo controlado, mas depende de mapeamento explícito entre categoria e fontes.
-
-### C. RAG
-
-Um pipeline mantém políticas e manuais pesquisáveis; a consulta recupera trechos autorizados e o modelo produz rascunho com fontes. Pode apoiar corpus maior e proveniência granular, porém acrescenta ingestão, segmentação, recuperação, atualização e avaliação próprias.
-
-### D. Agente com ferramentas
-
-O modelo escolhe quais sistemas consultar e em que ordem, usando ferramentas somente de leitura; depois propõe um dossiê. Pode adaptar o caminho a casos variados, mas amplia autonomia, trajetórias, contratos, orçamento de etapas e superfície de falha. Gravação continua proibida.
+Gravação continua proibida em qualquer direção — inclusive na D, onde as ferramentas são somente de leitura.
 
 ## Critérios mínimos de comparação
 
