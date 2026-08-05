@@ -60,6 +60,7 @@ nav:
       - Oficina de ferramentas: modulo-1-fundamentos/oficina-de-ferramentas.md
       - Exercícios: modulo-1-fundamentos/exercicios.md
       - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
+      - "Caso contínuo: Lume e Aurora": modulo-1-fundamentos/caso-lume-aurora.md
   - Módulo 2 — Desenho conceitual:
       - Visão geral: modulo-2-desenho-conceitual/index.md
       - Conceitos: modulo-2-desenho-conceitual/conceitos.md
@@ -69,6 +70,7 @@ nav:
       - Oficina de ferramentas: modulo-2-desenho-conceitual/oficina-de-ferramentas.md
       - Exercícios: modulo-2-desenho-conceitual/exercicios.md
       - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
+      - "Caso contínuo: Lume e Aurora": modulo-2-desenho-conceitual/caso-lume-aurora.md
   - Módulo 3 — RAG:
       - Visão geral: modulo-3-rag/index.md
       - Conceitos: modulo-3-rag/conceitos.md
