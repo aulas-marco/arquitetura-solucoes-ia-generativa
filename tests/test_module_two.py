@@ -11,7 +11,10 @@ MODULE = ROOT / "docs" / "modulo-2-desenho-conceitual"
 
 class ModuleTwoContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_and_pedagogical_navigation_order(self):
-        self.assertEqual(set(PAGES), {path.name for path in MODULE.glob("*.md")})
+        self.assertEqual(
+            set(PAGES) | {"caso-lume-aurora.md"},
+            {path.name for path in MODULE.glob("*.md")},
+        )
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
         positions = [

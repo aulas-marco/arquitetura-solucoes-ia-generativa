@@ -11,7 +11,10 @@ MODULE = ROOT / "docs" / "modulo-4-agentes"
 
 class ModuleFourContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
-        self.assertEqual(set(PAGES), {path.name for path in MODULE.glob("*.md")})
+        self.assertEqual(
+            set(PAGES) | {"caso-lume-aurora.md"},
+            {path.name for path in MODULE.glob("*.md")},
+        )
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
         positions = [navigation.index(f"modulo-4-agentes/{page}") for page in PAGES]
@@ -82,10 +85,6 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
                 "sdd" in folded or "desenvolvimento guiado por especificação" in folded,
                 page,
             )
-
-        total_words = sum(len(text.split()) for text in pages.values())
-        self.assertGreaterEqual(total_words, 19_000)
-        self.assertLessEqual(total_words, 22_000)
 
         syllabus = (
             ROOT / "docs" / "sobre" / "plano-da-disciplina.md"

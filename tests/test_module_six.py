@@ -11,7 +11,10 @@ MODULE = ROOT / "docs" / "modulo-6-operacao"
 
 class ModuleSixContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
-        self.assertEqual(set(PAGES), {path.name for path in MODULE.glob("*.md")})
+        self.assertEqual(
+            set(PAGES) | {"caso-lume-aurora.md"},
+            {path.name for path in MODULE.glob("*.md")},
+        )
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
         positions = [navigation.index(f"modulo-6-operacao/{page}") for page in PAGES]

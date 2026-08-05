@@ -1,0 +1,5 @@
+ID: LUME-CTX-07
+VERSAO: v1
+
+Estorno parcial se aplica quando apenas um item de uma compra agrupada é contestado.
+Exige comprovante do estabelecimento anexado ao caso antes da aprovação do supervisor.
