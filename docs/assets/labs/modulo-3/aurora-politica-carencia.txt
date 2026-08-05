@@ -1,0 +1,5 @@
+ID: AURORA-CAMP-15
+VERSAO: v1
+
+Carência de 30 dias pode ser concedida uma única vez por contrato, mediante aprovação de pessoa distinta do especialista proponente.
+Não se aplica a contratos já renegociados nos últimos 12 meses.

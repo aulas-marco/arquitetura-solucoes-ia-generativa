@@ -1,0 +1,5 @@
+ID: LUME-CTX-04
+VERSAO: v2
+
+Contestação de compra não reconhecida pode ser aberta em até 10 dias corridos da data da transação.
+O analista deve citar a política aplicada e o número do caso no rascunho.
