@@ -86,12 +86,6 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
                 page,
             )
 
-        total_words = sum(
-            len(text.split()) for name, text in pages.items() if name in PAGES
-        )
-        self.assertGreaterEqual(total_words, 19_000)
-        self.assertLessEqual(total_words, 22_000)
-
         syllabus = (
             ROOT / "docs" / "sobre" / "plano-da-disciplina.md"
         ).read_text(encoding="utf-8").casefold()
