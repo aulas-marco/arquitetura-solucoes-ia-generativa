@@ -1,14 +1,10 @@
-# Caso contínuo: Banco Lume e Cooperativa Aurora — autonomia
+# Caso contínuo: Cooperativa Aurora — autonomia
 
-O [Módulo 2](../modulo-2-desenho-conceitual/caso-lume-aurora.md) decidiu manter os dois casos sem agente. O [Módulo 3](../modulo-3-rag/caso-lume-aurora.md) deu a cada um seu próprio caminho de conhecimento. Este módulo reavalia autonomia com a evidência acumulada até aqui — e os dois casos **não** chegam à mesma conclusão.
+**Caso contínuo — Cooperativa Aurora.** [← Módulo 3: RAG](../modulo-3-rag/caso-aurora.md) · [Módulo 5: Confiança e avaliação →](../modulo-5-confianca/caso-aurora.md)
 
-## Banco Lume — os critérios do ADR-001 continuam não atendidos
+O [Módulo 2](../modulo-2-desenho-conceitual/caso-aurora.md) decidiu manter a Cooperativa Aurora sem agente. O [Módulo 3](../modulo-3-rag/caso-aurora.md) deu a ela seu próprio caminho de conhecimento (RAG híbrido em lote com adaptador de leitura). Este módulo reavalia autonomia com a evidência acumulada até aqui — e a Aurora **não** chega à mesma conclusão do [Banco Lume](caso-lume.md), tratado em sua própria página.
 
-O ADR-001 do Módulo 2 previa reavaliar autonomia de agente somente "se uma atividade adicional demonstrar, em casos representativos, sequência não enumerável, benefício mensurável acima do workflow, autoridade clara por ferramenta e recuperação proporcional diante de falha". Depois da adoção de RAG no Módulo 3, a sequência do Lume continua a mesma: montar contexto, recuperar política vigente, gerar rascunho, validar suporte, recomendar, aprovar. Nenhum caso do modo sombra exigiu consultar fontes em ordem diferente da já prevista, e nenhuma evidência mostrou benefício mensurável de escolher a sequência dinamicamente.
-
-**Decisão:** o Banco Lume permanece em **A1 — informar** na [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia): o modelo gera o rascunho, sem ferramenta de efeito e sem escolher a ordem de consulta; o orquestrador decide a sequência, não o modelo. Isto não é uma lacuna do desenho — é a leitura correta da evidência: **nem todo sistema evolui para agente**. Reavaliar exigiria uma nova atividade com sequência genuinamente não enumerável, ainda inexistente no escopo do Lume.
-
-## Cooperativa Aurora — os dois gatilhos do ADR-Aurora-001 se cumprem
+## Os dois gatilhos do ADR-Aurora-001 se cumprem
 
 No Módulo 3, a Aurora ganhou um adaptador de leitura quase em tempo real sobre contrato e pagamento dos sistemas legados (só leitura, sem idempotência de gravação) para sustentar a atualização do índice de RAG. Essa mesma capacidade de leitura, somada à evidência de que a ordem de consulta entre contrato, pagamento e política varia por campanha de forma não enumerável, cumpre os dois gatilhos de reavaliação registrados no ADR-Aurora-001 do Módulo 2.
 
@@ -48,6 +44,7 @@ flowchart LR
 **Direcionadores da decisão.** Reduzir o tempo de consolidação de contrato, pagamento e política sem ampliar autoridade além de leitura; manter aprovação humana antes de qualquer oferta; tornar o caminho de decisão do agente reconstruível — ver atributos [Autonomia](../referencia/atributos-de-qualidade.md#autonomia) e [Observabilidade](../referencia/atributos-de-qualidade.md#observabilidade).
 
 **Opções.**
+
 1. **Manter copiloto com contexto fixo (status quo do Módulo 2/3):** simples e previsível, mas não se adapta quando a ordem de consulta varia por campanha, deixando lacunas manuais.
 2. **Agente com ferramentas somente leitura e orçamento de passos:** adapta a sequência a cada caso, mantendo aprovação humana e nenhuma ferramenta de efeito.
 3. **Agente com ferramentas de leitura e escrita:** resolveria também a criação da oferta, mas contraria a restrição confirmada de revisão humana obrigatória e ausência de gravação por modelo.
@@ -74,14 +71,17 @@ pip install langgraph
 **Execução.**
 
 ```bash
-python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso lume
 python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso aurora
 ```
 
-**Resultado esperado.** Com `--caso lume`, o script imprime a sequência fixa (contexto → rascunho → validação), sem decisão de ferramenta. Com `--caso aurora`, imprime a trajetória escolhida entre as três ferramentas de leitura, o número de chamadas usado e o dossiê proposto para revisão.
+**Resultado esperado.** O script imprime a trajetória escolhida entre as três ferramentas de leitura, o número de chamadas usado e o dossiê proposto para revisão — a ordem pode mudar entre execuções, ao contrário da sequência fixa do [caso Lume](caso-lume.md).
 
 **Limpeza.** `deactivate` e remover o diretório `.venv`. Nenhum dado real deve substituir os identificadores sintéticos do script.
 
 ## Continuidade
 
-O Módulo 5 avalia confiança e risco dos dois casos — a superfície da Aurora é maior por ser agêntica, o que dá contraste direto com o Lume no [próximo módulo](../modulo-5-confianca/caso-lume-aurora.md).
+O Módulo 5 avalia confiança e risco dos dois casos — a superfície da Aurora é maior por ser agêntica, o que dá contraste direto com o [Lume](../modulo-5-confianca/caso-lume.md).
+
+---
+
+**Continua:** [Módulo 5 — confiança e avaliação](../modulo-5-confianca/caso-aurora.md)

@@ -1,0 +1,16 @@
+{
+  "lume": [
+    {"pergunta": "Posso contestar uma compra feita há 8 dias?", "id_relevante": "LUME-CTX-04"},
+    {"pergunta": "A compra foi cobrada duas vezes no meu cartão, como contesto?", "id_relevante": "LUME-CTX-11"},
+    {"pergunta": "Comprei em outro país e quero contestar o câmbio aplicado na fatura", "id_relevante": "LUME-CTX-09"},
+    {"pergunta": "O produto nunca chegou e quero contestar a compra", "id_relevante": "LUME-CTX-13"},
+    {"pergunta": "Quero contestar só um item de uma compra com vários produtos", "id_relevante": "LUME-CTX-07"}
+  ],
+  "aurora": [
+    {"pergunta": "Qual desconto a campanha de julho oferece para juros em atraso?", "id_relevante": "AURORA-CAMP-11"},
+    {"pergunta": "Posso pedir carência no pagamento do meu contrato?", "id_relevante": "AURORA-CAMP-15"},
+    {"pergunta": "Meu contrato está atrasado há mais de três meses, posso renegociar?", "id_relevante": "AURORA-CAMP-18"},
+    {"pergunta": "Quero parcelar o saldo devedor sem juros extras", "id_relevante": "AURORA-CAMP-21"},
+    {"pergunta": "Um contrato em disputa judicial pode ser renegociado?", "id_relevante": "AURORA-CAMP-24"}
+  ]
+}

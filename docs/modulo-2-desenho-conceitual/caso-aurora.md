@@ -1,6 +1,8 @@
-# Caso contínuo: Banco Lume e Cooperativa Aurora — desenho conceitual completo
+# Caso contínuo: Cooperativa Aurora — desenho conceitual completo
 
-Este módulo é onde os dois casos contínuos do curso recebem sua primeira arquitetura. O [Banco Lume](exemplo-arquitetural.md) já está resolvido como exemplo do professor — cinco vistas, RAS, árvore de utilidade, matriz de alternativas e duas ADRs. Esta página não repete esse dossiê; ela **resolve por completo a Cooperativa Aurora**, seguindo exatamente o entregável pedido em [Estudo de caso: Central Aurora de renegociação](estudo-de-caso.md), com as mesmas evidências e restrições ali descritas.
+**Caso contínuo — Cooperativa Aurora.** [← Módulo 1: Antes da arquitetura](../modulo-1-fundamentos/caso-aurora.md) · [Módulo 3: RAG →](../modulo-3-rag/caso-aurora.md)
+
+Este módulo é onde a Cooperativa Aurora recebe sua primeira arquitetura. O [Banco Lume](caso-lume.md) já está resolvido como exemplo do professor no [Exemplo arquitetural](exemplo-arquitetural.md) deste módulo — cinco visões, RAS, árvore de utilidade, matriz de alternativas e duas ADRs. Esta página **resolve por completo a Cooperativa Aurora**, seguindo exatamente o entregável pedido em [Estudo de caso: Central Aurora de renegociação](estudo-de-caso.md), com as mesmas evidências e restrições ali descritas.
 
 ## 1. Oportunidade, baseline e hipótese de valor
 
@@ -65,7 +67,7 @@ Ficam fora deste incremento: comunicação externa ao cliente (plataforma separa
 
 A direção B usa o padrão [Workflow determinístico com etapas generativas](../referencia/catalogo-de-padroes.md#workflow-deterministico-com-etapas-generativas): a variabilidade fica isolada na redação; coleta, cálculo, aprovação e efeito permanecem determinísticos.
 
-## 8. Cinco vistas arquiteturais
+## 8. Cinco visões arquiteturais
 
 ### Contexto
 
@@ -154,9 +156,9 @@ flowchart LR
 
 | Regra | Evidência no caso |
 |---|---|
-| participante da interação existe no contexto | especialista, copiloto, política, legados, inferência e aprovador aparecem nas duas vistas |
+| participante da interação existe no contexto | especialista, copiloto, política, legados, inferência e aprovador aparecem nas duas visões |
 | passo tem responsabilidade | seleção, cálculo, geração, validação, recomendação e aprovação estão atribuídas |
-| dado manipulado tem ciclo de vida | contrato, pagamento, política, contexto, proposta, decisão e trace constam da vista de informação |
+| dado manipulado tem ciclo de vida | contrato, pagamento, política, contexto, proposta, decisão e trace constam da visão de informação |
 | componente executável tem alocação | interface, orquestrador, montador, adaptadores, repositório e endpoint constam da implantação |
 | travessia de confiança tem controle | apenas contexto minimizado cruza a fronteira, por identidade de serviço e residência nacional |
 | RAS chega a tática e evidência | a árvore de utilidade abaixo liga cenário, tática e sensibilidade |
@@ -178,6 +180,7 @@ flowchart LR
 **Direcionadores da decisão.** Revisão humana obrigatória e segregação entre proponente e aprovador (restrições confirmadas); RAS de privacidade, fundamentação e confiabilidade descritos na seção 6; ausência de evidência de que o corpus ou a variabilidade de consulta já exijam recuperação ou autonomia.
 
 **Opções.**
+
 1. **Automação convencional** — previsível para cálculo, mas não resolve a síntese de explicação a partir de documentos heterogêneos.
 2. **Copiloto com contexto** — isola a variabilidade na redação, mantendo coleta, cálculo, aprovação e efeito determinísticos.
 3. **RAG** — ampliaria cobertura de políticas, mas exige ingestão, índice e avaliação de recuperação sem evidência de que o mapeamento manual já seja insuficiente.
@@ -197,4 +200,8 @@ Rodar o copiloto em modo sombra sobre uma única campanha já mapeada, com 50 a 
 
 ## Continuidade
 
-A decisão de adiar RAG (seção 11) tem um gatilho explícito de cobertura e crescimento de corpus — é esse gatilho, cumprido, que abre o [Módulo 3](../modulo-3-rag/caso-lume-aurora.md) tanto para o Lume quanto para a Aurora, cada um por um caminho diferente.
+A decisão de adiar RAG (seção 11) tem um gatilho explícito de cobertura e crescimento de corpus — é esse gatilho, cumprido, que abre o [Módulo 3](../modulo-3-rag/caso-aurora.md) para a Aurora, por um caminho diferente do [Banco Lume](../modulo-3-rag/caso-lume.md).
+
+---
+
+**Continua:** [Módulo 3 — RAG](../modulo-3-rag/caso-aurora.md)

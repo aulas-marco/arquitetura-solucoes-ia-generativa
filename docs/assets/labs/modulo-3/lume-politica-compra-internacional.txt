@@ -1,0 +1,5 @@
+ID: LUME-CTX-09
+VERSAO: v1
+
+Compras internacionais podem ser contestadas em até 20 dias corridos da data da transação, prazo maior que o padrão nacional por causa da conciliação cambial.
+O analista deve registrar a cotação de câmbio aplicada e o comprovante de conversão anexado ao caso.

@@ -1,0 +1,5 @@
+ID: AURORA-CAMP-24
+VERSAO: v1
+
+Contratos com fraude confirmada ou em disputa judicial não podem ser renegociados por este fluxo.
+O especialista deve encaminhar o caso para a área jurídica e registrar a restrição antes de encerrar a solicitação.

@@ -1,0 +1,5 @@
+ID: AURORA-CAMP-18
+VERSAO: v1
+
+Contratos com atraso superior a 90 dias podem ser renegociados fora do calendário normal de campanhas, mediante análise individual do especialista.
+A proposta deve registrar o motivo do atraso informado e a autorização de pessoa distinta antes de qualquer oferta.

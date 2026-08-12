@@ -12,7 +12,7 @@ MODULE = ROOT / "docs" / "modulo-5-confianca"
 class ModuleFiveContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
         self.assertEqual(
-            set(PAGES) | {"caso-lume-aurora.md"},
+            set(PAGES) | {"caso-lume.md", "caso-aurora.md"},
             {path.name for path in MODULE.glob("*.md")},
         )
 

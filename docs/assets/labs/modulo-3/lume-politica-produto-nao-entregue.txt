@@ -1,0 +1,5 @@
+ID: LUME-CTX-13
+VERSAO: v1
+
+Produto não entregue ou serviço não prestado pode ser contestado a partir de 5 dias após a data prometida de entrega.
+Exige registro do prazo de entrega original e ausência de comprovante de recebimento pelo cliente.

@@ -1,0 +1,5 @@
+ID: AURORA-CAMP-21
+VERSAO: v2
+
+O saldo devedor pode ser parcelado em até 12 vezes sem juros adicionais para contratos elegíveis à campanha vigente.
+Especialista deve confirmar que o contrato não está em atraso superior a 90 dias antes de oferecer o parcelamento.

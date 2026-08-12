@@ -1,0 +1,5 @@
+ID: LUME-CTX-11
+VERSAO: v2
+
+Cobrança duplicada da mesma compra deve ser contestada assim que identificada, sem prazo mínimo de espera.
+O analista estorna a segunda cobrança automaticamente após confirmar que os dois lançamentos têm o mesmo estabelecimento, valor e data.
