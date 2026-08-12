@@ -22,6 +22,11 @@ flowchart LR
     ESP -->|redige| PR[Proposta de renegociação]
     PR --> AP[Aprovador distinto]
     AP -->|aprova ou devolve| ESP
+
+    classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
+    classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
+    class CL,ESP,AP humano;
+    class CT,PG,PC,RC,PR dados;
 ```
 
 **Equivalente textual.** O especialista recebe o pedido do cliente e consulta, manualmente, contratos, pagamentos, política de campanha vigente e registro de contato antes de redigir a proposta; um aprovador distinto decide antes de qualquer oferta. Nenhuma composição de IA generativa está representada aqui — este é o processo hoje, o material a partir do qual as quatro direções candidatas devem ser comparadas.

@@ -57,7 +57,7 @@ O ponto de vista deve declarar o que deixa de fora. A visão de contexto não ex
 
 ### Exemplo concreto das cinco visões
 
-Considere um assistente simples: ele sugere categoria e prioridade de chamados de suporte técnico recebidos por e-mail; um atendente humano confirma ou corrige antes do registro. As cinco visões abaixo descrevem esse mesmo assistente, cada uma sob uma preocupação distinta.
+Considere um assistente simples: ele sugere categoria e prioridade de chamados de suporte técnico recebidos por e-mail; um atendente humano confirma ou corrige antes do registro. As cinco visões abaixo descrevem esse mesmo assistente, cada uma sob uma preocupação distinta. Nos diagramas, o preenchimento âmbar marca quem decide (papel humano) e o preenchimento ciano marca dado ou registro persistido; componentes automatizados permanecem sem preenchimento adicional.
 
 #### Contexto
 
@@ -66,6 +66,11 @@ flowchart LR
     CL[Cliente] -->|envia e-mail| AS[Assistente de triagem]
     AS -->|sugestão de categoria e prioridade| AT[Atendente]
     AT -->|confirma ou corrige| SC[Sistema de chamados]
+
+    classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
+    classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
+    class CL,AT humano;
+    class SC dados;
 ```
 
 **Equivalente textual.** O cliente envia o e-mail; o assistente sugere categoria e prioridade; o atendente confirma ou corrige antes de o sistema de chamados registrar o caso. A fronteira de confiança fica entre o e-mail recebido, não confiável, e o chamado registrado, confiável porque passou por confirmação humana.
@@ -76,6 +81,9 @@ flowchart LR
 flowchart LR
     EXT[Extrator: identifica produto e urgência declarada] --> CLS[Classificador: sugere categoria e prioridade]
     CLS --> ATE[Atendente: decide e registra]
+
+    classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
+    class ATE humano;
 ```
 
 **Equivalente textual.** O extrator apenas identifica campos no texto; o classificador apenas sugere categoria e prioridade a partir desses campos; a decisão e o registro pertencem ao atendente. Nenhum dos dois componentes automatizados grava o chamado por conta própria.
@@ -105,6 +113,11 @@ flowchart LR
     EXT --> SUG[Sugestão do classificador]
     SUG --> REG["Registro: decisão final, data e responsável"]
     EM -.->|texto bruto não retido além da sessão| DESC[Descarte]
+
+    classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
+    classDef descarte fill:#EDEFF3,stroke:#9AA6B8,color:#56677F;
+    class EM,REG dados;
+    class DESC descarte;
 ```
 
 **Equivalente textual.** O dado de entrada é o corpo do e-mail, que pode conter dado pessoal do cliente; o texto bruto não é retido além da sessão de triagem. A sugestão do classificador e a decisão final do atendente são registradas com data e responsável, para permitir auditoria posterior.
@@ -124,6 +137,9 @@ flowchart LR
     UI --> GW
     GW -->|conteúdo filtrado| CLS
     CLS -->|sugestão| SC
+
+    style SC_ENV fill:#EAF0FB,stroke:#254DB8,stroke-width:1px;
+    style MOD_ENV fill:#DDF3F6,stroke:#5FC0D1,stroke-width:1px;
 ```
 
 **Equivalente textual.** O classificador roda como um serviço interno, chamado pelo sistema de chamados através de um gateway. Não existe caminho em que o conteúdo do e-mail chegue ao classificador sem passar por esse gateway, que aplica filtragem antes da chamada.

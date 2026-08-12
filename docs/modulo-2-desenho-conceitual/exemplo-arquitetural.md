@@ -22,7 +22,7 @@ Ficam fora de escopo: alteração cadastral, bloqueio de cartão, comunicação 
 
 ## 3. Cinco visões arquiteturais
 
-Cada visão declara uma pergunta e deixa as demais para outras representações. O conjunto descreve o mesmo sistema sob preocupações diferentes.
+Cada visão declara uma pergunta e deixa as demais para outras representações. O conjunto descreve o mesmo sistema sob preocupações diferentes. Nos diagramas, o preenchimento âmbar marca quem decide (papel humano), o ciano marca dado ou registro persistido, e o cinza marca um controle transversal; componentes automatizados permanecem sem preenchimento adicional.
 
 ### Contexto
 
@@ -38,6 +38,13 @@ flowchart LR
     U --> R[Registro oficial]
     G[Identidade, finalidade e auditoria] -.-> C
     G -.-> I
+
+    classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
+    classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
+    classDef controle fill:#EAF0FB,stroke:#8391A8,color:#16243A;
+    class A,U humano;
+    class S,P,R dados;
+    class G controle;
 ```
 
 **Equivalente textual.** O copiloto recebe a solicitação autenticada, consulta somente dados e políticas autorizados e envia contexto minimizado à inferência. O supervisor é a fronteira entre proposta e registro oficial. A organização controla política, identidade e auditoria; o fornecedor de inferência não decide finalidade nem autorização.
@@ -118,11 +125,16 @@ flowchart LR
     end
     M -->|contexto minimizado; identidade de serviço| I
     I -->|rascunho| M
+
+    style B fill:#EAF0FB,stroke:#254DB8,stroke-width:1px;
+    style F fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px;
 ```
 
-**Equivalente textual.** Interface, orquestração, seleção, validação, rascunhos e adaptadores permanecem no ambiente controlado pelo banco. Somente contexto minimizado atravessa a fronteira do fornecedor por uma identidade de serviço dedicada. O endpoint não recebe credenciais de usuário nem acessa legados ou repositórios diretamente.
+**Equivalente textual.** Interface, orquestração, seleção, validação, rascunhos e adaptadores permanecem no ambiente controlado pelo banco. Somente contexto minimizado atravessa a fronteira do fornecedor por uma identidade de serviço dedicada. O endpoint não recebe credenciais de usuário nem acessa legados ou repositórios diretamente. O contorno âmbar do ambiente do fornecedor marca a fronteira de confiança que o contexto atravessa.
 
 ## 4. RAS que moldam a estrutura
+
+Esta tabela representa quais requisitos arquiteturalmente significativos (RAS) justificam uma escolha estrutural específica e qual evidência comprova que a consequência prevista de fato ocorre.
 
 | RAS | Escolha estrutural | Consequência e evidência |
 |---|---|---|
@@ -133,6 +145,8 @@ flowchart LR
 
 ### Árvore de utilidade reduzida
 
+Este modelo representa como um objetivo de negócio se desdobra em característica arquitetural, cenário priorizado e tática candidata, e onde essa cadeia é mais sensível a variação ou disputa entre características. Ela ordena prioridade; não decide sozinha qual tática vencerá.
+
 | Objetivo e característica | Cenário priorizado | Tática e mecanismo | Sensibilidade, trade-off e risco |
 |---|---|---|---|
 | reduzir tempo sem expor dados — privacidade | ao montar contexto, nenhum campo proibido atravessa a inferência | minimização, mascaramento e autorização no montador | sensível à lista de campos; privacidade compete com cobertura; risco de remoção insuficiente ou excessiva |
@@ -141,6 +155,8 @@ flowchart LR
 | permitir troca — modificabilidade | substituir endpoint não altera workflow ou autorização | contrato estável e adaptador | sensível às diferenças semânticas entre modelos; portabilidade compete com acesso a recursos específicos |
 
 ### Correspondências verificadas
+
+Esta tabela representa a verificação cruzada entre visões: cada regra de correspondência definida em [Conceitos](conceitos.md#correspondencias-entre-visoes) é confrontada com a evidência concreta deste exemplo, para expor inconsistências antes que se tornem defeito.
 
 | Regra | Evidência no exemplo |
 |---|---|
@@ -151,7 +167,9 @@ flowchart LR
 | travessia de confiança tem controle | apenas contexto minimizado cruza a fronteira por identidade de serviço |
 | RAS chega a tática e evidência | a tabela acima liga cenário, estrutura, consequência e teste |
 
-## 5. Alternativas, riscos e decisão inicial
+## 5. Alternativas avaliadas
+
+Esta tabela representa as composições comparadas para o primeiro incremento — o que cada uma exigiria de responsabilidade adicional — e a decisão preliminar de adotar, adiar ou rejeitar cada uma. Ela não substitui a ADR: apenas torna a comparação verificável antes de registrar a escolha.
 
 | Alternativa | Direcionador atendido | Responsabilidade adicional | Decisão neste incremento |
 |---|---|---|---|
@@ -163,6 +181,10 @@ flowchart LR
 
 A matriz torna a escolha verificável: contexto selecionado por regras atende o primeiro incremento; RAG permanece alternativa futura se a cobertura exceder seleção explícita ou exigir recuperação granular; agente é rejeitado porque não há efeito autônomo autorizado.
 
+## 6. Riscos e incertezas
+
+Este registro representa o que pode dar errado ou o que ainda não se sabe com confiança suficiente para decidir, separado por tipo — porque risco, premissa, incerteza e dependência exigem tratamentos diferentes: contenção, confirmação, aprendizagem e acompanhamento, respectivamente.
+
 ### Registro de risco e incerteza
 
 | Tipo | Registro | Tratamento |
@@ -172,6 +194,10 @@ A matriz torna a escolha verificável: contexto selecionado por regras atende o 
 | Premissa | doze políticas cobrem a categoria inicial | dono da política confirma corpus e vigência antes do experimento |
 | Incerteza | revisão pode consumir o tempo economizado na busca | medir tempo por atividade e taxa de correção no modo sombra |
 | Dependência | fornecedor deve cumprir residência e não treinamento | validar contrato e configuração antes de enviar qualquer dado |
+
+## 7. Decisões arquiteturais (ADRs)
+
+Cada ADR abaixo registra uma escolha estrutural deste incremento e o racional que a sustenta — contexto, opções comparadas, decisão, visões afetadas, consequências e o gatilho que obrigaria a revisá-la. Uma ADR preserva por que a estrutura foi escolhida; não repete o que as visões já representam.
 
 ### ADR-001 — Workflow assistivo, sem ferramentas autônomas
 
@@ -205,6 +231,6 @@ A matriz torna a escolha verificável: contexto selecionado por regras atende o 
 
 **Evidência e gatilho.** Reavaliar se a cobertura de evidência ficar abaixo de 95% apesar de fontes disponíveis, o corpus superar a seleção explícita, ou uma necessidade de autorização e proveniência granular justificar recuperação.
 
-## 6. Evidência e próximo passo
+## 8. Evidência e próximo passo
 
 O documento permite decidir o que construir agora e o que ainda é hipótese. Antes do módulo 3, a equipe precisa medir tempo, cobertura de evidência, devoluções, falhas de autorização e comportamento degradado. Se os limites forem atendidos, o próximo desenho detalha ingestão e consulta; se não forem, a equipe reduz escopo, melhora integração convencional ou abandona a capacidade generativa.

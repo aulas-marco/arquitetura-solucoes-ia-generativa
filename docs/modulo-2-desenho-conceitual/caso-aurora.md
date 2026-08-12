@@ -69,6 +69,8 @@ A direção B usa o padrão [Workflow determinístico com etapas generativas](..
 
 ## 8. Cinco visões arquiteturais
 
+Nos diagramas, o preenchimento âmbar marca quem decide (papel humano), o ciano marca dado ou registro persistido, e o cinza marca um controle transversal; componentes automatizados permanecem sem preenchimento adicional.
+
 ### Contexto
 
 ```mermaid
@@ -81,6 +83,13 @@ flowchart LR
     A --> R[Registro de proposta]
     G[Identidade, finalidade e auditoria] -.-> C
     G -.-> I
+
+    classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
+    classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
+    classDef controle fill:#EAF0FB,stroke:#8391A8,color:#16243A;
+    class E,A humano;
+    class L,P,R dados;
+    class G controle;
 ```
 
 **Equivalente textual.** O copiloto recebe a solicitação autenticada, consulta somente sistemas legados e políticas autorizados para aquela campanha e envia contexto minimizado à inferência. O aprovador — pessoa distinta do especialista — é a fronteira entre proposta e registro. O fornecedor de inferência não decide finalidade, autorização nem residência dos dados.
@@ -148,9 +157,12 @@ flowchart LR
     end
     M -->|contexto minimizado; identidade de serviço; residência nacional| I
     I -->|proposta| M
+
+    style COOP fill:#EAF0FB,stroke:#254DB8,stroke-width:1px;
+    style F fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px;
 ```
 
-**Equivalente textual.** Interface, orquestração, montagem, validação, propostas e adaptadores para os legados permanecem no ambiente controlado pela cooperativa. Só o contexto minimizado atravessa a fronteira do fornecedor, por identidade de serviço dedicada e com residência nacional garantida contratualmente.
+**Equivalente textual.** Interface, orquestração, montagem, validação, propostas e adaptadores para os legados permanecem no ambiente controlado pela cooperativa. Só o contexto minimizado atravessa a fronteira do fornecedor, por identidade de serviço dedicada e com residência nacional garantida contratualmente. O contorno âmbar do ambiente do fornecedor marca a fronteira de confiança que o contexto atravessa.
 
 ## 9. Correspondências verificadas
 
