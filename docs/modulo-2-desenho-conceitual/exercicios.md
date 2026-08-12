@@ -96,14 +96,55 @@ Você conduz a primeira decisão arquitetural do sistema de suporte. Antes de es
 
 Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), as [alternativas de conhecimento](padroes-e-decisoes.md#alternativas-de-conhecimento) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
 
+**Vocabulário rápido (antes de começar)**
+
+- **Consulta estruturada** — o dado já existe num sistema, num campo exato. Como perguntar seu saldo num caixa eletrônico: o sistema só busca o número.
+- **Contexto selecionado** — você já sabe qual documento vale e pode entregá-lo de antemão. Como dar o manual certo na mão de alguém antes de ele responder.
+- **Conhecimento a recuperar** — ninguém sabe de antemão em qual documento, entre muitos, está a resposta; é preciso buscar no momento da pergunta. Como perguntar a um bibliotecário que primeiro precisa achar o livro certo entre milhares.
+
 **Como conduzir**
 
-Produza os quatro entregáveis abaixo, na ordem. Cada um é pequeno e pode ser verificado isoladamente antes de avançar para o próximo.
+Produza os quatro entregáveis abaixo, na ordem, preenchendo as tabelas e a ficha prontas. Cada um é pequeno e pode ser verificado isoladamente antes de avançar para o próximo.
 
-1. **Classificação das perguntas** — para as três perguntas típicas do suporte (status de OS, procedimento de manual, política de garantia vigente), preencha uma tabela de três linhas com as colunas Pergunta / Onde o dado mora hoje / Classificação (consulta estruturada, contexto selecionado ou conhecimento a recuperar). *Entregável 1 — tabela de 3 linhas × 3 colunas.*
-2. **Comparação das alternativas de conhecimento** — para a pergunta sobre política de garantia, a única que muda semanalmente, compare contexto fornecido, RAG e fine-tuning em três critérios: atualização, proveniência e custo operacional; uma frase por célula. *Entregável 2 — tabela de 3 linhas × 3 colunas, uma frase por célula.*
-3. **Ficha de proveniência** — para a mesma pergunta de política de garantia, preencha uma ficha de cinco campos: origem, autoridade que a mantém, versão e vigência, transformação aplicada antes da resposta, uso na resposta final ao suporte. *Entregável 3 — ficha de 5 campos, uma linha cada.*
-4. **Decisão provisória e gatilho de revisão** — escreva três frases: a alternativa escolhida para a política de garantia e por quê; a alternativa rejeitada e o motivo específico da rejeição; uma condição observável e mensurável que obrigaria a equipe a revisar essa escolha. *Entregável 4 — 3 frases, uma por item.*
+1. **Classificação das perguntas.** Preencha as duas últimas colunas (a primeira já está pronta):
+
+    | Pergunta | Onde o dado mora hoje | Classificação |
+    |---|---|---|
+    | Qual o status da OS nº 4521? | | |
+    | Como trocar o filtro do modelo X200? | | |
+    | Qual garantia vale para o modelo X200 hoje? | | |
+
+    *Entregável 1 — a tabela acima, preenchida.*
+
+2. **Comparação das alternativas de conhecimento**, só para a pergunta da garantia (a única que muda toda semana). Preencha as células vazias, uma frase cada:
+
+    | Critério | Contexto fornecido | RAG | Fine-tuning |
+    |---|---|---|---|
+    | Atualização | | | |
+    | Proveniência | | | |
+    | Custo operacional | | | |
+
+    *Entregável 2 — a tabela acima, preenchida.*
+
+3. **Ficha de proveniência**, ainda para a pergunta da garantia. Preencha os cinco campos:
+
+    | Campo | Resposta |
+    |---|---|
+    | Origem (de onde vem o texto da política) | |
+    | Autoridade que mantém essa versão atualizada | |
+    | Versão e vigência (desde quando vale) | |
+    | Transformação aplicada antes da resposta (resumo? tradução? nenhuma?) | |
+    | Uso na resposta final ao suporte | |
+
+    *Entregável 3 — a ficha acima, preenchida.*
+
+4. **Decisão provisória e gatilho de revisão.** Complete as três frases:
+
+    - Escolhemos **______** para a política de garantia porque ______.
+    - Rejeitamos **______** porque ______.
+    - Revisaríamos essa escolha se ______ (condição observável e mensurável).
+
+    *Entregável 4 — as três frases acima, completas.*
 
 **Entrega esperada**
 
