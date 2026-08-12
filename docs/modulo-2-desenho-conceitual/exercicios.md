@@ -106,35 +106,35 @@ Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), as [alterna
 
 Produza os quatro entregáveis abaixo, na ordem, preenchendo as tabelas e a ficha prontas. Cada um é pequeno e pode ser verificado isoladamente antes de avançar para o próximo.
 
-1. **Classificação das perguntas.** Preencha as duas últimas colunas (a primeira já está pronta):
+1. **Classificação das perguntas.** A primeira linha já vem resolvida, como exemplo — complete as outras duas do mesmo jeito:
 
     | Pergunta | Onde o dado mora hoje | Classificação |
     |---|---|---|
-    | Qual o status da OS nº 4521? | | |
-    | Como trocar o filtro do modelo X200? | | |
-    | Qual garantia vale para o modelo X200 hoje? | | |
+    | Qual o status da OS nº 4521? | Sistema interno de ordens de serviço, campo "status" | Consulta estruturada |
+    | Como trocar o filtro do modelo X200? | *(preencher)* | *(preencher)* |
+    | Qual garantia vale para o modelo X200 hoje? | *(preencher)* | *(preencher)* |
 
     *Entregável 1 — a tabela acima, preenchida.*
 
-2. **Comparação das alternativas de conhecimento**, só para a pergunta da garantia (a única que muda toda semana). Preencha as células vazias, uma frase cada:
+2. **Comparação das alternativas de conhecimento**, só para a pergunta da garantia (a única que muda toda semana). A linha "Atualização" já vem resolvida, como exemplo — complete as outras duas:
 
     | Critério | Contexto fornecido | RAG | Fine-tuning |
     |---|---|---|---|
-    | Atualização | | | |
-    | Proveniência | | | |
-    | Custo operacional | | | |
+    | Atualização | Alguém precisa reescrever o texto da política no prompt sempre que ela mudar | Busca automaticamente a versão mais recente indexada | Exige novo treinamento — lento demais para mudança semanal |
+    | Proveniência | *(preencher)* | *(preencher)* | *(preencher)* |
+    | Custo operacional | *(preencher)* | *(preencher)* | *(preencher)* |
 
     *Entregável 2 — a tabela acima, preenchida.*
 
-3. **Ficha de proveniência**, ainda para a pergunta da garantia. Preencha os cinco campos:
+3. **Ficha de proveniência**, ainda para a pergunta da garantia. O primeiro campo já vem resolvido, como exemplo — complete os outros quatro:
 
     | Campo | Resposta |
     |---|---|
-    | Origem (de onde vem o texto da política) | |
-    | Autoridade que mantém essa versão atualizada | |
-    | Versão e vigência (desde quando vale) | |
-    | Transformação aplicada antes da resposta (resumo? tradução? nenhuma?) | |
-    | Uso na resposta final ao suporte | |
+    | Origem (de onde vem o texto da política) | Documento oficial de garantia publicado pelo fabricante |
+    | Autoridade que mantém essa versão atualizada | *(preencher)* |
+    | Versão e vigência (desde quando vale) | *(preencher)* |
+    | Transformação aplicada antes da resposta (resumo? tradução? nenhuma?) | *(preencher)* |
+    | Uso na resposta final ao suporte | *(preencher)* |
 
     *Entregável 3 — a ficha acima, preenchida.*
 
