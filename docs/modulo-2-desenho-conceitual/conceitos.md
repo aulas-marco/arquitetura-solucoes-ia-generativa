@@ -64,7 +64,7 @@ Considere um assistente simples: ele sugere categoria e prioridade de chamados d
 ```mermaid
 flowchart LR
     CL[Cliente] -->|envia e-mail| AS[Assistente de triagem]
-    AS -->|"sugestão de categoria\ne prioridade"| AT[Atendente]
+    AS -->|categoria e prioridade| AT[Atendente]
     AT -->|confirma ou corrige| SC[Sistema de chamados]
 
     classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
@@ -79,8 +79,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    EXT["Extrator: identifica produto\ne urgência declarada"] --> CLS["Classificador: sugere\ncategoria e prioridade"]
-    CLS --> ATE["Atendente: decide\ne registra"]
+    EXT[Extrator de campos] --> CLS[Classificador]
+    CLS --> ATE[Atendente decide]
 
     classDef humano fill:#FFF7E3,stroke:#F2B84B,stroke-width:2px,color:#16243A;
     class ATE humano;
@@ -109,10 +109,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    EM["Corpo do e-mail\n(pode conter dado pessoal)"] --> EXT[Campos extraídos]
-    EXT --> SUG[Sugestão do classificador]
-    SUG --> REG["Registro: decisão final,\ndata e responsável"]
-    EM -.->|"texto bruto não retido\nalém da sessão"| DESC[Descarte]
+    EM[Corpo do e-mail] --> EXT[Campos extraídos]
+    EXT --> SUG[Categoria sugerida]
+    SUG --> REG[Registro final]
+    EM -.->|descartado| DESC[Descarte]
 
     classDef dados fill:#DDF3F6,stroke:#5FC0D1,stroke-width:2px,color:#16243A;
     classDef descarte fill:#EDEFF3,stroke:#9AA6B8,color:#56677F;
