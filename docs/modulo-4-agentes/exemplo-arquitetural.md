@@ -9,7 +9,7 @@ O objetivo não é mostrar uma biblioteca específica. É localizar decisões pr
 ![O agente propõe ferramentas de um catálogo mínimo; chamadas seguem pelo plano de controle até os adaptadores, e resultados tipados retornam por auditoria e estado ao orquestrador antes de chegar ao canal](../assets/images/m04-agente-ferramentas.png)
 *Figura 1 — O modelo propõe; o plano de controle valida e executa com autoridade limitada. Sistemas corporativos nunca recebem diretamente texto livre do modelo.*
 
-## Vista de componentes
+## Visão de componentes
 
 ```mermaid
 flowchart LR

@@ -16,7 +16,7 @@
 - Manter a distinção entre modelo, aplicação e sistema sociotécnico.
 - Manter separados geração, decisão, autorização e efeito.
 - Manter separados teste de software, avaliação comportamental e verificação arquitetural.
-- Não antecipar o detalhamento de vistas, táticas, ADRs, RAG, agentes, ameaças ou LLMOps.
+- Não antecipar o detalhamento de visões, táticas, ADRs, RAG, agentes, ameaças ou LLMOps.
 - Evitar frases sentenciosas, oposições artificiais e outros cacoetes de escrita de IA.
 
 ---

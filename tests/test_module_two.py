@@ -8,18 +8,27 @@ from scripts.validate_content import PAGES, bloom_sections
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = ROOT / "docs" / "modulo-2-desenho-conceitual"
 
+# O Módulo 2 pratica os exercícios logo após o exemplo arquitetural e antes
+# da oficina de ferramentas e do estudo de caso de transferência, ao contrário
+# da ordem padrão (estudo de caso, oficina, exercícios) usada nos demais módulos.
+MODULE_TWO_PAGE_ORDER = (
+    "index.md", "conceitos.md", "padroes-e-decisoes.md",
+    "exemplo-arquitetural.md", "exercicios.md",
+    "oficina-de-ferramentas.md", "estudo-de-caso.md", "sintese-e-referencias.md",
+)
+
 
 class ModuleTwoContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_and_pedagogical_navigation_order(self):
         self.assertEqual(
-            set(PAGES) | {"caso-lume-aurora.md"},
+            set(PAGES) | {"caso-lume.md", "caso-aurora.md"},
             {path.name for path in MODULE.glob("*.md")},
         )
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
         positions = [
             navigation.index(f"modulo-2-desenho-conceitual/{page}")
-            for page in PAGES
+            for page in MODULE_TWO_PAGE_ORDER
         ]
         self.assertEqual(positions, sorted(positions))
 
@@ -51,7 +60,7 @@ class ModuleTwoContentRegressionTest(unittest.TestCase):
 
         for term in (
             "Ponto de vista",
-            "Vista",
+            "Visão",
             "Modelo arquitetural",
             "Cenário de qualidade",
             "ADR",
@@ -74,7 +83,7 @@ class ModuleTwoContentRegressionTest(unittest.TestCase):
         ):
             self.assertIn(view, concepts)
             self.assertIn(view, example)
-        self.assertIn("Correspondências entre vistas", concepts)
+        self.assertIn("Correspondências entre visões", concepts)
         self.assertIn("Correspondências verificadas", example)
 
     def test_tactics_are_linked_to_quality_tradeoffs_and_evidence(self):
@@ -115,7 +124,7 @@ class ModuleTwoContentRegressionTest(unittest.TestCase):
         expected_counts = {
             "Recordar": 4,
             "Compreender": 3,
-            "Aplicar": 2,
+            "Aplicar": 1,
             "Analisar": 1,
             "Avaliar": 1,
             "Criar": 1,

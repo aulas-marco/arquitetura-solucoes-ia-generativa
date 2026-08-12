@@ -1,10 +1,10 @@
-# Módulo 2 — Do problema ao dossiê conceitual
+# Módulo 2 — Do problema ao Documento de Arquitetura de Software
 
 > **Pergunta-guia:** Como evitar construir a solução de IA certa para o problema errado?
 
 Uma equipe pode selecionar um modelo competente, implementar controles rigorosos e ainda fracassar: basta otimizar uma capacidade que não resolve a necessidade real, automatizar uma decisão que deveria continuar humana ou introduzir IA generativa onde regras convencionais seriam mais previsíveis. Antes de componentes e produtos, a arquitetura precisa estabelecer propósito, fronteiras, responsabilidades e evidências de sucesso.
 
-Este módulo transforma uma oportunidade ambígua em um **dossiê conceitual**, nome adotado pelo curso para o conjunto curto de entradas, vistas, análises, decisões e evidências que permite iniciar — ou recusar — uma solução. O percurso é sempre o mesmo: oportunidade, hipótese de valor, atividades humanas, CONOPS, fronteiras, requisitos significativos, vistas, táticas, alternativas, experimento e ADR. Só depois compararemos soluções; prompt, RAG, fine-tuning, workflows e agentes são respostas possíveis, não o ponto de partida.
+Este módulo transforma uma oportunidade ambígua em um **Documento de Arquitetura de Software**, nome adotado pelo curso para o conjunto curto de entradas, visões, análises, decisões e evidências que permite iniciar — ou recusar — uma solução. O percurso é sempre o mesmo: oportunidade, hipótese de valor, atividades humanas, CONOPS, fronteiras, requisitos significativos, visões, táticas, alternativas, experimento e ADR. Só depois compararemos soluções; prompt, RAG, fine-tuning, workflows e agentes são respostas possíveis, não o ponto de partida.
 
 ## Antes de começar
 
@@ -21,20 +21,20 @@ Ao concluir o módulo, você deverá ser capaz de:
 1. **Compreender** uma oportunidade como hipótese de valor e expressá-la por meio de stakeholders, fronteiras, cenários e modos operacionais.
 2. **Aplicar** critérios de adequação e rejeição para decidir se IA generativa participa da solução e qual responsabilidade permanece humana.
 3. **Analisar** objetivos e requisitos para identificar RAS, cenários de qualidade, táticas, sensibilidades, trade-offs e riscos.
-4. **Avaliar** alternativas por capacidade adicionada, responsabilidade criada, vistas afetadas, evidência mínima e condição de rejeição.
-5. **Criar** um dossiê conceitual rastreável, com vistas de contexto, responsabilidades, interação, informação e implantação, regras de correspondência, ADRs e proveniência.
+4. **Avaliar** alternativas por capacidade adicionada, responsabilidade criada, visões afetadas, evidência mínima e condição de rejeição.
+5. **Criar** um Documento de Arquitetura de Software rastreável, com visões de contexto, responsabilidades, interação, informação e implantação, regras de correspondência, ADRs e proveniência.
 
 ## Roteiro do módulo
 
 | Página | Questão central | Resultado esperado |
 |---|---|---|
 | **1. Abertura** | Qual é o contrato de aprendizagem? | Uma sequência que parte do problema, não da tecnologia. |
-| **2. [Conceitos](conceitos.md)** | Que descrição precisamos antes de escolher solução? | Entradas, vistas, análise, decisão, evidência e vocabulário preciso. |
+| **2. [Conceitos](conceitos.md)** | Que descrição precisamos antes de escolher solução? | Entradas, visões, análise, decisão, evidência e vocabulário preciso. |
 | **3. [Padrões e decisões](padroes-e-decisoes.md)** | Como RAS orientam alternativas? | Táticas, mecanismos, correspondências, trade-offs, experimentos e ADRs. |
-| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como a rastreabilidade aparece nas cinco vistas? | Um copiloto financeiro derivado do objetivo até riscos, estruturas e evidências. |
-| **5. [Estudo de caso](estudo-de-caso.md)** | Que direção faz sentido sob dados sensíveis e legado? | Comparação disciplinada de quatro desenhos candidatos. |
+| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como a rastreabilidade aparece nas cinco visões? | Um copiloto financeiro derivado do objetivo até riscos, estruturas e evidências. |
+| **5. [Exercícios](exercicios.md)** | Consigo produzir e defender um desenho conceitual? | Evidências nos seis níveis da Taxonomia de Bloom. |
 | **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
-| **7. [Exercícios](exercicios.md)** | Consigo produzir e defender um desenho conceitual? | Evidências nos seis níveis da Taxonomia de Bloom. |
+| **7. [Estudo de caso](estudo-de-caso.md)** | Que direção faz sentido sob dados sensíveis e legado? | Comparação disciplinada de quatro desenhos candidatos. |
 | **8. [Síntese e referências](sintese-e-referencias.md)** | Como preservar decisões e preparar o próximo passo? | Checklist de rastreabilidade e ponte para RAG. |
 
 ## Caso condutor: Banco Lume

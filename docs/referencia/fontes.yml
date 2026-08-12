@@ -614,7 +614,7 @@
   year: 2022
   url: https://www.iso.org/standard/74393.html
   accessed: 2026-07-25
-  topics: [arquitetura, descricao-arquitetural, vistas]
+  topics: [arquitetura, descricao-arquitetural, visoes]
   modules: [2]
   type: international-standard
 
@@ -634,7 +634,7 @@
   year: 2026
   url: https://c4model.com/
   accessed: 2026-07-25
-  topics: [arquitetura, visualizacao, vistas]
+  topics: [arquitetura, visualizacao, visoes]
   modules: [2]
   type: official-documentation
 

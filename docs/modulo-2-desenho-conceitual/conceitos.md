@@ -1,10 +1,10 @@
-# Conceitos: do problema ao dossiê conceitual
+# Conceitos: do problema ao Documento de Arquitetura de Software
 
 Desenho conceitual é a etapa que define **o que vale a pena resolver, sob quais limites e com que evidência** antes de escolher modelos, padrões ou fornecedores. Seu resultado não é um diagrama de tecnologia. É uma descrição arquitetural suficiente para comparar direções e tornar decisões revisáveis.
 
-## O dossiê conceitual
+## O Documento de Arquitetura de Software
 
-Neste curso, chamaremos de **dossiê conceitual** o pacote de trabalho produzido nesta etapa. O nome é uma convenção didática, não um tipo documental prescrito pelo mercado. O dossiê conecta oito campos que devem permanecer coerentes:
+Neste curso, chamaremos de **Documento de Arquitetura de Software** o pacote de trabalho produzido nesta etapa. O nome é uma convenção didática, não um tipo documental prescrito pelo mercado. O documento conecta oito campos que devem permanecer coerentes:
 
 1. oportunidade, população, baseline e contramétricas;
 2. hipótese de valor e atividades que continuam humanas;
@@ -15,7 +15,7 @@ Neste curso, chamaremos de **dossiê conceitual** o pacote de trabalho produzido
 7. alternativas, responsabilidades adicionais e decisões rejeitadas;
 8. evidências, experimento inicial, ADRs e gatilhos de revisão.
 
-O modelo de IA é apenas um candidato dentro desse dossiê. Uma decisão é boa quando o contexto, as alternativas, as consequências e a evidência necessária podem ser explicados sem recorrer à preferência por uma tecnologia.
+O modelo de IA é apenas um candidato dentro desse documento. Uma decisão é boa quando o contexto, as alternativas, as consequências e a evidência necessária podem ser explicados sem recorrer à preferência por uma tecnologia.
 
 ## Como uma descrição arquitetural é organizada
 
@@ -26,26 +26,26 @@ Use o vocabulário abaixo:
 - **Stakeholder** é a pessoa, grupo ou organização que tem interesse ou responsabilidade em relação ao sistema.
 - **Preocupação** (*concern*) é um interesse relevante para um ou mais stakeholders, como privacidade, recuperação de falha ou contestabilidade.
 - **Ponto de vista** (*viewpoint*) define propósito, público, convenções e tipos de modelo usados para tratar determinadas preocupações.
-- **Vista** (*view*) representa este sistema segundo um ponto de vista. Uma vista pode combinar texto, tabelas e diagramas.
-- **Modelo arquitetural** representa um aspecto específico da arquitetura dentro de uma ou mais vistas, como relações entre responsabilidades ou alocação de componentes em ambientes.
-- **Cenário de qualidade** especifica como o sistema deve responder a um estímulo sob determinada condição. É entrada para análise e verificação, não uma vista da arquitetura.
+- **Visão** (*view*) representa este sistema segundo um ponto de vista. Uma visão pode combinar texto, tabelas e diagramas.
+- **Modelo arquitetural** representa um aspecto específico da arquitetura dentro de uma ou mais visões, como relações entre responsabilidades ou alocação de componentes em ambientes.
+- **Cenário de qualidade** especifica como o sistema deve responder a um estímulo sob determinada condição. É entrada para análise e verificação, não uma visão da arquitetura.
 - **ADR** registra uma decisão arquitetural e seu racional. É memória de decisão, não modelo do sistema.
 
-O dossiê organiza esses elementos em cinco grupos:
+O documento organiza esses elementos em cinco grupos:
 
 | Grupo | Conteúdo | Pergunta |
 |---|---|---|
 | Entradas da análise | stakeholders, preocupações, objetivos, restrições, premissas, CONOPS e cenários de qualidade | O que orienta e limita o desenho? |
-| Descrição arquitetural | vistas de contexto, responsabilidades, interação, informação e implantação | Que estruturas respondem às preocupações? |
+| Descrição arquitetural | visões de contexto, responsabilidades, interação, informação e implantação | Que estruturas respondem às preocupações? |
 | Análise arquitetural | RAS, táticas, sensibilidades, trade-offs, riscos e alternativas | Por que essa estrutura é adequada? |
 | Registros de decisão | ADRs e alternativas rejeitadas | O que foi escolhido e por quê? |
 | Evidências | experimentos, medições e critérios de aceitação | O que sustenta ou refuta a escolha? |
 
-### Cinco vistas mínimas
+### Cinco visões mínimas
 
-Não existe uma quantidade universal de vistas. Para o desenho conceitual de uma solução de IA generativa, estas cinco costumam revelar as decisões iniciais:
+Não existe uma quantidade universal de visões. Para o desenho conceitual de uma solução de IA generativa, estas cinco costumam revelar as decisões iniciais:
 
-| Vista | Preocupações atendidas | Modelos ou representações úteis |
+| Visão | Preocupações atendidas | Modelos ou representações úteis |
 |---|---|---|
 | Contexto | atores, sistemas externos, responsabilidades organizacionais e fronteiras de confiança | mapa de contexto e tabela de dependências |
 | Responsabilidades | decomposição, autoridade, coesão e acoplamento | mapa de responsabilidades e contratos conceituais |
@@ -53,23 +53,98 @@ Não existe uma quantidade universal de vistas. Para o desenho conceitual de uma
 | Informação | origem, classificação, finalidade, transformação, proveniência, retenção e descarte | fluxo e ciclo de vida dos dados |
 | Implantação | alocação em ambientes, regiões e provedores; identidades, redes e dependências operacionais | mapa de implantação e fronteiras tecnológicas |
 
-O ponto de vista deve declarar o que deixa de fora. A vista de contexto não explica a ordem de uma chamada; a vista de interação não mostra onde o dado é armazenado; a vista de implantação não atribui autoridade humana.
+O ponto de vista deve declarar o que deixa de fora. A visão de contexto não explica a ordem de uma chamada; a visão de interação não mostra onde o dado é armazenado; a visão de implantação não atribui autoridade humana.
 
-### Correspondências entre vistas
+### Exemplo concreto das cinco visões
 
-As vistas são complementares, mas precisam descrever o mesmo sistema. **Correspondência** é uma relação que permite verificar essa coerência. Adote pelo menos estas regras:
+Considere um assistente simples: ele sugere categoria e prioridade de chamados de suporte técnico recebidos por e-mail; um atendente humano confirma ou corrige antes do registro. As cinco visões abaixo descrevem esse mesmo assistente, cada uma sob uma preocupação distinta.
 
-1. todo ator ou sistema externo usado numa interação aparece na vista de contexto;
+#### Contexto
+
+```mermaid
+flowchart LR
+    CL[Cliente] -->|envia e-mail| AS[Assistente de triagem]
+    AS -->|sugestão de categoria e prioridade| AT[Atendente]
+    AT -->|confirma ou corrige| SC[Sistema de chamados]
+```
+
+**Equivalente textual.** O cliente envia o e-mail; o assistente sugere categoria e prioridade; o atendente confirma ou corrige antes de o sistema de chamados registrar o caso. A fronteira de confiança fica entre o e-mail recebido, não confiável, e o chamado registrado, confiável porque passou por confirmação humana.
+
+#### Responsabilidades
+
+```mermaid
+flowchart LR
+    EXT[Extrator: identifica produto e urgência declarada] --> CLS[Classificador: sugere categoria e prioridade]
+    CLS --> ATE[Atendente: decide e registra]
+```
+
+**Equivalente textual.** O extrator apenas identifica campos no texto; o classificador apenas sugere categoria e prioridade a partir desses campos; a decisão e o registro pertencem ao atendente. Nenhum dos dois componentes automatizados grava o chamado por conta própria.
+
+#### Interação
+
+```mermaid
+sequenceDiagram
+    participant CL as Cliente
+    participant EX as Extrator
+    participant CLS as Classificador
+    participant AT as Atendente
+    participant SC as Sistema de chamados
+    CL->>EX: envia e-mail
+    EX->>CLS: produto e urgência identificados
+    CLS->>AT: sugestão de categoria e prioridade
+    AT->>SC: confirma ou corrige e registra
+```
+
+**Equivalente textual.** O e-mail chega ao extrator, que identifica os campos; o classificador propõe categoria e prioridade; o atendente confirma ou corrige; o sistema de chamados registra o resultado. Se o extrator não encontrar campos suficientes, o classificador não sugere nada e o atendente preenche manualmente.
+
+#### Informação
+
+```mermaid
+flowchart LR
+    EM["Corpo do e-mail (pode conter dado pessoal)"] --> EXT[Campos extraídos]
+    EXT --> SUG[Sugestão do classificador]
+    SUG --> REG["Registro: decisão final, data e responsável"]
+    EM -.->|texto bruto não retido além da sessão| DESC[Descarte]
+```
+
+**Equivalente textual.** O dado de entrada é o corpo do e-mail, que pode conter dado pessoal do cliente; o texto bruto não é retido além da sessão de triagem. A sugestão do classificador e a decisão final do atendente são registradas com data e responsável, para permitir auditoria posterior.
+
+#### Implantação
+
+```mermaid
+flowchart LR
+    subgraph SC_ENV["Ambiente do sistema de chamados"]
+        UI[Canal de e-mail]
+        GW[Gateway de filtragem]
+        SC[Sistema de chamados]
+    end
+    subgraph MOD_ENV["Serviço de classificação"]
+        CLS[Classificador]
+    end
+    UI --> GW
+    GW -->|conteúdo filtrado| CLS
+    CLS -->|sugestão| SC
+```
+
+**Equivalente textual.** O classificador roda como um serviço interno, chamado pelo sistema de chamados através de um gateway. Não existe caminho em que o conteúdo do e-mail chegue ao classificador sem passar por esse gateway, que aplica filtragem antes da chamada.
+
+Nenhuma dessas visões, isolada, descreve o assistente por completo: juntas, elas cobrem contexto, responsabilidade, sequência, dado e ambiente de execução.
+
+### Correspondências entre visões
+
+As visões são complementares, mas precisam descrever o mesmo sistema. **Correspondência** é uma relação que permite verificar essa coerência. Adote pelo menos estas regras:
+
+1. todo ator ou sistema externo usado numa interação aparece na visão de contexto;
 2. todo passo da interação tem uma responsabilidade e um responsável;
-3. todo dado criado, transformado, persistido ou enviado aparece na vista de informação;
-4. todo componente executável e repositório de dados é alocado na vista de implantação;
+3. todo dado criado, transformado, persistido ou enviado aparece na visão de informação;
+4. todo componente executável e repositório de dados é alocado na visão de implantação;
 5. toda travessia de fronteira de confiança tem controle e evidência associados;
-6. todo RAS chega a uma ou mais táticas, a elementos afetados nas vistas e a um método de verificação;
-7. toda ADR referencia as preocupações, RAS e vistas que motivou ou alterou.
+6. todo RAS chega a uma ou mais táticas, a elementos afetados nas visões e a um método de verificação;
+7. toda ADR referencia as preocupações, RAS e visões que motivou ou alterou.
 
-Uma inconsistência entre vistas é um defeito arquitetural do material, mesmo que cada diagrama pareça correto isoladamente.
+Uma inconsistência entre visões é um defeito arquitetural do material, mesmo que cada diagrama pareça correto isoladamente.
 
-### Vocabulário para iniciar o dossiê
+### Vocabulário para iniciar o documento
 
 - **População** é o conjunto de pessoas, casos ou situações para o qual a decisão vale; não é apenas o número de usuários que acessou uma demonstração.
 - **Baseline** é a medida inicial do processo atual, usada como comparação. Exemplo: a mediana atual de preparação de um caso é 22 minutos.
@@ -79,7 +154,7 @@ Uma inconsistência entre vistas é um defeito arquitetural do material, mesmo q
 - **Gatilho de revisão** é a condição observável que obriga a reexaminar uma decisão, como a cobertura de fonte cair abaixo do limite, mudar a política aplicável ou surgir uma nova classe de dado.
 - **Finalidade** é o uso autorizado para um dado ou capacidade. Ter acesso técnico não autoriza reutilizar informação para outro objetivo.
 - **Limiar** é o valor que separa resultado aceitável de resultado que exige ação; **falha intolerável** é um evento que bloqueia a decisão mesmo quando as demais medidas parecem boas.
-- **Reversibilidade** é a capacidade de voltar a um estado seguro ou limitar o efeito de uma escolha. Nem toda consequência pode ser desfeita; nesses casos, o dossiê precisa reduzir escopo ou exigir aprovação antes do efeito.
+- **Reversibilidade** é a capacidade de voltar a um estado seguro ou limitar o efeito de uma escolha. Nem toda consequência pode ser desfeita; nesses casos, o documento precisa reduzir escopo ou exigir aprovação antes do efeito.
 - **ADR** (*Architecture Decision Record*) registra contexto, alternativas, decisão, consequências, evidências e gatilhos de revisão para uma escolha arquitetural relevante.
 
 ## A IA como componente de um sistema maior
@@ -152,19 +227,19 @@ O objetivo não é produzir pontuação aparente. É selecionar de três a cinco
 
 ## O processo de decisão e o uso de ADRs
 
-ADRs preservam escolhas arquiteturais relevantes, não substituem vistas ou análise. Uma ADR registra:
+ADRs preservam escolhas arquiteturais relevantes, não substituem visões ou análise. Uma ADR registra:
 
 - status, contexto e preocupações;
 - RAS e direcionadores;
 - alternativas comparadas e racional da escolha;
-- decisão e elementos afetados nas vistas;
+- decisão e elementos afetados nas visões;
 - consequências, riscos residuais e premissas;
 - evidências esperadas e gatilhos de revisão;
 - relação com ADRs anteriores, quando substitui uma decisão.
 
 ## Preparação para a progressão de decisões
 
-Este módulo estabelece a fundação para RAG, agentes, confiança e operação. Os módulos 3 a 6 detalham mecanismos; o Módulo 2 estabelece por que eles seriam necessários, que RAS realizam, que vistas alteram e como sua consequência será verificada.
+Este módulo estabelece a fundação para RAG, agentes, confiança e operação. Os módulos 3 a 6 detalham mecanismos; o Módulo 2 estabelece por que eles seriam necessários, que RAS realizam, que visões alteram e como sua consequência será verificada.
 
 ## Critérios de adequação da IA generativa
 

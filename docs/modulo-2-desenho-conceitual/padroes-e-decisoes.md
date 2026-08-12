@@ -2,7 +2,7 @@
 
 Uma oportunidade não escolhe arquitetura. “Reduzir o tempo de preparação de contestações” ainda não informa quais dados podem circular, quem mantém a decisão, como a solução falha ou que resultado justificaria o investimento. O desenho começa ao tornar essas perguntas explícitas.
 
-Neste curso, **dossiê conceitual** é o conjunto mínimo de entradas, vistas, análises, decisões e evidências que mantém o raciocínio conectado. Não é um documento normativo nem uma nova vista: é a organização didática da memória de por que uma estrutura foi escolhida e de que sinal exigirá revê-la.
+Neste curso, **Documento de Arquitetura de Software** é o conjunto mínimo de entradas, visões, análises, decisões e evidências que mantém o raciocínio conectado. Não é um documento normativo nem uma nova visão: é a organização didática da memória de por que uma estrutura foi escolhida e de que sinal exigirá revê-la.
 
 ## 1. Descrever o sistema antes da solução
 
@@ -10,26 +10,26 @@ Neste curso, **dossiê conceitual** é o conjunto mínimo de entradas, vistas, a
 
 Uma equipe pode querer reduzir busca e consolidação sem delegar decisão ou registro ao modelo. Ela começa por população, baseline, contramétricas, atividades humanas, CONOPS, fronteiras e fora de escopo. Esses elementos delimitam o problema; nenhuma escolha de modelo é necessária nesse momento.
 
-Para enxergar o caso por ângulos distintos, a equipe produz vistas complementares e conserva os artefatos que as orientam:
+Para enxergar o caso por ângulos distintos, a equipe produz visões complementares e conserva os artefatos que as orientam:
 
 | Categoria | Artefato | Pergunta respondida |
 |---|---|---|
 | Entrada | Cenário operacional | Como o trabalho ocorre em situação normal, degradada e bloqueada? |
-| Vista | Contexto | Quem interage com o sistema e quais fronteiras ele atravessa? |
-| Vista | Responsabilidades | Quem coleta, seleciona, gera, valida, decide e registra? |
-| Vista | Interação | Em que ordem informação, decisão e efeito atravessam fronteiras? |
-| Vista | Informação | De onde vem o dado, como muda, onde persiste e quando é descartado? |
-| Vista | Implantação | Onde componentes e dados executam e que fronteiras tecnológicas atravessam? |
+| Visão | Contexto | Quem interage com o sistema e quais fronteiras ele atravessa? |
+| Visão | Responsabilidades | Quem coleta, seleciona, gera, valida, decide e registra? |
+| Visão | Interação | Em que ordem informação, decisão e efeito atravessam fronteiras? |
+| Visão | Informação | De onde vem o dado, como muda, onde persiste e quando é descartado? |
+| Visão | Implantação | Onde componentes e dados executam e que fronteiras tecnológicas atravessam? |
 | Entrada da análise | Cenário de qualidade | Como o sistema deve responder a um estímulo sob uma condição? |
 | Registro | ADR | Por que uma direção foi escolhida e quando será revista? |
 
-![Entradas, cinco vistas, análise, decisão e evidência no desenho arquitetural](../assets/images/m02-descricao-arquitetural.png)
+![Entradas, cinco visões, análise, decisão e evidência no desenho arquitetural](../assets/images/m02-descricao-arquitetural.png)
 
-*Figura — Entradas orientam cinco vistas complementares; análise liga RAS a táticas e riscos; ADRs e evidências preservam a decisão e alimentam sua revisão.*
+*Figura — Entradas orientam cinco visões complementares; análise liga RAS a táticas e riscos; ADRs e evidências preservam a decisão e alimentam sua revisão.*
 
-A vista de contexto não explica o comportamento degradado; uma sequência não mostra onde o dado persiste; uma ADR não substitui nenhuma das vistas. O conjunto evita que um único diagrama receba perguntas que não consegue responder.
+A visão de contexto não explica o comportamento degradado; uma sequência não mostra onde o dado persiste; uma ADR não substitui nenhuma das visões. O conjunto evita que um único diagrama receba perguntas que não consegue responder.
 
-Antes de desenhar, declare o ponto de vista: preocupações atendidas, público, convenções e informação excluída. Depois verifique correspondências. Se a interação consulta uma política, a política precisa existir no contexto, ter ciclo de vida na vista de informação, responsável na vista de responsabilidades e alocação na vista de implantação.
+Antes de desenhar, declare o ponto de vista: preocupações atendidas, público, convenções e informação excluída. Depois verifique correspondências. Se a interação consulta uma política, a política precisa existir no contexto, ter ciclo de vida na visão de informação, responsável na visão de responsabilidades e alocação na visão de implantação.
 
 ## 2. Identificar o que exige arquitetura
 
@@ -60,7 +60,7 @@ O Módulo 2 usa essas táticas para comparar direções. Os módulos 3 a 6 aprof
 
 Tática, mecanismo, padrão e estilo não são sinônimos. A tática descreve a resposta pretendida; o mecanismo a concretiza neste sistema; um padrão organiza uma composição recorrente de elementos; um estilo restringe a organização geral de componentes e conectores. A ADR registra por que uma dessas combinações foi escolhida.
 
-> **Decisão arquitetural:** selecione táticas a partir dos RAS prioritários, concretize-as em mecanismos identificáveis nas vistas e registre em ADR somente as escolhas que alteram estrutura, fronteira, dependência ou responsabilidade.
+> **Decisão arquitetural:** selecione táticas a partir dos RAS prioritários, concretize-as em mecanismos identificáveis nas visões e registre em ADR somente as escolhas que alteram estrutura, fronteira, dependência ou responsabilidade.
 
 ### Analisar composições, não itens isolados
 
@@ -103,7 +103,7 @@ Contexto selecionado serve quando a fonte já é conhecida e pequena. RAG é can
 
 Antes de ampliar capacidade, defina a menor evidência que permite decidir: teste de contrato, casos representativos, modo sombra ou experimento limitado. Uma alternativa pode ser rejeitada quando uma regra, consulta ou melhoria de processo atende o mesmo objetivo com menos risco.
 
-Esta comparação não encerra o desenho; ela escolhe qual família de táticas precisa de detalhamento posterior. Uma escolha estrutural pode combinar várias famílias e precisa aparecer nas vistas afetadas.
+Esta comparação não encerra o desenho; ela escolhe qual família de táticas precisa de detalhamento posterior. Uma escolha estrutural pode combinar várias famílias e precisa aparecer nas visões afetadas.
 
 | Se o RAS exige… | O módulo seguinte aprofunda… | Táticas que serão detalhadas |
 |---|---|---|
@@ -122,7 +122,7 @@ Uma **ADR** registra decisão relevante para que ela sobreviva ao contexto da co
 
 *Figura — O modelo mostra a estrutura; o cenário mostra o comportamento; a ADR explica a escolha.*
 
-Uma ADR contém status, contexto, preocupações, RAS, opções, racional, decisão, vistas afetadas, consequências, riscos residuais, premissas, evidência esperada e gatilho de revisão. O registro antigo permanece como histórico quando uma decisão é substituída.
+Uma ADR contém status, contexto, preocupações, RAS, opções, racional, decisão, visões afetadas, consequências, riscos residuais, premissas, evidência esperada e gatilho de revisão. O registro antigo permanece como histórico quando uma decisão é substituída.
 
 ## 6. Verificar correspondência e risco residual
 
@@ -134,7 +134,7 @@ Antes de aprovar uma direção, percorra o desenho nos dois sentidos:
 | interação ↔ responsabilidades | cada passo tem responsável, autoridade e contrato? |
 | interação ↔ informação | cada leitura, transformação, persistência e envio está representado? |
 | informação ↔ implantação | região, provedor, armazenamento, identidade e rede preservam finalidade e classificação? |
-| RAS ↔ tática ↔ vistas | a resposta de qualidade altera elementos identificáveis e possui critério de verificação? |
+| RAS ↔ tática ↔ visões | a resposta de qualidade altera elementos identificáveis e possui critério de verificação? |
 | ADR ↔ análise | o racional cita sensibilidades, trade-offs, riscos, premissas e alternativas? |
 | evidência ↔ decisão | o experimento pode confirmar, restringir ou refutar a escolha? |
 

@@ -46,7 +46,7 @@ O mapa visual será apresentado depois da finalidade do arquiteto e interpretado
 ## Limites
 
 - Preservar oito páginas, seis níveis de Bloom, laboratório local e independência de fornecedor.
-- Não ensinar vistas, táticas ou ADRs em profundidade; essa responsabilidade permanece no Módulo 2.
+- Não ensinar visões, táticas ou ADRs em profundidade; essa responsabilidade permanece no Módulo 2.
 - Não detalhar pipelines de RAG, trajetórias de agentes, modelagem de ameaças ou LLMOps.
 - Preservar imagens úteis, alterando títulos e interpretação quando a classificação atual induzir erro.
 

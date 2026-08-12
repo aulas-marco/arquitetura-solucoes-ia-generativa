@@ -4,7 +4,7 @@
 
 **Goal:** Reestruturar o Módulo 2 como fundamento de decisão arquitetural para os módulos 3–6.
 
-**Architecture:** O dossiê conceitual organiza o módulo inteiro como convenção didática. Conceitos separam entradas, vistas, análise, decisões e evidências; padrões ligam RAS a táticas, mecanismos e estruturas; exemplo e caso verificam correspondências entre vistas; oficina, exercícios e síntese exigem a mesma rastreabilidade.
+**Architecture:** O Documento de Arquitetura de Software organiza o módulo inteiro como convenção didática. Conceitos separam entradas, visões, análise, decisões e evidências; padrões ligam RAS a táticas, mecanismos e estruturas; exemplo e caso verificam correspondências entre visões; oficina, exercícios e síntese exigem a mesma rastreabilidade.
 
 **Tech Stack:** Markdown, MkDocs, pytest e validador de conteúdo.
 
@@ -23,8 +23,8 @@
 - Modify: `docs/modulo-2-desenho-conceitual/conceitos.md`
 - Modify: `docs/modulo-2-desenho-conceitual/padroes-e-decisoes.md`
 
-- [ ] Explicitar a taxonomia de descrição arquitetural: preocupações, pontos de vista, vistas, modelos, cenários, ADRs e evidências.
-- [ ] Acrescentar vistas de informação e implantação e regras de correspondência entre todas as vistas.
+- [ ] Explicitar a taxonomia de descrição arquitetural: preocupações, pontos de vista, visões, modelos, cenários, ADRs e evidências.
+- [ ] Acrescentar visões de informação e implantação e regras de correspondência entre todas as visões.
 - [ ] Separar tática, mecanismo, padrão, estilo e ADR; incluir composição e conflitos entre táticas.
 - [ ] Introduzir árvore de utilidade reduzida e registro de riscos, premissas e incertezas.
 
@@ -37,13 +37,13 @@
 - Modify: `docs/modulo-2-desenho-conceitual/exercicios.md`
 - Modify: `docs/modulo-2-desenho-conceitual/sintese-e-referencias.md`
 
-- [ ] Fazer o exemplo construir as cinco vistas, aplicar regras de correspondência e registrar sensibilidades, trade-offs e riscos.
+- [ ] Fazer o exemplo construir as cinco visões, aplicar regras de correspondência e registrar sensibilidades, trade-offs e riscos.
 - [ ] Fazer caso, oficina e exercícios construir, testar ou revisar os mesmos elementos.
 - [ ] Atualizar síntese, autoavaliação e referências para refletir a taxonomia.
 
 ### Task 3: Validar
 
-- [ ] Ampliar `tests/test_module_two.py` com regressões para taxonomia, cinco vistas, correspondências, análise de trade-offs e distinção entre táticas e ADRs.
+- [ ] Ampliar `tests/test_module_two.py` com regressões para taxonomia, cinco visões, correspondências, análise de trade-offs e distinção entre táticas e ADRs.
 - [ ] Run: `python scripts/validate_content.py --all`
 - [ ] Run: `python -m pytest -q`
 - [ ] Run: `mkdocs build --strict`

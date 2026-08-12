@@ -2,7 +2,7 @@
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina testa uma única hipótese do dossiê conceitual: uma fronteira de consumo reduz acoplamento suficiente para justificar uma capacidade comum? O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente. O experimento observa um mecanismo de adaptador; não prova, sozinho, a modificabilidade da arquitetura inteira.
+Esta oficina testa uma única hipótese do Documento de Arquitetura de Software: uma fronteira de consumo reduz acoplamento suficiente para justificar uma capacidade comum? O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente. O experimento observa um mecanismo de adaptador; não prova, sozinho, a modificabilidade da arquitetura inteira.
 
 ## Ferramenta
 
@@ -208,7 +208,7 @@ Antes de redigi-la, registre a correspondência observada:
 | RAS de modificabilidade | troca de endpoint não altera o contrato do cliente |
 | Tática | encapsulamento por interface estável |
 | Mecanismo | gateway e manifesto versionado |
-| Vistas afetadas | responsabilidades, interação e implantação |
+| Visões afetadas | responsabilidades, interação e implantação |
 | Sensibilidade | diferenças semânticas escondidas pelo contrato |
 | Trade-off | portabilidade versus acesso a recursos específicos |
 | Incerteza | equivalência de comportamento entre os modelos |
@@ -246,7 +246,7 @@ Entregue a tabela e uma mini-ADR de até 250 palavras.
 - **Escolha provisória:**
 - **Alternativa considerada:**
 - **Evidência do laboratório:**
-- **O que esta evidência não decide no dossiê:**
+- **O que esta evidência não decide no documento:**
 - **Gatilho de revisão:**
 ```
 

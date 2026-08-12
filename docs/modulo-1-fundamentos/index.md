@@ -43,7 +43,7 @@ Ao concluir o módulo, você deverá ser capaz de:
 
 | Continuação | Pergunta preparada aqui |
 |---|---|
-| [Módulo 2 — Desenho conceitual](../modulo-2-desenho-conceitual/index.md) | Que problema, RAS, vistas, táticas e evidências justificam uma direção? |
+| [Módulo 2 — Desenho conceitual](../modulo-2-desenho-conceitual/index.md) | Que problema, RAS, visões, táticas e evidências justificam uma direção? |
 | [Módulo 3 — RAG](../modulo-3-rag/index.md) | Como uma fonte externa se torna evidência atualizada, autorizada e recuperável? |
 | [Módulo 4 — Agentes](../modulo-4-agentes/index.md) | Quando o modelo pode escolher passos ou propor ações, e quem governa o efeito? |
 | [Módulo 5 — Confiança](../modulo-5-confianca/index.md) | Que riscos, controles e avaliações tornam o uso aceitável para uma finalidade? |

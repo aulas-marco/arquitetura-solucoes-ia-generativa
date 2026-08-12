@@ -86,11 +86,11 @@ O gateway aplica controles transversais, como quotas, redação de dados, fallba
 
 **Situação**
 
-Uma equipe quer responder dúvidas sobre 800 manuais técnicos, atualizados semanalmente. Parte das perguntas é sobre dados de uma ordem de serviço já aberta; outra exige localizar uma política vigente. O patrocinador propõe treinar um modelo com todos os manuais.
+Uma equipe quer responder dúvidas sobre 800 manuais técnicos de equipamentos, atualizados semanalmente pelo fabricante. O suporte recebe três tipos de pergunta: o status de uma ordem de serviço já aberta no sistema interno, o procedimento descrito em um manual específico e qual política de garantia vigente se aplica a um modelo de equipamento. O patrocinador propõe treinar um modelo com todos os manuais e encerrar o assunto.
 
 **Seu papel**
 
-Você conduz a primeira decisão arquitetural. Deve separar o que é dado estruturado, contexto já selecionado e conhecimento que precisa ser localizado.
+Você conduz a primeira decisão arquitetural do sistema de suporte. Antes de escolher qualquer tecnologia, precisa separar o que já é dado estruturado, o que é contexto selecionável de antemão e o que exige recuperação de conhecimento no momento da resposta.
 
 **Insumos disponíveis**
 
@@ -98,69 +98,31 @@ Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), as [alterna
 
 **Como conduzir**
 
-1. Classifique três perguntas do cenário por fonte: consulta estruturada, contexto fornecido ou recuperação de conhecimento.
-2. Compare prompt com contexto, RAG e fine-tuning para as políticas que mudam semanalmente.
-3. Declare dados, permissões, atualização e proveniência da evidência: origem, versão, transformação e uso na resposta.
-4. Registre uma decisão provisória e uma condição que a faria ser revista.
+Produza os quatro entregáveis abaixo, na ordem. Cada um é pequeno e pode ser verificado isoladamente antes de avançar para o próximo.
+
+1. **Classificação das perguntas** — para as três perguntas típicas do suporte (status de OS, procedimento de manual, política de garantia vigente), preencha uma tabela de três linhas com as colunas Pergunta / Onde o dado mora hoje / Classificação (consulta estruturada, contexto selecionado ou conhecimento a recuperar). *Entregável 1 — tabela de 3 linhas × 3 colunas.*
+2. **Comparação das alternativas de conhecimento** — para a pergunta sobre política de garantia, a única que muda semanalmente, compare contexto fornecido, RAG e fine-tuning em três critérios: atualização, proveniência e custo operacional; uma frase por célula. *Entregável 2 — tabela de 3 linhas × 3 colunas, uma frase por célula.*
+3. **Ficha de proveniência** — para a mesma pergunta de política de garantia, preencha uma ficha de cinco campos: origem, autoridade que a mantém, versão e vigência, transformação aplicada antes da resposta, uso na resposta final ao suporte. *Entregável 3 — ficha de 5 campos, uma linha cada.*
+4. **Decisão provisória e gatilho de revisão** — escreva três frases: a alternativa escolhida para a política de garantia e por quê; a alternativa rejeitada e o motivo específico da rejeição; uma condição observável e mensurável que obrigaria a equipe a revisar essa escolha. *Entregável 4 — 3 frases, uma por item.*
 
 **Entrega esperada**
 
-Entregue uma matriz de decisão e o núcleo de uma ADR com contexto, alternativas, decisão, consequências e gatilho de revisão.
+Os quatro entregáveis dos passos 1 a 4 — nenhum texto livre adicional é necessário. Juntos, formam o núcleo de uma ADR: contexto (entregável 1), alternativas (entregável 2), evidência (entregável 3) e decisão com gatilho (entregável 4).
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
-| Classificação do conhecimento | 25% | Distingue dado de ordem, contexto selecionado e informação a localizar. |
-| Trade-offs | 30% | Compara atualização, proveniência, custo e complexidade das alternativas. |
-| Fronteiras e controles | 20% | Explicita autorização, versão, transformação e uso da evidência. |
-| Decisão revisável | 25% | Registra consequência e medida capaz de alterar a escolha. |
+| Classificação do conhecimento (entregável 1) | 20% | Distingue corretamente dado de ordem, contexto selecionado e informação a localizar. |
+| Comparação de alternativas (entregável 2) | 30% | Compara atualização, proveniência e custo sem declarar uma alternativa superior em tudo. |
+| Ficha de proveniência (entregável 3) | 25% | Preenche os cinco campos com informação específica do caso, não genérica. |
+| Decisão e gatilho (entregável 4) | 25% | Registra decisão, alternativa rejeitada com motivo e uma condição mensurável de revisão. |
 
-**Como verificar antes de entregar:** confira se a proposta não usa fine-tuning como banco de dados e se cada fonte possui controle de acesso e atualização.
-
-### 9. Critérios para uma cadeia de extração
-
-**O que é:** pipes-and-filters separa etapas de geração e validação para impedir que um erro probabilístico avance sem controle.
-
-**Onde encontrar:** consulte [atributos de qualidade](../referencia/atributos-de-qualidade.md), [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia) e [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao).
-
-**Situação**
-
-Um sistema extrai obrigações de licenças ambientais, valida datas e identificadores e prepara uma síntese para especialista. Campos estruturados têm formato obrigatório; a síntese pode variar, mas não pode omitir uma obrigação crítica. A saída só segue ao especialista depois das validações.
-
-**Seu papel**
-
-Você desenha a cadeia de tarefas e os critérios que determinam quando cada resultado pode avançar, ser corrigido ou ser bloqueado.
-
-**Insumos disponíveis**
-
-Use os [modos operacionais](conceitos.md#modos-operacionais), a [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao) e os critérios probabilísticos. Use licenças fictícias com exceções.
-
-**Como conduzir**
-
-1. Desenhe quatro etapas: extração, validação determinística, síntese e revisão humana.
-2. Defina o contrato de entrada, saída e falha para cada filtro.
-3. Escreva um critério determinístico para campos e um probabilístico para a síntese.
-4. Defina uma falha intolerável, o modo acionado e a pessoa informada.
-
-**Entrega esperada**
-
-Entregue o fluxo com equivalente textual, dois critérios de aceitação e uma regra operacional de bloqueio ou recuperação.
-
-**Critérios de avaliação**
-
-| Critério | Peso | O que evidencia atendimento adequado |
-|---|---:|---|
-| Encadeamento | 25% | Separa geração, validação e revisão em responsabilidades compreensíveis. |
-| Contratos | 25% | Define entradas, saídas e ação diante de falha em cada etapa. |
-| Critérios | 30% | Distingue validação determinística de aceitação probabilística. |
-| Operação | 20% | Indica bloqueio, preservação do estado e retorno seguro. |
-
-**Como verificar antes de entregar:** confira se nenhuma síntese avança quando o filtro de campos falha e se a revisão possui evidências para discordar.
+**Como verificar antes de entregar:** confira se cada um dos quatro entregáveis existe isoladamente, não apenas embutido em um texto corrido, e se a decisão do entregável 4 não usa fine-tuning como banco de dados para fatos que mudam semanalmente.
 
 ## Analisar
 
-### 10. Arquitetura de ação para reembolso
+### 9. Arquitetura de ação para reembolso
 
 **O que é:** uma decisão de autonomia compara o valor de delegar passos ao modelo com os novos riscos de ferramentas e efeitos no negócio.
 
@@ -204,7 +166,7 @@ Entregue uma matriz de atividades e controles, um fluxo de responsabilidade e um
 
 ## Avaliar
 
-### 11. Plataforma comum e múltiplos modelos
+### 10. Plataforma comum e múltiplos modelos
 
 **O que é:** uma decisão de plataforma avalia controles compartilhados e diversidade de modelos sem confundir padronização com uma solução única.
 
@@ -246,11 +208,11 @@ Entregue um parecer de uma página, uma tabela de controles e uma ADR com recome
 
 ## Criar
 
-### 12. Dossiê conceitual de um assistente administrativo clínico
+### 11. Documento de Arquitetura de Software de um assistente administrativo clínico
 
-**O que é:** dossiê conceitual reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
+**O que é:** o Documento de Arquitetura de Software reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
 
-**Onde encontrar:** consulte [o dossiê conceitual](conceitos.md#o-dossie-conceitual), [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [o Documento de Arquitetura de Software](conceitos.md#o-documento-de-arquitetura-de-software), [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
@@ -258,7 +220,7 @@ Um sistema ajuda equipes a preparar documentação administrativa para autoriza�
 
 **Seu papel**
 
-Você é o arquiteto que compõe um dossiê independente de fornecedor para decisão conjunta com domínio, privacidade, segurança e operações.
+Você é o arquiteto que compõe um documento independente de fornecedor para decisão conjunta com domínio, privacidade, segurança e operações.
 
 **Insumos disponíveis**
 
@@ -269,27 +231,27 @@ Use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), [fronteiras](conceitos.
 1. Declare oportunidade, baseline, stakeholders, finalidade, fora de escopo e responsabilidades por verbo.
 2. Descreva os modos normal, baixa confiança, degradado e bloqueado, com transições e trabalho manual.
 3. Escolha e justifique o padrão de conhecimento, a cadeia de validação, os controles de gateway e a autonomia permitida.
-4. Produza vistas de contexto, responsabilidades, interação, informação e implantação; declare ao menos uma exclusão de cada ponto de vista.
+4. Produza visões de contexto, responsabilidades, interação, informação e implantação; declare ao menos uma exclusão de cada ponto de vista.
 5. Verifique correspondências entre participantes, passos, dados, alocações, fronteiras, RAS e controles.
-6. Rastreie objetivos até RAS, táticas, mecanismos, elementos das vistas, critérios e evidências.
+6. Rastreie objetivos até RAS, táticas, mecanismos, elementos das visões, critérios e evidências.
 7. Construa uma árvore de utilidade reduzida com três cenários, sensibilidades, trade-offs, riscos e premissas.
 8. Compare alternativas em uma ADR e encerre com experimento, falhas intoleráveis e gatilhos de revisão.
 
 **Entrega esperada**
 
-Entregue o dossiê, as cinco vistas com equivalentes textuais, a matriz de correspondência, a árvore de utilidade e uma ADR. O texto deve permitir revisão independente.
+Entregue o documento, as cinco visões com equivalentes textuais, a matriz de correspondência, a árvore de utilidade e uma ADR. O texto deve permitir revisão independente.
 
 **Critérios de avaliação**
 
 | Critério | Peso | O que evidencia atendimento adequado |
 |---|---:|---|
 | Escopo e operação | 10% | Delimita finalidade, fora de escopo, modos e trabalho humano. |
-| Vistas e correspondências | 25% | Representa contexto, responsabilidades, interação, informação e implantação sem contradições. |
+| Visões e correspondências | 25% | Representa contexto, responsabilidades, interação, informação e implantação sem contradições. |
 | Análise arquitetural | 20% | Liga cenários a táticas e explicita sensibilidades, trade-offs, riscos e premissas. |
-| Rastreabilidade | 20% | Liga objetivos, RAS, mecanismos, elementos das vistas, critérios e evidências. |
-| Alternativas e ADR | 15% | Expõe racional, vistas afetadas, consequências e revisão sem apelar a marca. |
+| Rastreabilidade | 20% | Liga objetivos, RAS, mecanismos, elementos das visões, critérios e evidências. |
+| Alternativas e ADR | 15% | Expõe racional, visões afetadas, consequências e revisão sem apelar a marca. |
 | Experimento e falhas | 10% | Define teste refutável, falhas intoleráveis e recuperação. |
 
 **Como verificar antes de entregar:** percorra cada correspondência nos dois sentidos e confira modos, fontes, alocação, controles, riscos, ADR e gatilhos de revisão.
 
-Concluída a prática, faça a [síntese e autoavaliação](sintese-e-referencias.md).
+Concluída a prática, siga para a [oficina de ferramentas](oficina-de-ferramentas.md).

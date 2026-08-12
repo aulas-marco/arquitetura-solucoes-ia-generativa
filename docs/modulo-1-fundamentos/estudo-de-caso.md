@@ -126,6 +126,6 @@ Depois de concluir os nove exercícios, se quiser aprofundar antes de seguir par
 - Que mudança de configuração exigiria nova avaliação?
 - Que resultado faria abandonar a alternativa preferida?
 
-O caso prepara o [Módulo 2](../modulo-2-desenho-conceitual/index.md): transformar essas perguntas em RAS, vistas, táticas, riscos, evidências e decisões.
+O caso prepara o [Módulo 2](../modulo-2-desenho-conceitual/index.md): transformar essas perguntas em RAS, visões, táticas, riscos, evidências e decisões.
 
 Agora consolide o vocabulário nos [exercícios](exercicios.md).

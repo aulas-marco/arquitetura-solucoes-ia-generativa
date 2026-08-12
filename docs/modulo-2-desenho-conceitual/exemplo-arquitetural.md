@@ -1,10 +1,10 @@
-# Exemplo de dossiê conceitual: Banco Lume
+# Exemplo de Documento de Arquitetura de Software: Banco Lume
 
 Este exemplo mostra como uma oportunidade vira desenho arquitetural. Ele não é uma implementação pronta: cada escolha permanece condicional às evidências descritas ao final.
 
 ![Da oportunidade à arquitetura, passando por hipótese de valor, cenários, requisitos significativos, estrutura e evidências](../assets/images/m02-oportunidade-arquitetura.png)
 
-*Figura — O dossiê mantém rastreável o caminho do problema até a decisão estrutural e sua evidência.*
+*Figura — O documento mantém rastreável o caminho do problema até a decisão estrutural e sua evidência.*
 
 ## 1. Oportunidade, baseline e hipótese
 
@@ -20,11 +20,13 @@ No modo normal, o analista abre um caso, recebe um rascunho com evidências, cor
 
 Ficam fora de escopo: alteração cadastral, bloqueio de cartão, comunicação ao cliente, casos empresariais e aprendizagem automática a partir de correções. O modelo não acessa legados nem grava decisões.
 
-## 3. Cinco vistas arquiteturais
+## 3. Cinco visões arquiteturais
 
-Cada vista declara uma pergunta e deixa as demais para outras representações. O conjunto descreve o mesmo sistema sob preocupações diferentes.
+Cada visão declara uma pergunta e deixa as demais para outras representações. O conjunto descreve o mesmo sistema sob preocupações diferentes.
 
 ### Contexto
+
+Este modelo representa quem interage com o copiloto e onde ficam as fronteiras de autoridade e confiança — não a ordem das chamadas nem onde o dado é armazenado.
 
 ```mermaid
 flowchart LR
@@ -42,6 +44,8 @@ flowchart LR
 
 ### Responsabilidades
 
+Este modelo representa como o trabalho é decomposto entre componentes conceituais e, para cada um, o limite explícito do que ele não tem autoridade para decidir.
+
 | Responsabilidade | Componente conceitual | Não pode decidir |
 |---|---|---|
 | selecionar dados e política | montador de contexto | mérito da contestação |
@@ -51,6 +55,8 @@ flowchart LR
 | recomendar e aprovar | analista e supervisor | delegar responsabilidade ao modelo |
 
 ### Interação: sequência e falha
+
+Este modelo representa a ordem normal de execução entre os participantes e os pontos em que uma falha interrompe o fluxo automático, não a estrutura dos componentes.
 
 O analista abre o caso; identidade e finalidade filtram consultas; o montador seleciona dados e política; a inferência devolve rascunho; validação exige referências e comunica lacunas; o analista revisa; o supervisor aprova ou devolve. Se política ou inferência falhar, o sistema não inventa uma resposta: preserva o trabalho e oferece a consulta manual.
 
@@ -77,6 +83,8 @@ Os três sinais de falha recebem contenção específica: **dados sensíveis** f
 
 ### Informação e ciclo de vida
 
+Este modelo representa a origem, a transformação e o descarte de cada dado que atravessa o sistema, independentemente da ordem em que os componentes atuam sobre ele.
+
 | Informação | Origem e autoridade | Transformação | Persistência e descarte |
 |---|---|---|---|
 | dados do caso | serviço de casos, finalidade contestação | seleção de campos e mascaramento | referência no rascunho; conteúdo temporário descartado ao encerrar |
@@ -89,6 +97,8 @@ Os três sinais de falha recebem contenção específica: **dados sensíveis** f
 **Equivalente textual.** Dados do caso e políticas possuem autoridades diferentes. O montador cria um contexto derivado e minimizado; a inferência produz um rascunho, não um registro oficial. Origem, versão, transformação e uso formam a proveniência. Conteúdo temporário e trace seguem finalidades e prazos distintos.
 
 ### Implantação e fronteiras tecnológicas
+
+Este modelo representa onde cada componente executa e qual fronteira tecnológica o contexto minimizado atravessa até o fornecedor de inferência — não quem decide nem em que ordem os dados são produzidos.
 
 ```mermaid
 flowchart LR
@@ -134,9 +144,9 @@ flowchart LR
 
 | Regra | Evidência no exemplo |
 |---|---|
-| participante da interação existe no contexto | analista, copiloto, política, inferência e supervisor aparecem nas duas vistas |
+| participante da interação existe no contexto | analista, copiloto, política, inferência e supervisor aparecem nas duas visões |
 | passo tem responsabilidade | seleção, geração, validação, recomendação e aprovação estão atribuídas |
-| dado manipulado tem ciclo de vida | caso, política, contexto, rascunho, decisão e trace constam da vista de informação |
+| dado manipulado tem ciclo de vida | caso, política, contexto, rascunho, decisão e trace constam da visão de informação |
 | componente executável tem alocação | interface, orquestrador, montador, adaptadores, repositório e endpoint constam da implantação |
 | travessia de confiança tem controle | apenas contexto minimizado cruza a fronteira por identidade de serviço |
 | RAS chega a tática e evidência | a tabela acima liga cenário, estrutura, consequência e teste |
@@ -173,7 +183,7 @@ A matriz torna a escolha verificável: contexto selecionado por regras atende o 
 
 **Decisão.** O orquestrador segue consultas e transições definidas; o modelo produz apenas o rascunho contextualizado. Analista recomenda e supervisor aprova ou devolve antes do registro oficial.
 
-**Vistas afetadas.** Responsabilidades e interação separam geração, recomendação e aprovação; informação distingue rascunho de decisão oficial; implantação impede acesso direto do endpoint aos legados.
+**Visões afetadas.** Responsabilidades e interação separam geração, recomendação e aprovação; informação distingue rascunho de decisão oficial; implantação impede acesso direto do endpoint aos legados.
 
 **Consequências e risco residual.** O fluxo é menos flexível para casos atípicos e exige manter regras de seleção, mas reduz superfície de falha e permite comparar a hipótese em modo sombra sem efeitos irreversíveis. Permanece o risco de revisão ritual, tratado pela medição de correções, discordâncias e tempo de análise.
 
@@ -189,7 +199,7 @@ A matriz torna a escolha verificável: contexto selecionado por regras atende o 
 
 **Decisão.** Adaptadores obtêm campos permitidos e a política correspondente; o montador registra origem, versão, vigência e transformação do contexto. Não há índice ou recuperação semântica no primeiro incremento.
 
-**Vistas afetadas.** Responsabilidades atribuem seleção ao montador; informação registra fonte, versão, transformação e descarte; interação posiciona seleção antes da inferência; implantação mantém o repositório de políticas no ambiente do banco.
+**Visões afetadas.** Responsabilidades atribuem seleção ao montador; informação registra fonte, versão, transformação e descarte; interação posiciona seleção antes da inferência; implantação mantém o repositório de políticas no ambiente do banco.
 
 **Consequências e risco residual.** A cobertura fica limitada às categorias mapeadas e regras de seleção exigem manutenção. Em troca, o experimento separa a hipótese de síntese do risco e do custo de uma plataforma de recuperação. Permanece a incerteza sobre crescimento do corpus, acompanhada pela cobertura por categoria.
 
@@ -197,4 +207,4 @@ A matriz torna a escolha verificável: contexto selecionado por regras atende o 
 
 ## 6. Evidência e próximo passo
 
-O dossiê permite decidir o que construir agora e o que ainda é hipótese. Antes do módulo 3, a equipe precisa medir tempo, cobertura de evidência, devoluções, falhas de autorização e comportamento degradado. Se os limites forem atendidos, o próximo desenho detalha ingestão e consulta; se não forem, a equipe reduz escopo, melhora integração convencional ou abandona a capacidade generativa.
+O documento permite decidir o que construir agora e o que ainda é hipótese. Antes do módulo 3, a equipe precisa medir tempo, cobertura de evidência, devoluções, falhas de autorização e comportamento degradado. Se os limites forem atendidos, o próximo desenho detalha ingestão e consulta; se não forem, a equipe reduz escopo, melhora integração convencional ou abandona a capacidade generativa.

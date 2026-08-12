@@ -49,7 +49,7 @@ Se mais de duas respostas forem “ainda não”, retome [Conceitos](conceitos.m
 
 ## Conexão com os próximos módulos
 
-- O [Módulo 2](../modulo-2-desenho-conceitual/index.md) transforma a ficha inicial em RAS, vistas, táticas, riscos, evidências e ADRs.
+- O [Módulo 2](../modulo-2-desenho-conceitual/index.md) transforma a ficha inicial em RAS, visões, táticas, riscos, evidências e ADRs.
 - O [Módulo 3](../modulo-3-rag/index.md) detalha fontes, ingestão, recuperação, autorização, proveniência e fundamentação.
 - O [Módulo 4](../modulo-4-agentes/index.md) detalha ferramentas, estado, memória, autonomia, efeitos e recuperação.
 - O [Módulo 5](../modulo-5-confianca/index.md) detalha ameaças, guardrails, avaliação e aceitação de risco residual.

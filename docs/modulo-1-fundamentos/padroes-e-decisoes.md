@@ -1,6 +1,6 @@
 # Padrões e decisões
 
-As abordagens desta página são famílias de composição, não degraus de maturidade. Cada uma acrescenta capacidade e responsabilidade. A comparação começa pelo problema e pelas características prioritárias; o Módulo 2 transformará esse raciocínio em RAS, táticas, vistas e ADRs.
+As abordagens desta página são famílias de composição, não degraus de maturidade. Cada uma acrescenta capacidade e responsabilidade. A comparação começa pelo problema e pelas características prioritárias; o Módulo 2 transformará esse raciocínio em RAS, táticas, visões e ADRs.
 
 ## Panorama das abordagens
 

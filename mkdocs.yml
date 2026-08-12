@@ -60,17 +60,19 @@ nav:
       - Oficina de ferramentas: modulo-1-fundamentos/oficina-de-ferramentas.md
       - Exercícios: modulo-1-fundamentos/exercicios.md
       - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-1-fundamentos/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-1-fundamentos/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-1-fundamentos/caso-aurora.md
   - Módulo 2 — Desenho conceitual:
       - Visão geral: modulo-2-desenho-conceitual/index.md
       - Conceitos: modulo-2-desenho-conceitual/conceitos.md
       - Padrões e decisões: modulo-2-desenho-conceitual/padroes-e-decisoes.md
       - Exemplo arquitetural: modulo-2-desenho-conceitual/exemplo-arquitetural.md
-      - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-2-desenho-conceitual/oficina-de-ferramentas.md
       - Exercícios: modulo-2-desenho-conceitual/exercicios.md
+      - Oficina de ferramentas: modulo-2-desenho-conceitual/oficina-de-ferramentas.md
+      - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
       - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-2-desenho-conceitual/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-2-desenho-conceitual/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-2-desenho-conceitual/caso-aurora.md
   - Módulo 3 — RAG:
       - Visão geral: modulo-3-rag/index.md
       - Conceitos: modulo-3-rag/conceitos.md
@@ -80,7 +82,8 @@ nav:
       - Oficina de ferramentas: modulo-3-rag/oficina-de-ferramentas.md
       - Exercícios: modulo-3-rag/exercicios.md
       - Síntese e referências: modulo-3-rag/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-3-rag/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-3-rag/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-3-rag/caso-aurora.md
   - Módulo 4 — Agentes:
       - Visão geral: modulo-4-agentes/index.md
       - Conceitos: modulo-4-agentes/conceitos.md
@@ -90,7 +93,8 @@ nav:
       - Oficina de ferramentas: modulo-4-agentes/oficina-de-ferramentas.md
       - Exercícios: modulo-4-agentes/exercicios.md
       - Síntese e referências: modulo-4-agentes/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-4-agentes/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-4-agentes/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-4-agentes/caso-aurora.md
   - Módulo 5 — Confiança:
       - Visão geral: modulo-5-confianca/index.md
       - Conceitos: modulo-5-confianca/conceitos.md
@@ -100,7 +104,8 @@ nav:
       - Oficina de ferramentas: modulo-5-confianca/oficina-de-ferramentas.md
       - Exercícios: modulo-5-confianca/exercicios.md
       - Síntese e referências: modulo-5-confianca/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-5-confianca/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-5-confianca/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-5-confianca/caso-aurora.md
   - Módulo 6 — Operação:
       - Visão geral: modulo-6-operacao/index.md
       - Conceitos: modulo-6-operacao/conceitos.md
@@ -110,7 +115,8 @@ nav:
       - Oficina de ferramentas: modulo-6-operacao/oficina-de-ferramentas.md
       - Exercícios: modulo-6-operacao/exercicios.md
       - Síntese e referências: modulo-6-operacao/sintese-e-referencias.md
-      - "Caso contínuo: Lume e Aurora": modulo-6-operacao/caso-lume-aurora.md
+      - "Caso contínuo: Banco Lume": modulo-6-operacao/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-6-operacao/caso-aurora.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
