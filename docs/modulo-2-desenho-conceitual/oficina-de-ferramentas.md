@@ -21,6 +21,8 @@ Esta oficina testa uma única hipótese do Documento de Arquitetura de Software:
 
 Primeiro confirme o interpretador disponível. Você precisa de Python 3.10 ou superior.
 
+O comando de instalação fixa as versões de `litellm` e `fastapi`: sem essa fixação, o `pip` resolve para a versão mais recente do FastAPI, que remove uma função interna ainda usada pelo proxy do LiteLLM, e o gateway não inicia. Use exatamente as versões abaixo.
+
 ### macOS
 
 Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, confirme Python e crie o ambiente:
@@ -31,7 +33,7 @@ mkdir oficina-m2
 cd oficina-m2
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install 'litellm[proxy]'
+python3 -m pip install 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
 ollama pull llama3.2:3b
 ```
 
@@ -47,7 +49,7 @@ mkdir oficina-m2
 cd oficina-m2
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install 'litellm[proxy]'
+python3 -m pip install 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
 ollama pull llama3.2:3b
 ```
 
@@ -63,7 +65,7 @@ mkdir oficina-m2
 cd oficina-m2
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install 'litellm[proxy]'
+python -m pip install 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
 ollama pull llama3.2:3b
 ```
 
@@ -254,7 +256,7 @@ Entregue a tabela e uma mini-ADR de até 250 palavras.
 
 Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e remova a pasta `oficina-m2` se não precisar mais da evidência. Para liberar o espaço do modelo, use `ollama rm llama3.2:3b` somente se ele não será usado nas próximas oficinas.
 
-Se a instalação falhar, registre a mensagem de erro, verifique `python --version`, `ollama --version` e as portas indicadas. A contingência é corrigir o ambiente local com o professor; não substitua a execução por uma resposta inventada ou por dados reais.
+Se a instalação falhar, registre a mensagem de erro, verifique `python --version`, `ollama --version` e as portas indicadas. Se o proxy encerrar com `ImportError: cannot import name 'get_flat_dependant' from 'fastapi.dependencies.utils'`, o ambiente tem uma versão de FastAPI mais nova que a fixada; rode novamente `python3 -m pip install 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'` no mesmo ambiente virtual antes de tentar de novo. A contingência é corrigir o ambiente local com o professor; não substitua a execução por uma resposta inventada ou por dados reais.
 
 ## Ferramentas adicionais
 
