@@ -59,6 +59,8 @@ flowchart LR
 
 ## Execução local
 
+**Objetivo.** Observar em código a autonomia orçada do ADR-Aurora-003: ferramentas somente leitura, sem efeito, e parada por orçamento de passos — ver [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+
 **Pré-requisitos.** Python 3.11+, o mesmo padrão de venv das oficinas anteriores.
 
 **Instalação.**
@@ -74,7 +76,17 @@ pip install langgraph
 python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso aurora
 ```
 
-**Resultado esperado.** O script imprime a trajetória escolhida entre as três ferramentas de leitura, o número de chamadas usado e o dossiê proposto para revisão — a ordem pode mudar entre execuções, ao contrário da sequência fixa do [caso Lume](caso-lume.md).
+Aceita também `--orcamento N` para variar o teto de chamadas (padrão: 6).
+
+**Resultado esperado.** O script imprime a trajetória entre as três ferramentas de leitura, o número de chamadas usado e o dossiê proposto para revisão. Nesta implementação de referência, a prioridade de consulta é fixa (`contrato` → `pagamento` → `política`) e não muda entre execuções; o que varia é **quantas** chamadas completam antes de o orçamento (`--orcamento`) se esgotar — com `--orcamento 1` o dossiê contém apenas contrato, com `--orcamento 2` contrato e pagamento, e a partir de 3 o dossiê fica completo. É o orçamento de passos do ADR-Aurora-003 em ação, não uma escolha dinâmica de ordem; contrasta com a sequência fixa e sem orçamento do [caso Lume](caso-lume.md).
+
+**Perguntas exploratórias.**
+
+1. Rode o script com `--orcamento 1`, `--orcamento 2` e `--orcamento 6` (repita cada valor duas vezes). O que muda entre as execuções: a ordem das ferramentas ou o número de chamadas completadas?
+2. Se o dossiê ficar incompleto (por exemplo, com `--orcamento 1`), quem deveria decidir se o especialista recebe um dossiê parcial ou se a execução é interrompida antes da revisão?
+3. O ADR-Aurora-003 descreve um cenário de produção em que "a ordem de consulta variou em mais de um terço das campanhas". O que precisaria mudar neste script para que a ordem de fato dependesse do caso, em vez de seguir sempre a mesma prioridade?
+
+**Entrega de evidência.** Para cada valor de `--orcamento` testado, registre o número de chamadas, o conteúdo do dossiê e a sequência do trace — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#13-autonomia-orcada-em-execucao-real).
 
 **Limpeza.** `deactivate` e remover o diretório `.venv`. Nenhum dado real deve substituir os identificadores sintéticos do script.
 

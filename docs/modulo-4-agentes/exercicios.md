@@ -228,7 +228,56 @@ Antes de entregar, verifique os itens abaixo:
 
 ## Analisar
 
-### 13. Diagnóstico de trace
+### 13. Autonomia orçada em execução real
+
+**Situação**
+
+O ADR-Aurora-003 (ver [caso Aurora](caso-aurora.md)) classifica a Cooperativa Aurora em **A2 — recomendar** porque, para cada solicitação, "o agente escolhe quais ferramentas de leitura consultar e em que ordem", dentro de um orçamento de no máximo seis chamadas. O laboratório `docs/assets/labs/modulo-4/agente_lume_aurora.py` implementa essa ideia de forma simplificada: prioridade fixa entre `consultar_contrato`, `consultar_pagamento` e `consultar_politica_campanha`, truncada pelo parâmetro `--orcamento`. Antes de estender esse padrão a um caso real, alguém precisa separar o que o protótipo de fato demonstra do que a narrativa do ADR descreve para produção.
+
+**Seu papel**
+
+Você audita a implementação de referência antes de aprovar sua extensão a um caso real, verificando se o comportamento observado sustenta a classificação de autonomia alegada.
+
+**Insumos disponíveis**
+
+Rode `python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso aurora --orcamento N` para `N` em `1`, `2` e `6` (repita cada valor ao menos duas vezes), e compare com `--caso lume`. Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+
+**O que o script realmente demonstra**
+
+O trace impresso (`CHAMADAS`, `DOSSIE`, `TRACE`) é evidência observável, não descrição aproximada. Um agente A2 "escolhe" alguma coisa; o exercício pede para localizar exatamente o quê — ordem de ferramentas, número de chamadas ou nenhuma das duas nesta implementação — antes de aceitar a alegação de autonomia pelo nome do caso.
+
+**Como conduzir**
+
+1. Execute as combinações indicadas e registre `CHAMADAS`, `DOSSIE` e a sequência de `TRACE` de cada execução.
+2. Verifique se a ordem das três ferramentas muda entre repetições com o mesmo orçamento ou entre orçamentos diferentes.
+3. Identifique o que de fato varia: a ordem de consulta ou apenas quantas chamadas completam antes do orçamento se esgotar.
+4. Compare com a saída de `--caso lume` e escreva, em uma frase, o que distingue A1 de A2 nesta implementação.
+5. Avalie se o comportamento observado sustenta "o agente escolhe... em que ordem" do ADR-Aurora-003, ou se essa frase descreve apenas o cenário de produção pretendido — não o protótipo.
+
+**Entrega esperada**
+
+Tabela com colunas orçamento, chamadas, dossiê resultante e trace completo para as três combinações testadas (repetidas duas vezes cada); um parágrafo de veredicto sobre o que varia de fato entre execuções; uma frase que você recomendaria para descrever com precisão o comportamento do script.
+
+**Checklist de verificação**
+
+Antes de entregar, verifique os itens abaixo:
+
+- [ ] Cada linha da tabela cita saída real do script (comando executado e valores), não descrição hipotética.
+- [ ] O veredicto separa "ordem fixa entre ferramentas" de "número de chamadas variável por orçamento".
+- [ ] A classificação A1/A2 é justificada por efeito e escolha observada, não pelo nome do script ou do caso.
+- [ ] A frase final não reintroduz uma alegação de variação de ordem sem evidência.
+- [ ] O exercício aponta o que mudaria no script para que a ordem de fato dependesse do caso, como descreve o cenário de produção do ADR.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Evidência real | 30% | Usa saída efetivamente produzida pelo script, com comando e valores. |
+| Distinção ordem vs. orçamento | 25% | Separa o que é determinístico (ordem) do que varia (número de chamadas). |
+| Classificação de autonomia | 25% | Liga o comportamento observado a A1/A2 da matriz, com justificativa. |
+| Precisão documental | 20% | Propõe frase que não contradiz o comportamento observado. |
+
+### 14. Diagnóstico de trace
 
 **Situação**
 
@@ -293,7 +342,7 @@ Antes de entregar, verifique os itens abaixo:
 | Recuperação | 20% | Propõe contenção, reconciliação e compensação proporcionais. |
 | Testes | 20% | Define casos que diferenciam hipóteses. |
 
-### 14. Consistência entre spec, plano, tarefas e testes
+### 15. Consistência entre spec, plano, tarefas e testes
 
 **Situação:** a spec exige autorização por unidade, expiração em 24 horas e auditoria sem conteúdo. O plano descreve link público por sete dias. As tarefas incluem envio por e-mail, embora esteja fora de escopo. Os testes validam apenas geração do arquivo.
 
@@ -319,7 +368,7 @@ Antes de entregar, verifique os itens abaixo:
 
 ## Avaliar
 
-### 15. Crítica arquitetural
+### 16. Crítica arquitetural
 
 **Situação**
 
@@ -368,7 +417,7 @@ Antes de entregar, verifique os itens abaixo:
 | Comparação | 20% | Compara arquiteturas com métricas e condições. |
 | Revisão | 20% | Define teste e gatilho capazes de alterar o julgamento. |
 
-### 16. Comparação de fluxos SDD
+### 17. Comparação de fluxos SDD
 
 **Situação:** o fluxo A usa um agente para especificar, implementar e revisar. O fluxo B usa Spec Kit, revisões separadas de Spec e Standards e três gates. B dobra a preparação, mas reduz retrabalho; A produz protótipos mais cedo.
 
@@ -394,7 +443,7 @@ Antes de entregar, verifique os itens abaixo:
 
 ## Criar
 
-### 17. Arquitetura de agente controlado
+### 18. Arquitetura de agente controlado
 
 **Situação**
 
@@ -470,7 +519,7 @@ Três ADRs com alternativas, consequências e gatilhos:
 | Diagramas, testes, ADRs e fitness functions | 20% | Mantém artefatos coerentes e verificáveis. |
 | Clareza da composição | 15% | Permite revisar o fluxo sem inferir responsabilidades ocultas. |
 
-### 18. Iniciativa completa com SDD
+### 19. Iniciativa completa com SDD
 
 Escolha uma feature do projeto final que atravesse interface, regra, dados, integração e operação, com ao menos um risco de segurança e um atributo de qualidade.
 

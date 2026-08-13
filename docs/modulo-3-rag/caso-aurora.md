@@ -55,6 +55,10 @@ flowchart LR
 
 ## Implementação
 
+**Objetivo Bloom.** Aplicar as três estratégias de recuperação — lexical, vetorial e híbrida — sobre o corpus de políticas de campanha da Aurora e analisar, com métricas de MRR e nDCG@3, se a fusão híbrida sustenta a decisão do ADR-Aurora-002.
+
+**Decisão arquitetural em foco.** O ADR-Aurora-002 adotou RAG híbrido (lote para o corpus completo, adaptador de leitura complementar para contrato e pagamento) apoiado em recuperação lexical e vetorial combinadas. Este laboratório isola a parte de **recuperação** dessa decisão — sem os dois caminhos de ingestão nem a autorização por finalidade e campanha, já tratados no Módulo 2 — para que o aluno observe, em código, por que a paráfrase entre a pergunta e a política escapa à busca lexical e por que a fusão por posição (RRF) recupera parte dessa perda. Revise as [estratégias de recuperação](padroes-e-decisoes.md#estrategias-de-recuperacao) e a seção sobre [embeddings, recuperação e autorização](conceitos.md#embeddings-recuperacao-e-autorizacao) antes de rodar os comandos abaixo.
+
 O laboratório `rag_lume_aurora.py` implementa três modos de recuperação sobre o mesmo corpus sintético de políticas de campanha (cinco documentos): **lexical** (BM25 sobre o texto bruto), **vetorial** (embeddings via Chroma e Ollama) e **híbrido** (fusão por posição — Reciprocal Rank Fusion — das duas ordens anteriores). `avaliar_recuperacao_lume_aurora.py` mede os três modos com MRR e nDCG@k sobre um conjunto de perguntas com resposta certa conhecida.
 
 **Pré-requisitos.** Python 3.11+, [Ollama](https://ollama.com/download) instalado localmente, modelos `nomic-embed-text` e `llama3.2:3b` baixados (`ollama pull nomic-embed-text` e `ollama pull llama3.2:3b`).
@@ -77,6 +81,12 @@ python docs/assets/labs/modulo-3/rag_lume_aurora.py --caso aurora --modo hibrido
 
 **Resultado esperado.** O modo lexical, sozinho, não coloca `AURORA-CAMP-18` (atraso superior a 90 dias) entre os dois primeiros trechos — a pergunta parafraseia "atrasado há mais de três meses" enquanto a política diz "atraso superior a 90 dias", sem sobreposição de palavras suficiente. Os modos vetorial e híbrido recuperam o documento correto por reconhecer o significado, não a forma. Cada execução imprime a lista ordenada com `→` marcando os dois trechos usados na resposta, seguida de `RESPOSTA:` citada por ID e versão, ou `REVISÃO_HUMANA` quando a evidência for insuficiente.
 
+**Perguntas exploratórias.**
+
+- A fusão híbrida em `rank_hibrido` soma `1/(k_rrf + posição + 1)` das listas lexical e vetorial, com `k_rrf = 60`. Neste caso, a lexical erra e a vetorial acerta `AURORA-CAMP-18`. Por que a fusão por posição — em vez de médias de escores brutos — consegue "puxar" um documento mal ranqueado por um sinal desde que o outro sinal o ranqueie bem?
+- O script mantém `top = ranked[:2]` fixo para os três modos. Se `AURORA-CAMP-18` aparecesse na 3ª posição híbrida em vez da 1ª ou 2ª, o que mudaria na resposta final, mesmo com a fusão "funcionando" no sentido de melhorar a posição em relação ao lexical isolado?
+- Um `k_rrf` muito menor tornaria a fusão mais sensível à posição exata em cada lista (a diferença entre 1º e 2º lugar pesaria mais). Isso ajudaria ou prejudicaria a recuperação de `AURORA-CAMP-18`, que está bem colocado na lista vetorial mas mal colocado na lexical?
+
 **Execução — avaliar recuperação com MRR e nDCG.**
 
 ```bash
@@ -84,6 +94,22 @@ python docs/assets/labs/modulo-3/avaliar_recuperacao_lume_aurora.py --caso auror
 ```
 
 **Resultado esperado.** Uma linha por modo com `MRR` e `nDCG@3` sobre cinco perguntas rotuladas. Espere o modo lexical cair sensivelmente na pergunta de paráfrase acima, e o modo híbrido recuperar a maior parte dessa perda ao combinar as duas ordens por posição.
+
+**Perguntas exploratórias.**
+
+- nDCG@3, neste script, zera qualquer pergunta em que a evidência relevante fique fora das três primeiras posições, enquanto MRR (`1/posição`) ainda dá crédito parcial para uma posição 4 ou 5. O que a combinação das duas métricas revela sobre a gravidade das falhas do modo lexical que uma única lista ordenada (como a do comando anterior) não revela?
+- Se o modo híbrido não igualar o vetorial isolado em nDCG@3 para todas as perguntas, isso é evidência contra a decisão do ADR-Aurora-002 de manter os dois sinais, ou é esperado dado o corpus de apenas cinco documentos?
+- Qual seria o efeito esperado sobre o MRR do lexical se as políticas de campanha da Aurora fossem reescritas para incluir números explícitos ("90 dias") ao lado de expressões coloquiais ("três meses")? Isso reduziria a dependência do híbrido?
+
+**Evidência a entregar.** Registre, para a pergunta usada, uma tabela como esta:
+
+| Modo | IDs recuperados (top-2) | MRR | nDCG@3 |
+|---|---|---:|---:|
+| Lexical | | | |
+| Vetorial | | | |
+| Híbrido | | | |
+
+Conclua, à luz da matriz de decisão em [Como escolher sem acumular padrões](padroes-e-decisoes.md#como-escolher-sem-acumular-padroes): dado o perfil de perguntas da Aurora (paráfrases fortes entre linguagem coloquial e texto de política), a busca lexical isolada, a vetorial isolada ou a híbrida teria sido a escolha inicial defensável — e se a evidência de MRR/nDCG confirma ou contradiz essa escolha.
 
 **Limpeza.** `deactivate` para sair do ambiente virtual e apague a pasta `chroma-lume-aurora/` gerada pelos scripts. Não substitua os dados sintéticos por dados reais de clientes ou contratos.
 

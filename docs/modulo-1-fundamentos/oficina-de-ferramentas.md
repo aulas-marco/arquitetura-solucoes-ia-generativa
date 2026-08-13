@@ -6,6 +6,8 @@
 
 **Ollama** é um executor local de modelos. Você vai observar como contexto e temperatura alteram uma resposta gerada e registrar a configuração suficiente para comparar execuções. Tempo estimado: 35 minutos.
 
+**Decisão arquitetural em foco:** quando a arquitetura deve exigir contexto e fonte explícita em vez de confiar no conhecimento paramétrico do modelo, e quando deve encaminhar a resposta para revisão humana em vez de uma resposta automática?
+
 Use somente material sintético; não cole dados pessoais, institucionais ou de clientes.
 
 ## Alternativas instrumentais

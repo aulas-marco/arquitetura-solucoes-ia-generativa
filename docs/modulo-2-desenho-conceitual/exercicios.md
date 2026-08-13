@@ -163,7 +163,63 @@ Os quatro entregáveis dos passos 1 a 4 — nenhum texto livre adicional é nece
 
 ## Analisar
 
-### 9. Arquitetura de ação para reembolso
+### 9. Modificabilidade em evidência: da troca controlada à ADR
+
+**O que é:** uma decisão de modificabilidade não se sustenta em uma tecnologia citada por nome; ela se sustenta em uma tática e um mecanismo identificáveis, e em evidência real de que a troca funcionou sem reescrever o cliente.
+
+**Onde encontrar:** consulte [cenário, tática, mecanismo e padrão](conceitos.md#da-caracteristica-a-estrutura), a tabela de táticas por intenção — linha de Modificabilidade — em [padrões e decisões](padroes-e-decisoes.md), as [correspondências entre visões](conceitos.md#correspondencias-entre-visoes) e o [template de ADR](../referencia/template-adr.md).
+
+**Pré-requisito:** este exercício usa os artefatos que você mesmo produziu na [oficina de ferramentas](oficina-de-ferramentas.md#evidencia-a-entregar) (Experimentos A e B). Se ainda não a fez, faça-a agora e volte com o manifesto antes da troca, o manifesto depois da troca, `request.json` e as duas respostas JSON em mãos — não redija um cenário novo para substituí-los.
+
+**Situação**
+
+Você trocou, no manifesto do LiteLLM Proxy, o destino de `boreal-local` de um modelo Ollama para outro, mantendo `request.json` e o alias inalterados, e obteve duas respostas JSON pela mesma chamada `curl`. Isso é uma evidência real de um mecanismo de modificabilidade — não uma alegação sobre a ferramenta.
+
+**Seu papel**
+
+Você decide se essa evidência sustenta registrar a fronteira de consumo (gateway e manifesto) como mecanismo padrão de modificabilidade do sistema, e declara o que ela ainda não decide.
+
+**Insumos disponíveis**
+
+Os três artefatos e as duas respostas da oficina; a tabela de táticas por intenção de [padrões e decisões](padroes-e-decisoes.md); as regras de [correspondências entre visões](conceitos.md#correspondencias-entre-visoes) (você usará quatro das sete); o [template de ADR](../referencia/template-adr.md).
+
+**Como conduzir**
+
+1. Reúna os artefatos reais: manifesto antes, manifesto depois, `request.json` e as duas respostas JSON. Não descreva um cenário fictício no lugar deles.
+2. Classifique, pela tabela de táticas por intenção, qual **tática** de modificabilidade essa troca evidencia e qual **mecanismo**, neste laboratório específico, a realiza. Distinga os dois: a tática é a intenção geral; o mecanismo é a realização concreta que você observou.
+3. Preencha a tabela de correspondência abaixo citando, em cada linha, o artefato real que confirma (ou não confirma) a regra — não uma suposição genérica:
+
+    | Regra de correspondência | Artefato ou evidência da oficina | Confirma ou não confirma? |
+    |---|---|---|
+    | todo ator ou sistema externo usado na interação existe no contexto | *(preencher)* | *(preencher)* |
+    | todo dado enviado ou recebido aparece na visão de informação | *(preencher)* | *(preencher)* |
+    | toda travessia de fronteira de confiança tem controle associado | *(preencher)* | *(preencher)* |
+    | todo RAS chega a uma tática, a elementos das visões e a um método de verificação | *(preencher)* | *(preencher)* |
+
+4. Releia a abertura da oficina: "o experimento observa um mecanismo de adaptador; não prova, sozinho, a modificabilidade da arquitetura inteira." Liste ao menos duas coisas que sua evidência **não** decide (por exemplo: equivalência semântica entre os dois modelos, latência sob carga real, modificabilidade de outros componentes do sistema).
+5. Redija uma ADR curta pelo template, citando o manifesto antes/depois e `request.json` como evidência anexada. Não repita o mini-ADR da oficina — avance-o com a classificação do passo 2, a tabela do passo 3 e os limites do passo 4.
+
+**Entrega esperada**
+
+A tabela de correspondência preenchida com evidência real, a classificação de tática e mecanismo, a lista de limites não decididos e uma ADR de até 200 palavras que cite os artefatos reais como evidência.
+
+**Checklist de verificação**
+
+- [ ] A tática e o mecanismo citados vêm da tabela de padrões e decisões, não de memória livre sobre a ferramenta.
+- [ ] Cada linha da tabela de correspondência aponta um artefato real (manifesto, `request.json` ou resposta), não uma suposição.
+- [ ] Pelo menos duas limitações da evidência estão listadas e são coerentes com a advertência da própria oficina.
+- [ ] A ADR cita o manifesto antes/depois e `request.json` como evidência e termina em gatilho de revisão mensurável.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Uso da evidência real | 30% | Tabela e ADR citam os artefatos efetivamente produzidos na oficina, não um cenário paralelo. |
+| Classificação de tática e mecanismo | 25% | Distingue tática de mecanismo e localiza ambos na tabela de padrões e decisões. |
+| Correspondência entre visões | 25% | Verifica as quatro regras com evidência específica do laboratório, não genérica. |
+| Limites da evidência | 20% | Declara o que a troca controlada não prova, alinhado ao limite já declarado na oficina. |
+
+### 10. Arquitetura de ação para reembolso
 
 **O que é:** uma decisão de autonomia compara o valor de delegar passos ao modelo com os novos riscos de ferramentas e efeitos no negócio.
 
@@ -207,7 +263,7 @@ Entregue uma matriz de atividades e controles, um fluxo de responsabilidade e um
 
 ## Avaliar
 
-### 10. Plataforma comum e múltiplos modelos
+### 11. Plataforma comum e múltiplos modelos
 
 **O que é:** uma decisão de plataforma avalia controles compartilhados e diversidade de modelos sem confundir padronização com uma solução única.
 
@@ -249,7 +305,7 @@ Entregue um parecer de uma página, uma tabela de controles e uma ADR com recome
 
 ## Criar
 
-### 11. Documento de Arquitetura de Software de um assistente administrativo clínico
+### 12. Documento de Arquitetura de Software de um assistente administrativo clínico
 
 **O que é:** o Documento de Arquitetura de Software reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
 

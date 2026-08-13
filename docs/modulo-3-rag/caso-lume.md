@@ -48,6 +48,10 @@ flowchart LR
 
 ## Implementação
 
+**Objetivo Bloom.** Aplicar as três estratégias de recuperação — lexical, vetorial e híbrida — sobre o corpus de políticas de contestação do Lume e analisar, com métricas de MRR e nDCG@3, se a fusão híbrida sustenta a decisão do ADR-Lume-003.
+
+**Decisão arquitetural em foco.** O ADR-Lume-003 adotou RAG híbrido (lexical e vetorial) com autorização antes da recuperação. Este laboratório isola a parte de **recuperação** dessa decisão — sem o predicado de autorização, que já foi tratado no Módulo 2 — para que o aluno observe, em código, por que busca lexical isolada perde a política correta e por que a fusão por posição (RRF) tende a recuperar essa perda. Revise as [estratégias de recuperação](padroes-e-decisoes.md#estrategias-de-recuperacao) e a seção sobre [embeddings, recuperação e autorização](conceitos.md#embeddings-recuperacao-e-autorizacao) antes de rodar os comandos abaixo.
+
 O laboratório `rag_lume_aurora.py` implementa três modos de recuperação sobre o mesmo corpus sintético de políticas de contestação (cinco documentos): **lexical** (BM25 sobre o texto bruto), **vetorial** (embeddings via Chroma e Ollama) e **híbrido** (fusão por posição — Reciprocal Rank Fusion — das duas ordens anteriores). `avaliar_recuperacao_lume_aurora.py` mede os três modos com MRR e nDCG@k sobre um conjunto de perguntas com resposta certa conhecida.
 
 **Pré-requisitos.** Python 3.11+, [Ollama](https://ollama.com/download) instalado localmente, modelos `nomic-embed-text` e `llama3.2:3b` baixados (`ollama pull nomic-embed-text` e `ollama pull llama3.2:3b`).
@@ -70,6 +74,12 @@ python docs/assets/labs/modulo-3/rag_lume_aurora.py --caso lume --modo hibrido -
 
 **Resultado esperado.** O modo lexical, sozinho, coloca `LUME-CTX-04` (a política de prazo de 10 dias) na segunda posição — a política de estorno parcial compete por compartilhar o termo "compra" com mais frequência. Os modos vetorial e híbrido corrigem essa ordem ao considerar significado, não só sobreposição de palavras. Cada execução imprime a lista ordenada com `→` marcando os dois trechos usados na resposta, seguida de `RESPOSTA:` citada por ID e versão, ou `REVISÃO_HUMANA` quando a evidência for insuficiente.
 
+**Perguntas exploratórias.**
+
+- A fusão híbrida em `rank_hibrido` soma `1/(k_rrf + posição + 1)` de cada lista, com `k_rrf = 60` por padrão. Por que somar posições — em vez de somar os escores brutos de BM25 e de similaridade de embeddings — evita comparar diretamente duas escalas incompatíveis?
+- O script corta o contexto em `top = ranked[:2]` para todos os modos. O que acontece com a resposta se `LUME-CTX-04` estiver na 3ª posição em algum modo, mesmo tendo subido no ranking?
+- Se `k_rrf` fosse muito menor (por exemplo, 1), a diferença de escore entre a 1ª e a 2ª posição de cada lista aumentaria bastante. Isso tornaria a fusão mais sensível ao desacordo entre lexical e vetorial, ou mais tolerante a ele? O que isso significa para um documento bem ranqueado por um modo e mal ranqueado pelo outro?
+
 **Execução — avaliar recuperação com MRR e nDCG.**
 
 ```bash
@@ -77,6 +87,22 @@ python docs/assets/labs/modulo-3/avaliar_recuperacao_lume_aurora.py --caso lume
 ```
 
 **Resultado esperado.** Uma linha por modo com `MRR` e `nDCG@3` sobre cinco perguntas rotuladas. Espere o modo híbrido igualar ou superar lexical e vetorial isolados — a fusão de posições absorve os casos em que um modo falha e o outro acerta.
+
+**Perguntas exploratórias.**
+
+- MRR usa `1 / posição` da primeira evidência relevante, sem limite de corte; nDCG@3 zera qualquer acerto fora das três primeiras posições. O que cada métrica revela sobre o comportamento do sistema que a inspeção visual de uma única lista ordenada (como a do comando anterior) não revela?
+- Se o modo lexical tiver MRR alto mas nDCG@3 baixo em alguma pergunta, o que isso indica sobre a posição em que a política relevante costuma aparecer?
+- Compare o ganho do híbrido sobre o vetorial isolado. Esse ganho justifica manter dois índices (lexical e vetorial) e a etapa de fusão, ou o vetorial isolado já seria suficiente para este corpus de cinco documentos?
+
+**Evidência a entregar.** Registre, para a pergunta usada, uma tabela como esta:
+
+| Modo | IDs recuperados (top-2) | MRR | nDCG@3 |
+|---|---|---:|---:|
+| Lexical | | | |
+| Vetorial | | | |
+| Híbrido | | | |
+
+Conclua, à luz da matriz de decisão em [Como escolher sem acumular padrões](padroes-e-decisoes.md#como-escolher-sem-acumular-padroes): dado o perfil de perguntas do Lume (termos exatos convivendo com paráfrases sobre prazos e categorias), a busca lexical isolada, a vetorial isolada ou a híbrida teria sido a escolha inicial defensável — e se a evidência de MRR/nDCG confirma ou contradiz essa escolha.
 
 **Limpeza.** `deactivate` para sair do ambiente virtual e apague a pasta `chroma-lume-aurora/` gerada pelos scripts. Não substitua os dados sintéticos por dados reais de clientes ou contratos.
 

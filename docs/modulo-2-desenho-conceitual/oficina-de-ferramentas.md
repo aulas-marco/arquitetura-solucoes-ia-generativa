@@ -2,7 +2,7 @@
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina testa uma única hipótese do Documento de Arquitetura de Software: uma fronteira de consumo reduz acoplamento suficiente para justificar uma capacidade comum? O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente. O experimento observa um mecanismo de adaptador; não prova, sozinho, a modificabilidade da arquitetura inteira.
+Esta oficina testa uma única hipótese do Documento de Arquitetura de Software: uma **[fronteira de consumo](conceitos.md#fronteiras-e-fora-de-escopo)** reduz **[acoplamento](conceitos.md#modularidade-e-fronteiras-de-componente)** suficiente para justificar uma capacidade comum? O aluno envia uma requisição estável para a aplicação e escolhe o modelo no manifesto do gateway, sem alterar o cliente. O experimento observa um **[mecanismo](conceitos.md#da-caracteristica-a-estrutura)** de **[adaptador](conceitos.md#proveniencia)**; não prova, sozinho, a **[modificabilidade](padroes-e-decisoes.md#3-realizar-ras-com-taticas-arquiteturais)** da arquitetura inteira.
 
 ## Ferramenta
 
@@ -113,7 +113,7 @@ curl http://localhost:4000/v1/chat/completions \
 
 ## Receita principal
 
-A requisição é entregue a `localhost:4000`, não diretamente ao Ollama. Observe no JSON de resposta a mensagem em `choices[0].message.content`. O manifesto é a fronteira explícita entre a aplicação e a capacidade de inferência.
+A requisição é entregue a `localhost:4000`, não diretamente ao Ollama. Observe no JSON de resposta a mensagem em `choices[0].message.content`. O manifesto é a **[fronteira](conceitos.md#fronteiras-e-fora-de-escopo)** explícita entre a aplicação e a capacidade de inferência.
 
 Se `litellm` informar que a porta 4000 já está em uso, encerre o processo que a usa ou escolha outra porta e atualize o endereço do `curl`. Se o Ollama não responder, execute `ollama list` e confira se `llama3.2:3b` aparece na lista.
 
@@ -187,7 +187,7 @@ Manifesto anterior, manifesto alterado e respostas.
 
 - Qual alteração exigiria novo teste de regressão antes de produção?
 - Que decisão reduz acoplamento entre produto e fornecedor/modelo?
-- Que informação não pode faltar no log para reproduzir uma saída?
+- Que informação não pode faltar no log para reproduzir uma saída — e a que conceito de proveniência ou observabilidade ela corresponde?
 
 ### Experimento C — mini-ADR reversível (Extensão)
 
@@ -207,12 +207,12 @@ Antes de redigi-la, registre a correspondência observada:
 
 | Elemento | Evidência da oficina |
 |---|---|
-| RAS de modificabilidade | troca de endpoint não altera o contrato do cliente |
-| Tática | encapsulamento por interface estável |
-| Mecanismo | gateway e manifesto versionado |
-| Visões afetadas | responsabilidades, interação e implantação |
-| Sensibilidade | diferenças semânticas escondidas pelo contrato |
-| Trade-off | portabilidade versus acesso a recursos específicos |
+| [RAS](conceitos.md#atributos-de-qualidade-e-ras-no-contexto-generativo) de [modificabilidade](padroes-e-decisoes.md#3-realizar-ras-com-taticas-arquiteturais) | troca de endpoint não altera o contrato do cliente |
+| [Tática](conceitos.md#da-caracteristica-a-estrutura) | encapsulamento por interface estável |
+| [Mecanismo](conceitos.md#da-caracteristica-a-estrutura) | gateway e manifesto versionado |
+| [Visões](conceitos.md#cinco-visoes-minimas) afetadas | responsabilidades, interação e implantação |
+| [Sensibilidade](conceitos.md#analise-arquitetural-leve) | diferenças semânticas escondidas pelo contrato |
+| [Trade-off](padroes-e-decisoes.md#analisar-composicoes-nao-itens-isolados) | portabilidade versus acesso a recursos específicos |
 | Incerteza | equivalência de comportamento entre os modelos |
 
 **Observe**

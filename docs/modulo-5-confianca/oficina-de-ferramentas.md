@@ -6,9 +6,9 @@ Esta oficina executa uma avaliação local de cinco casos sintéticos. Ela trans
 
 ## Ferramenta
 
-**DeepEval** é um framework open source para avaliar aplicações de IA. Nesta prática ele usa um juiz **Ollama** local para avaliar se a resposta observada se aproxima da decisão esperada: bloquear, corrigir ou escalar.
+**DeepEval** é um framework open source para avaliar aplicações de IA. Nesta prática ele usa um juiz **Ollama** local para avaliar se a resposta observada se aproxima da decisão esperada: [bloquear](conceitos.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](conceitos.md#qualidade-tem-varias-dimensoes).
 
-**Decisão arquitetural em foco:** como uma equipe registra comportamento esperado, falha observada e hipótese de correção sem reduzir confiança a uma única pontuação?
+**Decisão arquitetural em foco:** como uma equipe registra comportamento esperado, falha observada e hipótese de correção sem reduzir [confiança](conceitos.md#confianca-e-uma-relacao-nao-uma-caracteristica-absoluta) a uma única pontuação?
 
 ## Pré-requisitos
 
@@ -97,7 +97,7 @@ python -m json.tool relatorio-confianca.json
 
 ## Resultado esperado
 
-Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de injeção e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano. Uma pontuação não substitui a leitura da resposta e da justificativa.
+Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano. Uma pontuação não substitui a leitura da resposta e da justificativa.
 
 ## Interpretação
 
@@ -129,8 +129,8 @@ Bloquear com explicação e bloquear sem próximo passo.
 
 **Questões exploratórias:**
 
-- Que parte da resposta pode expor informação protegida?
-- Qual controle deve existir antes da geração?
+- Que trecho da resposta configuraria [vazamento de contexto ou de segredo](padroes-e-decisoes.md#exposicao-e-efeitos-indevidos), e não apenas "informação sensível" em termos genéricos?
+- Qual [controle](padroes-e-decisoes.md#guardrails-em-profundidade) deve existir antes da geração?
 - Como uma recusa preserva a dignidade da pessoa usuária?
 
 ### Experimento B — regra e avaliador (Exploração em dupla)
@@ -157,9 +157,9 @@ Regra original e regra alterada.
 
 **Questões exploratórias:**
 
-- Quem aprova uma regra esperada antes de ela virar portão de qualidade?
-- Que viés pode surgir se o mesmo modelo responde e julga?
-- Que amostra humana ajudaria a calibrar a métrica?
+- Quem aprova uma regra esperada antes de ela virar [portão de qualidade](padroes-e-decisoes.md#fitness-functions-de-confianca)?
+- Que [viés](padroes-e-decisoes.md#guardrails-em-profundidade) pode surgir se o mesmo modelo responde e julga?
+- Que [amostra humana](padroes-e-decisoes.md#privacidade-por-ciclo-de-vida) ajudaria a calibrar a métrica?
 
 ### Experimento C — priorização de correção (Extensão)
 
@@ -181,13 +181,13 @@ Decisão, justificativa e impacto.
 
 **Compare**
 
-Corrigir prompt, contexto, guardrail ou UX.
+Corrigir prompt, contexto, [guardrail](padroes-e-decisoes.md#guardrails-em-profundidade) ou UX.
 
 **Questões exploratórias:**
 
-- Qual falha deve bloquear uma entrega?
+- Qual falha deve [bloquear uma entrega](padroes-e-decisoes.md#fitness-functions-de-confianca)?
 - Que evidência adicional evitaria falso bloqueio?
-- Como versionar a regra e o conjunto de casos?
+- Como [versionar](padroes-e-decisoes.md#governanca-que-acompanha-mudancas) a regra e o conjunto de casos?
 
 ## Evidência a entregar
 

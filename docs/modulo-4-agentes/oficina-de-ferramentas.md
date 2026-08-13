@@ -6,9 +6,9 @@ Esta oficina executa um workflow local que separa intenção, aprovação e efei
 
 ## Ferramenta
 
-**LangGraph** é uma biblioteca open source para definir grafos de estado. O grafo Boreal desta prática tem três resultados explícitos: `aguardando_aprovacao`, `reservado` e `outcome_unknown`.
+**LangGraph** é uma biblioteca open source para definir grafos de estado. O grafo Boreal desta prática tem três resultados explícitos: [`aguardando_aprovacao`](padroes-e-decisoes.md#matriz-de-autonomia), [`reservado`](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) e [`outcome_unknown`](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker).
 
-**Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um efeito que exige autorização?
+**Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um [efeito](conceitos.md#geracao-decisao-e-acao) que exige [autorização](padroes-e-decisoes.md#matriz-de-autonomia)?
 
 ## Pré-requisitos
 
@@ -59,7 +59,7 @@ python -m pip install langgraph langchain-ollama
 
 ## Preparação do laboratório
 
-Baixe [troca_boreal.py](../assets/labs/modulo-4/troca_boreal.py) para a pasta `oficina-m4`. O arquivo contém um pedido fictício `PED-104`, uma chave de idempotência `TROCA-PED-104-1` e uma reserva simulada `RES-501`.
+Baixe [troca_boreal.py](../assets/labs/modulo-4/troca_boreal.py) para a pasta `oficina-m4`. O arquivo contém um pedido fictício `PED-104`, uma [chave de idempotência](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` e uma reserva simulada `RES-501`.
 
 ```bash
 ls troca_boreal.py
@@ -94,7 +94,7 @@ Você terá três traces comparáveis: parada segura, efeito simulado aprovado e
 
 ## Interpretação
 
-Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de idempotência. Compare o ponto em que o workflow para, o resultado autoritativo e a evidência de repetição. Se uma confirmação tivesse sido interrompida após a intenção, o estado correto seria `outcome_unknown`: a arquitetura deveria consultar o registro pela chave antes de tentar novamente.
+Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de idempotência. Compare o ponto em que o workflow para, o [resultado autoritativo](conceitos.md#estado-memoria-e-contexto) e a evidência de repetição. Se uma confirmação tivesse sido interrompida após a intenção, o estado correto seria `outcome_unknown`: a arquitetura deveria [consultar o registro pela chave antes de tentar novamente](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao).
 
 ## Roteiro sugerido para aula
 
@@ -118,19 +118,19 @@ Parada em `aguardando_aprovacao`.
 
 **Compare**
 
-Pedido em linguagem natural e decisão de escrita.
+Pedido em linguagem natural e [decisão de escrita](conceitos.md#geracao-decisao-e-acao).
 
 **Questões exploratórias:**
 
-- Que dado do estado mostra que nenhuma reserva ocorreu?
-- Por que um modelo não deve decidir a aprovação por conta própria?
-- Onde a identidade e a política entrariam em um sistema real?
+- Que dado do estado mostra que nenhuma reserva ocorreu — e o que essa ausência evidencia sobre a fronteira entre [decisão e ação](conceitos.md#geracao-decisao-e-acao)?
+- Por que um modelo não deve decidir a [aprovação](padroes-e-decisoes.md#matriz-de-autonomia) por conta própria?
+- Onde a [identidade](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada) e a [política](conceitos.md#politicas-como-fronteira-executavel) entrariam em um sistema real?
 
 ### Experimento B — aprovação e idempotência (Exploração em dupla)
 
 **Objetivo**
 
-Observar uma escrita simulada e sua repetição.
+Observar uma [escrita simulada](conceitos.md#geracao-decisao-e-acao) e sua repetição.
 
 **Pré-requisito**
 
@@ -151,7 +151,7 @@ Primeira execução e segunda execução.
 **Questões exploratórias:**
 
 - Quem deve criar e guardar a chave de idempotência?
-- Que falha uma chave duplicada evita?
+- Que falha uma [chave duplicada](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) evita?
 - Por que a resposta do modelo não substitui o resultado autoritativo?
 
 ### Experimento C — resultado desconhecido (Extensão)
@@ -170,17 +170,17 @@ Descreva a interrupção entre intenção e confirmação.
 
 **Observe**
 
-O limite entre repetir e reconciliar.
+O limite entre repetir e [reconciliar](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao).
 
 **Compare**
 
-Retry cego, consulta por chave e escalonamento.
+[Retry cego](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker), consulta por chave e [escalonamento](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
 
 **Questões exploratórias:**
 
-- Que componente deve persistir `outcome_unknown`?
-- Qual dado é necessário para reconciliação?
-- Quando a revisão humana é um controle obrigatório?
+- Que [componente](conceitos.md#responsabilidades-e-fronteiras-de-componente) deve persistir `outcome_unknown`?
+- Qual dado é necessário para a reconciliação?
+- Quando a [revisão humana](padroes-e-decisoes.md#matriz-de-autonomia) é um controle obrigatório?
 
 ## Evidência a entregar
 
@@ -224,10 +224,10 @@ Regras que o PO confirma:
 Ao final, você deverá distinguir:
 
 - requisito de decisão técnica;
-- fato de hipótese;
+- [fato de hipótese](conceitos.md#3-clarify-que-ambiguidades-mudariam-a-solucao);
 - história de usuário de tarefa;
 - critério de aceite de teste interno;
-- gate humano de aprovação automática;
+- [gate humano](conceitos.md#tres-gates-dois-papeis-humanos) de aprovação automática;
 - evidência de atividade de evidência de conformidade.
 
 ### Preparar o ambiente do Spec Kit
@@ -261,7 +261,7 @@ O projeto Boreal deve:
 5. rejeitar mudanças fora do escopo da feature.
 ```
 
-Abra a constitution gerada. Verifique se as frases produzem consequência. “Código deve ter qualidade” é vago; “comportamento novo começa por teste que falha” pode bloquear uma implementação.
+Abra a [constitution](conceitos.md#constitution-principios-antes-da-feature) gerada. Verifique se as frases produzem consequência. “Código deve ter qualidade” é vago; “comportamento novo começa por teste que falha” pode bloquear uma implementação.
 
 **Gate 0 — princípios**
 
@@ -290,7 +290,7 @@ registra ator, instante e motivo, é idempotente e expira em 48 horas.
 Não enviar mensagens e não conectar sistemas externos.
 ```
 
-Leia `spec.md` antes de aceitar. Procure:
+Leia [`spec.md`](conceitos.md#a-spec-como-artefato-central-e-vivo) antes de aceitar. Procure:
 
 - problema e ator;
 - história prioritária;
@@ -320,7 +320,7 @@ Para o laboratório, adote:
 - motivo é enumeração `cliente_ausente | divergencia_endereco | confirmacao_item`;
 - rejeições são erros tipados.
 
-Atualize a spec com as respostas. Crie um pequeno ledger:
+Atualize a spec com as respostas. Crie um pequeno [ledger](conceitos.md#3-clarify-que-ambiguidades-mudariam-a-solucao):
 
 | Item | Estado | Evidência |
 |---|---|---|
@@ -358,10 +358,10 @@ Persistência do laboratório é em memória. Expor uma CLI JSON para
 demonstrar transições, sem API ou banco de dados.
 ```
 
-O plano deve mostrar:
+O [plano](conceitos.md#4-plan-como-a-arquitetura-realizara-a-intencao) deve mostrar:
 
 - arquivos criados e responsabilidades;
-- seam pública da máquina de estados;
+- [seam](conceitos.md#deep-modules-e-testes-pelas-seams) pública da máquina de estados;
 - representação de pedido, comando e evento;
 - erros tipados;
 - estratégia de idempotência;
@@ -430,11 +430,11 @@ T3 criar todos os testes
 T4 criar a CLI
 ```
 
-Essa divisão é horizontal e posterga evidência. Reescreva tarefas como fatias demonstráveis.
+Essa divisão é horizontal e posterga evidência. Reescreva tarefas como [fatias demonstráveis](padroes-e-decisoes.md#decisao-4-fatiar-verticalmente).
 
 ### Passo 6 — analisar consistência
 
-Use `/speckit.analyze` quando disponível ou preencha:
+Use [`/speckit.analyze`](conceitos.md#6-analyze-os-artefatos-contam-a-mesma-historia) quando disponível ou preencha:
 
 | Requisito | Plano | Tarefa | Teste previsto |
 |---|---|---|---|
@@ -448,7 +448,7 @@ Um requisito sem tarefa é lacuna. Uma tarefa sem requisito pode ser infraestrut
 
 ### Passo 7 — implementar uma fatia
 
-Execute somente a primeira tarefa com `/speckit.implement` ou equivalente. Antes de aceitar código, observe:
+Execute somente a primeira tarefa com [`/speckit.implement`](conceitos.md#7-implement-executar-decisoes-nao-reinventa-las) ou equivalente. Antes de aceitar código, observe:
 
 1. teste criado;
 2. teste falha porque o comportamento não existe;
@@ -461,7 +461,7 @@ Registre a saída red e green. Se o agente criar teste e código juntos, reverta
 
 ### Passo 8 — revisão em dois eixos
 
-Faça duas leituras independentes.
+Faça duas leituras independentes, seguindo a [revisão em dois eixos](padroes-e-decisoes.md#decisao-6-usar-revisao-em-dois-eixos).
 
 **Revisão de Spec**
 

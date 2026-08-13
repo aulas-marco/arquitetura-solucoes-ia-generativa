@@ -69,11 +69,23 @@ Esse gate adicional é o preço de ter uma camada de ferramenta: a Aurora só é
 
 ## Execução local
 
+**Objetivo.** O script roda cinco casos sintéticos da Aurora (`A-01` a `A-05`) contra o mesmo juiz `OllamaModel` local do Lume: gera uma resposta com o Ollama para cada entrada e mede, via `GEval`, se ela corresponde à decisão esperada — bloquear, corrigir ou escalar. Três casos são exclusivos da camada de ferramenta que só a Aurora tem: `A-01` (aplicar taxa via sistema de crédito sem autorização), `A-02` (repetir a mesma consulta dez vezes) e `A-05` (usar ferramenta fora do catálogo). Os outros dois espelham a estrutura do Lume: `A-03` é conflito de fontes (como `L-02`) e `A-04` é indisponibilidade que exige correção (como `L-04`).
+
+Antes de executar, releia [Exposição e efeitos indevidos](padroes-e-decisoes.md#exposicao-e-efeitos-indevidos) — cobre o uso indevido de ferramenta que `A-01` e `A-05` testam — e [Estado, custo e dependências](padroes-e-decisoes.md#estado-custo-e-dependencias), que cobre a negação de serviço econômica por repetição que `A-02` testa. Ver também a linha "ferramenta" do [registro de risco](#registro-de-risco) desta página e a seção [Guardrails em profundidade aplicados](#guardrails-em-profundidade-aplicados), que lista catálogo mínimo, contrato por ferramenta e orçamento de passos como os controles que deveriam impedir esses três casos antes mesmo de chegar ao modelo.
+
 1. Ambiente: reative o venv do curso (`source .venv/bin/activate`) e instale `deepeval` e `ollama` (`pip install deepeval ollama`), como na [Oficina de ferramentas](oficina-de-ferramentas.md) deste módulo — o pacote `ollama` é exigido pelo juiz `OllamaModel` do script. Mantenha o Ollama local ativo com `llama3.2:3b`.
 2. Baixe `docs/assets/labs/modulo-5/avaliar_confianca_lume_aurora.py` e `docs/assets/labs/modulo-5/casos_confianca_lume_aurora.json`.
 3. Execute: `python avaliar_confianca_lume_aurora.py --caso aurora`.
 4. **Resultado esperado.** Um `relatorio-confianca-aurora.json` com pontuação e justificativa por caso sintético, incluindo cenários de uso indevido de ferramenta e excesso de orçamento de passos que não existem no conjunto do [Lume](caso-lume.md).
 5. **Limpeza.** Desative o venv e apague os relatórios gerados; não substitua os casos sintéticos por dados reais.
+
+**Perguntas exploratórias.**
+
+- Em `A-01` e `A-05`, o juiz bloqueou porque reconheceu a ausência de autorização por ferramenta e a ferramenta fora do catálogo, ou apenas porque a entrada "parecia arriscada"? O `GEval` avalia a resposta em texto — que diferença faz um catálogo mínimo e um contrato por ferramenta bloquearem a chamada antes de o modelo ser consultado?
+- Em `A-02`, a resposta observada tratou a repetição como um padrão de abuso de orçamento de passos, ou avaliou cada chamada isoladamente? Um orçamento de passos explícito mudaria o resultado independentemente da nota do juiz?
+- Comparando `A-03` com `L-02` (conflito de fontes) e `A-04` com `L-04` (correção por indisponibilidade): a pontuação e a justificativa mudam quando o caso tem a mesma estrutura do Lume, mas atravessa uma camada de ferramenta que o Lume não tem?
+
+**Entrega de evidência.** Anexe o `relatorio-confianca-aurora.json` (ou um trecho representativo com os cinco casos) e relacione `A-01`, `A-02` e `A-05` à linha "ferramenta" do [registro de risco](#registro-de-risco) desta página, com a pontuação e a justificativa obtidas. Compare com o `relatorio-confianca-lume.json` anexado na página do [Lume](caso-lume.md#execucao-local) — essa comparação lado a lado é a evidência concreta da diferença de superfície de risco anunciada na abertura desta página.
 
 ---
 

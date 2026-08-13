@@ -178,9 +178,55 @@ Verifique agora:
 | Métricas | 25% | Mede recuperação, contexto e completude. |
 | Proveniência | 30% | Preserva localização, versão e vínculo dos chunks. |
 
+### 10. Híbrido compensa o custo?
+
+**Situação**
+
+O Banco Lume adotou RAG híbrido no ADR-Lume-003; a Cooperativa Aurora, no ADR-Aurora-002. Ambos os ADRs assumem que a fusão de busca lexical e vetorial paga seu custo de operação. Essa suposição precisa de evidência, não só de intuição.
+
+**Seu papel**
+
+Arquiteto de recuperação avaliando uma decisão já tomada.
+
+**Insumos disponíveis**
+
+Escolha um caso — [Lume](caso-lume.md#implementacao) ou [Aurora](caso-aurora.md#implementacao) — e use `rag_lume_aurora.py` e `avaliar_recuperacao_lume_aurora.py` conforme documentado na página do caso. Consulte [recuperação híbrida](padroes-e-decisoes.md#estrategias-de-recuperacao) e a subseção "RAG híbrido" em [padrões de RAG e seus trade-offs](padroes-e-decisoes.md#padroes-de-rag-e-seus-trade-offs), que exige "evidência de ganho segmentado sobre cada estratégia isolada" antes de justificar o custo de dois índices, fusão, calibração e latência.
+
+**O que cada métrica mede**
+
+**MRR** valoriza a posição da primeira evidência relevante, com crédito parcial mesmo se ela aparecer longe do topo. **nDCG@3** considera apenas as três primeiras posições e zera qualquer acerto fora desse corte. Nenhuma das duas mede custo, latência ou operação — isso vem da comparação com o que o híbrido acrescenta em componentes (dois índices, fusão) sobre uma estratégia isolada.
+
+**Como conduzir**
+
+1. Rode `avaliar_recuperacao_lume_aurora.py` para o caso escolhido e registre MRR e nDCG@3 dos três modos.
+2. Rode `rag_lume_aurora.py` nos três modos para a pergunta documentada na página do caso e registre os IDs recuperados (top-2) por modo.
+3. Calcule o ganho do híbrido sobre o melhor dos dois modos isolados, em MRR e em nDCG@3.
+4. Releia "RAG híbrido" em padrões e decisões e liste o que esse ganho custa em componentes, operação e latência.
+5. Conclua, com números, se o ganho observado justifica o custo — ou se um dos modos isolados já bastaria para o perfil de perguntas deste caso.
+
+**Entrega esperada**
+
+Entregue a tabela de evidência (IDs por modo, MRR e nDCG@3 por modo), o cálculo do ganho do híbrido sobre o melhor modo isolado e uma conclusão de até 150 palavras que relacione esse ganho ao custo descrito em "RAG híbrido".
+
+**Checklist de verificação**
+
+Verifique agora:
+
+- [ ] MRR, nDCG@3 e IDs top-2 aparecem para os três modos, com o caso e a pergunta identificados.
+- [ ] A conclusão cita o custo de "RAG híbrido" em padrões e decisões e não confunde ganho de recuperação com ganho de resposta final.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Execução | 25% | Registra MRR, nDCG@3 e IDs recuperados dos três modos, de forma reproduzível. |
+| Cálculo do ganho | 25% | Compara o híbrido ao melhor modo isolado com números, não impressão. |
+| Custo-benefício | 30% | Relaciona o ganho medido ao custo de operação de "RAG híbrido". |
+| Limites | 20% | Não estende a conclusão de recuperação à qualidade da resposta final. |
+
 ## Analisar
 
-### 10. Falha de permissão
+### 11. Falha de permissão
 
 **Situação**
 
@@ -227,7 +273,7 @@ Verifique agora:
 
 ## Avaliar
 
-### 11. Escolha do padrão
+### 12. Escolha do padrão
 
 **Situação**
 
@@ -276,7 +322,7 @@ Verifique agora:
 
 ## Criar
 
-### 12. Arquitetura RAG completa
+### 13. Arquitetura RAG completa
 
 **Situação**
 

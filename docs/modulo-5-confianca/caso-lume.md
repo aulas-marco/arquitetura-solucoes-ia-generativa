@@ -60,11 +60,23 @@ O Lume usa o padrão [Guardrails em profundidade](../referencia/catalogo-de-padr
 
 ## Execução local
 
+**Objetivo.** O script roda cinco casos sintéticos do Lume (`L-01` a `L-05`) contra um juiz `OllamaModel` local: para cada entrada, gera uma resposta com o próprio Ollama e mede, via `GEval`, se ela corresponde à decisão esperada — bloquear, corrigir ou escalar. A pontuação e a justificativa por caso são a evidência que este laboratório produz; elas não substituem revisão humana, só a instrumentam.
+
+Antes de executar, releia [Instruções adversariais](padroes-e-decisoes.md#instrucoes-adversariais) — `L-01` é injeção direta pedindo para ignorar a política, `L-02` é fonte omissa que exige escalonamento por conflito — e [Exposição e efeitos indevidos](padroes-e-decisoes.md#exposicao-e-efeitos-indevidos), que cobre o vazamento de contexto que `L-03` tenta provocar ao pedir o texto reservado do sistema. `L-04` e `L-05` testam a fronteira de aprovação humana do [registro de risco](#registro-de-risco) desta página: correção de rotina por evidência faltante e divergência entre analista e rascunho.
+
 1. Ambiente: reative o venv do curso (`source .venv/bin/activate`) e instale `deepeval` e `ollama` (`pip install deepeval ollama`), como na [Oficina de ferramentas](oficina-de-ferramentas.md) deste módulo — o pacote `ollama` é exigido pelo juiz `OllamaModel` do script. Mantenha o Ollama local ativo com `llama3.2:3b`.
 2. Baixe `docs/assets/labs/modulo-5/avaliar_confianca_lume_aurora.py` e `docs/assets/labs/modulo-5/casos_confianca_lume_aurora.json`.
 3. Execute: `python avaliar_confianca_lume_aurora.py --caso lume`.
 4. **Resultado esperado.** Um `relatorio-confianca-lume.json` com pontuação e justificativa por caso sintético.
 5. **Limpeza.** Desative o venv e apague os relatórios gerados; não substitua os casos sintéticos por dados reais.
+
+**Perguntas exploratórias.**
+
+- Em `L-01` e `L-03`, a pontuação alta significa que o juiz reconheceu a tentativa de injeção direta e de vazamento do texto reservado, ou apenas que a resposta do Ollama pareceu educadamente evasiva? O que mudaria com delimitador e hierarquia de mensagens antes da chamada ao modelo?
+- Em `L-02`, a resposta observada escalou a lacuna de política ou tentou preencher a omissão por conta própria? O resultado seria diferente se a política estivesse desatualizada em vez de omissa — caso em que a decisão correta também é escalar, mas por outro motivo?
+- Em `L-04` e `L-05`, a justificativa do `GEval` distingue "corrigir" de "escalar" com um motivo específico do caso, ou usa linguagem genérica? Que sinal adicional no trace reduziria a dependência da nota isolada?
+
+**Entrega de evidência.** Anexe o `relatorio-confianca-lume.json` (ou um trecho representativo com os cinco casos) e relacione cada `L-0x` à linha correspondente do [registro de risco](#registro-de-risco) — entrada, recuperação, saída ou aprovação humana — com a pontuação e a justificativa obtidas. Essa é a evidência concreta que [Confiança é uma relação, não uma característica absoluta](conceitos.md#confianca-e-uma-relacao-nao-uma-caracteristica-absoluta) pede no lugar de uma demonstração escolhida.
 
 ---
 

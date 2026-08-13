@@ -160,9 +160,48 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 
 **Como verificar antes de entregar:** confira se fonte, estímulo, ambiente, artefato, resposta e medida estão identificados; se a medida tem população, percentil e janela; e se há uma ação definida para o caso de falha.
 
+### 10. Evidência do laboratório de comportamento
+
+**O que é:** organizar os resultados de um laboratório empírico segundo os três tipos de verificação evita tratar uma execução isolada — ou cinco — como prova de qualidade geral.
+
+**Onde encontrar:** use a tabela preenchida e as respostas às questões exploratórias do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado) da oficina de ferramentas — os cinco registros das condições Sem corpus, Com corpus, Com corpus — repetição, Temperatura 0.1 e Temperatura 0.9 — junto com os [três tipos de verificação](conceitos.md#tres-tipos-de-verificacao) e as definições de [variabilidade e alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao).
+
+**Situação**
+
+Você concluiu a oficina de ferramentas com o Ollama e a Política Aurora de reembolso sintética. Um colega, vendo apenas a resposta do Experimento B (com corpus), conclui: “deu certo, já podemos confiar nesse modelo para responder sobre reembolso”. Seu papel é usar sua própria tabela preenchida para mostrar por que essas cinco execuções não sustentam essa conclusão sem qualificar o tipo de evidência.
+
+**Seu papel**
+
+Você é o arquiteto que precisa transformar observações de bancada em evidência classificada, apta — ou não — a entrar numa ficha de decisão.
+
+**Insumos disponíveis**
+
+Sua tabela preenchida do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado), com as cinco condições e as respostas às questões exploratórias de cada experimento; a tabela de [três tipos de verificação](conceitos.md#tres-tipos-de-verificacao) em Conceitos; as definições de [variabilidade e alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao).
+
+**Como conduzir**
+
+1. Para cada uma das cinco condições da sua tabela, classifique o que ela permitiria verificar — teste de software, avaliação comportamental ou nenhum dos dois — e justifique em uma frase.
+2. Compare a resposta **Com corpus** e a resposta **Com corpus — repetição**: aponte uma diferença que seria apenas de redação e uma diferença (real ou hipotética, se as duas respostas foram idênticas) que mudaria uma decisão de atendimento.
+3. Compare **Temperatura 0.1** e **Temperatura 0.9**: a maior diversidade observada acompanhou perda de fundamentação na Política Aurora? Cite o trecho da resposta que sustenta sua conclusão.
+4. Em até quatro frases, explique por que a afirmação do colega (“já podemos confiar”) ignora o tamanho da amostra e o tipo de verificação disponível, e proponha um próximo experimento (por exemplo, um conjunto maior de perguntas estratificadas) que reduziria essa lacuna.
+
+**Entrega esperada**
+
+Entregue a classificação das cinco condições (passo 1), a comparação de repetição e de temperatura (passos 2 e 3) e o parecer de até quatro frases sobre a afirmação do colega, com o próximo experimento proposto (passo 4).
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Classificação das condições | 30% | Associa cada uma das cinco condições a um tipo de verificação (ou a nenhum), com justificativa coerente com a tabela de Conceitos. |
+| Comparação de repetição e temperatura | 35% | Distingue variação de redação de variação que afeta decisão; liga diversidade a fundamentação, não a factualidade. |
+| Parecer sobre a afirmação do colega | 35% | Explica por que amostra pequena e verificação limitada não sustentam confiança geral; propõe um próximo experimento concreto e mensurável. |
+
+**Como verificar antes de entregar:** confira que as cinco condições foram classificadas; que a comparação cita ao menos um trecho da sua própria tabela; que o parecer nomeia o tipo de verificação ausente e propõe um experimento seguinte mensurável.
+
 ## Analisar
 
-### 10. Comparação das quatro decisões
+### 11. Comparação das quatro decisões
 
 **O que é:** separar produção, conhecimento, efeito e operação evita que “usar um modelo” esconda decisões independentes.
 
@@ -205,11 +244,11 @@ Entregue a matriz das quatro decisões e uma recomendação incremental para a i
 
 ## Avaliar
 
-### 11. Contestação da ficha de decisão
+### 12. Contestação da ficha de decisão
 
 **O que é:** contestar uma ficha inicial significa verificar se ela contém problema, responsabilidades, alternativas e evidência suficientes para seguir ao desenho conceitual.
 
-**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) — reproduzida abaixo com os dados do caso Horizonte — e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Se você já fez o exercício 10, reaproveite sua matriz das quatro decisões.
+**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) — reproduzida abaixo com os dados do caso Horizonte — e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Se você já fez o exercício 11, reaproveite sua matriz das quatro decisões.
 
 **Situação**
 
@@ -245,9 +284,9 @@ Entregue um parecer de até 200 palavras citando os dois dados da ficha e o gati
 
 ## Criar
 
-### 12. Leitura arquitetural mínima
+### 13. Leitura arquitetural mínima
 
-**O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras e evidências de qualidade. Este exercício reúne, em um único caso, os elementos praticados nos exercícios 8 a 11.
+**O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras e evidências de qualidade. Este exercício reúne, em um único caso, os elementos praticados nos exercícios 8, 9, 11 e 12.
 
 **Onde encontrar:** use os [conceitos](conceitos.md), a [ficha de decisão](padroes-e-decisoes.md#ficha-de-decisao-inicial), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) e o [exemplo Horizonte](exemplo-arquitetural.md).
 

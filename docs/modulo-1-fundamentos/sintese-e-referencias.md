@@ -45,7 +45,7 @@ Antes de levar uma hipótese ao desenho conceitual, verifique:
 9. Consigo localizar responsabilidades no mapa e explicar uma degradação segura?
 10. Sei escrever uma ficha inicial com incógnita e experimento capaz de inverter uma direção?
 
-Se mais de duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades), o [exemplo Horizonte](exemplo-arquitetural.md) e os exercícios 8, 10 e 12.
+Se mais de duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades), o [exemplo Horizonte](exemplo-arquitetural.md) e os exercícios 8, 11 e 13.
 
 ## Conexão com os próximos módulos
 

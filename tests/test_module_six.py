@@ -217,7 +217,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
         expected_counts = {
             "Recordar": 4,
             "Compreender": 3,
-            "Aplicar": 2,
+            "Aplicar": 3,
             "Analisar": 1,
             "Avaliar": 1,
             "Criar": 1,

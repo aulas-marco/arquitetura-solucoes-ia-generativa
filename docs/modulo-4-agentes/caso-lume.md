@@ -12,6 +12,8 @@ O ADR-001 do Módulo 2 previa reavaliar autonomia de agente somente "se uma ativ
 
 ## Execução local
 
+**Objetivo.** Observar em código o que distingue **A1 — informar** (Lume) de **A2 — recomendar** (Aurora) na [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia): aqui o orquestrador decide a sequência e o modelo não escolhe ferramenta, ordem nem parada — ver também [quatro formas de controle operacional](conceitos.md#quatro-formas-de-controle-operacional).
+
 **Pré-requisitos.** Python 3.11+, o mesmo padrão de venv das oficinas anteriores.
 
 **Instalação.**
@@ -27,7 +29,15 @@ pip install langgraph
 python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso lume
 ```
 
-**Resultado esperado.** O script imprime a sequência fixa (contexto → rascunho → validação), sem decisão de ferramenta — o orquestrador segue a mesma ordem em toda execução, ao contrário do que se vê no [caso Aurora](caso-aurora.md).
+**Resultado esperado.** O script imprime a sequência fixa de duas etapas (montar contexto → gerar rascunho); o `TRACE` confirma que nenhuma delas escolhe ferramenta — o orquestrador decide a ordem, não o modelo. Ao contrário do [caso Aurora](caso-aurora.md), aqui não existe orçamento de chamadas nem lista de ferramentas candidatas: são sempre as mesmas duas funções, na mesma ordem, em toda execução.
+
+**Perguntas exploratórias.**
+
+1. Rode o script e compare o `TRACE` com o do caso Aurora (`--caso aurora`). Em qual dos dois o modelo participa de alguma escolha — de ferramenta, ordem ou parada?
+2. Se alguém propusesse deixar o modelo escolher a ordem entre "montar contexto" e "gerar rascunho", isso mudaria o nível de autonomia do Lume? Por quê, segundo o [critério de entrada](conceitos.md#o-criterio-de-entrada) para agentes?
+3. Que evidência do ADR-001 (Módulo 2) continua justificando manter o Lume em A1 mesmo depois do RAG do Módulo 3?
+
+**Entrega de evidência.** Registre a saída de uma execução (rascunho e trace completo) e aponte, no trace, em qual ponto estaria a "escolha" do modelo caso o Lume evoluísse para A2 — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#13-autonomia-orcada-em-execucao-real).
 
 **Limpeza.** `deactivate` e remover o diretório `.venv`. Nenhum dado real deve substituir os identificadores sintéticos do script.
 

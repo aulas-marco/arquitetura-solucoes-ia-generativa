@@ -153,9 +153,49 @@ Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o ind
 | SLOs | 20% | Define indicadores mensuráveis centrados no usuário. |
 | Alertas | 20% | Liga sinal a proprietário, runbook e ação. |
 
+### 10. Telemetria comparada: Lume e Aurora
+
+**O que é:** **trace** reconstrói a composição da chamada; **showback** e **chargeback** atribuem custo de formas diferentes. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [modelo operacional da plataforma](padroes-e-decisoes.md#modelo-operacional-da-plataforma).
+
+**Situação**
+
+O Lume mantém showback sem chargeback; a Aurora antecipa chargeback porque sua chamada de ferramenta a sistemas legados é mais atribuível que consulta a índice. Antes de validar essa diferença em produção, a equipe quer uma primeira evidência local, comparando o trace dos dois produtos sob a mesma plataforma.
+
+**Seu papel**
+
+Você produz a evidência comparativa que sustenta — ou não — a diferença de tratamento de custo entre os dois produtos.
+
+**Insumos disponíveis**
+
+Use o [script de telemetria do caso](caso-lume.md#mini-execucao-telemetria), o [ADR de showback do Lume](caso-lume.md#adr-lume-canary-por-agencia-sem-chargeback), o [ADR de chargeback antecipado da Aurora](caso-aurora.md#adr-aurora-escrita-suspensa-em-canary-chargeback-antecipado) e os [quatro planos de métricas](conceitos.md#quatro-planos-de-metricas).
+
+**Como conduzir**
+
+1. Execute `telemetria_lume_aurora.py --caso lume` e `--caso aurora`, três repetições cada, registrando `TRACE_ID`, `DURACAO_MS` e o atributo `boreal.etapa` do span `conhecimento`.
+2. Separe, para cada produto, o que a duração observada mede (consulta ao índice; consulta ao índice mais chamada de ferramenta, na operação real) do que ela não mede (custo real por token ou por chamada de ferramenta).
+3. Compare a variação entre as três repetições de cada caso antes de tratar qualquer diferença isolada como conclusiva.
+4. Ligue a evidência coletada a cada ADR: ela reforça, é neutra ou contradiz a decisão de showback do Lume e de chargeback antecipado da Aurora?
+
+**Entrega esperada**
+
+Entregue a tabela com três repetições por produto (`TRACE_ID`, `DURACAO_MS`, `boreal.etapa`) e um parecer de até 200 palavras ligando a evidência aos dois ADRs.
+
+**Como verificar**
+
+Confira repetição suficiente para distinguir variação de sinal, e a ligação explícita entre trace e ADR de cada produto.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Execução e registro | 25% | Roda os dois casos com repetições e registra `trace_id`, duração e etapa. |
+| Composição da medida | 25% | Distingue o que a duração mede do que ela não prova sobre custo. |
+| Variação | 20% | Não trata uma única execução como suficiente. |
+| Ligação ao ADR | 30% | Conecta a evidência à decisão de showback do Lume e chargeback da Aurora. |
+
 ## Analisar
 
-### 10. Diagnóstico de rollout composto
+### 11. Diagnóstico de rollout composto
 
 **O que é:** **canary** expõe versão; **fallback** usa alternativa; **rollback** restaura manifesto. Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
 
@@ -198,7 +238,7 @@ Confira quatro planos, teste refutador e limite de interrupção.
 
 ## Avaliar
 
-### 11. Plataforma comum ou autonomia local?
+### 12. Plataforma comum ou autonomia local?
 
 **O que é:** **fronteira de propriedade** diz quem decide e aceita risco; **ADR** registra contexto e decisão. Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
 
@@ -243,7 +283,7 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 ## Criar
 
-### 12. Capstone — arquitetura e plano operacional da organização
+### 13. Capstone — arquitetura e plano operacional da organização
 
 **Situação**
 

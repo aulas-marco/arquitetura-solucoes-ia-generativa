@@ -2,13 +2,13 @@
 
 **Objetivo Bloom:** Analisar.
 
-Esta oficina envia uma solicitação sintética por um gateway local e registra um trace OpenTelemetry no próprio terminal. Ela permite discutir o que observar sem copiar telemetria de produção.
+Esta oficina envia uma solicitação sintética por um [gateway local](padroes-e-decisoes.md#model-gateway-como-fronteira-comum) e registra um [trace](conceitos.md#trace-reconstruir-a-composicao) OpenTelemetry no próprio terminal. Ela permite discutir o que observar sem copiar telemetria de produção.
 
 ## Ferramenta
 
-**OpenTelemetry** é um padrão open source de instrumentação. Nesta prática, um script cria spans de entrada, modelo e saída. O **LiteLLM Proxy** do Módulo 2 é o gateway local observado; o Ollama é o destino de inferência.
+**OpenTelemetry** é um padrão open source de instrumentação. Nesta prática, um script cria [spans](conceitos.md#trace-reconstruir-a-composicao) de entrada, modelo e saída. O **LiteLLM Proxy** do Módulo 2 é o gateway local observado; o Ollama é o destino de inferência.
 
-**Decisão arquitetural em foco:** quais sinais devem ligar uma solicitação, um produto, uma resposta e uma ação de recuperação sem expor conteúdo além do necessário?
+**Decisão arquitetural em foco:** quais sinais devem ligar uma solicitação, um produto, uma resposta e uma [ação de recuperação](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) [sem expor conteúdo além do necessário](conceitos.md#logs-com-preservacao-de-privacidade)?
 
 ## Pré-requisitos
 
@@ -109,15 +109,15 @@ python telemetria_local.py
 
 ## Receita principal
 
-O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa relacionar fases do fluxo, e não apenas contar chamadas.
+O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa [relacionar fases do fluxo](conceitos.md#trace-reconstruir-a-composicao), e não apenas contar chamadas.
 
 ## Resultado esperado
 
-Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e atributos minimizados. A execução não implementa quotas, SLOs ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, limiar e ação de recuperação.
+Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e [atributos minimizados](conceitos.md#logs-com-preservacao-de-privacidade). A execução não implementa quotas, [SLOs](conceitos.md#slo-para-servico-util) ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, [limiar](padroes-e-decisoes.md#incidente-generativo) e ação de recuperação.
 
 ## Interpretação
 
-No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções não prova causalidade: ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
+No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções [não prova causalidade](conceitos.md#quatro-planos-de-metricas): ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
 
 ## Roteiro sugerido para aula
 
@@ -141,19 +141,19 @@ Rode o script.
 
 **Compare**
 
-Log isolado e trace com etapas relacionadas.
+Log isolado e [trace com etapas relacionadas](conceitos.md#trace-reconstruir-a-composicao).
 
 **Questões exploratórias:**
 
-- Qual atributo identifica o produto sem registrar o conteúdo inteiro?
+- Qual atributo identifica o produto sem registrar o conteúdo inteiro, e que princípio de [minimização de dados](conceitos.md#logs-com-preservacao-de-privacidade) isso exemplifica?
 - Que sinal permitiria separar falha do modelo e falha do gateway?
-- Quem deve ser dono do limiar de duração observado?
+- Quem deve ser [dono do limiar](conceitos.md#prioridades-e-tensoes-operacionais) de duração observado?
 
 ### Experimento B — variação controlada (Exploração em dupla)
 
 **Objetivo**
 
-Tratar medição como hipótese.
+Tratar medição como [hipótese](conceitos.md#quatro-planos-de-metricas).
 
 **Pré-requisito**
 
@@ -174,8 +174,8 @@ Dois traces locais.
 **Questões exploratórias:**
 
 - Por que duas amostras não demonstram causa raiz?
-- Que metadado de modelo e manifesto ajuda a reproduzir um desvio?
-- Que dado deve ficar fora do trace para preservar privacidade?
+- Que metadado de modelo e [manifesto](conceitos.md#o-objeto-operado-e-um-pacote-comportamental) ajuda a reproduzir um desvio?
+- Que dado deve ficar fora do trace para [preservar privacidade](conceitos.md#logs-com-preservacao-de-privacidade)?
 
 ### Experimento C — ação recuperável (Extensão)
 
@@ -197,13 +197,13 @@ Evidência necessária antes de alterar o gateway.
 
 **Compare**
 
-Fallback, redução de contexto, fila e rollback.
+[Fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao), redução de contexto, fila e rollback.
 
 **Questões exploratórias:**
 
-- Que produto deve ter prioridade quando a capacidade é limitada?
-- Quando uma parada segura vira incidente?
-- Qual ação deve ser reversível primeiro?
+- Que produto deve ter prioridade quando a [capacidade é limitada](padroes-e-decisoes.md#modelo-operacional-da-plataforma)?
+- Quando uma parada segura vira [incidente](padroes-e-decisoes.md#incidente-generativo)?
+- Qual ação deve ser [reversível](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) primeiro?
 
 ## Evidência a entregar
 
@@ -214,7 +214,7 @@ Entregue as linhas `TRACE_ID` e `DURACAO_MS` de duas execuções e o quadro abai
 | Inicial | tr-202 |  |  |  |  |
 | Variação | tr-204 |  |  |  |  |
 
-Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma fitness function, seu responsável e a reação diante da falha.
+Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma [fitness function](padroes-e-decisoes.md#fitness-functions-operacionais), seu responsável e a reação diante da falha.
 
 ## Limpeza e contingência
 

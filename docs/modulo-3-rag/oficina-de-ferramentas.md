@@ -71,7 +71,7 @@ mkdir corpus
 
 ## Preparação do laboratório
 
-Um **[corpus](conceitos.md#fontes-e-formatos)** é o conjunto de documentos que o sistema pode consultar. Aqui ele terá três arquivos. **Ingestão** é a leitura desses arquivos, a preservação de seus metadados e sua indexação no Chroma. **Recuperação** é a seleção dos trechos candidatos para uma pergunta.
+Um **[corpus](conceitos.md#fontes-e-formatos)** é o conjunto de documentos que o sistema pode consultar. Aqui ele terá três arquivos. **[Ingestão](conceitos.md#fluxo-offline-da-fonte-ao-conhecimento-pesquisavel)** é a leitura desses arquivos, a preservação de seus metadados e sua indexação no Chroma. **[Recuperação](padroes-e-decisoes.md#estrategias-de-recuperacao)** é a seleção dos trechos candidatos para uma pergunta.
 
 Baixe os quatro arquivos abaixo. Salve os três `.txt` dentro da pasta `corpus/`; salve `rag_local.py` diretamente em `oficina-m3/`.
 
@@ -87,7 +87,7 @@ ls corpus
 ls rag_local.py
 ```
 
-Os metadados `ID: POL-17` e `VERSAO: v3` fazem parte do corpus. Eles não são detalhes decorativos: serão impressos antes da resposta e permitem discutir proveniência.
+Os metadados `ID: POL-17` e `VERSAO: v3` fazem parte do corpus. Eles não são detalhes decorativos: serão impressos antes da resposta e permitem discutir [proveniência](conceitos.md#proveniencia-de-ponta-a-ponta).
 
 ## Execução
 
@@ -128,7 +128,7 @@ Simule uma falha de ingestão ou filtro removendo o documento de política da co
 python rag_local.py --excluir POL-17:v3 --pergunta 'Qual é o prazo para solicitar reembolso em uma compra regular?'
 ```
 
-Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usuário. A variável alterada é a presença de `POL-17:v3`; o experimento não compara “modelos melhores”, mas localiza uma hipótese de falha entre ingestão, metadado, recuperação e montagem de contexto.
+Compare os IDs recuperados, a resposta e sua confiança em apresentá-la ao usuário. A variável alterada é a presença de `POL-17:v3`; o experimento não compara “modelos melhores”, mas localiza uma hipótese de falha entre ingestão, metadado, recuperação e [montagem de contexto](padroes-e-decisoes.md#montagem-de-contexto).
 
 ## Roteiro sugerido para aula
 
@@ -176,7 +176,7 @@ Localize o ID antes da resposta.
 
 **Observe**
 
-Citação e conteúdo recuperado.
+[Citação](padroes-e-decisoes.md#citacoes-e-suporte) e conteúdo recuperado.
 
 **Compare**
 
@@ -192,7 +192,7 @@ Resposta sem trecho versus resposta com evidência.
 
 **Objetivo**
 
-Tratar ausência de evidência como sinal de parada.
+Tratar [ausência de evidência](padroes-e-decisoes.md#evidencia-insuficiente-e-abstencao) como sinal de parada.
 
 **Pré-requisito**
 
@@ -212,7 +212,7 @@ Abstenção, resposta inventada e encaminhamento.
 
 **Questões exploratórias:**
 
-- Que teste evitaria publicar um índice sem o documento obrigatório?
+- Que fitness function evitaria publicar um índice sem o documento obrigatório?
 - Qual é a diferença entre falha de recuperação e alucinação?
 - Que dado adicional seria necessário para reduzir a abstenção com segurança?
 
@@ -228,7 +228,7 @@ Entregue a tabela preenchida e uma conclusão de até cinco linhas.
 
 Na conclusão, responda: quando a arquitetura deve responder, quando deve pedir informação e quando deve encaminhar para revisão humana? Declare que o corpus é sintético e registre o modelo de embedding e o modelo de chat usados.
 
-Registre também uma fitness function: por exemplo, “nenhuma resposta é exibida sem ID, versão e fonte recuperada” ou “a exclusão de `POL-17:v3` impede sua recuperação na próxima consulta”. Indique quem verificaria essa condição em operação.
+Registre também uma [fitness function](padroes-e-decisoes.md#fitness-functions-de-rag): por exemplo, “nenhuma resposta é exibida sem ID, versão e fonte recuperada” ou “a exclusão de `POL-17:v3` impede sua recuperação na próxima consulta”. Indique quem verificaria essa condição em operação.
 
 ## Limpeza e contingência
 

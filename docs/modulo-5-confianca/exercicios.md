@@ -196,9 +196,50 @@ Confira métricas por fatia, portão e evidência refutadora.
 | Experimentos | 20% | Define testes que podem refutar hipóteses. |
 | Decisão de rollout | 20% | Liga evidência a portão, ação e comunicação. |
 
+### 11. Comparação de decisões seguras entre Lume e Aurora
+
+**O que é:** um **avaliador assistido por modelo** (`GEval` com juiz `OllamaModel`) pontua se uma resposta corresponde a um critério declarado; a nota é evidência, não veredito de segurança. Consulte [Guardrails em profundidade](padroes-e-decisoes.md#guardrails-em-profundidade) e os registros de risco do [Lume](caso-lume.md#registro-de-risco) e da [Aurora](caso-aurora.md#registro-de-risco).
+
+**Situação**
+
+Você rodou `avaliar_confianca_lume_aurora.py` duas vezes — `--caso lume` e `--caso aurora` — e tem os dois relatórios (`relatorio-confianca-lume.json`, `relatorio-confianca-aurora.json`) com nota e justificativa por caso sintético. A Aurora tem três casos que só existem por causa da camada de ferramenta (`A-01`, `A-02`, `A-05`); os outros dois pares (`L-02`/`A-03`, `L-04`/`A-04`) têm estrutura equivalente entre os dois casos.
+
+**Seu papel**
+
+Você é o arquiteto que decide se a diferença de nota entre Lume e Aurora reflete diferença real de risco ou apenas variação do juiz.
+
+**Insumos disponíveis**
+
+Os dois relatórios JSON gerados pelo laboratório, o [registro de risco do Lume](caso-lume.md#registro-de-risco), o [registro de risco da Aurora](caso-aurora.md#registro-de-risco) e o [padrão de guardrails em profundidade](padroes-e-decisoes.md#guardrails-em-profundidade).
+
+**Como conduzir**
+
+1. Separe os cinco casos da Aurora em dois grupos: exclusivos da camada de ferramenta (`A-01`, `A-02`, `A-05`) e estruturalmente equivalentes ao Lume (`A-03` com `L-02`; `A-04` com `L-04`).
+2. Para os três casos exclusivos, verifique se a nota alta (quando houver) decorre de o Ollama ter respondido com segurança por conta própria, ou de um controle de camada de ferramenta que o script não simula — ele só chama o modelo, sem executar catálogo, contrato por ferramenta ou orçamento de passos reais.
+3. Para os pares equivalentes, compare nota e justificativa entre Lume e Aurora; considere como hipóteses variação do juiz, ambiguidade do texto de entrada e diferença real de contexto.
+4. Decida se a nota isolada do relatório basta para liberar promoção, ou que evidência complementar (teste negativo de catálogo, orçamento de passos observado, revisão humana) seria exigida antes de uma liberação real.
+
+**Entrega esperada**
+
+Entregue uma tabela caso → grupo (exclusivo de ferramenta ou equivalente) → nota → justificativa observada → evidência complementar necessária, e um parágrafo de até 200 palavras concluindo se a Aurora é ou não mais arriscada do que o relatório automatizado sozinho sugere.
+
+**Como verificar**
+
+Confira se a tabela nomeia os cinco casos da Aurora, separa os grupos corretamente e se o parágrafo não trata a nota do `GEval` como prova de controle real de ferramenta.
+
+**Critérios de avaliação**
+
+| Critério | Peso | O que evidencia atendimento adequado |
+|---|---:|---|
+| Separação por grupo | 20% | Distingue casos exclusivos de ferramenta dos equivalentes ao Lume. |
+| Leitura crítica do juiz | 25% | Não confunde nota alta do `GEval` com controle de ferramenta real. |
+| Comparação Lume × Aurora | 20% | Usa os pares equivalentes para isolar variação do juiz de diferença real. |
+| Evidência complementar | 20% | Nomeia teste ou controle que o script não cobre. |
+| Conclusão fundamentada | 15% | O parágrafo final liga evidência a uma posição sobre risco relativo. |
+
 ## Avaliar
 
-### 11. Julgamento de risco residual
+### 12. Julgamento de risco residual
 
 **O que é:** **risco residual** permanece após controles; **critério de avaliação** é regra observável. Consulte [risco](conceitos.md#do-perigo-ao-risco-residual).
 
@@ -241,7 +282,7 @@ Confira amostra, autoridade, expiração e gatilho; não confunda “não observ
 
 ## Criar
 
-### 12. Arquitetura de confiança e critérios de avaliação
+### 13. Arquitetura de confiança e critérios de avaliação
 
 **Situação**
 

@@ -227,7 +227,7 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
             "Recordar": 5,
             "Compreender": 4,
             "Aplicar": 3,
-            "Analisar": 2,
+            "Analisar": 3,
             "Avaliar": 2,
             "Criar": 2,
         }
