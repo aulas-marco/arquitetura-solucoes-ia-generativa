@@ -7,6 +7,7 @@ import re
 import shutil
 from pathlib import Path
 
+from chromadb.api.client import SharedSystemClient
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_ollama import ChatOllama, OllamaEmbeddings
@@ -63,6 +64,10 @@ def rank_vetorial(documents: list[Document], pergunta: str) -> list[Document]:
     """Ordena por similaridade de embeddings — forte quando a pergunta parafraseia o documento."""
     if DATABASE.exists():
         shutil.rmtree(DATABASE)
+    # Sem isto, chamadas repetidas no mesmo processo (como em avaliar_recuperacao_lume_aurora.py)
+    # reutilizam um cliente Chroma em cache apontando para o diretório já apagado e falham com
+    # "attempt to write a readonly database".
+    SharedSystemClient.clear_system_cache()
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
     store = Chroma.from_documents(documents, embeddings, persist_directory=str(DATABASE))
     return store.similarity_search(pergunta, k=len(documents))

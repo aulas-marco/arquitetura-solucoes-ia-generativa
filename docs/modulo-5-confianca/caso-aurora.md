@@ -69,7 +69,7 @@ Esse gate adicional é o preço de ter uma camada de ferramenta: a Aurora só é
 
 ## Execução local
 
-1. Ambiente: reative o venv do curso (`source .venv/bin/activate`) e instale `deepeval` (`pip install deepeval`), como na [Oficina de ferramentas](oficina-de-ferramentas.md) deste módulo. Mantenha o Ollama local ativo com `llama3.2:3b`.
+1. Ambiente: reative o venv do curso (`source .venv/bin/activate`) e instale `deepeval` e `ollama` (`pip install deepeval ollama`), como na [Oficina de ferramentas](oficina-de-ferramentas.md) deste módulo — o pacote `ollama` é exigido pelo juiz `OllamaModel` do script. Mantenha o Ollama local ativo com `llama3.2:3b`.
 2. Baixe `docs/assets/labs/modulo-5/avaliar_confianca_lume_aurora.py` e `docs/assets/labs/modulo-5/casos_confianca_lume_aurora.json`.
 3. Execute: `python avaliar_confianca_lume_aurora.py --caso aurora`.
 4. **Resultado esperado.** Um `relatorio-confianca-aurora.json` com pontuação e justificativa por caso sintético, incluindo cenários de uso indevido de ferramenta e excesso de orçamento de passos que não existem no conjunto do [Lume](caso-lume.md).

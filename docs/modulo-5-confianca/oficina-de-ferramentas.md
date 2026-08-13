@@ -18,6 +18,8 @@ Esta oficina executa uma avaliação local de cinco casos sintéticos. Ela trans
 
 ## Instalação
 
+O comando de instalação inclui o pacote `ollama` além do `deepeval`: o avaliador usa `OllamaModel` como juiz local, e essa classe só carrega se o pacote `ollama` (cliente Python) estiver instalado — instalar somente `deepeval` falha em tempo de execução com `DeepEvalError: OllamaModel requires the 'ollama' package`.
+
 ### macOS
 
 Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Terminal, execute:
@@ -28,7 +30,7 @@ mkdir oficina-m5
 cd oficina-m5
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install deepeval
+python3 -m pip install deepeval ollama
 ollama pull llama3.2:3b
 ```
 
@@ -42,7 +44,7 @@ mkdir oficina-m5
 cd oficina-m5
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install deepeval
+python3 -m pip install deepeval ollama
 ollama pull llama3.2:3b
 ```
 
@@ -56,7 +58,7 @@ mkdir oficina-m5
 cd oficina-m5
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install deepeval
+python -m pip install deepeval ollama
 ollama pull llama3.2:3b
 ```
 
@@ -203,7 +205,7 @@ Indique uma falha que exigiria bloqueio, uma que exigiria melhoria de experiênc
 
 ## Limpeza e contingência
 
-Saia do ambiente com `deactivate`. Apague `relatorio-confianca.json` se não quiser preservar a evidência local. Se o script falhar, confira `ollama list`, `python -m pip show deepeval` e a existência dos dois arquivos. Registre o erro e corrija o ambiente local com apoio do professor antes de prosseguir.
+Saia do ambiente com `deactivate`. Apague `relatorio-confianca.json` se não quiser preservar a evidência local. Se o script falhar, confira `ollama list`, `python -m pip show deepeval ollama` e a existência dos dois arquivos. Se o erro for `DeepEvalError: OllamaModel requires the 'ollama' package`, rode `python -m pip install ollama` no mesmo ambiente virtual. Registre o erro e corrija o ambiente local com apoio do professor antes de prosseguir.
 
 ## Ferramentas adicionais
 

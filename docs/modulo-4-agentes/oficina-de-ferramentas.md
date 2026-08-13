@@ -245,7 +245,7 @@ git init
 specify init . --integration copilot
 ```
 
-Se a integração usada no seu ambiente for outra, escolha-a durante `specify init` ou siga a opção indicada pelo docente. Algumas integrações expõem comandos `/speckit.*`; outras usam skills equivalentes. Os artefatos são o objeto da aula, não a sintaxe exata da interface.
+Se a integração usada no seu ambiente for outra, escolha-a durante `specify init` ou siga a opção indicada pelo docente. O próprio `specify init` imprime, em "Next Steps", o nome exato de cada comando ou skill instalado para a integração escolhida — use essa lista como referência, pois o formato muda entre versões e integrações (por exemplo, `/speckit-constitution` com hífen na integração `copilot` desta prática, em vez do `/speckit.constitution` com ponto usado abaixo como notação genérica). Os artefatos são o objeto da aula, não a sintaxe exata da interface.
 
 ### Passo 0 — escrever uma constitution pequena
 
