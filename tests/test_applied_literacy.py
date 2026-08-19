@@ -78,7 +78,7 @@ conteúdo da atividade
 
     def test_every_workshop_is_a_local_executable_lab(self):
         forbidden = re.compile(
-            r"cart[ãa]o|crédito|cobrança|sem cart[ãa]o|rota comercial|rota institucional",
+            r"sem cart[ãa]o|sem crédito|rota comercial|rota institucional",
             re.IGNORECASE,
         )
         required = (
@@ -134,10 +134,57 @@ conteúdo da atividade
             "politica-reembolso.txt",
             "rag_local.py",
             "chroma-boreal",
-            "POL-17:v3",
+            "POL-17-REG:v3",
+            "POL-17-CAMP:v3",
             "revisão humana",
         ):
             self.assertIn(term, text)
+
+    def test_module_three_local_lab_requires_the_specific_policy_before_generation(self):
+        """A perda da fonte obrigatória deve resultar em parada determinística."""
+        lab = (DOCS / "assets/labs/modulo-3/rag_local.py").read_text(encoding="utf-8")
+
+        for term in (
+            "POL-17-REG:v3",
+            "arquivo",
+            "evidência obrigatória",
+            "não foi recuperada",
+        ):
+            self.assertIn(term, lab)
+
+    def test_module_three_workshop_restates_context_and_guides_the_full_rag_path(self):
+        """A oficina deve orientar a retomada sem exigir memória da leitura."""
+        text = (DOCS / "modulo-3-rag" / OFFICE).read_text(encoding="utf-8")
+
+        self.assertIn("## Bússola da prática", text)
+        self.assertNotIn("Rode a primeira pergunta.", text)
+        for term in (
+            "fluxo offline",
+            "fluxo online",
+            "ingestão",
+            "proveniência",
+            "recuperação",
+            "citação",
+            "evidência insuficiente",
+            "recuperação híbrida",
+            "MRR",
+            "nDCG@3",
+            "fitness function",
+            "operação",
+            "rag_lume_aurora.py",
+            "avaliar_recuperacao_lume_aurora.py",
+        ):
+            self.assertIn(term.casefold(), text.casefold(), term)
+
+        for experiment in ("Experimento A", "Experimento B", "Experimento C", "Experimento D"):
+            match = re.search(
+                rf"(?ms)^### {experiment}[^\n]*\n(?P<body>.*?)(?=^### |^## |\Z)",
+                text,
+            )
+            section = match.group("body") if match else None
+            self.assertIsNotNone(section, experiment)
+            for marker in ("Situação", "Pergunta de investigação", "Execute", "Observe", "Interprete"):
+                self.assertIn(f"**{marker}**", section, f"{experiment}: {marker}")
 
     def test_modules_two_to_six_offer_selectable_exploratory_experiments(self):
         for slug in (slug for slug in MODULES if slug != "modulo-1-fundamentos"):

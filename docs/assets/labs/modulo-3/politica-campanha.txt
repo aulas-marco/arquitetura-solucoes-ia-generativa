@@ -1,4 +1,4 @@
-ID: POL-17
+ID: POL-17-CAMP
 VERSAO: v3
 
 Em campanha especial identificada no pedido, o prazo de reembolso é de 7 dias corridos.

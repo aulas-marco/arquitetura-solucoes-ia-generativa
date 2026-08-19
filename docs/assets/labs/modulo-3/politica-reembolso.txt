@@ -1,4 +1,4 @@
-ID: POL-17
+ID: POL-17-REG
 VERSAO: v3
 
 Reembolso de compra regular pode ser solicitado em até 15 dias corridos da compra.
