@@ -122,6 +122,20 @@ class ModuleThreeContentRegressionTest(unittest.TestCase):
             self.assertIsNotNone(entry, source_id)
             self.assertRegex(entry.group(1), r"(?m)^  modules: \[[^]]*\b3\b[^]]*\]$")
 
+    def test_vector_lab_releases_chroma_before_removing_its_index(self):
+        """Evita WinError 32 quando a avaliação recria o índice no Windows."""
+        lab = (MODULE.parent / "assets/labs/modulo-3/rag_lume_aurora.py").read_text(
+            encoding="utf-8"
+        )
+        function = re.search(
+            r"(?ms)^def rank_vetorial\(.*?(?=^def |\Z)", lab
+        )
+        self.assertIsNotNone(function)
+        self.assertLess(
+            function.group().index("SharedSystemClient.clear_system_cache()"),
+            function.group().index("shutil.rmtree(DATABASE)"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
