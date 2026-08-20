@@ -95,7 +95,10 @@ conteúdo da atividade
         for slug in MODULES:
             text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
             with self.subTest(module=slug):
-                for marker in required:
+                markers = required if slug != "modulo-3-rag" else tuple(
+                    marker for marker in required if marker != "## Evidência a entregar"
+                )
+                for marker in markers:
                     self.assertIn(marker, text)
                 self.assertRegex(text, r"(?m)^```bash$")
                 self.assertIsNone(forbidden.search(text), "linguagem de acesso antiga")

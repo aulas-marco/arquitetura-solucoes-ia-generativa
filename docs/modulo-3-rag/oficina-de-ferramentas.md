@@ -118,7 +118,7 @@ Siga os experimentos em ordem quando estiver conhecendo RAG: A torna a proveniê
 
 ## Resultado esperado
 
-Você produzirá quatro rastros comparáveis: índice e proveniência, resposta citada, abstenção por falta de evidência e comparação de estratégias de recuperação. Eles demonstram o comportamento destes corpora e parâmetros; não medem recall geral, autorização real ou qualidade de produção.
+Você produzirá quatro rastros comparáveis: índice e proveniência, resposta citada, abstenção por falta de evidência e comparação de estratégias de recuperação. Eles demonstram o comportamento destes corpora e parâmetros; não medem recall geral, autorização real ou qualidade de produção em operação.
 
 ## Interpretação
 
@@ -304,21 +304,6 @@ Compare o ID relevante do JSON com o ranking de cada modo. Se ele não estiver n
 - Em que tipo de pergunta um código exato pode favorecer a busca lexical?
 - Qual mudança de chunking, embedding ou fusão você testaria se o ID relevante ficasse abaixo do top 2?
 - Que conjunto de casos precisa ser acrescentado antes de promover uma nova configuração?
-
-## Evidência a entregar
-
-Entregue a tabela preenchida, as duas linhas de avaliação e uma conclusão de até oito linhas.
-
-| Experimento | Pergunta ou caso                  | Evidência observada | Decisão arquitetural ou hipótese |
-| ----------- | --------------------------------- | ------------------- | -------------------------------- |
-| A           | Compra regular                    |                     |                                  |
-| B           | Compra regular                    |                     |                                  |
-| C           | Dados insuficientes               |                     |                                  |
-| C           | `POL-17-REG:v3` excluído          |                     |                                  |
-| D           | Lume: lexical, vetorial e híbrido |                     |                                  |
-| D           | Aurora: MRR e nDCG@3              |                     |                                  |
-
-Na conclusão, responda: quando responder, quando pedir informação e quando encaminhar para revisão humana? Declare que os corpora são sintéticos; registre os modelos de embedding e chat; e escreva uma **fitness function** verificável, por exemplo: “nenhuma resposta sobre reembolso é exibida sem ID, versão e fonte recuperada”. Indique qual equipe de **operação** verificaria esse sinal antes de uma promoção e qual ação tomaria se ele falhasse.
 
 ## Limpeza e contingência
 
