@@ -25,6 +25,10 @@ A busca lexical encontra correspondência de termos e pondera sua importância n
 
 A busca vetorial compara embeddings da consulta e dos chunks. É forte quando pergunta e fonte expressam a mesma ideia com palavras diferentes. Pode aproximar conteúdo apenas genericamente relacionado e não é naturalmente superior em identificadores exatos. O trabalho de [Karpukhin et al.](https://aclanthology.org/2020.emnlp-main.550/) é uma base primária para recuperação densa; ele não implica que toda coleção corporativa deva usar apenas esse sinal.
 
+![Diagrama: uma pergunta e três trechos de políticas são convertidos pelo modelo nomic-embed-text em vetores; em uma projeção didática bidimensional, a pergunta fica próxima do trecho sobre atraso superior a 90 dias; os dois trechos mais próximos seguem como contexto para a LLM](../assets/images/m03-busca-vetorial.png "Da pergunta aos trechos semanticamente próximos")
+
+*Figura — O embedding real tem 768 dimensões; o mapa em duas dimensões é apenas uma projeção para visualizar proximidade semântica. A recuperação seleciona os trechos mais próximos para compor o contexto da LLM.*
+
 ### Recuperação híbrida
 
 A **recuperação híbrida** executa busca lexical e vetorial, reúne candidatos e combina rankings. Uma técnica de fusão baseada em posição evita comparar diretamente escores de escalas incompatíveis; outra opção aprende pesos com dados rotulados. Híbrido melhora cobertura em corpus misto, mas duplica índices, latência, ajuste e observabilidade. Deve demonstrar ganho em consultas representativas, especialmente termos exatos e paráfrases.
