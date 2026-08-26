@@ -25,7 +25,39 @@ Ao final, você conseguirá localizar, num trace, o ponto exato em que uma inten
 
 ### Um Alô, mundo em LangGraph
 
-Antes do grafo Boreal, o menor programa possível na biblioteca — um único nó, sem decisão nenhuma:
+Antes do grafo Boreal, veja o menor programa possível na biblioteca funcionando de ponta a ponta: um único nó, sem decisão nenhuma, numa pasta descartável e independente de `oficina-m4`.
+
+**macOS**
+
+```bash
+mkdir alo-langgraph
+cd alo-langgraph
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langgraph
+```
+
+**Linux**
+
+```bash
+mkdir alo-langgraph
+cd alo-langgraph
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langgraph
+```
+
+**Windows (PowerShell)**
+
+```powershell
+mkdir alo-langgraph
+cd alo-langgraph
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install langgraph
+```
+
+Com o ambiente ativo, salve o código abaixo em um arquivo chamado `alo_mundo.py`:
 
 ```python
 from typing import TypedDict
@@ -47,10 +79,22 @@ grafo.add_edge("saudar", END)
 
 app = grafo.compile()
 resultado = app.invoke({"mensagem": ""})
-print(resultado["mensagem"])  # Alô, mundo
+print(resultado["mensagem"])
 ```
 
-Rode isso (em um ambiente com `langgraph` instalado) e você verá `Alô, mundo` impresso. Quatro peças de setup bastam para ter um grafo completo, compilado e executável: a classe `Estado`, o nó `saudar` e duas arestas fixas, uma ligando `START` a `saudar` e outra ligando `saudar` a `END`. Cada um desses elementos (estado, nó, aresta, `START`/`END`, `compile`, `invoke`) reaparece no grafo Boreal a seguir; a única peça nova lá é a aresta condicional, porque o Alô, mundo não tem decisão para tomar.
+Execute:
+
+```bash
+python3 alo_mundo.py
+```
+
+A saída é uma única linha, sem nada a mais:
+
+```text
+Alô, mundo
+```
+
+Quatro peças de setup bastam para ter um grafo completo, compilado e executável: a classe `Estado`, o nó `saudar` e duas arestas fixas, uma ligando `START` a `saudar` e outra ligando `saudar` a `END`. Cada um desses elementos (estado, nó, aresta, `START`/`END`, `compile`, `invoke`) reaparece no grafo Boreal a seguir; a única peça nova lá é a aresta condicional, porque o Alô, mundo não tem decisão para tomar. Terminada a leitura desta seção, apague `alo-langgraph` — ela não tem relação com a pasta `oficina-m4` que você vai criar na Instalação, mais abaixo.
 
 ### Estado, nós e arestas: o vocabulário do grafo
 
