@@ -2,7 +2,22 @@
 
 **Objetivo Bloom:** Aplicar e Analisar.
 
-Esta oficina executa um workflow local que separa intenção, aprovação e efeito. Nenhuma chamada alcança CRM, estoque, pedidos ou qualquer sistema externo.
+Esta oficina não pede que você se lembre de uma passagem anterior para executar um comando: cada experimento reconstrói o cenário e repete o comando necessário. Ela executa um workflow local que separa intenção, aprovação e efeito. Nenhuma chamada alcança CRM, estoque, pedidos ou qualquer sistema externo.
+
+## Bússola da prática
+
+Uma intenção proposta pelo modelo tem dois destinos possíveis:
+
+- sem aprovação, ela **para**: nenhum efeito ocorre e o estado registra o motivo;
+- aprovada, ela **produz um efeito** protegido por uma chave que impede duplicação, mesmo que a mesma intenção seja repetida.
+
+| Experimento | Pergunta arquitetural | Evidência que você coletará |
+| --- | --- | --- |
+| A | Uma intenção sem aprovação pode produzir efeito? | `ESTADO aguardando_aprovacao`, `RESULTADO nenhum efeito` |
+| B | A mesma intenção repetida cria um segundo efeito? | `RESULTADO RES-501` e trace de repetição sem nova reserva |
+| C | O que a arquitetura faz quando a confirmação de uma escrita nunca chega? | `outcome_unknown` e o plano de reconciliação |
+
+Ao final, você conseguirá localizar, num trace, o ponto exato em que uma intenção deixa de ser texto proposto e passa a produzir efeito.
 
 ## Ferramenta
 
@@ -69,36 +84,31 @@ O script é o workflow inteiro: cada nó devolve um estado tipado e o grafo esco
 
 ## Execução
 
-Primeiro execute sem aprovação:
-
-```bash
-python troca_boreal.py --aprovado false
-```
-
-Depois execute com aprovação e, por fim, repita a mesma intenção:
-
-```bash
-python troca_boreal.py --aprovado true
-python troca_boreal.py --aprovado true --repetir
-```
+Você executará cada comando dentro de `oficina-m4/`, com o ambiente virtual ativo. O script não guarda estado entre chamadas: cada execução parte do mesmo pedido `PED-104`, e é o argumento `--aprovado` que muda o caminho percorrido pelo grafo.
 
 ## Receita principal
 
-O script percorre o grafo completo e imprime o estado após o nó de aprovação. O resultado `RES-501` é uma confirmação simulada e tipada; ele não é uma frase produzida pelo modelo.
-
-Leia as linhas `ESTADO`, `CHAVE`, `RESULTADO` e `TRACE` de cada execução. Sem aprovação, o estado esperado é `aguardando_aprovacao` e o resultado é “nenhum efeito”. Com aprovação, o estado é `reservado` e o resultado é `RES-501`. Na repetição, o trace declara que não foi criada uma segunda reserva.
+Siga os experimentos em ordem: A mostra a parada segura, B mostra o efeito aprovado e a repetição contida, C, de extensão, trata o caso em que a confirmação nunca chega. Em uma aula curta, execute A em grupo e B em duplas; C fica para quem terminar antes ou para o desafio assíncrono. Cada bloco de experimento repete cenário, pergunta e comando para poder ser realizado de forma independente.
 
 ## Resultado esperado
 
-Você terá três traces comparáveis: parada segura, efeito simulado aprovado e repetição idempotente. A prática mostra o fluxo de controle, não prova que a autorização de uma organização real está correta.
+Você produzirá três rastros comparáveis: parada segura, efeito simulado aprovado e repetição idempotente. Eles demonstram o fluxo de controle destes parâmetros; não provam que a autorização de uma organização real está correta.
 
 ## Interpretação
 
-Altere apenas o argumento `--aprovado` ou `--repetir`; não modifique a chave de idempotência. Compare o ponto em que o workflow para, o [resultado autoritativo](conceitos.md#estado-memoria-e-contexto) e a evidência de repetição. Se uma confirmação tivesse sido interrompida após a intenção, o estado correto seria `outcome_unknown`: a arquitetura deveria [consultar o registro pela chave antes de tentar novamente](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao).
+Leia a saída em duas camadas. Primeiro, verifique o estado determinístico — as linhas `ESTADO`, `CHAVE` e `RESULTADO`. Depois, avalie se essa evidência sustenta a leitura que você faria em linguagem natural. Uma resposta do modelo não substitui o [resultado autoritativo](conceitos.md#estado-memoria-e-contexto) do sistema.
 
 ## Roteiro sugerido para aula
 
 ### Experimento A — intenção sem efeito (Essencial em aula)
+
+**Situação**
+
+Um cliente pede a troca de um item do pedido `PED-104`. Nenhuma aprovação foi concedida ainda.
+
+**Pergunta de investigação**
+
+Uma intenção do modelo, sozinha, pode produzir um efeito sobre o pedido?
 
 **Objetivo**
 
@@ -110,15 +120,21 @@ Script instalado.
 
 **Execute**
 
-Use `--aprovado false`.
+```bash
+python troca_boreal.py --aprovado false
+```
 
 **Observe**
 
-Parada em `aguardando_aprovacao`.
+`ESTADO aguardando_aprovacao` e `RESULTADO nenhum efeito`.
+
+**Interprete**
+
+O grafo propôs a troca, mas nenhum nó de efeito foi alcançado: a [decisão de escrita](conceitos.md#geracao-decisao-e-acao) exige aprovação antes de qualquer chamada a um sistema de destino. O modelo participa da geração; não decide sozinho a autorização.
 
 **Compare**
 
-Pedido em linguagem natural e [decisão de escrita](conceitos.md#geracao-decisao-e-acao).
+Pedido em linguagem natural e o [estado autoritativo](conceitos.md#estado-memoria-e-contexto) impresso pelo script — a frase do cliente não é evidência de efeito.
 
 **Questões exploratórias:**
 
@@ -128,25 +144,40 @@ Pedido em linguagem natural e [decisão de escrita](conceitos.md#geracao-decisao
 
 ### Experimento B — aprovação e idempotência (Exploração em dupla)
 
+**Situação**
+
+A mesma troca do Experimento A, agora aprovada — e, em seguida, solicitada de novo com a mesma chave.
+
+**Pergunta de investigação**
+
+Repetir a mesma intenção, já aprovada, produz um segundo efeito?
+
 **Objetivo**
 
 Observar uma [escrita simulada](conceitos.md#geracao-decisao-e-acao) e sua repetição.
 
 **Pré-requisito**
 
-Experimento A.
+Experimento A executado.
 
 **Execute**
 
-Use `--aprovado true` e depois `--repetir`.
+```bash
+python troca_boreal.py --aprovado true
+python troca_boreal.py --aprovado true --repetir
+```
 
 **Observe**
 
-`RES-501` e trace de repetição.
+Na primeira chamada, `RESULTADO RES-501`. Na segunda, o mesmo `RES-501` e um trace declarando que nenhuma nova reserva foi criada.
+
+**Interprete**
+
+A [chave de idempotência](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` é persistida antes da chamada e reutilizada na repetição — por isso o resultado se repete sem duplicar o efeito. O resultado autoritativo vem do sistema simulado, não de uma nova resposta do modelo.
 
 **Compare**
 
-Primeira execução e segunda execução.
+Primeira execução e segunda execução: o estado muda de `aguardando_aprovacao` (Experimento A) para `reservado`, e a chave permanece a mesma nas duas chamadas aprovadas.
 
 **Questões exploratórias:**
 
@@ -156,21 +187,33 @@ Primeira execução e segunda execução.
 
 ### Experimento C — resultado desconhecido (Extensão)
 
+**Situação**
+
+Imagine que a chamada de reserva do Experimento B fosse enviada e a confirmação se perdesse antes de chegar — o script não reproduz esse cenário sozinho; você vai raciocinar sobre ele a partir dos traces que já coletou.
+
+**Pergunta de investigação**
+
+Se a confirmação de uma escrita nunca chega, o que a arquitetura deve fazer antes de tentar de novo?
+
 **Objetivo**
 
 Planejar recuperação após confirmação ausente.
 
 **Pré-requisito**
 
-Traces anteriores.
+Experimentos A e B executados.
 
 **Execute**
 
-Descreva a interrupção entre intenção e confirmação.
+Sem novo comando: descreva por escrito o ponto exato em que a chamada do Experimento B seria interrompida, antes de `RESULTADO` aparecer.
 
 **Observe**
 
-O limite entre repetir e [reconciliar](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao).
+O limite entre repetir cegamente e [reconciliar](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) pela chave existente.
+
+**Interprete**
+
+Se a confirmação de `TROCA-PED-104-1` fosse interrompida, o estado correto seria `outcome_unknown`: a arquitetura deveria [consultar o registro pela chave antes de tentar novamente](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao), não repetir a chamada às cegas nem assumir sucesso pela ausência de erro.
 
 **Compare**
 
