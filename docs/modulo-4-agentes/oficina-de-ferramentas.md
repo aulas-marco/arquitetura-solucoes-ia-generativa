@@ -21,7 +21,62 @@ Ao final, você conseguirá localizar, num trace, o ponto exato em que uma inten
 
 ## Ferramenta
 
-**LangGraph** é uma biblioteca open source para definir grafos de estado. O grafo Boreal desta prática tem três resultados explícitos: [`aguardando_aprovacao`](padroes-e-decisoes.md#matriz-de-autonomia), [`reservado`](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) e [`outcome_unknown`](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker).
+**LangGraph** é uma biblioteca open source, da mesma equipe do LangChain, para orquestrar uma aplicação como um **grafo de estado explícito**. Em vez de deixar o modelo decidir livremente "o que fazer a seguir", você declara os passos possíveis como nós, as transições entre eles como arestas, e uma função de decisão escolhe qual aresta seguir a cada passo. Nada disso é geração de texto: é uma máquina de estados comum, escrita em Python puro. O que torna o LangGraph relevante para este módulo é justamente essa separação — um nó *pode* chamar um modelo, mas orquestração, decisão de política e persistência de estado continuam fora dele, na mesma fronteira que a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) descreve.
+
+### Estado, nós e arestas: o vocabulário do grafo
+
+Todo grafo LangGraph gira em torno de quatro elementos. Os quatro aparecem em `troca_boreal.py`, então vale entendê-los antes de rodar o script.
+
+**Estado.** É um esquema único, compartilhado por todos os nós do grafo — o "quadro" que a execução inteira lê e escreve. Em `troca_boreal.py`, esse esquema é declarado como um `TypedDict`:
+
+```python
+class ExchangeState(TypedDict, total=False):
+    approved: bool
+    repeated: bool
+    idempotency_key: str
+    status: str
+    result: str
+    trace: list[str]
+```
+
+`total=False` significa que nem todo campo precisa existir em todo momento da execução — o estado começa incompleto e vai sendo preenchido conforme os nós rodam. Repare que `trace` é uma lista: ela funciona como um rastro mínimo de auditoria, cada nó anexando uma entrada, exatamente o tipo de evidência que [Padrões e decisões](padroes-e-decisoes.md#auditoria-e-observabilidade) exige de um sistema com efeito.
+
+**Nós.** Um nó é uma função Python comum, que recebe o estado atual e devolve **só os campos que quer atualizar**, não o estado inteiro:
+
+```python
+def register_intent(state: ExchangeState) -> ExchangeState:
+    return {"status": "reserva_pendente", "trace": ["intenção registrada"]}
+```
+
+O LangGraph funde essa atualização parcial no estado global antes de passar o controle adiante. Isso importa porque, se dois nós fossem escritos por pessoas diferentes, nenhum dos dois precisaria conhecer todos os campos do estado — só os que lê e os que escreve. Cada nó é registrado no grafo com um nome próprio: `workflow.add_node("intencao", register_intent)`.
+
+**Arestas.** Uma aresta comum (`add_edge`) liga um nó a outro sem nenhuma decisão: sempre que a execução chega ao primeiro, ela segue para o segundo. Uma **aresta condicional** (`add_conditional_edges`) é diferente: ela chama uma função de decisão com o estado atual, recebe uma string de volta, e usa essa string para escolher, dentro de um mapa fixo, qual nó vem a seguir:
+
+```python
+def decide_approval(state: ExchangeState) -> str:
+    return "reserve" if state["approved"] else "wait"
+
+workflow.add_conditional_edges("intencao", decide_approval, {"wait": "aguardar", "reserve": "reservar"})
+```
+
+É exatamente aqui que a política do grafo Boreal decide o caminho — não o modelo, não o usuário: uma função determinística que olha para `state["approved"]` e devolve uma de duas strings previstas.
+
+**START, END e compilação.** `START` e `END` são marcadores reservados do LangGraph: toda execução entra pelo nó ligado a `START` e termina quando alcança um nó ligado a `END`. Depois de declarar nós e arestas, `workflow.compile()` transforma essa descrição num objeto executável; `invoke(estado_inicial)` roda o grafo do início ao fim, de forma síncrona, e devolve o estado final acumulado.
+
+### O grafo Boreal, nó a nó
+
+```mermaid
+flowchart LR
+    START((START)) --> intencao["intencao<br/>register_intent"]
+    intencao -- "approved = false" --> aguardar["aguardar<br/>wait_for_approval"]
+    intencao -- "approved = true" --> reservar["reservar<br/>reserve"]
+    aguardar --> END((END))
+    reservar --> END
+```
+
+O grafo tem três nós e uma única decisão. `intencao` (função `register_intent`) sempre roda primeiro: registra a intenção no `trace` e marca `status: "reserva_pendente"`, sem produzir nenhum efeito ainda. Dali, a aresta condicional `decide_approval` lê `state["approved"]`, o valor que veio de `--aprovado true`/`--aprovado false` na linha de comando, e escolhe entre dois nós terminais: `aguardar` (função `wait_for_approval`), que só registra a parada em `aguardando_aprovacao`, ou `reservar` (função `reserve`), que produz o efeito simulado `RES-501` e verifica `state["repeated"]` para decidir se anexa "reserva simulada criada" ou "repetição reconhecida: nenhuma nova reserva" ao trace. Os dois nós terminais levam a `END`; não existe caminho de volta.
+
+Note o que o grafo *não* faz: em nenhum ponto ele chama um modelo de linguagem. A "intenção" chega pronta, via `--aprovado`, porque o objetivo desta oficina é isolar a mecânica de aprovação e idempotência da variabilidade de um modelo real — o script deixa claro, por construção, que decidir e agir são passos determinísticos, mesmo quando a proposta que os disparou tivesse vindo de um modelo.
 
 **Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um [efeito](conceitos.md#geracao-decisao-e-acao) que exige [autorização](padroes-e-decisoes.md#matriz-de-autonomia)?
 
