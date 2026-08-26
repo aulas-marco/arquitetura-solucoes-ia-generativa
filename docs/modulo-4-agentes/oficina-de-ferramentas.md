@@ -23,9 +23,38 @@ Ao final, você conseguirá localizar, num trace, o ponto exato em que uma inten
 
 **LangGraph** é uma biblioteca open source, da mesma equipe do LangChain, para orquestrar uma aplicação como um **grafo de estado explícito**. Em vez de deixar o modelo decidir livremente "o que fazer a seguir", você declara os passos possíveis como nós, as transições entre eles como arestas, e uma função de decisão escolhe qual aresta seguir a cada passo. Nada disso é geração de texto: é uma máquina de estados comum, escrita em Python puro. O que torna o LangGraph relevante para este módulo é justamente essa separação — um nó *pode* chamar um modelo, mas orquestração, decisão de política e persistência de estado continuam fora dele, na mesma fronteira que a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) descreve.
 
+### Um Alô, mundo em LangGraph
+
+Antes do grafo Boreal, o menor programa possível na biblioteca — um único nó, sem decisão nenhuma:
+
+```python
+from typing import TypedDict
+from langgraph.graph import END, START, StateGraph
+
+
+class Estado(TypedDict):
+    mensagem: str
+
+
+def saudar(estado: Estado) -> Estado:
+    return {"mensagem": "Alô, mundo"}
+
+
+grafo = StateGraph(Estado)
+grafo.add_node("saudar", saudar)
+grafo.add_edge(START, "saudar")
+grafo.add_edge("saudar", END)
+
+app = grafo.compile()
+resultado = app.invoke({"mensagem": ""})
+print(resultado["mensagem"])  # Alô, mundo
+```
+
+Rode isso (em um ambiente com `langgraph` instalado) e você verá `Alô, mundo` impresso. Quatro peças de setup bastam para ter um grafo completo, compilado e executável: a classe `Estado`, o nó `saudar` e duas arestas fixas, uma ligando `START` a `saudar` e outra ligando `saudar` a `END`. Cada um desses elementos (estado, nó, aresta, `START`/`END`, `compile`, `invoke`) reaparece no grafo Boreal a seguir; a única peça nova lá é a aresta condicional, porque o Alô, mundo não tem decisão para tomar.
+
 ### Estado, nós e arestas: o vocabulário do grafo
 
-Todo grafo LangGraph gira em torno de quatro elementos. Os quatro aparecem em `troca_boreal.py`, então vale entendê-los antes de rodar o script.
+Todo grafo LangGraph gira em torno de quatro elementos. Os quatro apareceram no Alô, mundo acima em sua forma mais simples; agora vale ver como eles crescem em `troca_boreal.py`, antes de rodar o script.
 
 **Estado.** É um esquema único, compartilhado por todos os nós do grafo — o "quadro" que a execução inteira lê e escreve. Em `troca_boreal.py`, esse esquema é declarado como um `TypedDict`:
 
