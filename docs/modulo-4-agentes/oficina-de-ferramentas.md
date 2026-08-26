@@ -100,7 +100,7 @@ Leia a saída em duas camadas. Primeiro, verifique o estado determinístico — 
 
 ## Roteiro sugerido para aula
 
-### Experimento A — intenção sem efeito (Essencial em aula)
+### Experimento A — intenção sem efeito
 
 **Situação**
 
@@ -142,7 +142,7 @@ Pedido em linguagem natural e o [estado autoritativo](conceitos.md#estado-memori
 - Por que um modelo não deve decidir a [aprovação](padroes-e-decisoes.md#matriz-de-autonomia) por conta própria?
 - Onde a [identidade](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada) e a [política](conceitos.md#politicas-como-fronteira-executavel) entrariam em um sistema real?
 
-### Experimento B — aprovação e idempotência (Exploração em dupla)
+### Experimento B — aprovação e idempotência
 
 **Situação**
 
@@ -185,7 +185,7 @@ Primeira execução e segunda execução: o estado muda de `aguardando_aprovacao
 - Que falha uma [chave duplicada](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) evita?
 - Por que a resposta do modelo não substitui o resultado autoritativo?
 
-### Experimento C — resultado desconhecido (Extensão)
+### Experimento C — resultado desconhecido
 
 **Situação**
 

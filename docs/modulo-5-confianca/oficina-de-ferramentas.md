@@ -105,7 +105,7 @@ Escolha um único caso no JSON e altere somente `decisao_esperada`, por exemplo 
 
 ## Roteiro sugerido para aula
 
-### Experimento A — caso adversarial (Essencial em aula)
+### Experimento A — caso adversarial
 
 **Objetivo**
 
@@ -133,7 +133,7 @@ Bloquear com explicação e bloquear sem próximo passo.
 - Qual [controle](padroes-e-decisoes.md#guardrails-em-profundidade) deve existir antes da geração?
 - Como uma recusa preserva a dignidade da pessoa usuária?
 
-### Experimento B — regra e avaliador (Exploração em dupla)
+### Experimento B — regra e avaliador
 
 **Objetivo**
 
@@ -161,7 +161,7 @@ Regra original e regra alterada.
 - Que [viés](padroes-e-decisoes.md#guardrails-em-profundidade) pode surgir se o mesmo modelo responde e julga?
 - Que [amostra humana](padroes-e-decisoes.md#privacidade-por-ciclo-de-vida) ajudaria a calibrar a métrica?
 
-### Experimento C — priorização de correção (Extensão)
+### Experimento C — priorização de correção
 
 **Objetivo**
 

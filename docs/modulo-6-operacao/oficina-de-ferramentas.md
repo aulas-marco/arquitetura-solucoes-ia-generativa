@@ -121,7 +121,7 @@ No script, altere somente o texto sintético `tr-202` por `tr-204` e execute nov
 
 ## Roteiro sugerido para aula
 
-### Experimento A — trace mínimo (Essencial em aula)
+### Experimento A — trace mínimo
 
 **Objetivo**
 
@@ -149,7 +149,7 @@ Log isolado e [trace com etapas relacionadas](conceitos.md#trace-reconstruir-a-c
 - Que sinal permitiria separar falha do modelo e falha do gateway?
 - Quem deve ser [dono do limiar](conceitos.md#prioridades-e-tensoes-operacionais) de duração observado?
 
-### Experimento B — variação controlada (Exploração em dupla)
+### Experimento B — variação controlada
 
 **Objetivo**
 
@@ -177,7 +177,7 @@ Dois traces locais.
 - Que metadado de modelo e [manifesto](conceitos.md#o-objeto-operado-e-um-pacote-comportamental) ajuda a reproduzir um desvio?
 - Que dado deve ficar fora do trace para [preservar privacidade](conceitos.md#logs-com-preservacao-de-privacidade)?
 
-### Experimento C — ação recuperável (Extensão)
+### Experimento C — ação recuperável
 
 **Objetivo**
 

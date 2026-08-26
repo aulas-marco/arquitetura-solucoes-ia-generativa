@@ -2,9 +2,11 @@
 
 ## Cenário e limites
 
-Um cliente autenticado pede: “troque o item P10 pelo P20 no pedido 845 e mantenha a data”. O sistema pode consultar cadastro e pedido, verificar elegibilidade, criar reserva temporária e propor a alteração. O cancelamento do item original exige confirmação do cliente; diferença acima de R$ 200 exige supervisor. O agente não muda endereço, concede crédito, escolhe credenciais nem ignora política.
+**Boreal** é a empresa fictícia deste módulo: um varejo com CRM e sistema de pedidos próprios, que quer usar IA generativa no atendimento de pós-venda sem entregar ao modelo autoridade sobre os dois sistemas. Este exemplo mostra onde essa autoridade é concedida e onde ela continua negada. Você vai reencontrar este mesmo cenário, simplificado, na Oficina de ferramentas — os traces `ESTADO`, `CHAVE` e `RESULTADO` que você vai rodar ali vêm exatamente da fronteira de decisão descrita aqui.
 
-O objetivo não é mostrar uma biblioteca específica. É localizar decisões probabilísticas dentro de uma malha determinística de identidade, contratos, política, estado, aprovação e recuperação.
+O caso: um cliente autenticado pede "troque o item P10 pelo P20 no pedido 845 e mantenha a data". O sistema pode consultar cadastro e pedido, verificar elegibilidade, criar reserva temporária e propor a alteração. O cancelamento do item original exige confirmação do cliente; diferença acima de R$ 200 exige supervisor. O agente não muda endereço, concede crédito, escolhe credenciais nem ignora política.
+
+Reencontre aqui o vocabulário de [Conceitos](conceitos.md#geracao-decisao-e-acao): o pedido do cliente em linguagem natural é **geração**; verificar elegibilidade, limite de valor e versão do pedido é **decisão**; criar a reserva e efetivar a troca é **ação**. O objetivo deste exemplo não é mostrar uma biblioteca específica — é localizar essas três etapas dentro da malha determinística de identidade, contratos, política, estado, aprovação e recuperação que [Padrões e decisões](padroes-e-decisoes.md) acabou de descrever.
 
 ![O agente propõe ferramentas de um catálogo mínimo; chamadas seguem pelo plano de controle até os adaptadores, e resultados tipados retornam por auditoria e estado ao orquestrador antes de chegar ao canal](../assets/images/m04-agente-ferramentas.png)
 *Figura 1 — O modelo propõe; o plano de controle valida e executa com autoridade limitada. Sistemas corporativos nunca recebem diretamente texto livre do modelo.*
@@ -40,6 +42,10 @@ flowchart LR
 
 ## Dois contratos conceituais
 
+Volte ao [contrato mínimo de ferramenta](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta): nome e versão, classe de efeito, esquemas de entrada e saída, erros tipados, identidade e autorização, idempotência, timeout e retry, auditoria e compensação. Os dois contratos abaixo preenchem exatamente esses campos para o pedido 845, um de leitura e outro de escrita, e por isso têm formas bem diferentes.
+
+**`consultar_pedido`** é o contrato mais simples possível: `effect: read` significa que não há nada a desfazer, e por isso não aparecem campos de idempotência nem de compensação. Ele só devolve o que já existe.
+
 ```yaml
 tool: consultar_pedido
 version: 1
@@ -57,6 +63,8 @@ timeout_ms: 1200
 retry: up to 2 for transient errors
 audit: actor, subject, order_id, policy_decision_id, result_code
 ```
+
+**`reservar_substituicao`** é o contrato de escrita, e é aqui que o restante dos campos do contrato mínimo entra em jogo: idempotência, timeout com reconciliação e compensação, nenhum dos quais fazia sentido para uma simples leitura.
 
 ```yaml
 tool: reservar_substituicao
@@ -86,7 +94,7 @@ compensation: liberar_reserva(reservation_id, idempotency_key)
 audit: actor, subject, approval_id, policy_version, before/after references
 ```
 
-Os esquemas não recebem `approved=true` produzido pelo modelo. A política calcula necessidade de aprovação. `expected_order_version` impede alteração sobre pedido que mudou; `idempotency_key` impede duas reservas lógicas. Timeout deixa o estado local em `outcome_unknown`: somente uma consulta ao destino pela mesma chave, ou um evento correlacionado emitido por ele, pode confirmar o resultado. A compensação é uma ferramenta independente e autorizada, e também atravessa política, estado, executor e adaptador.
+Percorrendo os campos que fazem esse contrato diferente do anterior: os esquemas não recebem `approved=true` produzido pelo modelo. Quem calcula a necessidade de aprovação é a política, fora do contrato. `expected_order_version` impede alteração sobre um pedido que já mudou de versão desde a leitura. `idempotency_key` impede que a mesma intenção produza duas reservas lógicas. O bloco `on_timeout` deixa o estado local em `outcome_unknown`: só uma consulta ao destino pela mesma chave, ou um evento correlacionado emitido por ele, pode confirmar o resultado, nunca uma nova tentativa às cegas. Por fim, `compensation` aponta para uma ferramenta independente e autorizada, que atravessa a mesma política, estado, executor e adaptador que a reserva original: desfazer também é uma ação controlada, não um atalho.
 
 ![Fronteiras de autonomia mostrando ações informativas, leituras, escritas reversíveis e ações materiais condicionadas a aprovação](../assets/images/m04-fronteiras-autonomia.png)
 *Figura 2 — A autonomia varia por ação: conversar, consultar, reservar e confirmar uma troca pertencem a níveis e controles diferentes.*

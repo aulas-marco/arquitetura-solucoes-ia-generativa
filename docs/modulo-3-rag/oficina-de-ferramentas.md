@@ -126,7 +126,7 @@ Leia a saída em duas camadas. Primeiro, verifique a evidência determinística 
 
 ## Roteiro sugerido para aula
 
-### Experimento A — do corpus ao índice (Essencial em aula)
+### Experimento A — do corpus ao índice
 
 **Situação**
 
@@ -168,7 +168,7 @@ Compare o texto de `politica-reembolso.txt` com o trecho impresso. O prazo pode 
 - O que se perde se o trecho é recuperado sem versão?
 - Que verificação bloquearia a promoção de um índice que não contém uma política obrigatória?
 
-### Experimento B — evidência antes da resposta (Exploração em dupla)
+### Experimento B — evidência antes da resposta
 
 **Situação**
 
@@ -212,7 +212,7 @@ Compare uma resposta sem ID/versão/arquivo, que não é auditável, com a respo
 - Como uma citação correta pode continuar insuficiente para uma pergunta com exceção?
 - Em que ponto a fonte deve aparecer para o usuário final?
 
-### Experimento C — ausência de evidência e parada segura (Extensão)
+### Experimento C — ausência de evidência e parada segura
 
 **Situação**
 
@@ -257,7 +257,7 @@ Compare três saídas possíveis: prazo sem condição (arriscado), pergunta de 
 - Que dado adicional reduziria a abstenção no primeiro caso?
 - Quem deve responder pelo alerta quando uma fonte obrigatória deixa de ser recuperável?
 
-### Experimento D — comparar estratégias e avaliar recuperação (Extensão)
+### Experimento D — comparar estratégias e avaliar recuperação
 
 **Situação**
 

@@ -43,8 +43,7 @@ conteúdo da atividade
         self.assertNotIn("Essencial, sem cartão", text)
         for command in ("ollama --version", "ollama pull llama3.2:3b", "ollama run llama3.2:3b", "ollama rm llama3.2:3b"):
             self.assertIn(command, text)
-        for label in ("Essencial em aula", "Exploração em dupla", "Extensão"):
-            self.assertIn(label, text)
+        self.assertIn("## Roteiro sugerido para aula", text)
         for experiment in ("Experimento A", "Experimento B", "Experimento C", "Experimento D"):
             self.assertIn(experiment, text)
         for prompt in ("Objetivo", "Pré-requisito", "Execute", "Observe", "Compare", "Questões exploratórias"):
@@ -194,8 +193,11 @@ conteúdo da atividade
             text = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
             with self.subTest(module=slug):
                 self.assertIn("## Roteiro sugerido para aula", text)
-                for label in ("Essencial em aula", "Exploração em dupla", "Extensão"):
-                    self.assertIn(label, text)
+                for heading in re.findall(r"^### Experimento [^\n]*$", text, flags=re.MULTILINE):
+                    for label in ("Essencial em aula", "Exploração em dupla", "(Extensão)"):
+                        self.assertNotIn(
+                            label, heading, f"{slug}: rótulo de classificação não deve aparecer no título"
+                        )
                 for experiment in ("Experimento A", "Experimento B", "Experimento C"):
                     self.assertIn(experiment, text)
                 self.assertGreaterEqual(text.count("Questões exploratórias"), 3)

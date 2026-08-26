@@ -81,13 +81,9 @@ O terminal mostra a versão e o progresso do download. O Ollama executa localmen
 
 ## Roteiro sugerido para aula
 
-- **Essencial em aula:** Experimentos A e B, para distinguir resposta sem fonte de resposta fundamentada.
-- **Exploração em dupla:** Experimento C, para observar a variação entre execuções controladas.
-- **Extensão:** Experimento D, para comparar duas temperaturas pela API local do Ollama.
+Os Experimentos A e B distinguem resposta sem fonte de resposta fundamentada. O Experimento C observa a variação entre execuções controladas. O Experimento D compara duas temperaturas pela API local do Ollama.
 
 ## Experimento A — responda sem corpus
-
-**Classificação:** Essencial em aula.
 
 **Objetivo**
 
@@ -124,8 +120,6 @@ Registre a saída na linha **Sem corpus** da tabela e compare-a com o Experiment
 - Que decisão arquitetural impediria apresentar essa saída como política da Aurora?
 
 ## Experimento B — responda com o documento de treinamento
-
-**Classificação:** Essencial em aula.
 
 **Objetivo**
 
@@ -164,8 +158,6 @@ Compare esta saída com a do Experimento A: há uma regra citável e um limite e
 
 ## Experimento C — repita com uma variável controlada
 
-**Classificação:** Exploração em dupla.
-
 **Objetivo**
 
 Observar a [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) entre execuções com o mesmo contexto.
@@ -197,8 +189,6 @@ Registre a saída em **Com corpus — repetição** e compare formulação, font
 - Qual risco aparece se um teste avalia apenas uma execução do modelo?
 
 ## Experimento D — compare temperaturas pela API local
-
-**Classificação:** Extensão.
 
 **Objetivo**
 

@@ -133,7 +133,7 @@ Mantenha `model_name: boreal-local` e `request.json` inalterados. Reinicie o pro
 
 ## Roteiro sugerido para aula
 
-### Experimento A — contrato pelo gateway (Essencial em aula)
+### Experimento A — contrato pelo gateway
 
 **Objetivo**
 
@@ -161,7 +161,7 @@ Chamada para `localhost:4000` versus chamada direta ao modelo.
 - Onde a arquitetura deve registrar modelo e versão efetivamente usados?
 - Que atributo de qualidade melhora quando o ponto de consumo é explícito?
 
-### Experimento B — troca controlada do destino (Exploração em dupla)
+### Experimento B — troca controlada do destino
 
 **Objetivo**
 
@@ -189,7 +189,7 @@ Manifesto anterior, manifesto alterado e respostas.
 - Que decisão reduz acoplamento entre produto e fornecedor/modelo?
 - Que informação não pode faltar no log para reproduzir uma saída — e a que conceito de proveniência ou observabilidade ela corresponde?
 
-### Experimento C — mini-ADR reversível (Extensão)
+### Experimento C — mini-ADR reversível
 
 **Objetivo**
 

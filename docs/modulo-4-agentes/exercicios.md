@@ -6,19 +6,19 @@ Recordar e Compreender possuem respostas públicas. De Aplicar a Criar, produza 
 
 ### 1. Quatro formas de controle
 
-Um colega descreve o Boreal assim: "é um chatbot que decide sozinho quando trocar um item do pedido". A frase mistura duas categorias diferentes — e o Experimento A mostrou o sistema *parando* diante de uma intenção, não executando-a.
+É comum confundir chatbot, copiloto, workflow determinístico e agente, embora sejam categorias distintas.
 
-Defina chatbot, copiloto, workflow determinístico e agente em uma frase cada, e diga qual dessas categorias descreve melhor o Boreal.
+Defina cada um em uma frase.
 
 <details>
 <summary>Ver resposta</summary>
 
-Chatbot é interface conversacional. Copiloto apoia uma pessoa, que preserva a decisão/execução. Workflow determinístico tem etapas e transições definidas pela aplicação, ainda que use geração. Agente delega ao modelo a escolha de próximos passos ou ferramentas dentro de limites. O Boreal é um agente com efeito controlado: o modelo propõe a troca, mas quem decide e executa é o grafo, sob aprovação.
+Chatbot é interface conversacional. Copiloto apoia uma pessoa, que preserva a decisão/execução. Workflow determinístico tem etapas e transições definidas pela aplicação, ainda que use geração. Agente delega ao modelo a escolha de próximos passos ou ferramentas dentro de limites.
 </details>
 
 ### 2. Estado e memórias
 
-Se você fechar o terminal entre o Experimento A e o B, o script recomeça do zero — não existe memória de uma execução para a outra além da chave `TROCA-PED-104-1` gravada no próprio pedido. Entender por que exige separar quatro conceitos que costumam ser tratados como sinônimos.
+Estado, memória de trabalho, memória persistente e contexto costumam ser tratados como sinônimos, mas são conceitos distintos.
 
 Nomeie estado da execução, memória de trabalho, memória persistente e contexto.
 
@@ -30,7 +30,7 @@ Estado é o registro autoritativo da trajetória e dos efeitos. Memória de trab
 
 ### 3. Contrato de ferramenta
 
-A ferramenta `reservar_substituicao` do exemplo Boreal não recebe só `order_id` e `new_sku`: ela também carrega `expected_order_version`, `idempotency_key` e mais quatro campos que decidem se a chamada pode ser autorizada com segurança.
+Um contrato de ferramenta carrega mais campos do que nome e descrição.
 
 Liste seis campos de um contrato de ferramenta além de nome e descrição.
 
@@ -42,7 +42,7 @@ Esquemas de entrada/saída, classe de efeito, erros tipados, identidade/autoriza
 
 ### 4. Resiliência
 
-No Experimento B, repetir o mesmo comando com `--repetir` não criou uma segunda reserva. Esse único comportamento observado depende de cinco mecanismos distintos, fáceis de confundir entre si.
+Idempotência, timeout, retry, circuit breaker e compensação são mecanismos distintos, fáceis de confundir entre si.
 
 Defina idempotência, timeout, retry, circuit breaker e compensação.
 
@@ -54,7 +54,7 @@ Idempotência evita efeitos lógicos duplicados; timeout limita espera sem prova
 
 ### 5. Artefatos do SDD
 
-Um time decide "vamos escrever uma spec e já seguir para o código" — pulando direto de *specify* para *implement*. O fluxo `constitution → specify → clarify → plan → tasks → analyze → implement → verify` existe porque cada etapa resolve um tipo de incerteza que a spec sozinha não resolve.
+O fluxo `constitution → specify → clarify → plan → tasks → analyze → implement → verify` tem oito etapas, cada uma respondendo a uma pergunta diferente.
 
 Associe constitution, spec, plan, tasks, implement e verify à pergunta principal que cada artefato responde.
 
@@ -68,9 +68,9 @@ Constitution responde quais princípios governam o projeto; spec define o que e 
 
 ### 6. Saída estruturada não é autorização
 
-No Experimento A, o modelo poderia ter devolvido um JSON perfeitamente válido pedindo a troca do item — e o script continuaria parado em `aguardando_aprovacao`. O esquema correto não bastou.
+Um objeto JSON pode ter esquema perfeitamente válido e ainda assim autorizar uma ação indevida.
 
-Explique por que um objeto JSON válido ainda pode produzir ação indevida.
+Explique por que isso acontece.
 
 <details>
 <summary>Ver resposta</summary>
@@ -80,7 +80,7 @@ O esquema garante forma, não intenção, regra de negócio, propriedade do recu
 
 ### 7. Aprovar antes e revisar depois
 
-O Experimento B só produziu `RES-501` depois de `--aprovado true`. Mas nem todo sistema pode se dar ao luxo de esperar por uma aprovação antes de agir — alguns preferem agir e revisar amostras depois.
+Nem todo sistema pode esperar aprovação antes de agir; alguns preferem agir e revisar amostras depois.
 
 Diferencie aprovação humana antes da ação de revisão humana depois da ação.
 
@@ -90,21 +90,21 @@ Diferencie aprovação humana antes da ação de revisão humana depois da açã
 A aprovação prévia bloqueia o efeito até uma pessoa aceitar objeto imutável, evidência e consequência. A revisão posterior detecta e corrige desvios já ocorridos; só é adequada a efeitos aceitáveis, reversíveis ou baixos e não autoriza dano retroativamente.
 </details>
 
-### 8. Agente único, múltiplos agentes e fluxo spec-driven
+### 8. Agente único e múltiplos agentes
 
-Uma proposta sugere dividir o Boreal em três agentes especializados — um para consultar, um para decidir e um para executar — só porque "separar responsabilidades é boa prática".
+Especializar um sistema em vários agentes parece, à primeira vista, sempre uma boa prática.
 
-Por que especializar papéis não prova que múltiplos agentes serão melhores, e como uma spec e critérios de aceite limitam essa decisão?
+Explique por que dividir um sistema em múltiplos agentes especializados não garante, por si só, um resultado melhor.
 
 <details>
 <summary>Ver resposta</summary>
 
-Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. Uma spec e critérios de aceite tornam o objetivo e a evidência explícitos; o benefício ainda precisa ser comparado ao agente único e a ferramentas/módulos determinísticos por métricas de tarefa e operação.
+Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. O benefício precisa ser comparado ao agente único e a ferramentas ou módulos determinísticos, por métricas de tarefa e de operação, não assumido de antemão.
 </details>
 
 ### 9. Spec viva não é documentação extensa
 
-Uma equipe mostra, orgulhosa, uma spec de 40 páginas para a feature de troca do Boreal e conclui: "documentação não falta aqui".
+Uma spec longa não é, por isso, uma spec viva.
 
 Explique por que o tamanho de uma spec não demonstra que ela é viva ou executável.
 
