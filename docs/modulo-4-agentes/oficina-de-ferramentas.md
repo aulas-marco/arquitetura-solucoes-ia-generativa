@@ -16,6 +16,7 @@ Uma intenção proposta pelo modelo tem dois destinos possíveis:
 | A | Uma intenção sem aprovação pode produzir efeito? | `ESTADO aguardando_aprovacao`, `RESULTADO nenhum efeito` |
 | B | A mesma intenção repetida cria um segundo efeito? | `RESULTADO RES-501` e trace de repetição sem nova reserva |
 | C | O que a arquitetura faz quando a confirmação de uma escrita nunca chega? | `outcome_unknown` e o plano de reconciliação |
+| D | De onde vem a intenção que os Experimentos A–C recebiam pronta, e quem valida o que o modelo propõe? | Proposta bruta do modelo, campos extraídos e o veredito de uma validação determinística |
 
 Ao final, você conseguirá localizar, num trace, o ponto exato em que uma intenção deixa de ser texto proposto e passa a produzir efeito.
 
@@ -158,6 +159,7 @@ Note o que o grafo *não* faz: em nenhum ponto ele chama um modelo de linguagem.
 - Python 3.10 ou superior e terminal.
 - Uma pasta descartável e somente os dados sintéticos do laboratório.
 - O arquivo `troca_boreal.py` baixado na etapa seguinte.
+- Para o Experimento D (extensão): Ollama instalado e em execução, com `llama3.2:3b` baixado (`ollama pull llama3.2:3b`) — o mesmo modelo usado nas oficinas dos Módulos 1 e 3.
 
 ## Instalação
 
@@ -210,13 +212,21 @@ ls troca_boreal.py
 
 O script é o workflow inteiro: cada nó devolve um estado tipado e o grafo escolhe entre aguardar aprovação ou reservar. Não há ferramenta externa escondida.
 
+Para o Experimento D, baixe também [propor_troca_llm.py](../assets/labs/modulo-4/propor_troca_llm.py) para a mesma pasta:
+
+```bash
+ls propor_troca_llm.py
+```
+
+Diferente de `troca_boreal.py`, este segundo script chama de verdade um modelo local via `langchain-ollama` — é o único ponto da oficina em que a "intenção" não chega pronta por uma flag de linha de comando.
+
 ## Execução
 
 Você executará cada comando dentro de `oficina-m4/`, com o ambiente virtual ativo. O script não guarda estado entre chamadas: cada execução parte do mesmo pedido `PED-104`, e é o argumento `--aprovado` que muda o caminho percorrido pelo grafo.
 
 ## Receita principal
 
-Siga os experimentos em ordem: A mostra a parada segura, B mostra o efeito aprovado e a repetição contida, C, de extensão, trata o caso em que a confirmação nunca chega. Em uma aula curta, execute A em grupo e B em duplas; C fica para quem terminar antes ou para o desafio assíncrono. Cada bloco de experimento repete cenário, pergunta e comando para poder ser realizado de forma independente.
+Siga os experimentos em ordem: A mostra a parada segura, B mostra o efeito aprovado e a repetição contida, C, de extensão, trata o caso em que a confirmação nunca chega, e D, também de extensão, mostra de onde a intenção dos três primeiros vinha pronta. Em uma aula curta, execute A em grupo e B em duplas; C e D ficam para quem terminar antes, para o desafio assíncrono, ou para quem tiver Ollama disponível. Cada bloco de experimento repete cenário, pergunta e comando para poder ser realizado de forma independente.
 
 ## Resultado esperado
 
@@ -353,6 +363,74 @@ Se a confirmação de `TROCA-PED-104-1` fosse interrompida, o estado correto ser
 - Qual dado é necessário para a reconciliação?
 - Quando a [revisão humana](padroes-e-decisoes.md#matriz-de-autonomia) é um controle obrigatório?
 
+### Experimento D — proposta gerada por um modelo real
+
+**Situação**
+
+Nos Experimentos A a C, a intenção do cliente chegava pronta pela flag `--aprovado`. Numa aplicação real, ela viria de alguém escrevendo em linguagem natural, e um modelo teria que transformar isso numa proposta estruturada, antes de qualquer aprovação.
+
+**Pergunta de investigação**
+
+Quando um modelo de verdade lê o pedido do cliente e propõe a troca, a saída dele já é uma decisão autorizada, ou ainda precisa passar por uma validação determinística separada?
+
+**Objetivo**
+
+Observar geração e decisão como dois passos distintos e sequenciais, com uma chamada real a um LLM local.
+
+**Pré-requisito**
+
+Ollama em execução, `llama3.2:3b` baixado, `propor_troca_llm.py` na pasta `oficina-m4`.
+
+**Execute**
+
+```bash
+python propor_troca_llm.py --cenario valido
+```
+
+```bash
+python propor_troca_llm.py --cenario invalido
+```
+
+**Observe**
+
+Na execução `valido`, o pedido do cliente é "Troque o item P10 pelo P20 no pedido 845 e mantenha a data", e a saída é:
+
+```text
+PEDIDO_CLIENTE: Troque o item P10 pelo P20 no pedido 845 e mantenha a data.
+PROPOSTA_BRUTA_DO_MODELO: {"old_sku": "P10", "new_sku": "P20", "order_id": "845"}
+OLD_SKU: P10
+NEW_SKU: P20
+ORDER_ID: 845
+PROPOSTA_VALIDA: True
+MOTIVO: proposta dentro da politica
+```
+
+Na execução `invalido`, o pedido pede o SKU `P99`, que não existe no catálogo sintético do script:
+
+```text
+PEDIDO_CLIENTE: Troque o item P10 pelo P99 no pedido 845 e mantenha a data.
+PROPOSTA_BRUTA_DO_MODELO: {"old_sku": "P10", "new_sku": "P99", "order_id": "845"}
+OLD_SKU: P10
+NEW_SKU: P99
+ORDER_ID: 845
+PROPOSTA_VALIDA: False
+MOTIVO: SKU P99 fora do catalogo
+```
+
+**Interprete**
+
+`PROPOSTA_BRUTA_DO_MODELO` é geração: o modelo leu a frase do cliente e devolveu um JSON com sua interpretação, sem consultar nenhum catálogo. `PROPOSTA_VALIDA` e `MOTIVO` vêm de um nó totalmente determinístico, escrito em Python puro, que confere `new_sku` contra um conjunto fixo de SKUs válidos e `order_id` contra um conjunto fixo de pedidos conhecidos. É o mesmo papel que a política exerce no grafo Boreal, só que aqui a proposta que ela avalia veio de um modelo, não de uma flag de linha de comando. Repare que, nos dois casos, o modelo devolveu um JSON com esquema igualmente correto; a diferença entre aceitar e recusar não está na forma da saída, está na validação posterior, exatamente o ponto do [Exercício 6](exercicios.md).
+
+**Compare**
+
+Compare as duas execuções: `PROPOSTA_BRUTA_DO_MODELO` tem o mesmo formato nas duas, mas só uma passa em `validar`. Se você rodar `--cenario valido` várias vezes, o JSON deve se repetir (o script usa `temperature=0`); isso reduz variação, mas não elimina a necessidade de validar — um modelo determinístico ainda pode errar de forma consistente.
+
+**Questões exploratórias:**
+
+- Se o modelo devolvesse texto explicativo antes do JSON, em vez de só o objeto, o que aconteceria no nó `interpretar`? Que [padrão de saída estruturada](conceitos.md#uso-de-ferramentas-e-saidas-estruturadas) evitaria isso?
+- Por que a validação de catálogo e de pedido não poderia estar dentro do prompt do modelo, como uma instrução a mais?
+- Se este script se conectasse ao grafo Boreal, em que ponto a proposta validada aqui entraria — antes ou depois de `decide_approval`?
+
 ## Evidência a entregar
 
 Entregue as três saídas ou uma tabela equivalente e uma conclusão de até cinco linhas.
@@ -365,9 +443,13 @@ Entregue as três saídas ou uma tabela equivalente e uma conclusão de até cin
 
 Explique qual condição impede a reserva, como a repetição é contida e como você trataria `outcome_unknown`. Registre também uma fitness function verificável — por exemplo, a mesma intenção com a mesma chave não pode produzir dois efeitos — e quem responde por seu alerta.
 
+Se fez o Experimento D, entregue também as duas saídas completas (`valido` e `invalido`) e uma frase distinguindo o que o modelo comprovou do que a validação determinística comprovou.
+
 ## Limpeza e contingência
 
 Saia do ambiente com `deactivate` e apague a pasta `oficina-m4` quando terminar. Se houver erro, confira `python --version`, a ativação do ambiente e `python -m pip show langgraph`. Registre a mensagem e corrija a instalação local antes de continuar; não conecte o exercício a sistemas reais.
+
+Se o Experimento D falhar, confirme que o Ollama está em execução (`ollama list` deve mostrar `llama3.2:3b`) e que `python -m pip show langchain-ollama` retorna o pacote instalado. Não é preciso remover o modelo depois: ele é o mesmo usado nas oficinas dos Módulos 1 e 3.
 
 ## Extensão — mini-fluxo Spec Kit
 
