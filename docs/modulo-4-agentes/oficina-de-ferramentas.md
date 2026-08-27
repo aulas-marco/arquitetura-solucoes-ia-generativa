@@ -495,10 +495,19 @@ specify --help
 mkdir boreal-sdd
 cd boreal-sdd
 git init
-specify init . --integration copilot
 ```
 
-Se a integração usada no seu ambiente for outra, escolha-a durante `specify init` ou siga a opção indicada pelo docente. O próprio `specify init` imprime, em "Next Steps", o nome exato de cada comando ou skill instalado para a integração escolhida — use essa lista como referência, pois o formato muda entre versões e integrações (por exemplo, `/speckit-constitution` com hífen na integração `copilot` desta prática, em vez do `/speckit.constitution` com ponto usado abaixo como notação genérica). Os artefatos são o objeto da aula, não a sintaxe exata da interface.
+Escolha a integração conforme o agente disponível na sua máquina:
+
+```bash
+specify init . --integration copilot   # GitHub Copilot
+specify init . --integration claude    # Claude Code
+specify init . --integration codex     # Codex CLI (OpenAI)
+```
+
+Use só um dos três comandos acima. Se a integração usada no seu ambiente for outra, escolha-a durante `specify init` ou siga a opção indicada pelo docente. O próprio `specify init` imprime, em "Next Steps", o nome exato de cada comando ou skill instalado para a integração escolhida — use essa lista como referência, pois o formato muda entre versões e integrações (por exemplo, `/speckit-constitution` com hífen na integração `copilot` desta prática, em vez do `/speckit.constitution` com ponto usado abaixo como notação genérica). Os artefatos são o objeto da aula, não a sintaxe exata da interface.
+
+**Limitação testada: modelos locais pequenos não sustentam este fluxo.** Um agente de codificação apontado para um modelo Llama local via Ollama (testado nesta oficina com `llama3.2:3b`, `llama3.1:8b` e `qwen2.5-coder:7b`, este último recomendado pela própria documentação do Goose para uso agêntico) não completou o primeiro comando (`/speckit.constitution`) em nenhum dos três casos. Em vez de editar o arquivo de verdade, o agente travou, pediu esclarecimento ao usuário ou, no caso mais enganoso, devolveu um relatório de sucesso completo (versão, justificativa, mensagem de *commit* sugerida) sem que o arquivo no disco tivesse mudado uma linha. Use Copilot, Claude Code ou Codex CLI, como acima: é a integração com modelos de fronteira que este exercício pressupõe.
 
 ### Passo 0 — escrever uma constitution pequena
 

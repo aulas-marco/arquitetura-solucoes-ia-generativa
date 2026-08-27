@@ -528,6 +528,16 @@
   modules: [4]
   type: official-documentation
 
+- id: github-spec-kit-integrations
+  title: Supported AI Coding Agent Integrations
+  authors: GitHub
+  year: 2026
+  url: https://github.github.io/spec-kit/reference/integrations.html
+  accessed: 2026-08-26
+  topics: [sdd, especificacao, agentes, ollama]
+  modules: [4]
+  type: official-documentation
+
 - id: github-spec-kit-blog
   title: Spec-driven development with AI
   authors: GitHub
