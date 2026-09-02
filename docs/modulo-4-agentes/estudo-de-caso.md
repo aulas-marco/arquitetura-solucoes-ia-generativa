@@ -4,7 +4,7 @@ Caso curto, para 30 minutos de discussão em grupo com o material do módulo abe
 
 ## Objetivo
 
-Decidir **quanta autonomia conceder, a que ação, sob qual autoridade e com qual recuperação** na Vértice Varejo. As cinco perguntas pedem respostas curtas — uma tabela, um contrato, uma mensagem, meia página de ADR — e usam as [quatro formas de controle operacional](conceitos.md#quatro-formas-de-controle-operacional), a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia), o [contrato de ferramenta](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta) e as [fitness functions](padroes-e-decisoes.md#fitness-functions-para-autonomia).
+Decidir **onde ficam as responsabilidades, quais atributos de qualidade prevalecem e como o sistema se recupera** quando parte do efeito já ocorreu. A discussão é de arquitetura: alocação de responsabilidade, acoplamento entre sistemas de propriedade distinta, limite de consistência e critério de evolução. As respostas são curtas — uma tabela, um cenário mensurável, meia página de ADR.
 
 ## Como trabalhar em grupo
 
@@ -22,7 +22,7 @@ A Vértice Varejo recebe pedidos de troca, cancelamento, alteração de entrega 
 
 **Restrições confirmadas.** Segurança exige identidade individual em cada chamada e logs sem documento e endereço em claro. Operações relata timeouts recorrentes no legado de pedidos, com equipe pequena de plantão. Comercial permite reserva temporária de item, mas desconto e cancelamento material dependem de limite por valor e aprovação de supervisor. CRM e estoque só são acessíveis por adaptadores; pedidos aceita precondição de versão e chave de idempotência. Auditoria precisa reconstruir proposta, decisão de política, aprovação, chamada, resultado e compensação.
 
-**Classes de solicitação.**
+**Classes de solicitação.** O efeito de cada uma é o que a arquitetura precisa governar.
 
 | Solicitação | Sistemas | Efeito |
 |---|---|---|
@@ -33,7 +33,7 @@ A Vértice Varejo recebe pedidos de troca, cancelamento, alteração de entrega 
 | conceder desconto excepcional | políticas + pedidos | impacto financeiro |
 | alterar endereço após expedição | logística | alto risco de fraude |
 
-A coluna de autonomia foi removida de propósito: preenchê-la é a Pergunta 1.
+Nenhuma das seis linhas tem hoje autoridade definida em componente: é isso que a Pergunta 1 endereça.
 
 **Evidências do piloto.** Já existe um copiloto com workflow determinístico: identifica intenção, consulta dados por ferramentas de leitura e prepara orientação para o atendente executar. Três semanas com 40 atendentes e 640 solicitações:
 
@@ -45,76 +45,78 @@ A coluna de autonomia foi removida de propósito: preenchê-la é a Pergunta 1.
 | falhas de integração com pedidos (timeout) | 23 em 640 |
 | solicitações em que a sequência de consulta variou de forma não prevista | 31% |
 
-**Ferramentas no adaptador**, nenhuma exposta ainda à escolha do modelo: `consultar_cliente`, `consultar_pedido`, `buscar_estoque`, `avaliar_politica`, `reservar_item`, `liberar_reserva`, `propor_cancelamento`, `registrar_interacao`. A política comercial é versionada e consultável por API.
+**Capacidades expostas pelos adaptadores**, nenhuma delas ainda invocável fora do fluxo conduzido pelo atendente: `consultar_cliente`, `consultar_pedido`, `buscar_estoque`, `avaliar_politica`, `reservar_item`, `liberar_reserva`, `propor_cancelamento`, `registrar_interacao`. A política comercial é versionada e consultável por API.
 
 **Incógnitas.** Sem medição de custo por atendimento, de carga de revisão do supervisor, nem de comportamento sob conteúdo malicioso no texto do cliente. A direção quer decisão em duas semanas.
 
 ## As cinco perguntas
 
-As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bloom.md): compreender, aplicar, analisar, avaliar e criar. Cada uma indica o que consultar antes de responder, o tempo e a entrega esperada. Não há bloco de resposta: de Aplicar para cima, o feedback é do professor, sobre critérios, coerência e evidência.
+São perguntas de arquitetura: alocação de responsabilidades, atributos de qualidade em tensão, estilos de integração e acoplamento, limites de consistência e recuperação, estrutura e evolução. O modelo de linguagem é um elemento do sistema, não o assunto — nenhuma pergunta se resolve escolhendo modelo, prompt ou plataforma.
+
+As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bloom.md): compreender, aplicar, analisar, avaliar e criar. De Aplicar para cima não há bloco de resposta; o feedback é do professor, sobre critérios, coerência e evidência.
 
 ### Pergunta 1 — Compreender · 3 min
 
-> **Que nível de autonomia cada classe de solicitação admite, e por que a matriz não pode ser uniforme?**
+> **Como as responsabilidades de gerar, decidir, autorizar e executar efeito estão hoje distribuídas entre os componentes da Vértice?**
 >
-> O piloto que já roda hoje é chatbot, copiloto, workflow determinístico ou agente — e qual evidência do dossiê sustenta essa classificação?
+> Se a escolha da reserva deixar de ser do atendente, qual dessas quatro responsabilidades muda de componente — e quais permanecem onde estão?
 
-**Consulte:** [quatro formas de controle operacional](conceitos.md#quatro-formas-de-controle-operacional) e a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia).
+**Consulte:** [geração, decisão e ação](conceitos.md#geracao-decisao-e-acao), [responsabilidades e fronteiras de componente](conceitos.md#responsabilidades-e-fronteiras-de-componente) e [políticas como fronteira executável](conceitos.md#politicas-como-fronteira-executavel).
 
-**Entrega esperada.** A coluna de autonomia preenchida nas seis linhas (A1 a A4, ou "fora do agente"), com meia linha de justificativa por efeito e reversibilidade, mais uma frase classificando o piloto.
+**Entrega esperada.** Uma tabela de quatro linhas — geração, decisão, autorização, efeito — com o componente responsável hoje e o componente responsável na proposta. Componentes, não ferramentas.
 
-**Armadilha.** Nível uniforme nas seis linhas — sinal de que o grupo classificou a solução, não as ações.
+**Armadilha.** Concentrar decisão e autorização no mesmo componente. Se quem propõe é quem permite, a política deixou de ser fronteira.
 
 ### Pergunta 2 — Aplicar · 5 min
 
-> **Que contrato permite recusar uma chamada inválida de `reservar_item` antes de executá-la?**
+> **Quais atributos de qualidade entram em conflito nesta situação, e como se mede o conflito?**
 >
-> Quem valida a precondição, o modelo ou a política? O que impede que duas chamadas reservem o item duas vezes? Com qual identidade a reserva chega ao sistema de pedidos? E quais ferramentas da lista **não** devem ser expostas à escolha do modelo neste incremento?
+> Segurança e latência, confiabilidade e custo, observabilidade e privacidade: escolha um par que a Vértice não consegue maximizar ao mesmo tempo. Que medida revela a tensão, e qual valor você aceitaria?
 
-**Consulte:** [contrato de ferramenta](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta), [autorização delegada](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada) e [idempotência](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao).
+**Consulte:** o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) e [características e tensões da autonomia](conceitos.md#caracteristicas-e-tensoes-da-autonomia).
 
-**Entrega esperada.** O contrato de `reservar_item` — parâmetros, precondições, identidade e finalidade, chave de idempotência, expiração, erros e retorno — e a lista de exclusões com o motivo de cada uma.
+**Entrega esperada.** Um cenário mensurável para um dos dois atributos do par, no formato Fonte/Estímulo/Ambiente/Artefato/Resposta/Medida, e uma frase dizendo o que se perde no outro atributo ao atender essa medida.
 
-**Armadilha.** Descrever a ferramenta em linguagem natural ("reserva o item se possível"). Isso não é contrato: não dá para recusar nada com ele.
+**Armadilha.** Escolher um par que não compete de verdade. Se as duas medidas melhoram juntas, não há decisão de arquitetura ali.
 
 ### Pergunta 3 — Analisar · 4 min
 
-> **Onde vive cada dado deste atendimento, e o que acontece quando a autorização desaparece no meio da trajetória?**
+> **Que estilo de integração cada sistema exige, e onde ficam as fronteiras de confiança?**
 >
-> O cliente menciona uma preferência de canal de contato: ela pode ficar no estado de execução, na memória de trabalho, na memória persistente, no trace? Quem é o sistema dono desse dado? E se o acesso do atendente for revogado com uma reserva ativa, o que ocorre com o estado, com a reserva e com o que já foi registrado?
+> CRM, estoque, pedidos e política têm consistência, disponibilidade e propriedade diferentes. Onde chamada síncrona é adequada, onde mensageria ou evento reduz acoplamento, e onde o adaptador está encobrindo uma dependência que continua indisponível? Como a identidade do atendente atravessa cada fronteira sem virar credencial compartilhada?
 
-**Consulte:** [estado, memória e contexto](conceitos.md#estado-memoria-e-contexto) e [auditoria e observabilidade](padroes-e-decisoes.md#auditoria-e-observabilidade).
+**Consulte:** [APIs, mensageria, eventos e adaptadores](padroes-e-decisoes.md#apis-mensageria-eventos-e-adaptadores), [identidade do usuário e autorização delegada](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada) e o atributo [Segurança](../referencia/atributos-de-qualidade.md#seguranca).
 
-**Entrega esperada.** Resposta aos dois casos, dizendo em cada um o que entra e o que é proibido em cada lugar.
+**Entrega esperada.** Tabela de quatro linhas, uma por sistema, com estilo de integração escolhido, motivo em meia linha e como a identidade é propagada.
 
-**Armadilha.** Deixar o agente "aprender" a preferência a partir da conversa.
+**Armadilha.** Adotar mensageria pelo desacoplamento e manter a expectativa de resposta imediata na experiência do atendente.
 
 ### Pergunta 4 — Avaliar · 6 min
 
-> **Quando o legado de pedidos não responde, o efeito ocorreu ou não — e o que se pode afirmar ao cliente?**
+> **Onde termina o limite transacional, e que invariante o sistema preserva quando um passo falha no meio?**
 >
-> Diante de timeout na escrita da reserva, cabe repetir a chamada? Se a reserva foi efetivada e o pedido mudou por outro canal em seguida, quem compensa, e para onde vai a falha da compensação? Que orçamento de passos, ações de efeito, tempo e custo você defende para a trajetória, e o que acontece ao esgotá-lo?
+> Estoque e pedidos não compartilham transação. Diante de escrita sem confirmação no legado, que táticas você defende — idempotência, precondição de versão, consulta por chave, compensação, interrupção do fluxo — e a que preço em latência, complexidade operacional e carga de plantão? Que estado o sistema é obrigado a tornar visível para fora enquanto a inconsistência existe?
 
-**Consulte:** [timeout, retry e circuit breaker](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker), [consistência, transações e compensação](padroes-e-decisoes.md#consistencia-transacoes-e-compensacao) e [orçamentos, interrupção e fallback](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+**Consulte:** [idempotência, concorrência e prevenção de repetição](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao), [consistência, transações e compensação](padroes-e-decisoes.md#consistencia-transacoes-e-compensacao), [timeout, retry e circuit breaker](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker) e o atributo [Confiabilidade](../referencia/atributos-de-qualidade.md#confiabilidade).
 
-**Entrega esperada.** Tratamento das duas situações, o orçamento em uma linha e a mensagem ao cliente para o caso do timeout de escrita. A mensagem precisa distinguir dois estados que ele confunde: **a troca ainda não está concluída**, mas **a reserva temporária já pode estar ativa** e indisponibilizar o item até expirar ou ser liberada.
+**Entrega esperada.** O invariante enunciado em uma frase, as táticas escolhidas com o custo de cada uma, e o destino de uma compensação que falha. O estado visível para fora precisa distinguir duas situações que o cliente confunde: **a troca ainda não está concluída**, mas **a reserva temporária já pode estar ativa** e indisponibilizar o item até expirar ou ser liberada.
 
-**Armadilha.** Tratar timeout de escrita como timeout de leitura e repetir a chamada.
+**Armadilha.** Tratar escrita sem confirmação como leitura sem resposta e repetir a chamada.
 
 ### Pergunta 5 — Criar · 5 min
 
-> **Que decisão o grupo leva à direção em duas semanas, e sob que condição ela se reverte?**
+> **Que estrutura você recomenda à direção em duas semanas, e sob que evidência ela se reverte?**
 >
-> A reserva deve ser exposta à escolha do modelo? Por que descartar múltiplos agentes por domínio e por que não comprar um serviço hospedado de planejamento e política? Que número, medido em produção, obrigaria a reduzir a autonomia depois de concedida?
+> Autoridade concentrada em um componente ou distribuída por domínio, com o custo de coordenação que isso implica? Capacidade padronizada comprada de um fornecedor ou construída, considerando fronteira de dados, versionamento e saída? E que medida em produção obrigaria a arquitetura a recuar da opção escolhida?
 
-**Consulte:** [fitness functions para autonomia](padroes-e-decisoes.md#fitness-functions-para-autonomia), [agente único versus múltiplos agentes](padroes-e-decisoes.md#agente-unico-versus-multiplos-agentes) e [plataforma e obtenção de capacidade](padroes-e-decisoes.md#plataforma-e-obtencao-de-capacidade).
+**Consulte:** [agente único e múltiplos agentes](conceitos.md#agente-unico-e-multiplos-agentes), [plataforma e obtenção de capacidade](padroes-e-decisoes.md#plataforma-e-obtencao-de-capacidade) e [fitness functions para autonomia](padroes-e-decisoes.md#fitness-functions-para-autonomia).
 
-**Entrega esperada.** Meia página no formato do [template de ADR](../referencia/template-adr.md): decisão, duas opções descartadas, evidência do dossiê que a sustenta, duas fitness functions com limite numérico e ação automática, e o gatilho de redução de autonomia.
+**Entrega esperada.** Meia página no formato do [template de ADR](../referencia/template-adr.md): decisão estrutural, duas opções descartadas com o motivo, a evidência do dossiê que sustenta a escolha, duas fitness functions com limite numérico e ação automática, e o gatilho de recuo.
 
-**Armadilha.** Justificar a promoção pela variação de 31% sem verificar em que classes de solicitação ela ocorre — pode estar concentrada em leituras que já são A2.
+**Armadilha.** Distribuir por domínio porque há quatro sistemas. Fronteira de componente se justifica por autoridade, dado e ritmo de mudança — não pelo número de integrações.
 
 ## Plenária
 
-Três minutos: cada grupo diz o nível concedido, a ação exposta e a fitness function que dispararia redução de autonomia. O confronto útil está nos grupos que chegaram a decisões opostas com a mesma evidência — aí a pergunta é qual incógnita do dossiê separa as duas leituras.
+Três minutos: cada grupo diz onde colocou a autorização, qual atributo de qualidade sacrificou e qual medida obrigaria a arquitetura a recuar. O confronto útil está nos grupos que chegaram a decisões opostas com a mesma evidência — aí a pergunta é qual incógnita do dossiê separa as duas leituras.
 
 Para aprofundar depois da aula, ver [Classificação de autonomia](exercicios.md#11-classificacao-de-autonomia), [Diagnóstico de trace](exercicios.md#14-diagnostico-de-trace) e [Arquitetura de agente controlado](exercicios.md#18-arquitetura-de-agente-controlado) em [Exercícios](exercicios.md).
