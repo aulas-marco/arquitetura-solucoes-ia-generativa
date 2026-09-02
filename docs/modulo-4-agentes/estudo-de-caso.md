@@ -127,7 +127,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 
 **Entrega adicional.** Meia página no formato do [template de ADR](../referencia/template-adr.md): a decisão, a opção descartada com o motivo, a evidência do dossiê que a sustenta e uma fitness function com limite numérico e ação automática de recuo.
 
-**Armadilha.** Usar os 31% como prova de que o modelo precisa escolher a ordem, sem verificar em que classes de solicitação eles ocorrem: se estão concentrados em consultas de leitura, nenhuma autoridade nova se justifica. Outra armadilha é escolher a opção (c) porque existem quatro sistemas. Fronteira de componente se justifica por autoridade sobre o dado e por ritmo de mudança.
+**Armadilha.** Escolher a opção (c) porque existem quatro sistemas. Fronteira de componente se justifica por autoridade sobre o dado e por ritmo de mudança.
 
 ## Plenária
 
