@@ -1,71 +1,99 @@
 # Exercícios: construir evidência de confiança
 
-Use o [assistente de RH do caso](estudo-de-caso.md#a-proposta). Nos níveis superiores, entregue artefatos e revise-os pelos critérios.
+Todos os exercícios usam o [assistente de RH do caso](estudo-de-caso.md#a-proposta) como cenário. Recordar e Compreender possuem respostas públicas. De Aplicar a Criar, produza artefatos contextualizados e revise-os pelos critérios de avaliação. A progressão segue a [Taxonomia de Bloom](../comecar/taxonomia-de-bloom.md).
 
 ## Recordar
 
-### 1. O que distingue confiança sistêmica de confiança no modelo?
+### 1. Confiança sistêmica e confiança no modelo
+
+Um fornecedor apresenta a ficha do modelo com resultados de referência e conclui que a solução é confiável. O assistente de RH usa esse modelo, mas também recuperação, ferramenta de leitura, identidade, políticas e uma fila humana de escalonamento.
+
+Explique em uma frase o que distingue confiança sistêmica de confiança no modelo, e diga o que a ficha do fornecedor deixa de cobrir.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Confiança sistêmica é expectativa justificada sobre a solução em uso, considerando modelo, dados, recuperação, ferramentas, identidade, políticas, pessoas, fornecedores e operação. Avaliar só o modelo ignora falhas de composição.
+Confiança sistêmica é expectativa justificada sobre a solução em uso, considerando modelo, dados, recuperação, ferramentas, identidade, políticas, pessoas, fornecedores e operação. Avaliar só o modelo ignora falhas de composição: o índice pode estar desatualizado, a identidade pode resolver o perfil errado, a fila de escalonamento pode não existir na prática. A ficha do fornecedor descreve o componente, não o sistema.
 
 </details>
 
-### 2. Defina risco inerente e risco residual.
+### 2. Risco inerente e risco residual
+
+Depois de instalar validação de entrada e aprovação humana para casos sensíveis, a equipe do assistente de RH quer registrar no relatório de governança "risco eliminado".
+
+Defina risco inerente e risco residual, e diga por que esse registro está errado.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Risco inerente é avaliado antes dos controles; residual permanece depois deles. Controles reduzem probabilidade, impacto, detecção ou recuperação, mas não tornam risco zero. A aceitação cabe a proprietário com autoridade.
+Risco inerente é avaliado antes dos controles; residual permanece depois deles. Controles reduzem probabilidade, limitam impacto, aumentam detecção ou facilitam recuperação, mas não tornam risco zero — a aprovação humana, por exemplo, falha por fadiga e por contexto enganoso. "Risco eliminado" não é uma classificação disponível: o que existe é risco residual aceito, com prazo e proprietário nomeado.
 
 </details>
 
-### 3. Quais são as seis camadas de guardrails usadas neste módulo?
+### 3. As seis camadas de guardrails
+
+Uma equipe propõe concentrar toda a proteção na validação de saída, com o argumento de que ali se vê o texto final antes de entregar.
+
+Nomeie as seis camadas de guardrail usadas neste módulo e diga o que a proposta perde.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Cada camada cobre falhas diferentes; aprovação também pode falhar por fadiga, viés ou contexto enganoso.
+Entrada, contexto, recuperação, ferramenta, saída e aprovação humana. Cada camada cobre falhas diferentes, e a validação de saída chega tarde para o que já aconteceu: o documento envenenado já entrou no contexto, a ferramenta já foi chamada, o dado de outro usuário já foi recuperado. Vale ainda a ressalva sobre a última camada — aprovação humana também falha, por fadiga, viés ou contexto enganoso.
 
 </details>
 
-### 4. Quais dimensões compõem o prisma de avaliação?
+### 4. As dimensões do prisma de avaliação
+
+O relatório de um piloto traz uma única nota agregada: 4,1 de 5. A pessoa responsável pela liberação pergunta se isso basta.
+
+Liste as dimensões que compõem o prisma de avaliação e explique por que a média não responde à pergunta.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Factualidade, relevância, fundamentação, segurança, utilidade, latência e custo. Dimensões críticas podem ser portões; média não compensa evento intolerável.
+Factualidade, relevância, fundamentação, segurança, utilidade, latência e custo. Dimensões críticas funcionam como portão, não como parcela de uma média: uma nota alta em utilidade e latência pode encobrir uma falha de segurança, e média não compensa evento intolerável. A pergunta certa é qual dimensão está abaixo do limite e para qual fatia de usuários.
 
 </details>
 
 ## Compreender
 
-### 5. Por que separar instrução e conteúdo recuperado ajuda, mas não elimina injeção indireta?
+### 5. O limite da separação entre instrução e conteúdo
+
+O assistente de RH marca todo documento recuperado como dado, nunca como instrução, e delimita o bloco com marcadores explícitos. Ainda assim, o time de segurança recusa a afirmação "estamos protegidos contra injeção indireta".
+
+Explique por que a separação ajuda mas não elimina o risco, e diga onde a proteção precisa estar.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Fronteiras e contexto mínimo reduzem confusão, mas o modelo processa instruções e conteúdo juntos. Autorização e execução devem ficar fora dele, com catálogo, política, validação e aprovação por risco.
+Fronteiras e contexto mínimo reduzem a confusão, mas o modelo processa instrução e conteúdo pelo mesmo mecanismo — não existe canal com garantia de que um trecho seja lido apenas como dado. A consequência arquitetural é que autorização e execução ficam fora do modelo: catálogo de ferramentas, política que decide, validação de saída e aprovação proporcional ao risco. O guardrail de entrada reduz probabilidade; o controle de ferramenta limita impacto.
 
 </details>
 
-### 6. Por que rastreabilidade e minimização não são objetivos opostos?
+### 6. Rastreabilidade e minimização
+
+A área de privacidade quer reter o mínimo possível. A área de auditoria quer reconstruir qualquer atendimento questionado. As duas tratam a discussão como disputa de soma zero.
+
+Explique por que rastreabilidade e minimização não são objetivos opostos, e dê dois exemplos do que gravar no lugar do conteúdo integral.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Rastreabilidade reconstrói versões, fontes, decisões, aprovações e resultados; não exige guardar tudo. Identificadores, hashes, categorias, métricas e amostras controladas reduzem exposição; texto completo exige acesso, finalidade e prazo.
+Rastreabilidade exige reconstruir versões, fontes, decisões, aprovações e resultados — não exige guardar tudo. Identificadores de documento, *hashes* do prompt, versão do índice, categorias de decisão, métricas e amostras controladas sustentam a auditoria com exposição bem menor que o texto completo. Quando o conteúdo integral for mesmo necessário, ele passa a exigir acesso restrito, finalidade declarada e prazo de expiração — vira exceção governada, não o padrão de coleta.
 
 </details>
 
-### 7. Compare verificações determinísticas, critérios humanos e avaliação assistida por modelo.
+### 7. Três formas de verificar
+
+Para liberar uma mudança no assistente, a equipe tem três instrumentos disponíveis: um conjunto de testes automáticos com resposta esperada fixa, uma revisão feita por duas pessoas de RH, e o avaliador `GEval` do laboratório com juiz local.
+
+Compare os três quanto a reprodutibilidade, custo e viés, e proponha como combiná-los.
 
 <details>
-<summary>Resposta comentada</summary>
+<summary>Ver resposta</summary>
 
-Verificações determinísticas são reproduzíveis, mas limitadas; critérios humanos trazem contexto com custo e divergência; avaliador-modelo escala com variância e viés. Combine-os com calibração.
+Verificações determinísticas são reproduzíveis e baratas, mas só cobrem o que foi antecipado em regra. Critérios humanos trazem contexto e julgamento sobre casos novos, com custo alto e divergência entre revisores. O avaliador assistido por modelo escala para muitos casos, com variância entre execuções e viés — agravado quando o mesmo modelo responde e julga, como no laboratório. A combinação usual: determinístico como portão do que é objetivo, avaliador-modelo para varredura ampla, e amostra humana periódica para calibrar o avaliador e arbitrar divergência.
 
 </details>
 

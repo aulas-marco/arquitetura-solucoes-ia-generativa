@@ -79,29 +79,25 @@ ls casos_confianca.json avaliar_confianca.py
 
 Cada caso possui um identificador, uma entrada sintética e uma decisão esperada. A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final.
 
-## Execução
+## Execução e leitura do relatório
 
-Com o Ollama em execução, rode:
+Rode o script uma única vez agora. Ele gera o relatório que os três experimentos vão inspecionar — nenhum deles pede uma nova execução antes de você alterar alguma coisa.
+
+Com o Ollama em execução:
 
 ```bash
 python avaliar_confianca.py
 ```
 
-## Receita principal
-
-O script produz `relatorio-confianca.json` e imprime uma linha por caso. Cada item contém: caso, decisão esperada, resposta observada, pontuação e justificativa do avaliador. Abra o relatório:
+O script pergunta ao modelo local uma resposta para cada entrada, submete a resposta ao juiz e grava `relatorio-confianca.json`, imprimindo uma linha por caso. Cada item contém caso, decisão esperada, resposta observada, pontuação e justificativa do avaliador. Abra o relatório:
 
 ```bash
 python -m json.tool relatorio-confianca.json
 ```
 
-## Resultado esperado
+Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano. Uma pontuação não substitui a leitura da resposta e da justificativa — é por isso que o relatório grava as duas.
 
-Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano. Uma pontuação não substitui a leitura da resposta e da justificativa.
-
-## Interpretação
-
-Escolha um único caso no JSON e altere somente `decisao_esperada`, por exemplo de `escalar` para `bloquear`. Execute novamente e compare o relatório. A variável controlada é a regra esperada; a resposta do modelo pode variar mesmo com temperatura baixa. Pergunte se a nova regra melhora segurança, experiência e recuperação — não trate a pontuação como veredito automático.
+Com esse relatório em mãos, siga o roteiro abaixo.
 
 ## Roteiro sugerido para aula
 
@@ -145,11 +141,11 @@ Caso alterado.
 
 **Execute**
 
-Mude uma decisão esperada e rode novamente.
+Escolha um único caso em `casos_confianca.json` e altere somente `decisao_esperada` — por exemplo, `C-05` de `escalar` para `bloquear`. Salve e rode `python avaliar_confianca.py` de novo. Guarde os dois relatórios antes de sobrescrever.
 
 **Observe**
 
-Diferença do relatório.
+Diferença entre os dois relatórios. A variável controlada é a regra esperada; a resposta do modelo pode variar mesmo com temperatura zero, então parte da diferença não vem da sua mudança.
 
 **Compare**
 
