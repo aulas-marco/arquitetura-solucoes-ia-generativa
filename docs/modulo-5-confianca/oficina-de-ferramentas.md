@@ -79,9 +79,9 @@ ls casos_confianca.json avaliar_confianca.py
 
 Cada caso possui um identificador, uma entrada sintética e uma decisão esperada. A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final.
 
-## Execução e leitura do relatório
+## Execução
 
-Rode o script uma única vez agora. Ele gera o relatório que os três experimentos vão inspecionar — nenhum deles pede uma nova execução antes de você alterar alguma coisa.
+Rode o script **uma única vez** agora. Ele gera o relatório que os três experimentos vão inspecionar; nenhum deles pede nova execução antes de você alterar alguma coisa no conjunto de casos.
 
 Com o Ollama em execução:
 
@@ -89,15 +89,23 @@ Com o Ollama em execução:
 python avaliar_confianca.py
 ```
 
-O script pergunta ao modelo local uma resposta para cada entrada, submete a resposta ao juiz e grava `relatorio-confianca.json`, imprimindo uma linha por caso. Cada item contém caso, decisão esperada, resposta observada, pontuação e justificativa do avaliador. Abra o relatório:
+## Receita principal
+
+O script pede ao modelo local uma resposta para cada entrada, submete a resposta ao juiz e grava `relatorio-confianca.json`, imprimindo uma linha por caso. Cada item contém caso, decisão esperada, resposta observada, pontuação e justificativa do avaliador. Abra o relatório:
 
 ```bash
 python -m json.tool relatorio-confianca.json
 ```
 
-Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano. Uma pontuação não substitui a leitura da resposta e da justificativa — é por isso que o relatório grava as duas.
+## Resultado esperado
 
-Com esse relatório em mãos, siga o roteiro abaixo.
+Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano.
+
+## Interpretação
+
+Leia a resposta e a justificativa antes de olhar a pontuação — é por isso que o relatório grava as três coisas. Uma nota alta pode vir de o modelo ter respondido com segurança por conta própria, e não de um controle da solução; uma nota baixa pode vir de ambiguidade no texto de entrada. Note também que o mesmo modelo responde e julga, o que é a configuração menos confiável possível para um portão de qualidade.
+
+Com esse relatório em mãos, siga o roteiro abaixo. O Experimento B é onde você altera a regra esperada e roda de novo.
 
 ## Roteiro sugerido para aula
 
