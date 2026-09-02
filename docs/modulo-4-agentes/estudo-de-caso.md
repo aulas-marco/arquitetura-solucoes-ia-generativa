@@ -37,7 +37,9 @@ A Vértice Varejo recebe pedidos de troca, cancelamento, alteração de entrega 
 | seleção correta da ferramenta de leitura | 94% |
 | orientações com política desatualizada | 9 em 640 |
 | falhas de integração com pedidos (timeout) | 23 em 640 |
-| solicitações em que a sequência de consulta variou de forma não prevista | 31% |
+| solicitações que exigiram consultar os sistemas fora da ordem prevista | 31% |
+
+O workflow do copiloto segue uma ordem fixa com ramificações: consultar pedido, avaliar política, buscar estoque. Os 31% são casos que não couberam em nenhuma ramificação — o atendente precisou avaliar a política antes do estoque porque o cliente veio de outro canal, ou reconsultar o pedido depois da política porque o status mudou durante o atendimento.
 
 **Capacidades expostas pelos adaptadores**, nenhuma delas ainda invocável fora do fluxo conduzido pelo atendente: `consultar_cliente`, `consultar_pedido`, `buscar_estoque`, `avaliar_politica`, `reservar_item`, `liberar_reserva`, `propor_cancelamento`, `registrar_interacao`. A política comercial é versionada e consultável por API.
 
@@ -113,7 +115,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 
 ### Pergunta 5 — Criar
 
-**Cenário.** A direção quer decisão em duas semanas. O piloto reduziu o tempo de resolução de 11 para 7 minutos, e em 31% das solicitações a sequência de consulta variou de forma imprevista.
+**Cenário.** A direção quer decisão em duas semanas. O piloto reduziu o tempo de resolução de 11 para 7 minutos, e 31% das solicitações exigiram consultar os sistemas fora da ordem prevista pelo workflow.
 
 > **Que estrutura o grupo recomenda?**
 
@@ -125,7 +127,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 
 **Entrega adicional.** Meia página no formato do [template de ADR](../referencia/template-adr.md): a decisão, a opção descartada com o motivo, a evidência do dossiê que a sustenta e uma fitness function com limite numérico e ação automática de recuo.
 
-**Armadilha.** Escolher a opção (c) porque existem quatro sistemas. Fronteira de componente se justifica por autoridade sobre o dado e por ritmo de mudança.
+**Armadilha.** Usar os 31% como prova de que o modelo precisa escolher a ordem, sem verificar em que classes de solicitação eles ocorrem: se estão concentrados em consultas de leitura, nenhuma autoridade nova se justifica. Outra armadilha é escolher a opção (c) porque existem quatro sistemas. Fronteira de componente se justifica por autoridade sobre o dado e por ritmo de mudança.
 
 ## Plenária
 
