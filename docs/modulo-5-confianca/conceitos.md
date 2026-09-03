@@ -96,6 +96,8 @@ Uma métrica pontua um caso. Uma avaliação descreve um conjunto. Confundir as 
 
 As famílias se distinguem pelo que exigem. Métricas determinísticas comparam texto por regra, custam zero chamadas e devolvem sempre o mesmo resultado, ao preço de não enxergar equivalência semântica. Métricas com juiz usam um modelo para pontuar, enxergam paráfrase e trazem para dentro do portão de qualidade a mesma incerteza que se quer medir. Quando o juiz também escreve a própria régua, duas execuções idênticas podem divergir, porque a régua mudou entre elas.
 
+O cálculo de cada uma, com fórmula e exemplo numérico, está em [Métricas de avaliação](../referencia/metricas-de-avaliacao.md).
+
 **Camada 2, sobre o conjunto.** Decidir se um sistema pode ser liberado exige métricas clássicas de classificação, calculadas sobre o rótulo de referência de cada caso:
 
 | Métrica | O que responde |

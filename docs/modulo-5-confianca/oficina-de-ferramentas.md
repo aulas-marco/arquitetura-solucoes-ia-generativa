@@ -6,7 +6,7 @@ Esta oficina avalia 45 casos sintéticos rotulados em duas camadas: métricas qu
 
 ## Ferramenta
 
-**DeepEval** é um framework open source para avaliar aplicações de IA. Ele fornece as métricas por caso da [camada 1](conceitos.md#duas-camadas-de-medicao): `PatternMatchMetric`, que compara por regra e não chama modelo nenhum, e as métricas de juiz `GEval`, `AnswerRelevancyMetric` e `PIILeakageMetric`, que usam um **Ollama** local. A camada 2 (acurácia, precisão, recall, F1 e matriz de confusão) é calculada por um script próprio, sem depender do framework.
+**DeepEval** é um framework open source para avaliar aplicações de IA. Ele fornece as métricas por caso da [camada 1](conceitos.md#duas-camadas-de-medicao): `PatternMatchMetric`, que compara por regra e não chama modelo nenhum, e as métricas de juiz `GEval`, `AnswerRelevancyMetric` e `PIILeakageMetric`, que usam um **Ollama** local. A camada 2 (acurácia, precisão, recall, F1 e matriz de confusão) é calculada por um script próprio, sem depender do framework. O que cada métrica mede, como se calcula e o que deixa passar está em [Métricas de avaliação](../referencia/metricas-de-avaliacao.md); leia antes de interpretar qualquer número desta oficina.
 
 Cada caso é rotulado com uma de três decisões: [bloquear](conceitos.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](conceitos.md#qualidade-tem-varias-dimensoes). O conjunto é desbalanceado de propósito, com poucos casos adversariais e muitos pedidos legítimos, porque é assim que a acurácia engana.
 

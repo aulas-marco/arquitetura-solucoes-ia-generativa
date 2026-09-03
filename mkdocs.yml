@@ -122,6 +122,7 @@ nav:
       - Catálogo de padrões: referencia/catalogo-de-padroes.md
       - Guia de ferramentas: referencia/guia-de-ferramentas.md
       - Atributos de qualidade: referencia/atributos-de-qualidade.md
+      - Métricas de avaliação: referencia/metricas-de-avaliacao.md
       - Template de ADR: referencia/template-adr.md
       - Método de referências: referencia/metodo-de-referencias.md
       - Bibliografia consolidada: referencia/bibliografia.md

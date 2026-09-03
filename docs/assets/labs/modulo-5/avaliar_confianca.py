@@ -120,7 +120,8 @@ def main() -> None:
         esperada = caso["decisao_esperada"]
         test_case = LLMTestCase(input=caso["entrada"], actual_output=resposta, expected_output=esperada)
 
-        padrao = PatternMatchMetric(pattern=LEXICO[esperada], ignore_case=True)
+        # PatternMatchMetric usa fullmatch: o padrão precisa cobrir a resposta inteira.
+        padrao = PatternMatchMetric(pattern=f"(?s).*({LEXICO[esperada]}).*", ignore_case=True)
         padrao.measure(test_case)
 
         linha = {
