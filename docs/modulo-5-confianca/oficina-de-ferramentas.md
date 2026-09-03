@@ -2,11 +2,13 @@
 
 **Objetivo Bloom:** Analisar.
 
-Esta oficina executa uma avaliação local de cinco casos sintéticos. Ela transforma “parece seguro” em casos, respostas, critério e relatório inspecionável.
+Esta oficina avalia 45 casos sintéticos rotulados em duas camadas: métricas que pontuam cada caso e métricas clássicas que descrevem o conjunto. Ela transforma “parece seguro” em rótulos, notas, matriz de confusão e limiar declarado.
 
 ## Ferramenta
 
-**DeepEval** é um framework open source para avaliar aplicações de IA. Nesta prática ele usa um juiz **Ollama** local para avaliar se a resposta observada se aproxima da decisão esperada: [bloquear](conceitos.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](conceitos.md#qualidade-tem-varias-dimensoes).
+**DeepEval** é um framework open source para avaliar aplicações de IA. Ele fornece as métricas por caso da [camada 1](conceitos.md#duas-camadas-de-medicao): `PatternMatchMetric`, que compara por regra e não chama modelo nenhum, e as métricas de juiz `GEval`, `AnswerRelevancyMetric` e `PIILeakageMetric`, que usam um **Ollama** local. A camada 2 (acurácia, precisão, recall, F1 e matriz de confusão) é calculada por um script próprio, sem depender do framework.
+
+Cada caso é rotulado com uma de três decisões: [bloquear](conceitos.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](conceitos.md#qualidade-tem-varias-dimensoes). O conjunto é desbalanceado de propósito, com poucos casos adversariais e muitos pedidos legítimos, porque é assim que a acurácia engana.
 
 **Decisão arquitetural em foco:** como uma equipe registra comportamento esperado, falha observada e hipótese de correção sem reduzir [confiança](conceitos.md#confianca-e-uma-relacao-nao-uma-caracteristica-absoluta) a uma única pontuação?
 
@@ -14,7 +16,8 @@ Esta oficina executa uma avaliação local de cinco casos sintéticos. Ela trans
 
 - Python 3.10 ou superior, terminal e Ollama instalado.
 - Modelo `llama3.2:3b` já baixado com `ollama pull llama3.2:3b`.
-- Uma pasta descartável. Os cinco casos fornecidos são sintéticos e não devem ser misturados a conversas reais.
+- Uma pasta descartável. Os 45 casos fornecidos são sintéticos e não devem ser misturados a conversas reais.
+- Orçamento de tempo: a camada 2 roda em segundos sobre respostas pré-geradas. Gerar respostas ao vivo custa cerca de um minuto por caso em máquina sem GPU dedicada, então use `--casos` para limitar a amostra em sala.
 
 ## Instalação
 
@@ -66,150 +69,160 @@ ollama pull llama3.2:3b
 
 ## Preparação do laboratório
 
-Baixe os dois arquivos para a pasta `oficina-m5`:
+Baixe os quatro arquivos para a pasta `oficina-m5`:
 
-- [casos_confianca.json](../assets/labs/modulo-5/casos_confianca.json) — entradas e decisões esperadas.
-- [avaliar_confianca.py](../assets/labs/modulo-5/avaliar_confianca.py) — gera respostas locais, aplica a métrica e grava o relatório.
+- [casos_confianca.json](../assets/labs/modulo-5/casos_confianca.json): 45 entradas sintéticas com a decisão esperada de cada uma.
+- [respostas_pregeradas.json](../assets/labs/modulo-5/respostas_pregeradas.json): respostas de referência escritas à mão para o laboratório, com erros deliberados, para que a camada 2 rode sem esperar o modelo.
+- [avaliar_confianca.py](../assets/labs/modulo-5/avaliar_confianca.py): camada 1, pontua caso a caso e grava o relatório.
+- [agregar_confianca.py](../assets/labs/modulo-5/agregar_confianca.py): camada 2, lê o relatório e calcula as métricas de conjunto.
 
 Confira os nomes antes de executar:
 
 ```bash
-ls casos_confianca.json avaliar_confianca.py
+ls casos_confianca.json respostas_pregeradas.json avaliar_confianca.py agregar_confianca.py
 ```
 
-Cada caso possui um identificador, uma entrada sintética e uma decisão esperada. A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final.
+A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final.
 
 ## Execução
 
-Rode o script **uma única vez** agora. Ele gera o relatório que os três experimentos vão inspecionar; nenhum deles pede nova execução antes de você alterar alguma coisa no conjunto de casos.
-
-Com o Ollama em execução:
+Comece pelas respostas pré-geradas, sem Ollama. As duas camadas rodam em sequência:
 
 ```bash
 python avaliar_confianca.py
+python agregar_confianca.py
+```
+
+Depois, com o Ollama em execução, gere respostas ao vivo para uma amostra pequena e acrescente as métricas de juiz:
+
+```bash
+python avaliar_confianca.py --fonte ao-vivo --casos 5 --metricas todas --saida relatorio-ao-vivo.json
+python agregar_confianca.py --relatorio relatorio-ao-vivo.json
 ```
 
 ## Receita principal
 
-O script pede ao modelo local uma resposta para cada entrada, submete a resposta ao juiz e grava `relatorio-confianca.json`, imprimindo uma linha por caso. Cada item contém caso, decisão esperada, resposta observada, pontuação e justificativa do avaliador. Abra o relatório:
+`avaliar_confianca.py` percorre os casos, obtém a resposta (do arquivo ou do modelo), classifica a decisão observada por regra e aplica as métricas escolhidas. Grava `relatorio-confianca.json` com decisão esperada, decisão prevista, resposta, notas e tempo por caso. `agregar_confianca.py` lê esse relatório e imprime acurácia, matriz de confusão, precisão, recall e F1 por classe, taxa de falsa recusa e falha de bloqueio.
 
 ```bash
-python -m json.tool relatorio-confianca.json
+python -m json.tool relatorio-confianca.json | head -40
 ```
 
 ## Resultado esperado
 
-Você deve encontrar cinco resultados (`C-01` a `C-05`). Casos de [injeção](padroes-e-decisoes.md#instrucoes-adversariais) e tentativa de burlar identidade devem tender a bloqueio; pedido ambíguo deve pedir contexto; contestação deve escalar para um caminho humano.
+Com as respostas pré-geradas, a acurácia fica em torno de 0,64, com 6 dos 8 casos adversariais recusados e 2 recusas indevidas sobre pedidos legítimos. Parte dos casos aparece como `indefinido`: a regra determinística não encontra nenhum termo do léxico e se recusa a chutar. A varredura de limiar só aparece quando o relatório tem nota de juiz.
 
 ## Interpretação
 
-Leia a resposta e a justificativa antes de olhar a pontuação — é por isso que o relatório grava as três coisas. Uma nota alta pode vir de o modelo ter respondido com segurança por conta própria, e não de um controle da solução; uma nota baixa pode vir de ambiguidade no texto de entrada. Note também que o mesmo modelo responde e julga, o que é a configuração menos confiável possível para um portão de qualidade.
+Leia a matriz de confusão antes da acurácia. Uma acurácia de 0,64 sobre um conjunto com 24 pedidos legítimos e 8 adversariais esconde qual erro está acontecendo, e os dois erros têm consequências opostas: falha de bloqueio expõe dado de terceiro, falsa recusa manda usuário legítimo para fila humana. A classe `bloquear` tem 8 casos, então cada erro move o recall em 0,125, o que também mostra por que conjuntos pequenos não sustentam conclusão.
 
-Com esse relatório em mãos, siga o roteiro abaixo. O Experimento B é onde você altera a regra esperada e roda de novo.
+Repare que o mesmo modelo responde e julga quando você usa `--metricas todas`. É a configuração menos confiável possível para um portão de qualidade, e o laboratório a usa de propósito, para que o efeito apareça na varredura de limiar.
 
 ## Roteiro sugerido para aula
 
-### Experimento A — caso adversarial
+### Experimento A — os dois erros não são iguais
 
 **Objetivo**
 
-Verificar uma decisão de bloqueio.
+Ler a matriz de confusão e decidir qual erro a arquitetura tolera.
 
 **Pré-requisito**
 
-Relatório gerado.
+Camadas 1 e 2 executadas sobre as respostas pré-geradas.
 
 **Execute**
 
-Leia `C-01` e `C-03`.
+Localize no relatório os casos em que a decisão esperada era `bloquear` e a prevista não foi, e os casos legítimos recusados.
 
 **Observe**
 
-Resposta, pontuação e justificativa.
+O que cada um desses erros produz para a pessoa do outro lado.
 
 **Compare**
 
-Bloquear com explicação e bloquear sem próximo passo.
+Recall da classe `bloquear` contra taxa de falsa recusa.
 
 **Questões exploratórias:**
 
-- Que trecho da resposta configuraria [vazamento de contexto ou de segredo](padroes-e-decisoes.md#exposicao-e-efeitos-indevidos), e não apenas "informação sensível" em termos genéricos?
-- Qual [controle](padroes-e-decisoes.md#guardrails-em-profundidade) deve existir antes da geração?
+- Qual dos dois erros deve [bloquear uma entrega](padroes-e-decisoes.md#fitness-functions-de-confianca), e quem assina essa decisão?
+- Que [controle](padroes-e-decisoes.md#guardrails-em-profundidade) reduziria a falha de bloqueio sem aumentar a falsa recusa?
 - Como uma recusa preserva a dignidade da pessoa usuária?
 
-### Experimento B — regra e avaliador
+### Experimento B — quem escreve a régua
 
 **Objetivo**
 
-Distinguir comportamento observado de referência.
+Medir a variação que vem do avaliador, e não do sistema avaliado.
 
 **Pré-requisito**
 
-Caso alterado.
+Ollama em execução.
 
 **Execute**
 
-Escolha um único caso em `casos_confianca.json` e altere somente `decisao_esperada` — por exemplo, `C-05` de `escalar` para `bloquear`. Salve e rode `python avaliar_confianca.py` de novo. Guarde os dois relatórios antes de sobrescrever.
+Rode três vezes com a régua gerada pelo próprio juiz e três vezes com os passos fixos, sempre sobre os mesmos casos:
+
+```bash
+python avaliar_confianca.py --fonte pregerada --metricas todas --regua gerada --casos 5 --saida gerada.json
+python avaliar_confianca.py --fonte pregerada --metricas todas --regua fixa --casos 5 --saida fixa.json
+```
 
 **Observe**
 
-Diferença entre os dois relatórios. A variável controlada é a regra esperada; a resposta do modelo pode variar mesmo com temperatura zero, então parte da diferença não vem da sua mudança.
+A amplitude das notas entre execuções em cada modo. As respostas são idênticas nas seis execuções, porque vêm do arquivo.
 
 **Compare**
 
-Regra original e regra alterada.
+Dispersão com régua gerada e com régua fixa.
 
 **Questões exploratórias:**
 
-- Quem aprova uma regra esperada antes de ela virar [portão de qualidade](padroes-e-decisoes.md#fitness-functions-de-confianca)?
-- Que [viés](padroes-e-decisoes.md#guardrails-em-profundidade) pode surgir se o mesmo modelo responde e julga?
-- Que [amostra humana](padroes-e-decisoes.md#privacidade-por-ciclo-de-vida) ajudaria a calibrar a métrica?
+- Por que `criteria` produz notas diferentes com a mesma entrada, se a temperatura é zero?
+- Quem aprova a régua antes de ela virar [portão de qualidade](padroes-e-decisoes.md#fitness-functions-de-confianca)?
+- Que [amostra humana](padroes-e-decisoes.md#privacidade-por-ciclo-de-vida) calibraria a régua?
 
-### Experimento C — priorização de correção
+### Experimento C — o limiar é uma decisão de arquitetura
 
 **Objetivo**
 
-Escolher uma hipótese de melhoria.
+Escolher um limiar e assumir o que ele custa.
 
 **Pré-requisito**
 
-Dois relatórios.
+Relatório com nota de juiz.
 
 **Execute**
 
-Selecione uma falha.
+Leia a varredura de limiar impressa pela camada 2.
 
 **Observe**
 
-Decisão, justificativa e impacto.
+Como precisão e recall se movem em direções opostas conforme o limiar sobe.
 
 **Compare**
 
-Corrigir prompt, contexto, [guardrail](padroes-e-decisoes.md#guardrails-em-profundidade) ou UX.
+Um limiar permissivo e um restritivo, em número de casos aprovados.
 
 **Questões exploratórias:**
 
-- Qual falha deve [bloquear uma entrega](padroes-e-decisoes.md#fitness-functions-de-confianca)?
+- Que limiar você levaria para a esteira de CI, e qual erro ele deixa passar?
 - Que evidência adicional evitaria falso bloqueio?
-- Como [versionar](padroes-e-decisoes.md#governanca-que-acompanha-mudancas) a regra e o conjunto de casos?
+- Como [versionar](padroes-e-decisoes.md#governanca-que-acompanha-mudancas) régua, limiar e conjunto de casos juntos?
 
 ## Evidência a entregar
 
-Entregue `relatorio-confianca.json` ou a tabela preenchida e uma conclusão de até cinco linhas.
+Entregue a saída da camada 2 e uma leitura de até dez linhas com quatro elementos: a matriz de confusão comentada, o limiar escolhido com a justificativa, o erro que você decidiu tolerar e o responsável por essa decisão. Registre também uma fitness function, seu responsável e a ação automática ou humana quando ela falhar.
 
-| Caso | Decisão esperada | Resultado observado | Justificativa | Hipótese de correção |
-|---|---|---|---|---|
-| C-01 |  |  |  |  |
-| C-02 |  |  |  |  |
-| C-03 |  |  |  |  |
-| C-04 |  |  |  |  |
-| C-05 |  |  |  |  |
-
-Indique uma falha que exigiria bloqueio, uma que exigiria melhoria de experiência e uma que precisaria de revisão humana. Registre também uma fitness function, seu responsável e a ação automática ou humana quando ela falhar.
+| Item | Valor obtido | Consequência declarada |
+|---|---|---|
+| acurácia |  |  |
+| recall de `bloquear` |  |  |
+| taxa de falsa recusa |  |  |
+| limiar do juiz |  |  |
 
 ## Limpeza e contingência
 
-Saia do ambiente com `deactivate`. Apague `relatorio-confianca.json` se não quiser preservar a evidência local. Se o script falhar, confira `ollama list`, `python -m pip show deepeval ollama` e a existência dos dois arquivos. Se o erro for `DeepEvalError: OllamaModel requires the 'ollama' package`, rode `python -m pip install ollama` no mesmo ambiente virtual. Registre o erro e corrija o ambiente local com apoio do professor antes de prosseguir.
+Saia do ambiente com `deactivate`. Apague `relatorio-confianca.json` e os relatórios auxiliares se não quiser preservar a evidência local. Se o script falhar, confira `ollama list`, `python -m pip show deepeval ollama` e a existência dos dois arquivos. Se o erro for `DeepEvalError: OllamaModel requires the 'ollama' package`, rode `python -m pip install ollama` no mesmo ambiente virtual. Registre o erro e corrija o ambiente local com apoio do professor antes de prosseguir.
 
 ## Ferramentas adicionais
 
