@@ -27,6 +27,7 @@ Ao final, você deverá conseguir:
 11. distribuir responsabilidades, cotas, showback e chargeback entre plataforma e produtos;
 12. integrar os seis módulos em uma arquitetura pronta para evoluir em produção.
 13. priorizar características operacionais, declarar tensões, atribuir responsáveis e definir fitness functions para promoção e recuperação.
+14. operar laços desassistidos com condição de parada versionada, orçamento com dono, isolamento e desligamento ensaiado.
 
 ## Continuidade com o curso
 
@@ -40,17 +41,18 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 - Observabilidade sustenta decisões com metadados minimizados; conteúdo completo é exceção autorizada.
 - Fallback e degradação preservam autorização, qualidade mínima e aprovação.
 - Plataforma é produto interno: oferece contratos comuns sem absorver a responsabilidade do domínio.
+- Laço sem condição de parada objetiva, orçamento e desligamento não entra em operação, qualquer que seja o modelo.
 
 ## Mapa do módulo
 
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato operacional e continuidade do curso |
-| 2 | [Conceitos](conceitos.md) | versões, ambientes, observabilidade e SLOs |
+| 2 | [Conceitos](conceitos.md) | versões, ambientes, laços desassistidos, observabilidade e SLOs |
 | 3 | [Padrões e decisões](padroes-e-decisoes.md) | entrega, recuperação e capacidades comuns |
 | 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
 | 5 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
-| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas e recuperação |
+| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas, recuperação e um laço objetivado |
 | 7 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
 | 8 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 

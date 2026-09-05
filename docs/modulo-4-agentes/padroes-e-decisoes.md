@@ -21,6 +21,20 @@ O contrato mínimo declara:
 
 Descrições para o modelo incluem uso e não uso, mas o executor aplica as regras. O [Model Context Protocol](https://modelcontextprotocol.io/specification/2025-11-25) oferece uma especificação oficial de interoperabilidade entre aplicações e servidores que expõem contexto e ferramentas. Um protocolo padroniza comunicação; não decide política corporativa, semântica de transação ou adequação da ferramenta.
 
+## Reduzir o espaço de decisão antes de trocar o modelo
+
+Quando um agente erra a escolha de ferramenta, a reação usual é ampliar o catálogo ou trocar por um modelo maior. As duas movimentações são caras e frequentemente pioram o resultado. A ordem de investigação que este curso recomenda vai na direção oposta, do mais barato para o mais caro:
+
+1. **remover ferramentas**, consolidando as que compartilham fronteira, até que uma pessoa da equipe consiga dizer sem hesitar qual ferramenta cabe em cada situação;
+2. **descrever** as que restaram, com contrato, pré-condição e efeito, em vez de expor nomes parecidos sem definição;
+3. **restringir o contexto** ao recorte necessário para a etapa corrente, carregando definições sob demanda;
+4. **acrescentar verificação** determinística antes do efeito, com o motivo da recusa devolvido ao modelo;
+5. só então **avaliar troca de modelo**, com o mesmo conjunto de casos e o mesmo arnês.
+
+A justificativa está em [Mais ferramentas não significa menos erro](conceitos.md#mais-ferramentas-nao-significa-menos-erro) e o efeito de cada passo é mensurável: a [oficina deste módulo](oficina-de-ferramentas.md#extensao-ablacao-de-arnes) executa exatamente essa sequência com o mesmo modelo local e mede a diferença.
+
+A regra tem um limite que precisa ficar explícito. Remover ferramenta não é remover capacidade do sistema; é mover capacidade para fora do espaço de decisão do modelo. A operação que a Vercel fez foi substituir dezesseis ferramentas por uma capacidade mais geral, com isolamento, e não simplesmente amputar funções do produto. Uma remoção que deixe uma jornada sem caminho não melhorou nada, apenas empurrou o problema para o atendimento humano sem registrar a decisão.
+
 ## APIs, mensageria, eventos e adaptadores
 
 Use **API síncrona** quando o agente precisa do resultado para escolher o próximo passo e a dependência responde dentro do orçamento. O contrato deve definir timeout menor que o prazo total, erros e correlação. Não mantenha uma interação bloqueada indefinidamente.
@@ -110,6 +124,39 @@ Orquestração, estado, identidade, telemetria e catálogo de ferramentas podem 
 Um agente recebe **orçamento de etapas**, **orçamento de tempo** e **orçamento de custo**, além de limites de tokens, chamadas e ações de efeito. O contador é externo ao modelo e inclui retries, handoffs e compensações. Limites diferentes podem valer por classe de tarefa. Ao se aproximar do teto, o sistema resume estado, evita nova ação material e escolhe conclusão parcial, solicitação de dado, pausa ou escalonamento.
 
 O fallback para **workflow determinístico** é uma rota projetada: por exemplo, coletar pedido e motivo, validar regras conhecidas e abrir tarefa humana. Não entregue silenciosamente a mesma ação a um modelo mais barato ou ferramenta alternativa com política diferente. Fallback preserva identidade, estado, idempotência e informação clara sobre o que não foi concluído.
+
+## Escolher o nível de loop e a condição de parada
+
+A [escada de quatro níveis](conceitos.md#quatro-niveis-de-loop) é uma decisão arquitetural, não uma preferência de fluxo de trabalho. Cada degrau transfere uma responsabilidade da pessoa para o sistema, e cada transferência exige um controle correspondente no arnês antes de ser feita. A tabela abaixo é o critério de subida.
+
+| Nível | Pré-requisito inegociável | Controle que precisa existir antes | Evidência exigida |
+|---|---|---|---|
+| 1 — por rodada | nenhum além dos contratos de ferramenta | catálogo mínimo e validação de saída | trace da rodada com decisão de política |
+| 2 — por objetivo | critério de sucesso inteiramente objetivo e versionado | teto de iterações e orçamento de custo, com comportamento definido ao esgotar | condição de parada declarada antes da execução, e qual delas encerrou |
+| 3 — por tempo | idempotência sob execução repetida e ausência de pessoa no momento do disparo | identidade própria do gatilho, escopo reduzido e desligamento acessível | registro de cada disparo, inclusive dos que não produziram efeito |
+| 4 — proativo | classificação prévia do que o sistema pode iniciar sem provocação | catálogo de eventos autorizados e limite por janela | trilha ligando evento, decisão de iniciar e efeito |
+
+Três regras atravessam a tabela.
+
+**A condição de parada é artefato versionado, não parâmetro de execução.** Ela pertence ao mesmo pacote que prompt, política e contrato de ferramenta. Mudar a condição de parada muda o comportamento do sistema tanto quanto trocar o modelo, e deve seguir o mesmo caminho de revisão.
+
+**O orçamento é o mecanismo de segurança primário, não a condição de parada.** A documentação do plugin oficial de laço da Anthropic diz isso de forma direta: a frase de conclusão é comparada por igualdade exata e não distingue sucesso de bloqueio, portanto o limite de iterações é a rede. Um laço sem teto de iterações e sem teto de custo é um incidente esperando data. Prefira dois tetos independentes, porque iterações baratas e iterações caras não são intercambiáveis.
+
+**Esgotar o orçamento é um desfecho legítimo e precisa de tratamento definido.** Ao atingir o teto sem sucesso, o sistema deve registrar o que tentou, o que bloqueou o progresso e qual é o estado atual, e encaminhar para uma pessoa. O que não pode acontecer é o laço encerrar em silêncio deixando um artefato parcial que parece pronto.
+
+Existe um teste rápido para decidir se uma tarefa é candidata a laço, e ele se aplica antes de qualquer discussão de ferramenta: se ninguém consegue escrever, em uma frase, o comando que decide se o trabalho terminou, a tarefa está no nível 1 e permanece nele. Reformular a tarefa até que esse comando exista é trabalho de arquitetura, não preparação para a automação.
+
+### Quando não usar laço
+
+Recusar autonomia iterativa é uma decisão tão registrável quanto concedê-la. Não use laço quando o critério de sucesso depende de julgamento humano ou de negociação; quando a operação é de uma vez só e não se beneficia de refinamento; quando o efeito é irreversível e não existe compensação proporcional; quando a falha só aparece em produção e o diagnóstico exige contexto que o agente não tem. Nesses casos, a resposta arquitetural é a mesma da [matriz de autonomia](#matriz-de-autonomia): copiloto com aprovação explícita, não laço desassistido.
+
+### Fitness functions de um laço
+
+- toda execução do laço registra a condição de parada declarada, a que efetivamente encerrou e o consumo acumulado;
+- nenhum laço em ambiente com efeito real roda sem teto de iterações e teto de custo, ambos com dono;
+- uma parada por esgotamento de orçamento gera registro com o motivo do bloqueio e destinatário humano;
+- duas iterações consecutivas com o mesmo resultado de verificação acionam diversificação ou interrupção, não repetição;
+- a condição de parada tem versão e revisão, e uma mudança nela invalida a evidência de execuções anteriores.
 
 ## Agente único versus múltiplos agentes
 

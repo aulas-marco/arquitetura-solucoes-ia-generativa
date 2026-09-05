@@ -112,6 +112,14 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Consequências.** Contém falhas e custo, mas pode encerrar tarefas válidas; os limites precisam de telemetria e calibração por classe de tarefa.  
 **Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
 
+### Arnês verificável
+
+**Contexto.** Um modelo precisa produzir chamadas de ferramenta corretas numa trajetória de várias etapas, e a confiabilidade por etapa se compõe por multiplicação.  
+**Problema.** Ampliar o catálogo de ferramentas ou trocar por um modelo maior é caro e frequentemente piora a escolha, porque amplia o espaço de decisão de cada etapa.  
+**Solução.** Tratar o que cerca o modelo como um artefato projetado: catálogo mínimo com contratos descritos, saída estruturada validada, contexto recortado por etapa e verificação determinística que devolve o motivo da recusa antes de qualquer efeito.  
+**Consequências.** Aumenta a taxa de ação correta e impede que erro do modelo vire efeito, ao custo de chamadas adicionais e de manutenção do catálogo e das validações; não torna segura uma ação irreversível nem substitui autorização.  
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+
 ## Confiança
 
 ### Guardrails em profundidade
@@ -179,3 +187,11 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Solução.** Correlacionar etapas e versões em um trace, registrar métricas necessárias e aplicar minimização, mascaramento, acesso e retenção.  
 **Consequências.** Acelera investigação e medição, mas adiciona custo de telemetria e requer equilíbrio explícito entre utilidade e privacidade.  
 **Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+
+### Loop objetivado com orçamento
+
+**Contexto.** Uma tarefa tem critério de sucesso inteiramente objetivo e se beneficia de refinamento iterativo sem pessoa presente a cada rodada.  
+**Problema.** Um laço que para quando o modelo se declara pronto encerra com falso positivo, e um laço sem teto consome orçamento sem condição de término.  
+**Solução.** Encerrar por condição de parada executável e versionada, com dois tetos independentes de iterações e custo, detecção de repetição, isolamento de execução, desligamento acessível e registro do que encerrou cada execução.  
+**Consequências.** Permite delegar trajetórias inteiras com custo limitado e desfecho auditável; exige verificador mantido fora do alcance do laço e aceita que esgotar o orçamento seja um resultado legítimo, com encaminhamento humano.  
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).

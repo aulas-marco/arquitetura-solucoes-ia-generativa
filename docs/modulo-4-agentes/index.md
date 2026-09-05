@@ -24,6 +24,8 @@ Ao final, você deverá conseguir:
 8. classificar autonomia por ação e risco, com aprovação humana e fallback;
 9. comparar agente único e múltiplos agentes por evidência operacional.
 10. priorizar segurança, confiabilidade, auditabilidade, latência, custo e modificabilidade, declarando tensões, responsáveis e fitness functions.
+11. reconhecer o arnês como objeto de projeto, nomear seus componentes e prever o efeito do erro composto numa trajetória;
+12. escolher o nível de loop adequado a uma tarefa e declarar condição de parada, orçamento e comportamento no esgotamento.
 
 ## Fio aplicado: desenvolvimento guiado por especificação
 
@@ -59,11 +61,11 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem e limites de autonomia |
-| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória, topologias e SDD |
+| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória, topologias, arnês, níveis de loop e SDD |
 | 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, SDD, identidade, resiliência e intervenção humana |
 | 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 5 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
-| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura |
+| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |
 | 7 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
 | 8 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 

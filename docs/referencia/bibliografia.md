@@ -31,6 +31,17 @@ Esta bibliografia apresenta as fontes do registro editorial por área de uso. A 
 - Schick et al. (2023). [*Toolformer: Language Models Can Teach Themselves to Use Tools*](https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html). (`schick-et-al-toolformer-2023`)
 - Model Context Protocol Project (2025). [*Model Context Protocol Specification 2025-11-25*](https://modelcontextprotocol.io/specification/2025-11-25). (`mcp-specification-2025-11-25`)
 
+- Anthropic (2024). [*Building Effective AI Agents*](https://www.anthropic.com/engineering/building-effective-agents). (`anthropic-building-effective-agents-2024`)
+- Anthropic (2025). [*Building agents with the Claude Agent SDK*](https://claude.com/blog/building-agents-with-the-claude-agent-sdk). (`anthropic-agent-sdk-loop-2025`)
+- Anthropic (2025). [*Effective Context Engineering for AI Agents*](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). (`anthropic-context-engineering-2025`)
+- Anthropic (2025). [*Writing Effective Tools for Agents*](https://www.anthropic.com/engineering/writing-tools-for-agents). (`anthropic-writing-tools-for-agents-2025`)
+- Anthropic (2025). [*Code Execution with MCP*](https://www.anthropic.com/engineering/code-execution-with-mcp). (`anthropic-code-execution-with-mcp-2025`)
+- Anthropic (2026). [*Steering Claude Code: when to use CLAUDE.md, skills, hooks, and subagents*](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more). (`anthropic-steering-claude-code-2026`)
+- Anthropic (2026). [*Claude Code — Hooks reference*](https://code.claude.com/docs/en/hooks). (`anthropic-claude-code-hooks`)
+- Trivedy, Vivek (2026). [*The Anatomy of an Agent Harness*](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness). (`trivedy-anatomy-agent-harness-2026`)
+- Osmani, Addy (2026). [*Agent Harness Engineering*](https://addyosmani.com/blog/agent-harness-engineering/). (`osmani-agent-harness-engineering-2026`)
+- Vercel (2026). [*We removed 80% of our agent's tools*](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools). (`vercel-removed-80-percent-tools-2026`)
+
 ## Desenvolvimento guiado por especificação
 
 - GitHub (2026). [*Spec Kit*](https://github.com/github/spec-kit). (`github-spec-kit`)
@@ -60,3 +71,9 @@ Esta bibliografia apresenta as fontes do registro editorial por área de uso. A 
 - OpenTelemetry Authors (2026). [*OpenTelemetry GenAI Semantic Conventions*](https://github.com/open-telemetry/semantic-conventions-genai). (`opentelemetry-genai-semconv`)
 - Jones, Wilkes, Murphy e Smith (2016). [*Service Level Objectives*](https://sre.google/sre-book/service-level-objectives/). (`google-sre-slos-2016`)
 - DORA e Harvey (2026). [*DORA's Software Delivery Performance Metrics*](https://dora.dev/guides/dora-metrics/). (`dora-delivery-metrics-2026`)
+
+- Anthropic (2026). [*Loop engineering: Getting started with loops*](https://claude.com/blog/getting-started-with-loops). (`anthropic-getting-started-with-loops-2026`)
+- Anthropic (2026). [*Claude Code — Ralph Wiggum plugin*](https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md). (`anthropic-ralph-wiggum-plugin-2026`)
+- Huntley, Geoffrey (2025). [*Ralph Wiggum as a "software engineer"*](https://ghuntley.com/ralph/). (`huntley-ralph-wiggum-2025`)
+- Steinberger, Peter (2026). [*You should be designing loops that prompt your agents*](https://x.com/steipete/status/2063697162748260627). (`steinberger-design-loops-2026`)
+- Cherny, Boris (2026). [*Give Claude a way to verify its work*](https://x.com/bcherny/status/2007179861115511237). (`cherny-verification-feedback-2026`)

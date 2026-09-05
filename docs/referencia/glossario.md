@@ -299,3 +299,43 @@ Prática de pedir implementação por linguagem natural sem tornar requisitos, t
 ### Agente de codificação
 Agente que lê, altera e verifica artefatos de software por ferramentas controladas e gates humanos.
 *Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Arnês
+Conjunto de código, configuração e lógica de execução que cerca o modelo e o transforma em agente: prompt de sistema, ferramentas, gestão de contexto, verificação, memória, sandbox e hooks.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Engenharia de arnês
+Disciplina de projetar e ajustar o arnês como artefato de primeira classe, tratando cada falha do agente como indicação de qual componente precisa mudar.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Erro composto
+Queda da probabilidade de sucesso de uma trajetória à medida que etapas são encadeadas, mesmo com confiabilidade alta em cada etapa isolada.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Loop agêntico
+Ciclo de reunir contexto, agir, verificar o trabalho e repetir, executado até uma condição de parada ser satisfeita.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Engenharia de loop
+Projeto do que aciona um laço agêntico, do que ele entrega à máquina em cada nível de autonomia e de como ele encerra, com condição de parada, orçamento e interrupção definidos antes da execução.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Condição de parada
+Critério objetivo, executável e versionado que determina o encerramento de um laço, distinto do julgamento do modelo sobre a própria conclusão.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Hook
+Ponto definido do ciclo de execução em que um controle determinístico intervém, bloqueia ou registra, sem depender da decisão do modelo.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Sandbox
+Ambiente isolado onde código é executado e ferramentas são exercidas sem alcance a produção, a dado real ou a credenciais com efeito.
+*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+
+### Orçamento de laço
+Par de tetos independentes, de iterações e de custo, com dono e comportamento definido no esgotamento, que limita um laço desassistido.
+*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+
+### Verificador
+Artefato que decide se o resultado de uma iteração satisfaz o critério de sucesso; é versionado, calibrado e não editável pelo processo que ele avalia.
+*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)

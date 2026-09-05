@@ -64,9 +64,21 @@ Associe constitution, spec, plan, tasks, implement e verify à pergunta principa
 Constitution responde quais princípios governam o projeto; spec define o que e por que construir; plan registra como a arquitetura realiza a intenção; tasks decompõe em fatias e dependências; implement executa cada fatia com testes; verify demonstra aderência à spec e qualidade técnica.
 </details>
 
+### 6. Componentes do arnês
+
+O arnês de um agente é tudo o que cerca o modelo, e costuma ser descrito por sete componentes.
+
+Nomeie os sete componentes do arnês e diga, em uma frase, qual pergunta cada um responde.
+
+<details>
+<summary>Ver resposta</summary>
+
+Prompt de sistema define caráter, limites e convenções. Ferramentas definem o que o agente pode fazer e sob que contrato. Gestão de contexto decide o que entra na janela e o que é descartado. Verificação confere o trabalho antes de avançar. Memória decide o que persiste entre execuções e sob que autorização. Sandbox isola a execução de produção e de dado real. Hooks definem o ponto do ciclo em que um controle determinístico intervém.
+</details>
+
 ## Compreender
 
-### 6. Saída estruturada não é autorização
+### 7. Saída estruturada não é autorização
 
 Um objeto JSON pode ter esquema perfeitamente válido e ainda assim autorizar uma ação indevida.
 
@@ -78,7 +90,7 @@ Explique por que isso acontece.
 O esquema garante forma, não intenção, regra de negócio, propriedade do recurso ou limite de risco. Política determinística deve avaliar identidade, ferramenta, parâmetros, estado e delegação imediatamente antes da execução.
 </details>
 
-### 7. Aprovar antes e revisar depois
+### 8. Aprovar antes e revisar depois
 
 Nem todo sistema pode esperar aprovação antes de agir; alguns preferem agir e revisar amostras depois.
 
@@ -90,7 +102,7 @@ Diferencie aprovação humana antes da ação de revisão humana depois da açã
 A aprovação prévia bloqueia o efeito até uma pessoa aceitar objeto imutável, evidência e consequência. A revisão posterior detecta e corrige desvios já ocorridos; só é adequada a efeitos aceitáveis, reversíveis ou baixos e não autoriza dano retroativamente.
 </details>
 
-### 8. Agente único e múltiplos agentes
+### 9. Agente único e múltiplos agentes
 
 Especializar um sistema em vários agentes parece, à primeira vista, sempre uma boa prática.
 
@@ -102,7 +114,7 @@ Explique por que dividir um sistema em múltiplos agentes especializados não ga
 Especialização pode isolar contexto ou autoridade, mas multiplica handoffs, estados, custos, latência, permissões e falhas de coordenação. O benefício precisa ser comparado ao agente único e a ferramentas ou módulos determinísticos, por métricas de tarefa e de operação, não assumido de antemão.
 </details>
 
-### 9. Spec viva não é documentação extensa
+### 10. Spec viva não é documentação extensa
 
 Uma spec longa não é, por isso, uma spec viva.
 
@@ -114,9 +126,21 @@ Explique por que o tamanho de uma spec não demonstra que ela é viva ou execut�
 Uma spec é viva quando mudanças de intenção, regra, risco e evidência atualizam o contrato versionado. É executável quando critérios e interfaces conseguem derivar ou verificar planos, tarefas e testes. Um documento longo pode continuar vago, divergente do código e incapaz de decidir aceite.
 </details>
 
+### 11. Parada por julgamento e parada por critério
+
+Um agente de nível 1 encerra quando julga que terminou. Um agente de nível 2 encerra quando uma condição de parada é satisfeita.
+
+Explique por que essa troca é o que permite retirar a pessoa da execução, e por que ela não pode ser feita numa tarefa cujo sucesso depende de julgamento.
+
+<details>
+<summary>Ver resposta</summary>
+
+Enquanto uma pessoa acompanha, ela é o verificador de última instância: lê a saída e interrompe o disparate. Ao remover a pessoa, essa função precisa existir escrita e executável, fora do modelo, senão ninguém confere a afirmação de conclusão e o desfecho comum passa a ser o falso positivo. Numa tarefa cujo sucesso depende de julgamento não existe comando que decida o término; o que se pode escrever é uma aproximação, e o laço passa a otimizar contra a aproximação em vez do requisito. Nesses casos a resposta arquitetural é copiloto com aprovação explícita, não laço desassistido.
+</details>
+
 ## Aplicar
 
-### 10. Seleção de ferramentas
+### 12. Seleção de ferramentas
 
 **Situação**
 
@@ -165,7 +189,7 @@ Antes de entregar, verifique os itens abaixo:
 | Aprovação e parada | 20% | Exige aprovação proporcional e interrompe estados não confirmados. |
 | Falhas e comunicação | 15% | Degrada sem prometer conclusão e informa próximo passo. |
 
-### 11. Classificação de autonomia
+### 13. Classificação de autonomia
 
 **Situação**
 
@@ -218,7 +242,7 @@ Antes de entregar, verifique os itens abaixo:
 
  
 
-### 12. Clarificação e critérios de aceite
+### 14. Clarificação e critérios de aceite
 
 **Situação:** uma área solicita “permita reabrir uma avaliação encerrada”, sem informar autoridade, prazo, efeito sobre notas publicadas, auditoria ou reversão.
 
@@ -246,7 +270,7 @@ Antes de entregar, verifique os itens abaixo:
 
 ## Analisar
 
-### 13. Autonomia orçada em execução real
+### 15. Autonomia orçada em execução real
 
 **Situação**
 
@@ -295,7 +319,7 @@ Antes de entregar, verifique os itens abaixo:
 | Classificação de autonomia | 25% | Liga o comportamento observado a A1/A2 da matriz, com justificativa. |
 | Precisão documental | 20% | Propõe frase que não contradiz o comportamento observado. |
 
-### 14. Diagnóstico de trace
+### 16. Diagnóstico de trace
 
 **Situação**
 
@@ -360,7 +384,7 @@ Antes de entregar, verifique os itens abaixo:
 | Recuperação | 20% | Propõe contenção, reconciliação e compensação proporcionais. |
 | Testes | 20% | Define casos que diferenciam hipóteses. |
 
-### 15. Consistência entre spec, plano, tarefas e testes
+### 17. Consistência entre spec, plano, tarefas e testes
 
 **Situação:** a spec exige autorização por unidade, expiração em 24 horas e auditoria sem conteúdo. O plano descreve link público por sete dias. As tarefas incluem envio por e-mail, embora esteja fora de escopo. Os testes validam apenas geração do arquivo.
 
@@ -384,9 +408,33 @@ Antes de entregar, verifique os itens abaixo:
 | Fatias | 25% | Cada tarefa entrega comportamento. |
 | Gate | 15% | Bloqueios são proporcionais. |
 
+### 18. Leitura de uma ablação de arnês
+
+**Situação:** uma equipe mede o mesmo modelo local, com a mesma temperatura, sobre os mesmos oito casos, e obtém: arnês A (prompt genérico, doze ferramentas sem descrição, sem validação) 0/8 correto e 0 ação indevida; arnês B (contrato de saída validado, doze ferramentas) 2/8 e 1 ação indevida; arnês C (contrato, quatro ferramentas descritas) 6/8 e 1 ação indevida; arnês D (C mais pré-condição de política e uma retentativa) 6/8, 0 ação indevida e uma chamada a mais ao modelo.
+
+**Como conduzir**
+
+1. Atribua a cada salto entre arneses a causa que o explica, e diga qual componente do arnês foi alterado.
+2. Explique por que o salto B para C é o maior, e o que ele diz sobre catálogo de ferramentas.
+3. Justifique por que C para D é relevante mesmo sem ganho na coluna de acertos.
+4. Projete o resultado do arnês C para uma trajetória de dez etapas encadeadas e conclua se ele autoriza autonomia sobre efeito material.
+5. Indique qual seria o quinto componente a acrescentar e que evidência sustentaria a escolha.
+
+**Entrega esperada:** análise de até uma página, com a atribuição causal de cada salto e uma recomendação de próximo investimento no arnês.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Atribuição causal | 30% | Liga cada salto ao componente alterado, sem confundir com capacidade do modelo. |
+| Leitura de risco | 25% | Distingue taxa de acerto de natureza do risco na passagem C para D. |
+| Erro composto | 20% | Aplica a composição multiplicativa à trajetória de dez etapas. |
+| Custo | 15% | Considera a chamada adicional e o que ela compra. |
+| Recomendação | 10% | Propõe próximo componente com critério de decisão. |
+
 ## Avaliar
 
-### 16. Crítica arquitetural
+### 19. Crítica arquitetural
 
 **Situação**
 
@@ -435,7 +483,7 @@ Antes de entregar, verifique os itens abaixo:
 | Comparação | 20% | Compara arquiteturas com métricas e condições. |
 | Revisão | 20% | Define teste e gatilho capazes de alterar o julgamento. |
 
-### 17. Comparação de fluxos SDD
+### 20. Comparação de fluxos SDD
 
 **Situação:** o fluxo A usa um agente para especificar, implementar e revisar. O fluxo B usa Spec Kit, revisões separadas de Spec e Standards e três gates. B dobra a preparação, mas reduz retrabalho; A produz protótipos mais cedo.
 
@@ -461,7 +509,7 @@ Antes de entregar, verifique os itens abaixo:
 
 ## Criar
 
-### 18. Arquitetura de agente controlado
+### 21. Arquitetura de agente controlado
 
 **Situação**
 
@@ -537,7 +585,7 @@ Três ADRs com alternativas, consequências e gatilhos:
 | Diagramas, testes, ADRs e fitness functions | 20% | Mantém artefatos coerentes e verificáveis. |
 | Clareza da composição | 15% | Permite revisar o fluxo sem inferir responsabilidades ocultas. |
 
-### 19. Iniciativa completa com SDD
+### 22. Iniciativa completa com SDD
 
 Escolha uma feature do projeto final que atravesse interface, regra, dados, integração e operação, com ao menos um risco de segurança e um atributo de qualidade.
 

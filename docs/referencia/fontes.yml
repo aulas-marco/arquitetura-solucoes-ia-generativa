@@ -1007,3 +1007,153 @@
   topics: [feature-flags, entrega-controlada]
   modules: [6]
   type: vendor-site
+
+- id: trivedy-anatomy-agent-harness-2026
+  title: The Anatomy of an Agent Harness
+  authors: Vivek Trivedy
+  year: 2026
+  url: https://www.langchain.com/blog/the-anatomy-of-an-agent-harness
+  accessed: 2026-09-05
+  topics: [arnes, agentes, ferramentas, contexto, verificacao]
+  modules: [4]
+  type: technical-essay
+
+- id: osmani-agent-harness-engineering-2026
+  title: Agent Harness Engineering
+  authors: Addy Osmani
+  year: 2026
+  url: https://addyosmani.com/blog/agent-harness-engineering/
+  accessed: 2026-09-05
+  topics: [arnes, agentes, agentes-de-codificacao]
+  modules: [4]
+  type: technical-essay
+
+- id: anthropic-building-effective-agents-2024
+  title: Building Effective AI Agents
+  authors: Anthropic
+  year: 2024
+  url: https://www.anthropic.com/engineering/building-effective-agents
+  accessed: 2026-09-05
+  topics: [agentes, workflows, erro-composto, ferramentas]
+  modules: [4]
+  type: official-documentation
+
+- id: anthropic-agent-sdk-loop-2025
+  title: Building agents with the Claude Agent SDK
+  authors: Anthropic
+  year: 2025
+  url: https://claude.com/blog/building-agents-with-the-claude-agent-sdk
+  accessed: 2026-09-05
+  topics: [agentes, loop-agentico, verificacao, sandbox]
+  modules: [4, 6]
+  type: official-documentation
+
+- id: anthropic-context-engineering-2025
+  title: Effective Context Engineering for AI Agents
+  authors: Anthropic
+  year: 2025
+  url: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+  accessed: 2026-09-05
+  topics: [contexto, ferramentas, memoria, subagentes]
+  modules: [4, 6]
+  type: official-documentation
+
+- id: anthropic-writing-tools-for-agents-2025
+  title: Writing Effective Tools for Agents
+  authors: Anthropic
+  year: 2025
+  url: https://www.anthropic.com/engineering/writing-tools-for-agents
+  accessed: 2026-09-05
+  topics: [ferramentas, catalogo, avaliacao]
+  modules: [4]
+  type: official-documentation
+
+- id: anthropic-code-execution-with-mcp-2025
+  title: Code Execution with MCP
+  authors: Anthropic
+  year: 2025
+  url: https://www.anthropic.com/engineering/code-execution-with-mcp
+  accessed: 2026-09-05
+  topics: [ferramentas, contexto, mcp, privacidade]
+  modules: [4]
+  type: official-documentation
+
+- id: anthropic-getting-started-with-loops-2026
+  title: "Loop engineering: Getting started with loops"
+  authors: Anthropic
+  year: 2026
+  url: https://claude.com/blog/getting-started-with-loops
+  accessed: 2026-09-05
+  topics: [loop-agentico, condicao-de-parada, verificacao, agendamento]
+  modules: [4, 6]
+  type: official-documentation
+
+- id: anthropic-steering-claude-code-2026
+  title: "Steering Claude Code: when to use CLAUDE.md, skills, hooks, and subagents"
+  authors: Anthropic
+  year: 2026
+  url: https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more
+  accessed: 2026-09-05
+  topics: [arnes, hooks, system-prompt, subagentes]
+  modules: [4]
+  type: official-documentation
+
+- id: anthropic-claude-code-hooks
+  title: Claude Code — Hooks reference
+  authors: Anthropic
+  year: 2026
+  url: https://code.claude.com/docs/en/hooks
+  accessed: 2026-09-05
+  topics: [hooks, arnes, controle-deterministico]
+  modules: [4, 6]
+  type: official-documentation
+
+- id: anthropic-ralph-wiggum-plugin-2026
+  title: Claude Code — Ralph Wiggum plugin
+  authors: Anthropic
+  year: 2026
+  url: https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md
+  accessed: 2026-09-05
+  topics: [loop-agentico, orcamento, condicao-de-parada, hooks]
+  modules: [4, 6]
+  type: official-documentation
+
+- id: huntley-ralph-wiggum-2025
+  title: Ralph Wiggum as a "software engineer"
+  authors: Geoffrey Huntley
+  year: 2025
+  url: https://ghuntley.com/ralph/
+  accessed: 2026-09-05
+  topics: [loop-agentico, contrapressao, agentes-de-codificacao]
+  modules: [4, 6]
+  type: technical-essay
+
+- id: steinberger-design-loops-2026
+  title: You should be designing loops that prompt your agents
+  authors: Peter Steinberger
+  year: 2026
+  url: https://x.com/steipete/status/2063697162748260627
+  accessed: 2026-09-05
+  topics: [loop-agentico, pratica-profissional]
+  modules: [4]
+  type: practitioner-note
+
+- id: cherny-verification-feedback-2026
+  title: Give Claude a way to verify its work
+  authors: Boris Cherny
+  year: 2026
+  url: https://x.com/bcherny/status/2007179861115511237
+  accessed: 2026-09-05
+  topics: [verificacao, loop-agentico, qualidade]
+  modules: [4, 6]
+  type: practitioner-note
+
+- id: vercel-removed-80-percent-tools-2026
+  title: We removed 80% of our agent's tools
+  authors: Vercel
+  year: 2026
+  url: https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools
+  accessed: 2026-09-05
+  topics: [ferramentas, catalogo, sandbox, custo]
+  modules: [4]
+  type: industry-report

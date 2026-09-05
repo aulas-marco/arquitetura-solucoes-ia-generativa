@@ -392,6 +392,8 @@ Ao final do encontro, o aluno deverá conseguir:
 - conduzir uma mudança de software por constitution, spec, plano, tarefas e evidências;
 - transformar requisitos ambíguos em critérios verificáveis e fatias verticais;
 - revisar separadamente aderência à especificação e qualidade de engenharia.
+- projetar o arnês de um agente componente a componente e prever o efeito do erro composto;
+- escolher o nível de loop de uma tarefa e declarar sua condição de parada e seu orçamento.
 
 ### Conceitos
 
@@ -431,15 +433,27 @@ Ao final do encontro, o aluno deverá conseguir:
 - Fallback para workflow determinístico.
 - Interrupção e recuperação.
 
-#### 5. Trade-offs
+#### 5. Engenharia de arnês e de loop
+
+- Arnês: o que cerca o modelo e por que agente é modelo mais arnês.
+- Erro composto e o efeito de encadear etapas.
+- Componentes: prompt de sistema, ferramentas, contexto, verificação, memória, sandbox e hooks.
+- Catálogo mínimo: por que remover ferramentas melhora a escolha.
+- Ciclo agêntico: reunir contexto, agir, verificar e repetir.
+- Quatro níveis de loop: por rodada, por objetivo, por tempo e proativo.
+- Condição de parada objetiva, orçamento e comportamento no esgotamento.
+- Quando não usar laço.
+
+#### 6. Trade-offs
 
 - Flexibilidade versus previsibilidade.
 - Autonomia versus controle.
 - Agente único versus múltiplos agentes.
 - Memória versus privacidade.
 - Acoplamento com ferramentas e fornecedores.
+- Custo de verificação versus risco de falso positivo.
 
-#### 6. SDD como arquitetura do trabalho com agentes
+#### 7. SDD como arquitetura do trabalho com agentes
 
 - Especificação viva como fonte de intenção, não documentação retrospectiva.
 - Spec Kit: constitution, specify, clarify, plan, tasks, analyze e implement.
@@ -458,7 +472,7 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Aplicar e Analisar.** A oficina combina dois percursos. Primeiro, [simule workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) para observar intenção, autorização, idempotência e resultado autoritativo. Depois, conduza uma mini-iniciativa com Spec Kit: explicite princípios, refine uma spec, aprove o plano, implemente uma fatia testada e realize revisão por aderência e por qualidade.
+**Objetivo Bloom: Aplicar e Analisar.** A oficina combina dois percursos. Primeiro, [simule workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) para observar intenção, autorização, idempotência e resultado autoritativo. Depois, conduza uma mini-iniciativa com Spec Kit: explicite princípios, refine uma spec, aprove o plano, implemente uma fatia testada e realize revisão por aderência e por qualidade. A extensão de [ablação de arnês](../modulo-4-agentes/oficina-de-ferramentas.md#extensao-ablacao-de-arnes) mede, com o mesmo modelo local, quanto do resultado vem de cada componente do arnês.
 
 ### Entregável avaliativo
 
@@ -598,6 +612,7 @@ Ao final do encontro, o aluno deverá conseguir:
 - desenhar mecanismos de fallback, canary e rollback;
 - identificar serviços compartilháveis em uma plataforma corporativa;
 - analisar trade-offs entre padronização, autonomia e dependência de fornecedor.
+- definir portões, orçamento e desligamento de um laço que roda sem supervisão.
 
 ### Conceitos
 
@@ -639,7 +654,16 @@ Ao final do encontro, o aluno deverá conseguir:
 - Times de plataforma e times de produto.
 - Custos, cotas, showback e chargeback.
 
-#### 5. Trade-offs de escala
+#### 5. Operação de laços desassistidos
+
+- O laço como unidade operada: prompt, condição de parada, orçamento, verificador e gatilho.
+- O verificador como gargalo e a falha por falso positivo de conclusão.
+- Modos de falha próprios de laço: estagnação, convergência para a métrica, efeito duplicado, deriva do gatilho.
+- Quatro portões: critério, orçamento, isolamento e interrupção.
+- Verificação independente com contexto limpo.
+- Rebaixamento de degrau como ação operacional normal.
+
+#### 6. Trade-offs de escala
 
 - Plataforma central versus autonomia das equipes.
 - Padronização versus experimentação.
@@ -655,7 +679,7 @@ Uma organização possui protótipos independentes de copiloto, RAG e agentes. H
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Analisar.** Realize a [oficina para operar uma capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md): formule um parecer a partir de sinais sintéticos e relacione gateway, quota, roteamento, SLO, custo e ação de recuperação por produto.
+**Objetivo Bloom: Analisar.** Realize a [oficina para operar uma capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md): formule um parecer a partir de sinais sintéticos e relacione gateway, quota, roteamento, SLO, custo e ação de recuperação por produto. A extensão de [loop objetivado](../modulo-6-operacao/oficina-de-ferramentas.md#extensao-loop-objetivado-com-orcamento) contrasta um laço que para por verificação com um que para por autodeclaração do modelo.
 
 ### Banca
 

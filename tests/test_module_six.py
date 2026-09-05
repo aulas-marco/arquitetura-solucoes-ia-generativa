@@ -215,10 +215,10 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)
         expected_counts = {
-            "Recordar": 4,
+            "Recordar": 5,
             "Compreender": 3,
             "Aplicar": 3,
-            "Analisar": 1,
+            "Analisar": 2,
             "Avaliar": 1,
             "Criar": 1,
         }
@@ -227,7 +227,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
             questions = re.findall(r"(?m)^### \d+\.", sections[level])
             self.assertEqual(expected, len(questions), level)
 
-        self.assertEqual(4, sections["Recordar"].count("<details>"))
+        self.assertEqual(5, sections["Recordar"].count("<details>"))
         self.assertEqual(3, sections["Compreender"].count("<details>"))
         for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
             self.assertNotIn("<details>", sections[level])

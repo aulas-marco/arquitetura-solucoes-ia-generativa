@@ -40,6 +40,11 @@ O capstone é um argumento rastreável do contexto à operação: propósito, qu
 - [ ] Equipes de plataforma, produto, operação, segurança, privacidade, FinOps e domínio conhecem seus limites.
 - [ ] Riscos residuais têm autoridade, prazo, gatilho e experimento quando falta evidência.
 - [ ] Fitness functions verificam manifesto, trace, bypass, fallback e ensaio de recuperação, com responsável e reação à falha.
+- [ ] Todo laço em operação tem, no catálogo, dono, gatilho, condição de parada, tetos de iteração e custo, e procedimento de desligamento.
+- [ ] A condição de parada de cada laço é executável, versionada e comprovadamente capaz de reprovar.
+- [ ] Nenhum laço escreve o artefato que define seu próprio critério de sucesso.
+- [ ] Esgotamento de orçamento produz registro do que bloqueou o progresso e encaminhamento humano, nunca encerramento silencioso.
+- [ ] O desligamento de cada laço é ensaiado na mesma cadência do ensaio de rollback.
 
 ## Fontes oficiais e primárias
 
@@ -50,6 +55,15 @@ O capstone é um argumento rastreável do contexto à operação: propósito, qu
 - [Service Level Objectives, Google SRE Book](https://sre.google/sre-book/service-level-objectives/). Capítulo institucional sobre indicadores, objetivos e foco no usuário.
 - [DORA's Software Delivery Performance Metrics](https://dora.dev/guides/dora-metrics/). Orientação institucional atual sobre desempenho de entrega. Suas métricas observam capacidade de entrega; não substituem qualidade generativa, risco ou valor de negócio.
 - [Hidden Technical Debt in Machine Learning Systems](https://proceedings.neurips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html), de D. Sculley et al. Artigo primário sobre dependências e dívida sistêmica em ML.
+
+### Operação de laços agênticos
+
+- [Loop engineering: Getting started with loops](https://claude.com/blog/getting-started-with-loops), da Anthropic. Documentação de fornecedor com a escada de quatro níveis, a orientação sobre condição de parada e a recomendação de revisão por segundo agente com contexto limpo.
+- [Claude Code — Ralph Wiggum plugin](https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md), da Anthropic. Implementação oficial de laço por hook de encerramento, com a advertência de que o limite de iterações é o mecanismo de segurança primário e a lista de casos em que laço não se aplica.
+- [Ralph Wiggum as a "software engineer"](https://ghuntley.com/ralph/), de Geoffrey Huntley. Origem da técnica, com a exigência de contrapressão por testes e análise estática.
+- [Claude Code — Hooks reference](https://code.claude.com/docs/en/hooks), da Anthropic. Referência de pontos de intervenção determinística no ciclo de execução.
+
+Este bloco é **prática viva** e depende de documentação de fornecedor. Fixe a versão consultada, registre a data de acesso e revise antes de reutilizar os procedimentos.
 
 ### Risco, desenvolvimento e interoperabilidade
 
@@ -277,3 +291,5 @@ O futuro muda ferramentas e fronteiras econômicas. O trabalho do arquiteto perm
 4. Projeto fallback e rollback que preservam controles essenciais?
 5. Delimito capacidades comuns, autonomia local e raio de impacto?
 6. Consigo declarar prioridade, tensão, responsável e fitness function para cada capacidade crítica?
+7. Sei dizer, para cada laço em operação, quem responde pelo teto de custo e quem consegue desligá-lo às três da manhã?
+8. Distingo falha do verificador de falha do critério de sucesso, e sei que evidência separaria as duas?

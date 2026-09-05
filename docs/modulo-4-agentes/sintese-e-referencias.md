@@ -24,6 +24,13 @@ Antes de liberar um sistema que age, verifique:
 - agente único é o padrão inicial; múltiplos agentes exigem fronteira ou benefício medido;
 - traces permitem reconstrução sem reter segredos e dados pessoais desnecessários;
 - caminhos de sucesso, negação, repetição e compensação têm testes próprios.
+- o arnês foi projetado como um todo, e cada componente tem dono: prompt de sistema, ferramentas, contexto, verificação, memória, sandbox e hooks;
+- o catálogo passou pelo teste da ambiguidade: uma pessoa da equipe diz sem hesitar qual ferramenta cabe em cada situação;
+- a redução do número de etapas foi considerada antes de aumentar a confiabilidade de cada uma;
+- o nível de loop está declarado, e o que foi entregue à máquina em cada degrau tem controle correspondente no arnês;
+- a condição de parada é objetiva, executável, versionada e conhecidamente capaz de reprovar;
+- há teto de iterações e teto de custo independentes, com dono e comportamento definido no esgotamento;
+- nenhum laço tem permissão de escrita sobre o artefato que define seu próprio critério de sucesso.
 
 ## Autoavaliação
 
@@ -34,6 +41,9 @@ Antes de liberar um sistema que age, verifique:
 5. Consigo classificar autonomia por ação e definir intervenção humana proporcional?
 6. Sei defender agente único, múltiplos agentes ou workflow com métricas capazes de inverter a decisão?
 7. Consigo atribuir responsabilidades entre planejador, executor, política, estado e aprovação, sem conceder autoridade ao modelo?
+8. Sei nomear os componentes do arnês e dizer qual deles atacaria diante de um tipo específico de falha?
+9. Consigo calcular o efeito do erro composto numa trajetória e usar o resultado para limitar o número de etapas?
+10. Sei dizer se uma tarefa pode subir para o nível 2 de loop, e escrever o comando que decide seu término?
 
 Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Padrões e decisões](padroes-e-decisoes.md) e os exercícios de SDD em [Exercícios](exercicios.md).
 
@@ -41,7 +51,11 @@ Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Pad
 
 [ReAct](https://openreview.net/forum?id=WE_vluYUL-X) é pesquisa primária sobre a combinação de raciocínio e ação. [Toolformer](https://proceedings.neurips.cc/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) examina aprendizagem de uso de ferramentas. A [especificação do Model Context Protocol](https://modelcontextprotocol.io/specification/2025-11-25) documenta um protocolo aberto para integrar aplicações, contexto e ferramentas; interoperabilidade não substitui autorização e semântica corporativa.
 
-O [perfil do NIST para IA generativa](https://doi.org/10.6028/NIST.AI.600-1), o [perfil SSDF do NIST](https://doi.org/10.6028/NIST.SP.800-218A) e o [OWASP Top 10 para aplicações com LLM](https://genai.owasp.org/llm-top-10/) orientam risco, desenvolvimento seguro e ameaças. As [convenções de OpenTelemetry para IA generativa](https://github.com/open-telemetry/semantic-conventions-genai) apoiam vocabulário de observabilidade. O capítulo local *Architecting a Generative AI System — A Case Study* (`avila-ahmad-chapter-7-local`) fornece o material do livro sobre integração e estudo de caso. Todas as fontes estão no [registro editorial](../referencia/fontes.yml) e na [Bibliografia consolidada](../referencia/bibliografia.md).
+O [perfil do NIST para IA generativa](https://doi.org/10.6028/NIST.AI.600-1), o [perfil SSDF do NIST](https://doi.org/10.6028/NIST.SP.800-218A) e o [OWASP Top 10 para aplicações com LLM](https://genai.owasp.org/llm-top-10/) orientam risco, desenvolvimento seguro e ameaças. As [convenções de OpenTelemetry para IA generativa](https://github.com/open-telemetry/semantic-conventions-genai) apoiam vocabulário de observabilidade. O capítulo local *Architecting a Generative AI System — A Case Study* (`avila-ahmad-chapter-7-local`) fornece o material do livro sobre integração e estudo de caso.
+
+Sobre arnês e loops, o material do módulo se apoia em documentação de fornecedor e em relatos de engenharia, que são as fontes primárias disponíveis para uma prática que ainda não tem literatura revisada por pares. A Anthropic documenta o ciclo de quatro tempos em [Building agents with the Claude Agent SDK](https://claude.com/blog/building-agents-with-the-claude-agent-sdk), a escada de níveis em [Getting started with loops](https://claude.com/blog/getting-started-with-loops), o erro composto e a distinção entre workflow e agente em [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), a curadoria de contexto em [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), o desenho de catálogo em [Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents) e [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp), a separação entre guiar e impor em [Steering Claude Code](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more) e o laço com teto de iterações no [plugin Ralph Wiggum](https://github.com/anthropics/claude-code/blob/main/plugins/ralph-wiggum/README.md). O termo arnês vem de [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness), de Vivek Trivedy, com a leitura complementar de [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/), de Addy Osmani; o laço em sua forma mínima vem de [Ralph Wiggum as a "software engineer"](https://ghuntley.com/ralph/), de Geoffrey Huntley. Os dois relatos de campo usados no texto são a [remoção de 80% das ferramentas](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) publicada pela Vercel e a estimativa de ganho por verificação de [Boris Cherny](https://x.com/bcherny/status/2007179861115511237). Trate números de benchmark e ganhos relatados como indicação de direção: eles vêm de contextos que você não controla e não foram replicados de forma independente.
+
+Todas as fontes estão no [registro editorial](../referencia/fontes.yml) e na [Bibliografia consolidada](../referencia/bibliografia.md).
 
 ## Materiais adicionais sobre SDD
 

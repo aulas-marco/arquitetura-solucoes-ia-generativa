@@ -222,6 +222,152 @@ Encerre o proxy com `Ctrl+C`, saia do ambiente com `deactivate` e apague a pasta
 
 Se ocorrer erro, confirme que `curl http://localhost:4000/health/readiness` responde, que `ollama list` mostra o modelo e que as dependências foram instaladas. Se o proxy encerrar com `ImportError: cannot import name 'get_flat_dependant' from 'fastapi.dependencies.utils'`, o ambiente tem uma versão de FastAPI mais nova que a fixada; rode novamente `python3 -m pip install 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'` no mesmo ambiente virtual. Registre a mensagem e corrija a configuração local com apoio do professor; não substitua a evidência por telemetria de outro ambiente.
 
+## Extensão — loop objetivado com orçamento
+
+A oficina principal observou uma chamada. Esta extensão observa um **laço**: um agente de nível 2 que roda sozinho até um critério objetivo ser satisfeito, ou até o orçamento acabar. O objeto de estudo não é a qualidade do código que ele produz; é a diferença entre parar porque um verificador aprovou e parar porque o modelo disse que terminou.
+
+### Cenário sintético
+
+A Boreal precisa de uma função `normalizar_pedido(texto)` que converta uma linha como `PED-845 | item P20 | qtd 2` em um dicionário com pedido, item em maiúsculas e quantidade inteira, tratando espaços extras, caixa baixa, quantidade ausente e linha inválida. A especificação está no script e a suíte de cinco casos de teste é o verificador. Nada sai da pasta do laboratório.
+
+### Pergunta de investigação
+
+Um laço com condição de parada objetiva e um laço que para quando o modelo se declara pronto consomem orçamentos parecidos. Eles entregam o mesmo resultado?
+
+### Pré-requisitos
+
+- Python 3.10 ou superior, terminal e a pasta `oficina-m6` com o ambiente virtual ativo.
+- `pytest` e `langchain-ollama` instalados no ambiente: `python -m pip install pytest langchain-ollama`.
+- Ollama em execução com um modelo de codificação: `ollama pull qwen2.5-coder:7b` (4,7 GB). O `llama3.2:3b` das outras oficinas roda o laboratório, mas não converge; a subseção final trata disso.
+- Nenhum dado real. O laço escreve apenas dentro da subpasta `loop-sandbox`.
+
+### Preparação
+
+Baixe [loop_objetivado.py](../assets/labs/modulo-6/loop_objetivado.py) para a pasta `oficina-m6`.
+
+```bash
+ls loop_objetivado.py
+```
+
+O script contém a especificação, a suíte de testes, a guarda estática e o laço. Ao rodar, ele cria a pasta `loop-sandbox` com `test_solucao.py` e escreve ali a `solucao.py` de cada iteração.
+
+### O que o arnês deste laço contém
+
+Vale ler a lista antes de executar, porque cada item é um componente do [arnês](../modulo-4-agentes/conceitos.md#os-componentes-do-arnes) e cada um deles foi necessário para o laço funcionar.
+
+| Componente | Como aparece no script |
+|---|---|
+| *System prompt* | instrui a devolver só o bloco de código; muda conforme a condição de parada escolhida |
+| Contexto | especificação, suíte de testes e **a versão anterior do próprio código** entram no *prompt* de cada iteração |
+| *Sandbox* | tudo é escrito em `loop-sandbox`; o `pytest` roda como subprocesso com essa pasta como diretório de trabalho |
+| Guarda estática | análise da árvore sintática rejeita `import` fora de uma lista curta, chamadas como `exec` e `open`, e acesso a atributos com prefixo duplo |
+| Verificador | `pytest` com cinco casos; o relatório de falha volta ao modelo na iteração seguinte |
+| Orçamento | teto de iterações, com comportamento definido no esgotamento |
+| Detecção de estagnação | duas iterações com o mesmo relatório de falha elevam a temperatura, em vez de repetir a mesma chamada |
+
+A detecção de estagnação existe por um motivo empírico que vale antecipar: com `temperature=0` e um contexto idêntico, o modelo devolve exatamente a mesma resposta, e o laço vira uma repetição sem progresso. Um laço determinístico sobre entrada constante é um laço que não itera.
+
+### Execute o laço com condição de parada objetiva
+
+```bash
+python loop_objetivado.py
+```
+
+Uma execução completa leva de 40 segundos a poucos minutos, conforme a máquina e o número de iterações até a convergência.
+
+### Observe
+
+Uma execução com `qwen2.5-coder:7b` e orçamento de oito iterações produziu:
+
+```text
+MODELO: qwen2.5-coder:7b
+CONDICAO_DE_PARADA: testes
+ORCAMENTO: 8 iteracoes
+VERIFICADOR: pytest com 5 casos, em loop-sandbox/test_solucao.py
+
+ITER 1 | GUARDA: aceito | TESTES: 4/5 | AUTODECLAROU_PRONTO: False | TEMPERATURA: 0.0 | TOKENS_ACUM: 704
+  PRIMEIRA_FALHA: FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...
+ITER 2 | GUARDA: aceito | TESTES: 4/5 | AUTODECLAROU_PRONTO: False | TEMPERATURA: 0.4 | TOKENS_ACUM: 1636
+  ESTAGNACAO: mesma falha da iteracao anterior; o arnes diversificou a temperatura para 0.4
+...
+ITER 5 | GUARDA: aceito | TESTES: 5/5 | AUTODECLAROU_PRONTO: False | TEMPERATURA: 0.8 | TOKENS_ACUM: 4523
+
+PARADA: meta_atingida
+ITERACOES: 5
+TOKENS_TOTAIS: 4523
+VERDADE_FINAL: 5/5 testes passando
+```
+
+Rode uma segunda vez. Execuções desta oficina com orçamento de cinco iterações terminaram ora em `meta_atingida` na quarta iteração, com cerca de 3,5 mil *tokens*, ora em `orcamento_esgotado` com 4/5, consumindo cerca de 4,5 mil. **A variação entre execuções é o resultado, não ruído a descartar**: a partir do momento em que o arnês diversifica a temperatura para escapar da estagnação, a trajetória deixa de ser determinística, e é por isso que orçamento de laço se dimensiona por distribuição observada, com percentil, e não por média.
+
+### Execute o mesmo laço sem verificador
+
+Agora troque apenas a condição de parada. O modelo passa a declarar quando terminou, e o laço acredita nele.
+
+```bash
+python loop_objetivado.py --parada modelo
+```
+
+A saída registrada nesta oficina foi:
+
+```text
+CONDICAO_DE_PARADA: modelo
+
+ITER 1 | GUARDA: aceito | TESTES: 4/5 | AUTODECLAROU_PRONTO: True | TEMPERATURA: 0.0 | TOKENS_ACUM: 719
+
+PARADA: autodeclarada_pelo_modelo
+ITERACOES: 1
+TOKENS_TOTAIS: 719
+VERDADE_FINAL: 4/5 testes passando
+```
+
+### Interprete
+
+O segundo laço é seis vezes mais barato e encerra em um sexto do tempo. Ele também entrega um artefato que não satisfaz a especificação, e encerra afirmando o contrário. A linha `VERDADE_FINAL` só existe porque o script roda os testes de qualquer forma no fim, para efeito de laboratório; num sistema real, essa linha é exatamente a informação que não existiria. Ninguém saberia.
+
+Note onde a diferença **não** está. O modelo é o mesmo, os pesos são os mesmos, a especificação é a mesma, e na primeira iteração os dois laços produzem 4/5. A diferença inteira está em quem tem autoridade para dizer que o trabalho terminou. Esse é o conteúdo operacional de [o verificador é o gargalo](conceitos.md#loop-desassistido-o-verificador-e-o-gargalo): tirar a pessoa da frente não elimina a necessidade de verificação, apenas transfere a função para um artefato que precisa ser escrito, versionado e protegido de quem ele avalia.
+
+Observe também o que a guarda estática faz e o que ela não faz. Ela impede que o código gerado importe módulos fora da lista ou chame `exec`, e por isso o laço pode rodar sem supervisão numa máquina de estudo. Ela não diz nada sobre a correção do resultado. Isolamento e verificação são [portões distintos](padroes-e-decisoes.md#portoes-de-um-loop-autonomo), e cumprir um não dispensa o outro.
+
+### Compare
+
+| Execução | Parada | Iterações | *Tokens* | Testes ao encerrar | O que o sistema afirmou |
+|---|---|---:|---:|---|---|
+| Objetiva | `meta_atingida` | 5 | 4.523 | 5/5 | terminou, e terminou |
+| Objetiva sem convergir | `orcamento_esgotado` | 5 | 4.513 | 4/5 | não terminou, e informou |
+| Autodeclarada | `autodeclarada_pelo_modelo` | 1 | 719 | 4/5 | terminou, e não terminou |
+
+As duas primeiras linhas são desfechos aceitáveis, inclusive a segunda: um laço que esgota o orçamento e diz que esgotou entregou informação verdadeira. A terceira é a única falha operacional da tabela, e é a mais barata das três.
+
+### Modelo pequeno, laço que não fecha
+
+Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta oficina esgotou o orçamento com 1/5 em todas as execuções testadas, com e sem realimentação do código anterior. É o mesmo achado da [limitação registrada na oficina do Módulo 4](../modulo-4-agentes/oficina-de-ferramentas.md#preparar-o-ambiente-do-spec-kit): arnês bem construído não compensa capacidade insuficiente do modelo. As duas afirmações do curso convivem sem contradição. Trocar o arnês costuma render mais que trocar o modelo, **e** existe um piso de capacidade abaixo do qual nenhum arnês fecha o laço. O trabalho de arquitetura é descobrir de que lado desse piso está o seu caso, e a forma de descobrir é medir, como este laboratório faz.
+
+### Questões exploratórias
+
+- O laço autodeclarado gastou 719 *tokens* e o objetivo gastou 4.523. Que informação você precisaria para dizer qual dos dois foi mais caro para a organização?
+- A detecção de estagnação eleva a temperatura. Que outras respostas o arnês poderia dar diante de duas falhas idênticas, e qual delas você adotaria num laço com efeito externo?
+- Se o agente tivesse permissão de escrita sobre `test_solucao.py`, qual desfecho passaria a ser possível, e que portão o impede?
+- O script roda `pytest` como subprocesso dentro da pasta do laboratório. O que faltaria nesse isolamento para que o mesmo laço pudesse rodar numa máquina compartilhada da empresa?
+
+### Evidência a entregar
+
+Entregue as linhas `PARADA`, `ITERACOES`, `TOKENS_TOTAIS` e `VERDADE_FINAL` de três execuções: duas com condição de parada objetiva e uma autodeclarada. Preencha o quadro abaixo e conclua em até cinco linhas qual teto você definiria para este laço em produção e o que o sistema deve fazer ao atingi-lo.
+
+| Execução | Parada | Iterações | *Tokens* | Verdade final | Desfecho aceitável? |
+|---|---|---:|---:|---|---|
+| Objetiva 1 |  |  |  |  |  |
+| Objetiva 2 |  |  |  |  |  |
+| Autodeclarada |  |  |  |  |  |
+
+Registre também uma [fitness function de operação de laço](padroes-e-decisoes.md#fitness-functions-de-operacao-de-laco), com limiar, responsável e consequência diante da falha.
+
+### Limpeza e contingência
+
+Apague a pasta gerada com `rm -rf loop-sandbox` (no PowerShell, `Remove-Item -Recurse -Force loop-sandbox`). Para liberar espaço, `ollama rm qwen2.5-coder:7b`.
+
+Se o laço encerrar na primeira iteração com `GUARDA: recusado`, leia a linha `MOTIVO`: a guarda estática recusou o código antes de executá-lo, que é o comportamento correto. Se `pytest` não for encontrado, confirme o ambiente virtual ativo e `python -m pip show pytest`. Não desative a guarda estática para fazer o laboratório passar.
+
 ## Ferramentas adicionais
 
 O laboratório usou OpenTelemetry para expor spans de uma chamada de plataforma. O mercado tem plataformas dedicadas de observabilidade, gateways e controle de entrega que assumem esse sinal e o transformam em operação contínua. Investigação livre, fora do escopo avaliado desta oficina.

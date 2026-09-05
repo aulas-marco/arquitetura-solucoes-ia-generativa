@@ -419,7 +419,7 @@ MOTIVO: SKU P99 fora do catalogo
 
 **Interprete**
 
-`PROPOSTA_BRUTA_DO_MODELO` é geração: o modelo leu a frase do cliente e devolveu um JSON com sua interpretação, sem consultar nenhum catálogo. `PROPOSTA_VALIDA` e `MOTIVO` vêm de um nó totalmente determinístico, escrito em Python puro, que confere `new_sku` contra um conjunto fixo de SKUs válidos e `order_id` contra um conjunto fixo de pedidos conhecidos. É o mesmo papel que a política exerce no grafo Boreal, só que aqui a proposta que ela avalia veio de um modelo, não de uma flag de linha de comando. Repare que, nos dois casos, o modelo devolveu um JSON com esquema igualmente correto; a diferença entre aceitar e recusar não está na forma da saída, está na validação posterior, exatamente o ponto do [Exercício 6](exercicios.md).
+`PROPOSTA_BRUTA_DO_MODELO` é geração: o modelo leu a frase do cliente e devolveu um JSON com sua interpretação, sem consultar nenhum catálogo. `PROPOSTA_VALIDA` e `MOTIVO` vêm de um nó totalmente determinístico, escrito em Python puro, que confere `new_sku` contra um conjunto fixo de SKUs válidos e `order_id` contra um conjunto fixo de pedidos conhecidos. É o mesmo papel que a política exerce no grafo Boreal, só que aqui a proposta que ela avalia veio de um modelo, não de uma flag de linha de comando. Repare que, nos dois casos, o modelo devolveu um JSON com esquema igualmente correto; a diferença entre aceitar e recusar não está na forma da saída, está na validação posterior, exatamente o ponto do [Exercício 7](exercicios.md).
 
 **Compare**
 
@@ -450,6 +450,97 @@ Se fez o Experimento D, entregue também as duas saídas completas (`valido` e `
 Saia do ambiente com `deactivate` e apague a pasta `oficina-m4` quando terminar. Se houver erro, confira `python --version`, a ativação do ambiente e `python -m pip show langgraph`. Registre a mensagem e corrija a instalação local antes de continuar; não conecte o exercício a sistemas reais.
 
 Se o Experimento D falhar, confirme que o Ollama está em execução (`ollama list` deve mostrar `llama3.2:3b`) e que `python -m pip show langchain-ollama` retorna o pacote instalado. Não é preciso remover o modelo depois: ele é o mesmo usado nas oficinas dos Módulos 1 e 3.
+
+## Extensão — ablação de arnês
+
+Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês](conceitos.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
+
+### Cenário sintético
+
+A Boreal recebe mensagens de clientes em texto livre e precisa converter cada uma em **uma** chamada de ferramenta. Os pedidos `845` e `846` existem na base sintética; o `845` já foi despachado, e a política da empresa proíbe cancelá-lo pela ferramenta, encaminhando o caso para tratamento humano. São oito mensagens, e a resposta certa de cada uma é conhecida de antemão.
+
+### Pergunta de investigação
+
+Com o mesmo modelo e os mesmos oito casos, quanto muda o resultado quando se troca apenas o arnês? E qual componente do arnês produz o maior salto?
+
+### Pré-requisitos
+
+- A pasta `oficina-m4` da oficina principal, com o ambiente virtual ativo e `langgraph` e `langchain-ollama` instalados.
+- Ollama em execução, com `llama3.2:3b` baixado (`ollama pull llama3.2:3b`), o mesmo modelo das oficinas dos Módulos 1 e 3.
+- Nenhum dado real: os oito casos e os dois pedidos são sintéticos.
+
+### Preparação
+
+Baixe [arnes_ablacao.py](../assets/labs/modulo-4/arnes_ablacao.py) para a pasta `oficina-m4`.
+
+```bash
+ls arnes_ablacao.py
+```
+
+O arquivo contém tudo: os oito casos com a resposta esperada, os dois catálogos de ferramenta, os dois *prompts* de sistema, a validação determinística e o grafo LangGraph que liga proposta, interpretação, validação e retentativa. Não há chamada externa além do Ollama local.
+
+### Os quatro arneses
+
+Cada arnês acrescenta exatamente um componente ao anterior. Essa é a condição que torna a comparação interpretável.
+
+| Arnês | *System prompt* | Catálogo | Validação | Verificação com retentativa |
+|---|---|---|---|---|
+| A | genérico ("assistente útil") | 12 nomes, sem descrição | nenhuma | não |
+| B | contratual, exige JSON com `ferramenta` e `pedido` | 12 nomes, sem descrição | esquema e existência | não |
+| C | contratual | 4 ferramentas, cada uma com uma linha de descrição | esquema e existência | não |
+| D | contratual | 4 ferramentas descritas | esquema, existência e pré-condição de política | sim, com o motivo da recusa devolvido ao modelo |
+
+### Execute
+
+```bash
+python arnes_ablacao.py
+```
+
+A execução completa faz 33 chamadas ao modelo local e leva de um a quatro minutos, conforme a máquina e se o modelo já está carregado. Para ver caso a caso, acrescente `--detalhar`; para rodar um arnês isolado, use `--arnes C`.
+
+### Observe
+
+A saída traz, para cada arnês, quatro números. Estes são os valores obtidos em duas execuções idênticas nesta oficina, com `llama3.2:3b` e `temperature=0`:
+
+| Arnês | Ações corretas | Bloqueadas pela validação | Ações indevidas entregues | Chamadas ao modelo |
+|---|---:|---:|---:|---:|
+| A — arnês nu | 0/8 | 0 | 0 | 8 |
+| B — contrato de saída | 2/8 | 0 | 1 | 8 |
+| C — catálogo mínimo descrito | 6/8 | 0 | 1 | 8 |
+| D — verificação com retentativa | 6/8 | 1 | 0 | 9 |
+
+Os quatro arneses usaram o mesmo modelo, os mesmos pesos e a mesma temperatura. Seus números podem diferir dos acima, e a comparação entre linhas importa mais que o valor absoluto de cada uma.
+
+### Interprete
+
+Leia a tabela linha a linha, porque cada salto tem uma causa distinta.
+
+**A → B, de 0 para 2.** No arnês A o modelo responde em prosa cordial e o orquestrador não consegue extrair uma chamada de ferramenta de nada disso. Não é falha de compreensão: as respostas de A são frequentemente sensatas em português. É falha de contrato. Um sistema que não consegue interpretar a saída não tem como agir sobre ela, e a competência do modelo fica inacessível.
+
+**B → C, de 2 para 6.** Aqui o modelo é o mesmo, o contrato é o mesmo e o que mudou foi o espaço de decisão: doze nomes parecidos e sem definição viraram quatro ferramentas com uma linha de descrição cada. Em B, o modelo distribui suas escolhas entre `consultar_pedido`, `consultar_pedido_v2` e `buscar_pedido_por_cliente`, que para ele são indistinguíveis. É a [lição da Vercel](conceitos.md#mais-ferramentas-nao-significa-menos-erro) reproduzida em escala de laboratório, e o maior salto do experimento vem de uma remoção.
+
+**C → D, de 6 para 6.** O número de ações corretas não muda, e é justamente por isso que este é o passo mais instrutivo. O que muda é a coluna das ações indevidas: em C, o pedido de encerrar o `845` vira uma chamada de `cancelar_pedido` que a política proíbe, e ela é entregue; em D, a pré-condição bloqueia a chamada, devolve o motivo ao modelo e concede uma segunda tentativa. Na execução registrada acima o modelo insistiu na mesma proposta, e a segunda tentativa não produziu a ação certa. **O efeito indevido não aconteceu mesmo assim.** Verificação não é um mecanismo para tornar o modelo mais competente; é um mecanismo para impedir que a incompetência dele produza efeito.
+
+Observe o custo: a única linha com nove chamadas em vez de oito é a D. Verificação com retentativa é a mais cara das quatro intervenções, e é a única que altera a natureza do risco em vez de mexer só na taxa de acerto.
+
+### Compare
+
+Confronte estes números com a discussão de [erro composto](conceitos.md#erro-composto-a-aritmetica-da-trajetoria). O experimento mede uma decisão isolada, com uma única etapa por caso. Multiplique mentalmente: uma trajetória de dez etapas com a taxa do arnês B tem probabilidade praticamente nula de se completar corretamente, enquanto a mesma trajetória com a taxa do arnês C ainda falha com frequência incômoda. Nenhum dos quatro arneses é adequado para autonomia sobre efeito material, e a conclusão correta do laboratório não é "C resolve", é "a distância entre 0 e 6 foi produzida por engenharia, e a distância que falta também terá de ser".
+
+### Questões exploratórias
+
+- O arnês D bloqueou uma ação indevida e não conseguiu produzir a ação certa. Em qual dos dois desfechos a arquitetura falhou, e qual deles um sistema em produção pode tolerar?
+- A validação de política do arnês D conhece a regra de negócio, não o gabarito dos oito casos. Que aconteceria com a validade deste experimento se ela conhecesse o gabarito, e que nome tem esse erro de método?
+- Se você tivesse orçamento para acrescentar um quinto arnês, qual componente escolheria: memória entre casos, um segundo modelo como avaliador, ou uma ferramenta a menos? Justifique com a tabela.
+- Onde, no arnês D, mora a autoridade que impede o cancelamento do pedido `845`? O que aconteceria se essa regra estivesse apenas no *prompt* de sistema?
+
+### Evidência a entregar
+
+Entregue a tabela dos quatro arneses preenchida com os seus números e uma conclusão de até cinco linhas que responda: qual componente produziu o maior ganho de acerto, qual componente mudou a natureza do risco, e qual dos dois você priorizaria num sistema com efeito irreversível. Registre também uma [fitness function](padroes-e-decisoes.md#fitness-functions-para-autonomia) derivada do arnês D, com limiar, responsável e consequência.
+
+### Limpeza
+
+O laboratório não cria arquivos além do próprio script e não usa rede além do Ollama local. Mantenha `llama3.2:3b` se ainda for cursar os outros módulos.
 
 ## Extensão — mini-fluxo Spec Kit
 

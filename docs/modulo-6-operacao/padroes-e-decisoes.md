@@ -10,6 +10,34 @@ Portões não devem congelar melhoria. Um limiar absoluto protege o mínimo; um 
 
 Shadow traffic pode executar o candidato sem mostrar a saída nem realizar efeitos. É útil para latência e comparação, mas ainda processa dados e incorre em custo; ferramentas devem ser simuladas. A/B testa uma hipótese de produto quando ambas as variantes já são aceitáveis. Não se usa experimento para descobrir se uma variante viola um guardrail crítico.
 
+## Portões de um loop autônomo
+
+Um laço que roda sem pessoa presente atravessa os mesmos portões de qualquer pacote comportamental, e mais quatro específicos. Eles são cumulativos: nenhum substitui o anterior.
+
+**Portão de critério.** A condição de parada existe, é executável por comando determinístico e está versionada junto ao pacote. O portão verifica também o negativo: existe pelo menos um caso conhecido em que a condição de parada **não** é satisfeita, comprovando que ela discrimina. Uma condição que nunca reprova não é critério, é decoração.
+
+**Portão de orçamento.** Existem dois tetos independentes, iterações e custo, cada um com dono e com comportamento definido no esgotamento. O portão rejeita o pacote se o comportamento no esgotamento for "encerrar em silêncio". O desfecho mínimo aceitável é registrar o que foi tentado, o que bloqueou e qual é o estado do artefato, e encaminhar a uma pessoa.
+
+**Portão de isolamento.** O laço executa com identidade própria, escopo menor que o de qualquer pessoa, credenciais de prazo curto e um ambiente sem alcance a produção nem a dado real enquanto a natureza do efeito não estiver classificada. Ferramentas de escrita entram por último e uma de cada vez, na ordem da [matriz de autonomia](../modulo-4-agentes/padroes-e-decisoes.md#matriz-de-autonomia).
+
+**Portão de interrupção.** Existe um desligamento acessível fora do processo do laço, documentado em *runbook*, testado no ensaio e conhecido por quem está de plantão. O portão inclui o teste: interromper o laço no meio de uma iteração não pode deixar efeito parcial sem compensação nem estado que impeça a retomada.
+
+### Verificação independente
+
+O melhor verificador de um laço é determinístico. Quando o critério é difuso e a única opção é um segundo modelo como avaliador, três condições reduzem o risco de conluio. O avaliador roda com **contexto limpo**, sem o histórico de raciocínio de quem produziu o artefato, o que a Anthropic recomenda em [Getting started with loops](https://claude.com/blog/getting-started-with-loops) ao tratar revisão por segundo agente: um revisor com contexto novo é menos enviesado porque não foi influenciado pelo raciocínio do agente principal. O avaliador é **versionado e calibrado** contra julgamento humano, como qualquer avaliador do Módulo 5. E o avaliador **não é editável pelo laço**, o que na prática significa repositório, permissão e trilha separados.
+
+Essa combinação tem consequência de custo. Um laço com verificação independente executa pelo menos duas inferências por iteração, e o desenho econômico razoável usa um verificador barato para o filtro grosso e reserva o caro para a decisão de encerramento.
+
+### Fitness functions de operação de laço
+
+- todo laço em execução tem, no catálogo, dono, gatilho, condição de parada, tetos e procedimento de desligamento;
+- nenhum laço possui permissão de escrita sobre o artefato que define seu próprio critério de sucesso;
+- toda execução registra `release_id`, condição de parada declarada, condição que encerrou, iterações e custo;
+- laços que terminam por esgotamento de orçamento acima de um limiar por janela abrem revisão do critério, não aumento do teto;
+- o procedimento de desligamento é ensaiado na mesma cadência do ensaio de rollback, com resultado registrado.
+
+Falha em qualquer uma dessas verificações rebaixa o laço para o degrau anterior da escada até a correção. Rebaixar é uma ação operacional normal, e deve ser mais fácil de executar do que promover.
+
 ## Fitness functions operacionais
 
 Fitness functions verificam continuamente se a operação mantém o contrato arquitetural:

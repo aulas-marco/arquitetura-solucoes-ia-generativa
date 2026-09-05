@@ -224,10 +224,10 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
         text = (MODULE / "exercicios.md").read_text(encoding="utf-8")
         sections = bloom_sections(text)
         expected_counts = {
-            "Recordar": 5,
-            "Compreender": 4,
+            "Recordar": 6,
+            "Compreender": 5,
             "Aplicar": 3,
-            "Analisar": 3,
+            "Analisar": 4,
             "Avaliar": 2,
             "Criar": 2,
         }
@@ -236,8 +236,8 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
             questions = re.findall(r"(?m)^### \d+\.", sections[level])
             self.assertEqual(expected, len(questions), level)
 
-        self.assertEqual(5, sections["Recordar"].count("<details>"))
-        self.assertEqual(4, sections["Compreender"].count("<details>"))
+        self.assertEqual(6, sections["Recordar"].count("<details>"))
+        self.assertEqual(5, sections["Compreender"].count("<details>"))
         for level in ("Aplicar", "Analisar", "Avaliar", "Criar"):
             self.assertNotIn("<details>", sections[level])
             self.assertIn("**Critérios de avaliação", sections[level])
@@ -249,6 +249,8 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
             "diagnóstico de trace",
             "crítica arquitetural",
             "arquitetura de agente controlado",
+            "componentes do arnês",
+            "leitura de uma ablação de arnês",
         ):
             self.assertIn(challenge, exercise_text, challenge)
 

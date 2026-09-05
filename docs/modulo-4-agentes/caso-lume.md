@@ -37,7 +37,7 @@ python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso lume
 2. Se alguém propusesse deixar o modelo escolher a ordem entre "montar contexto" e "gerar rascunho", isso mudaria o nível de autonomia do Lume? Por quê, segundo o [critério de entrada](conceitos.md#o-criterio-de-entrada) para agentes?
 3. Que evidência do ADR-001 (Módulo 2) continua justificando manter o Lume em A1 mesmo depois do RAG do Módulo 3?
 
-**Entrega de evidência.** Registre a saída de uma execução (rascunho e trace completo) e aponte, no trace, em qual ponto estaria a "escolha" do modelo caso o Lume evoluísse para A2 — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#13-autonomia-orcada-em-execucao-real).
+**Entrega de evidência.** Registre a saída de uma execução (rascunho e trace completo) e aponte, no trace, em qual ponto estaria a "escolha" do modelo caso o Lume evoluísse para A2 — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#15-autonomia-orcada-em-execucao-real).
 
 **Limpeza.** `deactivate` e remover o diretório `.venv`. Nenhum dado real deve substituir os identificadores sintéticos do script.
 

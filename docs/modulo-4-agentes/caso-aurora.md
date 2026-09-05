@@ -86,7 +86,7 @@ Aceita também `--orcamento N` para variar o teto de chamadas (padrão: 6).
 2. Se o dossiê ficar incompleto (por exemplo, com `--orcamento 1`), quem deveria decidir se o especialista recebe um dossiê parcial ou se a execução é interrompida antes da revisão?
 3. O ADR-Aurora-003 descreve um cenário de produção em que "a ordem de consulta variou em mais de um terço das campanhas". O que precisaria mudar neste script para que a ordem de fato dependesse do caso, em vez de seguir sempre a mesma prioridade?
 
-**Entrega de evidência.** Para cada valor de `--orcamento` testado, registre o número de chamadas, o conteúdo do dossiê e a sequência do trace — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#13-autonomia-orcada-em-execucao-real).
+**Entrega de evidência.** Para cada valor de `--orcamento` testado, registre o número de chamadas, o conteúdo do dossiê e a sequência do trace — essa evidência alimenta o exercício [Autonomia orçada em execução real](exercicios.md#15-autonomia-orcada-em-execucao-real).
 
 **Limpeza.** `deactivate` e remover o diretório `.venv`. Nenhum dado real deve substituir os identificadores sintéticos do script.
 

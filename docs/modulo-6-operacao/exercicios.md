@@ -40,9 +40,21 @@ Showback mostra consumo sem transferência contábil; chargeback transfere custo
 
 </details>
 
+### 5. Quais são os quatro portões de um laço autônomo?
+
+Um laço que roda sem pessoa presente atravessa portões específicos, além dos que qualquer pacote comportamental precisa cumprir.
+
+Nomeie os quatro e diga o que cada um verifica.
+
+<details>
+<summary>Ver resposta</summary>
+
+Portão de critério: a condição de parada existe, é executável por comando determinístico, está versionada e discrimina, ou seja, existe caso conhecido em que ela reprova. Portão de orçamento: há dois tetos independentes, de iterações e de custo, cada um com dono e com comportamento definido no esgotamento, que não pode ser encerrar em silêncio. Portão de isolamento: o laço executa com identidade própria, escopo reduzido, credenciais de prazo curto e sem alcance a produção ou dado real enquanto o efeito não estiver classificado. Portão de interrupção: existe desligamento acessível fora do processo, documentado em runbook, testado e conhecido por quem está de plantão.
+</details>
+
 ## Compreender
 
-### 5. Por que reprodutibilidade não significa sempre obter o mesmo texto?
+### 6. Por que reprodutibilidade não significa sempre obter o mesmo texto?
 
 <details>
 <summary>Resposta comentada</summary>
@@ -51,7 +63,7 @@ Inferência varia por amostragem, hardware, concorrência ou provedor. Reproduç
 
 </details>
 
-### 6. Por que um fallback saudável não pode ser apenas o modelo mais disponível?
+### 7. Por que um fallback saudável não pode ser apenas o modelo mais disponível?
 
 <details>
 <summary>Resposta comentada</summary>
@@ -60,7 +72,7 @@ O alternativo deve ser permitido para classe de dados, região, finalidade, ferr
 
 </details>
 
-### 7. Como plataforma compartilhada pode aumentar e reduzir risco ao mesmo tempo?
+### 8. Como plataforma compartilhada pode aumentar e reduzir risco ao mesmo tempo?
 
 <details>
 <summary>Resposta comentada</summary>
@@ -71,7 +83,7 @@ Ela reduz credenciais dispersas e telemetria incompatível, mas concentra depend
 
 ## Aplicar
 
-### 8. Manifesto e portão de regressão
+### 9. Manifesto e portão de regressão
 
 **O que é:** **ativo comportamental** muda resposta, custo, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção. Consulte [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental).
 
@@ -112,7 +124,7 @@ Confira versões, proprietários e compatibilidade do manifesto em homologação
 | Bloqueio | 20% | Separa limites de segurança de metas de melhoria. |
 | Rollback | 20% | Define ensaio que verifica restauração compatível. |
 
-### 9. Trace e SLO com privacidade
+### 10. Trace e SLO com privacidade
 
 **O que é:** **span** é etapa do trace; **SLO** é meta de indicador numa janela. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [SLO](conceitos.md#slo-para-servico-util).
 
@@ -153,7 +165,7 @@ Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o ind
 | SLOs | 20% | Define indicadores mensuráveis centrados no usuário. |
 | Alertas | 20% | Liga sinal a proprietário, runbook e ação. |
 
-### 10. Telemetria comparada: Lume e Aurora
+### 11. Telemetria comparada: Lume e Aurora
 
 **O que é:** **trace** reconstrói a composição da chamada; **showback** e **chargeback** atribuem custo de formas diferentes. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [modelo operacional da plataforma](padroes-e-decisoes.md#modelo-operacional-da-plataforma).
 
@@ -195,7 +207,7 @@ Confira repetição suficiente para distinguir variação de sinal, e a ligaçã
 
 ## Analisar
 
-### 11. Diagnóstico de rollout composto
+### 12. Diagnóstico de rollout composto
 
 **O que é:** **canary** expõe versão; **fallback** usa alternativa; **rollback** restaura manifesto. Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
 
@@ -236,9 +248,33 @@ Confira quatro planos, teste refutador e limite de interrupção.
 | Experimentos | 20% | Define testes capazes de refutar hipóteses. |
 | Decisão | 15% | Liga evidência a pausa, reversão, degradação ou ampliação. |
 
+### 13. Promoção de degrau de um laço em operação
+
+**Situação:** um laço de nível 2 fecha, há oito semanas, chamados de baixa complexidade a partir de um roteiro determinístico. Os números da janela: 412 execuções, 78% terminando em `meta_atingida`, 22% em `orcamento_esgotado`, custo por objetivo concluído estável, mediana de três iterações e percentil 95 de sete. Duas execuções encerraram com sucesso declarado e reabertura do chamado pelo cliente em menos de 24 horas. A equipe propõe subir para o nível 3, com disparo a cada quinze minutos, e aumentar o teto de iterações de oito para vinte para reduzir a fatia de esgotamento.
+
+**Como conduzir**
+
+1. Classifique as duas reaberturas: falha do modelo, falha do verificador ou falha do critério de sucesso, com a evidência que sustentaria cada leitura.
+2. Avalie a proposta de aumentar o teto de iterações à luz da fatia de 22% e do percentil 95 observado.
+3. Liste os controles que precisam existir antes da subida para o nível 3, e diga qual deles ainda não está evidenciado pelos números apresentados.
+4. Defina os sinais que autorizariam a promoção e os que exigiriam rebaixamento imediato ao nível anterior.
+5. Indique quem responde por cada teto, pelo desligamento e pela aceitação do risco residual.
+
+**Entrega esperada:** parecer de até uma página com decisão sobre a promoção, condições associadas e os limiares que disparam rebaixamento.
+
+**Critérios de avaliação**
+
+| Critério | Peso | Evidência |
+|---|---:|---|
+| Diagnóstico | 30% | Separa falha de verificador de falha de critério e nomeia a evidência que distinguiria as duas. |
+| Orçamento | 20% | Trata aumento de teto como hipótese a testar, não como correção da fatia de esgotamento. |
+| Pré-requisitos do degrau | 25% | Exige idempotência, identidade própria e desligamento antes do disparo automático. |
+| Reversibilidade | 15% | Define rebaixamento como ação operacional normal, com limiar. |
+| Autoridade | 10% | Nomeia dono de cada teto e do risco residual. |
+
 ## Avaliar
 
-### 12. Plataforma comum ou autonomia local?
+### 14. Plataforma comum ou autonomia local?
 
 **O que é:** **fronteira de propriedade** diz quem decide e aceita risco; **ADR** registra contexto e decisão. Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
 
@@ -283,7 +319,7 @@ Confira decisão, consequência, gatilho e responsabilidades em cada ADR.
 
 ## Criar
 
-### 13. Capstone — arquitetura e plano operacional da organização
+### 15. Capstone — arquitetura e plano operacional da organização
 
 **Situação**
 

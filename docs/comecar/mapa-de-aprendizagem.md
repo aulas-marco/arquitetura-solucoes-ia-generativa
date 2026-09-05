@@ -39,7 +39,7 @@ Você separa conhecimento, recuperação e geração; projeta os fluxos offline 
 
 Você conecta modelos a ferramentas e sistemas corporativos, modela estado e memória e define limites de autonomia, aprovação e recuperação de falhas.
 
-**Faixa prática:** a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) simula intenção, autorização, idempotência e efeito controlado.
+**Faixa prática:** a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) simula intenção, autorização, idempotência e efeito controlado. Uma extensão de ablação mede, com o mesmo modelo local, quanto do resultado vem do arnês construído em volta dele.
 
 ## 5. Proteger e avaliar
 
@@ -51,6 +51,6 @@ Você trata confiança como propriedade do sistema. Ameaças, guardrails, privac
 
 Você integra versionamento, observabilidade, SLOs, entrega controlada e recuperação. Por fim, decide o que padronizar em uma plataforma corporativa e o que manter sob autonomia dos times de produto.
 
-**Faixa prática:** a [oficina de capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md) relaciona gateway, quota, roteamento, SLO e recuperação a sinais operacionais sintéticos.
+**Faixa prática:** a [oficina de capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md) relaciona gateway, quota, roteamento, SLO e recuperação a sinais operacionais sintéticos. Uma extensão executa um laço desassistido com orçamento e compara parada por verificação com parada por autodeclaração.
 
 As etapas são cumulativas, mas não formam uma linha rígida. Evidências de avaliação podem obrigar a rever requisitos; incidentes podem revelar um limite de autonomia inadequado; mudanças no conhecimento podem alterar custo e latência. Arquitetar é percorrer esse mapa de forma iterativa e explícita.

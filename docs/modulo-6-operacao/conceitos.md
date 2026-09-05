@@ -34,6 +34,37 @@ Um resultado não passa apenas porque a média subiu. Critérios intoleráveis �
 
 **Entrega controlada** transforma evidência em exposição gradual. O pacote aprovado entra em canary para uma parcela delimitada, com critérios de continuação e interrupção definidos antes. Só então amplia. Liberação e mudança de configuração compartilham trilha. A velocidade sustentável vem de automatizar evidências repetíveis, não de dispensar decisão.
 
+## Loop desassistido: o verificador é o gargalo
+
+O Módulo 4 apresentou a [escada de quatro níveis de loop](../modulo-4-agentes/conceitos.md#quatro-niveis-de-loop) e o critério de subida. Do terceiro degrau em diante não há pessoa presente no momento do disparo, e a unidade operada deixa de ser a solicitação: passa a ser o **laço**. Isso muda o que precisa ser versionado, medido e interrompido.
+
+Um laço acrescenta cinco itens à lista de ativos comportamentais desta página: o *prompt* que ele reinjeta, a **condição de parada**, o **orçamento** de iterações e de custo, o **verificador** e o gatilho que o aciona. Nenhum deles é parâmetro de execução. Mudar a condição de parada altera o comportamento do sistema tanto quanto trocar o modelo, e mudar o verificador invalida retroativamente a evidência das execuções anteriores, porque "passou" passa a significar outra coisa. O manifesto de uma liberação que inclui laço precisa registrar os cinco, ou a execução não é reconstruível.
+
+O gargalo de um laço desassistido não é o modelo, é o verificador. Enquanto uma pessoa está presente, ela é o verificador implícito de última instância: lê a saída, percebe o disparate e interrompe. Ao remover a pessoa, essa função precisa existir em outro lugar, escrita e executável. Se ela não existir, o laço não vira automação, vira consumo de orçamento sem condição de término, e o pior desfecho não é a fatura: é o **falso positivo**, quando o sistema declara conclusão, encerra e ninguém confere.
+
+### Modos de falha próprios de laço
+
+| Modo de falha | Sintoma observável | Controle no arnês |
+|---|---|---|
+| Falso positivo de conclusão | laço encerra com sucesso declarado e o artefato não satisfaz o critério | condição de parada externa ao modelo, conferida por comando determinístico |
+| Estagnação | duas ou mais iterações com resultado de verificação idêntico | detecção de repetição que aciona diversificação, escalonamento ou interrupção |
+| Convergência para a métrica | o critério passa e o requisito continua descumprido | conjunto de verificação revisado por pessoa, com casos que o laço não pode editar |
+| Efeito duplicado | a mesma ação externa acontece duas vezes entre iterações | chave de idempotência por objetivo, não por iteração |
+| Deriva do gatilho | o laço continua disparando depois que a condição que o justificava sumiu | prazo de validade do agendamento e reconciliação periódica com o dono |
+| Consumo silencioso | custo cresce sem resultado correspondente | orçamento com teto rígido e alerta em custo por resultado, não em custo total |
+
+A convergência para a métrica merece destaque, porque é a falha que a instrumentação não pega. Um laço que otimiza contra um conjunto de testes tende a satisfazer exatamente aquele conjunto, e um agente com permissão de escrita sobre o próprio verificador transforma a condição de parada em variável de folga. A regra prática é simples de enunciar e precisa ser aplicada com rigor: **o laço não escreve o verificador**. Quando o mesmo processo produz o artefato e o critério que o aprova, não existe verificação, existe autoavaliação.
+
+### Medir um laço
+
+Os [quatro planos de métricas](#quatro-planos-de-metricas) continuam valendo, com leituras específicas. No plano de operação, iterações por objetivo, *tokens* por objetivo e proporção de execuções que terminam por esgotamento de orçamento são os sinais primários; custo total isolado engana, porque um laço barato que nunca converge é pior que um caro que converge. No plano de produto, a taxa de objetivos concluídos sem intervenção humana é o indicador que justifica o degrau em que o laço opera. No plano de modelo, a taxa de falso positivo do verificador é o número que decide se é seguro subir de degrau.
+
+Duas execuções de um mesmo laço com a mesma entrada não produzem necessariamente o mesmo número de iterações nem o mesmo custo. Isso não é defeito de instrumentação, é a natureza do objeto: a [reprodutibilidade possível](#reprodutibilidade-sem-promessa-impossivel) aqui é sobre configuração, decisões e critérios, não sobre trajetória idêntica. A consequência de planejamento é que orçamento de laço se dimensiona por distribuição observada, com percentil, e não por média.
+
+### O que permanece humano num laço
+
+Três coisas não descem para o laço, mesmo no quarto degrau. A **definição do critério de sucesso**, porque é ela que codifica a intenção. A **aceitação do risco residual** de um laço rodar sem supervisão, que é decisão de governança com dono nomeado. E o **desligamento**, que precisa ser acessível a quem está de plantão, não só a quem escreveu o laço. Um laço cujo desligamento depende de conhecimento não documentado é um risco operacional independentemente da qualidade do verificador.
+
 ## Trace: reconstruir a composição
 
 Um trace distribuído conecta a solicitação às etapas de **prompt**, **contexto**, **recuperação**, **ferramenta** e **resposta**. Cada span registra tempo, resultado, versão, política aplicada e relação causal. Por padrão, o span de recuperação registra classificação, tamanho, identificador controlado ou hash e metadados de recuperação: índice, filtros de autorização, quantidade, latência e identificadores controlados dos documentos. A consulta derivada em texto bruto só pode aparecer em amostra explicitamente autorizada, segregada e com retenção limitada; não pertence à telemetria operacional padrão. O span de ferramenta registra contrato, operação, decisão de política, idempotência e status; o de resposta registra validações e rota de entrega.
