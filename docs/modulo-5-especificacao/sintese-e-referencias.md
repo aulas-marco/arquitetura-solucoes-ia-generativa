@@ -41,7 +41,7 @@ Ser “dono da spec” não significa escrever toda a prosa. Significa responder
 
 ## Checklist antes de implementar
 
-- [ ] A constitution possui princípios acionáveis, não slogans.
+- [ ] A constitution possui princípios verificáveis, não slogans.
 - [ ] O problema e o público estão delimitados.
 - [ ] Termos de domínio possuem significado compartilhado.
 - [ ] Fatos, hipóteses e desconhecidos estão separados.

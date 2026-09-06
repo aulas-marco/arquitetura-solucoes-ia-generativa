@@ -54,7 +54,7 @@ Portão de critério: a condição de parada existe, é executável por comando 
 
 ## Compreender
 
-### 6. Por que reprodutibilidade não significa sempre obter o mesmo texto?
+### 6. Reprodutibilidade e variação de saída
 
 <details>
 <summary>Resposta comentada</summary>
@@ -63,7 +63,7 @@ Inferência varia por amostragem, hardware, concorrência ou provedor. Reproduç
 
 </details>
 
-### 7. Por que um fallback saudável não pode ser apenas o modelo mais disponível?
+### 7. O que qualifica um fallback como saudável
 
 <details>
 <summary>Resposta comentada</summary>
@@ -72,7 +72,7 @@ O alternativo deve ser permitido para classe de dados, região, finalidade, ferr
 
 </details>
 
-### 8. Como plataforma compartilhada pode aumentar e reduzir risco ao mesmo tempo?
+### 8. Plataforma compartilhada: risco que sobe e risco que desce
 
 <details>
 <summary>Resposta comentada</summary>

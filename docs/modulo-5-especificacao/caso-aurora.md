@@ -26,4 +26,4 @@ O mesmo método, o mesmo material teórico e duas profundidades diferentes, amba
 
 ## Continuidade
 
-No [Módulo 6](../modulo-6-confianca/caso-aurora.md), o histórico de parcelamento entra como dado pessoal adicional no contexto do agente, e a spec curta desta página passa a ser a evidência de que a inclusão foi decidida, e não acumulada.
+No [Módulo 6](../modulo-6-confianca/caso-aurora.md), o histórico de parcelamento entra como dado pessoal adicional no contexto do agente, e a spec curta desta página passa a ser a evidência de que a inclusão foi uma decisão registrada.

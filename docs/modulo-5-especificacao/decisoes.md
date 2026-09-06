@@ -108,7 +108,7 @@ Antes de gerar testes, identifique as interfaces pelas quais consumidores observ
 | comando CLI | transformação ou operação reproduzível | testar cada função privada chamada |
 | endpoint/contrato HTTP | autorização, validação e resposta | acoplar teste ao framework sem necessidade |
 | evento publicado | integração assíncrona e esquema | afirmar ordem interna de métodos |
-| função pública de domínio | regra determinística | mockar o próprio comportamento testado |
+| função pública de domínio | regra determinística | simular o próprio comportamento testado |
 | adaptador | tradução de dependência externa | chamar serviço real em toda suíte |
 
 Uma seam profunda permite trocar implementação mantendo contrato. Uma seam rasa expõe muitos detalhes e multiplica testes frágeis. O plano deve registrar assinatura, invariantes, tipos de erro e dados sensíveis de cada interface.

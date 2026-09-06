@@ -45,7 +45,7 @@ A lista abaixo reúne os componentes que aparecem de forma recorrente nos ensaio
 
 Os dois primeiros itens costumam receber toda a atenção, e são os de menor retorno isolado. O quarto é o de maior retorno comprovado, tema da subseção seguinte.
 
-Vale registrar de onde o vocabulário vem, para não importá-lo sem crítica. Ele nasceu na comunidade de agentes de codificação, onde o arnês é um produto de linha de comando e os componentes têm nomes de arquivo concretos. A Anthropic documenta essa camada de forma explícita em [Steering Claude Code](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more), que separa mecanismos que **guiam** o modelo, como arquivos de contexto e *skills*, de mecanismos que **impõem** comportamento, como *hooks* e permissões, com uma frase que este curso já defende desde o Módulo 1: uma proteção real precisa ser determinística. A generalização para sistemas corporativos é legítima, mas a tradução não é automática: num agente de atendimento, o *sandbox* não é um contêiner de código, é a fronteira entre ferramenta de leitura e ferramenta de escrita.
+Vale registrar de onde o vocabulário vem, para não importá-lo sem crítica. Ele nasceu na comunidade de agentes de codificação, onde o arnês é um produto de linha de comando e os componentes têm nomes de arquivo concretos. A Anthropic documenta essa camada de forma explícita em [Steering Claude Code](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more), que separa mecanismos que **guiam** o modelo, como arquivos de contexto e *skills*, de mecanismos que **impõem** comportamento, como *hooks* e permissões, com uma frase que este curso já defende desde o Módulo 1: uma proteção real precisa ser determinística. A generalização para sistemas corporativos é legítima, mas a tradução não é automática: num agente de atendimento, *sandbox* significa a fronteira entre ferramenta de leitura e ferramenta de escrita.
 
 ## Diagnosticar pelo tipo de falha
 
@@ -63,7 +63,7 @@ A utilidade prática de decompor o arnês em componentes é transformar "o agent
 
 Quatro perguntas organizam o trabalho de melhoria, e valem tanto para um agente de codificação quanto para um agente de atendimento. Onde este agente falha mais, e a que componente esse tipo de falha corresponde? Ele tem alguma forma de verificar o próprio trabalho, e se não tem, qual seria a mais barata? Que contexto ele não recebe hoje e deveria receber, que hoje existe apenas na cabeça de alguém? E qual das tarefas que ele executa tem critério de sucesso inteiramente objetivo, porque essa é a candidata a subir de nível na escada da próxima seção.
 
-A ordem entre as quatro importa. Trocar de modelo é a última pergunta, não a primeira.
+A ordem entre as quatro importa: trocar de modelo é a última.
 
 ## Mais ferramentas não significa menos erro
 

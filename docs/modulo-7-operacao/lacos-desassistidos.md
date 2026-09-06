@@ -8,7 +8,7 @@ O Módulo 4 apresentou a [escada de quatro níveis de loop](../modulo-4-agentes/
 
 Um laço acrescenta cinco itens à lista de ativos comportamentais desta página: o *prompt* que ele reinjeta, a **condição de parada**, o **orçamento** de iterações e de custo, o **verificador** e o gatilho que o aciona. Nenhum deles é parâmetro de execução. Mudar a condição de parada altera o comportamento do sistema tanto quanto trocar o modelo, e mudar o verificador invalida retroativamente a evidência das execuções anteriores, porque "passou" passa a significar outra coisa. O manifesto de uma liberação que inclui laço precisa registrar os cinco, ou a execução não é reconstruível.
 
-O gargalo de um laço desassistido não é o modelo, é o verificador. Enquanto uma pessoa está presente, ela é o verificador implícito de última instância: lê a saída, percebe o disparate e interrompe. Ao remover a pessoa, essa função precisa existir em outro lugar, escrita e executável. Se ela não existir, o laço não vira automação, vira consumo de orçamento sem condição de término, e o pior desfecho não é a fatura: é o **falso positivo**, quando o sistema declara conclusão, encerra e ninguém confere.
+O gargalo de um laço desassistido está no verificador. Enquanto uma pessoa está presente, ela é o verificador implícito de última instância: lê a saída, percebe o disparate e interrompe. Ao remover a pessoa, essa função precisa existir em outro lugar, escrita e executável. Se ela não existir, o laço não vira automação, vira consumo de orçamento sem condição de término, e o pior desfecho não é a fatura: é o **falso positivo**, quando o sistema declara conclusão, encerra e ninguém confere.
 
 ### Modos de falha próprios de laço
 
@@ -27,7 +27,7 @@ A convergência para a métrica merece destaque, porque é a falha que a instrum
 
 Os [quatro planos de métricas](observabilidade.md#quatro-planos-de-metricas) continuam valendo, com leituras específicas. No plano de operação, iterações por objetivo, *tokens* por objetivo e proporção de execuções que terminam por esgotamento de orçamento são os sinais primários; custo total isolado engana, porque um laço barato que nunca converge é pior que um caro que converge. No plano de produto, a taxa de objetivos concluídos sem intervenção humana é o indicador que justifica o degrau em que o laço opera. No plano de modelo, a taxa de falso positivo do verificador é o número que decide se é seguro subir de degrau.
 
-Duas execuções de um mesmo laço com a mesma entrada não produzem necessariamente o mesmo número de iterações nem o mesmo custo. Isso não é defeito de instrumentação, é a natureza do objeto: a [reprodutibilidade possível](pacote-e-promocao.md#reprodutibilidade-sem-promessa-impossivel) aqui é sobre configuração, decisões e critérios, não sobre trajetória idêntica. A consequência de planejamento é que orçamento de laço se dimensiona por distribuição observada, com percentil, e não por média.
+Duas execuções de um mesmo laço com a mesma entrada não produzem necessariamente o mesmo número de iterações nem o mesmo custo. Isso é a natureza do objeto: a [reprodutibilidade possível](pacote-e-promocao.md#reprodutibilidade-sem-promessa-impossivel) aqui é sobre configuração, decisões e critérios, não sobre trajetória idêntica. A consequência de planejamento é que orçamento de laço se dimensiona por distribuição observada, com percentil.
 
 ### O que permanece humano num laço
 
@@ -37,7 +37,7 @@ Três coisas não descem para o laço, mesmo no quarto degrau. A **definição d
 
 Um laço que roda sem pessoa presente atravessa os mesmos portões de qualquer pacote comportamental, e mais quatro específicos. Eles são cumulativos: nenhum substitui o anterior.
 
-**Portão de critério.** A condição de parada existe, é executável por comando determinístico e está versionada junto ao pacote. O portão verifica também o negativo: existe pelo menos um caso conhecido em que a condição de parada **não** é satisfeita, comprovando que ela discrimina. Uma condição que nunca reprova não é critério, é decoração.
+**Portão de critério.** A condição de parada existe, é executável por comando determinístico e está versionada junto ao pacote. O portão verifica também o negativo: existe pelo menos um caso conhecido em que a condição de parada **não** é satisfeita, comprovando que ela discrimina. Uma condição que nunca reprova é decoração.
 
 **Portão de orçamento.** Existem dois tetos independentes, iterações e custo, cada um com dono e com comportamento definido no esgotamento. O portão rejeita o pacote se o comportamento no esgotamento for "encerrar em silêncio". O desfecho mínimo aceitável é registrar o que foi tentado, o que bloqueou e qual é o estado do artefato, e encaminhar a uma pessoa.
 
