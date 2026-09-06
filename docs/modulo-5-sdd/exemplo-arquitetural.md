@@ -10,13 +10,13 @@ Esta página pressupõe apenas o [vocabulário mínimo](index.md#vocabulario-min
 
 ```mermaid
 flowchart TB
-  C["Constituição<br/><i>constitution</i>"]
-  S["Especificação<br/><i>specification</i>"]
+  C["Constituição<br/>constitution"]
+  S["Especificação<br/>specification"]
   G1{"Portão 1<br/>escopo e riscos"}
-  P["Plano<br/><i>plan</i>"]
-  T["Tarefas<br/><i>tasks</i>"]
-  I["Implementação<br/><i>implement</i>"]
-  V["Verificação<br/><i>verify</i>"]
+  P["Plano<br/>plan"]
+  T["Tarefas<br/>tasks"]
+  I["Implementação<br/>implement"]
+  V["Verificação<br/>verify"]
   G2{"Portão 2<br/>testes contra a especificação"}
   G3{"Portão 3<br/>revisão humana"}
   L["Liberação"]

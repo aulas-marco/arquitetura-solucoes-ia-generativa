@@ -4,7 +4,7 @@
 
 ```mermaid
 flowchart TB
-    I["Intenção incompleta<br/><i>“exportar as avaliações em CSV”</i>"]
+    I["Intenção incompleta<br/>“exportar as avaliações em CSV”"]
     C["Constituição — as regras que valem<br/>para toda mudança do repositório"]
     S["Especificação — o que o usuário<br/>passa a poder fazer"]
     G1{"Portão 1 · intenção<br/>o problema está claro?"}
@@ -17,7 +17,7 @@ flowchart TB
     E["Software com evidência rastreável"]
 
     I --> C --> S --> G1 --> P --> T --> G2 --> IM --> V --> G3 --> E
-    E -.->|"produção contradiz uma premissa:<br/>volta para a especificação,<br/>não para um remendo"| S
+    E -.->|"produção contradiz uma premissa"| S
 ```
 
 *Figura — O fluxo não termina no código: produção que contradiz uma premissa volta para a especificação, não para um remendo silencioso.*
