@@ -28,7 +28,13 @@ Use três classes:
 | M — feature | novo comportamento, mais de um componente ou decisão | spec, critérios, plano, fatias, testes e gates 1/3 |
 | L — iniciativa | múltiplos domínios, migração, risco material ou vários times | constitution aplicável, spec, arquitetura, ADRs, plano, grafo de tarefas e três gates |
 
-Classifique pelo maior risco, não pelo número de linhas. Uma mudança curta em autorização pode ser classe L; uma migração mecânica extensa pode ser classe M com estratégia *expand–contract*. Registre o motivo da classificação para que a simplificação seja uma decisão, não omissão.
+Classifique pelo maior risco, não pelo número de linhas. Três demandas da mesma semana, classificadas:
+
+- corrigir o texto “Aguardando pagto.” para “Aguardando pagamento” em três telas → **S**, porque não há regra associada e o retorno é trivial;
+- permitir que o cliente cancele o pedido até a separação começar → **L**, mesmo sendo poucas linhas, porque a regra de cancelamento hoje só existe no código e ninguém sabe recitá-la;
+- migrar duzentos arquivos para um novo formato de importação → **M**, apesar do tamanho, porque a transformação é mecânica e reversível arquivo a arquivo.
+
+A segunda é a que costuma ser subestimada: o critério é o risco, e uma linha que muda autorização carrega mais risco que duzentos arquivos que mudam formato. Uma mudança curta em autorização pode ser classe L; uma migração mecânica extensa pode ser classe M com estratégia *expand–contract*. Registre o motivo da classificação para que a simplificação seja uma decisão, não omissão.
 
 > **Decisão arquitetural:** adote classe M como padrão para comportamento novo. Reduza para S ou eleve para L por critérios explícitos de risco, reversibilidade, coordenação e evidência.
 
@@ -83,7 +89,7 @@ Uma fatia vertical entrega uma trajetória estreita de ponta a ponta. Para expor
 4. adicionar expiração e nova solicitação;
 5. ampliar volume e medir SLO.
 
-Cada fatia possui comportamento demonstrável e mantém a suíte verde. Uma decomposição horizontal — tabela, repositório, serviço, API, interface — só demonstra valor depois de integrar tudo. Também aumenta a probabilidade de agentes implementarem suposições incompatíveis em paralelo.
+Cada fatia possui comportamento demonstrável e mantém a suíte verde. Uma decomposição horizontal — tabela, repositório, serviço, API, interface — só demonstra valor depois de integrar tudo. Para a mesma exportação, a versão horizontal seria: criar a tabela de exportações; criar o repositório; criar o serviço; criar o endpoint; criar a tela. Depois de quatro dessas cinco tarefas, ninguém consegue exportar nada, e o primeiro erro de contrato só aparece na quinta. Também aumenta a probabilidade de agentes implementarem suposições incompatíveis em paralelo.
 
 Tarefas paralelas devem ter:
 
@@ -113,7 +119,7 @@ Antes de gerar testes, identifique as interfaces pelas quais consumidores observ
 | função pública de domínio | regra determinística | simular o próprio comportamento testado |
 | adaptador | tradução de dependência externa | chamar serviço real em toda suíte |
 
-Uma seam profunda permite trocar implementação mantendo contrato. Uma seam rasa expõe muitos detalhes e multiplica testes frágeis. O plano deve registrar assinatura, invariantes, tipos de erro e dados sensíveis de cada interface.
+Uma seam profunda permite trocar implementação mantendo contrato. Uma seam rasa expõe muitos detalhes e multiplica testes frágeis. Concretamente, no caso da exportação: o teste que entra por `POST /exportacoes` com o token de uma coordenadora da unidade Sul e confere que o arquivo traz só a unidade Sul continua valendo depois de trocar o banco, a fila ou a biblioteca de CSV. O teste que chama `montarConsultaSql()` e compara a string gerada quebra na primeira refatoração que não muda comportamento nenhum — e pior, ensina o agente a preservar a string por ela mesma. O plano deve registrar assinatura, invariantes, tipos de erro e dados sensíveis de cada interface.
 
 > **Decisão arquitetural:** teste comportamento na seam mais alta que permaneça rápida, determinística e diagnóstica; use testes internos apenas para propriedades que não podem ser observadas adequadamente por ela.
 
@@ -156,7 +162,7 @@ Checklist mínimo:
 - abuso, automação e limites de taxa considerados;
 - risco residual com dono e prazo.
 
-Um agente de segurança pode aumentar cobertura, mas não aceita risco. Achado crítico bloqueia o portão (*gate*) até correção ou aceitação formal por autoridade competente.
+Um agente de segurança pode aumentar cobertura, mas não aceita risco. O efeito de antecipar aparece assim: na exportação de avaliações, a pergunta “quem pode exportar dados de qual unidade” entrou na especificação e virou um teste negativo — coordenadora da unidade Sul pedindo dados da Norte recebe 403. Se a mesma pergunta só aparecesse na revisão final, o resultado provável seria um filtro aplicado na tela, com o endpoint continuando a devolver tudo para quem soubesse chamá-lo direto. Achado crítico bloqueia o portão (*gate*) até correção ou aceitação formal por autoridade competente.
 
 ## Decisão 8 — manter os artefatos coerentes
 
@@ -244,7 +250,7 @@ Contar specs criadas incentiva produção de arquivos. Métricas melhores observ
 | artefatos permaneceram vivos? | mudanças de comportamento acompanhadas por atualização de spec/teste |
 | o método melhorou fluxo? | tempo de clarificação, retrabalho, lead time e defeitos escapados |
 
-Velocidade de geração isolada é uma métrica perigosa. Se o agente produz mais código e aumenta retrabalho, o sistema local ficou rápido e o fluxo global piorou.
+Velocidade de geração isolada é uma métrica perigosa. Um caso concreto: uma equipe passou de quatro para onze *pull requests* por semana depois de adotar o agente, e no mesmo trimestre o retrabalho por defeito escapado subiu de 8% para 21% das horas. O primeiro número sozinho recomendaria ampliar o uso; os dois juntos recomendam olhar onde a intenção está se perdendo. Se o agente produz mais código e aumenta retrabalho, o sistema local ficou rápido e o fluxo global piorou.
 
 ## O que permanece humano
 
