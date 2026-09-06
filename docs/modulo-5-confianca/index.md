@@ -52,10 +52,10 @@ Quarto, **responsabilidade é compartilhada, mas não diluída**. Fornecedor, pl
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de confiança contextual |
-| 2 | [Confiança sistêmica e risco](confianca-e-risco.md) | confiança sistêmica, quatro famílias de risco e risco residual |
+| 2 | [Confiança e risco](confianca-e-risco.md) | confiança sistêmica, quatro famílias de risco e risco residual |
 | 3 | [Ameaças e guardrails](ameacas-e-guardrails.md) | ameaças em RAG e agentes, defesa em camadas e o que ela não garante |
 | 4 | [Rastreabilidade e privacidade](rastreabilidade-e-privacidade.md) | escopo mínimo de trace e privacidade por ciclo de vida |
-| 5 | [Qualidade multidimensional e medição](qualidade-e-medicao.md) | sete dimensões, duas camadas de medição e tensões prioritárias |
+| 5 | [Qualidade e avaliação](qualidade-e-medicao.md) | sete dimensões, duas camadas de medição e tensões prioritárias |
 | 6 | [Governança e responsabilidade](governanca-e-responsabilidade.md) | papéis identificáveis, governança de mudança e critério de decisão |
 | 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | modelo de ameaças e pipeline de avaliação |
 | 8 | [Estudo de caso](estudo-de-caso.md) | RH, escalonamento e critérios de liberação |
@@ -63,4 +63,4 @@ Quarto, **responsabilidade é compartilhada, mas não diluída**. Fornecedor, pl
 | 10 | [Exercícios](exercicios.md) | ameaças, controles, risco residual e projeto |
 | 11 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
-Comece por [Confiança sistêmica e risco](confianca-e-risco.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências. A [Oficina de ferramentas](oficina-de-ferramentas.md) permite testar essas decisões com casos sintéticos em um laboratório local.
+Comece por [Confiança e risco](confianca-e-risco.md): antes de escolher controles, precisamos definir o que deve ser confiável, para quem e mediante quais evidências. A [Oficina de ferramentas](oficina-de-ferramentas.md) permite testar essas decisões com casos sintéticos em um laboratório local.

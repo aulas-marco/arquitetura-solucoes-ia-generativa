@@ -31,11 +31,11 @@ Ao concluir o módulo, você deverá ser capaz de:
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
-| 2 | [Descrever o sistema antes da solução](descricao-arquitetural.md) | documento de arquitetura, cinco visões mínimas e correspondências |
-| 3 | [Oportunidade e adequação](adequacao-da-ia.md) | critérios de adequação e os casos em que a resposta é recusar |
-| 4 | [CONOPS, fronteiras e stakeholders](conops-e-fronteiras.md) | CONOPS, fora de escopo, stakeholders, modos operacionais e papel humano |
-| 5 | [Requisitos significativos e táticas](requisitos-e-taticas.md) | do atributo ao RAS, táticas e critério de aceitação probabilístico |
-| 6 | [Comparar alternativas e registrar a decisão](alternativas-e-registro.md) | menor capacidade suficiente, ADR e verificação de correspondência |
+| 2 | [Documento de arquitetura](descricao-arquitetural.md) | documento de arquitetura, cinco visões mínimas e correspondências |
+| 3 | [Quando usar IA generativa](adequacao-da-ia.md) | critérios de adequação e os casos em que a resposta é recusar |
+| 4 | [CONOPS e stakeholders](conops-e-fronteiras.md) | CONOPS, fora de escopo, stakeholders, modos operacionais e papel humano |
+| 5 | [Requisitos e táticas](requisitos-e-taticas.md) | do atributo ao RAS, táticas e critério de aceitação probabilístico |
+| 6 | [Alternativas e ADRs](alternativas-e-registro.md) | menor capacidade suficiente, ADR e verificação de correspondência |
 | 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
 | 8 | [Exercícios](exercicios.md) | — |
 | 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
@@ -54,4 +54,4 @@ Leia cada seta nos dois sentidos: **objetivo → cenário → requisito signific
 
 O [NIST AI RMF Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) reforça que riscos e impactos devem ser compreendidos no contexto de uso, e não inferidos apenas das capacidades gerais de um modelo. Esse princípio orientará o módulo: arquitetura é uma disciplina de escolha contextual, não um catálogo de caixas.
 
-**Próxima página:** [Descrever o sistema antes da solução](descricao-arquitetural.md).
+**Próxima página:** [Documento de arquitetura](descricao-arquitetural.md).

@@ -1,4 +1,4 @@
-# Recuperação
+# Busca e recuperação
 
 Transformar a pergunta sem perder a intenção, escolher entre busca lexical, vetorial e híbrida, e fazer a autorização participar da recuperação em vez de vir depois dela.
 

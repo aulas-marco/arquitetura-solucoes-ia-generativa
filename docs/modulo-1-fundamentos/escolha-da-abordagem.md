@@ -1,4 +1,4 @@
-# Escolher a abordagem
+# Padrões de solução
 
 Sete abordagens, quatro decisões ortogonais e uma ficha que registra a escolha inicial com o que ainda não se sabe.
 

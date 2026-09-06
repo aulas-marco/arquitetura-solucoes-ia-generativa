@@ -1,4 +1,4 @@
-# O fluxo completo, dos princípios à evidência
+# O fluxo SDD
 
 Oito etapas, três portões humanos e oito artefatos que precisam contar a mesma história sobre a mesma mudança.
 

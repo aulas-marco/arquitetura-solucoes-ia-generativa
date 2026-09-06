@@ -1,4 +1,4 @@
-# Onde está o controle
+# Chatbots, copilotos e agentes
 
 Chatbot, copiloto, workflow e agente descrevem quem escolhe a próxima transição. O rótulo da interface não responde a essa pergunta.
 

@@ -1,4 +1,4 @@
-# Avaliação e fitness functions
+# Avaliação de RAG
 
 Medir recuperação e geração em camadas separadas, e transformar o que foi decidido em verificação contínua.
 

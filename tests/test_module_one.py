@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import bloom_sections, teaching_text
+from scripts.validate_content import document_anchors, bloom_sections, teaching_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,16 +18,19 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
                    "verificacao-e-governanca.md")
         ordem = [navigation.index(f"modulo-1-fundamentos/{p}") for p in paginas]
         self.assertEqual(ordem, sorted(ordem))
+        # os cinco movimentos viraram cinco páginas; as âncoras originais
+        # continuam válidas, como título ou como <a id> preservado
         movements = (
-            "O que muda no sistema",
-            "De onde emerge o comportamento",
-            "Que informação atravessa o sistema",
-            "Como distribuir responsabilidade",
-            "Como verificar e governar",
+            "o-que-muda-no-sistema",
+            "de-onde-emerge-o-comportamento",
+            "que-informacao-atravessa-o-sistema",
+            "como-distribuir-responsabilidade",
+            "como-verificar-e-governar",
         )
 
-        for heading in movements:
-            self.assertRegex(text, rf"(?m)^#{{1,2}} {re.escape(heading)}$")
+        disponiveis = document_anchors(text)
+        for anchor in movements:
+            self.assertIn(anchor, disponiveis)
         for term in (
             "modelo",
             "aplicação",

@@ -345,7 +345,7 @@ Você é o arquiteto de confiabilidade que separa fato, hipótese e estado autor
 
 **Insumos disponíveis**
 
-Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido em [Estado, memória, contexto e política](estado-memoria-e-politica.md), as regras de [Efeito, identidade e recuperação](efeito-e-recuperacao.md) e o script da [oficina de agentes](oficina-de-ferramentas.md).
+Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido em [Estado, memória e contexto](estado-memoria-e-politica.md), as regras de [Integração e resiliência](efeito-e-recuperacao.md) e o script da [oficina de agentes](oficina-de-ferramentas.md).
 
 **O que é trace, timeout e estado desconhecido**
 
@@ -446,7 +446,7 @@ Você é o arquiteto que critica a composição e propõe o menor redesenho capa
 
 **Insumos disponíveis**
 
-Use o [modelo de interação e controle](controle-e-autonomia.md), o [catálogo de ferramentas](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta) e os padrões de agente único, multiagente e workflow descritos em [Onde está o controle](controle-e-autonomia.md).
+Use o [modelo de interação e controle](controle-e-autonomia.md), o [catálogo de ferramentas](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta) e os padrões de agente único, multiagente e workflow descritos em [Chatbots, copilotos e agentes](controle-e-autonomia.md).
 
 **O que significa comparar essas composições**
 

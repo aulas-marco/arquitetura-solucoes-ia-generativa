@@ -1,4 +1,4 @@
-# Confiança sistêmica e risco
+# Confiança e risco
 
 Confiança é expectativa justificada num contexto definido, não selo do modelo. Daí saem as quatro famílias de risco e a noção de risco residual com dono.
 

@@ -167,7 +167,7 @@ Os quatro entregáveis dos passos 1 a 4 — nenhum texto livre adicional é nece
 
 **O que é:** uma decisão de modificabilidade não se sustenta em uma tecnologia citada por nome; ela se sustenta em uma tática e um mecanismo identificáveis, e em evidência real de que a troca funcionou sem reescrever o cliente.
 
-**Onde encontrar:** consulte [cenário, tática, mecanismo e padrão](requisitos-e-taticas.md#da-caracteristica-a-estrutura), a tabela de táticas por intenção — linha de Modificabilidade — em [Requisitos significativos e táticas](requisitos-e-taticas.md), as [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [cenário, tática, mecanismo e padrão](requisitos-e-taticas.md#da-caracteristica-a-estrutura), a tabela de táticas por intenção — linha de Modificabilidade — em [Requisitos e táticas](requisitos-e-taticas.md), as [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) e o [template de ADR](../referencia/template-adr.md).
 
 **Pré-requisito:** este exercício usa os artefatos que você mesmo produziu na [oficina de ferramentas](oficina-de-ferramentas.md#evidencia-a-entregar) (Experimentos A e B). Se ainda não a fez, faça-a agora e volte com o manifesto antes da troca, o manifesto depois da troca, `request.json` e as duas respostas JSON em mãos — não redija um cenário novo para substituí-los.
 
@@ -181,7 +181,7 @@ Você decide se essa evidência sustenta registrar a fronteira de consumo (gatew
 
 **Insumos disponíveis**
 
-Os três artefatos e as duas respostas da oficina; a tabela de táticas por intenção de [Requisitos significativos e táticas](requisitos-e-taticas.md); as regras de [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) (você usará quatro das sete); o [template de ADR](../referencia/template-adr.md).
+Os três artefatos e as duas respostas da oficina; a tabela de táticas por intenção de [Requisitos e táticas](requisitos-e-taticas.md); as regras de [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) (você usará quatro das sete); o [template de ADR](../referencia/template-adr.md).
 
 **Como conduzir**
 

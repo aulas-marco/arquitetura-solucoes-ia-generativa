@@ -1,4 +1,4 @@
-# Entrega controlada e recuperação
+# Entrega e recuperação
 
 Transformar evidência em exposição gradual, e ter definido de antemão o que acontece quando a exposição dá errado.
 

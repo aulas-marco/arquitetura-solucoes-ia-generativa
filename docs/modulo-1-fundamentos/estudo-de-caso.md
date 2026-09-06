@@ -76,7 +76,7 @@ Cada exercício tem um objetivo específico, indica o que consultar antes de res
 
 ### Exercício 3 — O que atravessa o sistema
 
-**Consulte:** [Que informação atravessa o sistema](artefatos-do-sistema.md#que-informacao-atravessa-o-sistema), especialmente a tabela de [artefatos com ciclos de vida diferentes](artefatos-do-sistema.md#artefatos-com-ciclos-de-vida-diferentes).
+**Consulte:** [Artefatos e embeddings](artefatos-do-sistema.md#que-informacao-atravessa-o-sistema), especialmente a tabela de [artefatos com ciclos de vida diferentes](artefatos-do-sistema.md#artefatos-com-ciclos-de-vida-diferentes).
 
 **Tarefa:** olhando a situação da Horizonte, dê um exemplo concreto de cada artefato — conhecimento, contexto, estado, memória, evidência, trace — usando dados do próprio caso (por exemplo: qual documento é conhecimento? o que vira contexto numa pergunta específica? o que não deveria virar memória?).
 

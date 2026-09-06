@@ -1,4 +1,4 @@
-# Ferramentas e contratos
+# Ferramentas e tool calling
 
 Uma ferramenta é uma capacidade exposta por interface controlada. O que o modelo produz é uma solicitação, e o contrato decide se ela vira chamada.
 

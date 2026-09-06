@@ -52,10 +52,10 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato operacional e continuidade do curso |
-| 2 | [O pacote comportamental e a promoção](pacote-e-promocao.md) | ativo comportamental, ambientes, reprodutibilidade e portões |
+| 2 | [Versionamento e promoção](pacote-e-promocao.md) | ativo comportamental, ambientes, reprodutibilidade e portões |
 | 3 | [Observabilidade e métricas](observabilidade.md) | trace, quatro planos de métricas, logs minimizados e SLO |
-| 4 | [Entrega controlada e recuperação](entrega-e-recuperacao.md) | entrega controlada, roteamento, fallback, rollback e incidente |
-| 5 | [Laços desassistidos](lacos-desassistidos.md) | o verificador como gargalo e os quatro portões de um laço |
+| 4 | [Entrega e recuperação](entrega-e-recuperacao.md) | entrega controlada, roteamento, fallback, rollback e incidente |
+| 5 | [Operação de loops](lacos-desassistidos.md) | o verificador como gargalo e os quatro portões de um laço |
 | 6 | [Plataforma corporativa](plataforma-corporativa.md) | gateway, serviços comuns, catálogo, tenancy e modelo operacional |
 | 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
 | 8 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
@@ -63,4 +63,4 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 | 10 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
 | 11 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 
-Siga para [O pacote comportamental e a promoção](pacote-e-promocao.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.
+Siga para [Versionamento e promoção](pacote-e-promocao.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.

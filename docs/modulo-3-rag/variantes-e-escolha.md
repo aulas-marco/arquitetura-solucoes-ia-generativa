@@ -1,4 +1,4 @@
-# Variantes de RAG e escolha
+# Variantes de RAG
 
 Sete variantes, o que cada uma compra e cobra, e o critério para escolher uma em vez de acumular todas.
 

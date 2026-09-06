@@ -1,4 +1,4 @@
-# Laços desassistidos
+# Operação de loops
 
 Quando a unidade operada deixa de ser a solicitação e passa a ser o laço, o gargalo não é o modelo: é o verificador.
 

@@ -4,7 +4,7 @@ Esta página foi reorganizada. O conteúdo que estava aqui passou a viver em pá
 
 | Seção anterior | Onde está agora |
 |---|---|
-| <a id="modele-ativos-atores-e-fronteiras-antes-de-escolher-produtos"></a>Modele ativos, atores e fronteiras antes de escolher produtos | [Confiança sistêmica e risco](confianca-e-risco.md#modele-ativos-atores-e-fronteiras-antes-de-escolher-produtos) |
+| <a id="modele-ativos-atores-e-fronteiras-antes-de-escolher-produtos"></a>Modele ativos, atores e fronteiras antes de escolher produtos | [Confiança e risco](confianca-e-risco.md#modele-ativos-atores-e-fronteiras-antes-de-escolher-produtos) |
 | <a id="ameacas-recorrentes-em-rag-e-agentes"></a><a id="instrucoes-adversariais"></a><a id="exposicao-e-efeitos-indevidos"></a><a id="estado-custo-e-dependencias"></a>Ameaças recorrentes em RAG e agentes | [Ameaças e guardrails](ameacas-e-guardrails.md#ameacas-recorrentes-em-rag-e-agentes) |
 | <a id="guardrails-em-profundidade"></a>Guardrails em profundidade | [Ameaças e guardrails](ameacas-e-guardrails.md#guardrails-em-profundidade) |
 | <a id="fitness-functions-de-confianca"></a>Fitness functions de confiança | [Ameaças e guardrails](ameacas-e-guardrails.md#fitness-functions-de-confianca) |

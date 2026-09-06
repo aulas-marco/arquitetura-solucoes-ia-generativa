@@ -1,4 +1,4 @@
-# Contexto, citação e abstenção
+# Citações e abstenção
 
 O que entra na janela, como a resposta aponta para a evidência que a sustenta e o que o sistema faz quando a evidência não basta.
 

@@ -1,4 +1,4 @@
-# De onde emerge o comportamento
+# Superfície comportamental
 
 O comportamento observável não sai do modelo sozinho: ele emerge de uma superfície que a arquitetura escolhe e pode alterar.
 

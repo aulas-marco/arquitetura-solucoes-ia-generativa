@@ -1,4 +1,4 @@
-# Conhecimento paramétrico e recuperado: os dois fluxos
+# Introdução a RAG
 
 RAG não é um componente, são dois fluxos com ciclos de vida próprios: o que prepara o conhecimento e o que responde a uma pergunta.
 

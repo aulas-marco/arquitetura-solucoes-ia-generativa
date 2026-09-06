@@ -1,4 +1,4 @@
-# Decisões, ADRs e limites do fluxo
+# Decisões e limites do SDD
 
 As oito decisões que calibram profundidade, fatiamento, seams e revisão, os dois ADRs que registram a escolha, e os casos em que o método vira cerimônia.
 

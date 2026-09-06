@@ -1,4 +1,4 @@
-# Modos de trabalho e a spec viva
+# Vibe coding, assistência e SDD
 
 Vibe coding, assistência de codificação e desenvolvimento guiado por especificação diferem pelo artefato que governa a mudança, não pelo grau de uso do modelo.
 

@@ -1,4 +1,4 @@
-# O que muda quando o componente é probabilístico
+# Determinístico e probabilístico
 
 A transição que obriga a rever o que se considera um componente confiável, e o anti-padrão que ela produz quando é ignorada.
 

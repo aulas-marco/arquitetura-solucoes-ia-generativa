@@ -1,4 +1,4 @@
-# Que informação atravessa o sistema
+# Artefatos e embeddings
 
 Seis artefatos com ciclos de vida distintos circulam por uma solução generativa, e confundi-los é a origem de boa parte dos erros de projeto.
 

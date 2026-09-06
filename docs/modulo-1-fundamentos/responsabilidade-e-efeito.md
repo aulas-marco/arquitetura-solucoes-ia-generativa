@@ -1,4 +1,4 @@
-# Quem gera, decide, autoriza e executa
+# Geração, decisão e efeito
 
 Separar geração de decisão, autorização e efeito é o que permite dizer quem responde por cada passo, e é a base de todas as decisões dos módulos seguintes.
 

@@ -1,4 +1,4 @@
-# Estado, memória, contexto e política
+# Estado, memória e contexto
 
 Quatro coisas que costumam ser tratadas como sinônimos e governam camadas diferentes do sistema, mais a fronteira que decide o que é permitido.
 

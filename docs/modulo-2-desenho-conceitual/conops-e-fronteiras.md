@@ -1,4 +1,4 @@
-# CONOPS, fronteiras e stakeholders
+# CONOPS e stakeholders
 
 O sistema descrito em operação, com o que está dentro e fora de escopo, quem se preocupa com o quê e onde a pessoa entra.
 

@@ -1,4 +1,4 @@
-# O pacote comportamental e a promoção
+# Versionamento e promoção
 
 A unidade de mudança excede a versão do código. O que se promove entre ambientes é um pacote de artefatos que, juntos, determinam comportamento.
 

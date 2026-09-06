@@ -1,4 +1,4 @@
-# Qualidade multidimensional e medição
+# Qualidade e avaliação
 
 Sete dimensões que não se resumem a uma média, duas camadas de medição e as tensões que só se priorizam, nunca se resolvem.
 

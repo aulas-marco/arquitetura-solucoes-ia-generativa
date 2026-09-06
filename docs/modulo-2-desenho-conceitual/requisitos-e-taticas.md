@@ -1,4 +1,4 @@
-# Requisitos significativos e táticas
+# Requisitos e táticas
 
 Da característica de qualidade ao requisito arquiteturalmente significativo, e daí à tática que o realiza e ao critério que o aceita quando a saída é probabilística.
 

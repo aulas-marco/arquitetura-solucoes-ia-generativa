@@ -1,4 +1,4 @@
-# Comparar alternativas e registrar a decisão
+# Alternativas e ADRs
 
 Comparar a menor capacidade suficiente, registrar a escolha num ADR e verificar depois se a solução ainda corresponde ao que foi decidido.
 

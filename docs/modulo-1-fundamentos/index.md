@@ -54,12 +54,12 @@ Ao concluir o módulo, você deverá ser capaz de:
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
-| 2 | [O que muda quando o componente é probabilístico](mudanca-probabilistica.md) | determinístico e probabilístico; modelo, aplicação e sistema sociotécnico |
-| 3 | [De onde emerge o comportamento](superficie-comportamental.md) | superfície de comportamento: tokens, janela, prompt, parâmetros e alucinação |
-| 4 | [Que informação atravessa o sistema](artefatos-do-sistema.md) | conhecimento, contexto, estado, memória, evidência e trace |
-| 5 | [Quem gera, decide, autoriza e executa](responsabilidade-e-efeito.md) | geração, decisão, autorização e efeito; mapa de responsabilidades |
-| 6 | [Escolher a abordagem](escolha-da-abordagem.md) | sete abordagens, quatro decisões ortogonais e a ficha inicial |
-| 7 | [Verificar e governar](verificacao-e-governanca.md) | três tipos de verificação e o contrato arquitetural que passa a valer |
+| 2 | [Determinístico e probabilístico](mudanca-probabilistica.md) | determinístico e probabilístico; modelo, aplicação e sistema sociotécnico |
+| 3 | [Superfície comportamental](superficie-comportamental.md) | superfície de comportamento: tokens, janela, prompt, parâmetros e alucinação |
+| 4 | [Artefatos e embeddings](artefatos-do-sistema.md) | conhecimento, contexto, estado, memória, evidência e trace |
+| 5 | [Geração, decisão e efeito](responsabilidade-e-efeito.md) | geração, decisão, autorização e efeito; mapa de responsabilidades |
+| 6 | [Padrões de solução](escolha-da-abordagem.md) | sete abordagens, quatro decisões ortogonais e a ficha inicial |
+| 7 | [Verificação e governança](verificacao-e-governanca.md) | três tipos de verificação e o contrato arquitetural que passa a valer |
 | 8 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
 | 9 | [Estudo de caso](estudo-de-caso.md) | — |
 | 10 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
@@ -88,4 +88,4 @@ Ao encontrar um componente, pergunte qual responsabilidade ele assume, que falha
 
 O objetivo não é eliminar incerteza. É localizá-la e atribuir a ela uma forma de aprendizagem, contenção ou decisão.
 
-**Próxima página:** [O que muda quando o componente é probabilístico](mudanca-probabilistica.md).
+**Próxima página:** [Determinístico e probabilístico](mudanca-probabilistica.md).

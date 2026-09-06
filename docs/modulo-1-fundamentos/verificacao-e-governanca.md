@@ -1,4 +1,4 @@
-# Verificar e governar
+# Verificação e governança
 
 O que substitui o teste determinístico quando a saída varia, e o contrato arquitetural que passa a valer a partir daí.
 

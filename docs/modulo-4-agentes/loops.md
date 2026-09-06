@@ -1,4 +1,4 @@
-# Loops
+# Loops agênticos
 
 Quem aciona o arnês, quantas vezes, e o que precisa estar verificável antes de entregar mais uma coisa à máquina.
 

@@ -65,16 +65,16 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem e limites de autonomia |
-| 2 | [Onde está o controle](controle-e-autonomia.md) | chatbot, copiloto, workflow e agente; critério de entrada |
-| 3 | [Ferramentas e contratos](ferramentas-e-contratos.md) | contrato de ferramenta, catálogo mínimo e adaptadores |
-| 4 | [Estado, memória, contexto e política](estado-memoria-e-politica.md) | planejamento, estado, memória, contexto e política executável |
-| 5 | [Efeito, identidade e recuperação](efeito-e-recuperacao.md) | identidade delegada, idempotência, timeout, compensação e auditoria |
-| 6 | [Autonomia orçada](autonomia-orcada.md) | matriz de autonomia, orçamento, interrupção e fallback |
-| 7 | [O arnês](arnes.md) | o que cerca o modelo, erro composto e diagnóstico por tipo de falha |
-| 8 | [Loops](loops.md) | quatro níveis de loop, condição de parada e o verificador |
-| 9 | [Modos de trabalho e a spec viva](sdd-modos-e-spec.md) | vibe coding, assistência e SDD; spec viva e constitution |
-| 10 | [O fluxo completo, dos princípios à evidência](sdd-fluxo.md) | oito etapas, três gates humanos e oito artefatos |
-| 11 | [Decisões, ADRs e limites do fluxo](sdd-decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
+| 2 | [Chatbots, copilotos e agentes](controle-e-autonomia.md) | chatbot, copiloto, workflow e agente; critério de entrada |
+| 3 | [Ferramentas e tool calling](ferramentas-e-contratos.md) | contrato de ferramenta, catálogo mínimo e adaptadores |
+| 4 | [Estado, memória e contexto](estado-memoria-e-politica.md) | planejamento, estado, memória, contexto e política executável |
+| 5 | [Integração e resiliência](efeito-e-recuperacao.md) | identidade delegada, idempotência, timeout, compensação e auditoria |
+| 6 | [Níveis de autonomia](autonomia-orcada.md) | matriz de autonomia, orçamento, interrupção e fallback |
+| 7 | [Engenharia de arnês](arnes.md) | o que cerca o modelo, erro composto e diagnóstico por tipo de falha |
+| 8 | [Loops agênticos](loops.md) | quatro níveis de loop, condição de parada e o verificador |
+| 9 | [Vibe coding, assistência e SDD](sdd-modos-e-spec.md) | vibe coding, assistência e SDD; spec viva e constitution |
+| 10 | [O fluxo SDD](sdd-fluxo.md) | oito etapas, três gates humanos e oito artefatos |
+| 11 | [Decisões e limites do SDD](sdd-decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
 | 12 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 13 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
 | 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |
@@ -85,4 +85,4 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 
 Considere: “se o cliente pedir troca, consulte pedido e estoque; reserve o item; solicite confirmação; cancele a reserva anterior; atualize o CRM”. A sequência parece conhecida, mas exceções variam: item substituto, política por canal, estoque concorrente e aprovação para diferença de valor. Isso não prova que um agente seja necessário. Primeiro enumere decisões, efeitos e falhas. Depois compare um workflow com ramificações a um agente limitado. A escolha depende do valor da adaptação e da capacidade de controlar trajetórias, não da novidade da tecnologia.
 
-Comece pela linguagem precisa em [Onde está o controle](controle-e-autonomia.md).
+Comece pela linguagem precisa em [Chatbots, copilotos e agentes](controle-e-autonomia.md).

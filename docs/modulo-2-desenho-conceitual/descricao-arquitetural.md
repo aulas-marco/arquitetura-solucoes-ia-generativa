@@ -1,4 +1,4 @@
-# Descrever o sistema antes da solução
+# Documento de arquitetura
 
 O documento de arquitetura, as cinco visões mínimas e o vocabulário que sustenta qualquer decisão posterior.
 

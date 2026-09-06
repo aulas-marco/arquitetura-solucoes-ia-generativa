@@ -1,4 +1,4 @@
-# Oportunidade e adequação
+# Quando usar IA generativa
 
 Antes de desenhar, decidir se a capacidade generativa cabe no problema, e reconhecer os casos em que a resposta correta é recusar.
 

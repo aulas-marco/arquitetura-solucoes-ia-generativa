@@ -219,7 +219,7 @@ Você é o arquiteto que conduz uma decisão inicial e precisa mostrar quais con
 
 **Insumos disponíveis**
 
-Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo e as definições de atualização, proveniência e autorização em [Que informação atravessa o sistema](artefatos-do-sistema.md).
+Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo e as definições de atualização, proveniência e autorização em [Artefatos e embeddings](artefatos-do-sistema.md).
 
 **Como conduzir**
 

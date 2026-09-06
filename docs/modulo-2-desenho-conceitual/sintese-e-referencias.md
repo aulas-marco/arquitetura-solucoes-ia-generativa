@@ -62,7 +62,7 @@ Sem consultar as páginas, responda:
 11. Consigo verificar correspondências entre interação, responsabilidades, informação e implantação?
 12. Sei percorrer objetivo → RAS → tática → mecanismo → visão → evidência e voltar?
 
-Se mais de duas respostas forem “ainda não”, retome os [temas do módulo](index.md), reconstrua a análise em [Comparar alternativas e registrar a decisão](alternativas-e-registro.md) e refaça os exercícios 8, 9 e 11.
+Se mais de duas respostas forem “ainda não”, retome os [temas do módulo](index.md), reconstrua a análise em [Alternativas e ADRs](alternativas-e-registro.md) e refaça os exercícios 8, 9 e 11.
 
 ## Fundamentação pedagógica
 

@@ -1,4 +1,4 @@
-# Efeito, identidade e recuperação
+# Integração e resiliência
 
 A partir do momento em que existe efeito sobre um sistema real, identidade, idempotência, tempo limite e compensação deixam de ser detalhe de implementação.
 

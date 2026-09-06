@@ -35,11 +35,11 @@ Ao concluir o módulo, você deverá ser capaz de:
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
-| 2 | [Conhecimento paramétrico e recuperado: os dois fluxos](dois-fluxos.md) | conhecimento paramétrico e recuperado; ingestão e consulta |
-| 3 | [Recuperação](recuperacao.md) | lexical, vetorial e híbrida, com autorização e reranking |
-| 4 | [Contexto, citação e abstenção](contexto-e-abstencao.md) | montagem de contexto, citação, suficiência e abstenção |
-| 5 | [Variantes de RAG e escolha](variantes-e-escolha.md) | sete variantes, trade-offs e critério de escolha |
-| 6 | [Avaliação e fitness functions](avaliacao-de-rag.md) | avaliação por camada e fitness functions de recuperação |
+| 2 | [Introdução a RAG](dois-fluxos.md) | conhecimento paramétrico e recuperado; ingestão e consulta |
+| 3 | [Busca e recuperação](recuperacao.md) | lexical, vetorial e híbrida, com autorização e reranking |
+| 4 | [Citações e abstenção](contexto-e-abstencao.md) | montagem de contexto, citação, suficiência e abstenção |
+| 5 | [Variantes de RAG](variantes-e-escolha.md) | sete variantes, trade-offs e critério de escolha |
+| 6 | [Avaliação de RAG](avaliacao-de-rag.md) | avaliação por camada e fitness functions de recuperação |
 | 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
 | 8 | [Estudo de caso](estudo-de-caso.md) | — |
 | 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
@@ -67,4 +67,4 @@ Não otimize geração antes de localizar a causa. Uma resposta ruim pode decorr
 
 Primeiro construiremos o vocabulário e os dois fluxos. Depois compararemos decisões e padrões. Só então aplicaremos o método ao assistente corporativo de políticas e contratos. Essa ordem evita transformar uma escolha particular de índice em uma regra para todos os sistemas.
 
-**Próxima página:** [Conhecimento paramétrico e recuperado: os dois fluxos](dois-fluxos.md).
+**Próxima página:** [Introdução a RAG](dois-fluxos.md).
