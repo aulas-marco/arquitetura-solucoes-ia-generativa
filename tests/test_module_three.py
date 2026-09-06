@@ -18,8 +18,7 @@ class ModuleThreeContentRegressionTest(unittest.TestCase):
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
         ordem = [navigation.index(f"modulo-3-rag/{page}") for page in ("index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
-                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
-                     "conceitos.md", "padroes-e-decisoes.md")]
+                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md")]
         self.assertEqual(ordem, sorted(ordem))
         for page in tematicas:
             self.assertIn(f"modulo-3-rag/{page}", navigation)

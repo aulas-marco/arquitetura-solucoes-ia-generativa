@@ -1,8 +1,8 @@
 # Caso contínuo: Cooperativa Aurora — operação
 
-**Caso contínuo — Cooperativa Aurora.** [← Módulo 5: Confiança e avaliação](../modulo-5-confianca/caso-aurora.md)
+**Caso contínuo — Cooperativa Aurora.** [← Módulo 6: Confiança e avaliação](../modulo-6-confianca/caso-aurora.md)
 
-Ao chegar neste módulo, a Cooperativa Aurora já tem arquitetura decidida: evoluiu para um copiloto com [RAG](../modulo-3-rag/caso-aurora.md) e um [agente de ferramentas somente leitura](../modulo-4-agentes/caso-aurora.md) sobre sistemas legados, com [modelo de ameaças e avaliação](../modulo-5-confianca/caso-aurora.md) próprios. Este módulo trata a Aurora como **mais um produto** na mesma plataforma corporativa descrita no [exemplo arquitetural](exemplo-arquitetural.md) — que já hospeda copiloto de atendimento, RAG de políticas, agente de compras e o [Banco Lume](caso-lume.md), tratado em sua própria página. A Aurora entra pelo mesmo gateway, identidade e telemetria, mas preserva jornada, ferramentas, avaliação e risco residual próprios, exatamente como o princípio do módulo estabelece: a plataforma não vira um "chat corporativo" único.
+Ao chegar neste módulo, a Cooperativa Aurora já tem arquitetura decidida: evoluiu para um copiloto com [RAG](../modulo-3-rag/caso-aurora.md) e um [agente de ferramentas somente leitura](../modulo-4-agentes/caso-aurora.md) sobre sistemas legados, com [modelo de ameaças e avaliação](../modulo-6-confianca/caso-aurora.md) próprios. Este módulo trata a Aurora como **mais um produto** na mesma plataforma corporativa descrita no [exemplo arquitetural](exemplo-arquitetural.md) — que já hospeda copiloto de atendimento, RAG de políticas, agente de compras e o [Banco Lume](caso-lume.md), tratado em sua própria página. A Aurora entra pelo mesmo gateway, identidade e telemetria, mas preserva jornada, ferramentas, avaliação e risco residual próprios, exatamente como o princípio do módulo estabelece: a plataforma não vira um "chat corporativo" único.
 
 ```mermaid
 flowchart LR
@@ -34,7 +34,7 @@ flowchart LR
 
 **Status.** Proposta.
 
-**Contexto.** A Aurora opera com agente de ferramentas somente leitura (Módulo 4) e superfície de risco maior que o Lume (Módulo 5); a integração à plataforma precisa herdar os mecanismos de degradação e contenção do módulo sem enfraquecer os controles já definidos.
+**Contexto.** A Aurora opera com agente de ferramentas somente leitura (Módulo 4) e superfície de risco maior que o Lume (Módulo 6); a integração à plataforma precisa herdar os mecanismos de degradação e contenção do módulo sem enfraquecer os controles já definidos.
 
 **Direcionadores da decisão.** Segregação entre quem propõe e quem aprova (restrição confirmada no Módulo 2); orçamento de passos e autorização por ferramenta (Módulo 4); atribuição de custo mais precisa que o Lume, pela natureza da chamada a sistemas legados.
 
@@ -48,7 +48,7 @@ flowchart LR
 
 **Consequências.** Contenção alta de risco durante a validação; custo de manter, por mais tempo, o fluxo manual para o efeito final (aprovação e registro) mesmo com o agente já operando.
 
-**Evidências.** O registro de risco do Módulo 5 já identifica a superfície de agente como maior que a do Lume; suspender escrita em canary reduz esse risco sem impedir a validação da parte que efetivamente muda (leitura e proposta).
+**Evidências.** O registro de risco do Módulo 6 já identifica a superfície de agente como maior que a do Lume; suspender escrita em canary reduz esse risco sem impedir a validação da parte que efetivamente muda (leitura e proposta).
 
 **Gatilhos de revisão.** Reavaliar liberação de escrita em canary somente após N ciclos sem violação de orçamento de passos e com aprovação de Segurança e do dono do processo de crédito.
 
@@ -56,7 +56,7 @@ flowchart LR
 
 **Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução da Aurora e do Lume: observar como o span `conhecimento` minimiza a consulta ao índice de políticas de campanha e à ferramenta de leitura — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](plataforma-corporativa.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](plataforma-corporativa.md#modelo-operacional-da-plataforma).
 
-**Pré-requisitos.** Ambiente do Módulo 6 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
+**Pré-requisitos.** Ambiente do Módulo 7 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
 
 **Instalação.**
 
@@ -91,4 +91,4 @@ Conclua em até três linhas se a diferença de duração observada basta, isola
 
 ## Continuidade: do Módulo 1 ao 6
 
-A Cooperativa Aurora atravessou o curso guiada por evidência, não por preferência por complexidade: separou as quatro decisões desde o [Módulo 1](../modulo-1-fundamentos/caso-aurora.md) a partir de evidências próprias — corpus de campanhas maior, sistemas legados em lote —, ganhou arquitetura no [Módulo 2](../modulo-2-desenho-conceitual/caso-aurora.md), evoluiu para RAG híbrido em lote no [Módulo 3](../modulo-3-rag/caso-aurora.md) e chegou a um agente de ferramentas somente leitura no [Módulo 4](../modulo-4-agentes/caso-aurora.md), com superfície de risco e avaliação correspondentemente maiores no [Módulo 5](../modulo-5-confianca/caso-aurora.md). Neste módulo, ela se torna produto de uma plataforma sem perder a responsabilidade que lhe é própria. O [Banco Lume](caso-lume.md) seguiu o mesmo método a partir de evidências diferentes e **permaneceu sem agente** — comparar as duas trajetórias, lado a lado, é o argumento central do caso: a lição não é "toda solução generativa termina em agente e RAG", é que cada decisão — conhecimento, efeito, autonomia, operação — precisa da sua própria evidência antes de ser tomada.
+A Cooperativa Aurora atravessou o curso guiada por evidência, não por preferência por complexidade: separou as quatro decisões desde o [Módulo 1](../modulo-1-fundamentos/caso-aurora.md) a partir de evidências próprias — corpus de campanhas maior, sistemas legados em lote —, ganhou arquitetura no [Módulo 2](../modulo-2-desenho-conceitual/caso-aurora.md), evoluiu para RAG híbrido em lote no [Módulo 3](../modulo-3-rag/caso-aurora.md) e chegou a um agente de ferramentas somente leitura no [Módulo 4](../modulo-4-agentes/caso-aurora.md), com superfície de risco e avaliação correspondentemente maiores no [Módulo 6](../modulo-6-confianca/caso-aurora.md). Neste módulo, ela se torna produto de uma plataforma sem perder a responsabilidade que lhe é própria. O [Banco Lume](caso-lume.md) seguiu o mesmo método a partir de evidências diferentes e **permaneceu sem agente** — comparar as duas trajetórias, lado a lado, é o argumento central do caso: a lição não é "toda solução generativa termina em agente e RAG", é que cada decisão — conhecimento, efeito, autonomia, operação — precisa da sua própria evidência antes de ser tomada.

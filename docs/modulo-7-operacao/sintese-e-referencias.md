@@ -4,14 +4,15 @@
 
 Operar sistemas generativos é controlar uma composição que muda. Pacote comportamental, avaliação contínua, entrega gradual, observabilidade e recuperação tornam premissas, versões, limites e responsáveis visíveis. A plataforma escala capacidades comuns sem absorver a responsabilidade dos domínios; maturidade significa conter falhas e transformar evidência em mudança verificável.
 
-## A progressão dos seis módulos
+## A progressão dos sete módulos
 
 - O **Módulo 1** separou capacidade probabilística de controle determinístico e situou o modelo dentro de um sistema.
 - O **Módulo 2** partiu do problema, dos stakeholders, dos atributos de qualidade e das decisões registradas.
 - O **Módulo 3** organizou conhecimento em ingestão e consulta, com proveniência, vigência e autorização.
 - O **Módulo 4** distinguiu workflow, agente, ferramenta e efeito, mantendo autoridade fora do texto gerado.
-- O **Módulo 5** conectou ameaças, guardrails, avaliação multidimensional, governança e risco residual.
-- O **Módulo 6** coloca tudo no tempo: versões, promoção, observação, recuperação, plataforma, equipes e economia.
+- O **Módulo 5** transformou intenção em software verificável por constitution, spec, plano, tarefas e portões humanos.
+- O **Módulo 6** conectou ameaças, guardrails, avaliação multidimensional, governança e risco residual.
+- O **Módulo 7** coloca tudo no tempo: versões, promoção, observação, recuperação, plataforma, equipes e economia.
 
 O capstone é um argumento rastreável do contexto à operação: propósito, qualidade, fluxo, falhas, autoridade, evidência, degradação e experimentos pendentes.
 

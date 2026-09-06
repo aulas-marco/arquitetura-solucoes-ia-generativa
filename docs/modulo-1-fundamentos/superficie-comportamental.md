@@ -22,7 +22,7 @@ modelo e versão
 
 Essa combinação é a **superfície comportamental**. Uma alteração em qualquer elemento pode mudar qualidade, custo, latência, segurança ou efeito sem modificar o código da aplicação. Por isso, avaliar apenas o modelo oferece evidência insuficiente para aceitar o sistema.
 
-Guarde o nome, porque o curso volta a esse mesmo inventário sob outras duas lentes. No [Módulo 4](../modulo-4-agentes/arnes.md), a lista reaparece sem a primeira linha: tudo o que cerca o modelo, e que a engenharia pode reconstruir sem trocar de fornecedor, recebe o nome de **arnês** — arnês é a superfície comportamental menos o modelo. No [Módulo 6](../modulo-6-operacao/pacote-e-promocao.md), cada item da lista passa a ser um **ativo comportamental**, algo que precisa de versão, manifesto e portão para ser promovido. Três perguntas diferentes sobre o mesmo território: por que a saída é esta, o que eu controlo e o que eu preciso versionar.
+Guarde o nome, porque o curso volta a esse mesmo inventário sob outras duas lentes. No [Módulo 4](../modulo-4-agentes/arnes.md), a lista reaparece sem a primeira linha: tudo o que cerca o modelo, e que a engenharia pode reconstruir sem trocar de fornecedor, recebe o nome de **arnês** — arnês é a superfície comportamental menos o modelo. No [Módulo 7](../modulo-7-operacao/pacote-e-promocao.md), cada item da lista passa a ser um **ativo comportamental**, algo que precisa de versão, manifesto e portão para ser promovido. Três perguntas diferentes sobre o mesmo território: por que a saída é esta, o que eu controlo e o que eu preciso versionar.
 
 ## Modelos fundacionais e LLMs
 

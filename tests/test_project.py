@@ -49,7 +49,7 @@ class ProjectTest(unittest.TestCase):
 
         for slug in (
             "modulo-1-fundamentos", "modulo-2-desenho-conceitual", "modulo-3-rag",
-            "modulo-4-agentes", "modulo-5-confianca", "modulo-6-operacao",
+            "modulo-4-agentes", "modulo-6-confianca", "modulo-7-operacao",
         ):
             self.assertEqual(1, homepage.count(f"({slug}/index.md)"), slug)
         self.assertIn("[Plano da disciplina](sobre/plano-da-disciplina.md)", homepage)

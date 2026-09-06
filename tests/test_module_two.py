@@ -14,7 +14,6 @@ MODULE = ROOT / "docs" / "modulo-2-desenho-conceitual"
 MODULE_TWO_PAGE_ORDER = (
     "index.md", "exemplo-arquitetural.md", "exercicios.md",
     "oficina-de-ferramentas.md", "estudo-de-caso.md", "sintese-e-referencias.md",
-    "conceitos.md", "padroes-e-decisoes.md",
 )
 
 

@@ -2,6 +2,8 @@ from pathlib import Path
 import re
 import unittest
 
+from scripts.validate_content import teaching_text
+
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "docs" / "assets" / "images"
@@ -27,13 +29,13 @@ INFOGRAPHICS = {
         "Mapa da autonomia controlada",
         "Quatro formas de controle operacional",
     ),
-    "modulo-5-confianca": (
-        "m05-mapa-confianca-sistemica.png",
+    "modulo-6-confianca": (
+        "m06-mapa-confianca-sistemica.png",
         "Mapa da confiança sistêmica",
         "Confiança é uma relação, não uma característica absoluta",
     ),
-    "modulo-6-operacao": (
-        "m06-mapa-operacao-evidencia-continua.png",
+    "modulo-7-operacao": (
+        "m07-mapa-operacao-evidencia-continua.png",
         "Mapa da operação e evidência contínua",
         "O objeto operado é um pacote comportamental",
     ),
@@ -44,7 +46,7 @@ class ConceptInfographicsTest(unittest.TestCase):
     def test_every_concept_page_introduces_one_accessible_infographic(self):
         for slug, (filename, title, first_heading) in INFOGRAPHICS.items():
             with self.subTest(module=slug):
-                page = (ROOT / "docs" / slug / "conceitos.md").read_text(encoding="utf-8")
+                page = teaching_text(ROOT / "docs" / slug)
                 image = f"../assets/images/{filename}"
                 alt = re.search(
                     rf"!\[([^]]+)\]\(\.\./assets/images/{re.escape(filename)}",
@@ -60,7 +62,7 @@ class ConceptInfographicsTest(unittest.TestCase):
     def test_existing_infographic_assets_are_valid_pngs(self):
         filenames = [contract[0] for contract in INFOGRAPHICS.values()]
         self.assertEqual(len(filenames), len(set(filenames)))
-        self.assertTrue(all(re.fullmatch(r"m0[1-6]-.+\.png", name) for name in filenames))
+        self.assertTrue(all(re.fullmatch(r"m0[1-7]-.+\.png", name) for name in filenames))
 
 
 if __name__ == "__main__":

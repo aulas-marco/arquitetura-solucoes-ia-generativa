@@ -38,9 +38,9 @@ A lista abaixo reúne os componentes que aparecem de forma recorrente nos ensaio
 | *System prompt* | Que caráter, limites e convenções governam toda tarefa? | [Prompt como contrato](../modulo-1-fundamentos/superficie-comportamental.md) e [saída estruturada](ferramentas-e-contratos.md#uso-de-ferramentas-e-saidas-estruturadas) |
 | Ferramentas | O que o agente pode fazer, e com que contrato? | [Contrato de ferramenta](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta) |
 | Gestão de contexto | O que entra na janela agora, e o que é descartado? | [Estado, memória e contexto](estado-memoria-e-politica.md#estado-memoria-e-contexto) |
-| Verificação | Como o agente confere o que fez antes de avançar? | [Fitness functions para autonomia](autonomia-orcada.md#fitness-functions-para-autonomia) e Módulo 5 |
+| Verificação | Como o agente confere o que fez antes de avançar? | [Fitness functions para autonomia](autonomia-orcada.md#fitness-functions-para-autonomia) e Módulo 6 |
 | Memória | O que persiste entre execuções, com que autorização? | [Memória persistente](estado-memoria-e-politica.md#estado-memoria-e-contexto) |
-| *Sandbox* | Onde o código roda sem alcançar produção nem dado real? | Oficinas locais e [ambientes](../modulo-6-operacao/pacote-e-promocao.md#ambientes-e-promocao) |
+| *Sandbox* | Onde o código roda sem alcançar produção nem dado real? | Oficinas locais e [ambientes](../modulo-7-operacao/pacote-e-promocao.md#ambientes-e-promocao) |
 | *Hooks* | Em que ponto do ciclo um controle determinístico intervém? | [Políticas como fronteira executável](estado-memoria-e-politica.md#politicas-como-fronteira-executavel) |
 
 Os dois primeiros itens costumam receber toda a atenção, e são os de menor retorno isolado. O quarto é o de maior retorno comprovado, tema da subseção seguinte.

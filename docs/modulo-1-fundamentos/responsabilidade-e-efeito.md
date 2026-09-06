@@ -29,7 +29,7 @@ O modelo **gera** uma proposta ou sugere um próximo passo. Uma regra, workflow 
 
 Um sistema **multimodal** processa ou produz mais de um tipo de dado. Imagem, áudio e documentos digitalizados acrescentam etapas de extração, ameaças, acessibilidade e métricas próprias. Um modelo pode ler uma nota fiscal; regras ainda validam valores, e uma autoridade ainda aprova o efeito. Mudar a modalidade amplia a superfície, mas não transfere essas responsabilidades ao modelo.
 
-O [Módulo 4](../modulo-4-agentes/index.md) aprofundará autonomia e ferramentas; o [Módulo 5](../modulo-5-confianca/index.md) tratará ameaças, controles e risco residual. Antes dessas decisões, porém, é necessário definir que evidência sustenta a aceitação do sistema.
+O [Módulo 4](../modulo-4-agentes/index.md) aprofundará autonomia e ferramentas; o [Módulo 6](../modulo-6-confianca/index.md) tratará ameaças, controles e risco residual. Antes dessas decisões, porém, é necessário definir que evidência sustenta a aceitação do sistema.
 
 ## Mapa de responsabilidades
 

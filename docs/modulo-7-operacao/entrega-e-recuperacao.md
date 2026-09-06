@@ -4,7 +4,7 @@ Transformar evidência em exposição gradual, e ter definido de antemão o que 
 
 ## Avaliação contínua e entrega controlada
 
-**Avaliação contínua** reutiliza o framework do Módulo 5 ao longo do ciclo. Antes da integração, testes locais verificam schemas e regras determinísticas. No pull request, um subconjunto rápido detecta regressões conhecidas. Na homologação, o conjunto completo mede factualidade, relevância, fundamentação, segurança, utilidade, latência e custo por fatia. Em produção, canary e amostragem detectam mudança de distribuição, novas intenções e falhas de componentes. Periodicamente, casos de incidentes e feedback autorizado voltam ao conjunto.
+**Avaliação contínua** reutiliza o framework do Módulo 6 ao longo do ciclo. Antes da integração, testes locais verificam schemas e regras determinísticas. No pull request, um subconjunto rápido detecta regressões conhecidas. Na homologação, o conjunto completo mede factualidade, relevância, fundamentação, segurança, utilidade, latência e custo por fatia. Em produção, canary e amostragem detectam mudança de distribuição, novas intenções e falhas de componentes. Periodicamente, casos de incidentes e feedback autorizado voltam ao conjunto.
 
 Um resultado não passa apenas porque a média subiu. Critérios intoleráveis — vazamento, ação sem autorização, ausência de escalonamento obrigatório — bloqueiam. Métricas negociáveis usam faixa, orçamento e comparação com a versão vigente. Mudança no avaliador também é versão comportamental: deve ser calibrada contra julgamento humano e não pode redefinir retroativamente o sucesso sem explicação.
 

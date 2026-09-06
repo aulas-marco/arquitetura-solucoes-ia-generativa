@@ -33,7 +33,7 @@ class PedagogicalShellTest(unittest.TestCase):
                 self.assertIn("[Oficina de ferramentas](oficina-de-ferramentas.md)", text)
 
     def test_modules_five_and_six_end_with_self_assessment_questions(self):
-        for slug in ("modulo-5-confianca", "modulo-6-operacao"):
+        for slug in ("modulo-6-confianca", "modulo-7-operacao"):
             text = (DOCS / slug / "sintese-e-referencias.md").read_text(encoding="utf-8")
             section = re.search(
                 r"(?ms)^## Autoavaliação\s*(.*?)(?=^## |\Z)", text

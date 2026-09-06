@@ -100,6 +100,6 @@ A proposta de chamado fica para outro incremento. Se for adotada, deverá acresc
 
 ## Leitura do exemplo
 
-O desenho demonstra uma composição, não uma arquitetura universal. O Módulo 2 poderá questionar se os direcionadores justificam a estrutura; o Módulo 3 detalhará conhecimento; o Módulo 5 testará ameaças e controles; o Módulo 6 governará versões e promoção.
+O desenho demonstra uma composição, não uma arquitetura universal. O Módulo 2 poderá questionar se os direcionadores justificam a estrutura; o Módulo 3 detalhará conhecimento; o Módulo 6 testará ameaças e controles; o Módulo 7 governará versões e promoção.
 
 **Próxima página:** [Estudo de caso do atendimento interno](estudo-de-caso.md).

@@ -1,8 +1,8 @@
 # Caso contínuo: Banco Lume — operação
 
-**Caso contínuo — Banco Lume.** [← Módulo 5: Confiança e avaliação](../modulo-5-confianca/caso-lume.md)
+**Caso contínuo — Banco Lume.** [← Módulo 6: Confiança e avaliação](../modulo-6-confianca/caso-lume.md)
 
-Ao chegar neste módulo, o Banco Lume já tem arquitetura decidida: permanece um workflow assistivo com [RAG](../modulo-3-rag/caso-lume.md) de políticas de contestação, sem agente — decisão confirmada no [Módulo 4](../modulo-4-agentes/caso-lume.md) e avaliada no [Módulo 5](../modulo-5-confianca/caso-lume.md). Este módulo trata o Lume como **mais um produto** na mesma plataforma corporativa descrita no [exemplo arquitetural](exemplo-arquitetural.md) — que já hospeda copiloto de atendimento, RAG de políticas, agente de compras e a [Cooperativa Aurora](caso-aurora.md), tratada em sua própria página. O Lume entra pelo mesmo gateway, identidade e telemetria, mas preserva jornada, fontes e avaliação próprios.
+Ao chegar neste módulo, o Banco Lume já tem arquitetura decidida: permanece um workflow assistivo com [RAG](../modulo-3-rag/caso-lume.md) de políticas de contestação, sem agente — decisão confirmada no [Módulo 4](../modulo-4-agentes/caso-lume.md) e avaliada no [Módulo 6](../modulo-6-confianca/caso-lume.md). Este módulo trata o Lume como **mais um produto** na mesma plataforma corporativa descrita no [exemplo arquitetural](exemplo-arquitetural.md) — que já hospeda copiloto de atendimento, RAG de políticas, agente de compras e a [Cooperativa Aurora](caso-aurora.md), tratada em sua própria página. O Lume entra pelo mesmo gateway, identidade e telemetria, mas preserva jornada, fontes e avaliação próprios.
 
 ```mermaid
 flowchart LR
@@ -28,7 +28,7 @@ flowchart LR
 
 **Showback.** Custo do Lume é atribuído por chamada de síntese e por consulta ao índice de políticas, reportado à área de contestações — sem chargeback neste incremento, pela mesma razão de maturidade de atribuição já registrada no exemplo arquitetural do módulo.
 
-**Fronteiras de propriedade.** A plataforma possui gateway, catálogo de modelos, schema de telemetria e caminho de promoção. O produto Lume possui prompt de síntese, mapeamento de categoria de contestação para política, corpus do índice e SLO percebido pelo analista. Segurança e Privacidade possuem o modelo de ameaças específico do Lume (Módulo 5); o dono do processo de contestações aceita o risco residual.
+**Fronteiras de propriedade.** A plataforma possui gateway, catálogo de modelos, schema de telemetria e caminho de promoção. O produto Lume possui prompt de síntese, mapeamento de categoria de contestação para política, corpus do índice e SLO percebido pelo analista. Segurança e Privacidade possuem o modelo de ameaças específico do Lume (Módulo 6); o dono do processo de contestações aceita o risco residual.
 
 ### ADR — Lume: canary por agência, sem chargeback
 
@@ -56,7 +56,7 @@ flowchart LR
 
 **Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução do Lume e da Aurora: observar como o span `conhecimento` minimiza a consulta ao índice de políticas — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](plataforma-corporativa.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](plataforma-corporativa.md#modelo-operacional-da-plataforma).
 
-**Pré-requisitos.** Ambiente do Módulo 6 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
+**Pré-requisitos.** Ambiente do Módulo 7 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
 
 **Instalação.**
 

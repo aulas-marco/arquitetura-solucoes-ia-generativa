@@ -25,13 +25,13 @@ Esse contrato organiza a continuidade do curso:
 - o [Módulo 2](../modulo-2-desenho-conceitual/index.md) transforma oportunidade em descrição e decisão;
 - o [Módulo 3](../modulo-3-rag/index.md) governa conhecimento externo;
 - o [Módulo 4](../modulo-4-agentes/index.md) governa autonomia e efeitos;
-- o [Módulo 5](../modulo-5-confianca/index.md) distribui controles e avaliação;
-- o [Módulo 6](../modulo-6-operacao/index.md) governa mudança e operação da superfície comportamental.
+- o [Módulo 6](../modulo-6-confianca/index.md) distribui controles e avaliação;
+- o [Módulo 7](../modulo-7-operacao/index.md) governa mudança e operação da superfície comportamental.
 
 Esses critérios são o que a [escolha da abordagem](escolha-da-abordagem.md) precisa sustentar, e reaparecem no [exemplo arquitetural](exemplo-arquitetural.md) como evidência exigida.
 
 ## Ponte para confiança e operação
 
-Qualquer alternativa precisa responder a duas perguntas transversais. O [Módulo 5](../modulo-5-confianca/index.md) perguntará quais riscos, controles e avaliações tornam o uso aceitável. O [Módulo 6](../modulo-6-operacao/index.md) perguntará quais versões, fitness functions, rollouts e modos degradados preservam essa aceitação no tempo.
+Qualquer alternativa precisa responder a duas perguntas transversais. O [Módulo 6](../modulo-6-confianca/index.md) perguntará quais riscos, controles e avaliações tornam o uso aceitável. O [Módulo 7](../modulo-7-operacao/index.md) perguntará quais versões, fitness functions, rollouts e modos degradados preservam essa aceitação no tempo.
 
 **Próxima página:** [Exemplo arquitetural — atendimento Horizonte](exemplo-arquitetural.md).

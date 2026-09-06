@@ -1,6 +1,6 @@
 # Caso contínuo: Banco Lume — confiança e avaliação
 
-**Caso contínuo — Banco Lume.** [← Módulo 4: Autonomia](../modulo-4-agentes/caso-lume.md) · [Módulo 6: Operação →](../modulo-6-operacao/caso-lume.md)
+**Caso contínuo — Banco Lume.** [← Módulo 5: Especificação](../modulo-5-especificacao/caso-lume.md) · [Módulo 7: Operação →](../modulo-7-operacao/caso-lume.md)
 
 Ao chegar neste módulo, o Banco Lume já acumulou arquitetura suficiente para um modelo de ameaças real: workflow assistivo com RAG adotado no [Módulo 3](../modulo-3-rag/caso-lume.md) e permanência **sem agente** — a decisão do [Módulo 4](../modulo-4-agentes/caso-lume.md) foi manter o fluxo determinístico, porque a sequência de consulta continua enumerável. A [Cooperativa Aurora](caso-aurora.md), tratada em sua própria página, soma um agente com ferramentas ao RAG e por isso tem uma superfície de risco maior — a comparação completa está lá.
 
@@ -80,4 +80,4 @@ Antes de executar, releia [Instruções adversariais](ameacas-e-guardrails.md#in
 
 ---
 
-**Continua:** [Módulo 6 — operação](../modulo-6-operacao/caso-lume.md)
+**Continua:** [Módulo 7 — operação](../modulo-7-operacao/caso-lume.md)

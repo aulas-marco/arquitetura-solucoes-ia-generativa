@@ -31,29 +31,6 @@ Ao final, você deverá conseguir:
 11. reconhecer o arnês como objeto de projeto, nomear seus componentes e prever o efeito do erro composto numa trajetória;
 12. escolher o nível de loop adequado a uma tarefa e declarar condição de parada, orçamento e comportamento no esgotamento.
 
-## Fio aplicado: desenvolvimento guiado por especificação
-
-O caso mais concreto de autonomia com ferramentas é o agente que constrói software. Ele lê o repositório, propõe um plano, altera arquivos, executa testes e interpreta resultados. Portanto, concentra em pequena escala quase todos os problemas deste módulo: delegação, contratos, estado, memória, efeitos colaterais, observabilidade, revisão humana e recuperação de falhas. **Specification-Driven Development (SDD)** não entra como tópico lateral. Ele funciona como a espinha dorsal aplicada para estudar como uma intenção humana atravessa um sistema de agentes até se tornar software verificável.
-
-O **Spec Kit** conduz o percurso comum: `constitution → specify → clarify → plan → tasks → analyze → implement → verify`. A sequência não transforma comandos em método infalível. Ela torna explícitas perguntas que o “prompt e torça” costuma esconder: quais princípios são inegociáveis? O que deve acontecer para o usuário? Quais ambiguidades permanecem? Que arquitetura suporta os atributos de qualidade? Como fatiar trabalho que possa ser integrado e validado? Que evidência demonstra aderência à intenção e aos padrões do repositório?
-
-A especificação será tratada como artefato vivo e versionado. Ela descreve comportamento observável, critérios de aceite, limites, riscos e questões em aberto. O plano técnico traduz essa intenção para componentes, contratos e decisões. As tarefas formam fatias verticais pequenas, e não uma lista de camadas desconectadas. A implementação começa por testes nas interfaces públicas. A revisão ocorre em dois eixos: **aderência à spec** e **qualidade segundo os padrões de engenharia**. Três gates humanos preservam responsabilidade antes do plano, antes da execução e antes da integração.
-
-Essa escolha dá unidade ao módulo sem reduzir SDD ao Spec Kit. O fluxo de Matt Pocock — `grill-with-docs → to-spec → to-tickets → implement → code-review` — ajuda a aprofundar clarificação, fatiamento vertical, módulos profundos e revisão em duas passagens. Kiro, BMAD, Tessl e outros materiais aparecem no apêndice como variações comparáveis. A turma pratica um fio condutor comum e, ao mesmo tempo, aprende a separar os princípios duráveis da sintaxe de uma ferramenta.
-
-O percurso produz evidências concretas:
-
-| Parte do módulo | Pergunta de SDD | Evidência produzida |
-|---|---|---|
-| [Conceitos](sdd-modos-e-spec.md#do-agente-que-age-ao-agente-que-constroi-software) | por que a spec precisa governar agentes de codificação? | vocabulário, fluxo completo e ledger epistemológico |
-| [Padrões e decisões](sdd-decisoes.md#padrao-desenvolvimento-guiado-por-especificacao) | como preservar intenção e qualidade durante a transformação? | critérios, fatias verticais, seams, gates e ADRs |
-| [Exemplo arquitetural](exemplo-arquitetural.md#pipeline-sdd-com-gates-humanos) | como os artefatos se conectam numa mudança real? | constitution, spec, plano, contratos, tarefas, testes e revisão |
-| [Oficina](oficina-de-ferramentas.md#extensao-mini-fluxo-spec-kit) | como operar o ciclo com segurança? | mini-iniciativa executada com Spec Kit |
-| [Exercícios](exercicios.md) | como criticar e adaptar o método? | análise de consistência e proposta completa |
-| [Síntese](sintese-e-referencias.md#sintese-do-fio-sdd) | o que permanece quando a ferramenta muda? | checklists, limites e apêndice comparativo |
-
-Ao terminar, você não deverá apenas repetir etapas. Deverá saber calibrar profundidade ao risco, interromper o agente quando a evidência é insuficiente, reconhecer uma spec ornamental e explicar por que aprovação humana não compensa critérios vagos. A pessoa arquiteta preserva a responsabilidade pela intenção, pelos atributos de qualidade e pelos gates; o agente amplia capacidade de exploração e execução dentro desses limites.
-
 ## Pré-requisitos e princípio de continuidade
 
 Retomaremos a [sequência de decisão](../modulo-2-desenho-conceitual/descricao-arquitetural.md#uma-sequencia-de-decisao): gerar, acessar conhecimento, agir e só então conceder autonomia. Também reutilizaremos autorização, proveniência e suficiência do [Módulo 3](../modulo-3-rag/index.md). Uma evidência recuperada não concede permissão de escrita; uma ferramenta disponível não precisa ser oferecida ao modelo; uma saída estruturada válida não prova que a ação é apropriada.
@@ -72,9 +49,9 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | 6 | [Níveis de autonomia](autonomia-orcada.md) | matriz de autonomia, orçamento, interrupção e fallback |
 | 7 | [Engenharia de arnês](arnes.md) | o que cerca o modelo, erro composto e diagnóstico por tipo de falha |
 | 8 | [Loops agênticos](loops.md) | quatro níveis de loop, condição de parada e o verificador |
-| 9 | [Vibe coding, assistência e SDD](sdd-modos-e-spec.md) | vibe coding, assistência e SDD; spec viva e constitution |
-| 10 | [O fluxo SDD](sdd-fluxo.md) | oito etapas, três gates humanos e oito artefatos |
-| 11 | [Decisões e limites do SDD](sdd-decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
+| 9 | [Vibe coding, assistência e SDD](../modulo-5-especificacao/modos-de-trabalho.md) | vibe coding, assistência e SDD; spec viva e constitution |
+| 10 | [O fluxo SDD](../modulo-5-especificacao/fluxo.md) | oito etapas, três gates humanos e oito artefatos |
+| 11 | [Decisões e limites do SDD](../modulo-5-especificacao/decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
 | 12 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 13 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
 | 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |

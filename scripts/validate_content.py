@@ -22,12 +22,12 @@ MODULES = {
     "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png", "m02-mapa-da-oportunidade-ao-conops.png")),
     "modulo-3-rag": ("RAG", ("m03-dois-fluxos-rag.png", "m03-pergunta-evidencia.png", "m03-mapa-rag-dos-dois-pipelines.png")),
     "modulo-4-agentes": ("Agentes", ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png", "m04-mapa-autonomia-controlada.png")),
-    "modulo-5-confianca": ("Confiança", ("m05-defesas-profundidade.png", "m05-prisma-avaliacao.png", "m05-mapa-confianca-sistemica.png")),
-    "modulo-6-operacao": ("Operação", ("m06-ciclo-llmops.png", "m06-plataforma-corporativa.png", "m06-mapa-operacao-evidencia-continua.png")),
+    "modulo-5-especificacao": ("Especificação", ()),
+    "modulo-6-confianca": ("Confiança", ("m06-defesas-profundidade.png", "m06-prisma-avaliacao.png", "m06-mapa-confianca-sistemica.png")),
+    "modulo-7-operacao": ("Operação", ("m07-ciclo-llmops.png", "m07-plataforma-corporativa.png", "m07-mapa-operacao-evidencia-continua.png")),
 }
 PAGES = (
-    "index.md", "conceitos.md", "padroes-e-decisoes.md",
-    "exemplo-arquitetural.md", "estudo-de-caso.md",
+    "index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
 )
 BLOOM = ("Recordar", "Compreender", "Aplicar", "Analisar", "Avaliar", "Criar")

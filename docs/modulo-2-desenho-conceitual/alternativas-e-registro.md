@@ -37,7 +37,7 @@ Com RAS e cenários visíveis, a equipe compara alternativas pelo que elas acres
 | Ação | regra, workflow, agente | autorização, contratos, recuperação e avaliação proporcionais ao efeito |
 | Plataforma | integração local, capacidade comum, serviço hospedado ou autogerido | operação, dependências, portabilidade e custo total |
 
-Contexto selecionado serve quando a fonte já é conhecida e pequena. RAG é candidato quando localização, atualização e autorização de fontes exigem recuperação própria; o Módulo 3 detalha essa decisão. Fine-tuning muda comportamento em tarefa repetida, mas não governa vigência ou proveniência. Workflow mantém transições conhecidas; agente só se justifica quando a sequência variável cria valor mensurável, tema do Módulo 4. Gateway e serviços compartilhados atendem controles realmente comuns; o Módulo 6 trata sua operação.
+Contexto selecionado serve quando a fonte já é conhecida e pequena. RAG é candidato quando localização, atualização e autorização de fontes exigem recuperação própria; o Módulo 3 detalha essa decisão. Fine-tuning muda comportamento em tarefa repetida, mas não governa vigência ou proveniência. Workflow mantém transições conhecidas; agente só se justifica quando a sequência variável cria valor mensurável, tema do Módulo 4. Gateway e serviços compartilhados atendem controles realmente comuns; o Módulo 7 trata sua operação.
 
 Antes de ampliar capacidade, defina a menor evidência que permite decidir: teste de contrato, casos representativos, modo sombra ou experimento limitado. Uma alternativa pode ser rejeitada quando uma regra, consulta ou melhoria de processo atende o mesmo objetivo com menos risco.
 
@@ -47,8 +47,8 @@ Esta comparação não encerra o desenho; ela escolhe qual família de táticas 
 |---|---|---|
 | conhecimento atualizado, autorizado e explicável | [Módulo 3 — RAG](../modulo-3-rag/index.md) | ingestão, segmentação, proveniência, vigência, filtro de autorização, recuperação e abstenção |
 | efeito controlado ou sequência variável | [Módulo 4 — Agentes](../modulo-4-agentes/index.md) | contratos de ferramenta, política externa, aprovação, orçamento, idempotência, compensação e reconciliação |
-| proteção contra abuso, exposição ou decisão inadequada | [Módulo 5 — Confiança](../modulo-5-confianca/index.md) | modelagem de ameaça, guardrails em profundidade, minimização, segregação, retenção, avaliação e bloqueio |
-| mudança contínua, falha de dependência ou escala compartilhada | [Módulo 6 — Operação](../modulo-6-operacao/index.md) | manifesto, regressão, canary, rollback, circuit breaker, fallback, trace, SLO e resposta a incidente |
+| proteção contra abuso, exposição ou decisão inadequada | [Módulo 6 — Confiança](../modulo-6-confianca/index.md) | modelagem de ameaça, guardrails em profundidade, minimização, segregação, retenção, avaliação e bloqueio |
+| mudança contínua, falha de dependência ou escala compartilhada | [Módulo 7 — Operação](../modulo-7-operacao/index.md) | manifesto, regressão, canary, rollback, circuit breaker, fallback, trace, SLO e resposta a incidente |
 
 O Módulo 2 já introduz essas táticas como repertório de desenho. Os módulos seguintes mostram como combiná-las, testá-las e operá-las em cada contexto.
 

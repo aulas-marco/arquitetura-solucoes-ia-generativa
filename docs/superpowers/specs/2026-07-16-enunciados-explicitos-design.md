@@ -27,7 +27,7 @@ Instrução hermética:
 
 Versão explícita:
 
-> **O que é uma fronteira:** é a separação entre responsabilidades e efeitos. **Onde olhar:** consulte o diagrama de componentes do [exemplo arquitetural](../../modulo-1-fundamentos/exemplo-arquitetural.md) e a distinção entre comportamento determinístico e probabilístico em [Conceitos](../../modulo-1-fundamentos/conceitos.md). **Como fazer:** desenhe uma caixa “Extração do recibo”, uma caixa “Regra de limite” e uma caixa “Lançamento financeiro”; ligue as caixas e escreva em cada seta o dado transferido e quem valida a saída. Repita com “Proposta de despesa” e “Lançamento aprovado”. **Como verificar:** a proposta apenas sugere; o lançamento altera o sistema financeiro e exige autorização explícita.
+> **O que é uma fronteira:** é a separação entre responsabilidades e efeitos. **Onde olhar:** consulte o diagrama de componentes do [exemplo arquitetural](../../modulo-1-fundamentos/exemplo-arquitetural.md) e a distinção entre comportamento determinístico e probabilístico em `Conceitos`. **Como fazer:** desenhe uma caixa “Extração do recibo”, uma caixa “Regra de limite” e uma caixa “Lançamento financeiro”; ligue as caixas e escreva em cada seta o dado transferido e quem valida a saída. Repita com “Proposta de despesa” e “Lançamento aprovado”. **Como verificar:** a proposta apenas sugere; o lançamento altera o sistema financeiro e exige autorização explícita.
 
 ## Escopo
 

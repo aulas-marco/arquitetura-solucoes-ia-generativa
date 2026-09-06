@@ -40,8 +40,8 @@ class SharedPageStructureTest(unittest.TestCase):
         for term, body in entries.items():
             with self.subTest(term=term):
                 link = re.search(
-                    rf"\*Primeiro módulo:\* \[Módulo ([1-6])[^]]*\]"
-                    rf"\(\.\./sobre/{PLAN_TARGET}#modulo-([1-6])\)",
+                    rf"\*Primeiro módulo:\* \[Módulo ([1-7])[^]]*\]"
+                    rf"\(\.\./sobre/{PLAN_TARGET}#modulo-([1-7])\)",
                     body,
                 )
                 self.assertIsNotNone(link)
@@ -97,22 +97,28 @@ class SharedPageStructureTest(unittest.TestCase):
 
 
 class StableModuleLinkTest(unittest.TestCase):
-    def test_curriculum_exposes_six_stable_module_anchors(self):
-        text = (DOCS / "sobre/plano-da-disciplina.md").read_text(encoding="utf-8")
-        headings = (
+    def test_curriculum_exposes_stable_module_anchors(self):
+        """Sete módulos com âncora estável, distribuídos em seis encontros."""
+        text = (DOCS / "sobre" / PLAN_TARGET).read_text(encoding="utf-8")
+
+        for module in range(1, 8):
+            with self.subTest(module=module):
+                self.assertEqual(1, text.count(f'<a id="modulo-{module}"></a>'))
+
+        encontros = (
             "Fundamentos de sistemas com IA generativa",
             "Desenho conceitual e decisões arquiteturais",
             "Arquitetura de RAG e sistemas de conhecimento",
-            "Agentes e integração com sistemas corporativos",
+            "Agentes e desenvolvimento guiado por especificação",
             "Confiança, segurança, avaliação e governança",
             "Operação, LLMOps e plataformas corporativas",
         )
-        for module, heading in enumerate(headings, start=1):
-            anchor_and_heading = (
-                f'<a id="modulo-{module}"></a>\n\n'
-                f"## Encontro {module} — {heading}"
-            )
-            self.assertEqual(1, text.count(anchor_and_heading))
+        for numero, heading in enumerate(encontros, start=1):
+            with self.subTest(encontro=numero):
+                self.assertEqual(1, text.count(f"## Encontro {numero} — {heading}"))
+
+        # o mapeamento entre módulos e encontros é declarado, não presumido
+        self.assertIn("## 6. Módulos do livro-texto e encontros", text)
 
     def test_shared_module_links_use_only_stable_targets(self):
         targets = {
@@ -122,7 +128,7 @@ class StableModuleLinkTest(unittest.TestCase):
         for _, (path, prefix) in targets.items():
             text = path.read_text(encoding="utf-8")
             self.assertNotIn(f"{PLAN_TARGET}#encontro-", text)
-            for module in range(1, 7):
+            for module in range(1, 8):
                 with self.subTest(path=path.name, module=module):
                     self.assertIn(f"{prefix}{module}", text)
 

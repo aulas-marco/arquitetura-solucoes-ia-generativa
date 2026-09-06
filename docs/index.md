@@ -18,8 +18,8 @@ Este site-livro foi preparado para estudantes de pós-graduação, arquitetos, e
 2. **[Decidir — Desenho conceitual](modulo-2-desenho-conceitual/index.md):** converter oportunidades em requisitos e escolhas justificadas.
 3. **[Fundamentar — RAG](modulo-3-rag/index.md):** conectar modelos a conhecimento verificável.
 4. **[Agir — Agentes](modulo-4-agentes/index.md):** integrar ferramentas e controlar a autonomia.
-5. **[Proteger e avaliar — Confiança](modulo-5-confianca/index.md):** limitar riscos e produzir evidências de qualidade.
-6. **[Operar e escalar — LLMOps](modulo-6-operacao/index.md):** sustentar múltiplas soluções em produção.
+5. **[Proteger e avaliar — Confiança](modulo-6-confianca/index.md):** limitar riscos e produzir evidências de qualidade.
+6. **[Operar e escalar — LLMOps](modulo-7-operacao/index.md):** sustentar múltiplas soluções em produção.
 
 Consulte separadamente o [Plano da disciplina](sobre/plano-da-disciplina.md) para objetivos, carga horária e programação dos seis encontros.
 

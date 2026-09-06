@@ -5,7 +5,7 @@ Este material pode ser lido em sequência, consultado durante uma decisão arqui
 ## Sequência recomendada
 
 1. Leia [Sobre a disciplina](sobre-a-disciplina.md) e o [Mapa de aprendizagem](mapa-de-aprendizagem.md).
-2. Percorra os seis módulos na ordem. Cada um pressupõe o vocabulário e as decisões construídos antes.
+2. Percorra os sete módulos na ordem. Cada um pressupõe o vocabulário e as decisões construídos antes.
 3. Em cada módulo, comece por conceitos, avance para padrões e decisões, examine o exemplo e então enfrente o estudo de caso.
 4. Resolva os exercícios após a leitura. Use a [Taxonomia de Bloom](taxonomia-de-bloom.md) para reconhecer o tipo de raciocínio solicitado.
 5. Consulte o [Glossário](../referencia/glossario.md), o [Catálogo de padrões](../referencia/catalogo-de-padroes.md), os [Atributos de qualidade](../referencia/atributos-de-qualidade.md) e o [Template de ADR](../referencia/template-adr.md) sempre que precisar comparar ou registrar escolhas.

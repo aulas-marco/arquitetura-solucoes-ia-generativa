@@ -52,8 +52,8 @@ Se mais de duas respostas forem “ainda não”, retome os [temas do módulo](i
 - O [Módulo 2](../modulo-2-desenho-conceitual/index.md) transforma a ficha inicial em RAS, visões, táticas, riscos, evidências e ADRs.
 - O [Módulo 3](../modulo-3-rag/index.md) detalha fontes, ingestão, recuperação, autorização, proveniência e fundamentação.
 - O [Módulo 4](../modulo-4-agentes/index.md) detalha ferramentas, estado, memória, autonomia, efeitos e recuperação.
-- O [Módulo 5](../modulo-5-confianca/index.md) detalha ameaças, guardrails, avaliação e aceitação de risco residual.
-- O [Módulo 6](../modulo-6-operacao/index.md) detalha versões, fitness functions, observabilidade, rollout, rollback e plataformas.
+- O [Módulo 6](../modulo-6-confianca/index.md) detalha ameaças, guardrails, avaliação e aceitação de risco residual.
+- O [Módulo 7](../modulo-7-operacao/index.md) detalha versões, fitness functions, observabilidade, rollout, rollback e plataformas.
 
 ## Referências citadas no módulo
 

@@ -1,6 +1,6 @@
 # Operação, LLMOps e plataformas corporativas
 
-![Ciclo: pacote comportamental passa por avaliação, promoção, entrega, observabilidade e aprendizado; métricas, privacidade e SLO atravessam-no](../assets/images/m06-mapa-operacao-evidencia-continua.png "Mapa da operação e evidência contínua")
+![Ciclo: pacote comportamental passa por avaliação, promoção, entrega, observabilidade e aprendizado; métricas, privacidade e SLO atravessam-no](../assets/images/m07-mapa-operacao-evidencia-continua.png "Mapa da operação e evidência contínua")
 
 *Figura — Operar IA requer evidência contínua.*
 
@@ -35,7 +35,7 @@ Ao final, você deverá conseguir:
 
 ## Continuidade com o curso
 
-O [Módulo 1](../modulo-1-fundamentos/index.md) mostrou que a resposta é probabilística, mas o sistema precisa de fronteiras determinísticas. O [Módulo 2](../modulo-2-desenho-conceitual/index.md) ligou contexto, atributos de qualidade e ADRs. O [Módulo 3](../modulo-3-rag/index.md) separou ingestão de consulta e fez da evidência um componente operacional. O [Módulo 4](../modulo-4-agentes/index.md) distinguiu geração, decisão e efeito corporativo. O [Módulo 5](../modulo-5-confianca/index.md) tratou guardrails, avaliação e risco residual.
+O [Módulo 1](../modulo-1-fundamentos/index.md) mostrou que a resposta é probabilística, mas o sistema precisa de fronteiras determinísticas. O [Módulo 2](../modulo-2-desenho-conceitual/index.md) ligou contexto, atributos de qualidade e ADRs. O [Módulo 3](../modulo-3-rag/index.md) separou ingestão de consulta e fez da evidência um componente operacional. O [Módulo 4](../modulo-4-agentes/index.md) distinguiu geração, decisão e efeito corporativo. O [Módulo 6](../modulo-6-confianca/index.md) tratou guardrails, avaliação e risco residual.
 
 Agora essas decisões passam a viver no tempo. Um portão de regressão operacionaliza a avaliação; um trace carrega versões e decisões de guardrail; um rollback restaura um pacote comportamental, não só um binário; uma plataforma oferece controles comuns sem assumir regras de domínio. A escala organizacional será julgada pela capacidade de preservar essas propriedades quando dezenas de equipes e fornecedores compartilham infraestrutura.
 

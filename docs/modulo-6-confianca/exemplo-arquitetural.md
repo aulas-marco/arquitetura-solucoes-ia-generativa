@@ -49,7 +49,7 @@ A análise por camada torna os cenários testáveis:
 | modelo → saída | resposta inventa prazo, revela dado ou trata assédio automaticamente | citação por afirmação, regra determinística de escalonamento, mascaramento e abstenção | amostra humana, alerta de bloqueio, encaminhamento com resumo seguro | citação pode apoiar interpretação errada; avaliador pode falhar |
 | fornecedor → operação | modelo muda comportamento ou serviço fica indisponível | pacote versionado, regressão, canary, rota de degradação sem dado pessoal | congelar rollout, reverter rota ou limitar a conteúdo público | fornecedor pode mudar componente não observável entre avaliações |
 
-![Diagrama conceitual de defesas em profundidade do assistente de RH, com controles nas camadas de entrada, contexto, recuperação, ferramenta, saída e aprovação humana](../assets/images/m05-defesas-profundidade.png "Defesas em profundidade para o assistente de RH")
+![Diagrama conceitual de defesas em profundidade do assistente de RH, com controles nas camadas de entrada, contexto, recuperação, ferramenta, saída e aprovação humana](../assets/images/m06-defesas-profundidade.png "Defesas em profundidade para o assistente de RH")
 
 *Figura 1 — As seis camadas reduzem falhas diferentes e preservam uma rota de degradação. Elaboração própria; a imagem é um apoio visual, enquanto a tabela registra limites verificáveis.*
 
@@ -95,7 +95,7 @@ As **verificações determinísticas** testam esquema, citações existentes, au
 
 A **avaliação assistida por modelo** pontua factualidade, relevância, fundamentação e utilidade com critérios de avaliação e evidências. Pode escalar cobertura, mas tem viés, variância, sensibilidade à ordem e possíveis falhas correlacionadas com o sistema avaliado. Use versão fixa, ordem balanceada, repetição quando necessário e calibração contra julgamento humano. O trabalho [G-Eval](https://aclanthology.org/2023.emnlp-main.153/) é pesquisa original sobre avaliação de geração com modelos; não transforma o avaliador em padrão-ouro.
 
-![Prisma de avaliação do assistente de RH, mostrando factualidade, relevância, fundamentação, segurança, utilidade, latência e custo ao redor do contexto de uso](../assets/images/m05-prisma-avaliacao.png "Prisma multidimensional de avaliação")
+![Prisma de avaliação do assistente de RH, mostrando factualidade, relevância, fundamentação, segurança, utilidade, latência e custo ao redor do contexto de uso](../assets/images/m06-prisma-avaliacao.png "Prisma multidimensional de avaliação")
 
 *Figura 2 — O prisma impede que uma média única esconda uma dimensão crítica. Elaboração própria; cada face precisa de critério, fatias e proprietário.*
 

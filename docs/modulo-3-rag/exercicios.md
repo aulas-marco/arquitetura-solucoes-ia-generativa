@@ -334,7 +334,7 @@ Arquiteto de fluxos RAG.
 
 **Insumos disponíveis**
 
-Use as [variantes de RAG](variantes-e-escolha.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md), [SLO](../modulo-6-operacao/observabilidade.md#slo-para-servico-util) e [oficina](oficina-de-ferramentas.md#receita-principal).
+Use as [variantes de RAG](variantes-e-escolha.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md), [SLO](../modulo-7-operacao/observabilidade.md#slo-para-servico-util) e [oficina](oficina-de-ferramentas.md#receita-principal).
 
 **O que é uma arquitetura RAG completa**
 

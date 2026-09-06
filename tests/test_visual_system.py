@@ -106,7 +106,7 @@ class AcademiaAccessibilityTest(unittest.TestCase):
 
 class DirectGithubFallbackTest(unittest.TestCase):
     def test_representative_modules_keep_standard_markdown_structure(self):
-        for slug in ("modulo-1-fundamentos", "modulo-3-rag", "modulo-5-confianca"):
+        for slug in ("modulo-1-fundamentos", "modulo-3-rag", "modulo-6-confianca"):
             opening = (ROOT / "docs" / slug / "index.md").read_text(encoding="utf-8")
             example = (ROOT / "docs" / slug / "exemplo-arquitetural.md").read_text(encoding="utf-8")
             exercises = (ROOT / "docs" / slug / "exercicios.md").read_text(encoding="utf-8")
@@ -126,7 +126,7 @@ class DirectGithubFallbackTest(unittest.TestCase):
 
     def test_decision_and_risk_callouts_are_standard_markdown_blockquotes(self):
         decision = teaching_text(ROOT / "docs/modulo-2-desenho-conceitual")
-        risk = teaching_text(ROOT / "docs/modulo-5-confianca")
+        risk = teaching_text(ROOT / "docs/modulo-6-confianca")
         self.assertRegex(decision, r"(?m)^> \*\*Decisão arquitetural:")
         self.assertRegex(risk, r"(?m)^> \*\*Risco arquitetural:")
 
@@ -188,7 +188,7 @@ class BuiltSiteRuntimeTest(unittest.TestCase):
         self.assertRegex(decisions, r'<blockquote[^>]*class="[^"]*decision-callout')
         adr = self.built("modulo-2-desenho-conceitual/exemplo-arquitetural")
         self.assertRegex(adr, r'<h3[^>]*class="[^"]*adr-block')
-        risks = self.built("modulo-5-confianca/confianca-e-risco")
+        risks = self.built("modulo-6-confianca/confianca-e-risco")
         self.assertRegex(risks, r'<blockquote[^>]*class="[^"]*risk-callout')
 
 

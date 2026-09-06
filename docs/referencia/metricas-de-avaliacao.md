@@ -1,6 +1,6 @@
 # Métricas de avaliação
 
-Esta página explica as métricas usadas nas oficinas dos módulos 3, 4 e 5: o que cada uma mede, o que exige de entrada, como se calcula e o que deixa passar. Os exemplos numéricos vêm da execução real do laboratório do [Módulo 5](../modulo-5-confianca/oficina-de-ferramentas.md), com 45 casos rotulados.
+Esta página explica as métricas usadas nas oficinas dos módulos 3, 4 e 5: o que cada uma mede, o que exige de entrada, como se calcula e o que deixa passar. Os exemplos numéricos vêm da execução real do laboratório do [Módulo 6](../modulo-6-confianca/oficina-de-ferramentas.md), com 45 casos rotulados.
 
 ## O que é uma métrica
 
@@ -27,7 +27,7 @@ Comparam a resposta com uma referência por regra: igualdade exata, expressão r
 
 `ExactMatchMetric` exige igualdade literal. `PatternMatchMetric` recebe uma expressão regular e devolve 1 quando ela casa. Duas armadilhas de uso aparecem já na primeira execução. A primeira é semântica: a resposta *"Não posso atender a esse pedido"* recusa corretamente, e a métrica reprova porque a palavra `bloquear` não aparece no texto. A segunda é de API: no DeepEval 4.2.0 o padrão é aplicado com `fullmatch`, então o padrão precisa cobrir a resposta inteira. Um padrão como `não posso|não vou` devolve zero em todos os casos, silenciosamente, e a equipe conclui que o sistema falhou em tudo.
 
-O caminho prático é usar um léxico por classe (`(?s).*(não posso|não vou|não forneço).*`) e aceitar que ele erra nos casos em que a recusa foi escrita com outras palavras. No laboratório do Módulo 5 esse léxico classifica corretamente 29 dos 45 casos e deixa 12 como `indefinido`.
+O caminho prático é usar um léxico por classe (`(?s).*(não posso|não vou|não forneço).*`) e aceitar que ele erra nos casos em que a recusa foi escrita com outras palavras. No laboratório do Módulo 6 esse léxico classifica corretamente 29 dos 45 casos e deixa 12 como `indefinido`.
 
 ### Métricas com juiz
 
@@ -46,7 +46,7 @@ Uma regra vale para todas: passe apenas os parâmetros que o critério usa. Incl
 
 ## Camada 2 — métricas clássicas de classificação
 
-O laboratório do Módulo 5 é uma classificação de três classes (`bloquear`, `escalar`, `corrigir`) contra rótulos de referência. Toda métrica desta camada se calcula a partir de três contagens, definidas **por classe**:
+O laboratório do Módulo 6 é uma classificação de três classes (`bloquear`, `escalar`, `corrigir`) contra rótulos de referência. Toda métrica desta camada se calcula a partir de três contagens, definidas **por classe**:
 
 | Contagem | Significado na classe `bloquear` |
 |---|---|
@@ -115,7 +115,7 @@ Métrica agregada precisa de suporte por classe antes de sustentar decisão. Se 
 
 Métricas de juiz devolvem valor contínuo, e o limiar transforma esse valor em aprovado ou reprovado. Varrer o limiar de 0,1 a 0,9 e registrar precisão e recall em cada ponto mostra a troca em números concretos. Limiar baixo aprova quase tudo e a precisão do portão cai; limiar alto reprova casos bons e o portão passa a gerar retrabalho.
 
-O limiar é decisão de arquitetura, com responsável e revisão, do mesmo tipo que uma [fitness function](../modulo-5-confianca/ameacas-e-guardrails.md#fitness-functions-de-confianca). Copiar o valor padrão do exemplo é a forma mais rápida de ter um portão que não protege nada.
+O limiar é decisão de arquitetura, com responsável e revisão, do mesmo tipo que uma [fitness function](../modulo-6-confianca/ameacas-e-guardrails.md#fitness-functions-de-confianca). Copiar o valor padrão do exemplo é a forma mais rápida de ter um portão que não protege nada.
 
 ### Fatias
 

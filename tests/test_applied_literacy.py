@@ -299,8 +299,8 @@ conteúdo da atividade
             "modulo-2-desenho-conceitual": ("LiteLLM", "OpenAI SDK"),
             "modulo-3-rag": ("LangChain", "Chroma"),
             "modulo-4-agentes": ("n8n", "LangGraph"),
-            "modulo-5-confianca": ("Langfuse", "Phoenix"),
-            "modulo-6-operacao": ("LiteLLM Proxy", "OpenTelemetry"),
+            "modulo-6-confianca": ("Langfuse", "Phoenix"),
+            "modulo-7-operacao": ("LiteLLM Proxy", "OpenTelemetry"),
         }
         for slug, tools in expected_tools.items():
             concepts = teaching_text(DOCS / slug)

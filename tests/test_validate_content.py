@@ -107,7 +107,7 @@ class FullRepositoryMutationTest(unittest.TestCase):
         )
 
     def test_duplicate_image_reference_is_allowed_when_files_remain_valid(self):
-        page = self.repository / "docs/modulo-1-fundamentos/conceitos.md"
+        page = self.repository / "docs/modulo-1-fundamentos/mudanca-probabilistica.md"
         page.write_text(
             page.read_text(encoding="utf-8")
             + "\n![repetida](../assets/images/m01-anatomia-solucao-generativa.png)\n",

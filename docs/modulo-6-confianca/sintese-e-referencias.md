@@ -52,7 +52,7 @@ Essa distinção evita dois erros. O primeiro é transformar orientação volunt
 
 Antes de chamar uma solução de “pronta”, confirme contexto e usos proibidos; dados e ferramentas mínimos; ameaças por fronteira; testes negativos; escalonamento; casos adversariais; resultados por dimensão e fatia; limites; versões; responsáveis; fitness functions; risco residual; canary, rollback e resposta a incidente.
 
-Sem evidência para item crítico, reduza escopo, produza-a ou não libere. No [Módulo 6](../sobre/plano-da-disciplina.md#modulo-6), a arquitetura vira prática operacional: LLMOps, observabilidade, SLOs, mudanças e plataforma.
+Sem evidência para item crítico, reduza escopo, produza-a ou não libere. No [Módulo 7](../sobre/plano-da-disciplina.md#modulo-7), a arquitetura vira prática operacional: LLMOps, observabilidade, SLOs, mudanças e plataforma.
 
 ## Autoavaliação
 

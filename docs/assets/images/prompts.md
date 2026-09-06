@@ -242,10 +242,10 @@ Constraints: exactly four autonomy levels; informational, read, reversible write
 Avoid: robot evolution, maturity ladder implying every system should become autonomous, direct database access, dark cyberpunk, tiny labels
 ```
 
-## `m05-defesas-profundidade.png`
+## `m06-defesas-profundidade.png`
 
 - **Uso:** `scientific-educational`.
-- **Página e propósito:** Módulo 5, Exemplo arquitetural; explicar defesas complementares e degradação segura.
+- **Página e propósito:** Módulo 6, Exemplo arquitetural; explicar defesas complementares e degradação segura.
 - **Elementos distintos:** entrada, contexto, recuperação, ferramenta, saída e aprovação humana; trilho de abstenção/escalonamento.
 - **Texto alternativo:** Seis zonas defensivas protegem entrada, contexto, recuperação, ferramenta, saída e aprovação, com uma rota inferior para interrupção e escalonamento seguro.
 - **Legenda:** Defesas em profundidade reduzem falhas diferentes e preservam uma rota de degradação.
@@ -266,10 +266,10 @@ Constraints: exactly six control layers; input, context, retrieval, tool, output
 Avoid: one giant shield, military imagery, impenetrable security claim, dark cyberpunk, tiny labels, ambiguous crossings
 ```
 
-## `m05-prisma-avaliacao.png`
+## `m06-prisma-avaliacao.png`
 
 - **Uso:** `scientific-educational`.
-- **Página e propósito:** Módulo 5, Exemplo arquitetural; impedir que uma média esconda uma dimensão crítica.
+- **Página e propósito:** Módulo 6, Exemplo arquitetural; impedir que uma média esconda uma dimensão crítica.
 - **Elementos distintos:** factualidade, relevância, fundamentação, segurança/privacidade, utilidade, latência e custo; contexto, fatias e gate.
 - **Texto alternativo:** Um prisma de sete faces avalia o mesmo contexto por correção, relevância, fundamentação, segurança, utilidade, latência e custo; uma falha crítica bloqueia o portão.
 - **Legenda:** Avaliação multidimensional: cada face precisa de critério, fatias e proprietário.
@@ -290,10 +290,10 @@ Constraints: exactly seven evaluation dimensions remain visually distinct; conte
 Avoid: one star rating, one gauge, business pie chart, photoreal crystal, dark background, tiny labels
 ```
 
-## `m06-ciclo-llmops.png`
+## `m07-ciclo-llmops.png`
 
 - **Uso:** `scientific-educational`.
-- **Página e propósito:** Módulo 6, Exemplo arquitetural; apresentar mudança versionada, promoção gradual e aprendizagem governada.
+- **Página e propósito:** Módulo 7, Exemplo arquitetural; apresentar mudança versionada, promoção gradual e aprendizagem governada.
 - **Elementos distintos:** ativos versionados, avaliação, canary, observação, classificação, rollback seguro, incidente e curadoria.
 - **Texto alternativo:** Ativos LLMOps versionados percorrem avaliação, canary e observação; rollback seguro rotineiro e incidente real classificado seguem ramos distintos antes da aprendizagem curada.
 - **Legenda:** Toda mudança comportamental percorre avaliação, liberação controlada, observação e aprendizagem.
@@ -314,10 +314,10 @@ Constraints: versioning, evaluation, canary, observation, classification and lea
 Avoid: DevOps infinity logo, every rollback becoming an incident, automatic ungoverned retraining, dark cyberpunk, tiny labels
 ```
 
-## `m06-plataforma-corporativa.png`
+## `m07-plataforma-corporativa.png`
 
 - **Uso:** `scientific-educational`.
-- **Página e propósito:** Módulo 6, Exemplo arquitetural; mostrar caminho comum resiliente sem apagar responsabilidade de produto e domínio.
+- **Página e propósito:** Módulo 7, Exemplo arquitetural; mostrar caminho comum resiliente sem apagar responsabilidade de produto e domínio.
 - **Elementos distintos:** três produtos, identidade/tenant/quota, gateways replicados, guardrails, orquestração, registro/RAG, modelos, executor/aprovação, sistema corporativo e plano operacional.
 - **Texto alternativo:** Três produtos entram por identidade e gateways replicados, atravessam guardrails e orquestração, usam contexto e modelos controlados e se separam em resposta validada ou execução aprovada, todos observados pelo plano operacional.
 - **Legenda:** Plataforma corporativa: controles comuns e resilientes, com produtos e domínios responsáveis por contexto, efeitos e resultados.

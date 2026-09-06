@@ -142,7 +142,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
         self.assertIn("mapa de responsabilidades", patterns.casefold())
         self.assertNotIn("oito camadas", example.casefold())
         self.assertIn("Exemplo arquitetural: atendimento Horizonte", example)
-        for module in range(2, 7):
+        for module in range(2, 8):
             self.assertRegex(opening, rf"Módulo {module}\b")
 
     def test_decisions_page_uses_initial_decision_sheet_not_full_adr(self):

@@ -1,6 +1,6 @@
 # Confiança, segurança, avaliação e governança
 
-![Quatro riscos alimentam risco inerente; controles em camadas produzem risco residual, rastreabilidade, papéis e avaliação](../assets/images/m05-mapa-confianca-sistemica.png "Mapa da confiança sistêmica")
+![Quatro riscos alimentam risco inerente; controles em camadas produzem risco residual, rastreabilidade, papéis e avaliação](../assets/images/m06-mapa-confianca-sistemica.png "Mapa da confiança sistêmica")
 
 *Figura — Confiança combina riscos, controles, responsabilidades e evidências.*
 

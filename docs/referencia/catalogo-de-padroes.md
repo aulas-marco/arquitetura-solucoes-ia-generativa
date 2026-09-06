@@ -26,7 +26,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Um único modelo impõe custo excessivo ou capacidade insuficiente a parte das solicitações.  
 **Solução.** Classificar a tarefa por sinais observáveis e rotear para perfis de modelo aprovados, com políticas e avaliação por rota.  
 **Consequências.** Otimiza recursos e reduz dependência, mas adiciona classificadores, matriz de compatibilidade e mais combinações para testar.  
-**Módulos relacionados.** [2 — Desenho conceitual](../sobre/plano-da-disciplina.md#modulo-2) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [2 — Desenho conceitual](../sobre/plano-da-disciplina.md#modulo-2) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Degradação segura da geração
 
@@ -34,7 +34,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Repetições ilimitadas aumentam custo e latência, enquanto uma falha abrupta pode induzir o usuário ao erro.  
 **Solução.** Definir timeout e critérios de degradação para modelo alternativo, resposta parcial, template determinístico ou encaminhamento humano.  
 **Consequências.** Melhora resiliência e controle de custo, mas cada caminho precisa preservar requisitos mínimos e ser testado separadamente.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ## Conhecimento
 
@@ -44,7 +44,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** É necessário atualizar conhecimento e rastrear fontes sem retreinar o modelo.  
 **Solução.** Separar fluxo offline de ingestão e indexação do fluxo online de consulta, recuperação, contexto e geração.  
 **Consequências.** Melhora atualidade e proveniência, mas introduz qualidade de recuperação, sincronização e operação do índice como responsabilidades.  
-**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Recuperação híbrida com reranking
 
@@ -52,7 +52,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Aumentar cobertura traz candidatos ruidosos e pode piorar o contexto final.  
 **Solução.** Unir busca lexical e vetorial, normalizar os escores e aplicar reranking a um conjunto limitado de candidatos.  
 **Consequências.** Pode elevar precisão e cobertura, ao custo de mais latência, parâmetros, infraestrutura e avaliação por etapa.  
-**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Recuperação consciente de autorização
 
@@ -60,7 +60,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Filtrar apenas depois da busca pode revelar metadados, ocupar o conjunto de candidatos ou contaminar o contexto.  
 **Solução.** Propagar identidade e políticas até a recuperação, aplicar filtros antes do acesso ao conteúdo e auditar a decisão.  
 **Consequências.** Reduz vazamento entre tenants, mas acopla atualização de permissões ao índice e exige testes de negação e revogação.  
-**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Resposta apoiada em evidências
 
@@ -68,7 +68,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** O modelo pode preencher lacunas e produzir uma resposta fluente mesmo quando a recuperação é insuficiente.  
 **Solução.** Entregar trechos com identificadores, exigir vínculo entre afirmação e fonte e recusar ou encaminhar quando a evidência não atingir o critério.  
 **Consequências.** Aumenta verificabilidade, mas pode reduzir cobertura aparente e depende de limiares calibrados e fontes de boa qualidade.  
-**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ## Orquestração
 
@@ -86,7 +86,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** A escolha e os parâmetros produzidos pelo modelo podem ser inválidos, indevidos ou perigosos.  
 **Solução.** Expor catálogo mínimo com esquemas, validar autorização e parâmetros e separar proposta de ferramenta de sua execução.  
 **Consequências.** Amplia capacidade mantendo uma fronteira verificável, mas cada ferramenta aumenta superfície de ataque, integração e testes.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Desenvolvimento guiado por especificação
 
@@ -94,7 +94,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Pedido informal não oferece critério estável para teste, revisão ou aceite.  
 **Solução.** Usar constitution, spec, plan, tasks, implementação e verificação como sequência de artefatos, com gates humanos.  
 **Consequências.** Aumenta preparo e rastreabilidade, mas reduz interpretação silenciosa e facilita revisão por aderência à spec.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Aprovação humana por risco
 
@@ -102,7 +102,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Aprovar tudo destrói eficiência; aprovar nada concentra risco no modelo e na integração.  
 **Solução.** Classificar ações por risco e exigir confirmação ou aprovação com contexto suficiente acima de limites definidos.  
 **Consequências.** Preserva responsabilidade humana nos pontos críticos, mas cria filas, metas de atendimento e necessidade de uma interface de decisão clara.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Agente com orçamento limitado
 
@@ -110,7 +110,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Um agente pode entrar em ciclos, acumular custo ou ampliar seus efeitos sem progresso mensurável.  
 **Solução.** Definir orçamento de etapas, tempo, tokens, custo e ações; interromper em limites e oferecer retomada, fallback ou escalonamento.  
 **Consequências.** Contém falhas e custo, mas pode encerrar tarefas válidas; os limites precisam de telemetria e calibração por classe de tarefa.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Arnês verificável
 
@@ -118,7 +118,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Ampliar o catálogo de ferramentas ou trocar por um modelo maior é caro e frequentemente piora a escolha, porque amplia o espaço de decisão de cada etapa.  
 **Solução.** Tratar o que cerca o modelo como um artefato projetado: catálogo mínimo com contratos descritos, saída estruturada validada, contexto recortado por etapa e verificação determinística que devolve o motivo da recusa antes de qualquer efeito.  
 **Consequências.** Aumenta a taxa de ação correta e impede que erro do modelo vire efeito, ao custo de chamadas adicionais e de manutenção do catálogo e das validações; não torna segura uma ação irreversível nem substitui autorização.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4), [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ## Confiança
 
@@ -128,7 +128,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Um controle isolado cria confiança excessiva e deixa caminhos alternativos sem proteção.  
 **Solução.** Distribuir controles em entrada, recuperação, contexto, ferramentas, saída e aprovação, com degradação segura.  
 **Consequências.** Reduz dependência de um único mecanismo, mas pode aumentar latência e falsos positivos e requer observação do efeito combinado.  
-**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Isolamento entre instrução e conteúdo
 
@@ -136,7 +136,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** O modelo pode interpretar conteúdo recuperado como instrução e ignorar a política do sistema.  
 **Solução.** Marcar fronteiras, minimizar contexto, tratar fontes como dados e impedir que definam ferramentas, credenciais ou políticas.  
 **Consequências.** Diminui exposição à injeção indireta, mas não elimina a necessidade de autorização, validação de ações e testes adversariais.  
-**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3), [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [3 — RAG](../sobre/plano-da-disciplina.md#modulo-3), [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Validação de saída em camadas
 
@@ -144,7 +144,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Uma única verificação não cobre propriedades sintáticas, semânticas e de política.  
 **Solução.** Aplicar esquema e regras determinísticas, verificações de política e, quando necessário, avaliação especializada antes de entregar ou agir.  
 **Consequências.** Aumenta segurança e consistência, mas adiciona custo e pode bloquear conteúdo legítimo; falhas devem ter tratamento explícito.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ### Pirâmide de avaliação
 
@@ -152,7 +152,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Uma métrica única ou avaliador único produz uma visão parcial e pode ocultar regressões críticas.  
 **Solução.** Combinar verificações determinísticas amplas, métricas por componente, avaliadores automatizados calibrados e amostras humanas focadas.  
 **Consequências.** Equilibra velocidade e profundidade, mas exige conjuntos representativos, calibração contínua e rastreamento das limitações do avaliador.  
-**Módulos relacionados.** [2 — Desenho conceitual](../sobre/plano-da-disciplina.md#modulo-2) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5).
+**Módulos relacionados.** [2 — Desenho conceitual](../sobre/plano-da-disciplina.md#modulo-2) e [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6).
 
 ## Operações
 
@@ -162,7 +162,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Integrações diretas duplicam controles, reduzem portabilidade e dificultam compreender consumo e risco.  
 **Solução.** Centralizar autenticação, roteamento, cotas, políticas e telemetria em um gateway com interface estável.  
 **Consequências.** Padroniza controles e negociação, mas pode se tornar gargalo ou ponto único de falha e precisa preservar capacidades específicas justificadas.  
-**Módulos relacionados.** [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Pacote de versões reproduzível
 
@@ -170,7 +170,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Versionar apenas código impede reproduzir uma resposta ou atribuir uma regressão.  
 **Solução.** Registrar uma versão de implantação que referencia todas as configurações e artefatos efetivamente usados.  
 **Consequências.** Melhora auditoria, comparação e rollback, mas requer disciplina de catálogo e compatibilidade entre artefatos.  
-**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Avaliação contínua antes e depois da entrega
 
@@ -178,7 +178,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Testes apenas antes da primeira liberação não detectam regressão de fornecedor ou deriva do domínio.  
 **Solução.** Executar regressão offline em cada mudança e monitorar amostras e indicadores online com critérios de canary e rollback.  
 **Consequências.** Reduz tempo de detecção e risco de mudança, mas exige conjuntos mantidos, limites operacionais e governança de dados de produção.  
-**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Trace de ponta a ponta com privacidade
 
@@ -186,7 +186,7 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Logs isolados não permitem reconstruir qualidade, latência, custo ou causa de uma ação, e podem expor dados sensíveis.  
 **Solução.** Correlacionar etapas e versões em um trace, registrar métricas necessárias e aplicar minimização, mascaramento, acesso e retenção.  
 **Consequências.** Acelera investigação e medição, mas adiciona custo de telemetria e requer equilíbrio explícito entre utilidade e privacidade.  
-**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [5 — Confiança](../sobre/plano-da-disciplina.md#modulo-6) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).
 
 ### Loop objetivado com orçamento
 
@@ -194,4 +194,4 @@ Padrões nomeiam soluções recorrentes e suas consequências. Use-os para ampli
 **Problema.** Um laço que para quando o modelo se declara pronto encerra com falso positivo, e um laço sem teto consome orçamento sem condição de término.  
 **Solução.** Encerrar por condição de parada executável e versionada, com dois tetos independentes de iterações e custo, detecção de repetição, isolamento de execução, desligamento acessível e registro do que encerrou cada execução.  
 **Consequências.** Permite delegar trajetórias inteiras com custo limitado e desfecho auditável; exige verificador mantido fora do alcance do laço e aceita que esgotar o orçamento seja um resultado legítimo, com encaminhamento humano.  
-**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-6).
+**Módulos relacionados.** [4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4) e [6 — Operação](../sobre/plano-da-disciplina.md#modulo-7).

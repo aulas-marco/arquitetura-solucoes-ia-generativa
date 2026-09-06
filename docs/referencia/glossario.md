@@ -82,7 +82,7 @@ Capacidade de fornecer razões, fatores e limites compreensíveis para uma saíd
 
 ### Factualidade
 Grau em que afirmações geradas correspondem a fatos verificáveis no domínio considerado.  
-*Primeiro módulo:* [Módulo 5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 6 — Confiança](../sobre/plano-da-disciplina.md#modulo-6)
 
 ### Fallback
 Caminho alternativo acionado quando o caminho preferencial falha, degrada ou ultrapassa limites definidos.  
@@ -102,7 +102,7 @@ Vinculação de uma resposta a evidências ou estados controlados disponíveis n
 
 ### Gateway de modelos
 Camada que centraliza acesso, políticas, roteamento, cotas e telemetria para diferentes serviços de inferência.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Geração
 Produção de conteúdo novo pelo modelo a partir de entradas e contexto fornecidos.  
@@ -114,7 +114,7 @@ Conjunto de papéis, políticas, decisões e evidências que orienta e responsab
 
 ### Guardrail
 Controle que restringe, detecta, transforma ou interrompe entradas, contexto, ações ou saídas conforme uma política.  
-*Primeiro módulo:* [Módulo 5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 6 — Confiança](../sobre/plano-da-disciplina.md#modulo-6)
 
 ### Idempotência
 Propriedade pela qual repetir uma operação com a mesma identidade não multiplica seus efeitos.  
@@ -130,7 +130,7 @@ Execução de um modelo treinado para produzir previsões ou conteúdo a partir 
 
 ### Injeção de prompt
 Tentativa de fazer conteúdo não confiável substituir instruções, revelar dados ou induzir ações indevidas.  
-*Primeiro módulo:* [Módulo 5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 6 — Confiança](../sobre/plano-da-disciplina.md#modulo-6)
 
 ### Janela de contexto
 Limite de unidades de entrada e saída que o modelo consegue considerar em uma execução.  
@@ -142,7 +142,7 @@ Tempo decorrido entre um estímulo e uma resposta observável, medido em pontos 
 
 ### LLMOps
 Práticas para versionar, avaliar, entregar, observar e evoluir sistemas baseados em modelos de linguagem.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Memória
 Mecanismo que preserva informação entre etapas ou sessões para uso controlado em execuções futuras.  
@@ -190,7 +190,7 @@ Fluxo que adquire, extrai, limpa, segmenta, enriquece, indexa e atualiza conteú
 
 ### Política
 Regra explícita que define comportamentos permitidos, obrigatórios ou proibidos em determinado contexto.  
-*Primeiro módulo:* [Módulo 5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 6 — Confiança](../sobre/plano-da-disciplina.md#modulo-6)
 
 ### Prompt
 Entrada que combina instruções e conteúdo para orientar o comportamento do modelo em uma execução.  
@@ -222,7 +222,7 @@ Requisito cuja satisfação influencia de modo relevante a estrutura, as interfa
 
 ### Roteamento de modelos
 Seleção do modelo ou caminho de inferência conforme tarefa, risco, custo, capacidade e estado operacional.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Saída estruturada
 Resposta produzida segundo um esquema verificável para consumo confiável por software.  
@@ -238,7 +238,7 @@ Conjunto sociotécnico de pessoas, processos, software, dados, modelos e control
 
 ### SLO
 Objetivo mensurável para um indicador de serviço durante um período e escopo definidos.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Temperatura
 Parâmetro de geração que altera a distribuição usada para selecionar próximos tokens e, portanto, a variabilidade.  
@@ -246,7 +246,7 @@ Parâmetro de geração que altera a distribuição usada para selecionar próxi
 
 ### Tenancy
 Modelo de compartilhamento e isolamento de recursos, dados, configurações e custos entre unidades consumidoras.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Token
 Unidade de representação usada pelo modelo para processar e gerar conteúdo.  
@@ -254,7 +254,7 @@ Unidade de representação usada pelo modelo para processar e gerar conteúdo.
 
 ### Trace
 Registro correlacionado do percurso de uma solicitação por componentes, etapas e dependências.  
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Trade-off
 Relação em que melhorar uma propriedade impõe custo, risco ou redução em outra propriedade relevante.  
@@ -266,7 +266,7 @@ Processo de ajustar parâmetros de um modelo a partir de dados e um objetivo de 
 
 ### Validação de saída
 Verificação determinística ou probabilística de formato, conteúdo e política antes de entregar ou executar uma saída.  
-*Primeiro módulo:* [Módulo 5 — Confiança](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 6 — Confiança](../sobre/plano-da-disciplina.md#modulo-6)
 
 ### Versionamento
 Identificação controlada das versões de modelos, prompts, dados, índices, ferramentas, políticas e avaliações.  
@@ -278,27 +278,27 @@ Fluxo de etapas predefinidas no qual uma ou mais etapas usam um modelo, sem dele
 
 ### SDD
 Desenvolvimento guiado por especificação: método que transforma princípios, requisitos, critérios de aceite, plano, tarefas, implementação e verificação em artefatos revisáveis.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Spec
 Artefato que descreve problema, comportamento esperado, riscos, critérios de aceite e evidências de verificação antes da implementação.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Constitution
 Conjunto versionado de princípios, limites e decisões que orienta specifications e implementação.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### EARS
 Notação de requisitos que formula condições e respostas esperadas de modo testável.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Vibe coding
 Prática de pedir implementação por linguagem natural sem tornar requisitos, testes e critérios de aceite artefatos explícitos.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Agente de codificação
 Agente que lê, altera e verifica artefatos de software por ferramentas controladas e gates humanos.
-*Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
+*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Superfície comportamental
 Configuração inteira que produz o comportamento observado numa execução: modelo e versão, parâmetros, prompt, contexto, recuperação, ferramentas, políticas, estado e implantação.
@@ -306,7 +306,7 @@ Configuração inteira que produz o comportamento observado numa execução: mod
 
 ### Ativo comportamental
 Artefato cuja alteração pode mudar resposta, decisão, custo, latência, acesso ou efeito, e que por isso exige versão, manifesto e portão de promoção.
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Arnês
 Conjunto de código, configuração e lógica de execução que cerca o modelo e o transforma em agente: prompt de sistema, ferramentas, gestão de contexto, verificação, memória, sandbox e hooks. É a superfície comportamental menos o modelo.
@@ -342,8 +342,8 @@ Ambiente isolado onde código é executado e ferramentas são exercidas sem alca
 
 ### Orçamento de laço
 Par de tetos independentes, de iterações e de custo, com dono e comportamento definido no esgotamento, que limita um laço desassistido.
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)
 
 ### Verificador
 Artefato que decide se o resultado de uma iteração satisfaz o critério de sucesso; é versionado, calibrado e não editável pelo processo que ele avalia.
-*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+*Primeiro módulo:* [Módulo 7 — Operação](../sobre/plano-da-disciplina.md#modulo-7)

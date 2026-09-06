@@ -6,7 +6,7 @@ Uma organização opera três produtos: copiloto de atendimento, RAG de polític
 
 Os atributos prioritários são: nenhuma ação sem autoridade; nenhum cruzamento de tenant; respostas de política fundamentadas; p95 de 8 segundos para consulta; recuperação controlada diante de falha de fornecedor; custo atribuível por produto; e reconstrução de qualquer decisão crítica.
 
-![Ativos LLMOps versionados percorrem avaliação, canary e observação; rollback seguro rotineiro e incidente real classificado seguem ramos distintos antes da aprendizagem curada](../assets/images/m06-ciclo-llmops.png)
+![Ativos LLMOps versionados percorrem avaliação, canary e observação; rollback seguro rotineiro e incidente real classificado seguem ramos distintos antes da aprendizagem curada](../assets/images/m07-ciclo-llmops.png)
 
 *Figura 1 — Ciclo LLMOps: a mudança de qualquer ativo comportamental percorre avaliação, liberação controlada, observação e aprendizagem. A seta de retorno não autoriza copiar dados de produção sem tratamento.*
 
@@ -129,7 +129,7 @@ flowchart TB
 
 **Equivalente textual — arquitetura completa da plataforma.** A requisição sai do produto, recebe identidade, tenant e quota, e o health check escolhe uma réplica do gateway. O gateway aplica política e roteamento; o guardrail de entrada precede o orquestrador. Registro de prompts e RAG devolvem ao orquestrador template e evidências autorizadas. O contexto mínimo segue pelo conector do gateway ao modelo. Toda resposta ou intenção passa pelo guardrail de saída: resposta validada volta ao produto; intenção validada segue ao executor, que revalida política, identidade, idempotência e, se sensível, aprovação antes do ERP. O resultado autoritativo retorna ao orquestrador. Cada nó executável emite telemetria minimizada para SLOs, FinOps e auditoria; o avaliador fornece evidência, não autorização.
 
-![Mapa da plataforma corporativa com produtos, gateway, serviços compartilhados, provedores, domínios e plano operacional](../assets/images/m06-plataforma-corporativa.png)
+![Mapa da plataforma corporativa com produtos, gateway, serviços compartilhados, provedores, domínios e plano operacional](../assets/images/m07-plataforma-corporativa.png)
 
 *Figura 2 — Plataforma corporativa: o plano comum concentra controles transversais; produtos e domínios preservam responsabilidade pelo contexto, dados, efeitos e resultados.*
 

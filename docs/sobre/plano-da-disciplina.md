@@ -44,7 +44,22 @@ Ao final da disciplina, o aluno deverá ser capaz de:
 11. Analisar trade-offs entre qualidade, latência, custo, controle e dependência de fornecedores.
 12. Comunicar e defender decisões por meio de diagramas, cenários e registros arquiteturais.
 
-## 6. Princípios didáticos
+## 6. Módulos do livro-texto e encontros
+
+O livro-texto tem sete módulos; a disciplina tem seis encontros de quatro horas. A estrutura do material deixou de espelhar o calendário quando o fio de desenvolvimento guiado por especificação passou a ter módulo próprio, e a correspondência passa a ser declarada:
+
+| Encontro | Módulos cobertos |
+|---|---|
+| 1 | [Módulo 1 — Fundamentos](#modulo-1) |
+| 2 | [Módulo 2 — Desenho conceitual](#modulo-2) |
+| 3 | [Módulo 3 — RAG](#modulo-3) |
+| 4 | [Módulo 4 — Agentes](#modulo-4) e [Módulo 5 — Desenvolvimento guiado por especificação](#modulo-5) |
+| 5 | [Módulo 6 — Confiança](#modulo-6) |
+| 6 | [Módulo 7 — Operação](#modulo-7) |
+
+O Encontro 4 já cobria os dois assuntos antes da separação; o que muda é que o material de SDD deixa de ser lido como apêndice do módulo de agentes.
+
+## 7. Princípios didáticos
 
 ### 6.1 Conceitos antes dos casos
 
@@ -70,7 +85,7 @@ Produtos e plataformas podem aparecer como exemplos, mas os conceitos, padrões 
 
 Toda decisão arquitetural deve ser relacionada a objetivos, cenários, atributos de qualidade, riscos ou evidências produzidas por experimentos.
 
-## 7. Organização-padrão de cada encontro
+## 8. Organização-padrão de cada encontro
 
 | Etapa | Duração | Finalidade |
 |---|---:|---|
@@ -371,7 +386,7 @@ O sistema deve respeitar permissões individuais, citar fontes, refletir atualiz
 
 <a id="modulo-4"></a>
 
-## Encontro 4 — Agentes e integração com sistemas corporativos
+## Encontro 4 — Agentes e desenvolvimento guiado por especificação
 
 > **Integração curricular:** SDD é a aplicação central deste encontro: agentes de codificação usam ferramentas, contratos, testes e gates humanos para transformar uma spec em software verificável.
 
@@ -499,6 +514,26 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 
 <a id="modulo-5"></a>
 
+### Módulo 5 — Desenvolvimento guiado por especificação
+
+> **Mesmo encontro, módulo próprio:** o fio de SDD ocupa a segunda metade do Encontro 4 e tem módulo próprio no livro-texto, porque o material não cabe como apêndice de agentes.
+
+**Propósito.** Conduzir uma mudança de software por constitution, spec, plano, tarefas e evidência, com portões humanos que retêm decisão em vez de carimbar.
+
+**Resultados específicos.** Ao final, o aluno deverá conseguir distinguir *vibe coding*, assistência de codificação e SDD pelo artefato que governa a mudança; escrever uma constitution que rejeite alguma coisa; percorrer o fluxo de oito etapas sabendo que incerteza cada uma reduz; formular critérios de aceite antes das tarefas; fatiar verticalmente; escolher *seams* duráveis; posicionar os três gates; conduzir revisão em dois eixos; e reduzir a profundidade sem perder controle.
+
+**Conceitos.** Modos de trabalho e spec viva · constitution · o fluxo `constitution → specify → clarify → plan → tasks → analyze → implement → verify` · ledger epistemológico · critérios em EARS e cenários BDD · fatias verticais, deep modules e seams · três gates e dois papéis humanos · oito artefatos de uma demanda governada · profundidade proporcional · quando o método vira cerimônia.
+
+**Estudo de caso.** Profundidade proporcional numa base legada: quatro demandas na mesma semana, uma regra de negócio que só existe no código e uma auditoria que pede prova sobre o passado.
+
+**Oficina aplicada.** Mini-iniciativa com Spec Kit, do zero à revisão em dois eixos, com a limitação de modelos locais documentada.
+
+**Entregável avaliativo.** Constitution, spec com critérios de aceite, plano, tarefas verticais, matriz de cobertura e as duas revisões.
+
+O material completo está no [Módulo 5 do livro-texto](../modulo-5-especificacao/index.md).
+
+<a id="modulo-6"></a>
+
 ## Encontro 5 — Confiança, segurança, avaliação e governança
 
 ### Propósito
@@ -574,7 +609,7 @@ O sistema processa documentos internos e responde sobre políticas, benefícios 
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Analisar.** Realize a [oficina para testar confiança e experiência](../modulo-5-confianca/oficina-de-ferramentas.md): examine casos sintéticos de segurança e UX, compare limites e recuperações e justifique aceitar, corrigir, escalar ou bloquear.
+**Objetivo Bloom: Analisar.** Realize a [oficina para testar confiança e experiência](../modulo-6-confianca/oficina-de-ferramentas.md): examine casos sintéticos de segurança e UX, compare limites e recuperações e justifique aceitar, corrigir, escalar ou bloquear.
 
 ### Entregável avaliativo
 
@@ -592,7 +627,7 @@ O sistema processa documentos internos e responde sobre políticas, benefícios 
 
 ---
 
-<a id="modulo-6"></a>
+<a id="modulo-7"></a>
 
 ## Encontro 6 — Operação, LLMOps e plataformas corporativas
 
@@ -679,7 +714,7 @@ Uma organização possui protótipos independentes de copiloto, RAG e agentes. H
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Analisar.** Realize a [oficina para operar uma capacidade compartilhada](../modulo-6-operacao/oficina-de-ferramentas.md): formule um parecer a partir de sinais sintéticos e relacione gateway, quota, roteamento, SLO, custo e ação de recuperação por produto. A extensão de [loop objetivado](../modulo-6-operacao/oficina-de-ferramentas.md#extensao-loop-objetivado-com-orcamento) contrasta um laço que para por verificação com um que para por autodeclaração do modelo.
+**Objetivo Bloom: Analisar.** Realize a [oficina para operar uma capacidade compartilhada](../modulo-7-operacao/oficina-de-ferramentas.md): formule um parecer a partir de sinais sintéticos e relacione gateway, quota, roteamento, SLO, custo e ação de recuperação por produto. A extensão de [loop objetivado](../modulo-7-operacao/oficina-de-ferramentas.md#extensao-loop-objetivado-com-orcamento) contrasta um laço que para por verificação com um que para por autodeclaração do modelo.
 
 ### Banca
 
