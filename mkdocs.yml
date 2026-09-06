@@ -110,18 +110,18 @@ nav:
       - "Síntese e referências": modulo-4-agentes/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-4-agentes/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-4-agentes/caso-aurora.md
-  - Módulo 5 — Especificação:
-      - Visão geral: modulo-5-especificacao/index.md
-      - "Vibe coding, assistência e SDD": modulo-5-especificacao/modos-de-trabalho.md
-      - "O fluxo SDD": modulo-5-especificacao/fluxo.md
-      - "Decisões e limites do SDD": modulo-5-especificacao/decisoes.md
-      - "Exemplo arquitetural": modulo-5-especificacao/exemplo-arquitetural.md
-      - "Estudo de caso": modulo-5-especificacao/estudo-de-caso.md
-      - "Oficina de ferramentas": modulo-5-especificacao/oficina-de-ferramentas.md
-      - "Exercícios": modulo-5-especificacao/exercicios.md
-      - "Síntese e referências": modulo-5-especificacao/sintese-e-referencias.md
-      - "Caso contínuo: Banco Lume": modulo-5-especificacao/caso-lume.md
-      - "Caso contínuo: Cooperativa Aurora": modulo-5-especificacao/caso-aurora.md
+  - Módulo 5 — SDD:
+      - Visão geral: modulo-5-sdd/index.md
+      - "Vibe coding, assistência e SDD": modulo-5-sdd/modos-de-trabalho.md
+      - "O fluxo SDD": modulo-5-sdd/fluxo.md
+      - "Decisões e limites do SDD": modulo-5-sdd/decisoes.md
+      - "Exemplo arquitetural": modulo-5-sdd/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-5-sdd/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-5-sdd/oficina-de-ferramentas.md
+      - "Exercícios": modulo-5-sdd/exercicios.md
+      - "Síntese e referências": modulo-5-sdd/sintese-e-referencias.md
+      - "Caso contínuo: Banco Lume": modulo-5-sdd/caso-lume.md
+      - "Caso contínuo: Cooperativa Aurora": modulo-5-sdd/caso-aurora.md
   - Módulo 6 — Confiança:
       - Visão geral: modulo-6-confianca/index.md
       - "Confiança e risco": modulo-6-confianca/confianca-e-risco.md

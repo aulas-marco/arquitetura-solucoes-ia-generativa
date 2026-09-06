@@ -23,7 +23,7 @@ Mesmo sem publicar o site, todo o conteúdo pode ser lido diretamente no GitHub:
 2. [Desenho conceitual e decisões](docs/modulo-2-desenho-conceitual/index.md)
 3. [RAG e conhecimento verificável](docs/modulo-3-rag/index.md)
 4. [Agentes, ferramentas e autonomia](docs/modulo-4-agentes/index.md)
-5. [Desenvolvimento guiado por especificação](docs/modulo-5-especificacao/index.md)
+5. [Desenvolvimento guiado por especificação](docs/modulo-5-sdd/index.md)
 6. [Confiança, avaliação e governança](docs/modulo-6-confianca/index.md)
 7. [Operação, LLMOps e plataforma](docs/modulo-7-operacao/index.md)
 

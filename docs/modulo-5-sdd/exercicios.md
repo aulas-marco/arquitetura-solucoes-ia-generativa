@@ -40,7 +40,7 @@ Uma área solicita “permita reabrir uma avaliação encerrada”, sem informar
 
 **Seu papel**
 
-Você responde pelo Gate 1 e deve tornar a intenção implementável sem escolher tecnologia.
+Você responde pelo portão (*gate*) 1 e deve tornar a intenção implementável sem escolher tecnologia.
 
 **Insumos disponíveis**
 
@@ -48,7 +48,7 @@ Use a [spec como artefato vivo](modos-de-trabalho.md#a-spec-como-artefato-centra
 
 **Como conduzir**
 
-1. Construa um *ledger* epistemológico, que é uma tabela de quatro colunas separando o que é fato confirmado, o que é hipótese, o que permanece desconhecido e o que está fora de escopo.
+1. Construa um **registro epistemológico** — em inglês *ledger* —, que é uma tabela de quatro colunas separando o que é fato confirmado, o que é hipótese, o que permanece desconhecido e o que está fora de escopo.
 2. Formule oito perguntas de clarificação ordenadas pelo impacto.
 3. Escolha respostas fictícias e declare-as decisões do exercício.
 4. Escreva cinco requisitos EARS e três cenários BDD: sucesso, negação e conflito.
@@ -88,7 +88,7 @@ Use a etapa de [análise de consistência](fluxo.md#6-analyze-os-artefatos-conta
 **Como conduzir**
 
 1. Construa a matriz `requisito → plano → tarefa → teste`.
-2. Classifique achados como lacuna, contradição, ambiguidade ou *scope creep* — que significa trabalho previsto em um artefato sem origem em nenhum requisito aprovado.
+2. Classifique achados como lacuna, contradição, ambiguidade ou **expansão de escopo** (*scope creep*), que significa trabalho previsto em um artefato sem origem em nenhum requisito aprovado.
 3. Indique o artefato que deve mudar e a autoridade que aprova.
 4. Separe bloqueios de riscos residuais.
 5. Proponha tarefas como fatias verticais com bloqueadores.
@@ -114,7 +114,7 @@ Relatório de consistência com severidade, evidência, correção e decisão de
 
 **Situação**
 
-O fluxo A usa um agente para especificar, implementar e revisar. O fluxo B usa Spec Kit, revisões separadas de Spec e Standards e três gates. B dobra a preparação, mas reduz retrabalho; A produz protótipos mais cedo.
+O fluxo A usa um agente para especificar, implementar e revisar. O fluxo B usa Spec Kit, revisões separadas de Spec e Standards e três portões (*gates*). B dobra a preparação, mas reduz retrabalho; A produz protótipos mais cedo.
 
 **Seu papel**
 

@@ -1,6 +1,6 @@
 # Caso contínuo: Cooperativa Aurora — autonomia
 
-**Caso contínuo — Cooperativa Aurora.** [← Módulo 3: RAG](../modulo-3-rag/caso-aurora.md) · [Módulo 5: Especificação →](../modulo-5-especificacao/caso-aurora.md)
+**Caso contínuo — Cooperativa Aurora.** [← Módulo 3: RAG](../modulo-3-rag/caso-aurora.md) · [Módulo 5: Especificação →](../modulo-5-sdd/caso-aurora.md)
 
 O [Módulo 2](../modulo-2-desenho-conceitual/caso-aurora.md) decidiu manter a Cooperativa Aurora sem agente. O [Módulo 3](../modulo-3-rag/caso-aurora.md) deu a ela seu próprio caminho de conhecimento (RAG híbrido em lote com adaptador de leitura). Este módulo reavalia autonomia com a evidência acumulada até aqui — e a Aurora **não** chega à mesma conclusão do [Banco Lume](caso-lume.md), tratado em sua própria página.
 

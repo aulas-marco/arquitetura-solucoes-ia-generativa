@@ -453,7 +453,7 @@ Se o Experimento D falhar, confirme que o Ollama está em execução (`ollama li
 
 ## Extensão — ablação de arnês
 
-Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês](arnes.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
+Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês (*harness*)](arnes.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
 
 ### Cenário sintético
 

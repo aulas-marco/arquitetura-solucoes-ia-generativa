@@ -1,15 +1,23 @@
-# Desenvolvimento guiado por especificação
+# SDD — desenvolvimento guiado por especificação
 
 > **Pergunta-guia:** Como uma intenção humana atravessa um sistema de agentes até virar software verificável?
 
 ```mermaid
-flowchart LR
-    I["Intenção<br/>incompleta"] --> C["Constitution"]
-    C --> S["Spec"] --> G1{"Gate 1<br/>intenção"}
-    G1 --> P["Plano"] --> T["Tarefas"] --> G2{"Gate 2<br/>arquitetura"}
-    G2 --> IM["Implementação"] --> V["Verificação"] --> G3{"Gate 3<br/>entrega"}
-    G3 --> E["Software com<br/>evidência rastreável"]
-    E -.->|"produção contradiz uma premissa"| S
+flowchart TB
+    I["Intenção incompleta<br/><i>“exportar as avaliações em CSV”</i>"]
+    C["Constituição — as regras que valem<br/>para toda mudança do repositório"]
+    S["Especificação — o que o usuário<br/>passa a poder fazer"]
+    G1{"Portão 1 · intenção<br/>o problema está claro?"}
+    P["Plano — que arquitetura realiza isso"]
+    T["Tarefas — fatias que entregam comportamento"]
+    G2{"Portão 2 · arquitetura<br/>as decisões estão registradas?"}
+    IM["Implementação — teste primeiro, código depois"]
+    V["Verificação — a entrega corresponde à intenção?"]
+    G3{"Portão 3 · entrega<br/>a evidência sustenta a integração?"}
+    E["Software com evidência rastreável"]
+
+    I --> C --> S --> G1 --> P --> T --> G2 --> IM --> V --> G3 --> E
+    E -.->|"produção contradiz uma premissa:<br/>volta para a especificação,<br/>não para um remendo"| S
 ```
 
 *Figura — O fluxo não termina no código: produção que contradiz uma premissa volta para a especificação, não para um remendo silencioso.*
@@ -32,6 +40,28 @@ Ao final, você deverá conseguir:
 8. posicionar os três gates humanos e dizer o que cada um pode bloquear;
 9. conduzir revisão em dois eixos, aderência à spec e padrões de engenharia;
 10. reconhecer quando o método vira cerimônia e reduzir a profundidade sem perder controle.
+
+## Vocabulário mínimo
+
+A prática de SDD nasceu em inglês e a maior parte das ferramentas usa os termos originais. Este módulo escreve em português e mantém o termo em inglês junto na primeira aparição, porque é ele que você vai encontrar na documentação e nos comandos. A tabela abaixo é suficiente para ler o módulo inteiro; nenhum termo é usado antes de aparecer aqui.
+
+| Termo | O que é | Exemplo curto |
+|---|---|---|
+| **SDD** (*Specification-Driven Development*) | Modo de trabalho em que a especificação versionada, e não a conversa, governa a mudança | A regra de cancelamento está no `spec.md`, não no histórico do chat |
+| **Especificação** (*spec*) | Documento que descreve o comportamento observável desta mudança, com critérios de aceite | “O cliente pode cancelar até a separação começar; depois disso, abre chamado” |
+| **Constituição** (*constitution*) | Arquivo de princípios que toda mudança do repositório precisa respeitar | “Nenhum dado pessoal entra em log” |
+| **Portão** (*gate*) | Ponto do fluxo em que uma pessoa decide se o trabalho continua | O plano não vira tarefa sem aprovação do arquiteto |
+| **Costura** (*seam*) | Ponto estável por onde o comportamento é observado ou substituído | O endpoint `POST /exportacoes`, usado pelo consumidor e pelo teste |
+| **Módulo profundo** (*deep module*) | Muito comportamento atrás de uma interface pequena | `autorizar(usuario, recurso, acao)` esconde política, hierarquia e expiração |
+| **Fatia vertical** | Pedaço de trabalho que atravessa interface, regra e dados e entrega comportamento | “Exportar uma unidade, com autorização e teste”, não “criar a tabela” |
+| **EARS** | Cinco moldes de frase para escrever requisito sem ambiguidade | “Quando a exportação terminar, o sistema deve disponibilizar o arquivo” |
+| **BDD** (*Behaviour-Driven Development*) | Cenários no formato dado / quando / então | “Dado que Ana gerencia a unidade Sul…” |
+| **Registro epistemológico** (*ledger*) | Tabela que separa fato, hipótese, desconhecido e fora de escopo | “Fato: existem 12 mil registros. Hipótese: o volume dobra em 2027” |
+| **YAGNI** (*You Aren't Gonna Need It*) | Não construir o que ainda não é exigido | Não criar exportação em PDF porque “alguém pode pedir” |
+| **Expansão de escopo** (*scope creep*) | Trabalho que aparece num artefato sem vir de nenhum requisito aprovado | A tarefa inclui envio por e-mail, que a especificação declarou fora de escopo |
+| ***Vibe coding*** | Pedir implementação em conversa, sem artefato que registre a intenção | “Faz um botão de exportar aí” |
+
+Dois termos ficam em inglês no corpo do texto, porque é assim que aparecem na ferramenta e no comando que você vai digitar: `spec` e `constitution`. Onde o sentido puder ficar ambíguo, o português vem junto.
 
 ## Continuidade com o Módulo 4
 

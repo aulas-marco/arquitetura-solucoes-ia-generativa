@@ -24,7 +24,7 @@ Antes de liberar um sistema que age, verifique:
 - agente único é o padrão inicial; múltiplos agentes exigem fronteira ou benefício medido;
 - traces permitem reconstrução sem reter segredos e dados pessoais desnecessários;
 - caminhos de sucesso, negação, repetição e compensação têm testes próprios.
-- o arnês foi projetado como um todo, e cada componente tem dono: prompt de sistema, ferramentas, contexto, verificação, memória, sandbox e hooks;
+- o arnês (*harness*) foi projetado como um todo, e cada componente tem dono: prompt de sistema, ferramentas, contexto, verificação, memória, sandbox e hooks;
 - o catálogo passou pelo teste da ambiguidade: uma pessoa da equipe diz sem hesitar qual ferramenta cabe em cada situação;
 - a redução do número de etapas foi considerada antes de aumentar a confiabilidade de cada uma;
 - o nível de loop está declarado, e o que foi entregue à máquina em cada degrau tem controle correspondente no arnês;
@@ -59,7 +59,7 @@ Todas as fontes estão no [registro editorial](../referencia/fontes.yml) e na [B
 
 ## Conexão com o próximo módulo
 
-O agente que constrói software é o caso de autonomia com efeito mais durável, e ganha módulo próprio: o [Módulo 5 — Desenvolvimento guiado por especificação](../modulo-5-especificacao/index.md) percorre constitution, spec, plano, tarefas e portões humanos com o mesmo vocabulário de contrato, estado e autoridade construído aqui.
+O agente que constrói software é o caso de autonomia com efeito mais durável, e ganha módulo próprio: o [Módulo 5 — Desenvolvimento guiado por especificação](../modulo-5-sdd/index.md) percorre constitution, spec, plano, tarefas e portões humanos com o mesmo vocabulário de contrato, estado e autoridade construído aqui.
 
 Controles de ferramenta reduzem risco, mas não demonstram que o sistema é seguro, justo ou adequado para todas as populações. O [Módulo 6 — Confiança, segurança, avaliação e governança](../sobre/plano-da-disciplina.md#modulo-6) aprofundará ameaças, privacidade, guardrails, avaliação e evidências de governança. A matriz de autonomia e o contrato de ferramenta tornam-se entradas: cada nível precisa de casos adversariais, critérios de aceitação e monitoramento proporcional ao efeito.
 

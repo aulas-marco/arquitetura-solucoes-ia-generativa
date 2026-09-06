@@ -28,7 +28,7 @@ Ao final, você deverá conseguir:
 8. classificar autonomia por ação e risco, com aprovação humana e fallback;
 9. comparar agente único e múltiplos agentes por evidência operacional.
 10. priorizar segurança, confiabilidade, auditabilidade, latência, custo e modificabilidade, declarando tensões, responsáveis e fitness functions.
-11. reconhecer o arnês como objeto de projeto, nomear seus componentes e prever o efeito do erro composto numa trajetória;
+11. reconhecer o arnês (*harness*) como objeto de projeto, nomear seus componentes e prever o efeito do erro composto numa trajetória;
 12. escolher o nível de loop adequado a uma tarefa e declarar condição de parada, orçamento e comportamento no esgotamento.
 
 ## Pré-requisitos e princípio de continuidade
@@ -49,9 +49,9 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | 6 | [Níveis de autonomia](autonomia-orcada.md) | matriz de autonomia, orçamento, interrupção e fallback |
 | 7 | [Engenharia de arnês](arnes.md) | o que cerca o modelo, erro composto e diagnóstico por tipo de falha |
 | 8 | [Loops agênticos](loops.md) | quatro níveis de loop, condição de parada e o verificador |
-| 9 | [Vibe coding, assistência e SDD](../modulo-5-especificacao/modos-de-trabalho.md) | vibe coding, assistência e SDD; spec viva e constitution |
-| 10 | [O fluxo SDD](../modulo-5-especificacao/fluxo.md) | oito etapas, três gates humanos e oito artefatos |
-| 11 | [Decisões e limites do SDD](../modulo-5-especificacao/decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
+| 9 | [Vibe coding, assistência e SDD](../modulo-5-sdd/modos-de-trabalho.md) | vibe coding, assistência e SDD; spec viva e constitution |
+| 10 | [O fluxo SDD](../modulo-5-sdd/fluxo.md) | oito etapas, três gates humanos e oito artefatos |
+| 11 | [Decisões e limites do SDD](../modulo-5-sdd/decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
 | 12 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 13 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
 | 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |

@@ -1,20 +1,32 @@
 # Exemplo arquitetural: da intenção à evidência
 
-Uma demanda de uma frase — “adicione um botão para exportar as avaliações em CSV” — percorrida inteira, de constitution a feedback de produção, com os três portões humanos no lugar em que cada um decide algo.
+Uma demanda de uma frase — “adicione um botão para exportar as avaliações em CSV” — percorrida inteira, da constituição do repositório ao feedback de produção, com os três portões humanos no lugar em que cada um decide algo.
 
-## Pipeline SDD com gates humanos
+Esta página pressupõe apenas o [vocabulário mínimo](index.md#vocabulario-minimo) do módulo. Cada artefato aparece com o nome em português e o nome que a ferramenta usa, na ordem em que seriam produzidos numa mudança real.
+
+<a id="pipeline-sdd-com-gates-humanos"></a>
+
+## O fluxo SDD com portões humanos
 
 ```mermaid
-flowchart LR
-  C[Constitution] --> S[Specification]
-  S --> G1{Gate 1: escopo e riscos}
-  G1 --> P[Plan] --> T[Tasks] --> I[Implement] --> V[Verify]
-  V --> G2{Gate 2: testes e spec} --> G3{Gate 3: revisão humana}
+flowchart TB
+  C["Constituição<br/><i>constitution</i>"]
+  S["Especificação<br/><i>specification</i>"]
+  G1{"Portão 1<br/>escopo e riscos"}
+  P["Plano<br/><i>plan</i>"]
+  T["Tarefas<br/><i>tasks</i>"]
+  I["Implementação<br/><i>implement</i>"]
+  V["Verificação<br/><i>verify</i>"]
+  G2{"Portão 2<br/>testes contra a especificação"}
+  G3{"Portão 3<br/>revisão humana"}
+  L["Liberação"]
+
+  C --> S --> G1 --> P --> T --> I --> V --> G2 --> G3 --> L
 ```
 
-*Figura — Pipeline SDD: a specification governa implementação e verificação.*
+*Figura — No fluxo SDD, a especificação governa implementação e verificação; os três portões são os pontos em que uma pessoa decide se o trabalho continua.*
 
-**Equivalente textual 3.** Constitution e specification antecedem plan e tasks. O Gate 1 valida escopo e riscos; Verify produz evidências; o Gate 2 compara testes e spec; o Gate 3 aprova a revisão humana antes da liberação.
+**Equivalente textual 3.** A constituição (*constitution*) e a especificação (*specification*) vêm antes do plano e das tarefas. O portão 1 valida escopo e riscos; a verificação produz evidências; o portão 2 compara os testes com a especificação; o portão 3 é a revisão humana que autoriza a liberação.
 
 ```mermaid
 flowchart TB
@@ -29,7 +41,7 @@ flowchart TB
   G2 --> G3[Gate 3]
 ```
 
-*Figura — Squad híbrida: 2 papéis humanos, 5 agentes de IA e 3 gates.*
+*Figura — Squad híbrida: 2 papéis humanos, 5 agentes de IA e 3 portões.*
 
 **Equivalente textual 4.** O arquiteto e o responsável de produto definem o primeiro gate. Cinco agentes atuam em discovery, spec, plan, implementação e verificação. Os gates 2 e 3 retêm validação de evidência e revisão humana.
 

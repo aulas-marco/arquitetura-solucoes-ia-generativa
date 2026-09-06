@@ -1,6 +1,8 @@
 # Vibe coding, assistência e SDD
 
-Vibe coding, assistência de codificação e desenvolvimento guiado por especificação diferem pelo artefato que governa a mudança, não pelo grau de uso do modelo.
+*Vibe coding*, assistência de codificação e desenvolvimento guiado por especificação diferem pelo artefato que governa a mudança, e não pelo quanto cada um usa o modelo.
+
+Esta é a primeira página do módulo depois da abertura. Ela pressupõe o [vocabulário mínimo](index.md#vocabulario-minimo) e nada além do Módulo 4: um agente com ferramentas, contratos e portões de autorização.
 
 ## Do agente que age ao agente que constrói software
 
@@ -45,11 +47,15 @@ A spec é **viva** quando uma descoberta altera o artefato apropriado. Se o dom�
 
 Ela é **executável em sentido amplo** quando consegue produzir ou verificar outros artefatos: cenários tornam-se testes; entidades orientam modelo de dados; contratos orientam APIs; atributos de qualidade geram experimentos; regras de segurança produzem casos negativos; tarefas carregam critérios de conclusão. Executável não quer dizer que toda prosa se transforme mecanicamente em código nem que o modelo seja um compilador infalível. A transformação continua sujeita a interpretação, ferramentas e revisão.
 
-## Constitution: princípios antes da feature
+<a id="constitution-principios-antes-da-feature"></a>
 
-O [Spec Kit](https://github.com/github/spec-kit) começa pela **constitution**, um conjunto versionado de princípios que todas as features devem respeitar. Ela reduz a necessidade de repetir decisões organizacionais em cada prompt e impede que o agente trate convenções fundamentais como preferências locais.
+## Constituição (*constitution*): princípios antes da funcionalidade
 
-Uma constitution útil contém regras capazes de bloquear ou redirecionar um plano:
+O [Spec Kit](https://github.com/github/spec-kit) começa pela **constituição** — em inglês *constitution*, e é assim que o comando aparece na ferramenta. É um arquivo versionado no repositório, geralmente `constitution.md`, com os princípios que toda mudança precisa respeitar. Ela existe para que decisões que valem para o projeto inteiro não precisem ser repetidas em cada pedido ao agente, e para impedir que ele trate convenção fundamental como preferência local.
+
+A comparação que ajuda: a especificação diz o que **esta** mudança deve fazer; a constituição diz o que **nenhuma** mudança pode violar. Uma vale por uma funcionalidade, a outra vale até ser explicitamente alterada.
+
+Uma constituição útil contém regras capazes de bloquear ou redirecionar um plano:
 
 - interfaces públicas exigem compatibilidade ou estratégia de migração;
 - toda escrita material precisa de autorização no servidor;
@@ -60,6 +66,37 @@ Uma constitution útil contém regras capazes de bloquear ou redirecionar um pla
 - documentação e ADRs mudam junto com o contrato que descrevem;
 - a esteira deve permanecer verde a cada fatia integrável.
 
-Princípios vagos — “escreva código limpo”, “priorize segurança”, “use boas práticas” — não governam. Eles não definem o que o agente deve fazer diante de um trade-off. Uma constitution precisa declarar consequências: se um requisito viola um princípio, o plano registra a exceção e pede decisão humana; não prossegue silenciosamente.
+### Um exemplo completo
 
-A constitution também não deve congelar o projeto. Mudá-la é possível, mas exige uma decisão de alcance maior que uma feature. A alteração pode tornar specs e implementações anteriores não conformes; por isso tem versão, justificativa, impacto e plano de adoção. Em termos arquiteturais, ela opera como política do sistema de desenvolvimento.
+Uma constituição de verdade cabe em uma página. Esta é a de um serviço de pedidos fictício, com cinco princípios e a consequência de cada um:
+
+```markdown
+# Constituição — serviço de pedidos Boreal
+Versão 1.2 · alterada em 12/03/2026 · dono: arquitetura
+
+1. Toda transição de estado de pedido é explícita e testada.
+   Consequência: mudança que introduz estado novo sem teste de transição é
+   bloqueada no portão de entrega.
+
+2. Comportamento novo começa por um teste que falha pelo motivo esperado.
+   Consequência: pull request cujo primeiro commit já contém implementação
+   é devolvido, mesmo que os testes passem no final.
+
+3. Nenhum dado pessoal entra em log, mensagem de erro ou telemetria.
+   Consequência: o revisor de segurança pode barrar a entrega sozinho,
+   sem discussão de prioridade.
+
+4. Dependência nova exige justificativa escrita e um responsável nomeado.
+   Consequência: sem as duas coisas, o plano não passa do portão de
+   arquitetura.
+
+5. Interface pública só muda com compatibilidade ou plano de migração.
+   Consequência: quebrar contrato sem plano é exceção que exige decisão
+   do dono do produto, registrada na própria especificação.
+```
+
+Repare no que cada linha faz. O princípio nomeia a regra; a consequência nomeia **quem barra o quê**. Sem a segunda metade, o agente lê a regra como conselho.
+
+Princípios vagos não governam. “Escreva código limpo”, “priorize segurança” e “use boas práticas” não dizem o que fazer diante de um conflito, e por isso nunca rejeitam nada. O teste é direto: se você não consegue imaginar uma mudança plausível que o princípio barraria, ele é decoração. Quando um requisito viola um princípio, o plano registra a exceção e pede decisão humana em vez de seguir em silêncio.
+
+A constituição também não deve congelar o projeto. Mudá-la é possível, mas exige uma decisão de alcance maior que uma feature. A alteração pode tornar specs e implementações anteriores não conformes; por isso tem versão, justificativa, impacto e plano de adoção. Em termos arquiteturais, ela opera como política do sistema de desenvolvimento.

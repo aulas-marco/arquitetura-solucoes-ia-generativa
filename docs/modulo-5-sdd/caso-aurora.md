@@ -16,9 +16,9 @@ A spec curta tem quatro campos: o que o usuário passa a ver, o que não muda, d
 
 ## O gate que a Aurora manteve
 
-Dos três gates, a Aurora manteve **um**: revisão humana antes do merge, com o mesmo revisor cumprindo os dois eixos, aderência à spec e padrões de engenharia. Os gates 1 e 2 viraram uma conversa de dez minutos registrada na própria spec.
+Dos três portões (*gates*), a Aurora manteve **um**: revisão humana antes do merge, com o mesmo revisor cumprindo os dois eixos, aderência à spec e padrões de engenharia. Os gates 1 e 2 viraram uma conversa de dez minutos registrada na própria spec.
 
-Essa é uma redução legítima e tem preço declarado: com um único gate, um erro de intenção só aparece quando o código já existe. A Aurora aceita o preço porque o custo de refazer meia página de spec e uma fatia pequena é baixo. Se a mesma redução fosse aplicada à mudança de cláusula contratual do [Banco Lume](caso-lume.md), o erro de intenção chegaria ao jurídico depois do merge.
+Essa é uma redução legítima e tem preço declarado: com um único portão (*gate*), um erro de intenção só aparece quando o código já existe. A Aurora aceita o preço porque o custo de refazer meia página de spec e uma fatia pequena é baixo. Se a mesma redução fosse aplicada à mudança de cláusula contratual do [Banco Lume](caso-lume.md), o erro de intenção chegaria ao jurídico depois do merge.
 
 ## O que as duas organizações provam juntas
 

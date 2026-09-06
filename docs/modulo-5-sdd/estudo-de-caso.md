@@ -4,7 +4,7 @@ Caso curto, para cerca de 30 minutos de discussão em grupo com o material do m�
 
 ## Objetivo
 
-Decidir **quanta especificação uma mudança merece**, e por quê. A tentação em SDD é aplicar as oito etapas a tudo, o que transforma método em cerimônia; a tentação oposta é dispensá-las sempre, o que devolve a intenção para a conversa. A discussão é de arquitetura: onde está o risco, qual artefato o contém e qual gate o autoriza.
+Decidir **quanta especificação uma mudança merece**, e por quê. A tentação em SDD é aplicar as oito etapas a tudo, o que transforma método em cerimônia; a tentação oposta é dispensá-las sempre, o que devolve a intenção para a conversa. A discussão é de arquitetura: onde está o risco, qual artefato o contém e qual portão (*gate*) o autoriza.
 
 ## Como trabalhar em grupo
 
@@ -39,7 +39,7 @@ D2 depende de uma regra que só existe no código. Decida se o primeiro artefato
 
 ### 3. Onde ficam os gates
 
-Para a demanda que você classificou como fluxo completo, posicione os três gates e diga o que cada um pode bloquear. Um gate que nunca bloqueou nada em seis meses é um sinal de quê?
+Para a demanda que você classificou como fluxo completo, posicione os três portões (*gates*) e diga o que cada um pode bloquear. Um gate que nunca bloqueou nada em seis meses é um sinal de quê?
 
 ### 4. A demanda que não é de software
 

@@ -37,7 +37,7 @@ Quando um agente erra a escolha de ferramenta, a reação usual é ampliar o cat
 2. **descrever** as que restaram, com contrato, pré-condição e efeito, em vez de expor nomes parecidos sem definição;
 3. **restringir o contexto** ao recorte necessário para a etapa corrente, carregando definições sob demanda;
 4. **acrescentar verificação** determinística antes do efeito, com o motivo da recusa devolvido ao modelo;
-5. só então **avaliar troca de modelo**, com o mesmo conjunto de casos e o mesmo arnês.
+5. só então **avaliar troca de modelo**, com o mesmo conjunto de casos e o mesmo arnês (*harness*).
 
 A justificativa está em [Mais ferramentas não significa menos erro](arnes.md#mais-ferramentas-nao-significa-menos-erro) e o efeito de cada passo é mensurável: a [oficina deste módulo](oficina-de-ferramentas.md#extensao-ablacao-de-arnes) executa exatamente essa sequência com o mesmo modelo local e mede a diferença.
 

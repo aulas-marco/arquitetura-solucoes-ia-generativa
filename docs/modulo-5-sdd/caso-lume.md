@@ -18,7 +18,7 @@ O Lume já operava sob regras de engenharia não escritas. Ao adotar o fluxo, el
 4. nenhuma consulta a contrato ocorre fora do filtro de autorização por cliente;
 5. o que não puder ser verificado por comando não entra como critério de aceite.
 
-O princípio 2 é o que distingue o Lume: ele insere um aprovador que não é de engenharia dentro do Gate 3.
+O princípio 2 é o que distingue o Lume: ele insere um aprovador que não é de engenharia dentro do portão (*gate*) 3.
 
 ## Profundidade escolhida
 

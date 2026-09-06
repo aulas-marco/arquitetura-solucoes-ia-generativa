@@ -1,6 +1,8 @@
 # Decisões e limites do SDD
 
-As oito decisões que calibram profundidade, fatiamento, seams e revisão, os dois ADRs que registram a escolha, e os casos em que o método vira cerimônia.
+As oito decisões que calibram profundidade, fatiamento, costuras e revisão, os dois ADRs que registram a escolha, e os casos em que o método vira cerimônia.
+
+As decisões abaixo pressupõem o [fluxo de oito etapas](fluxo.md) e o [vocabulário mínimo](index.md#vocabulario-minimo). Cada uma é apresentada como decisão de arquitetura, com o que se ganha, o que se paga e o sinal que indicaria ter escolhido errado.
 
 ## Padrão — Desenvolvimento guiado por especificação
 
@@ -10,7 +12,7 @@ As oito decisões que calibram profundidade, fatiamento, seams e revisão, os do
 
 **Solução.** Manter constitution, spec, plan e tasks como contratos explícitos. Implementar em fatias verificáveis, testar nas interfaces acordadas e revisar separadamente padrões do repositório e aderência à spec.
 
-**Consequências.** Há mais preparação e gates, mas decisões, critérios de aceite e riscos permanecem auditáveis. O modelo ganha autonomia limitada para implementar; não ganha autoridade para redefinir o objetivo.
+**Consequências.** Há mais preparação e portões (*gates*), mas decisões, critérios de aceite e riscos permanecem auditáveis. O modelo ganha autonomia limitada para implementar; não ganha autoridade para redefinir o objetivo.
 
 > **Decisão arquitetural:** posicione gates humanos após a specification, após verify e antes da liberação. Um gate deve receber artefatos imutáveis, evidência de testes e o diff correspondente.
 
@@ -154,7 +156,7 @@ Checklist mínimo:
 - abuso, automação e limites de taxa considerados;
 - risco residual com dono e prazo.
 
-Um agente de segurança pode aumentar cobertura, mas não aceita risco. Achado crítico bloqueia o gate até correção ou aceitação formal por autoridade competente.
+Um agente de segurança pode aumentar cobertura, mas não aceita risco. Achado crítico bloqueia o portão (*gate*) até correção ou aceitação formal por autoridade competente.
 
 ## Decisão 8 — manter os artefatos coerentes
 

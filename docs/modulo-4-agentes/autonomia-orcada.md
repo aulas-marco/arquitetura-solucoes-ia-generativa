@@ -63,4 +63,4 @@ Compare contratos no [Guia de ferramentas](../referencia/guia-de-ferramentas.md)
 | LangGraph | Modelar estado e retomada. | Schema, limites e ferramentas. | Não substitui política externa. |
 | AutoGen | Testar papéis de agentes. | Protocolo, orçamento e catálogo mínimo. | Mais agentes não são aprovação. |
 
-Com essa base, a pergunta passa de “o que é um agente” para “o que precisa existir em volta dele”: [Engenharia de arnês](arnes.md).
+Com essa base, a pergunta passa de “o que é um agente” para “o que precisa existir em volta dele”: [Engenharia de arnês (*harness*)](arnes.md).

@@ -3,7 +3,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE = ROOT / "docs" / "modulo-5-especificacao"
+MODULE = ROOT / "docs" / "modulo-5-sdd"
 
 
 class ModuleFiveContentRegressionTest(unittest.TestCase):
@@ -68,7 +68,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
             self.assertIn(page, nomes)
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
-        ordem = [navigation.index(f"modulo-5-especificacao/{p}")
+        ordem = [navigation.index(f"modulo-5-sdd/{p}")
                  for p in ("index.md", "modos-de-trabalho.md", "fluxo.md", "decisoes.md")]
         self.assertEqual(ordem, sorted(ordem))
 

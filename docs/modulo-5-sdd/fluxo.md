@@ -2,6 +2,8 @@
 
 Oito etapas, três portões humanos e oito artefatos que precisam contar a mesma história sobre a mesma mudança.
 
+O fluxo descrito aqui é o do [Spec Kit](https://github.com/github/spec-kit), que nomeia cada etapa por um comando: `constitution`, `specify`, `clarify`, `plan`, `tasks`, `analyze`, `implement` e `verify`. Os nomes ficam em inglês porque é assim que você vai digitá-los; o que cada um significa está no [vocabulário mínimo](index.md#vocabulario-minimo) do módulo. Nenhuma etapa depende de ferramenta: o que importa é qual incerteza cada uma remove.
+
 ## Da intenção à implementação: o fluxo completo
 
 O fluxo didático deste módulo usa:
@@ -38,7 +40,7 @@ O agente pode redigir, organizar e detectar lacunas. Ele não decide sozinho o q
 
 `/speckit.clarify` existe porque prosa plausível pode esconder escolhas incompatíveis. “Usuários podem excluir relatórios” deixa perguntas: exclusão física ou lógica? quem pode excluir? há retenção legal? links compartilhados deixam de funcionar? a ação é reversível? Cada resposta pode alterar dados, autorização, UX e operação.
 
-A clarificação deve priorizar perguntas de alto impacto e fazê-las uma por vez quando a resposta muda o próximo ramo. Um **ledger epistemológico** ajuda:
+A clarificação deve priorizar perguntas de alto impacto e fazê-las uma por vez quando a resposta muda o próximo ramo. Um **registro epistemológico (*ledger*) epistemológico** ajuda:
 
 | Estado | Significado | Tratamento |
 |---|---|---|
@@ -106,7 +108,7 @@ As [skills de engenharia de Matt Pocock](https://github.com/mattpocock/skills/tr
 
 ## Requisitos que orientam agentes
 
-Uma spec para agentes precisa ser precisa sem prescrever cada linha. A formulação EARS ajuda a escrever requisitos observáveis:
+Uma especificação para agentes precisa ser precisa sem prescrever cada linha. A formulação **EARS** ajuda — a sigla é *Easy Approach to Requirements Syntax*, um conjunto de cinco moldes de frase criado na Rolls-Royce para eliminar ambiguidade de requisito sem recorrer a notação formal. Cada molde fixa a condição e a resposta esperada:
 
 | Forma | Estrutura | Exemplo |
 |---|---|---|
@@ -116,7 +118,9 @@ Uma spec para agentes precisa ser precisa sem prescrever cada linha. A formulaç
 | comportamento indesejado | se…, então o sistema deve… | Se a autorização expirar, o sistema deve negar o download e solicitar nova autenticação. |
 | opcional | onde…, o sistema deve… | Onde retenção regulatória se aplicar, o sistema deve preservar o registro pelo prazo configurado. |
 
-EARS não substitui linguagem do domínio ou cenários. Serve para retirar ambiguidade de condições e respostas. Critérios BDD complementam:
+EARS não substitui linguagem do domínio nem dispensa cenários. Ele serve para retirar ambiguidade de condição e resposta: “o sistema deve ser seguro” não cabe em nenhum dos cinco moldes, e essa recusa é o próprio diagnóstico.
+
+Os cenários completam o quadro no formato **BDD** — *Behaviour-Driven Development*, em que cada caso é escrito como dado (a situação inicial), quando (a ação) e então (o resultado observável). O formato abaixo se chama Gherkin e é lido tanto por pessoas quanto por ferramentas de teste:
 
 ```gherkin
 Cenário: gestor exporta somente registros autorizados
@@ -129,11 +133,19 @@ Cenário: gestor exporta somente registros autorizados
 
 O cenário descreve uma seam pública. Ele não exige que o teste conheça classes privadas ou consultas internas. Isso permite refatorar a implementação sem reescrever o contrato.
 
-## Deep modules e testes pelas seams
+<a id="deep-modules-e-testes-pelas-seams"></a>
 
-Um **deep module** oferece muito comportamento atrás de uma interface pequena. Para agentes, isso reduz contexto: o implementador precisa compreender contrato, invariantes e exemplos, não todos os detalhes internos do sistema. Interfaces grandes e vazamentos de abstração multiplicam arquivos que precisam ser lidos e decisões que podem divergir.
+## Módulos profundos (*deep modules*) e costuras (*seams*)
 
-A **seam** é o ponto estável por onde o comportamento é observado ou substituído: endpoint, função pública, comando, evento ou adaptador. Testar pela mesma seam usada pelo consumidor aumenta a durabilidade do teste. Testes acoplados a métodos privados, ordem de chamadas internas ou estrutura exata de objetos quebram em refatorações que não mudam comportamento e induzem agentes a preservar acidentes históricos.
+Dois termos entram aqui, os dois vindos da literatura de projeto de software em inglês.
+
+Um **módulo profundo** — *deep module*, termo de John Ousterhout — oferece muito comportamento atrás de uma interface pequena. O contrário é o módulo raso: interface grande, comportamento pouco. Um exemplo do próprio curso: a função `autorizar(usuario, recurso, acao)` devolve `permitir`, `negar` ou `exigir_aprovacao` e esconde atrás disso a tabela de políticas, a hierarquia de unidades e a expiração de credencial. Quem chama precisa entender três argumentos e três respostas. A versão rasa exporia `carregarPoliticas()`, `resolverHierarquia()`, `checarExpiracao()` e deixaria a composição por conta de quem chama — que passa a poder compor errado.
+
+Para um agente, a diferença é de contexto: com módulo profundo, ele precisa compreender contrato, invariantes e exemplos; com módulo raso, precisa ler todos os arquivos internos e ainda pode divergir da composição correta.
+
+Uma **costura** — *seam*, termo de Michael Feathers — é o ponto estável por onde o comportamento pode ser observado ou substituído sem alterar o código em volta. Costuras típicas: um endpoint HTTP, uma função pública, um comando de linha, um evento publicado, um adaptador de banco. No exemplo da exportação de avaliações, a costura é o endpoint `POST /exportacoes`: é por ele que o consumidor entra, e é por ele que o teste deve entrar também.
+
+Testar pela mesma costura que o consumidor usa aumenta a durabilidade do teste. Já os testes acoplados a métodos privados, ordem de chamadas internas ou estrutura exata de objetos quebram em refatorações que não mudam comportamento e induzem agentes a preservar acidentes históricos.
 
 Isso não elimina testes unitários. Significa escolher o nível mais alto que continue rápido, determinístico e diagnóstico. Um contrato de autorização pode ser testado na função pública de política; uma trajetória de exportação pode exigir integração entre endpoint, fila e armazenamento; um detalhe de formatação pode permanecer unitário.
 
@@ -146,9 +158,9 @@ No modelo de squad híbrida adotado como referência didática, dois papéis hum
 
 Agentes especializados produzem rascunhos e evidências: entrevistador, especificador, arquiteto/planejador, implementador, engenheiro de testes e segurança. O número exato não é princípio; fronteiras claras são. Um único agente pode assumir vários papéis em tarefas pequenas. Separar contextos ajuda quando revisão precisa ser independente ou quando especializações usam fontes diferentes.
 
-Os três gates impedem avanço sem decisão humana proporcional:
+Os três portões (*gates*) impedem avanço sem decisão humana proporcional:
 
-1. **Gate de intenção:** PO aprova spec, critérios, fora de escopo e riscos conhecidos.
+1. **portão (*gate*) de intenção:** PO aprova spec, critérios, fora de escopo e riscos conhecidos.
 2. **Gate de arquitetura:** arquiteto aprova plano, ADRs, seams, migração e estratégia de teste.
 3. **Gate de entrega:** evidências de spec, qualidade, segurança e operação são revisadas antes do merge ou da liberação.
 
@@ -167,4 +179,4 @@ Uma aplicação organizacional pode exigir oito conjuntos:
 7. esteira de CI/CD;
 8. análise de segurança.
 
-Nem toda alteração precisa de oito documentos separados. O princípio é cobertura, não quantidade de arquivos. Uma mudança pequena pode reunir processo, requisitos e aceite no mesmo `spec.md`; ADR só nasce quando há decisão significativa; segurança pode ser checklist vinculada à spec. O erro oposto é usar YAGNI para omitir risco real.
+Nem toda alteração precisa de oito documentos separados. O princípio é cobertura, não quantidade de arquivos. Uma mudança pequena pode reunir processo, requisitos e aceite no mesmo `spec.md`; ADR só nasce quando há decisão significativa; segurança pode ser checklist vinculada à spec. O erro oposto é invocar **YAGNI** — *You Aren't Gonna Need It*, a regra de não construir o que ainda não é exigido — para omitir risco que já existe. YAGNI dispensa a funcionalidade especulativa, não a análise de segurança de uma funcionalidade que vai para produção.

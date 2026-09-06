@@ -1,6 +1,6 @@
 # Caso contínuo: Cooperativa Aurora — confiança e avaliação
 
-**Caso contínuo — Cooperativa Aurora.** [← Módulo 5: Especificação](../modulo-5-especificacao/caso-aurora.md) · [Módulo 7: Operação →](../modulo-7-operacao/caso-aurora.md)
+**Caso contínuo — Cooperativa Aurora.** [← Módulo 5: Especificação](../modulo-5-sdd/caso-aurora.md) · [Módulo 7: Operação →](../modulo-7-operacao/caso-aurora.md)
 
 Ao chegar neste módulo, a Cooperativa Aurora já acumulou arquitetura suficiente para um modelo de ameaças real: RAG por ingestão em lote (Módulo 3) e um agente com ferramentas somente leitura, autorização por ferramenta e orçamento de passos (Módulo 4). O [Banco Lume](caso-lume.md), tratado em sua própria página, não tem trajetória de agente — a diferença de composição é o eixo deste módulo: a superfície de risco da Aurora é estruturalmente maior, e o registro de risco abaixo mostra exatamente onde.
 

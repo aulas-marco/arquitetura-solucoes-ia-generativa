@@ -43,7 +43,7 @@ Ao final, você deverá distinguir:
 - [fato de hipótese](fluxo.md#3-clarify-que-ambiguidades-mudariam-a-solucao);
 - história de usuário de tarefa;
 - critério de aceite de teste interno;
-- [gate humano](fluxo.md#tres-gates-dois-papeis-humanos) de aprovação automática;
+- [portão humano](fluxo.md#tres-gates-dois-papeis-humanos) de aprovação automática;
 - evidência de atividade de evidência de conformidade.
 
 ## Instalação
@@ -104,7 +104,7 @@ Cada comando roda dentro de `boreal-sdd`, no agente de codificação escolhido. 
 
 ## Receita principal
 
-Percorra os passos 0 a 8 na ordem, parando nos três portões. Em uma aula curta, execute até o Gate 1 em conjunto e deixe os passos 3 a 8 para o trabalho assíncrono.
+Percorra os passos 0 a 8 na ordem, parando nos três portões. Em uma aula curta, execute até o portão (*gate*) 1 em conjunto e deixe os passos 3 a 8 para o trabalho assíncrono.
 
 ### Passo 0 — escrever uma constitution pequena
 
@@ -179,7 +179,7 @@ Para o laboratório, adote:
 - motivo é enumeração `cliente_ausente | divergencia_endereco | confirmacao_item`;
 - rejeições são erros tipados.
 
-Atualize a spec com as respostas. Crie um pequeno [ledger](fluxo.md#3-clarify-que-ambiguidades-mudariam-a-solucao):
+Atualize a spec com as respostas. Crie um pequeno [registro epistemológico (*ledger*)](fluxo.md#3-clarify-que-ambiguidades-mudariam-a-solucao):
 
 | Item | Estado | Evidência |
 |---|---|---|
@@ -303,7 +303,7 @@ Use [`/speckit.analyze`](fluxo.md#6-analyze-os-artefatos-contam-a-mesma-historia
 | expiração | relógio injetado | T4 | antes/depois de 48 h |
 | sem mensagem | fora de escopo | nenhuma | busca por integração ausente |
 
-Um requisito sem tarefa é lacuna. Uma tarefa sem requisito pode ser infraestrutura necessária ou scope creep; peça justificativa.
+Um requisito sem tarefa é lacuna. Uma tarefa sem requisito pode ser infraestrutura necessária ou expansão de escopo (*scope creep*); peça justificativa.
 
 ### Passo 7 — implementar uma fatia
 

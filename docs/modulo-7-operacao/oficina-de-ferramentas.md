@@ -253,7 +253,7 @@ O script contém a especificação, a suíte de testes, a guarda estática e o l
 
 ### O que o arnês deste laço contém
 
-Vale ler a lista antes de executar, porque cada item é um componente do [arnês](../modulo-4-agentes/arnes.md#os-componentes-do-arnes) e cada um deles foi necessário para o laço funcionar.
+Vale ler a lista antes de executar, porque cada item é um componente do [arnês (*harness*)](../modulo-4-agentes/arnes.md#os-componentes-do-arnes) e cada um deles foi necessário para o laço funcionar.
 
 | Componente | Como aparece no script |
 |---|---|
@@ -341,7 +341,7 @@ As duas primeiras linhas são desfechos aceitáveis, inclusive a segunda: um la�
 
 ### Modelo pequeno, laço que não fecha
 
-Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta oficina esgotou o orçamento com 1/5 em todas as execuções testadas, com e sem realimentação do código anterior. É o mesmo achado da [limitação registrada na oficina do Módulo 4](../modulo-5-especificacao/oficina-de-ferramentas.md#instalacao): arnês bem construído não compensa capacidade insuficiente do modelo. As duas afirmações do curso convivem sem contradição. Trocar o arnês costuma render mais que trocar o modelo, **e** existe um piso de capacidade abaixo do qual nenhum arnês fecha o laço. O trabalho de arquitetura é descobrir de que lado desse piso está o seu caso, e a forma de descobrir é medir, como este laboratório faz.
+Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta oficina esgotou o orçamento com 1/5 em todas as execuções testadas, com e sem realimentação do código anterior. É o mesmo achado da [limitação registrada na oficina do Módulo 4](../modulo-5-sdd/oficina-de-ferramentas.md#instalacao): arnês bem construído não compensa capacidade insuficiente do modelo. As duas afirmações do curso convivem sem contradição. Trocar o arnês costuma render mais que trocar o modelo, **e** existe um piso de capacidade abaixo do qual nenhum arnês fecha o laço. O trabalho de arquitetura é descobrir de que lado desse piso está o seu caso, e a forma de descobrir é medir, como este laboratório faz.
 
 ### Questões exploratórias
 

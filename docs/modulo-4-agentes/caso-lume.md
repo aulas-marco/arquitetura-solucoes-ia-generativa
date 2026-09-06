@@ -1,6 +1,6 @@
 # Caso contínuo: Banco Lume — autonomia
 
-**Caso contínuo — Banco Lume.** [← Módulo 3: RAG](../modulo-3-rag/caso-lume.md) · [Módulo 5: Especificação →](../modulo-5-especificacao/caso-lume.md)
+**Caso contínuo — Banco Lume.** [← Módulo 3: RAG](../modulo-3-rag/caso-lume.md) · [Módulo 5: Especificação →](../modulo-5-sdd/caso-lume.md)
 
 O [Módulo 2](../modulo-2-desenho-conceitual/caso-lume.md) decidiu manter o Banco Lume sem agente. O [Módulo 3](../modulo-3-rag/caso-lume.md) deu a ele seu próprio caminho de conhecimento (RAG). Este módulo reavalia autonomia com a evidência acumulada até aqui — e o Lume **não** chega à mesma conclusão da [Cooperativa Aurora](caso-aurora.md), tratada em sua própria página.
 

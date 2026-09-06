@@ -278,27 +278,27 @@ Fluxo de etapas predefinidas no qual uma ou mais etapas usam um modelo, sem dele
 
 ### SDD
 Desenvolvimento guiado por especificação: método que transforma princípios, requisitos, critérios de aceite, plano, tarefas, implementação e verificação em artefatos revisáveis.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Spec
 Artefato que descreve problema, comportamento esperado, riscos, critérios de aceite e evidências de verificação antes da implementação.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Constitution
 Conjunto versionado de princípios, limites e decisões que orienta specifications e implementação.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### EARS
 Notação de requisitos que formula condições e respostas esperadas de modo testável.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Vibe coding
 Prática de pedir implementação por linguagem natural sem tornar requisitos, testes e critérios de aceite artefatos explícitos.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Agente de codificação
 Agente que lê, altera e verifica artefatos de software por ferramentas controladas e gates humanos.
-*Primeiro módulo:* [Módulo 5 — Especificação](../sobre/plano-da-disciplina.md#modulo-5)
+*Primeiro módulo:* [Módulo 5 — SDD](../sobre/plano-da-disciplina.md#modulo-5)
 
 ### Superfície comportamental
 Configuração inteira que produz o comportamento observado numa execução: modelo e versão, parâmetros, prompt, contexto, recuperação, ferramentas, políticas, estado e implantação.
@@ -313,7 +313,7 @@ Conjunto de código, configuração e lógica de execução que cerca o modelo e
 *Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
 
 ### Engenharia de arnês
-Disciplina de projetar e ajustar o arnês como artefato de primeira classe, tratando cada falha do agente como indicação de qual componente precisa mudar.
+Disciplina de projetar e ajustar o arnês (*harness*) como artefato de primeira classe, tratando cada falha do agente como indicação de qual componente precisa mudar.
 *Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
 
 ### Erro composto

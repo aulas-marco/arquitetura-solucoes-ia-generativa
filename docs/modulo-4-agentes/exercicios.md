@@ -54,7 +54,7 @@ Idempotência evita efeitos lógicos duplicados; timeout limita espera sem prova
 
 ### 5. Componentes do arnês
 
-O arnês de um agente é tudo o que cerca o modelo, e costuma ser descrito por sete componentes.
+O arnês (*harness*) de um agente é tudo o que cerca o modelo, e costuma ser descrito por sete componentes.
 
 Nomeie os sete componentes do arnês e diga, em uma frase, qual pergunta cada um responde.
 

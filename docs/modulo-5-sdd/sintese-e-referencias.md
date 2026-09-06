@@ -33,7 +33,7 @@ Em SDD, o arquiteto deixa de ser apenas autor de diagramas e revisor tardio. Ele
 - registra alternativas e consequências em ADRs;
 - identifica blast radius e estratégia de migração;
 - define quais decisões podem ser delegadas;
-- posiciona gates e evidências;
+- posiciona portões (*gates*) e evidências;
 - impede que automação amplie autoridade;
 - conecta telemetria e incidentes à evolução da spec.
 
@@ -63,7 +63,7 @@ Ser “dono da spec” não significa escrever toda a prosa. Significa responder
 - [ ] Testes foram observados falhando pelo motivo esperado antes da implementação.
 - [ ] A suíte relevante e as verificações globais estão verdes.
 - [ ] Critérios de aceite possuem evidência rastreável.
-- [ ] Revisão de Spec não encontrou requisito ausente ou scope creep.
+- [ ] Revisão de Spec não encontrou requisito ausente ou expansão de escopo (*scope creep*).
 - [ ] Revisão de Standards avaliou arquitetura, código e testes.
 - [ ] Segurança revisou superfícies e casos negativos.
 - [ ] Migração, rollback e operação estão definidos.

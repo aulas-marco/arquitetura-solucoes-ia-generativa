@@ -22,7 +22,7 @@ MODULES = {
     "modulo-2-desenho-conceitual": ("Desenho conceitual", ("m02-oportunidade-arquitetura.png", "m02-paisagem-decisoes.png", "m02-mapa-da-oportunidade-ao-conops.png")),
     "modulo-3-rag": ("RAG", ("m03-dois-fluxos-rag.png", "m03-pergunta-evidencia.png", "m03-mapa-rag-dos-dois-pipelines.png")),
     "modulo-4-agentes": ("Agentes", ("m04-agente-ferramentas.png", "m04-fronteiras-autonomia.png", "m04-mapa-autonomia-controlada.png")),
-    "modulo-5-especificacao": ("Especificação", ()),
+    "modulo-5-sdd": ("SDD", ()),
     "modulo-6-confianca": ("Confiança", ("m06-defesas-profundidade.png", "m06-prisma-avaliacao.png", "m06-mapa-confianca-sistemica.png")),
     "modulo-7-operacao": ("Operação", ("m07-ciclo-llmops.png", "m07-plataforma-corporativa.png", "m07-mapa-operacao-evidencia-continua.png")),
 }

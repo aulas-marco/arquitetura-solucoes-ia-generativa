@@ -407,7 +407,7 @@ Ao final do encontro, o aluno deverá conseguir:
 - conduzir uma mudança de software por constitution, spec, plano, tarefas e evidências;
 - transformar requisitos ambíguos em critérios verificáveis e fatias verticais;
 - revisar separadamente aderência à especificação e qualidade de engenharia.
-- projetar o arnês de um agente componente a componente e prever o efeito do erro composto;
+- projetar o arnês (*harness*) de um agente componente a componente e prever o efeito do erro composto;
 - escolher o nível de loop de uma tarefa e declarar sua condição de parada e seu orçamento.
 
 ### Conceitos
@@ -530,7 +530,7 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 
 **Entregável avaliativo.** Constitution, spec com critérios de aceite, plano, tarefas verticais, matriz de cobertura e as duas revisões.
 
-O material completo está no [Módulo 5 do livro-texto](../modulo-5-especificacao/index.md).
+O material completo está no [Módulo 5 do livro-texto](../modulo-5-sdd/index.md).
 
 <a id="modulo-6"></a>
 
