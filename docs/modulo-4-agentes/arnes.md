@@ -2,13 +2,15 @@
 
 Tudo o que cerca o modelo e o transforma em agente, e por que reconstruir esse conjunto costuma render mais do que trocar de modelo.
 
-## O arnês: tudo o que cerca o modelo
+<a id="o-arnes-tudo-o-que-cerca-o-modelo"></a>
 
 Catálogo de ferramentas, saída estruturada, estado, memória, contexto e política não são acessórios do modelo. Eles formam o sistema que transforma um modelo em agente. A engenharia deu um nome a esse sistema: *harness*, ou **arnês**, o mesmo termo do equipamento que prende um alpinista à parede e do arreio que atrela um animal ao carro. A formulação canônica aparece em [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness), de Vivek Trivedy: *"if you're not the model, you're the harness"*. Arnês é todo código, configuração e lógica de execução que não é o modelo. A equação que resume o campo é **agente = modelo + arnês**.
 
+O curso já nomeou esse conjunto uma vez, de outro ângulo. A [superfície comportamental](../modulo-1-fundamentos/superficie-comportamental.md#de-onde-emerge-o-comportamento) do Módulo 1 é a configuração inteira que produz o comportamento observado numa execução, e inclui o modelo; o arnês é essa mesma superfície menos o modelo. A troca de lente não é cosmética: a superfície responde “por que a saída é esta”, e o arnês responde “o que eu posso reconstruir sem trocar de fornecedor”.
+
 O nome importa menos que a consequência de medição. Trivedy relata que a mesma família de modelo sobe de fora das trinta primeiras posições para as cinco primeiras do Terminal Bench 2.0 quando apenas o arnês muda, e que um mesmo modelo pontua de forma diferente dentro e fora do arnês de um produto comercial. Rankings de *benchmark* envelhecem rápido e a posição específica não deve ser decorada; o resultado durável é a direção da relação. Trocar de modelo é uma decisão cara e visível; reconstruir o arnês é uma decisão barata e invisível, e frequentemente produz mais efeito. Addy Osmani sintetiza o mesmo achado em [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/): um modelo mediano dentro de um bom arnês supera um bom modelo dentro de um arnês ruim.
 
-### Erro composto: a aritmética da trajetória
+## Erro composto: a aritmética da trajetória
 
 Um agente é um processo de muitas etapas, e etapas se compõem por multiplicação, não por média. Suponha uma confiabilidade de 99% por etapa, um número que soa excelente:
 
@@ -27,7 +29,7 @@ A conta é `0,99^n`. Uma taxa de acerto por passo que pareceria ótima num class
 
 A matemática também impõe um limite honesto. Reduzir o número de etapas é frequentemente mais eficaz que aumentar a confiabilidade de cada uma: um fluxo de dez passos com 99% é mais confiável que um de cinquenta passos com 99,5%. Essa é a versão quantitativa do [critério de entrada](controle-e-autonomia.md#o-criterio-de-entrada) discutido adiante.
 
-### Os componentes do arnês
+## Os componentes do arnês
 
 A lista abaixo reúne os componentes que aparecem de forma recorrente nos ensaios de Trivedy e Osmani e na documentação da Anthropic. A coluna da direita mostra que o curso já ensina cada um deles, disperso entre módulos; o vocabulário de arnês é o que permite tratá-los como um sistema único e projetá-los juntos.
 
@@ -45,7 +47,7 @@ Os dois primeiros itens costumam receber toda a atenção, e são os de menor re
 
 Vale registrar de onde o vocabulário vem, para não importá-lo sem crítica. Ele nasceu na comunidade de agentes de codificação, onde o arnês é um produto de linha de comando e os componentes têm nomes de arquivo concretos. A Anthropic documenta essa camada de forma explícita em [Steering Claude Code](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more), que separa mecanismos que **guiam** o modelo, como arquivos de contexto e *skills*, de mecanismos que **impõem** comportamento, como *hooks* e permissões, com uma frase que este curso já defende desde o Módulo 1: uma proteção real precisa ser determinística. A generalização para sistemas corporativos é legítima, mas a tradução não é automática: num agente de atendimento, o *sandbox* não é um contêiner de código, é a fronteira entre ferramenta de leitura e ferramenta de escrita.
 
-### Diagnosticar pelo tipo de falha
+## Diagnosticar pelo tipo de falha
 
 A utilidade prática de decompor o arnês em componentes é transformar "o agente errou" em uma hipótese endereçável. Cada tipo de falha aponta para um componente diferente, e tratar o tipo errado consome orçamento sem mover o resultado.
 
@@ -63,7 +65,7 @@ Quatro perguntas organizam o trabalho de melhoria, e valem tanto para um agente 
 
 A ordem entre as quatro importa. Trocar de modelo é a última pergunta, não a primeira.
 
-### Mais ferramentas não significa menos erro
+## Mais ferramentas não significa menos erro
 
 A intuição diante de um agente que erra é ampliar sua capacidade. A evidência aponta para o contrário. A Vercel [removeu 80% das ferramentas](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) de um agente de texto para SQL, trocando dezesseis ferramentas especializadas por acesso a um sistema de arquivos com execução de comandos, e relatou taxa de sucesso subindo de 80% para 100%, com 40% menos *tokens*, 40% menos passos e tempo médio de resposta caindo de 274 para 77 segundos.
 
@@ -73,7 +75,7 @@ Existe um custo simétrico que a lição não deve esconder. Descrições de fer
 
 Arnês, portanto, não é maximizar capacidade. É otimizar o caminho até o resultado certo, e a operação que mais frequentemente melhora esse caminho é uma remoção.
 
-### O arnês é onde mora a autoridade
+## O arnês é onde mora a autoridade
 
 Há uma leitura arquitetural que o vocabulário de arnês torna nítida e que fecha esta seção. Tudo o que decide **se** uma ação acontece vive no arnês, não no modelo. O catálogo apresentado ao modelo é interface de descoberta; a política é avaliada no executor; a aprovação vincula pessoa, objeto e prazo; o *hook* interrompe num ponto definido pelo projeto. Quando alguém diz que "o agente decidiu escalar", ou o arnês define esse ponto explicitamente, ou não existe ponto de escalonamento e sim uma coincidência.
 

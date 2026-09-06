@@ -2,11 +2,11 @@
 
 Seis artefatos com ciclos de vida distintos circulam por uma solução generativa, e confundi-los é a origem de boa parte dos erros de projeto.
 
-## Que informação atravessa o sistema
+<a id="que-informacao-atravessa-o-sistema"></a>
 
 Informação entra no sistema como pedido, instrução, fonte, resultado intermediário ou registro operacional. O mesmo conteúdo não deve conservar automaticamente a mesma finalidade ao mudar de etapa. Um documento autorizado para consulta, por exemplo, pode ser usado como evidência sem se tornar memória de conversa ou conteúdo integral de telemetria.
 
-### Artefatos com ciclos de vida diferentes
+## Artefatos com ciclos de vida diferentes
 
 | Elemento | Função | Questão de ciclo de vida |
 |---|---|---|
@@ -21,7 +21,7 @@ Informação entra no sistema como pedido, instrução, fonte, resultado interme
 
 Recuperar um documento não o transforma em memória. Histórico de conversa não é fonte de verdade. Trace não autoriza armazenar todo o conteúdo. Essas distinções determinam fronteiras de acesso, retenção e responsabilidade.
 
-### Embeddings e representação semântica
+## Embeddings e representação semântica
 
 Um **embedding** é uma representação vetorial aprendida de um conteúdo. A proximidade entre vetores pode ajudar a localizar candidatos semanticamente relacionados, agrupar itens ou comparar representações.
 

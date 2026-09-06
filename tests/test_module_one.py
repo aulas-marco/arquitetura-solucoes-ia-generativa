@@ -19,15 +19,15 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
         ordem = [navigation.index(f"modulo-1-fundamentos/{p}") for p in paginas]
         self.assertEqual(ordem, sorted(ordem))
         movements = (
-            "## O que muda no sistema",
-            "## De onde emerge o comportamento",
-            "## Que informação atravessa o sistema",
-            "## Como distribuir responsabilidade",
-            "## Como verificar e governar",
+            "O que muda no sistema",
+            "De onde emerge o comportamento",
+            "Que informação atravessa o sistema",
+            "Como distribuir responsabilidade",
+            "Como verificar e governar",
         )
 
         for heading in movements:
-            self.assertIn(heading, text)
+            self.assertRegex(text, rf"(?m)^#{{1,2}} {re.escape(heading)}$")
         for term in (
             "modelo",
             "aplicação",

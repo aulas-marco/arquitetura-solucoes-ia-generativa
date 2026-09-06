@@ -300,8 +300,16 @@ Prática de pedir implementação por linguagem natural sem tornar requisitos, t
 Agente que lê, altera e verifica artefatos de software por ferramentas controladas e gates humanos.
 *Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
 
+### Superfície comportamental
+Configuração inteira que produz o comportamento observado numa execução: modelo e versão, parâmetros, prompt, contexto, recuperação, ferramentas, políticas, estado e implantação.
+*Primeiro módulo:* [Módulo 1 — Fundamentos](../sobre/plano-da-disciplina.md#modulo-1)
+
+### Ativo comportamental
+Artefato cuja alteração pode mudar resposta, decisão, custo, latência, acesso ou efeito, e que por isso exige versão, manifesto e portão de promoção.
+*Primeiro módulo:* [Módulo 6 — Operação](../sobre/plano-da-disciplina.md#modulo-6)
+
 ### Arnês
-Conjunto de código, configuração e lógica de execução que cerca o modelo e o transforma em agente: prompt de sistema, ferramentas, gestão de contexto, verificação, memória, sandbox e hooks.
+Conjunto de código, configuração e lógica de execução que cerca o modelo e o transforma em agente: prompt de sistema, ferramentas, gestão de contexto, verificação, memória, sandbox e hooks. É a superfície comportamental menos o modelo.
 *Primeiro módulo:* [Módulo 4 — Agentes](../sobre/plano-da-disciplina.md#modulo-4)
 
 ### Engenharia de arnês
