@@ -152,7 +152,7 @@ Você é o arquiteto que decide quais capacidades o modelo pode solicitar e quai
 
 **Insumos disponíveis**
 
-Use o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta), o [contrato de saída estruturada](conceitos.md#uso-de-ferramentas-e-saidas-estruturadas) e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
+Use o [catálogo de ferramentas](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta), o [contrato de saída estruturada](ferramentas-e-contratos.md#uso-de-ferramentas-e-saidas-estruturadas) e o [workflow da oficina local](oficina-de-ferramentas.md). Nenhuma ferramenta real será chamada.
 
 **O que é o artefato que você vai produzir**
 
@@ -201,7 +201,7 @@ Você é o arquiteto que define limites de autonomia e explica como eles podem m
 
 **Insumos disponíveis**
 
-Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia), [estado, memória e contexto](conceitos.md#estado-memoria-e-contexto) e o trace da [oficina local](oficina-de-ferramentas.md#receita-principal). Trate todos os pedidos como fictícios.
+Use a [matriz de autonomia](autonomia-orcada.md#matriz-de-autonomia), [estado, memória e contexto](estado-memoria-e-politica.md#estado-memoria-e-contexto) e o trace da [oficina local](oficina-de-ferramentas.md#receita-principal). Trate todos os pedidos como fictícios.
 
 **O que significa A0–A5**
 
@@ -282,7 +282,7 @@ Você audita a implementação de referência antes de aprovar sua extensão a u
 
 **Insumos disponíveis**
 
-Rode `python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso aurora --orcamento N` para `N` em `1`, `2` e `6` (repita cada valor ao menos duas vezes), e compare com `--caso lume`. Use a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+Rode `python docs/assets/labs/modulo-4/agente_lume_aurora.py --caso aurora --orcamento N` para `N` em `1`, `2` e `6` (repita cada valor ao menos duas vezes), e compare com `--caso lume`. Use a [matriz de autonomia](autonomia-orcada.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](autonomia-orcada.md#orcamentos-interrupcao-e-fallback).
 
 **O que o script realmente demonstra**
 
@@ -345,11 +345,11 @@ Você é o arquiteto de confiabilidade que separa fato, hipótese e estado autor
 
 **Insumos disponíveis**
 
-Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido em [conceitos de agentes](conceitos.md), as regras de [padrões e decisões](padroes-e-decisoes.md) e o script da [oficina de agentes](oficina-de-ferramentas.md).
+Use o trace acima, os conceitos de timeout, idempotência e estado desconhecido em [Estado, memória, contexto e política](estado-memoria-e-politica.md), as regras de [Efeito, identidade e recuperação](efeito-e-recuperacao.md) e o script da [oficina de agentes](oficina-de-ferramentas.md).
 
 **O que é trace, timeout e estado desconhecido**
 
-Um [**trace**](padroes-e-decisoes.md#auditoria-e-observabilidade) é a sequência correlacionada de propostas, políticas, chamadas, tentativas, versões e resultados de uma execução. **Timeout** encerra a espera local; não prova que o destino não executou. Por isso uma escrita que excede o prazo entra em **estado desconhecido** (`outcome_unknown`) até reconciliação no sistema de destino pela mesma chave. Fato observado, hipótese (“a primeira reserva foi criada”), contenção e reconciliação devem aparecer em colunas separadas.
+Um [**trace**](efeito-e-recuperacao.md#auditoria-e-observabilidade) é a sequência correlacionada de propostas, políticas, chamadas, tentativas, versões e resultados de uma execução. **Timeout** encerra a espera local; não prova que o destino não executou. Por isso uma escrita que excede o prazo entra em **estado desconhecido** (`outcome_unknown`) até reconciliação no sistema de destino pela mesma chave. Fato observado, hipótese (“a primeira reserva foi criada”), contenção e reconciliação devem aparecer em colunas separadas.
 
 **Como conduzir**
 
@@ -446,7 +446,7 @@ Você é o arquiteto que critica a composição e propõe o menor redesenho capa
 
 **Insumos disponíveis**
 
-Use o [modelo de interação e controle](conceitos.md), o [catálogo de ferramentas](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta) e os padrões de agente único, multiagente e workflow descritos em [padrões e decisões](padroes-e-decisoes.md).
+Use o [modelo de interação e controle](controle-e-autonomia.md), o [catálogo de ferramentas](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta) e os padrões de agente único, multiagente e workflow descritos em [Onde está o controle](controle-e-autonomia.md).
 
 **O que significa comparar essas composições**
 
@@ -521,7 +521,7 @@ Você é o arquiteto que desenha um agente controlado, deixando visíveis inten�
 
 **Insumos disponíveis**
 
-Use os conceitos de workflow, ferramentas, estado, memória e autonomia em [conceitos de agentes](conceitos.md), o [diagrama de exemplo](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md). O caso é sintético.
+Use os conceitos de workflow, ferramentas, estado, memória e autonomia nos [temas do módulo](index.md), o [diagrama de exemplo](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md). O caso é sintético.
 
 **O que é um agente controlado neste exercício**
 

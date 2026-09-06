@@ -3,6 +3,8 @@ from pathlib import Path
 import re
 import unittest
 
+from scripts.validate_content import teaching_text
+
 from scripts.validate_content import MODULES
 
 
@@ -301,7 +303,7 @@ conteúdo da atividade
             "modulo-6-operacao": ("LiteLLM Proxy", "OpenTelemetry"),
         }
         for slug, tools in expected_tools.items():
-            concepts = (DOCS / slug / "conceitos.md").read_text(encoding="utf-8")
+            concepts = teaching_text(DOCS / slug)
             workshop = (DOCS / slug / OFFICE).read_text(encoding="utf-8")
 
             material = concepts + "\n" + workshop

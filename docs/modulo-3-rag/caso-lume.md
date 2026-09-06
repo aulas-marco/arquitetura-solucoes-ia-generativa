@@ -50,7 +50,7 @@ flowchart LR
 
 **Objetivo Bloom.** Aplicar as três estratégias de recuperação — lexical, vetorial e híbrida — sobre o corpus de políticas de contestação do Lume e analisar, com métricas de MRR e nDCG@3, se a fusão híbrida sustenta a decisão do ADR-Lume-003.
 
-**Decisão arquitetural em foco.** O ADR-Lume-003 adotou RAG híbrido (lexical e vetorial) com autorização antes da recuperação. Este laboratório isola a parte de **recuperação** dessa decisão — sem o predicado de autorização, que já foi tratado no Módulo 2 — para que o aluno observe, em código, por que busca lexical isolada perde a política correta e por que a fusão por posição (RRF) tende a recuperar essa perda. Revise as [estratégias de recuperação](padroes-e-decisoes.md#estrategias-de-recuperacao) e a seção sobre [embeddings, recuperação e autorização](conceitos.md#embeddings-recuperacao-e-autorizacao) antes de rodar os comandos abaixo.
+**Decisão arquitetural em foco.** O ADR-Lume-003 adotou RAG híbrido (lexical e vetorial) com autorização antes da recuperação. Este laboratório isola a parte de **recuperação** dessa decisão — sem o predicado de autorização, que já foi tratado no Módulo 2 — para que o aluno observe, em código, por que busca lexical isolada perde a política correta e por que a fusão por posição (RRF) tende a recuperar essa perda. Revise as [estratégias de recuperação](recuperacao.md#estrategias-de-recuperacao) e a seção sobre [embeddings, recuperação e autorização](dois-fluxos.md#embeddings-recuperacao-e-autorizacao) antes de rodar os comandos abaixo.
 
 O laboratório `rag_lume_aurora.py` implementa três modos de recuperação sobre o mesmo corpus sintético de políticas de contestação (cinco documentos): **lexical** (BM25 sobre o texto bruto), **vetorial** (embeddings via Chroma e Ollama) e **híbrido** (fusão por posição — Reciprocal Rank Fusion — das duas ordens anteriores). `avaliar_recuperacao_lume_aurora.py` mede os três modos com MRR e nDCG@k sobre um conjunto de perguntas com resposta certa conhecida.
 
@@ -102,7 +102,7 @@ python docs/assets/labs/modulo-3/avaliar_recuperacao_lume_aurora.py --caso lume
 | Vetorial | | | |
 | Híbrido | | | |
 
-Conclua, à luz da matriz de decisão em [Como escolher sem acumular padrões](padroes-e-decisoes.md#como-escolher-sem-acumular-padroes): dado o perfil de perguntas do Lume (termos exatos convivendo com paráfrases sobre prazos e categorias), a busca lexical isolada, a vetorial isolada ou a híbrida teria sido a escolha inicial defensável — e se a evidência de MRR/nDCG confirma ou contradiz essa escolha.
+Conclua, à luz da matriz de decisão em [Como escolher sem acumular padrões](variantes-e-escolha.md#como-escolher-sem-acumular-padroes): dado o perfil de perguntas do Lume (termos exatos convivendo com paráfrases sobre prazos e categorias), a busca lexical isolada, a vetorial isolada ou a híbrida teria sido a escolha inicial defensável — e se a evidência de MRR/nDCG confirma ou contradiz essa escolha.
 
 **Limpeza.** `deactivate` para sair do ambiente virtual e apague a pasta `chroma-lume-aurora/` gerada pelos scripts. Não substitua os dados sintéticos por dados reais de clientes ou contratos.
 

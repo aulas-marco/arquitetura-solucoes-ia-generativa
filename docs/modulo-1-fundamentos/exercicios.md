@@ -82,7 +82,7 @@ A janela apenas define capacidade de entrada. A aplicação ainda precisa escolh
 
 **O que é:** uma classificação de responsabilidades identifica quais partes do fluxo precisam de regra repetível e quais partes lidam com percepção ou linguagem incertas. Ela não classifica o sistema inteiro como “IA”.
 
-**Onde encontrar:** consulte [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico) e o [exemplo arquitetural](exemplo-arquitetural.md). Use o cenário de recibo abaixo.
+**Onde encontrar:** consulte [modelo, aplicação e sistema sociotécnico](mudanca-probabilistica.md#modelo-aplicacao-e-sistema-sociotecnico) e o [exemplo arquitetural](exemplo-arquitetural.md). Use o cenário de recibo abaixo.
 
 **Situação**
 
@@ -96,7 +96,7 @@ Você é o arquiteto responsável por separar o que pode variar linguisticamente
 
 **Insumos disponíveis**
 
-Use os conceitos de [modelo, aplicação e sistema sociotécnico](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens) e o caso Contafácil descrito acima. Não é necessário instalar uma ferramenta.
+Use os conceitos de [modelo, aplicação e sistema sociotécnico](mudanca-probabilistica.md#modelo-aplicacao-e-sistema-sociotecnico), o [panorama de padrões](escolha-da-abordagem.md#panorama-das-abordagens) e o caso Contafácil descrito acima. Não é necessário instalar uma ferramenta.
 
 **Como conduzir**
 
@@ -164,7 +164,7 @@ Entregue um cenário em seis linhas e uma ficha de medição com população, pe
 
 **O que é:** organizar os resultados de um laboratório empírico segundo os três tipos de verificação evita tratar uma execução isolada — ou cinco — como prova de qualidade geral.
 
-**Onde encontrar:** use a tabela preenchida e as respostas às questões exploratórias do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado) da oficina de ferramentas — os cinco registros das condições Sem corpus, Com corpus, Com corpus — repetição, Temperatura 0.1 e Temperatura 0.9 — junto com os [três tipos de verificação](conceitos.md#tres-tipos-de-verificacao) e as definições de [variabilidade e alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao).
+**Onde encontrar:** use a tabela preenchida e as respostas às questões exploratórias do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado) da oficina de ferramentas — os cinco registros das condições Sem corpus, Com corpus, Com corpus — repetição, Temperatura 0.1 e Temperatura 0.9 — junto com os [três tipos de verificação](verificacao-e-governanca.md#tres-tipos-de-verificacao) e as definições de [variabilidade e alucinação](superficie-comportamental.md#conhecimento-parametrico-variabilidade-e-alucinacao).
 
 **Situação**
 
@@ -176,7 +176,7 @@ Você é o arquiteto que precisa transformar observações de bancada em evidên
 
 **Insumos disponíveis**
 
-Sua tabela preenchida do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado), com as cinco condições e as respostas às questões exploratórias de cada experimento; a tabela de [três tipos de verificação](conceitos.md#tres-tipos-de-verificacao) em Conceitos; as definições de [variabilidade e alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao).
+Sua tabela preenchida do [Resultado esperado](oficina-de-ferramentas.md#resultado-esperado), com as cinco condições e as respostas às questões exploratórias de cada experimento; a tabela de [três tipos de verificação](verificacao-e-governanca.md#tres-tipos-de-verificacao) em Conceitos; as definições de [variabilidade e alucinação](superficie-comportamental.md#conhecimento-parametrico-variabilidade-e-alucinacao).
 
 **Como conduzir**
 
@@ -205,7 +205,7 @@ Entregue a classificação das cinco condições (passo 1), a comparação de re
 
 **O que é:** separar produção, conhecimento, efeito e operação evita que “usar um modelo” esconda decisões independentes.
 
-**Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](padroes-e-decisoes.md#panorama-das-abordagens) e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md#o-novo-contrato-arquitetural).
+**Onde encontrar:** use o [exemplo arquitetural](exemplo-arquitetural.md), os [padrões e decisões](escolha-da-abordagem.md#panorama-das-abordagens) e as definições de atualização, proveniência e autorização em [conceitos](verificacao-e-governanca.md#o-novo-contrato-arquitetural).
 
 **Situação**
 
@@ -219,7 +219,7 @@ Você é o arquiteto que conduz uma decisão inicial e precisa mostrar quais con
 
 **Insumos disponíveis**
 
-Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo e as definições de atualização, proveniência e autorização em [conceitos](conceitos.md).
+Use o [exemplo arquitetural](exemplo-arquitetural.md), os padrões deste módulo e as definições de atualização, proveniência e autorização em [Que informação atravessa o sistema](artefatos-do-sistema.md).
 
 **Como conduzir**
 
@@ -248,7 +248,7 @@ Entregue a matriz das quatro decisões e uma recomendação incremental para a i
 
 **O que é:** contestar uma ficha inicial significa verificar se ela contém problema, responsabilidades, alternativas e evidência suficientes para seguir ao desenho conceitual.
 
-**Onde encontrar:** leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) — reproduzida abaixo com os dados do caso Horizonte — e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Se você já fez o exercício 11, reaproveite sua matriz das quatro decisões.
+**Onde encontrar:** leia a [Ficha de decisão inicial](escolha-da-abordagem.md#ficha-de-decisao-inicial) — reproduzida abaixo com os dados do caso Horizonte — e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Se você já fez o exercício 11, reaproveite sua matriz das quatro decisões.
 
 **Situação**
 
@@ -260,7 +260,7 @@ Você é o revisor arquitetural. Seu trabalho é testar a afirmação “é o pa
 
 **Insumos disponíveis**
 
-Leia a [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Use os dados do caso Horizonte reproduzidos acima.
+Leia a [Ficha de decisão inicial](escolha-da-abordagem.md#ficha-de-decisao-inicial) e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md). Use os dados do caso Horizonte reproduzidos acima.
 
 **Como conduzir**
 
@@ -288,7 +288,7 @@ Entregue um parecer de até 200 palavras citando os dois dados da ficha e o gati
 
 **O que é:** uma leitura arquitetural mínima é um desenho pequeno, mas completo o suficiente para mostrar propósito, responsabilidades, fronteiras e evidências de qualidade. Este exercício reúne, em um único caso, os elementos praticados nos exercícios 8, 9, 11 e 12.
 
-**Onde encontrar:** use os [conceitos](conceitos.md), a [ficha de decisão](padroes-e-decisoes.md#ficha-de-decisao-inicial), o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) e o [exemplo Horizonte](exemplo-arquitetural.md).
+**Onde encontrar:** use os [temas do módulo](index.md), a [ficha de decisão](escolha-da-abordagem.md#ficha-de-decisao-inicial), o [mapa de responsabilidades](responsabilidade-e-efeito.md#mapa-de-responsabilidades) e o [exemplo Horizonte](exemplo-arquitetural.md).
 
 **Situação**
 
@@ -300,7 +300,7 @@ Você é o arquiteto que precisa compor um desenho mínimo, deixando claro onde 
 
 **Insumos disponíveis**
 
-Use os [conceitos do módulo 1](conceitos.md#o-novo-contrato-arquitetural), o [panorama de padrões](padroes-e-decisoes.md#panorama-das-abordagens), a [ficha inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) e o mapa de exemplo. O diretório e as atas são fictícios; não use dados reais.
+Use os [conceitos do módulo 1](verificacao-e-governanca.md#o-novo-contrato-arquitetural), o [panorama de padrões](escolha-da-abordagem.md#panorama-das-abordagens), a [ficha inicial](escolha-da-abordagem.md#ficha-de-decisao-inicial) e o mapa de exemplo. O diretório e as atas são fictícios; não use dados reais.
 
 **Como conduzir**
 

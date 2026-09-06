@@ -20,7 +20,7 @@ Nenhuma ferramenta grava, altera contrato, limite, taxa ou status, nem envia com
 
 ### Autonomia orçada
 
-Nível [A2 — recomendar](padroes-e-decisoes.md#matriz-de-autonomia): o agente escolhe quais ferramentas de leitura consultar e em que ordem; a pessoa especialista revisa e recomenda; o aprovador distinto aprova ou devolve, como já valia no Módulo 2. Orçamento de passos: no máximo 6 chamadas de ferramenta por solicitação; ao aproximar do teto, o agente conclui com o que tem e sinaliza lacuna, em vez de repetir chamadas.
+Nível [A2 — recomendar](autonomia-orcada.md#matriz-de-autonomia): o agente escolhe quais ferramentas de leitura consultar e em que ordem; a pessoa especialista revisa e recomenda; o aprovador distinto aprova ou devolve, como já valia no Módulo 2. Orçamento de passos: no máximo 6 chamadas de ferramenta por solicitação; ao aproximar do teto, o agente conclui com o que tem e sinaliza lacuna, em vez de repetir chamadas.
 
 ```mermaid
 flowchart LR
@@ -59,7 +59,7 @@ flowchart LR
 
 ## Execução local
 
-**Objetivo.** Observar em código a autonomia orçada do ADR-Aurora-003: ferramentas somente leitura, sem efeito, e parada por orçamento de passos — ver [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+**Objetivo.** Observar em código a autonomia orçada do ADR-Aurora-003: ferramentas somente leitura, sem efeito, e parada por orçamento de passos — ver [matriz de autonomia](autonomia-orcada.md#matriz-de-autonomia) e [Orçamentos, interrupção e fallback](autonomia-orcada.md#orcamentos-interrupcao-e-fallback).
 
 **Pré-requisitos.** Python 3.11+, o mesmo padrão de venv das oficinas anteriores.
 

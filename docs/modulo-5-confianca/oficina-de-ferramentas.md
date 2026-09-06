@@ -6,11 +6,11 @@ Esta oficina avalia 45 casos sintéticos rotulados em duas camadas: métricas qu
 
 ## Ferramenta
 
-**DeepEval** é um framework open source para avaliar aplicações de IA. Ele fornece as métricas por caso da [camada 1](conceitos.md#duas-camadas-de-medicao): `PatternMatchMetric`, que compara por regra e não chama modelo nenhum, e as métricas de juiz `GEval`, `AnswerRelevancyMetric` e `PIILeakageMetric`, que usam um **Ollama** local. A camada 2 (acurácia, precisão, recall, F1 e matriz de confusão) é calculada por um script próprio, sem depender do framework. O que cada métrica mede, como se calcula e o que deixa passar está em [Métricas de avaliação](../referencia/metricas-de-avaliacao.md); leia antes de interpretar qualquer número desta oficina.
+**DeepEval** é um framework open source para avaliar aplicações de IA. Ele fornece as métricas por caso da [camada 1](qualidade-e-medicao.md#duas-camadas-de-medicao): `PatternMatchMetric`, que compara por regra e não chama modelo nenhum, e as métricas de juiz `GEval`, `AnswerRelevancyMetric` e `PIILeakageMetric`, que usam um **Ollama** local. A camada 2 (acurácia, precisão, recall, F1 e matriz de confusão) é calculada por um script próprio, sem depender do framework. O que cada métrica mede, como se calcula e o que deixa passar está em [Métricas de avaliação](../referencia/metricas-de-avaliacao.md); leia antes de interpretar qualquer número desta oficina.
 
-Cada caso é rotulado com uma de três decisões: [bloquear](conceitos.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](conceitos.md#qualidade-tem-varias-dimensoes). O conjunto é desbalanceado de propósito, com poucos casos adversariais e muitos pedidos legítimos, porque é assim que a acurácia engana.
+Cada caso é rotulado com uma de três decisões: [bloquear](qualidade-e-medicao.md#qualidade-tem-varias-dimensoes), corrigir ou [escalar](qualidade-e-medicao.md#qualidade-tem-varias-dimensoes). O conjunto é desbalanceado de propósito, com poucos casos adversariais e muitos pedidos legítimos, porque é assim que a acurácia engana.
 
-**Decisão arquitetural em foco:** como uma equipe registra comportamento esperado, falha observada e hipótese de correção sem reduzir [confiança](conceitos.md#confianca-e-uma-relacao-nao-uma-caracteristica-absoluta) a uma única pontuação?
+**Decisão arquitetural em foco:** como uma equipe registra comportamento esperado, falha observada e hipótese de correção sem reduzir [confiança](confianca-e-risco.md#confianca-e-uma-relacao-nao-uma-caracteristica-absoluta) a uma única pontuação?
 
 ## Pré-requisitos
 
@@ -144,8 +144,8 @@ Recall da classe `bloquear` contra taxa de falsa recusa.
 
 **Questões exploratórias:**
 
-- Qual dos dois erros deve [bloquear uma entrega](padroes-e-decisoes.md#fitness-functions-de-confianca), e quem assina essa decisão?
-- Que [controle](padroes-e-decisoes.md#guardrails-em-profundidade) reduziria a falha de bloqueio sem aumentar a falsa recusa?
+- Qual dos dois erros deve [bloquear uma entrega](ameacas-e-guardrails.md#fitness-functions-de-confianca), e quem assina essa decisão?
+- Que [controle](ameacas-e-guardrails.md#guardrails-em-profundidade) reduziria a falha de bloqueio sem aumentar a falsa recusa?
 - Como uma recusa preserva a dignidade da pessoa usuária?
 
 ### Experimento B — quem escreve a régua
@@ -178,8 +178,8 @@ Dispersão com régua gerada e com régua fixa.
 **Questões exploratórias:**
 
 - Por que `criteria` produz notas diferentes com a mesma entrada, se a temperatura é zero?
-- Quem aprova a régua antes de ela virar [portão de qualidade](padroes-e-decisoes.md#fitness-functions-de-confianca)?
-- Que [amostra humana](padroes-e-decisoes.md#privacidade-por-ciclo-de-vida) calibraria a régua?
+- Quem aprova a régua antes de ela virar [portão de qualidade](ameacas-e-guardrails.md#fitness-functions-de-confianca)?
+- Que [amostra humana](rastreabilidade-e-privacidade.md#privacidade-por-ciclo-de-vida) calibraria a régua?
 
 ### Experimento C — o limiar é uma decisão de arquitetura
 
@@ -207,7 +207,7 @@ Um limiar permissivo e um restritivo, em número de casos aprovados.
 
 - Que limiar você levaria para a esteira de CI, e qual erro ele deixa passar?
 - Que evidência adicional evitaria falso bloqueio?
-- Como [versionar](padroes-e-decisoes.md#governanca-que-acompanha-mudancas) régua, limiar e conjunto de casos juntos?
+- Como [versionar](governanca-e-responsabilidade.md#governanca-que-acompanha-mudancas) régua, limiar e conjunto de casos juntos?
 
 ## Evidência a entregar
 

@@ -22,7 +22,7 @@ flowchart LR
 
 ## Cooperativa Aurora na plataforma
 
-**Versionamento e manifesto.** O manifesto da Aurora versiona prompt do copiloto, índice de políticas de campanha (RAG) e, adicionalmente, o catálogo de contratos de ferramenta do agente — cada ferramenta com sua própria versão de contrato e política de autorização, seguindo o [serviço compartilhado de ferramentas](padroes-e-decisoes.md#servicos-compartilhados-com-fronteiras-explicitas).
+**Versionamento e manifesto.** O manifesto da Aurora versiona prompt do copiloto, índice de políticas de campanha (RAG) e, adicionalmente, o catálogo de contratos de ferramenta do agente — cada ferramenta com sua própria versão de contrato e política de autorização, seguindo o [serviço compartilhado de ferramentas](plataforma-corporativa.md#servicos-compartilhados-com-fronteiras-explicitas).
 
 **Canary e rollback.** Por ter agente, o canary da Aurora segue a regra mais estrita do módulo: nenhuma escrita ocorre durante o candidato (a restrição de gravação já vale para produção, não só para canary); apenas leitura às ferramentas é liberada à coorte piloto. Critério de parada adicional específico da Aurora: qualquer trajetória de ferramenta fora do orçamento de passos aprovado interrompe a exposição, mesmo sem impacto percebido pelo cliente. Rollback restaura prompt, índice e catálogo de contratos juntos.
 
@@ -40,7 +40,7 @@ flowchart LR
 
 **Opções.**
 
-1. **Canary com leitura liberada e escrita suspensa** — usa o padrão de [degradação por produto](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) do módulo (`agente suspende escrita e mantém apenas consulta permitida`).
+1. **Canary com leitura liberada e escrita suspensa** — usa o padrão de [degradação por produto](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao) do módulo (`agente suspende escrita e mantém apenas consulta permitida`).
 2. **Canary sem restrição adicional** — mais simples, mas contraria a própria decisão de autonomia limitada do Módulo 4.
 3. **Sem canary, apenas homologação** — mais rápido, mas sem evidência incremental de trajetória real de ferramenta.
 
@@ -54,7 +54,7 @@ flowchart LR
 
 ## Mini-execução: telemetria
 
-**Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução da Aurora e do Lume: observar como o span `conhecimento` minimiza a consulta ao índice de políticas de campanha e à ferramenta de leitura — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](conceitos.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](conceitos.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](padroes-e-decisoes.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](padroes-e-decisoes.md#modelo-operacional-da-plataforma).
+**Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução da Aurora e do Lume: observar como o span `conhecimento` minimiza a consulta ao índice de políticas de campanha e à ferramenta de leitura — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](plataforma-corporativa.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](plataforma-corporativa.md#modelo-operacional-da-plataforma).
 
 **Pré-requisitos.** Ambiente do Módulo 6 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
 
@@ -74,9 +74,9 @@ python docs/assets/labs/modulo-6/telemetria_lume_aurora.py --caso aurora
 
 **Perguntas exploratórias.**
 
-- O span `conhecimento` registra apenas `boreal.etapa` (`consulta_indice_politicas_campanha_e_ferramenta_leitura`), não a pergunta enviada ao índice. Por que esse texto não deveria virar atributo do span, à luz da minimização descrita em [Logs com preservação de privacidade](conceitos.md#logs-com-preservacao-de-privacidade)?
-- O trace tem `TRACE_ID`, mas não tem `release_id`, catálogo de contratos de ferramenta ou identificador de candidato em canary. Que atributo faltaria para religar esta execução a uma promoção específica da Aurora, conforme [Trace: reconstruir a composição](conceitos.md#trace-reconstruir-a-composicao)?
-- Execute o script para `--caso aurora` e `--caso lume` e compare `DURACAO_MS`. A Aurora soma, na operação real, chamada de ferramenta a sistemas legados além da consulta ao índice; o Lume soma apenas a consulta. Essa diferença de composição sustenta, isoladamente, a decisão de [antecipar chargeback na Aurora e manter showback no Lume](padroes-e-decisoes.md#modelo-operacional-da-plataforma)? O que a duração de uma execução sintética não prova sobre custo atribuível por chamada de ferramenta?
+- O span `conhecimento` registra apenas `boreal.etapa` (`consulta_indice_politicas_campanha_e_ferramenta_leitura`), não a pergunta enviada ao índice. Por que esse texto não deveria virar atributo do span, à luz da minimização descrita em [Logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade)?
+- O trace tem `TRACE_ID`, mas não tem `release_id`, catálogo de contratos de ferramenta ou identificador de candidato em canary. Que atributo faltaria para religar esta execução a uma promoção específica da Aurora, conforme [Trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao)?
+- Execute o script para `--caso aurora` e `--caso lume` e compare `DURACAO_MS`. A Aurora soma, na operação real, chamada de ferramenta a sistemas legados além da consulta ao índice; o Lume soma apenas a consulta. Essa diferença de composição sustenta, isoladamente, a decisão de [antecipar chargeback na Aurora e manter showback no Lume](plataforma-corporativa.md#modelo-operacional-da-plataforma)? O que a duração de uma execução sintética não prova sobre custo atribuível por chamada de ferramenta?
 
 **Evidência a entregar.** Execute o script para os dois casos e preencha:
 

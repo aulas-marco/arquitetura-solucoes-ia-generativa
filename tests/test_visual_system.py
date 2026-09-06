@@ -4,6 +4,8 @@ import subprocess
 import sys
 import unittest
 
+from scripts.validate_content import teaching_text
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CSS = (ROOT / "docs/assets/stylesheets/extra.css").read_text(encoding="utf-8")
@@ -123,8 +125,8 @@ class DirectGithubFallbackTest(unittest.TestCase):
         self.assertRegex(exercises, r"(?m)^\*\*Critérios de avaliação")
 
     def test_decision_and_risk_callouts_are_standard_markdown_blockquotes(self):
-        decision = (ROOT / "docs/modulo-2-desenho-conceitual/padroes-e-decisoes.md").read_text(encoding="utf-8")
-        risk = (ROOT / "docs/modulo-5-confianca/conceitos.md").read_text(encoding="utf-8")
+        decision = teaching_text(ROOT / "docs/modulo-2-desenho-conceitual")
+        risk = teaching_text(ROOT / "docs/modulo-5-confianca")
         self.assertRegex(decision, r"(?m)^> \*\*Decisão arquitetural:")
         self.assertRegex(risk, r"(?m)^> \*\*Risco arquitetural:")
 
@@ -174,7 +176,7 @@ class BuiltSiteRuntimeTest(unittest.TestCase):
         self.assertRegex(exercises, r'<details[^>]*class="[^"]*answer-details')
         self.assertRegex(exercises, r'<p[^>]*class="[^"]*criteria')
 
-        concepts = self.built("modulo-1-fundamentos/conceitos")
+        concepts = self.built("modulo-1-fundamentos/mudanca-probabilistica")
         self.assertRegex(concepts, r'<p[^>]*class="[^"]*architecture-figure')
         self.assertRegex(concepts, r'<em[^>]*class="[^"]*figure-caption')
 
@@ -182,11 +184,11 @@ class BuiltSiteRuntimeTest(unittest.TestCase):
         self.assertGreaterEqual(rag_figures.count("architecture-figure"), 2)
         self.assertGreaterEqual(rag_figures.count("figure-caption"), 2)
 
-        decisions = self.built("modulo-2-desenho-conceitual/padroes-e-decisoes")
+        decisions = self.built("modulo-2-desenho-conceitual/requisitos-e-taticas")
         self.assertRegex(decisions, r'<blockquote[^>]*class="[^"]*decision-callout')
         adr = self.built("modulo-2-desenho-conceitual/exemplo-arquitetural")
         self.assertRegex(adr, r'<h3[^>]*class="[^"]*adr-block')
-        risks = self.built("modulo-5-confianca/conceitos")
+        risks = self.built("modulo-5-confianca/confianca-e-risco")
         self.assertRegex(risks, r'<blockquote[^>]*class="[^"]*risk-callout')
 
 

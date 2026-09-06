@@ -101,7 +101,7 @@ ls corpus
 ls rag_local.py
 ```
 
-Os campos `ID: POL-17-REG`, `ID: POL-17-CAMP` e `VERSAO: v3` são metadados de **[proveniência](conceitos.md#proveniencia-de-ponta-a-ponta)**. Eles distinguem as duas políticas e, junto ao nome do arquivo, permitem reconstruir qual fonte e versão sustentaram a resposta.
+Os campos `ID: POL-17-REG`, `ID: POL-17-CAMP` e `VERSAO: v3` são metadados de **[proveniência](contexto-e-abstencao.md#proveniencia-de-ponta-a-ponta)**. Eles distinguem as duas políticas e, junto ao nome do arquivo, permitem reconstruir qual fonte e versão sustentaram a resposta.
 
 Para o Experimento D, baixe também [rag_lume_aurora.py](../assets/labs/modulo-3/rag_lume_aurora.py), [avaliar_recuperacao_lume_aurora.py](../assets/labs/modulo-3/avaliar_recuperacao_lume_aurora.py), [casos_recuperacao_lume_aurora.json](../assets/labs/modulo-3/casos_recuperacao_lume_aurora.json) e estas políticas, mantendo tudo na raiz de `oficina-m3/`:
 
@@ -200,7 +200,7 @@ Copie o trecho após `RECUPERADO POL-17-REG:v3` e, na linha `RESPOSTA`, marque a
 
 **Interprete**
 
-A [citação](padroes-e-decisoes.md#citacoes-e-suporte) permite voltar à fonte; ela não prova sozinha que todos os casos foram cobertos. A suficiência depende de a pergunta, o trecho, a vigência e as exceções estarem alinhados.
+A [citação](contexto-e-abstencao.md#citacoes-e-suporte) permite voltar à fonte; ela não prova sozinha que todos os casos foram cobertos. A suficiência depende de a pergunta, o trecho, a vigência e as exceções estarem alinhados.
 
 **Compare**
 
@@ -224,7 +224,7 @@ Quando a arquitetura deve pedir informação, encaminhar para revisão humana ou
 
 **Objetivo**
 
-Tratar [evidência insuficiente e abstenção](padroes-e-decisoes.md#evidencia-insuficiente-e-abstencao) como decisões explícitas.
+Tratar [evidência insuficiente e abstenção](contexto-e-abstencao.md#evidencia-insuficiente-e-abstencao) como decisões explícitas.
 
 **Pré-requisito**
 
@@ -269,7 +269,7 @@ Como busca lexical, vetorial e recuperação híbrida alteram a posição da evi
 
 **Objetivo**
 
-Comparar [busca lexical, vetorial e recuperação híbrida](padroes-e-decisoes.md#estrategias-de-recuperacao) e relacionar ranking a avaliação.
+Comparar [busca lexical, vetorial e recuperação híbrida](recuperacao.md#estrategias-de-recuperacao) e relacionar ranking a avaliação.
 
 **Pré-requisito**
 

@@ -53,70 +53,112 @@ nav:
       - Taxonomia de Bloom: comecar/taxonomia-de-bloom.md
   - Módulo 1 — Fundamentos:
       - Visão geral: modulo-1-fundamentos/index.md
-      - Conceitos: modulo-1-fundamentos/conceitos.md
-      - Padrões e decisões: modulo-1-fundamentos/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-1-fundamentos/exemplo-arquitetural.md
-      - Estudo de caso: modulo-1-fundamentos/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-1-fundamentos/oficina-de-ferramentas.md
-      - Exercícios: modulo-1-fundamentos/exercicios.md
-      - Síntese e referências: modulo-1-fundamentos/sintese-e-referencias.md
+      - "O que muda quando o componente é probabilístico": modulo-1-fundamentos/mudanca-probabilistica.md
+      - "De onde emerge o comportamento": modulo-1-fundamentos/superficie-comportamental.md
+      - "Que informação atravessa o sistema": modulo-1-fundamentos/artefatos-do-sistema.md
+      - "Quem gera, decide, autoriza e executa": modulo-1-fundamentos/responsabilidade-e-efeito.md
+      - "Escolher a abordagem": modulo-1-fundamentos/escolha-da-abordagem.md
+      - "Verificar e governar": modulo-1-fundamentos/verificacao-e-governanca.md
+      - "Exemplo arquitetural": modulo-1-fundamentos/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-1-fundamentos/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-1-fundamentos/oficina-de-ferramentas.md
+      - "Exercícios": modulo-1-fundamentos/exercicios.md
+      - "Síntese e referências": modulo-1-fundamentos/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-1-fundamentos/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-1-fundamentos/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-1-fundamentos/conceitos.md
+          - "Padrões e decisões": modulo-1-fundamentos/padroes-e-decisoes.md
   - Módulo 2 — Desenho conceitual:
       - Visão geral: modulo-2-desenho-conceitual/index.md
-      - Conceitos: modulo-2-desenho-conceitual/conceitos.md
-      - Padrões e decisões: modulo-2-desenho-conceitual/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-2-desenho-conceitual/exemplo-arquitetural.md
-      - Exercícios: modulo-2-desenho-conceitual/exercicios.md
-      - Oficina de ferramentas: modulo-2-desenho-conceitual/oficina-de-ferramentas.md
-      - Estudo de caso: modulo-2-desenho-conceitual/estudo-de-caso.md
-      - Síntese e referências: modulo-2-desenho-conceitual/sintese-e-referencias.md
+      - "Descrever o sistema antes da solução": modulo-2-desenho-conceitual/descricao-arquitetural.md
+      - "Oportunidade e adequação": modulo-2-desenho-conceitual/adequacao-da-ia.md
+      - "CONOPS, fronteiras e stakeholders": modulo-2-desenho-conceitual/conops-e-fronteiras.md
+      - "Requisitos significativos e táticas": modulo-2-desenho-conceitual/requisitos-e-taticas.md
+      - "Comparar alternativas e registrar a decisão": modulo-2-desenho-conceitual/alternativas-e-registro.md
+      - "Exemplo arquitetural": modulo-2-desenho-conceitual/exemplo-arquitetural.md
+      - "Exercícios": modulo-2-desenho-conceitual/exercicios.md
+      - "Oficina de ferramentas": modulo-2-desenho-conceitual/oficina-de-ferramentas.md
+      - "Estudo de caso": modulo-2-desenho-conceitual/estudo-de-caso.md
+      - "Síntese e referências": modulo-2-desenho-conceitual/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-2-desenho-conceitual/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-2-desenho-conceitual/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-2-desenho-conceitual/conceitos.md
+          - "Padrões e decisões": modulo-2-desenho-conceitual/padroes-e-decisoes.md
   - Módulo 3 — RAG:
       - Visão geral: modulo-3-rag/index.md
-      - Conceitos: modulo-3-rag/conceitos.md
-      - Padrões e decisões: modulo-3-rag/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-3-rag/exemplo-arquitetural.md
-      - Estudo de caso: modulo-3-rag/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-3-rag/oficina-de-ferramentas.md
-      - Exercícios: modulo-3-rag/exercicios.md
-      - Síntese e referências: modulo-3-rag/sintese-e-referencias.md
+      - "Conhecimento paramétrico e recuperado: os dois fluxos": modulo-3-rag/dois-fluxos.md
+      - "Recuperação": modulo-3-rag/recuperacao.md
+      - "Contexto, citação e abstenção": modulo-3-rag/contexto-e-abstencao.md
+      - "Variantes de RAG e escolha": modulo-3-rag/variantes-e-escolha.md
+      - "Avaliação e fitness functions": modulo-3-rag/avaliacao-de-rag.md
+      - "Exemplo arquitetural": modulo-3-rag/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-3-rag/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-3-rag/oficina-de-ferramentas.md
+      - "Exercícios": modulo-3-rag/exercicios.md
+      - "Síntese e referências": modulo-3-rag/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-3-rag/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-3-rag/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-3-rag/conceitos.md
+          - "Padrões e decisões": modulo-3-rag/padroes-e-decisoes.md
   - Módulo 4 — Agentes:
       - Visão geral: modulo-4-agentes/index.md
-      - Conceitos: modulo-4-agentes/conceitos.md
-      - Padrões e decisões: modulo-4-agentes/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-4-agentes/exemplo-arquitetural.md
-      - Estudo de caso: modulo-4-agentes/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-4-agentes/oficina-de-ferramentas.md
-      - Exercícios: modulo-4-agentes/exercicios.md
-      - Síntese e referências: modulo-4-agentes/sintese-e-referencias.md
+      - "Onde está o controle": modulo-4-agentes/controle-e-autonomia.md
+      - "Ferramentas e contratos": modulo-4-agentes/ferramentas-e-contratos.md
+      - "Estado, memória, contexto e política": modulo-4-agentes/estado-memoria-e-politica.md
+      - "Efeito, identidade e recuperação": modulo-4-agentes/efeito-e-recuperacao.md
+      - "Autonomia orçada": modulo-4-agentes/autonomia-orcada.md
+      - "O arnês": modulo-4-agentes/arnes.md
+      - "Loops": modulo-4-agentes/loops.md
+      - "Modos de trabalho e a spec viva": modulo-4-agentes/sdd-modos-e-spec.md
+      - "O fluxo completo, dos princípios à evidência": modulo-4-agentes/sdd-fluxo.md
+      - "Decisões, ADRs e limites do fluxo": modulo-4-agentes/sdd-decisoes.md
+      - "Exemplo arquitetural": modulo-4-agentes/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-4-agentes/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-4-agentes/oficina-de-ferramentas.md
+      - "Exercícios": modulo-4-agentes/exercicios.md
+      - "Síntese e referências": modulo-4-agentes/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-4-agentes/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-4-agentes/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-4-agentes/conceitos.md
+          - "Padrões e decisões": modulo-4-agentes/padroes-e-decisoes.md
   - Módulo 5 — Confiança:
       - Visão geral: modulo-5-confianca/index.md
-      - Conceitos: modulo-5-confianca/conceitos.md
-      - Padrões e decisões: modulo-5-confianca/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-5-confianca/exemplo-arquitetural.md
-      - Estudo de caso: modulo-5-confianca/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-5-confianca/oficina-de-ferramentas.md
-      - Exercícios: modulo-5-confianca/exercicios.md
-      - Síntese e referências: modulo-5-confianca/sintese-e-referencias.md
+      - "Confiança sistêmica e risco": modulo-5-confianca/confianca-e-risco.md
+      - "Ameaças e guardrails": modulo-5-confianca/ameacas-e-guardrails.md
+      - "Rastreabilidade e privacidade": modulo-5-confianca/rastreabilidade-e-privacidade.md
+      - "Qualidade multidimensional e medição": modulo-5-confianca/qualidade-e-medicao.md
+      - "Governança e responsabilidade": modulo-5-confianca/governanca-e-responsabilidade.md
+      - "Exemplo arquitetural": modulo-5-confianca/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-5-confianca/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-5-confianca/oficina-de-ferramentas.md
+      - "Exercícios": modulo-5-confianca/exercicios.md
+      - "Síntese e referências": modulo-5-confianca/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-5-confianca/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-5-confianca/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-5-confianca/conceitos.md
+          - "Padrões e decisões": modulo-5-confianca/padroes-e-decisoes.md
   - Módulo 6 — Operação:
       - Visão geral: modulo-6-operacao/index.md
-      - Conceitos: modulo-6-operacao/conceitos.md
-      - Padrões e decisões: modulo-6-operacao/padroes-e-decisoes.md
-      - Exemplo arquitetural: modulo-6-operacao/exemplo-arquitetural.md
-      - Estudo de caso: modulo-6-operacao/estudo-de-caso.md
-      - Oficina de ferramentas: modulo-6-operacao/oficina-de-ferramentas.md
-      - Exercícios: modulo-6-operacao/exercicios.md
-      - Síntese e referências: modulo-6-operacao/sintese-e-referencias.md
+      - "O pacote comportamental e a promoção": modulo-6-operacao/pacote-e-promocao.md
+      - "Observabilidade e métricas": modulo-6-operacao/observabilidade.md
+      - "Entrega controlada e recuperação": modulo-6-operacao/entrega-e-recuperacao.md
+      - "Laços desassistidos": modulo-6-operacao/lacos-desassistidos.md
+      - "Plataforma corporativa": modulo-6-operacao/plataforma-corporativa.md
+      - "Exemplo arquitetural": modulo-6-operacao/exemplo-arquitetural.md
+      - "Estudo de caso": modulo-6-operacao/estudo-de-caso.md
+      - "Oficina de ferramentas": modulo-6-operacao/oficina-de-ferramentas.md
+      - "Exercícios": modulo-6-operacao/exercicios.md
+      - "Síntese e referências": modulo-6-operacao/sintese-e-referencias.md
       - "Caso contínuo: Banco Lume": modulo-6-operacao/caso-lume.md
       - "Caso contínuo: Cooperativa Aurora": modulo-6-operacao/caso-aurora.md
+      - Páginas anteriores:
+          - "Conceitos": modulo-6-operacao/conceitos.md
+          - "Padrões e decisões": modulo-6-operacao/padroes-e-decisoes.md
   - Referência:
       - Glossário: referencia/glossario.md
       - Catálogo de padrões: referencia/catalogo-de-padroes.md

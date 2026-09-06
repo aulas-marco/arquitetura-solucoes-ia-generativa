@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import PAGES, bloom_sections
+from scripts.validate_content import PAGES, bloom_sections, teaching_text, thematic_pages
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,14 +11,18 @@ MODULE = ROOT / "docs" / "modulo-6-operacao"
 
 class ModuleSixContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
-        self.assertEqual(
-            set(PAGES) | {"caso-lume.md", "caso-aurora.md"},
-            {path.name for path in MODULE.glob("*.md")},
-        )
+        nomes = {path.name for path in MODULE.glob("*.md")}
+        self.assertTrue(set(PAGES) | {"caso-lume.md", "caso-aurora.md"} <= nomes)
+        tematicas = thematic_pages(MODULE)
+        self.assertGreaterEqual(len(tematicas), 5)
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
-        positions = [navigation.index(f"modulo-6-operacao/{page}") for page in PAGES]
-        self.assertEqual(positions, sorted(positions))
+        ordem = [navigation.index(f"modulo-6-operacao/{page}") for page in ("index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
+                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
+                     "conceitos.md", "padroes-e-decisoes.md")]
+        self.assertEqual(ordem, sorted(ordem))
+        for page in tematicas:
+            self.assertIn(f"modulo-6-operacao/{page}", navigation)
 
         opening = (MODULE / "index.md").read_text(encoding="utf-8")
         self.assertIn(
@@ -28,7 +32,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
 
 
     def test_concepts_cover_reproducible_lifecycle_and_observability_layers(self):
-        text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for concept in (
             "desenvolvimento",
@@ -57,7 +61,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
             self.assertIn(concept, text, concept)
 
     def test_patterns_cover_delivery_recovery_and_enterprise_platform_tradeoffs(self):
-        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for topic in (
             "portão de regressão",
@@ -131,9 +135,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
 
     def test_gateway_failure_has_replica_failover_equivalent_bypass_and_bounded_degradation(self):
         example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
-        patterns = (MODULE / "padroes-e-decisoes.md").read_text(
-            encoding="utf-8"
-        ).casefold()
+        patterns = teaching_text(MODULE).casefold()
 
         for edge in (
             'HE -->|"saudável"| GW1["Gateway — região A"]',
@@ -180,7 +182,7 @@ class ModuleSixContentRegressionTest(unittest.TestCase):
         self.assertLess(text.index(rollback), text.index(incident))
 
     def test_retrieval_trace_defaults_to_metadata_and_raw_query_requires_controlled_sample(self):
-        text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for phrase in (
             "por padrão, o span de recuperação registra classificação",

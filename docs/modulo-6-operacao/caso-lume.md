@@ -24,7 +24,7 @@ flowchart LR
 
 **Versionamento e manifesto.** O manifesto do Lume versiona, juntos: prompt de síntese de contestação, índice de políticas de contestação (RAG) e regras de validação de suporte. Uma mudança em qualquer um dos três exige novo manifesto e nova avaliação — não é permitido trocar o índice sem revalidar o prompt que o consome.
 
-**Canary e rollback.** O canary do Lume expõe o candidato a uma agência ou fração de analistas, sem ações irreversíveis (o produto já não executa efeito algum, apenas rascunho). Critério de parada: cobertura de evidência abaixo do limiar ou aumento de devolução. Rollback restaura o manifesto anterior — prompt, índice e regras de validação juntos, evitando a incompatibilidade descrita em [Padrões e decisões](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) quando apenas o prompt é revertido.
+**Canary e rollback.** O canary do Lume expõe o candidato a uma agência ou fração de analistas, sem ações irreversíveis (o produto já não executa efeito algum, apenas rascunho). Critério de parada: cobertura de evidência abaixo do limiar ou aumento de devolução. Rollback restaura o manifesto anterior — prompt, índice e regras de validação juntos, evitando a incompatibilidade descrita em [Padrões e decisões](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao) quando apenas o prompt é revertido.
 
 **Showback.** Custo do Lume é atribuído por chamada de síntese e por consulta ao índice de políticas, reportado à área de contestações — sem chargeback neste incremento, pela mesma razão de maturidade de atribuição já registrada no exemplo arquitetural do módulo.
 
@@ -40,7 +40,7 @@ flowchart LR
 
 **Opções.**
 
-1. **Canary por tenant/agência** — usa o [padrão de canary](padroes-e-decisoes.md#portoes-antes-da-exposicao) da plataforma, coorte pequena e reversível.
+1. **Canary por tenant/agência** — usa o [padrão de canary](pacote-e-promocao.md#portoes-antes-da-exposicao) da plataforma, coorte pequena e reversível.
 2. **Rollout completo direto** — mais rápido, mas sem evidência incremental de cobertura antes da exposição total.
 3. **Shadow traffic** — mede sem afetar analistas, mas atrasa o aprendizado real sobre correção de especialistas.
 
@@ -54,7 +54,7 @@ flowchart LR
 
 ## Mini-execução: telemetria
 
-**Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução do Lume e da Aurora: observar como o span `conhecimento` minimiza a consulta ao índice de políticas — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](conceitos.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](conceitos.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](padroes-e-decisoes.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](padroes-e-decisoes.md#modelo-operacional-da-plataforma).
+**Objetivo.** Comparar, no mesmo painel de observação, o trace de uma execução do Lume e da Aurora: observar como o span `conhecimento` minimiza a consulta ao índice de políticas — registra apenas `boreal.etapa`, não o texto da pergunta — e relacionar a duração de cada produto às decisões de showback e chargeback já tomadas para cada um. Consulte [trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao), [logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade), [catálogo, identidade, tenancy e política](plataforma-corporativa.md#catalogo-identidade-tenancy-e-politica) e [modelo operacional da plataforma](plataforma-corporativa.md#modelo-operacional-da-plataforma).
 
 **Pré-requisitos.** Ambiente do Módulo 6 já preparado (`python3 -m venv .venv`, dependências do gateway do Módulo 2 ativo em `localhost:4000`).
 
@@ -74,9 +74,9 @@ python docs/assets/labs/modulo-6/telemetria_lume_aurora.py --caso lume
 
 **Perguntas exploratórias.**
 
-- O span `conhecimento` registra apenas `boreal.etapa` (`consulta_indice_politicas_contestacao`), não a pergunta enviada ao índice. Por que esse texto não deveria virar atributo do span, à luz da minimização descrita em [Logs com preservação de privacidade](conceitos.md#logs-com-preservacao-de-privacidade)?
-- O trace tem `TRACE_ID`, mas não tem `release_id`, manifesto ou identificador de candidato em canary. Que atributo faltaria para religar esta execução a uma promoção específica do Lume, conforme [Trace: reconstruir a composição](conceitos.md#trace-reconstruir-a-composicao)?
-- Execute o script para `--caso lume` e `--caso aurora` e compare `DURACAO_MS`. A Aurora soma, na operação real, chamada de ferramenta a sistemas legados além da consulta ao índice; o Lume soma apenas a consulta. Essa diferença de composição sustenta, isoladamente, a decisão de manter [showback no Lume e antecipar chargeback na Aurora](padroes-e-decisoes.md#modelo-operacional-da-plataforma)? O que a duração de uma execução sintética não prova sobre custo atribuível?
+- O span `conhecimento` registra apenas `boreal.etapa` (`consulta_indice_politicas_contestacao`), não a pergunta enviada ao índice. Por que esse texto não deveria virar atributo do span, à luz da minimização descrita em [Logs com preservação de privacidade](observabilidade.md#logs-com-preservacao-de-privacidade)?
+- O trace tem `TRACE_ID`, mas não tem `release_id`, manifesto ou identificador de candidato em canary. Que atributo faltaria para religar esta execução a uma promoção específica do Lume, conforme [Trace: reconstruir a composição](observabilidade.md#trace-reconstruir-a-composicao)?
+- Execute o script para `--caso lume` e `--caso aurora` e compare `DURACAO_MS`. A Aurora soma, na operação real, chamada de ferramenta a sistemas legados além da consulta ao índice; o Lume soma apenas a consulta. Essa diferença de composição sustenta, isoladamente, a decisão de manter [showback no Lume e antecipar chargeback na Aurora](plataforma-corporativa.md#modelo-operacional-da-plataforma)? O que a duração de uma execução sintética não prova sobre custo atribuível?
 
 **Evidência a entregar.** Execute o script para os dois casos e preencha:
 

@@ -6,7 +6,7 @@
 
 O caso: um cliente autenticado pede "troque o item P10 pelo P20 no pedido 845 e mantenha a data". O sistema pode consultar cadastro e pedido, verificar elegibilidade, criar reserva temporária e propor a alteração. O cancelamento do item original exige confirmação do cliente; diferença acima de R$ 200 exige supervisor. O agente não muda endereço, concede crédito, escolhe credenciais nem ignora política.
 
-Reencontre aqui o vocabulário de [Conceitos](conceitos.md#geracao-decisao-e-acao): o pedido do cliente em linguagem natural é **geração**; verificar elegibilidade, limite de valor e versão do pedido é **decisão**; criar a reserva e efetivar a troca é **ação**. O objetivo deste exemplo não é mostrar uma biblioteca específica — é localizar essas três etapas dentro da malha determinística de identidade, contratos, política, estado, aprovação e recuperação que [Padrões e decisões](padroes-e-decisoes.md) acabou de descrever.
+Reencontre aqui o vocabulário de [geração, decisão e ação](controle-e-autonomia.md#geracao-decisao-e-acao): o pedido do cliente em linguagem natural é **geração**; verificar elegibilidade, limite de valor e versão do pedido é **decisão**; criar a reserva e efetivar a troca é **ação**. O objetivo deste exemplo não é mostrar uma biblioteca específica — é localizar essas três etapas dentro da malha determinística de identidade, contratos, política, estado, aprovação e recuperação que os temas de [ferramentas e contratos](ferramentas-e-contratos.md) a [autonomia orçada](autonomia-orcada.md) descrevem.
 
 ![O agente propõe ferramentas de um catálogo mínimo; chamadas seguem pelo plano de controle até os adaptadores, e resultados tipados retornam por auditoria e estado ao orquestrador antes de chegar ao canal](../assets/images/m04-agente-ferramentas.png)
 *Figura 1 — O modelo propõe; o plano de controle valida e executa com autoridade limitada. Sistemas corporativos nunca recebem diretamente texto livre do modelo.*
@@ -42,7 +42,7 @@ flowchart LR
 
 ## Dois contratos conceituais
 
-Volte ao [contrato mínimo de ferramenta](padroes-e-decisoes.md#comece-pelo-contrato-de-ferramenta): nome e versão, classe de efeito, esquemas de entrada e saída, erros tipados, identidade e autorização, idempotência, timeout e retry, auditoria e compensação. Os dois contratos abaixo preenchem exatamente esses campos para o pedido 845, um de leitura e outro de escrita, e por isso têm formas bem diferentes.
+Volte ao [contrato mínimo de ferramenta](ferramentas-e-contratos.md#comece-pelo-contrato-de-ferramenta): nome e versão, classe de efeito, esquemas de entrada e saída, erros tipados, identidade e autorização, idempotência, timeout e retry, auditoria e compensação. Os dois contratos abaixo preenchem exatamente esses campos para o pedido 845, um de leitura e outro de escrita, e por isso têm formas bem diferentes.
 
 **`consultar_pedido`** é o contrato mais simples possível: `effect: read` significa que não há nada a desfazer, e por isso não aparecem campos de idempotência nem de compensação. Ele só devolve o que já existe.
 

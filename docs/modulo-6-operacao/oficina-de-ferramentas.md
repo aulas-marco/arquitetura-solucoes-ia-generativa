@@ -2,13 +2,13 @@
 
 **Objetivo Bloom:** Analisar.
 
-Esta oficina envia uma solicitação sintética por um [gateway local](padroes-e-decisoes.md#model-gateway-como-fronteira-comum) e registra um [trace](conceitos.md#trace-reconstruir-a-composicao) OpenTelemetry no próprio terminal. Ela permite discutir o que observar sem copiar telemetria de produção.
+Esta oficina envia uma solicitação sintética por um [gateway local](plataforma-corporativa.md#model-gateway-como-fronteira-comum) e registra um [trace](observabilidade.md#trace-reconstruir-a-composicao) OpenTelemetry no próprio terminal. Ela permite discutir o que observar sem copiar telemetria de produção.
 
 ## Ferramenta
 
-**OpenTelemetry** é um padrão open source de instrumentação. Nesta prática, um script cria [spans](conceitos.md#trace-reconstruir-a-composicao) de entrada, modelo e saída. O **LiteLLM Proxy** do Módulo 2 é o gateway local observado; o Ollama é o destino de inferência.
+**OpenTelemetry** é um padrão open source de instrumentação. Nesta prática, um script cria [spans](observabilidade.md#trace-reconstruir-a-composicao) de entrada, modelo e saída. O **LiteLLM Proxy** do Módulo 2 é o gateway local observado; o Ollama é o destino de inferência.
 
-**Decisão arquitetural em foco:** quais sinais devem ligar uma solicitação, um produto, uma resposta e uma [ação de recuperação](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) [sem expor conteúdo além do necessário](conceitos.md#logs-com-preservacao-de-privacidade)?
+**Decisão arquitetural em foco:** quais sinais devem ligar uma solicitação, um produto, uma resposta e uma [ação de recuperação](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao) [sem expor conteúdo além do necessário](observabilidade.md#logs-com-preservacao-de-privacidade)?
 
 ## Pré-requisitos
 
@@ -109,15 +109,15 @@ python telemetria_local.py
 
 ## Receita principal
 
-O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa [relacionar fases do fluxo](conceitos.md#trace-reconstruir-a-composicao), e não apenas contar chamadas.
+O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa [relacionar fases do fluxo](observabilidade.md#trace-reconstruir-a-composicao), e não apenas contar chamadas.
 
 ## Resultado esperado
 
-Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e [atributos minimizados](conceitos.md#logs-com-preservacao-de-privacidade). A execução não implementa quotas, [SLOs](conceitos.md#slo-para-servico-util) ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, [limiar](padroes-e-decisoes.md#incidente-generativo) e ação de recuperação.
+Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e [atributos minimizados](observabilidade.md#logs-com-preservacao-de-privacidade). A execução não implementa quotas, [SLOs](observabilidade.md#slo-para-servico-util) ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, [limiar](entrega-e-recuperacao.md#incidente-generativo) e ação de recuperação.
 
 ## Interpretação
 
-No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções [não prova causalidade](conceitos.md#quatro-planos-de-metricas): ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
+No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções [não prova causalidade](observabilidade.md#quatro-planos-de-metricas): ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
 
 ## Roteiro sugerido para aula
 
@@ -141,19 +141,19 @@ Rode o script.
 
 **Compare**
 
-Log isolado e [trace com etapas relacionadas](conceitos.md#trace-reconstruir-a-composicao).
+Log isolado e [trace com etapas relacionadas](observabilidade.md#trace-reconstruir-a-composicao).
 
 **Questões exploratórias:**
 
-- Qual atributo identifica o produto sem registrar o conteúdo inteiro, e que princípio de [minimização de dados](conceitos.md#logs-com-preservacao-de-privacidade) isso exemplifica?
+- Qual atributo identifica o produto sem registrar o conteúdo inteiro, e que princípio de [minimização de dados](observabilidade.md#logs-com-preservacao-de-privacidade) isso exemplifica?
 - Que sinal permitiria separar falha do modelo e falha do gateway?
-- Quem deve ser [dono do limiar](conceitos.md#prioridades-e-tensoes-operacionais) de duração observado?
+- Quem deve ser [dono do limiar](entrega-e-recuperacao.md#prioridades-e-tensoes-operacionais) de duração observado?
 
 ### Experimento B — variação controlada
 
 **Objetivo**
 
-Tratar medição como [hipótese](conceitos.md#quatro-planos-de-metricas).
+Tratar medição como [hipótese](observabilidade.md#quatro-planos-de-metricas).
 
 **Pré-requisito**
 
@@ -174,8 +174,8 @@ Dois traces locais.
 **Questões exploratórias:**
 
 - Por que duas amostras não demonstram causa raiz?
-- Que metadado de modelo e [manifesto](conceitos.md#o-objeto-operado-e-um-pacote-comportamental) ajuda a reproduzir um desvio?
-- Que dado deve ficar fora do trace para [preservar privacidade](conceitos.md#logs-com-preservacao-de-privacidade)?
+- Que metadado de modelo e [manifesto](pacote-e-promocao.md#o-objeto-operado-e-um-pacote-comportamental) ajuda a reproduzir um desvio?
+- Que dado deve ficar fora do trace para [preservar privacidade](observabilidade.md#logs-com-preservacao-de-privacidade)?
 
 ### Experimento C — ação recuperável
 
@@ -197,13 +197,13 @@ Evidência necessária antes de alterar o gateway.
 
 **Compare**
 
-[Fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao), redução de contexto, fila e rollback.
+[Fallback](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao), redução de contexto, fila e rollback.
 
 **Questões exploratórias:**
 
-- Que produto deve ter prioridade quando a [capacidade é limitada](padroes-e-decisoes.md#modelo-operacional-da-plataforma)?
-- Quando uma parada segura vira [incidente](padroes-e-decisoes.md#incidente-generativo)?
-- Qual ação deve ser [reversível](padroes-e-decisoes.md#roteamento-fallback-e-degradacao) primeiro?
+- Que produto deve ter prioridade quando a [capacidade é limitada](plataforma-corporativa.md#modelo-operacional-da-plataforma)?
+- Quando uma parada segura vira [incidente](entrega-e-recuperacao.md#incidente-generativo)?
+- Qual ação deve ser [reversível](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao) primeiro?
 
 ## Evidência a entregar
 
@@ -214,7 +214,7 @@ Entregue as linhas `TRACE_ID` e `DURACAO_MS` de duas execuções e o quadro abai
 | Inicial | tr-202 |  |  |  |  |
 | Variação | tr-204 |  |  |  |  |
 
-Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma [fitness function](padroes-e-decisoes.md#fitness-functions-operacionais), seu responsável e a reação diante da falha.
+Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma [fitness function](entrega-e-recuperacao.md#fitness-functions-operacionais), seu responsável e a reação diante da falha.
 
 ## Limpeza e contingência
 
@@ -253,7 +253,7 @@ O script contém a especificação, a suíte de testes, a guarda estática e o l
 
 ### O que o arnês deste laço contém
 
-Vale ler a lista antes de executar, porque cada item é um componente do [arnês](../modulo-4-agentes/conceitos.md#os-componentes-do-arnes) e cada um deles foi necessário para o laço funcionar.
+Vale ler a lista antes de executar, porque cada item é um componente do [arnês](../modulo-4-agentes/arnes.md#os-componentes-do-arnes) e cada um deles foi necessário para o laço funcionar.
 
 | Componente | Como aparece no script |
 |---|---|
@@ -325,9 +325,9 @@ VERDADE_FINAL: 4/5 testes passando
 
 O segundo laço é seis vezes mais barato e encerra em um sexto do tempo. Ele também entrega um artefato que não satisfaz a especificação, e encerra afirmando o contrário. A linha `VERDADE_FINAL` só existe porque o script roda os testes de qualquer forma no fim, para efeito de laboratório; num sistema real, essa linha é exatamente a informação que não existiria. Ninguém saberia.
 
-Note onde a diferença **não** está. O modelo é o mesmo, os pesos são os mesmos, a especificação é a mesma, e na primeira iteração os dois laços produzem 4/5. A diferença inteira está em quem tem autoridade para dizer que o trabalho terminou. Esse é o conteúdo operacional de [o verificador é o gargalo](conceitos.md#loop-desassistido-o-verificador-e-o-gargalo): tirar a pessoa da frente não elimina a necessidade de verificação, apenas transfere a função para um artefato que precisa ser escrito, versionado e protegido de quem ele avalia.
+Note onde a diferença **não** está. O modelo é o mesmo, os pesos são os mesmos, a especificação é a mesma, e na primeira iteração os dois laços produzem 4/5. A diferença inteira está em quem tem autoridade para dizer que o trabalho terminou. Esse é o conteúdo operacional de [o verificador é o gargalo](lacos-desassistidos.md#loop-desassistido-o-verificador-e-o-gargalo): tirar a pessoa da frente não elimina a necessidade de verificação, apenas transfere a função para um artefato que precisa ser escrito, versionado e protegido de quem ele avalia.
 
-Observe também o que a guarda estática faz e o que ela não faz. Ela impede que o código gerado importe módulos fora da lista ou chame `exec`, e por isso o laço pode rodar sem supervisão numa máquina de estudo. Ela não diz nada sobre a correção do resultado. Isolamento e verificação são [portões distintos](padroes-e-decisoes.md#portoes-de-um-loop-autonomo), e cumprir um não dispensa o outro.
+Observe também o que a guarda estática faz e o que ela não faz. Ela impede que o código gerado importe módulos fora da lista ou chame `exec`, e por isso o laço pode rodar sem supervisão numa máquina de estudo. Ela não diz nada sobre a correção do resultado. Isolamento e verificação são [portões distintos](lacos-desassistidos.md#portoes-de-um-loop-autonomo), e cumprir um não dispensa o outro.
 
 ### Compare
 
@@ -360,7 +360,7 @@ Entregue as linhas `PARADA`, `ITERACOES`, `TOKENS_TOTAIS` e `VERDADE_FINAL` de t
 | Objetiva 2 |  |  |  |  |  |
 | Autodeclarada |  |  |  |  |  |
 
-Registre também uma [fitness function de operação de laço](padroes-e-decisoes.md#fitness-functions-de-operacao-de-laco), com limiar, responsável e consequência diante da falha.
+Registre também uma [fitness function de operação de laço](lacos-desassistidos.md#fitness-functions-de-operacao-de-laco), com limiar, responsável e consequência diante da falha.
 
 ### Limpeza e contingência
 

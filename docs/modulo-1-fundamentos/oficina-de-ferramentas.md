@@ -64,7 +64,7 @@ curl.exe --version
 
 Você integra a equipe de atendimento da **empresa fictícia Aurora**. Uma pessoa pergunta qual é o prazo para pedir reembolso. A **Política Aurora** é sintética para treinamento.
 
-Um **[corpus](../modulo-3-rag/conceitos.md)** é um conjunto de documentos elegíveis para consulta; aqui, contém apenas a Política Aurora. O **[contexto](conceitos.md#tokens-contexto-e-janela-de-contexto)** é a informação selecionada e enviada ao modelo nesta execução. A **[fundamentação](../referencia/glossario.md#fundamentacao-grounding)** é o apoio da resposta na fonte. A política não treina o modelo: ela participa apenas do contexto.
+Um **[corpus](../modulo-3-rag/dois-fluxos.md)** é um conjunto de documentos elegíveis para consulta; aqui, contém apenas a Política Aurora. O **[contexto](superficie-comportamental.md#tokens-contexto-e-janela-de-contexto)** é a informação selecionada e enviada ao modelo nesta execução. A **[fundamentação](../referencia/glossario.md#fundamentacao-grounding)** é o apoio da resposta na fonte. A política não treina o modelo: ela participa apenas do contexto.
 
 Execute:
 
@@ -75,7 +75,7 @@ ollama pull llama3.2:3b
 
 **Observe**
 
-O terminal mostra a versão e o progresso do download. O Ollama executa localmente os pesos de um [modelo](conceitos.md#modelo-aplicacao-e-sistema-sociotecnico), permitindo a [inferência](conceitos.md#treinamento-adaptacao-e-inferencia) sem enviar o corpus a um serviço externo.
+O terminal mostra a versão e o progresso do download. O Ollama executa localmente os pesos de um [modelo](mudanca-probabilistica.md#modelo-aplicacao-e-sistema-sociotecnico), permitindo a [inferência](superficie-comportamental.md#treinamento-adaptacao-e-inferencia) sem enviar o corpus a um serviço externo.
 
 ## Execução
 
@@ -95,7 +95,7 @@ Conclusão da preparação local.
 
 **Execute**
 
-Inicie uma sessão e envie exatamente o [prompt](conceitos.md#prompts-mensagens-e-parametros) abaixo.
+Inicie uma sessão e envie exatamente o [prompt](superficie-comportamental.md#prompts-mensagens-e-parametros) abaixo.
 
 ```bash
 ollama run llama3.2:3b
@@ -160,7 +160,7 @@ Compare esta saída com a do Experimento A: há uma regra citável e um limite e
 
 **Objetivo**
 
-Observar a [variação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) entre execuções com o mesmo contexto.
+Observar a [variação](superficie-comportamental.md#conhecimento-parametrico-variabilidade-e-alucinacao) entre execuções com o mesmo contexto.
 
 **Pré-requisito**
 
@@ -224,7 +224,7 @@ curl -s http://localhost:11434/api/generate \
 
 **Observe**
 
-[Temperatura](conceitos.md#prompts-mensagens-e-parametros) menor tende a tornar a escolha de palavras mais repetível; temperatura maior tende a aumentar a diversidade. Temperatura não prova factualidade, nem substitui contexto, fonte ou revisão humana.
+[Temperatura](superficie-comportamental.md#prompts-mensagens-e-parametros) menor tende a tornar a escolha de palavras mais repetível; temperatura maior tende a aumentar a diversidade. Temperatura não prova factualidade, nem substitui contexto, fonte ou revisão humana.
 
 **Compare**
 
@@ -248,7 +248,7 @@ Preencha a tabela após cada execução:
 | Temperatura 0.1 |  |  |  |
 | Temperatura 0.9 |  |  |  |
 
-Uma [alucinação](conceitos.md#conhecimento-parametrico-variabilidade-e-alucinacao) é uma afirmação plausível que não é sustentada pelos fatos, pelo contexto ou pelas evidências disponíveis. Em até cinco linhas, responda:
+Uma [alucinação](superficie-comportamental.md#conhecimento-parametrico-variabilidade-e-alucinacao) é uma afirmação plausível que não é sustentada pelos fatos, pelo contexto ou pelas evidências disponíveis. Em até cinco linhas, responda:
 
 - Qual resposta você aceitaria apenas como rascunho e por quê?
 - Que trecho da Política Aurora torna a resposta com corpus verificável?

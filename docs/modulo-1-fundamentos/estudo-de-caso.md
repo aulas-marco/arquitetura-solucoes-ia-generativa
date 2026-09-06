@@ -4,7 +4,7 @@ O caso aplica o vocabulário do módulo sem pressupor RAG, agente ou plataforma.
 
 ## Como usar este estudo de caso
 
-Leia a situação, os stakeholders, as restrições e as evidências iniciais uma única vez, de forma contínua — sem tentar resolver nada ainda. Depois, resolva os [exercícios guiados](#exercicios-guiados) na ordem em que aparecem: cada um indica exatamente qual seção de [Conceitos](conceitos.md) ou [Padrões e decisões](padroes-e-decisoes.md) consultar antes de responder, e usa o que você produziu no exercício anterior. Se travar num exercício, releia só a seção indicada — o objetivo não é lembrar o módulo inteiro de cor, mas praticar a consulta ao vocabulário certo no momento certo. O último exercício pede a leitura de uma a duas páginas que reúne tudo; os anteriores existem para que ela não precise ser escrita do zero.
+Leia a situação, os stakeholders, as restrições e as evidências iniciais uma única vez, de forma contínua — sem tentar resolver nada ainda. Depois, resolva os [exercícios guiados](#exercicios-guiados) na ordem em que aparecem: cada um indica exatamente qual seção temática do [módulo](index.md) consultar antes de responder, e usa o que você produziu no exercício anterior. Se travar num exercício, releia só a seção indicada — o objetivo não é lembrar o módulo inteiro de cor, mas praticar a consulta ao vocabulário certo no momento certo. O último exercício pede a leitura de uma a duas páginas que reúne tudo; os anteriores existem para que ela não precise ser escrita do zero.
 
 ## Situação
 
@@ -64,49 +64,49 @@ Cada exercício tem um objetivo específico, indica o que consultar antes de res
 
 ### Exercício 1 — Situação e quatro responsabilidades
 
-**Consulte:** [Geração, decisão, autorização e efeito](conceitos.md#geracao-decisao-autorizacao-e-efeito).
+**Consulte:** [Geração, decisão, autorização e efeito](responsabilidade-e-efeito.md#geracao-decisao-autorizacao-e-efeito).
 
 **Tarefa:** em três a cinco frases, descreva a situação da Horizonte e o resultado que o piloto deveria produzir. Depois, monte uma tabela de quatro linhas — Geração, Decisão, Autorização, Efeito — preenchendo, para cada responsabilidade, quem ou o que a exerce hoje na Horizonte (mesmo que ainda de forma manual).
 
 ### Exercício 2 — Quatro decisões e alternativas
 
-**Consulte:** [Quatro decisões a separar](#quatro-decisoes-a-separar) (nesta página) e [Panorama das abordagens](padroes-e-decisoes.md#panorama-das-abordagens).
+**Consulte:** [Quatro decisões a separar](#quatro-decisoes-a-separar) (nesta página) e [Panorama das abordagens](escolha-da-abordagem.md#panorama-das-abordagens).
 
 **Tarefa:** para cada uma das quatro decisões — produção, conhecimento, efeito, operação —, escolha uma alternativa candidata do panorama de abordagens e escreva uma frase justificando por que ela é uma candidata plausível para o primeiro incremento, sem ainda decidir a composição final. Não escolha a mesma abordagem para as quatro linhas: o objetivo é perceber que são decisões independentes.
 
 ### Exercício 3 — O que atravessa o sistema
 
-**Consulte:** [Que informação atravessa o sistema](conceitos.md#que-informacao-atravessa-o-sistema), especialmente a tabela de [artefatos com ciclos de vida diferentes](conceitos.md#artefatos-com-ciclos-de-vida-diferentes).
+**Consulte:** [Que informação atravessa o sistema](artefatos-do-sistema.md#que-informacao-atravessa-o-sistema), especialmente a tabela de [artefatos com ciclos de vida diferentes](artefatos-do-sistema.md#artefatos-com-ciclos-de-vida-diferentes).
 
 **Tarefa:** olhando a situação da Horizonte, dê um exemplo concreto de cada artefato — conhecimento, contexto, estado, memória, evidência, trace — usando dados do próprio caso (por exemplo: qual documento é conhecimento? o que vira contexto numa pergunta específica? o que não deveria virar memória?).
 
 ### Exercício 4 — Duas características em tensão
 
-**Consulte:** [Atributos de qualidade, trade-offs e significância](conceitos.md#atributos-de-qualidade-trade-offs-e-significancia) e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
+**Consulte:** [Atributos de qualidade, trade-offs e significância](responsabilidade-e-efeito.md#atributos-de-qualidade-trade-offs-e-significancia) e o [catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md).
 
 **Tarefa:** escolha duas características do catálogo que competem entre si nesta situação (por exemplo, duas entre Privacidade, Fundamentação, Latência e Custo). Escreva um cenário mensurável para uma delas, no formato Fonte/Estímulo/Ambiente/Artefato/Resposta/Medida usado no catálogo.
 
 ### Exercício 5 — Três riscos e contenções
 
-**Consulte:** [Anti-padrão: uma caixa probabilística para tudo](padroes-e-decisoes.md#anti-padrao-uma-caixa-probabilistica-para-tudo).
+**Consulte:** [Anti-padrão: uma caixa probabilística para tudo](mudanca-probabilistica.md#anti-padrao-uma-caixa-probabilistica-para-tudo).
 
 **Tarefa:** liste três riscos concretos da situação da Horizonte — pelo menos um de acesso indevido a documento restrito e um de efeito repetido (chamado duplicado) — e, para cada um, uma frase descrevendo a contenção (o que impede ou limita o dano).
 
 ### Exercício 6 — Classifique a evidência
 
-**Consulte:** [Três tipos de verificação](conceitos.md#tres-tipos-de-verificacao).
+**Consulte:** [Três tipos de verificação](verificacao-e-governanca.md#tres-tipos-de-verificacao).
 
 **Tarefa:** releia a tabela de [Evidências iniciais](#evidencias-iniciais) (nesta página) e classifique cada linha da tabela como teste de software, avaliação comportamental ou verificação arquitetural — ou explique por que a amostra atual não permite classificar aquela linha em nenhum dos três.
 
 ### Exercício 7 — Uma fitness function candidata
 
-**Consulte:** a definição de *fitness function* na mesma seção do Exercício 6, [Três tipos de verificação](conceitos.md#tres-tipos-de-verificacao).
+**Consulte:** a definição de *fitness function* na mesma seção do Exercício 6, [Três tipos de verificação](verificacao-e-governanca.md#tres-tipos-de-verificacao).
 
 **Tarefa:** escreva uma fitness function candidata para o piloto da Horizonte — uma frase no formato "se [condição observável], então [ação automática antes da promoção]".
 
 ### Exercício 8 — Ficha de decisão inicial
 
-**Consulte:** [Ficha de decisão inicial](padroes-e-decisoes.md#ficha-de-decisao-inicial) — preencha os mesmos oito campos do exemplo resumido ali, mas para a Horizonte.
+**Consulte:** [Ficha de decisão inicial](escolha-da-abordagem.md#ficha-de-decisao-inicial) — preencha os mesmos oito campos do exemplo resumido ali, mas para a Horizonte.
 
 **Tarefa:** preencha a ficha completa (Situação, Responsabilidades, Características prioritárias, Alternativas, Consequências, Evidência existente, Incógnita decisiva, Próximo experimento) usando os dados e restrições descritos nesta página.
 

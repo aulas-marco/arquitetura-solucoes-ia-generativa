@@ -1,5 +1,9 @@
 # Operação, LLMOps e plataformas corporativas
 
+![Ciclo: pacote comportamental passa por avaliação, promoção, entrega, observabilidade e aprendizado; métricas, privacidade e SLO atravessam-no](../assets/images/m06-mapa-operacao-evidencia-continua.png "Mapa da operação e evidência contínua")
+
+*Figura — Operar IA requer evidência contínua.*
+
 ## Pergunta orientadora
 
 > **Como manter qualidade e controle quando modelos, prompts, dados e ferramentas mudam continuamente?**
@@ -48,12 +52,15 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato operacional e continuidade do curso |
-| 2 | [Conceitos](conceitos.md) | versões, ambientes, laços desassistidos, observabilidade e SLOs |
-| 3 | [Padrões e decisões](padroes-e-decisoes.md) | entrega, recuperação e capacidades comuns |
-| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
-| 5 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
-| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas, recuperação e um laço objetivado |
-| 7 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
-| 8 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
+| 2 | [O pacote comportamental e a promoção](pacote-e-promocao.md) | ativo comportamental, ambientes, reprodutibilidade e portões |
+| 3 | [Observabilidade e métricas](observabilidade.md) | trace, quatro planos de métricas, logs minimizados e SLO |
+| 4 | [Entrega controlada e recuperação](entrega-e-recuperacao.md) | entrega controlada, roteamento, fallback, rollback e incidente |
+| 5 | [Laços desassistidos](lacos-desassistidos.md) | o verificador como gargalo e os quatro portões de um laço |
+| 6 | [Plataforma corporativa](plataforma-corporativa.md) | gateway, serviços comuns, catálogo, tenancy e modelo operacional |
+| 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
+| 8 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
+| 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas, recuperação e um laço objetivado |
+| 10 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
+| 11 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 
-Siga para [Conceitos](conceitos.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.
+Siga para [O pacote comportamental e a promoção](pacote-e-promocao.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.

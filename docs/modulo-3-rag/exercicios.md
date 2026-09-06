@@ -90,7 +90,7 @@ Arquiteto de recuperação.
 
 **Insumos disponíveis**
 
-Consulte [avaliação de recuperação](padroes-e-decisoes.md#recuperacao), [segmentação e decisão de recuperação](conceitos.md#segmentacao-e-decisao-de-recuperacao) e a [oficina](oficina-de-ferramentas.md#receita-principal).
+Consulte [avaliação de recuperação](avaliacao-de-rag.md#recuperacao), [segmentação e decisão de recuperação](dois-fluxos.md#segmentacao-e-decisao-de-recuperacao) e a [oficina](oficina-de-ferramentas.md#receita-principal).
 
 **O que é cada artefato**
 
@@ -145,7 +145,7 @@ Arquiteto de segmentação.
 
 **Insumos disponíveis**
 
-Use [conceitos de RAG](conceitos.md), [padrões](padroes-e-decisoes.md) e os três documentos da [oficina](oficina-de-ferramentas.md): [portal-estorno.txt](../assets/labs/modulo-3/portal-estorno.txt), [politica-campanha.txt](../assets/labs/modulo-3/politica-campanha.txt) e [politica-reembolso.txt](../assets/labs/modulo-3/politica-reembolso.txt). O script executável é [rag_local.py](../assets/labs/modulo-3/rag_local.py).
+Use os [dois fluxos](dois-fluxos.md), as [variantes de RAG](variantes-e-escolha.md) e os três documentos da [oficina](oficina-de-ferramentas.md): [portal-estorno.txt](../assets/labs/modulo-3/portal-estorno.txt), [politica-campanha.txt](../assets/labs/modulo-3/politica-campanha.txt) e [politica-reembolso.txt](../assets/labs/modulo-3/politica-reembolso.txt). O script executável é [rag_local.py](../assets/labs/modulo-3/rag_local.py).
 
 **O que é chunking e o que deve permanecer rastreável**
 
@@ -190,7 +190,7 @@ Arquiteto de recuperação avaliando uma decisão já tomada.
 
 **Insumos disponíveis**
 
-Escolha um caso — [Lume](caso-lume.md#implementacao) ou [Aurora](caso-aurora.md#implementacao) — e use `rag_lume_aurora.py` e `avaliar_recuperacao_lume_aurora.py` conforme documentado na página do caso. Consulte [recuperação híbrida](padroes-e-decisoes.md#estrategias-de-recuperacao) e a subseção "RAG híbrido" em [padrões de RAG e seus trade-offs](padroes-e-decisoes.md#padroes-de-rag-e-seus-trade-offs), que exige "evidência de ganho segmentado sobre cada estratégia isolada" antes de justificar o custo de dois índices, fusão, calibração e latência.
+Escolha um caso — [Lume](caso-lume.md#implementacao) ou [Aurora](caso-aurora.md#implementacao) — e use `rag_lume_aurora.py` e `avaliar_recuperacao_lume_aurora.py` conforme documentado na página do caso. Consulte [recuperação híbrida](recuperacao.md#estrategias-de-recuperacao) e a subseção "RAG híbrido" em [padrões de RAG e seus trade-offs](variantes-e-escolha.md#padroes-de-rag-e-seus-trade-offs), que exige "evidência de ganho segmentado sobre cada estratégia isolada" antes de justificar o custo de dois índices, fusão, calibração e latência.
 
 **O que cada métrica mede**
 
@@ -238,7 +238,7 @@ Arquiteto de autorização.
 
 **Insumos disponíveis**
 
-Use o [estudo de caso](estudo-de-caso.md), o [diagrama](exemplo-arquitetural.md#fluxo-de-consulta) e [conceitos de RAG](conceitos.md).
+Use o [estudo de caso](estudo-de-caso.md), o [diagrama](exemplo-arquitetural.md#fluxo-de-consulta) e os [dois fluxos](dois-fluxos.md).
 
 **O que é a fronteira de autorização neste diagnóstico**
 
@@ -285,7 +285,7 @@ Arquiteto de composição.
 
 **Insumos disponíveis**
 
-Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo nos [padrões e trade-offs](padroes-e-decisoes.md#padroes-de-rag-e-seus-trade-offs) e na [receita da oficina](oficina-de-ferramentas.md#receita-principal). Básico usa uma rota; híbrido combina lexical/vetorial; hierárquico preserva seções; adaptativo escolhe; corretivo reavalia evidência.
+Compare RAG básico, híbrido, hierárquico, adaptativo e corretivo nos [padrões e trade-offs](variantes-e-escolha.md#padroes-de-rag-e-seus-trade-offs) e na [receita da oficina](oficina-de-ferramentas.md#receita-principal). Básico usa uma rota; híbrido combina lexical/vetorial; hierárquico preserva seções; adaptativo escolhe; corretivo reavalia evidência.
 
 **O que significa escolher um padrão**
 
@@ -334,7 +334,7 @@ Arquiteto de fluxos RAG.
 
 **Insumos disponíveis**
 
-Use [padrões RAG](padroes-e-decisoes.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md), [SLO](../modulo-6-operacao/conceitos.md#slo-para-servico-util) e [oficina](oficina-de-ferramentas.md#receita-principal).
+Use as [variantes de RAG](variantes-e-escolha.md), [template de ADR](../referencia/template-adr.md), [exemplo](exemplo-arquitetural.md), [SLO](../modulo-6-operacao/observabilidade.md#slo-para-servico-util) e [oficina](oficina-de-ferramentas.md#receita-principal).
 
 **O que é uma arquitetura RAG completa**
 

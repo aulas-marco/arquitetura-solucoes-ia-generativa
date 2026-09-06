@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import PAGES, bloom_sections
+from scripts.validate_content import PAGES, bloom_sections, teaching_text, thematic_pages
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,14 +11,18 @@ MODULE = ROOT / "docs" / "modulo-5-confianca"
 
 class ModuleFiveContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
-        self.assertEqual(
-            set(PAGES) | {"caso-lume.md", "caso-aurora.md"},
-            {path.name for path in MODULE.glob("*.md")},
-        )
+        nomes = {path.name for path in MODULE.glob("*.md")}
+        self.assertTrue(set(PAGES) | {"caso-lume.md", "caso-aurora.md"} <= nomes)
+        tematicas = thematic_pages(MODULE)
+        self.assertGreaterEqual(len(tematicas), 5)
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
-        positions = [navigation.index(f"modulo-5-confianca/{page}") for page in PAGES]
-        self.assertEqual(positions, sorted(positions))
+        ordem = [navigation.index(f"modulo-5-confianca/{page}") for page in ("index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
+                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
+                     "conceitos.md", "padroes-e-decisoes.md")]
+        self.assertEqual(ordem, sorted(ordem))
+        for page in tematicas:
+            self.assertIn(f"modulo-5-confianca/{page}", navigation)
 
         opening = (MODULE / "index.md").read_text(encoding="utf-8")
         self.assertIn(
@@ -28,7 +32,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
 
 
     def test_concepts_explain_systemic_trust_risk_and_shared_responsibility(self):
-        text = (MODULE / "conceitos.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for concept in (
             "confiança sistêmica",
@@ -43,7 +47,7 @@ class ModuleFiveContentRegressionTest(unittest.TestCase):
             self.assertIn(concept, text, concept)
 
     def test_patterns_cover_threats_guardrail_layers_and_governance(self):
-        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for threat in (
             "injeção direta de prompt",

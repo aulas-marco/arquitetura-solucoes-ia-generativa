@@ -1,5 +1,9 @@
 # Agentes e integração com sistemas corporativos
 
+![Mapa da autonomia controlada: diálogo, fluxo de trabalho, agente e múltiplos agentes formam um continuum; planejamento usa ferramentas tipadas e estado sob políticas, enquanto ações materiais passam por aprovação explícita](../assets/images/m04-mapa-autonomia-controlada.png "Mapa da autonomia controlada")
+
+*Figura — Autonomia não é uma propriedade binária: ela cresce com a capacidade de decidir e agir, e deve encontrar políticas e aprovação antes de cruzar fronteiras materiais.*
+
 ## Pergunta orientadora
 
 > **Quando permitir que o modelo escolha e execute ações?**
@@ -41,8 +45,8 @@ O percurso produz evidências concretas:
 
 | Parte do módulo | Pergunta de SDD | Evidência produzida |
 |---|---|---|
-| [Conceitos](conceitos.md#do-agente-que-age-ao-agente-que-constroi-software) | por que a spec precisa governar agentes de codificação? | vocabulário, fluxo completo e ledger epistemológico |
-| [Padrões e decisões](padroes-e-decisoes.md#padrao-desenvolvimento-guiado-por-especificacao) | como preservar intenção e qualidade durante a transformação? | critérios, fatias verticais, seams, gates e ADRs |
+| [Conceitos](sdd-modos-e-spec.md#do-agente-que-age-ao-agente-que-constroi-software) | por que a spec precisa governar agentes de codificação? | vocabulário, fluxo completo e ledger epistemológico |
+| [Padrões e decisões](sdd-decisoes.md#padrao-desenvolvimento-guiado-por-especificacao) | como preservar intenção e qualidade durante a transformação? | critérios, fatias verticais, seams, gates e ADRs |
 | [Exemplo arquitetural](exemplo-arquitetural.md#pipeline-sdd-com-gates-humanos) | como os artefatos se conectam numa mudança real? | constitution, spec, plano, contratos, tarefas, testes e revisão |
 | [Oficina](oficina-de-ferramentas.md#extensao-mini-fluxo-spec-kit) | como operar o ciclo com segurança? | mini-iniciativa executada com Spec Kit |
 | [Exercícios](exercicios.md) | como criticar e adaptar o método? | análise de consistência e proposta completa |
@@ -52,7 +56,7 @@ Ao terminar, você não deverá apenas repetir etapas. Deverá saber calibrar pr
 
 ## Pré-requisitos e princípio de continuidade
 
-Retomaremos a [sequência de decisão](../modulo-2-desenho-conceitual/padroes-e-decisoes.md#uma-sequencia-de-decisao): gerar, acessar conhecimento, agir e só então conceder autonomia. Também reutilizaremos autorização, proveniência e suficiência do [Módulo 3](../modulo-3-rag/index.md). Uma evidência recuperada não concede permissão de escrita; uma ferramenta disponível não precisa ser oferecida ao modelo; uma saída estruturada válida não prova que a ação é apropriada.
+Retomaremos a [sequência de decisão](../modulo-2-desenho-conceitual/descricao-arquitetural.md#uma-sequencia-de-decisao): gerar, acessar conhecimento, agir e só então conceder autonomia. Também reutilizaremos autorização, proveniência e suficiência do [Módulo 3](../modulo-3-rag/index.md). Uma evidência recuperada não concede permissão de escrita; uma ferramenta disponível não precisa ser oferecida ao modelo; uma saída estruturada válida não prova que a ação é apropriada.
 
 Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), [Confiabilidade](../referencia/atributos-de-qualidade.md#confiabilidade), [Segurança](../referencia/atributos-de-qualidade.md#seguranca) e [Observabilidade](../referencia/atributos-de-qualidade.md#observabilidade) serão tratados como cenários mensuráveis. A tese do módulo é simples: **autonomia deve ser orçada e observável**. “Orçada” significa limitada por escopo, ações, etapas, tempo, custo e risco. “Observável” significa reconstruir propostas, decisões de política, aprovações, chamadas, resultados e compensações sem registrar segredos desnecessários.
 
@@ -61,16 +65,24 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | Etapa | Página | Foco |
 |---|---|---|
 | 1 | [Abertura](index.md) | contrato de aprendizagem e limites de autonomia |
-| 2 | [Conceitos](conceitos.md) | agente, planejamento, estado, memória, topologias, arnês, níveis de loop e SDD |
-| 3 | [Padrões e decisões](padroes-e-decisoes.md) | ferramentas, SDD, identidade, resiliência e intervenção humana |
-| 4 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
-| 5 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
-| 6 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |
-| 7 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
-| 8 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
+| 2 | [Onde está o controle](controle-e-autonomia.md) | chatbot, copiloto, workflow e agente; critério de entrada |
+| 3 | [Ferramentas e contratos](ferramentas-e-contratos.md) | contrato de ferramenta, catálogo mínimo e adaptadores |
+| 4 | [Estado, memória, contexto e política](estado-memoria-e-politica.md) | planejamento, estado, memória, contexto e política executável |
+| 5 | [Efeito, identidade e recuperação](efeito-e-recuperacao.md) | identidade delegada, idempotência, timeout, compensação e auditoria |
+| 6 | [Autonomia orçada](autonomia-orcada.md) | matriz de autonomia, orçamento, interrupção e fallback |
+| 7 | [O arnês](arnes.md) | o que cerca o modelo, erro composto e diagnóstico por tipo de falha |
+| 8 | [Loops](loops.md) | quatro níveis de loop, condição de parada e o verificador |
+| 9 | [Modos de trabalho e a spec viva](sdd-modos-e-spec.md) | vibe coding, assistência e SDD; spec viva e constitution |
+| 10 | [O fluxo completo, dos princípios à evidência](sdd-fluxo.md) | oito etapas, três gates humanos e oito artefatos |
+| 11 | [Decisões, ADRs e limites do fluxo](sdd-decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
+| 12 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
+| 13 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
+| 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |
+| 15 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
+| 16 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
 ## Um teste inicial
 
 Considere: “se o cliente pedir troca, consulte pedido e estoque; reserve o item; solicite confirmação; cancele a reserva anterior; atualize o CRM”. A sequência parece conhecida, mas exceções variam: item substituto, política por canal, estoque concorrente e aprovação para diferença de valor. Isso não prova que um agente seja necessário. Primeiro enumere decisões, efeitos e falhas. Depois compare um workflow com ramificações a um agente limitado. A escolha depende do valor da adaptação e da capacidade de controlar trajetórias, não da novidade da tecnologia.
 
-Comece pela linguagem precisa em [Conceitos](conceitos.md).
+Comece pela linguagem precisa em [Onde está o controle](controle-e-autonomia.md).

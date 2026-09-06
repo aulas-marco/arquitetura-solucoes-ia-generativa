@@ -156,7 +156,7 @@ Este modelo representa como um objetivo de negócio se desdobra em característi
 
 ### Correspondências verificadas
 
-Esta tabela representa a verificação cruzada entre visões: cada regra de correspondência definida em [Conceitos](conceitos.md#correspondencias-entre-visoes) é confrontada com a evidência concreta deste exemplo, para expor inconsistências antes que se tornem defeito.
+Esta tabela representa a verificação cruzada entre visões: cada regra de correspondência definida em [Conceitos](descricao-arquitetural.md#correspondencias-entre-visoes) é confrontada com a evidência concreta deste exemplo, para expor inconsistências antes que se tornem defeito.
 
 | Regra | Evidência no exemplo |
 |---|---|

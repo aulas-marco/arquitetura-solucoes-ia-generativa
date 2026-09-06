@@ -8,6 +8,29 @@ Isso não torna toda chamada a modelo uma decisão arquitetural. A escolha se to
 
 Este módulo constrói o vocabulário comum do curso. Primeiro separa modelo, aplicação e sistema sociotécnico. Depois mostra a superfície que determina o comportamento e distingue geração, decisão, autorização e efeito. Por fim, compara formas de compor geração com conhecimento, ferramentas, controles e operação.
 
+Arquitetar uma solução com IA generativa não começa pela escolha do modelo. Começa pela definição do resultado que o sistema deve produzir, das condições em que esse resultado é aceitável e das responsabilidades que não podem ser delegadas à geração probabilística.
+
+O trabalho do arquiteto é transformar uma capacidade ampla — interpretar, resumir, redigir, classificar ou propor passos — em comportamento útil dentro de limites conhecidos. Para isso, ele precisa:
+
+- delimitar onde a geração participa e onde permanecem regras, decisões humanas e operações determinísticas;
+- identificar os elementos que alteram o comportamento, mesmo quando o código da aplicação não muda;
+- relacionar riscos e atributos de qualidade a mecanismos de contenção, medição e recuperação;
+- distribuir responsabilidades entre software, modelos, dados, pessoas, políticas e fornecedores;
+- definir que evidências permitem adotar, promover, restringir ou abandonar uma composição.
+
+Essas tarefas mudam a pergunta inicial. Em vez de “qual modelo usar?”, a análise procura saber **que comportamento o sistema deve sustentar, quem responde por cada parte e como verificar se os limites continuam válidos**.
+
+## Um mapa para orientar a leitura
+
+A figura a seguir apresenta os elementos que participam do comportamento generativo. Ela não representa uma arquitetura pronta nem uma sequência obrigatória. Serve para localizar três questões que atravessam esta página:
+
+1. o que pertence ao modelo e o que pertence ao sistema;
+2. quais elementos tornam a saída variável;
+3. quais controles e evidências precisam acompanhar essa variabilidade.
+
+![Mapa do comportamento generativo: entrada e contexto atravessam prompt, tokens e parâmetros até um modelo fundacional e uma saída variável; conhecimento paramétrico, avaliação, segurança e observabilidade circundam esse comportamento probabilístico](../assets/images/m01-mapa-comportamento-generativo.png "Mapa do comportamento generativo")
+*Figura — A saída do modelo é apenas uma parte do comportamento do sistema; avaliação, segurança e observabilidade pertencem à composição desde o início.*
+
 ## Antes de começar
 
 Você deve reconhecer componente, interface, dependência, fluxo de dados, requisito funcional, atributo de qualidade e trade-off. Não é necessário conhecer aprendizado de máquina, estatística ou a matemática dos transformadores. Consulte o [Glossário](../referencia/glossario.md) e o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) quando precisar de uma definição controlada ou de um cenário mensurável.
@@ -28,16 +51,20 @@ Ao concluir o módulo, você deverá ser capaz de:
 
 ## Roteiro do módulo
 
-| Página | Questão central | Resultado esperado |
+| Etapa | Página | Foco |
 |---|---|---|
-| **1. Abertura** | Qual vocabulário sustenta o curso? | Um mapa das perguntas que serão aprofundadas. |
-| **2. [Conceitos](conceitos.md)** | O que determina o comportamento do sistema? | Unidades de análise, superfície comportamental e formas de verificação. |
-| **3. [Padrões e decisões](padroes-e-decisoes.md)** | Que composições acrescentam quais responsabilidades? | Panorama, mapa de responsabilidades e ficha de decisão inicial. |
-| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como aplicar o mapa a um incremento? | Atendimento Horizonte com escopo, fluxo, falhas e evidências. |
-| **5. [Estudo de caso](estudo-de-caso.md)** | Como comparar uma direção sem antecipar a solução? | Recomendação equilibrada entre conhecimento, efeito, confiança e operação. |
-| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | O que uma execução local permite observar? | Evidência limitada sobre contexto, variabilidade e configuração. |
-| **7. [Exercícios](exercicios.md)** | Consigo aplicar o vocabulário a outro sistema? | Evidências nos seis níveis da Taxonomia de Bloom. |
-| **8. [Síntese e referências](sintese-e-referencias.md)** | O que deve permanecer para os próximos módulos? | Checklist transversal, autoavaliação e fontes. |
+| 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
+| 2 | [O que muda quando o componente é probabilístico](mudanca-probabilistica.md) | determinístico e probabilístico; modelo, aplicação e sistema sociotécnico |
+| 3 | [De onde emerge o comportamento](superficie-comportamental.md) | superfície de comportamento: tokens, janela, prompt, parâmetros e alucinação |
+| 4 | [Que informação atravessa o sistema](artefatos-do-sistema.md) | conhecimento, contexto, estado, memória, evidência e trace |
+| 5 | [Quem gera, decide, autoriza e executa](responsabilidade-e-efeito.md) | geração, decisão, autorização e efeito; mapa de responsabilidades |
+| 6 | [Escolher a abordagem](escolha-da-abordagem.md) | sete abordagens, quatro decisões ortogonais e a ficha inicial |
+| 7 | [Verificar e governar](verificacao-e-governanca.md) | três tipos de verificação e o contrato arquitetural que passa a valer |
+| 8 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
+| 9 | [Estudo de caso](estudo-de-caso.md) | — |
+| 10 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
+| 11 | [Exercícios](exercicios.md) | — |
+| 12 | [Síntese e referências](sintese-e-referencias.md) | — |
 
 ## Como este módulo prepara os demais
 
@@ -61,4 +88,4 @@ Ao encontrar um componente, pergunte qual responsabilidade ele assume, que falha
 
 O objetivo não é eliminar incerteza. É localizá-la e atribuir a ela uma forma de aprendizagem, contenção ou decisão.
 
-**Próxima página:** [Conceitos fundamentais](conceitos.md).
+**Próxima página:** [O que muda quando o componente é probabilístico](mudanca-probabilistica.md).

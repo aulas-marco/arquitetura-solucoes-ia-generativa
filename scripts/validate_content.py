@@ -56,6 +56,33 @@ class Counts:
     exercises: int = 0
 
 
+NON_THEMATIC = frozenset(PAGES) | {"caso-lume.md", "caso-aurora.md"}
+
+
+def thematic_pages(module_dir: Path) -> tuple[str, ...]:
+    """Nomes das páginas temáticas de um módulo, em ordem de arquivo."""
+    return tuple(
+        path.name
+        for path in sorted(module_dir.glob("*.md"))
+        if path.name not in NON_THEMATIC
+    )
+
+
+def teaching_text(module_dir: Path) -> str:
+    """Concatena as páginas temáticas de um módulo.
+
+    A organização por tema substituiu o par conceitos/padrões: a asserção
+    editorial passa a ser 'este conteúdo existe neste módulo', não 'está
+    nesta página'.
+    """
+    partes = [
+        path.read_text(encoding="utf-8")
+        for path in sorted(module_dir.glob("*.md"))
+        if path.name not in NON_THEMATIC
+    ]
+    return "\n\n".join(partes)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Valida páginas, exercícios, links e imagens do site-livro."
@@ -279,11 +306,11 @@ def validate_module(
     module_dir = DOCS / slug
     words_before = counts.words
     for page_name in PAGES:
-        path = module_dir / page_name
-        if not path.is_file():
+        if not (module_dir / page_name).is_file():
             errors.append(f"página ausente: docs/{slug}/{page_name}")
-            continue
 
+    for path in sorted(module_dir.glob("*.md")):
+        page_name = path.name
         text = path.read_text(encoding="utf-8")
         counts.pages += 1
         counts.words += len(WORD_RE.findall(text))

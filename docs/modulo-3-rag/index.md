@@ -8,6 +8,10 @@ Um modelo de linguagem pode escrever com fluência sobre temas que apareceram em
 
 Por isso, este módulo adota uma tese: **RAG é um sistema de conhecimento, não um tutorial de banco vetorial**. Um índice vetorial pode participar da recuperação, mas não resolve aquisição, extração, atualização, proveniência, busca lexical, autorização, reranking, composição de contexto, citação, recusa e avaliação ponta a ponta.
 
+![Mapa RAG dos dois pipelines: no fluxo offline, fontes governadas passam por extração, fragmentação, metadados e permissões até um índice versionado; no fluxo online, uma pergunta autorizada recupera evidências para uma resposta citada ou para abstenção, ligadas por proveniência e atualidade](../assets/images/m03-mapa-rag-dos-dois-pipelines.png "Mapa RAG dos dois pipelines")
+
+*Figura — RAG combina dois pipelines: ingestão governada e consulta autorizada, unidos por evidência, atualização e proveniência.*
+
 ## Antes de começar
 
 Retomaremos o [Módulo 2 — Desenho conceitual](../modulo-2-desenho-conceitual/index.md): oportunidade, CONOPS, requisitos arquiteturalmente significativos, critérios probabilísticos e rastreabilidade. Também usaremos o [Glossário](../referencia/glossario.md), o [Catálogo de padrões](../referencia/catalogo-de-padroes.md) e os cenários de [atributos de qualidade](../referencia/atributos-de-qualidade.md).
@@ -28,16 +32,19 @@ Ao concluir o módulo, você deverá ser capaz de:
 
 ## Roteiro do módulo
 
-| Página | Questão central | Resultado esperado |
+| Etapa | Página | Foco |
 |---|---|---|
-| **1. Abertura** | O que torna conhecimento verificável e atualizável? | Um contrato de aprendizagem centrado no sistema. |
-| **2. [Conceitos](conceitos.md)** | Como separar conhecimento, recuperação e geração? | Vocabulário e os dois pipelines completos. |
-| **3. [Padrões e decisões](padroes-e-decisoes.md)** | Qual mecanismo responde a cada necessidade? | Decisões de recuperação, autorização, evidência e variantes de RAG. |
-| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como os dois fluxos cooperam em execução? | Diagramas, sequência, responsabilidades, falhas e métricas. |
-| **5. [Estudo de caso](estudo-de-caso.md)** | Como atender políticas e contratos com permissões individuais? | Uma decisão incremental com citações, atualização rápida e abstenção. |
-| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
-| **7. [Exercícios](exercicios.md)** | Consigo medir, diagnosticar e projetar RAG? | Evidências nos seis níveis da Taxonomia de Bloom. |
-| **8. [Síntese e referências](sintese-e-referencias.md)** | O que precisa existir além do índice? | Checklist sistêmico, autoavaliação e fontes. |
+| 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
+| 2 | [Conhecimento paramétrico e recuperado: os dois fluxos](dois-fluxos.md) | conhecimento paramétrico e recuperado; ingestão e consulta |
+| 3 | [Recuperação](recuperacao.md) | lexical, vetorial e híbrida, com autorização e reranking |
+| 4 | [Contexto, citação e abstenção](contexto-e-abstencao.md) | montagem de contexto, citação, suficiência e abstenção |
+| 5 | [Variantes de RAG e escolha](variantes-e-escolha.md) | sete variantes, trade-offs e critério de escolha |
+| 6 | [Avaliação e fitness functions](avaliacao-de-rag.md) | avaliação por camada e fitness functions de recuperação |
+| 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
+| 8 | [Estudo de caso](estudo-de-caso.md) | — |
+| 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
+| 10 | [Exercícios](exercicios.md) | — |
+| 11 | [Síntese e referências](sintese-e-referencias.md) | — |
 
 ## A unidade de raciocínio: pergunta → evidência → resposta
 
@@ -60,4 +67,4 @@ Não otimize geração antes de localizar a causa. Uma resposta ruim pode decorr
 
 Primeiro construiremos o vocabulário e os dois fluxos. Depois compararemos decisões e padrões. Só então aplicaremos o método ao assistente corporativo de políticas e contratos. Essa ordem evita transformar uma escolha particular de índice em uma regra para todos os sistemas.
 
-**Próxima página:** [Conhecimento externo e os dois pipelines](conceitos.md).
+**Próxima página:** [Conhecimento paramétrico e recuperado: os dois fluxos](dois-fluxos.md).

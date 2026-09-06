@@ -6,6 +6,8 @@ Uma equipe pode selecionar um modelo competente, implementar controles rigorosos
 
 Este módulo transforma uma oportunidade ambígua em um **Documento de Arquitetura de Software**, nome adotado pelo curso para o conjunto curto de entradas, visões, análises, decisões e evidências que permite iniciar — ou recusar — uma solução. O percurso é sempre o mesmo: oportunidade, hipótese de valor, atividades humanas, CONOPS, fronteiras, requisitos significativos, visões, táticas, alternativas, experimento e ADR. Só depois compararemos soluções; prompt, RAG, fine-tuning, workflows e agentes são respostas possíveis, não o ponto de partida.
 
+Desenho conceitual é a etapa que define **o que vale a pena resolver, sob quais limites e com que evidência** antes de escolher modelos, padrões ou fornecedores. Seu resultado não é um diagrama de tecnologia. É uma descrição arquitetural suficiente para comparar direções e tornar decisões revisáveis.
+
 ## Antes de começar
 
 Você deve dominar o vocabulário do [Módulo 1 — Fundamentos](../modulo-1-fundamentos/index.md): modelo, aplicação de IA, sistema sociotécnico, componentes determinísticos e probabilísticos, contexto, RAG, ferramentas, workflows, agentes, avaliação e trade-offs. Também retomaremos o [Catálogo de atributos de qualidade](../referencia/atributos-de-qualidade.md) e o [Template de ADR](../referencia/template-adr.md).
@@ -26,16 +28,19 @@ Ao concluir o módulo, você deverá ser capaz de:
 
 ## Roteiro do módulo
 
-| Página | Questão central | Resultado esperado |
+| Etapa | Página | Foco |
 |---|---|---|
-| **1. Abertura** | Qual é o contrato de aprendizagem? | Uma sequência que parte do problema, não da tecnologia. |
-| **2. [Conceitos](conceitos.md)** | Que descrição precisamos antes de escolher solução? | Entradas, visões, análise, decisão, evidência e vocabulário preciso. |
-| **3. [Padrões e decisões](padroes-e-decisoes.md)** | Como RAS orientam alternativas? | Táticas, mecanismos, correspondências, trade-offs, experimentos e ADRs. |
-| **4. [Exemplo arquitetural](exemplo-arquitetural.md)** | Como a rastreabilidade aparece nas cinco visões? | Um copiloto financeiro derivado do objetivo até riscos, estruturas e evidências. |
-| **5. [Exercícios](exercicios.md)** | Consigo produzir e defender um desenho conceitual? | Evidências nos seis níveis da Taxonomia de Bloom. |
-| **6. [Oficina de ferramentas](oficina-de-ferramentas.md)** | Como uma ferramenta torna visível a decisão estudada? | Uma evidência breve, comparável e segura. |
-| **7. [Estudo de caso](estudo-de-caso.md)** | Que direção faz sentido sob dados sensíveis e legado? | Comparação disciplinada de quatro desenhos candidatos. |
-| **8. [Síntese e referências](sintese-e-referencias.md)** | Como preservar decisões e preparar o próximo passo? | Checklist de rastreabilidade e ponte para RAG. |
+| 1 | [Abertura](index.md) | contrato de aprendizagem do módulo |
+| 2 | [Descrever o sistema antes da solução](descricao-arquitetural.md) | documento de arquitetura, cinco visões mínimas e correspondências |
+| 3 | [Oportunidade e adequação](adequacao-da-ia.md) | critérios de adequação e os casos em que a resposta é recusar |
+| 4 | [CONOPS, fronteiras e stakeholders](conops-e-fronteiras.md) | CONOPS, fora de escopo, stakeholders, modos operacionais e papel humano |
+| 5 | [Requisitos significativos e táticas](requisitos-e-taticas.md) | do atributo ao RAS, táticas e critério de aceitação probabilístico |
+| 6 | [Comparar alternativas e registrar a decisão](alternativas-e-registro.md) | menor capacidade suficiente, ADR e verificação de correspondência |
+| 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | — |
+| 8 | [Exercícios](exercicios.md) | — |
+| 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | — |
+| 10 | [Estudo de caso](estudo-de-caso.md) | — |
+| 11 | [Síntese e referências](sintese-e-referencias.md) | — |
 
 ## Caso condutor: Banco Lume
 
@@ -49,4 +54,4 @@ Leia cada seta nos dois sentidos: **objetivo → cenário → requisito signific
 
 O [NIST AI RMF Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) reforça que riscos e impactos devem ser compreendidos no contexto de uso, e não inferidos apenas das capacidades gerais de um modelo. Esse princípio orientará o módulo: arquitetura é uma disciplina de escolha contextual, não um catálogo de caixas.
 
-**Próxima página:** [Oportunidade, CONOPS e fronteiras](conceitos.md).
+**Próxima página:** [Descrever o sistema antes da solução](descricao-arquitetural.md).

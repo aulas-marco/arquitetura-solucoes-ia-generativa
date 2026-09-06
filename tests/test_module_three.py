@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import PAGES, bloom_sections
+from scripts.validate_content import PAGES, bloom_sections, teaching_text, thematic_pages
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,14 +11,18 @@ MODULE = ROOT / "docs" / "modulo-3-rag"
 
 class ModuleThreeContentRegressionTest(unittest.TestCase):
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
-        self.assertEqual(
-            set(PAGES) | {"caso-lume.md", "caso-aurora.md"},
-            {path.name for path in MODULE.glob("*.md")},
-        )
+        nomes = {path.name for path in MODULE.glob("*.md")}
+        self.assertTrue(set(PAGES) | {"caso-lume.md", "caso-aurora.md"} <= nomes)
+        tematicas = thematic_pages(MODULE)
+        self.assertGreaterEqual(len(tematicas), 5)
 
         navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
-        positions = [navigation.index(f"modulo-3-rag/{page}") for page in PAGES]
-        self.assertEqual(positions, sorted(positions))
+        ordem = [navigation.index(f"modulo-3-rag/{page}") for page in ("index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
+                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md",
+                     "conceitos.md", "padroes-e-decisoes.md")]
+        self.assertEqual(ordem, sorted(ordem))
+        for page in tematicas:
+            self.assertIn(f"modulo-3-rag/{page}", navigation)
 
         opening = (MODULE / "index.md").read_text(encoding="utf-8")
         self.assertIn(
@@ -27,7 +31,7 @@ class ModuleThreeContentRegressionTest(unittest.TestCase):
         )
 
     def test_patterns_cover_retrieval_authorization_provenance_and_rag_variants(self):
-        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8").casefold()
+        text = teaching_text(MODULE).casefold()
 
         for topic in (
             "busca vetorial",

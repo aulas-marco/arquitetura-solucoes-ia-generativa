@@ -35,7 +35,7 @@ Antes de liberar uma solução, verifique:
 7. Consigo atribuir responsabilidade a política, recuperação, ranking, contexto, validação e adaptadores?
 8. Sei definir uma fitness function que bloqueie promoção quando autorização, atualização, recuperação ou proveniência falham?
 
-Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Padrões e decisões](padroes-e-decisoes.md) e os exercícios 8, 10 e 12.
+Se duas respostas forem “ainda não”, retome os [temas do módulo](index.md) e os exercícios 8, 10 e 12.
 
 ## Fundamentação pedagógica
 

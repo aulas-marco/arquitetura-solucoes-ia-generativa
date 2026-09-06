@@ -45,7 +45,7 @@ Antes de liberar um sistema que age, verifique:
 9. Consigo calcular o efeito do erro composto numa trajetória e usar o resultado para limitar o número de etapas?
 10. Sei dizer se uma tarefa pode subir para o nível 2 de loop, e escrever o comando que decide seu término?
 
-Se duas respostas forem “ainda não”, retome [Conceitos](conceitos.md), [Padrões e decisões](padroes-e-decisoes.md) e os exercícios de SDD em [Exercícios](exercicios.md).
+Se duas respostas forem “ainda não”, retome os [temas do módulo](index.md) e os exercícios de SDD em [Exercícios](exercicios.md).
 
 ## Fundamentação
 

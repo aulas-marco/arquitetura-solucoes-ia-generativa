@@ -101,7 +101,7 @@ Verificações determinísticas são reproduzíveis e baratas, mas só cobrem o 
 
 ### 8. Identificação de ameaças em uma nova integração
 
-**O que é:** **ativo** é o que precisa ser preservado; **ameaça** é a causa potencial de incidente. Consulte a [definição de ativo e ameaça](conceitos.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
+**O que é:** **ativo** é o que precisa ser preservado; **ameaça** é a causa potencial de incidente. Consulte a [definição de ativo e ameaça](confianca-e-risco.md#do-perigo-ao-risco-residual) e a [oficina](oficina-de-ferramentas.md).
 
 **Situação**
 
@@ -142,7 +142,7 @@ Confira ativo, ameaça, impacto e sinal nos anexos benigno e malicioso.
 
 ### 9. Mapeamento de controles por camada
 
-**O que é:** **controle em profundidade** é uma barreira numa camada; seu limite diz o que ainda pode ocorrer. Leia [responsabilidade](conceitos.md#responsabilidade-compartilhada-papeis-identificaveis).
+**O que é:** **controle em profundidade** é uma barreira numa camada; seu limite diz o que ainda pode ocorrer. Leia [responsabilidade](governanca-e-responsabilidade.md#responsabilidade-compartilhada-papeis-identificaveis).
 
 **Situação**
 
@@ -154,7 +154,7 @@ Você é o arquiteto que transforma ameaças em controles testáveis.
 
 **Insumos disponíveis**
 
-Consulte as camadas no [padrão](padroes-e-decisoes.md) e o relatório da [oficina](oficina-de-ferramentas.md).
+Consulte as camadas em [Ameaças e guardrails](ameacas-e-guardrails.md) e o relatório da [oficina](oficina-de-ferramentas.md).
 
 **Como conduzir**
 
@@ -185,7 +185,7 @@ Confira percurso, controle, modo de falha e testes negativos.
 
 ### 10. Diagnóstico de uma regressão composta
 
-**O que é:** **fatia** é subconjunto que pode revelar diferença; **portão** é condição que bloqueia promoção. Consulte [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
+**O que é:** **fatia** é subconjunto que pode revelar diferença; **portão** é condição que bloqueia promoção. Consulte [qualidade](qualidade-e-medicao.md#qualidade-tem-varias-dimensoes).
 
 **Situação**
 
@@ -226,7 +226,7 @@ Confira métricas por fatia, portão e evidência refutadora.
 
 ### 11. Comparação de decisões seguras entre Lume e Aurora
 
-**O que é:** um **avaliador assistido por modelo** (`GEval` com juiz `OllamaModel`) pontua se uma resposta corresponde a um critério declarado; a nota é evidência, não veredito de segurança. Consulte [Guardrails em profundidade](padroes-e-decisoes.md#guardrails-em-profundidade) e os registros de risco do [Lume](caso-lume.md#registro-de-risco) e da [Aurora](caso-aurora.md#registro-de-risco).
+**O que é:** um **avaliador assistido por modelo** (`GEval` com juiz `OllamaModel`) pontua se uma resposta corresponde a um critério declarado; a nota é evidência, não veredito de segurança. Consulte [Guardrails em profundidade](ameacas-e-guardrails.md#guardrails-em-profundidade) e os registros de risco do [Lume](caso-lume.md#registro-de-risco) e da [Aurora](caso-aurora.md#registro-de-risco).
 
 **Situação**
 
@@ -238,7 +238,7 @@ Você é o arquiteto que decide se a diferença de nota entre Lume e Aurora refl
 
 **Insumos disponíveis**
 
-Os dois relatórios JSON gerados pelo laboratório, o [registro de risco do Lume](caso-lume.md#registro-de-risco), o [registro de risco da Aurora](caso-aurora.md#registro-de-risco) e o [padrão de guardrails em profundidade](padroes-e-decisoes.md#guardrails-em-profundidade).
+Os dois relatórios JSON gerados pelo laboratório, o [registro de risco do Lume](caso-lume.md#registro-de-risco), o [registro de risco da Aurora](caso-aurora.md#registro-de-risco) e o [padrão de guardrails em profundidade](ameacas-e-guardrails.md#guardrails-em-profundidade).
 
 **Como conduzir**
 
@@ -269,7 +269,7 @@ Confira se a tabela nomeia os cinco casos da Aurora, separa os grupos corretamen
 
 ### 12. Julgamento de risco residual
 
-**O que é:** **risco residual** permanece após controles; **critério de avaliação** é regra observável. Consulte [risco](conceitos.md#do-perigo-ao-risco-residual).
+**O que é:** **risco residual** permanece após controles; **critério de avaliação** é regra observável. Consulte [risco](confianca-e-risco.md#do-perigo-ao-risco-residual).
 
 **Situação**
 
@@ -281,7 +281,7 @@ Você recomenda tratamento do risco residual, com autoridade e revisão.
 
 **Insumos disponíveis**
 
-Consulte [risco residual](conceitos.md#do-perigo-ao-risco-residual) e [qualidade](conceitos.md#qualidade-tem-varias-dimensoes).
+Consulte [risco residual](confianca-e-risco.md#do-perigo-ao-risco-residual) e [qualidade](qualidade-e-medicao.md#qualidade-tem-varias-dimensoes).
 
 **Como conduzir**
 
@@ -324,7 +324,7 @@ Você é o arquiteto responsável por transformar ameaças em controles verific�
 
 **Insumos disponíveis**
 
-Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](estudo-de-caso.md#decisoes-de-risco-e-governanca), os [padrões](padroes-e-decisoes.md), a [oficina](oficina-de-ferramentas.md) e o [catálogo](../referencia/atributos-de-qualidade.md).
+Use o [exemplo arquitetural](exemplo-arquitetural.md), o [caso de governança](estudo-de-caso.md#decisoes-de-risco-e-governanca), os [temas do módulo](index.md), a [oficina](oficina-de-ferramentas.md) e o [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 

@@ -22,7 +22,7 @@ Ao final, você conseguirá localizar, num trace, o ponto exato em que uma inten
 
 ## Ferramenta
 
-**LangGraph** é uma biblioteca open source, da mesma equipe do LangChain, para orquestrar uma aplicação como um **grafo de estado explícito**. Em vez de deixar o modelo decidir livremente "o que fazer a seguir", você declara os passos possíveis como nós, as transições entre eles como arestas, e uma função de decisão escolhe qual aresta seguir a cada passo. Nada disso é geração de texto: é uma máquina de estados comum, escrita em Python puro. O que torna o LangGraph relevante para este módulo é justamente essa separação — um nó *pode* chamar um modelo, mas orquestração, decisão de política e persistência de estado continuam fora dele, na mesma fronteira que a [matriz de autonomia](padroes-e-decisoes.md#matriz-de-autonomia) descreve.
+**LangGraph** é uma biblioteca open source, da mesma equipe do LangChain, para orquestrar uma aplicação como um **grafo de estado explícito**. Em vez de deixar o modelo decidir livremente "o que fazer a seguir", você declara os passos possíveis como nós, as transições entre eles como arestas, e uma função de decisão escolhe qual aresta seguir a cada passo. Nada disso é geração de texto: é uma máquina de estados comum, escrita em Python puro. O que torna o LangGraph relevante para este módulo é justamente essa separação — um nó *pode* chamar um modelo, mas orquestração, decisão de política e persistência de estado continuam fora dele, na mesma fronteira que a [matriz de autonomia](autonomia-orcada.md#matriz-de-autonomia) descreve.
 
 ### Um Alô, mundo em LangGraph
 
@@ -113,7 +113,7 @@ class ExchangeState(TypedDict, total=False):
     trace: list[str]
 ```
 
-`total=False` significa que nem todo campo precisa existir em todo momento da execução — o estado começa incompleto e vai sendo preenchido conforme os nós rodam. Repare que `trace` é uma lista: ela funciona como um rastro mínimo de auditoria, cada nó anexando uma entrada, exatamente o tipo de evidência que [Padrões e decisões](padroes-e-decisoes.md#auditoria-e-observabilidade) exige de um sistema com efeito.
+`total=False` significa que nem todo campo precisa existir em todo momento da execução — o estado começa incompleto e vai sendo preenchido conforme os nós rodam. Repare que `trace` é uma lista: ela funciona como um rastro mínimo de auditoria, cada nó anexando uma entrada, exatamente o tipo de evidência que [Padrões e decisões](efeito-e-recuperacao.md#auditoria-e-observabilidade) exige de um sistema com efeito.
 
 **Nós.** Um nó é uma função Python comum, que recebe o estado atual e devolve **só os campos que quer atualizar**, não o estado inteiro:
 
@@ -152,7 +152,7 @@ O grafo tem três nós e uma única decisão. `intencao` (função `register_int
 
 Note o que o grafo *não* faz: em nenhum ponto ele chama um modelo de linguagem. A "intenção" chega pronta, via `--aprovado`, porque o objetivo desta oficina é isolar a mecânica de aprovação e idempotência da variabilidade de um modelo real — o script deixa claro, por construção, que decidir e agir são passos determinísticos, mesmo quando a proposta que os disparou tivesse vindo de um modelo.
 
-**Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um [efeito](conceitos.md#geracao-decisao-e-acao) que exige [autorização](padroes-e-decisoes.md#matriz-de-autonomia)?
+**Decisão arquitetural em foco:** em que fronteira uma intenção deixa de ser texto proposto e passa a produzir um [efeito](controle-e-autonomia.md#geracao-decisao-e-acao) que exige [autorização](autonomia-orcada.md#matriz-de-autonomia)?
 
 ## Pré-requisitos
 
@@ -204,7 +204,7 @@ python -m pip install langgraph langchain-ollama
 
 ## Preparação do laboratório
 
-Baixe [troca_boreal.py](../assets/labs/modulo-4/troca_boreal.py) para a pasta `oficina-m4`. O arquivo contém um pedido fictício `PED-104`, uma [chave de idempotência](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` e uma reserva simulada `RES-501`.
+Baixe [troca_boreal.py](../assets/labs/modulo-4/troca_boreal.py) para a pasta `oficina-m4`. O arquivo contém um pedido fictício `PED-104`, uma [chave de idempotência](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` e uma reserva simulada `RES-501`.
 
 ```bash
 ls troca_boreal.py
@@ -234,7 +234,7 @@ Você produzirá três rastros comparáveis: parada segura, efeito simulado apro
 
 ## Interpretação
 
-Leia a saída em duas camadas. Primeiro, verifique o estado determinístico — as linhas `ESTADO`, `CHAVE` e `RESULTADO`. Depois, avalie se essa evidência sustenta a leitura que você faria em linguagem natural. Uma resposta do modelo não substitui o [resultado autoritativo](conceitos.md#estado-memoria-e-contexto) do sistema.
+Leia a saída em duas camadas. Primeiro, verifique o estado determinístico — as linhas `ESTADO`, `CHAVE` e `RESULTADO`. Depois, avalie se essa evidência sustenta a leitura que você faria em linguagem natural. Uma resposta do modelo não substitui o [resultado autoritativo](estado-memoria-e-politica.md#estado-memoria-e-contexto) do sistema.
 
 ## Roteiro sugerido para aula
 
@@ -268,17 +268,17 @@ python troca_boreal.py --aprovado false
 
 **Interprete**
 
-O grafo propôs a troca, mas nenhum nó de efeito foi alcançado: a [decisão de escrita](conceitos.md#geracao-decisao-e-acao) exige aprovação antes de qualquer chamada a um sistema de destino. O modelo participa da geração; não decide sozinho a autorização.
+O grafo propôs a troca, mas nenhum nó de efeito foi alcançado: a [decisão de escrita](controle-e-autonomia.md#geracao-decisao-e-acao) exige aprovação antes de qualquer chamada a um sistema de destino. O modelo participa da geração; não decide sozinho a autorização.
 
 **Compare**
 
-Pedido em linguagem natural e o [estado autoritativo](conceitos.md#estado-memoria-e-contexto) impresso pelo script — a frase do cliente não é evidência de efeito.
+Pedido em linguagem natural e o [estado autoritativo](estado-memoria-e-politica.md#estado-memoria-e-contexto) impresso pelo script — a frase do cliente não é evidência de efeito.
 
 **Questões exploratórias:**
 
-- Que dado do estado mostra que nenhuma reserva ocorreu — e o que essa ausência evidencia sobre a fronteira entre [decisão e ação](conceitos.md#geracao-decisao-e-acao)?
-- Por que um modelo não deve decidir a [aprovação](padroes-e-decisoes.md#matriz-de-autonomia) por conta própria?
-- Onde a [identidade](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada) e a [política](conceitos.md#politicas-como-fronteira-executavel) entrariam em um sistema real?
+- Que dado do estado mostra que nenhuma reserva ocorreu — e o que essa ausência evidencia sobre a fronteira entre [decisão e ação](controle-e-autonomia.md#geracao-decisao-e-acao)?
+- Por que um modelo não deve decidir a [aprovação](autonomia-orcada.md#matriz-de-autonomia) por conta própria?
+- Onde a [identidade](efeito-e-recuperacao.md#identidade-do-usuario-e-autorizacao-delegada) e a [política](estado-memoria-e-politica.md#politicas-como-fronteira-executavel) entrariam em um sistema real?
 
 ### Experimento B — aprovação e idempotência
 
@@ -292,7 +292,7 @@ Repetir a mesma intenção, já aprovada, produz um segundo efeito?
 
 **Objetivo**
 
-Observar uma [escrita simulada](conceitos.md#geracao-decisao-e-acao) e sua repetição.
+Observar uma [escrita simulada](controle-e-autonomia.md#geracao-decisao-e-acao) e sua repetição.
 
 **Pré-requisito**
 
@@ -311,7 +311,7 @@ Na primeira chamada, `RESULTADO RES-501`. Na segunda, o mesmo `RES-501` e um tra
 
 **Interprete**
 
-A [chave de idempotência](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` é persistida antes da chamada e reutilizada na repetição — por isso o resultado se repete sem duplicar o efeito. O resultado autoritativo vem do sistema simulado, não de uma nova resposta do modelo.
+A [chave de idempotência](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao) `TROCA-PED-104-1` é persistida antes da chamada e reutilizada na repetição — por isso o resultado se repete sem duplicar o efeito. O resultado autoritativo vem do sistema simulado, não de uma nova resposta do modelo.
 
 **Compare**
 
@@ -320,7 +320,7 @@ Primeira execução e segunda execução: o estado muda de `aguardando_aprovacao
 **Questões exploratórias:**
 
 - Quem deve criar e guardar a chave de idempotência?
-- Que falha uma [chave duplicada](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) evita?
+- Que falha uma [chave duplicada](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao) evita?
 - Por que a resposta do modelo não substitui o resultado autoritativo?
 
 ### Experimento C — resultado desconhecido
@@ -347,21 +347,21 @@ Sem novo comando: descreva por escrito o ponto exato em que a chamada do Experim
 
 **Observe**
 
-O limite entre repetir cegamente e [reconciliar](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) pela chave existente.
+O limite entre repetir cegamente e [reconciliar](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao) pela chave existente.
 
 **Interprete**
 
-Se a confirmação de `TROCA-PED-104-1` fosse interrompida, o estado correto seria `outcome_unknown`: a arquitetura deveria [consultar o registro pela chave antes de tentar novamente](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao), não repetir a chamada às cegas nem assumir sucesso pela ausência de erro.
+Se a confirmação de `TROCA-PED-104-1` fosse interrompida, o estado correto seria `outcome_unknown`: a arquitetura deveria [consultar o registro pela chave antes de tentar novamente](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao), não repetir a chamada às cegas nem assumir sucesso pela ausência de erro.
 
 **Compare**
 
-[Retry cego](padroes-e-decisoes.md#timeout-retry-e-circuit-breaker), consulta por chave e [escalonamento](padroes-e-decisoes.md#orcamentos-interrupcao-e-fallback).
+[Retry cego](efeito-e-recuperacao.md#timeout-retry-e-circuit-breaker), consulta por chave e [escalonamento](autonomia-orcada.md#orcamentos-interrupcao-e-fallback).
 
 **Questões exploratórias:**
 
-- Que [componente](conceitos.md#responsabilidades-e-fronteiras-de-componente) deve persistir `outcome_unknown`?
+- Que [componente](estado-memoria-e-politica.md#responsabilidades-e-fronteiras-de-componente) deve persistir `outcome_unknown`?
 - Qual dado é necessário para a reconciliação?
-- Quando a [revisão humana](padroes-e-decisoes.md#matriz-de-autonomia) é um controle obrigatório?
+- Quando a [revisão humana](autonomia-orcada.md#matriz-de-autonomia) é um controle obrigatório?
 
 ### Experimento D — proposta gerada por um modelo real
 
@@ -427,7 +427,7 @@ Compare as duas execuções: `PROPOSTA_BRUTA_DO_MODELO` tem o mesmo formato nas 
 
 **Questões exploratórias:**
 
-- Se o modelo devolvesse texto explicativo antes do JSON, em vez de só o objeto, o que aconteceria no nó `interpretar`? Que [padrão de saída estruturada](conceitos.md#uso-de-ferramentas-e-saidas-estruturadas) evitaria isso?
+- Se o modelo devolvesse texto explicativo antes do JSON, em vez de só o objeto, o que aconteceria no nó `interpretar`? Que [padrão de saída estruturada](ferramentas-e-contratos.md#uso-de-ferramentas-e-saidas-estruturadas) evitaria isso?
 - Por que a validação de catálogo e de pedido não poderia estar dentro do prompt do modelo, como uma instrução a mais?
 - Se este script se conectasse ao grafo Boreal, em que ponto a proposta validada aqui entraria — antes ou depois de `decide_approval`?
 
@@ -453,7 +453,7 @@ Se o Experimento D falhar, confirme que o Ollama está em execução (`ollama li
 
 ## Extensão — ablação de arnês
 
-Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês](conceitos.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
+Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês](arnes.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
 
 ### Cenário sintético
 
@@ -517,7 +517,7 @@ Leia a tabela linha a linha, porque cada salto tem uma causa distinta.
 
 **A → B, de 0 para 2.** No arnês A o modelo responde em prosa cordial e o orquestrador não consegue extrair uma chamada de ferramenta de nada disso. Não é falha de compreensão: as respostas de A são frequentemente sensatas em português. É falha de contrato. Um sistema que não consegue interpretar a saída não tem como agir sobre ela, e a competência do modelo fica inacessível.
 
-**B → C, de 2 para 6.** Aqui o modelo é o mesmo, o contrato é o mesmo e o que mudou foi o espaço de decisão: doze nomes parecidos e sem definição viraram quatro ferramentas com uma linha de descrição cada. Em B, o modelo distribui suas escolhas entre `consultar_pedido`, `consultar_pedido_v2` e `buscar_pedido_por_cliente`, que para ele são indistinguíveis. É a [lição da Vercel](conceitos.md#mais-ferramentas-nao-significa-menos-erro) reproduzida em escala de laboratório, e o maior salto do experimento vem de uma remoção.
+**B → C, de 2 para 6.** Aqui o modelo é o mesmo, o contrato é o mesmo e o que mudou foi o espaço de decisão: doze nomes parecidos e sem definição viraram quatro ferramentas com uma linha de descrição cada. Em B, o modelo distribui suas escolhas entre `consultar_pedido`, `consultar_pedido_v2` e `buscar_pedido_por_cliente`, que para ele são indistinguíveis. É a [lição da Vercel](arnes.md#mais-ferramentas-nao-significa-menos-erro) reproduzida em escala de laboratório, e o maior salto do experimento vem de uma remoção.
 
 **C → D, de 6 para 6.** O número de ações corretas não muda, e é justamente por isso que este é o passo mais instrutivo. O que muda é a coluna das ações indevidas: em C, o pedido de encerrar o `845` vira uma chamada de `cancelar_pedido` que a política proíbe, e ela é entregue; em D, a pré-condição bloqueia a chamada, devolve o motivo ao modelo e concede uma segunda tentativa. Na execução registrada acima o modelo insistiu na mesma proposta, e a segunda tentativa não produziu a ação certa. **O efeito indevido não aconteceu mesmo assim.** Verificação não é um mecanismo para tornar o modelo mais competente; é um mecanismo para impedir que a incompetência dele produza efeito.
 
@@ -525,7 +525,7 @@ Observe o custo: a única linha com nove chamadas em vez de oito é a D. Verific
 
 ### Compare
 
-Confronte estes números com a discussão de [erro composto](conceitos.md#erro-composto-a-aritmetica-da-trajetoria). O experimento mede uma decisão isolada, com uma única etapa por caso. Multiplique mentalmente: uma trajetória de dez etapas com a taxa do arnês B tem probabilidade praticamente nula de se completar corretamente, enquanto a mesma trajetória com a taxa do arnês C ainda falha com frequência incômoda. Nenhum dos quatro arneses é adequado para autonomia sobre efeito material, e a conclusão correta do laboratório não é "C resolve", é "a distância entre 0 e 6 foi produzida por engenharia, e a distância que falta também terá de ser".
+Confronte estes números com a discussão de [erro composto](arnes.md#erro-composto-a-aritmetica-da-trajetoria). O experimento mede uma decisão isolada, com uma única etapa por caso. Multiplique mentalmente: uma trajetória de dez etapas com a taxa do arnês B tem probabilidade praticamente nula de se completar corretamente, enquanto a mesma trajetória com a taxa do arnês C ainda falha com frequência incômoda. Nenhum dos quatro arneses é adequado para autonomia sobre efeito material, e a conclusão correta do laboratório não é "C resolve", é "a distância entre 0 e 6 foi produzida por engenharia, e a distância que falta também terá de ser".
 
 ### Questões exploratórias
 
@@ -536,7 +536,7 @@ Confronte estes números com a discussão de [erro composto](conceitos.md#erro-c
 
 ### Evidência a entregar
 
-Entregue a tabela dos quatro arneses preenchida com os seus números e uma conclusão de até cinco linhas que responda: qual componente produziu o maior ganho de acerto, qual componente mudou a natureza do risco, e qual dos dois você priorizaria num sistema com efeito irreversível. Registre também uma [fitness function](padroes-e-decisoes.md#fitness-functions-para-autonomia) derivada do arnês D, com limiar, responsável e consequência.
+Entregue a tabela dos quatro arneses preenchida com os seus números e uma conclusão de até cinco linhas que responda: qual componente produziu o maior ganho de acerto, qual componente mudou a natureza do risco, e qual dos dois você priorizaria num sistema com efeito irreversível. Registre também uma [fitness function](autonomia-orcada.md#fitness-functions-para-autonomia) derivada do arnês D, com limiar, responsável e consequência.
 
 ### Limpeza
 
@@ -568,10 +568,10 @@ Regras que o PO confirma:
 Ao final, você deverá distinguir:
 
 - requisito de decisão técnica;
-- [fato de hipótese](conceitos.md#3-clarify-que-ambiguidades-mudariam-a-solucao);
+- [fato de hipótese](sdd-fluxo.md#3-clarify-que-ambiguidades-mudariam-a-solucao);
 - história de usuário de tarefa;
 - critério de aceite de teste interno;
-- [gate humano](conceitos.md#tres-gates-dois-papeis-humanos) de aprovação automática;
+- [gate humano](sdd-fluxo.md#tres-gates-dois-papeis-humanos) de aprovação automática;
 - evidência de atividade de evidência de conformidade.
 
 ### Preparar o ambiente do Spec Kit
@@ -614,7 +614,7 @@ O projeto Boreal deve:
 5. rejeitar mudanças fora do escopo da feature.
 ```
 
-Abra a [constitution](conceitos.md#constitution-principios-antes-da-feature) gerada. Verifique se as frases produzem consequência. “Código deve ter qualidade” é vago; “comportamento novo começa por teste que falha” pode bloquear uma implementação.
+Abra a [constitution](sdd-modos-e-spec.md#constitution-principios-antes-da-feature) gerada. Verifique se as frases produzem consequência. “Código deve ter qualidade” é vago; “comportamento novo começa por teste que falha” pode bloquear uma implementação.
 
 **Gate 0 — princípios**
 
@@ -643,7 +643,7 @@ registra ator, instante e motivo, é idempotente e expira em 48 horas.
 Não enviar mensagens e não conectar sistemas externos.
 ```
 
-Leia [`spec.md`](conceitos.md#a-spec-como-artefato-central-e-vivo) antes de aceitar. Procure:
+Leia [`spec.md`](sdd-modos-e-spec.md#a-spec-como-artefato-central-e-vivo) antes de aceitar. Procure:
 
 - problema e ator;
 - história prioritária;
@@ -673,7 +673,7 @@ Para o laboratório, adote:
 - motivo é enumeração `cliente_ausente | divergencia_endereco | confirmacao_item`;
 - rejeições são erros tipados.
 
-Atualize a spec com as respostas. Crie um pequeno [ledger](conceitos.md#3-clarify-que-ambiguidades-mudariam-a-solucao):
+Atualize a spec com as respostas. Crie um pequeno [ledger](sdd-fluxo.md#3-clarify-que-ambiguidades-mudariam-a-solucao):
 
 | Item | Estado | Evidência |
 |---|---|---|
@@ -711,10 +711,10 @@ Persistência do laboratório é em memória. Expor uma CLI JSON para
 demonstrar transições, sem API ou banco de dados.
 ```
 
-O [plano](conceitos.md#4-plan-como-a-arquitetura-realizara-a-intencao) deve mostrar:
+O [plano](sdd-fluxo.md#4-plan-como-a-arquitetura-realizara-a-intencao) deve mostrar:
 
 - arquivos criados e responsabilidades;
-- [seam](conceitos.md#deep-modules-e-testes-pelas-seams) pública da máquina de estados;
+- [seam](sdd-fluxo.md#deep-modules-e-testes-pelas-seams) pública da máquina de estados;
 - representação de pedido, comando e evento;
 - erros tipados;
 - estratégia de idempotência;
@@ -783,11 +783,11 @@ T3 criar todos os testes
 T4 criar a CLI
 ```
 
-Essa divisão é horizontal e posterga evidência. Reescreva tarefas como [fatias demonstráveis](padroes-e-decisoes.md#decisao-4-fatiar-verticalmente).
+Essa divisão é horizontal e posterga evidência. Reescreva tarefas como [fatias demonstráveis](sdd-decisoes.md#decisao-4-fatiar-verticalmente).
 
 ### Passo 6 — analisar consistência
 
-Use [`/speckit.analyze`](conceitos.md#6-analyze-os-artefatos-contam-a-mesma-historia) quando disponível ou preencha:
+Use [`/speckit.analyze`](sdd-fluxo.md#6-analyze-os-artefatos-contam-a-mesma-historia) quando disponível ou preencha:
 
 | Requisito | Plano | Tarefa | Teste previsto |
 |---|---|---|---|
@@ -801,7 +801,7 @@ Um requisito sem tarefa é lacuna. Uma tarefa sem requisito pode ser infraestrut
 
 ### Passo 7 — implementar uma fatia
 
-Execute somente a primeira tarefa com [`/speckit.implement`](conceitos.md#7-implement-executar-decisoes-nao-reinventa-las) ou equivalente. Antes de aceitar código, observe:
+Execute somente a primeira tarefa com [`/speckit.implement`](sdd-fluxo.md#7-implement-executar-decisoes-nao-reinventa-las) ou equivalente. Antes de aceitar código, observe:
 
 1. teste criado;
 2. teste falha porque o comportamento não existe;
@@ -814,7 +814,7 @@ Registre a saída red e green. Se o agente criar teste e código juntos, reverta
 
 ### Passo 8 — revisão em dois eixos
 
-Faça duas leituras independentes, seguindo a [revisão em dois eixos](padroes-e-decisoes.md#decisao-6-usar-revisao-em-dois-eixos).
+Faça duas leituras independentes, seguindo a [revisão em dois eixos](sdd-decisoes.md#decisao-6-usar-revisao-em-dois-eixos).
 
 **Revisão de Spec**
 

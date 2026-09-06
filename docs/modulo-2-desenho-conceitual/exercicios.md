@@ -82,7 +82,7 @@ O gateway aplica controles transversais, como quotas, redação de dados, fallba
 
 **O que é:** uma decisão de conhecimento define de onde o sistema obtém informação e como preserva atualização, autorização e evidência.
 
-**Onde encontrar:** consulte [critérios de adequação](conceitos.md#criterios-de-adequacao-da-ia-generativa), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo) e a [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao).
+**Onde encontrar:** consulte [critérios de adequação](adequacao-da-ia.md#criterios-de-adequacao-da-ia-generativa), [fronteiras](conops-e-fronteiras.md#fronteiras-e-fora-de-escopo) e a [sequência de decisão](descricao-arquitetural.md#sequencia-de-decisao).
 
 **Situação**
 
@@ -94,7 +94,7 @@ Você conduz a primeira decisão arquitetural do sistema de suporte. Antes de es
 
 **Insumos disponíveis**
 
-Use [fronteiras de dados](conceitos.md#fronteiras-e-fora-de-escopo), as [alternativas de conhecimento](padroes-e-decisoes.md#alternativas-de-conhecimento) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
+Use [fronteiras de dados](conops-e-fronteiras.md#fronteiras-e-fora-de-escopo), as [alternativas de conhecimento](alternativas-e-registro.md#alternativas-de-conhecimento) e o [template de ADR](../referencia/template-adr.md). Trabalhe apenas com manuais fictícios.
 
 **Vocabulário rápido (antes de começar)**
 
@@ -167,7 +167,7 @@ Os quatro entregáveis dos passos 1 a 4 — nenhum texto livre adicional é nece
 
 **O que é:** uma decisão de modificabilidade não se sustenta em uma tecnologia citada por nome; ela se sustenta em uma tática e um mecanismo identificáveis, e em evidência real de que a troca funcionou sem reescrever o cliente.
 
-**Onde encontrar:** consulte [cenário, tática, mecanismo e padrão](conceitos.md#da-caracteristica-a-estrutura), a tabela de táticas por intenção — linha de Modificabilidade — em [padrões e decisões](padroes-e-decisoes.md), as [correspondências entre visões](conceitos.md#correspondencias-entre-visoes) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [cenário, tática, mecanismo e padrão](requisitos-e-taticas.md#da-caracteristica-a-estrutura), a tabela de táticas por intenção — linha de Modificabilidade — em [Requisitos significativos e táticas](requisitos-e-taticas.md), as [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) e o [template de ADR](../referencia/template-adr.md).
 
 **Pré-requisito:** este exercício usa os artefatos que você mesmo produziu na [oficina de ferramentas](oficina-de-ferramentas.md#evidencia-a-entregar) (Experimentos A e B). Se ainda não a fez, faça-a agora e volte com o manifesto antes da troca, o manifesto depois da troca, `request.json` e as duas respostas JSON em mãos — não redija um cenário novo para substituí-los.
 
@@ -181,7 +181,7 @@ Você decide se essa evidência sustenta registrar a fronteira de consumo (gatew
 
 **Insumos disponíveis**
 
-Os três artefatos e as duas respostas da oficina; a tabela de táticas por intenção de [padrões e decisões](padroes-e-decisoes.md); as regras de [correspondências entre visões](conceitos.md#correspondencias-entre-visoes) (você usará quatro das sete); o [template de ADR](../referencia/template-adr.md).
+Os três artefatos e as duas respostas da oficina; a tabela de táticas por intenção de [Requisitos significativos e táticas](requisitos-e-taticas.md); as regras de [correspondências entre visões](descricao-arquitetural.md#correspondencias-entre-visoes) (você usará quatro das sete); o [template de ADR](../referencia/template-adr.md).
 
 **Como conduzir**
 
@@ -223,7 +223,7 @@ A tabela de correspondência preenchida com evidência real, a classificação d
 
 **O que é:** uma decisão de autonomia compara o valor de delegar passos ao modelo com os novos riscos de ferramentas e efeitos no negócio.
 
-**Onde encontrar:** use [responsabilidade humano–IA](conceitos.md#responsabilidade-humanoia), [modos operacionais](conceitos.md#modos-operacionais) e [alternativas de ação](padroes-e-decisoes.md#alternativas-de-acao).
+**Onde encontrar:** use [responsabilidade humano–IA](conops-e-fronteiras.md#responsabilidade-humanoia), [modos operacionais](conops-e-fronteiras.md#modos-operacionais) e [alternativas de ação](alternativas-e-registro.md#alternativas-de-acao).
 
 **Situação**
 
@@ -235,7 +235,7 @@ Você analisa onde a IA agrega interpretação e onde regras, workflow, mediador
 
 **Insumos disponíveis**
 
-Use o [quando rejeitar GenAI](conceitos.md#quando-rejeitar-ia-generativa), [fronteiras de decisão](conceitos.md#fronteiras-e-fora-de-escopo), o padrão de mediador e o [template de ADR](../referencia/template-adr.md).
+Use o [quando rejeitar GenAI](adequacao-da-ia.md#quando-rejeitar-ia-generativa), [fronteiras de decisão](conops-e-fronteiras.md#fronteiras-e-fora-de-escopo), o padrão de mediador e o [template de ADR](../referencia/template-adr.md).
 
 **Como conduzir**
 
@@ -267,7 +267,7 @@ Entregue uma matriz de atividades e controles, um fluxo de responsabilidade e um
 
 **O que é:** uma decisão de plataforma avalia controles compartilhados e diversidade de modelos sem confundir padronização com uma solução única.
 
-**Onde encontrar:** consulte [ferramentas no mercado](conceitos.md#ferramentas-no-mercado), [stakeholders](conceitos.md#stakeholders-e-preocupacoes) e [alternativas de integração e plataforma](padroes-e-decisoes.md#alternativas-de-integracao-e-plataforma).
+**Onde encontrar:** consulte [ferramentas no mercado](alternativas-e-registro.md#ferramentas-no-mercado), [stakeholders](conops-e-fronteiras.md#stakeholders-e-preocupacoes) e [alternativas de integração e plataforma](alternativas-e-registro.md#alternativas-de-integracao-e-plataforma).
 
 **Situação**
 
@@ -279,7 +279,7 @@ Você emite uma recomendação sobre gateway, capacidade comum de plataforma e m
 
 **Insumos disponíveis**
 
-Use a tabela de [stakeholders e preocupações](conceitos.md#stakeholders-e-preocupacoes), as [alternativas de integração e plataforma](padroes-e-decisoes.md#alternativas-de-integracao-e-plataforma), o [guia de ferramentas](../referencia/guia-de-ferramentas.md) e o template de ADR.
+Use a tabela de [stakeholders e preocupações](conops-e-fronteiras.md#stakeholders-e-preocupacoes), as [alternativas de integração e plataforma](alternativas-e-registro.md#alternativas-de-integracao-e-plataforma), o [guia de ferramentas](../referencia/guia-de-ferramentas.md) e o template de ADR.
 
 **Como conduzir**
 
@@ -309,7 +309,7 @@ Entregue um parecer de uma página, uma tabela de controles e uma ADR com recome
 
 **O que é:** o Documento de Arquitetura de Software reúne oportunidade, operação, decisões e evidências suficientes para uma revisão independente antes da implementação.
 
-**Onde encontrar:** consulte [o Documento de Arquitetura de Software](conceitos.md#o-documento-de-arquitetura-de-software), [sequência de decisão](padroes-e-decisoes.md#sequencia-de-decisao), [critérios probabilísticos](padroes-e-decisoes.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
+**Onde encontrar:** consulte [o Documento de Arquitetura de Software](descricao-arquitetural.md#o-documento-de-arquitetura-de-software), [sequência de decisão](descricao-arquitetural.md#sequencia-de-decisao), [critérios probabilísticos](requisitos-e-taticas.md#como-medir-a-aderencia-criterios-probabilisticos-de-aceitacao) e o [template de ADR](../referencia/template-adr.md).
 
 **Situação**
 
@@ -321,7 +321,7 @@ Você é o arquiteto que compõe um documento independente de fornecedor para de
 
 **Insumos disponíveis**
 
-Use [CONOPS](conceitos.md#conops-o-sistema-em-operacao), [fronteiras](conceitos.md#fronteiras-e-fora-de-escopo), [modos](conceitos.md#modos-operacionais), [responsabilidade](conceitos.md#responsabilidade-humanoia), padrões de conhecimento, ação e infraestrutura, e o template de ADR. O caso é fictício; não use prontuários reais.
+Use [CONOPS](conops-e-fronteiras.md#conops-o-sistema-em-operacao), [fronteiras](conops-e-fronteiras.md#fronteiras-e-fora-de-escopo), [modos](conops-e-fronteiras.md#modos-operacionais), [responsabilidade](conops-e-fronteiras.md#responsabilidade-humanoia), padrões de conhecimento, ação e infraestrutura, e o template de ADR. O caso é fictício; não use prontuários reais.
 
 **Como conduzir**
 

@@ -115,7 +115,7 @@ Métrica agregada precisa de suporte por classe antes de sustentar decisão. Se 
 
 Métricas de juiz devolvem valor contínuo, e o limiar transforma esse valor em aprovado ou reprovado. Varrer o limiar de 0,1 a 0,9 e registrar precisão e recall em cada ponto mostra a troca em números concretos. Limiar baixo aprova quase tudo e a precisão do portão cai; limiar alto reprova casos bons e o portão passa a gerar retrabalho.
 
-O limiar é decisão de arquitetura, com responsável e revisão, do mesmo tipo que uma [fitness function](../modulo-5-confianca/padroes-e-decisoes.md#fitness-functions-de-confianca). Copiar o valor padrão do exemplo é a forma mais rápida de ter um portão que não protege nada.
+O limiar é decisão de arquitetura, com responsável e revisão, do mesmo tipo que uma [fitness function](../modulo-5-confianca/ameacas-e-guardrails.md#fitness-functions-de-confianca). Copiar o valor padrão do exemplo é a forma mais rápida de ter um portão que não protege nada.
 
 ### Fatias
 

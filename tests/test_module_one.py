@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import bloom_sections
+from scripts.validate_content import bloom_sections, teaching_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,7 +11,13 @@ MODULE = ROOT / "docs" / "modulo-1-fundamentos"
 
 class ModuleOneReviewRegressionTest(unittest.TestCase):
     def test_concepts_follow_the_five_architectural_questions(self):
-        text = (MODULE / "conceitos.md").read_text(encoding="utf-8")
+        text = teaching_text(MODULE)
+        navigation = (ROOT / "mkdocs.yml").read_text(encoding="utf-8")
+        paginas = ("mudanca-probabilistica.md", "superficie-comportamental.md",
+                   "artefatos-do-sistema.md", "responsabilidade-e-efeito.md",
+                   "verificacao-e-governanca.md")
+        ordem = [navigation.index(f"modulo-1-fundamentos/{p}") for p in paginas]
+        self.assertEqual(ordem, sorted(ordem))
         movements = (
             "## O que muda no sistema",
             "## De onde emerge o comportamento",
@@ -20,8 +26,8 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
             "## Como verificar e governar",
         )
 
-        positions = [text.index(heading) for heading in movements]
-        self.assertEqual(positions, sorted(positions))
+        for heading in movements:
+            self.assertIn(heading, text)
         for term in (
             "modelo",
             "aplicação",
@@ -45,7 +51,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
             self.assertIn(term.casefold(), text.casefold())
 
     def test_component_image_and_sequence_diagram_have_distinct_jobs(self):
-        patterns = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        patterns = teaching_text(MODULE)
         text = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 
         self.assertIn("m01-componentes-dependencias.png", patterns)
@@ -69,7 +75,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
             self.assertIn(term, sequence)
 
     def test_architecture_diagram_returns_typed_tool_results_to_orchestration(self):
-        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        text = teaching_text(MODULE)
 
         self.assertIn('T -. "resultado tipado" .-> O', text)
 
@@ -83,7 +89,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
         self.assertNotIn("Identifique duas abordagens", sections["Recordar"])
 
     def test_module_defines_behavioral_surface_and_three_verification_types(self):
-        text = (MODULE / "conceitos.md").read_text(encoding="utf-8")
+        text = teaching_text(MODULE) + (MODULE / "index.md").read_text(encoding="utf-8")
 
         self.assertIn("O trabalho do arquiteto", text)
         self.assertIn("Um mapa para orientar a leitura", text)
@@ -114,8 +120,8 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
             self.assertIn(verification, text)
 
     def test_module_separates_generation_decision_authorization_and_effect(self):
-        concepts = (MODULE / "conceitos.md").read_text(encoding="utf-8")
-        patterns = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        concepts = teaching_text(MODULE)
+        patterns = teaching_text(MODULE)
         example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 
         self.assertIn("Geração, decisão, autorização e efeito", concepts)
@@ -127,7 +133,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
 
     def test_reference_is_a_responsibility_map_and_bridges_all_later_modules(self):
         opening = (MODULE / "index.md").read_text(encoding="utf-8")
-        patterns = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        patterns = teaching_text(MODULE)
         example = (MODULE / "exemplo-arquitetural.md").read_text(encoding="utf-8")
 
         self.assertIn("mapa de responsabilidades", patterns.casefold())
@@ -137,7 +143,7 @@ class ModuleOneReviewRegressionTest(unittest.TestCase):
             self.assertRegex(opening, rf"Módulo {module}\b")
 
     def test_decisions_page_uses_initial_decision_sheet_not_full_adr(self):
-        text = (MODULE / "padroes-e-decisoes.md").read_text(encoding="utf-8")
+        text = teaching_text(MODULE)
 
         self.assertIn("Ficha de decisão inicial", text)
         self.assertNotIn("## ADR preliminar", text)

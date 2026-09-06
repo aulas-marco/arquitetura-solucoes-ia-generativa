@@ -61,7 +61,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 - **b)** Um componente de política, que valida a chamada antes de o executor agir.
 - **c)** O sistema de pedidos, que já rejeita gravação inválida.
 
-**Consulte:** [geração, decisão e ação](conceitos.md#geracao-decisao-e-acao) e [políticas como fronteira executável](conceitos.md#politicas-como-fronteira-executavel).
+**Consulte:** [geração, decisão e ação](controle-e-autonomia.md#geracao-decisao-e-acao) e [políticas como fronteira executável](estado-memoria-e-politica.md#politicas-como-fronteira-executavel).
 
 **Armadilha.** Tratar "o legado rejeita" como autorização. Rejeitar gravação inválida verifica o dado; a permissão já foi decidida antes disso, em outro lugar.
 
@@ -91,7 +91,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 - **b)** Mensageria: o pedido de reserva entra numa fila e é processado quando o legado responder.
 - **c)** Evento de domínio: o estoque publica a reserva e pedidos reage por conta própria.
 
-**Consulte:** [APIs, mensageria, eventos e adaptadores](padroes-e-decisoes.md#apis-mensageria-eventos-e-adaptadores) e [identidade do usuário e autorização delegada](padroes-e-decisoes.md#identidade-do-usuario-e-autorizacao-delegada).
+**Consulte:** [APIs, mensageria, eventos e adaptadores](ferramentas-e-contratos.md#apis-mensageria-eventos-e-adaptadores) e [identidade do usuário e autorização delegada](efeito-e-recuperacao.md#identidade-do-usuario-e-autorizacao-delegada).
 
 **Entrega adicional.** Na opção escolhida, como a identidade do atendente atravessa a fronteira sem virar credencial compartilhada.
 
@@ -107,7 +107,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 - **b)** Consulta o legado pela chave para descobrir o estado real antes de qualquer nova escrita.
 - **c)** Interrompe o fluxo, registra compensação pendente e encaminha para tratamento humano.
 
-**Consulte:** [idempotência, concorrência e prevenção de repetição](padroes-e-decisoes.md#idempotencia-concorrencia-e-prevencao-de-repeticao) e [consistência, transações e compensação](padroes-e-decisoes.md#consistencia-transacoes-e-compensacao).
+**Consulte:** [idempotência, concorrência e prevenção de repetição](efeito-e-recuperacao.md#idempotencia-concorrencia-e-prevencao-de-repeticao) e [consistência, transações e compensação](efeito-e-recuperacao.md#consistencia-transacoes-e-compensacao).
 
 **Entrega adicional.** O que se afirma ao cliente enquanto o estado é desconhecido. O que ele ouvir precisa distinguir duas situações que ele confunde: **a troca ainda não está concluída**, mas **a reserva temporária já pode estar ativa** e indisponibilizar o item até expirar ou ser liberada.
 
@@ -123,7 +123,7 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 - **b)** Um componente com autoridade para reservar, sob política, com aprovação humana para efeito material.
 - **c)** Um componente por domínio (CRM, estoque, pedidos, política) coordenando entre si.
 
-**Consulte:** [agente único e múltiplos agentes](conceitos.md#agente-unico-e-multiplos-agentes) e [fitness functions para autonomia](padroes-e-decisoes.md#fitness-functions-para-autonomia).
+**Consulte:** [agente único e múltiplos agentes](controle-e-autonomia.md#agente-unico-e-multiplos-agentes) e [fitness functions para autonomia](autonomia-orcada.md#fitness-functions-para-autonomia).
 
 **Entrega adicional.** Meia página no formato do [template de ADR](../referencia/template-adr.md): a decisão, a opção descartada com o motivo, a evidência do dossiê que a sustenta e uma fitness function com limite numérico e ação automática de recuo.
 

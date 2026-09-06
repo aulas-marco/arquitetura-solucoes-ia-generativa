@@ -1,6 +1,6 @@
 # Exemplo arquitetural: atendimento Horizonte
 
-Este exemplo aplica o [mapa de responsabilidades](padroes-e-decisoes.md#mapa-de-responsabilidades) a um incremento concreto. A Horizonte quer reduzir o tempo gasto por analistas para localizar e explicar políticas. O primeiro incremento responde sobre viagens com fontes autorizadas e pode preparar uma proposta de chamado, mas não executa a abertura.
+Este exemplo aplica o [mapa de responsabilidades](responsabilidade-e-efeito.md#mapa-de-responsabilidades) a um incremento concreto. A Horizonte quer reduzir o tempo gasto por analistas para localizar e explicar políticas. O primeiro incremento responde sobre viagens com fontes autorizadas e pode preparar uma proposta de chamado, mas não executa a abertura.
 
 ## Escopo e responsabilidades
 

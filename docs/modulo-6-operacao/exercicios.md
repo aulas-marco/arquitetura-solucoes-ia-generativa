@@ -85,7 +85,7 @@ Ela reduz credenciais dispersas e telemetria incompatível, mas concentra depend
 
 ### 9. Manifesto e portão de regressão
 
-**O que é:** **ativo comportamental** muda resposta, custo, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção. Consulte [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental).
+**O que é:** **ativo comportamental** muda resposta, custo, acesso ou efeito; **manifesto** registra versões; **portão** bloqueia promoção. Consulte [pacote comportamental](pacote-e-promocao.md#o-objeto-operado-e-um-pacote-comportamental).
 
 **Situação**
 
@@ -97,7 +97,7 @@ Você torna a mudança reproduzível e decide quando bloquear.
 
 **Insumos disponíveis**
 
-Use [manifesto](oficina-de-ferramentas.md#preparacao-do-laboratorio), [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laboratorio) e [padrões](padroes-e-decisoes.md).
+Use [manifesto](oficina-de-ferramentas.md#preparacao-do-laboratorio), [conjunto de referência](oficina-de-ferramentas.md#preparacao-do-laboratorio) e os [portões antes da exposição](pacote-e-promocao.md#portoes-antes-da-exposicao).
 
 **Como conduzir**
 
@@ -126,7 +126,7 @@ Confira versões, proprietários e compatibilidade do manifesto em homologação
 
 ### 10. Trace e SLO com privacidade
 
-**O que é:** **span** é etapa do trace; **SLO** é meta de indicador numa janela. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [SLO](conceitos.md#slo-para-servico-util).
+**O que é:** **span** é etapa do trace; **SLO** é meta de indicador numa janela. Consulte [trace](observabilidade.md#trace-reconstruir-a-composicao) e [SLO](observabilidade.md#slo-para-servico-util).
 
 **Situação**
 
@@ -138,7 +138,7 @@ Você conecta causalidade, privacidade e ação operacional.
 
 **Insumos disponíveis**
 
-Use [script de telemetria](oficina-de-ferramentas.md#receita-principal), [trace](conceitos.md#trace-reconstruir-a-composicao), [SLO, indicador e janela](conceitos.md#slo-para-servico-util), [incidente e runbook](padroes-e-decisoes.md#incidente-generativo) e [catálogo](../referencia/atributos-de-qualidade.md).
+Use [script de telemetria](oficina-de-ferramentas.md#receita-principal), [trace](observabilidade.md#trace-reconstruir-a-composicao), [SLO, indicador e janela](observabilidade.md#slo-para-servico-util), [incidente e runbook](entrega-e-recuperacao.md#incidente-generativo) e [catálogo](../referencia/atributos-de-qualidade.md).
 
 **Como conduzir**
 
@@ -153,7 +153,7 @@ Entregue esquema de trace e duas fichas de SLO com alerta e retenção.
 
 **Como verificar**
 
-Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o indicador e a janela do [SLO](conceitos.md#slo-para-servico-util), além do [runbook de incidente](padroes-e-decisoes.md#incidente-generativo).
+Confira o [trace minimizado](observabilidade.md#trace-reconstruir-a-composicao), o indicador e a janela do [SLO](observabilidade.md#slo-para-servico-util), além do [runbook de incidente](entrega-e-recuperacao.md#incidente-generativo).
 
 **Critérios de avaliação**
 
@@ -167,7 +167,7 @@ Confira o [trace minimizado](conceitos.md#trace-reconstruir-a-composicao), o ind
 
 ### 11. Telemetria comparada: Lume e Aurora
 
-**O que é:** **trace** reconstrói a composição da chamada; **showback** e **chargeback** atribuem custo de formas diferentes. Consulte [trace](conceitos.md#trace-reconstruir-a-composicao) e [modelo operacional da plataforma](padroes-e-decisoes.md#modelo-operacional-da-plataforma).
+**O que é:** **trace** reconstrói a composição da chamada; **showback** e **chargeback** atribuem custo de formas diferentes. Consulte [trace](observabilidade.md#trace-reconstruir-a-composicao) e [modelo operacional da plataforma](plataforma-corporativa.md#modelo-operacional-da-plataforma).
 
 **Situação**
 
@@ -179,7 +179,7 @@ Você produz a evidência comparativa que sustenta — ou não — a diferença 
 
 **Insumos disponíveis**
 
-Use o [script de telemetria do caso](caso-lume.md#mini-execucao-telemetria), o [ADR de showback do Lume](caso-lume.md#adr-lume-canary-por-agencia-sem-chargeback), o [ADR de chargeback antecipado da Aurora](caso-aurora.md#adr-aurora-escrita-suspensa-em-canary-chargeback-antecipado) e os [quatro planos de métricas](conceitos.md#quatro-planos-de-metricas).
+Use o [script de telemetria do caso](caso-lume.md#mini-execucao-telemetria), o [ADR de showback do Lume](caso-lume.md#adr-lume-canary-por-agencia-sem-chargeback), o [ADR de chargeback antecipado da Aurora](caso-aurora.md#adr-aurora-escrita-suspensa-em-canary-chargeback-antecipado) e os [quatro planos de métricas](observabilidade.md#quatro-planos-de-metricas).
 
 **Como conduzir**
 
@@ -209,7 +209,7 @@ Confira repetição suficiente para distinguir variação de sinal, e a ligaçã
 
 ### 12. Diagnóstico de rollout composto
 
-**O que é:** **canary** expõe versão; **fallback** usa alternativa; **rollback** restaura manifesto. Leia [entrega](conceitos.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](padroes-e-decisoes.md#roteamento-fallback-e-degradacao).
+**O que é:** **canary** expõe versão; **fallback** usa alternativa; **rollback** restaura manifesto. Leia [entrega](entrega-e-recuperacao.md#avaliacao-continua-e-entrega-controlada) e [roteamento/fallback](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao).
 
 **Situação**
 
@@ -221,7 +221,7 @@ Você separa economia técnica de valor e decide pausar, reverter, degradar ou a
 
 **Insumos disponíveis**
 
-Consulte os [quatro planos de métricas](conceitos.md#quatro-planos-de-metricas), o [trace da oficina](oficina-de-ferramentas.md#receita-principal) e [canary, fallback e rollback](conceitos.md#avaliacao-continua-e-entrega-controlada).
+Consulte os [quatro planos de métricas](observabilidade.md#quatro-planos-de-metricas), o [trace da oficina](oficina-de-ferramentas.md#receita-principal) e [canary, fallback e rollback](entrega-e-recuperacao.md#avaliacao-continua-e-entrega-controlada).
 
 **Como conduzir**
 
@@ -276,7 +276,7 @@ Confira quatro planos, teste refutador e limite de interrupção.
 
 ### 14. Plataforma comum ou autonomia local?
 
-**O que é:** **fronteira de propriedade** diz quem decide e aceita risco; **ADR** registra contexto e decisão. Consulte [promoção](conceitos.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
+**O que é:** **fronteira de propriedade** diz quem decide e aceita risco; **ADR** registra contexto e decisão. Consulte [promoção](pacote-e-promocao.md#ambientes-e-promocao) e [incrementos e ADRs](estudo-de-caso.md#incrementos-e-adrs).
 
 **Situação**
 
@@ -288,7 +288,7 @@ Você decide o que é plataforma comum, específico ou adiado.
 
 **Insumos disponíveis**
 
-Consulte o [caso](estudo-de-caso.md) e os [padrões](padroes-e-decisoes.md).
+Consulte o [caso](estudo-de-caso.md) e a [plataforma corporativa](plataforma-corporativa.md).
 
 **Como conduzir**
 
@@ -333,7 +333,7 @@ Você fecha fronteiras de propriedade, contratos operacionais e decisões de lib
 
 **Insumos disponíveis**
 
-Use [pacote comportamental](conceitos.md#o-objeto-operado-e-um-pacote-comportamental), [trace](conceitos.md#trace-reconstruir-a-composicao), [SLO](conceitos.md#slo-para-servico-util) e [exemplo](exemplo-arquitetural.md).
+Use [pacote comportamental](pacote-e-promocao.md#o-objeto-operado-e-um-pacote-comportamental), [trace](observabilidade.md#trace-reconstruir-a-composicao), [SLO](observabilidade.md#slo-para-servico-util) e [exemplo](exemplo-arquitetural.md).
 
 **Como conduzir**
 
@@ -349,7 +349,7 @@ Fases e checkpoints:
 
 Preencha os onze artefatos:
 
-Links: [referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fatias](conceitos.md#avaliacao-continua-e-entrega-controlada) e [quatro planos](conceitos.md#quatro-planos-de-metricas).
+Links: [referência](oficina-de-ferramentas.md#preparacao-do-laboratorio), [fatias](entrega-e-recuperacao.md#avaliacao-continua-e-entrega-controlada) e [quatro planos](observabilidade.md#quatro-planos-de-metricas).
 
 1. **contexto:** atores, jornadas, sistemas existentes, classes de dados, efeitos, restrições, pressupostos e usos proibidos;
 2. **atributos de qualidade:** ao menos oito cenários no formato fonte, estímulo, ambiente, artefato, resposta e medida, incluindo qualidade, fundamentação, latência, custo, privacidade, segurança, confiabilidade e observabilidade;

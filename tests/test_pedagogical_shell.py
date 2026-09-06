@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.validate_content import MODULES, PAGES, bloom_sections
+from scripts.validate_content import MODULES, PAGES, bloom_sections, thematic_pages
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,11 +16,14 @@ class PedagogicalShellTest(unittest.TestCase):
             with self.subTest(module=slug):
                 self.assertRegex(text, r"\*\*Tempo estimado de leitura:\*\* 60[–-]90 minutos")
 
-    def test_modules_four_to_six_link_complete_eight_page_maps(self):
+    def test_modules_four_to_six_link_complete_page_maps(self):
+        aplicadas = ("index.md", "exemplo-arquitetural.md", "estudo-de-caso.md",
+                     "oficina-de-ferramentas.md", "exercicios.md", "sintese-e-referencias.md")
         for slug in tuple(MODULES)[3:]:
-            text = (DOCS / slug / "index.md").read_text(encoding="utf-8")
+            module_dir = DOCS / slug
+            text = (module_dir / "index.md").read_text(encoding="utf-8")
             with self.subTest(module=slug):
-                for page in (*PAGES, "oficina-de-ferramentas.md"):
+                for page in (*aplicadas, *thematic_pages(module_dir)):
                     self.assertRegex(text, rf"\[[^]]+\]\({re.escape(page)}\)")
 
     def test_every_module_links_to_the_applied_workshop(self):
