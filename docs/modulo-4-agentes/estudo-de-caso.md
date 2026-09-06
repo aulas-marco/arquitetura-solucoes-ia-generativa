@@ -133,4 +133,4 @@ As perguntas sobem os níveis da [taxonomia de Bloom](../comecar/taxonomia-de-bl
 
 Cada grupo diz o que escolheu nas cinco perguntas e por quê. Quando dois grupos escolhem opções opostas com a mesma evidência, vale perguntar qual incógnita do dossiê separa as duas leituras.
 
-Para aprofundar depois da aula, ver [Classificação de autonomia](exercicios.md#11-classificacao-de-autonomia), [Diagnóstico de trace](exercicios.md#14-diagnostico-de-trace) e [Arquitetura de agente controlado](exercicios.md#18-arquitetura-de-agente-controlado) em [Exercícios](exercicios.md).
+Para aprofundar depois da aula, ver [Classificação de autonomia](exercicios.md#13-classificacao-de-autonomia), [Diagnóstico de trace](exercicios.md#16-diagnostico-de-trace) e [Arquitetura de agente controlado](exercicios.md#21-arquitetura-de-agente-controlado) em [Exercícios](exercicios.md).
