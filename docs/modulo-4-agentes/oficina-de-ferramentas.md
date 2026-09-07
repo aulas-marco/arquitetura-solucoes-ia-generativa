@@ -451,9 +451,9 @@ Saia do ambiente com `deactivate` e apague a pasta `oficina-m4` quando terminar.
 
 Se o Experimento D falhar, confirme que o Ollama está em execução (`ollama list` deve mostrar `llama3.2:3b`) e que `python -m pip show langchain-ollama` retorna o pacote instalado. Não é preciso remover o modelo depois: ele é o mesmo usado nas oficinas dos Módulos 1 e 3.
 
-## Extensão — ablação de arnês
+## Extensão — melhoria de robustez no uso de LLMs
 
-Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma **ablação**: mantém-se o modelo, os pesos, a temperatura e os casos fixos, e muda-se um componente do [arnês (*harness*)](arnes.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez.
+Esta extensão responde, com medição local, a uma pergunta que o módulo respondeu em prosa: quanto do resultado de um agente vem do modelo e quanto vem do que foi construído em volta dele. O método é uma comparação controlada: mantêm-se fixos o modelo, os pesos, a temperatura e os casos, e muda-se um componente do [arnês (*harness*)](arnes.md#o-arnes-tudo-o-que-cerca-o-modelo) por vez. É o desenho que a literatura de aprendizado de máquina chama de estudo de ablação.
 
 ### Cenário sintético
 
@@ -465,16 +465,31 @@ Com o mesmo modelo e os mesmos oito casos, quanto muda o resultado quando se tro
 
 ### Pré-requisitos
 
-- A pasta `oficina-m4` da oficina principal, com o ambiente virtual ativo e `langgraph` e `langchain-ollama` instalados.
+- Python 3.10 ou superior e terminal.
 - Ollama em execução, com `llama3.2:3b` baixado (`ollama pull llama3.2:3b`), o mesmo modelo das oficinas dos Módulos 1 e 3.
 - Nenhum dado real: os oito casos e os dois pedidos são sintéticos.
 
+Esta extensão não depende dos experimentos anteriores. Quem já tem a pasta `oficina-m4` reaproveita o ambiente virtual; quem chega direto aqui monta um em três comandos.
+
 ### Preparação
 
-Baixe [arnes_ablacao.py](../assets/labs/modulo-4/arnes_ablacao.py) para a pasta `oficina-m4`.
+Se a pasta `oficina-m4` já existe, reative o ambiente e siga para o download. Caso contrário, monte um ambiente novo:
 
 ```bash
-ls arnes_ablacao.py
+python3 --version
+mkdir oficina-m4
+cd oficina-m4
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install langgraph langchain-ollama
+```
+
+No Windows, troque as duas últimas linhas por `.venv\Scripts\Activate.ps1` e `python -m pip install langgraph langchain-ollama`.
+
+Baixe [comparar_arneses.py](../assets/labs/modulo-4/comparar_arneses.py) para a pasta `oficina-m4`.
+
+```bash
+ls comparar_arneses.py
 ```
 
 O arquivo contém tudo: os oito casos com a resposta esperada, os dois catálogos de ferramenta, os dois *prompts* de sistema, a validação determinística e o grafo LangGraph que liga proposta, interpretação, validação e retentativa. Não há chamada externa além do Ollama local.
@@ -493,7 +508,7 @@ Cada arnês acrescenta exatamente um componente ao anterior. Essa é a condiçã
 ### Execute
 
 ```bash
-python arnes_ablacao.py
+python comparar_arneses.py
 ```
 
 A execução completa faz 33 chamadas ao modelo local e leva de um a quatro minutos, conforme a máquina e se o modelo já está carregado. Para ver caso a caso, acrescente `--detalhar`; para rodar um arnês isolado, use `--arnes C`.

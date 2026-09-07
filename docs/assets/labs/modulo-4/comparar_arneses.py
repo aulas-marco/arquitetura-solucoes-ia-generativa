@@ -1,4 +1,4 @@
-"""Ablacao de arnes: o mesmo modelo local sob quatro arneses diferentes."""
+"""Comparacao de arneses: o mesmo modelo local sob quatro arneses diferentes."""
 
 from __future__ import annotations
 
@@ -58,7 +58,7 @@ PROMPT_CONTRATUAL = (
 )
 
 
-class AblacaoState(TypedDict, total=False):
+class ArnesState(TypedDict, total=False):
     pedido_cliente: str
     catalogo: dict[str, str]
     prompt_sistema: str
@@ -79,7 +79,7 @@ def _catalogo_em_texto(catalogo: dict[str, str]) -> str:
     return "\n".join(f"- {nome}: {descricao}" for nome, descricao in catalogo.items())
 
 
-def _chamar(state: AblacaoState, correcao: str = "") -> str:
+def _chamar(state: ArnesState, correcao: str = "") -> str:
     modelo = ChatOllama(model=MODELO, temperature=0)
     humano = (
         f"Catalogo de ferramentas:\n{_catalogo_em_texto(state['catalogo'])}\n"
@@ -90,11 +90,11 @@ def _chamar(state: AblacaoState, correcao: str = "") -> str:
     return modelo.invoke([("system", state["prompt_sistema"]), ("human", humano)]).content
 
 
-def propor(state: AblacaoState) -> AblacaoState:
+def propor(state: ArnesState) -> ArnesState:
     return {"resposta_bruta": _chamar(state), "tentativas": 1}
 
 
-def interpretar(state: AblacaoState) -> AblacaoState:
+def interpretar(state: ArnesState) -> ArnesState:
     texto = state["resposta_bruta"]
     ferramenta = re.search(r'"ferramenta"\s*:\s*"([^"]*)"', texto)
     pedido = re.search(r'"pedido"\s*:\s*"?([0-9]{1,6})"?', texto)
@@ -105,7 +105,7 @@ def interpretar(state: AblacaoState) -> AblacaoState:
     return {"ferramenta": mencionadas[0] if len(mencionadas) == 1 else "", "pedido": ""}
 
 
-def validar(state: AblacaoState) -> AblacaoState:
+def validar(state: ArnesState) -> ArnesState:
     if not state.get("valida"):
         return {"aceita": True, "motivo": "arnes sem validacao"}
     ferramenta = state.get("ferramenta", "")
@@ -126,19 +126,19 @@ def validar(state: AblacaoState) -> AblacaoState:
     return {"aceita": True, "motivo": "proposta dentro do contrato"}
 
 
-def decidir_retentativa(state: AblacaoState) -> str:
+def decidir_retentativa(state: ArnesState) -> str:
     if state.get("verifica") and not state.get("aceita") and state.get("tentativas", 1) < 2:
         return "corrigir"
     return "encerrar"
 
 
-def corrigir(state: AblacaoState) -> AblacaoState:
+def corrigir(state: ArnesState) -> ArnesState:
     return {"resposta_bruta": _chamar(state, state.get("motivo", "")),
             "tentativas": state.get("tentativas", 1) + 1}
 
 
 def build_workflow():
-    workflow = StateGraph(AblacaoState)
+    workflow = StateGraph(ArnesState)
     workflow.add_node("propor", propor)
     workflow.add_node("interpretar", interpretar)
     workflow.add_node("validar", validar)

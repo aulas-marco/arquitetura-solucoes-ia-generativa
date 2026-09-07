@@ -39,7 +39,7 @@ Quando um agente erra a escolha de ferramenta, a reação usual é ampliar o cat
 4. **acrescentar verificação** determinística antes do efeito, com o motivo da recusa devolvido ao modelo;
 5. só então **avaliar troca de modelo**, com o mesmo conjunto de casos e o mesmo arnês (*harness*).
 
-A justificativa está em [Mais ferramentas não significa menos erro](arnes.md#mais-ferramentas-nao-significa-menos-erro) e o efeito de cada passo é mensurável: a [oficina deste módulo](oficina-de-ferramentas.md#extensao-ablacao-de-arnes) executa exatamente essa sequência com o mesmo modelo local e mede a diferença.
+A justificativa está em [Mais ferramentas não significa menos erro](arnes.md#mais-ferramentas-nao-significa-menos-erro) e o efeito de cada passo é mensurável: a [oficina deste módulo](oficina-de-ferramentas.md#extensao-melhoria-de-robustez-no-uso-de-llms) executa exatamente essa sequência com o mesmo modelo local e mede a diferença.
 
 A regra tem um limite que precisa ficar explícito. Remover ferramenta não é remover capacidade do sistema; é mover capacidade para fora do espaço de decisão do modelo. A operação que a Vercel fez foi substituir dezesseis ferramentas por uma capacidade mais geral, com isolamento, e não simplesmente amputar funções do produto. Uma remoção que deixe uma jornada sem caminho não melhorou nada, apenas empurrou o problema para o atendimento humano sem registrar a decisão.
 

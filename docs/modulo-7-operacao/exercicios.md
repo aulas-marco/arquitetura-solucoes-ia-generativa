@@ -140,16 +140,19 @@ Você conecta causalidade, privacidade e ação operacional.
 
 Use [script de telemetria](oficina-de-ferramentas.md#receita-principal), [trace](observabilidade.md#trace-reconstruir-a-composicao), [SLO, indicador e janela](observabilidade.md#slo-para-servico-util), [incidente e runbook](entrega-e-recuperacao.md#incidente-generativo) e [catálogo](../referencia/atributos-de-qualidade.md).
 
+**Laboratório.** Comece pelo trace que você mesmo produziu na [oficina](oficina-de-ferramentas.md#receita-principal): rode o script, guarde a saída dos spans `entrada`, `modelo` e `saida` com o `trace_id` e a duração, e trabalhe sobre esses três spans reais em vez de um esquema imaginado. O que o script emite hoje é o piso; o exercício é decidir o que falta e o que sobra.
+
 **Como conduzir**
 
-1. Para cada span, escolha identificadores, versões, tempos, política e conteúdo que será minimizado.
-2. Defina um SLO de resposta útil e outro de ação sem duplicidade.
-3. Preencha janela, população, indicador, meta, fonte, atraso, alerta e runbook.
-4. Diga o que acontece quando um evento intolerável é detectado.
+1. Compare os atributos que o script emite com os que a página de [trace](observabilidade.md#trace-reconstruir-a-composicao) exige. Aponte o que falta para diagnóstico e o que já é conteúdo demais.
+2. Acrescente o span de recuperação e o de ferramenta, que a oficina local não produz, e para cada span escolha identificadores, versões, tempos, política e conteúdo que será minimizado.
+3. Defina um SLO de resposta útil e outro de ação sem duplicidade.
+4. Preencha janela, população, indicador, meta, fonte, atraso, alerta e runbook.
+5. Diga o que acontece quando um evento intolerável é detectado.
 
 **Entrega esperada**
 
-Entregue esquema de trace e duas fichas de SLO com alerta e retenção.
+Entregue a saída dos três spans da sua execução, o esquema de trace estendido e duas fichas de SLO com alerta e retenção.
 
 **Como verificar**
 
@@ -250,26 +253,37 @@ Confira quatro planos, teste refutador e limite de interrupção.
 
 ### 13. Promoção de degrau de um laço em operação
 
+**Laboratório.** Antes de julgar o caso, produza a sua própria distribuição. Rode o [laço objetivado](oficina-de-ferramentas.md#extensao-loop-objetivado-com-orcamento) três vezes com condição de parada objetiva e uma vez com `--parada modelo`, e anote `PARADA`, `ITERACOES`, `TOKENS_TOTAIS` e `VERDADE_FINAL` de cada execução. Quatro execuções não formam uma distribuição, e é justamente essa insuficiência que o exercício usa: com quatro pontos, você já consegue dizer que a mediana não dimensiona um teto, e é essa a leitura que o caso abaixo exige.
+
+```bash
+python loop_objetivado.py
+python loop_objetivado.py
+python loop_objetivado.py
+python loop_objetivado.py --parada modelo
+```
+
 **Situação:** um laço de nível 2 fecha, há oito semanas, chamados de baixa complexidade a partir de um roteiro determinístico. Os números da janela: 412 execuções, 78% terminando em `meta_atingida`, 22% em `orcamento_esgotado`, custo por objetivo concluído estável, mediana de três iterações e percentil 95 de sete. Duas execuções encerraram com sucesso declarado e reabertura do chamado pelo cliente em menos de 24 horas. A equipe propõe subir para o nível 3, com disparo a cada quinze minutos, e aumentar o teto de iterações de oito para vinte para reduzir a fatia de esgotamento.
 
 **Como conduzir**
 
-1. Classifique as duas reaberturas: falha do modelo, falha do verificador ou falha do critério de sucesso, com a evidência que sustentaria cada leitura.
-2. Avalie a proposta de aumentar o teto de iterações à luz da fatia de 22% e do percentil 95 observado.
-3. Liste os controles que precisam existir antes da subida para o nível 3, e diga qual deles ainda não está evidenciado pelos números apresentados.
-4. Defina os sinais que autorizariam a promoção e os que exigiriam rebaixamento imediato ao nível anterior.
-5. Indique quem responde por cada teto, pelo desligamento e pela aceitação do risco residual.
+1. Confronte a execução `--parada modelo` do seu laboratório com as duas reaberturas do caso e diga que modo de falha as três compartilham.
+2. Classifique as duas reaberturas: falha do modelo, falha do verificador ou falha do critério de sucesso, com a evidência que sustentaria cada leitura.
+3. Avalie a proposta de aumentar o teto de iterações à luz da fatia de 22% e do percentil 95 observado. Use a dispersão das suas três execuções objetivas para argumentar por que um teto dimensionado pela mediana produz a fatia de esgotamento que a equipe quer eliminar.
+4. Liste os controles que precisam existir antes da subida para o nível 3, e diga qual deles ainda não está evidenciado pelos números apresentados.
+5. Defina os sinais que autorizariam a promoção e os que exigiriam rebaixamento imediato ao nível anterior.
+6. Indique quem responde por cada teto, pelo desligamento e pela aceitação do risco residual.
 
-**Entrega esperada:** parecer de até uma página com decisão sobre a promoção, condições associadas e os limiares que disparam rebaixamento.
+**Entrega esperada:** as quatro linhas de execução do laboratório e um parecer de até uma página com decisão sobre a promoção, condições associadas e os limiares que disparam rebaixamento.
 
 **Critérios de avaliação**
 
 | Critério | Peso | Evidência |
 |---|---:|---|
-| Diagnóstico | 30% | Separa falha de verificador de falha de critério e nomeia a evidência que distinguiria as duas. |
-| Orçamento | 20% | Trata aumento de teto como hipótese a testar, não como correção da fatia de esgotamento. |
+| Medição | 15% | Entrega as quatro execuções e usa a variação entre elas no argumento. |
+| Diagnóstico | 25% | Separa falha de verificador de falha de critério e nomeia a evidência que distinguiria as duas. |
+| Orçamento | 15% | Trata aumento de teto como hipótese a testar, não como correção da fatia de esgotamento. |
 | Pré-requisitos do degrau | 25% | Exige idempotência, identidade própria e desligamento antes do disparo automático. |
-| Reversibilidade | 15% | Define rebaixamento como ação operacional normal, com limiar. |
+| Reversibilidade | 10% | Define rebaixamento como ação operacional normal, com limiar. |
 | Autoridade | 10% | Nomeia dono de cada teto e do risco residual. |
 
 ## Avaliar

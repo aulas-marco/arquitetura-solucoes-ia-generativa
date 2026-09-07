@@ -39,7 +39,7 @@ Você separa conhecimento, recuperação e geração; projeta os fluxos offline 
 
 Você conecta modelos a ferramentas e sistemas corporativos, modela estado e memória e define limites de autonomia, aprovação e recuperação de falhas.
 
-**Faixa prática:** a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) simula intenção, autorização, idempotência e efeito controlado. Uma extensão de ablação mede, com o mesmo modelo local, quanto do resultado vem do arnês (*harness*) construído em volta dele.
+**Faixa prática:** a [oficina de workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) simula intenção, autorização, idempotência e efeito controlado. Uma extensão compara quatro arneses e mede, com o mesmo modelo local, quanto do resultado vem do arnês (*harness*) construído em volta dele.
 
 ## 5. Proteger e avaliar
 

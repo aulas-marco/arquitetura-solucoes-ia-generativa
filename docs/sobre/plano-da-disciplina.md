@@ -487,7 +487,7 @@ O agente consulta CRM, estoque, pedidos e políticas comerciais. Algumas ações
 
 ### Oficina aplicada
 
-**Objetivo Bloom: Aplicar e Analisar.** A oficina combina dois percursos. Primeiro, [simule workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) para observar intenção, autorização, idempotência e resultado autoritativo. Depois, conduza uma mini-iniciativa com Spec Kit: explicite princípios, refine uma spec, aprove o plano, implemente uma fatia testada e realize revisão por aderência e por qualidade. A extensão de [ablação de arnês](../modulo-4-agentes/oficina-de-ferramentas.md#extensao-ablacao-de-arnes) mede, com o mesmo modelo local, quanto do resultado vem de cada componente do arnês.
+**Objetivo Bloom: Aplicar e Analisar.** A oficina combina dois percursos. Primeiro, [simule workflow, ferramenta e aprovação](../modulo-4-agentes/oficina-de-ferramentas.md) para observar intenção, autorização, idempotência e resultado autoritativo. Depois, conduza uma mini-iniciativa com Spec Kit: explicite princípios, refine uma spec, aprove o plano, implemente uma fatia testada e realize revisão por aderência e por qualidade. A extensão de [melhoria de robustez no uso de LLMs](../modulo-4-agentes/oficina-de-ferramentas.md#extensao-melhoria-de-robustez-no-uso-de-llms) mede, com o mesmo modelo local, quanto do resultado vem de cada componente do arnês.
 
 ### Entregável avaliativo
 

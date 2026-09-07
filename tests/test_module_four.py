@@ -203,7 +203,7 @@ class ModuleFourContentRegressionTest(unittest.TestCase):
             "crítica arquitetural",
             "arquitetura de agente controlado",
             "componentes do arnês",
-            "leitura de uma ablação de arnês",
+            "melhoria de robustez no uso de llms",
             "parada por julgamento e parada por critério",
         ):
             self.assertIn(challenge, exercise_text, challenge)

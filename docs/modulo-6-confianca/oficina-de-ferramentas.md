@@ -29,8 +29,8 @@ Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Termina
 
 ```bash
 python3 --version
-mkdir oficina-m5
-cd oficina-m5
+mkdir oficina-m6
+cd oficina-m6
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install deepeval ollama
@@ -43,8 +43,8 @@ Instale o Ollama pelo procedimento oficial em [ollama.com/download](https://olla
 
 ```bash
 python3 --version
-mkdir oficina-m5
-cd oficina-m5
+mkdir oficina-m6
+cd oficina-m6
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install deepeval ollama
@@ -57,19 +57,19 @@ Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No PowerSh
 
 ```powershell
 python --version
-mkdir oficina-m5
-cd oficina-m5
+mkdir oficina-m6
+cd oficina-m6
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install deepeval ollama
 ollama pull llama3.2:3b
 ```
 
-> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m5` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`. Com o ambiente ativo, `python` funciona nos três sistemas.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m6` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`. Com o ambiente ativo, `python` funciona nos três sistemas.
 
 ## Preparação do laboratório
 
-Baixe os quatro arquivos para a pasta `oficina-m5`:
+Baixe os quatro arquivos para a pasta `oficina-m6`:
 
 - [casos_confianca.json](../assets/labs/modulo-5/casos_confianca.json): 45 entradas sintéticas com a decisão esperada de cada uma.
 - [respostas_pregeradas.json](../assets/labs/modulo-5/respostas_pregeradas.json): respostas de referência escritas à mão para o laboratório, com erros deliberados, para que a camada 2 rode sem esperar o modelo.

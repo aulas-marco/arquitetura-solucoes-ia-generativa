@@ -334,28 +334,44 @@ Antes de entregar, verifique os itens abaixo:
 | Recuperação | 20% | Propõe contenção, reconciliação e compensação proporcionais. |
 | Testes | 20% | Define casos que diferenciam hipóteses. |
 
-### 14. Leitura de uma ablação de arnês
+### 14. Melhoria de robustez no uso de LLMs
 
-**Situação:** uma equipe mede o mesmo modelo local, com a mesma temperatura, sobre os mesmos oito casos, e obtém: arnês A (prompt genérico, doze ferramentas sem descrição, sem validação) 0/8 correto e 0 ação indevida; arnês B (contrato de saída validado, doze ferramentas) 2/8 e 1 ação indevida; arnês C (contrato, quatro ferramentas descritas) 6/8 e 1 ação indevida; arnês D (C mais pré-condição de política e uma retentativa) 6/8, 0 ação indevida e uma chamada a mais ao modelo.
+**Laboratório.** Este exercício exige execução. Rode a [comparação de arneses](oficina-de-ferramentas.md#extensao-melhoria-de-robustez-no-uso-de-llms) na sua máquina e trabalhe sobre os seus próprios números, não sobre os publicados. A execução completa faz 33 chamadas ao `llama3.2:3b` local e leva de um a quatro minutos.
+
+```bash
+python comparar_arneses.py
+```
+
+**Situação:** o mesmo modelo, a mesma temperatura e os mesmos oito casos passam por quatro arneses que diferem por um componente cada. Preencha a tabela com a sua execução antes de analisar.
+
+| Arnês | Ações corretas | Bloqueadas pela validação | Ações indevidas entregues | Chamadas ao modelo |
+|---|---:|---:|---:|---:|
+| A — arnês nu |  |  |  |  |
+| B — contrato de saída |  |  |  |  |
+| C — catálogo mínimo descrito |  |  |  |  |
+| D — verificação com retentativa |  |  |  |  |
+
+Se o ambiente não subir a tempo, use os números registrados na oficina — A 0/8 com 0 indevida, B 2/8 com 1, C 6/8 com 1, D 6/8 com 0 e uma chamada extra — e declare na entrega que a base é a publicada, não a sua.
 
 **Como conduzir**
 
 1. Atribua a cada salto entre arneses a causa que o explica, e diga qual componente do arnês foi alterado.
-2. Explique por que o salto B para C é o maior, e o que ele diz sobre catálogo de ferramentas.
-3. Justifique por que C para D é relevante mesmo sem ganho na coluna de acertos.
-4. Projete o resultado do arnês C para uma trajetória de dez etapas encadeadas e conclua se ele autoriza autonomia sobre efeito material.
-5. Indique qual seria o quinto componente a acrescentar e que evidência sustentaria a escolha.
+2. Identifique na sua tabela o salto que mais aumentou o acerto e explique o que ele diz sobre catálogo de ferramentas. Se ele não foi o de B para C, diga o que na sua execução explica a diferença.
+3. Compare a coluna de ações indevidas de C e D e justifique por que essa passagem é relevante mesmo quando a coluna de acertos não se move.
+4. Projete o resultado do seu arnês C para uma trajetória de dez etapas encadeadas e conclua se ele autoriza autonomia sobre efeito material.
+5. Indique qual seria o quinto componente a acrescentar e que evidência da sua tabela sustenta a escolha.
 
-**Entrega esperada:** análise de até uma página, com a atribuição causal de cada salto e uma recomendação de próximo investimento no arnês.
+**Entrega esperada:** a tabela preenchida com os seus números, mais análise de até uma página com a atribuição causal de cada salto e uma recomendação de próximo investimento no arnês.
 
 **Critérios de avaliação**
 
 | Critério | Peso | Evidência |
 |---|---:|---|
-| Atribuição causal | 30% | Liga cada salto ao componente alterado, sem confundir com capacidade do modelo. |
+| Medição | 15% | Entrega a tabela da própria execução, ou declara que usou a publicada. |
+| Atribuição causal | 25% | Liga cada salto ao componente alterado, sem confundir com capacidade do modelo. |
 | Leitura de risco | 25% | Distingue taxa de acerto de natureza do risco na passagem C para D. |
-| Erro composto | 20% | Aplica a composição multiplicativa à trajetória de dez etapas. |
-| Custo | 15% | Considera a chamada adicional e o que ela compra. |
+| Erro composto | 15% | Aplica a composição multiplicativa à trajetória de dez etapas. |
+| Custo | 10% | Considera a chamada adicional e o que ela compra. |
 | Recomendação | 10% | Propõe próximo componente com critério de decisão. |
 
 ## Avaliar

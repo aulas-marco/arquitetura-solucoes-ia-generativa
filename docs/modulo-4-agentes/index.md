@@ -54,7 +54,7 @@ Os atributos de [Autonomia](../referencia/atributos-de-qualidade.md#autonomia), 
 | 11 | [Decisões e limites do SDD](../modulo-5-sdd/decisoes.md) | as oito decisões do fluxo, dois ADRs e os limites do método |
 | 12 | [Exemplo arquitetural](exemplo-arquitetural.md) | sucesso, repetição, compensação, pipeline SDD e squad híbrida |
 | 13 | [Estudo de caso](estudo-de-caso.md) | solicitações com CRM, estoque, pedidos e política |
-| 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com ablação de arnês |
+| 14 | [Oficina de ferramentas](oficina-de-ferramentas.md) | uma evidência breve, comparável e segura, com comparação de arneses |
 | 15 | [Exercícios](exercicios.md) | autonomia, trace, crítica e projeto |
 | 16 | [Síntese e referências](sintese-e-referencias.md) | checklist, autoavaliação e fontes |
 
