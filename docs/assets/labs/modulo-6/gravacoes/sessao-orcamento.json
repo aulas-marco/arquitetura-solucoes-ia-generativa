@@ -1,0 +1,58 @@
+{
+ "modelo": "qwen2.5-coder:7b",
+ "condicao_de_parada": "testes",
+ "orcamento": 3,
+ "total_testes": 5,
+ "prompt_sistema": "Voce escreve funcoes Python pequenas e corretas a partir de uma especificacao e do relatorio de falha dos testes. Responda sempre so com o bloco de codigo.",
+ "especificacao": "Escreva a funcao Python `normalizar_pedido(texto: str) -> dict` com este contrato:\n\n- entrada: uma linha no formato \"PED-<numero> | item <sku> | qtd <inteiro>\";\n- o separador pode ter espacos a mais e as palavras podem vir em maiusculas ou minusculas;\n- o trecho \"qtd <inteiro>\" e opcional; quando ausente, a quantidade e 1;\n- saida: {\"pedido\": \"<numero como texto>\", \"item\": \"<sku em maiusculas>\", \"quantidade\": <int>};\n- se a linha nao contiver \"PED-<numero>\" e \"item <sku>\", levante ValueError.\n\nResponda SOMENTE com o codigo Python da funcao, dentro de um bloco ```python. Nao escreva testes, explicacoes ou exemplos de uso. Pode usar apenas o modulo re.",
+ "suite": "import pytest\n\nfrom solucao import normalizar_pedido\n\n\ndef test_linha_completa():\n    assert normalizar_pedido(\"PED-845 | item P20 | qtd 2\") == {\n        \"pedido\": \"845\", \"item\": \"P20\", \"quantidade\": 2}\n\n\ndef test_espacos_extras_e_caixa_baixa():\n    assert normalizar_pedido(\"  ped-846   |   item p30   |   qtd 5 \") == {\n        \"pedido\": \"846\", \"item\": \"P30\", \"quantidade\": 5}\n\n\ndef test_quantidade_ausente_vale_um():\n    assert normalizar_pedido(\"PED-847 | item P40\") == {\n        \"pedido\": \"847\", \"item\": \"P40\", \"quantidade\": 1}\n\n\ndef test_sku_alfanumerico():\n    assert normalizar_pedido(\"PED-848 | item ab12 | qtd 3\") == {\n        \"pedido\": \"848\", \"item\": \"AB12\", \"quantidade\": 3}\n\n\ndef test_linha_invalida_levanta_erro():\n    with pytest.raises(ValueError):\n        normalizar_pedido(\"pedido sem formato nenhum\")\n",
+ "iteracoes": [
+  {
+   "n": 1,
+   "temperatura": 0.0,
+   "realimentacao_recebida": "",
+   "codigo_anterior_enviado": false,
+   "codigo": "import re\n\ndef normalizar_pedido(texto: str) -> dict:\n    padrao = r\"PED-(\\d+) \\s*\\| \\s*item\\s+([a-zA-Z0-9]+)\\s*(?:\\|\\s*qtd\\s+(\\d+))?\\s*$\"\n    match = re.match(padrao, texto)\n    \n    if not match:\n        raise ValueError(\"Linha não contém 'PED-<numero>' e 'item <sku>'\")\n    \n    pedido = match.group(1)\n    item = match.group(2).upper()\n    quantidade = int(match.group(3)) if match.group(3) else 1\n    \n    return {\"pedido\": pedido, \"item\": item, \"quantidade\": quantidade}",
+   "tokens_acumulados": 704,
+   "guarda": "aceito",
+   "motivo_recusa": "",
+   "testes_passaram": 4,
+   "relatorio": "FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...",
+   "estagnado": false,
+   "autodeclarou": false
+  },
+  {
+   "n": 2,
+   "temperatura": 0.4,
+   "realimentacao_recebida": "FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...",
+   "codigo_anterior_enviado": true,
+   "codigo": "import re\n\ndef normalizar_pedido(texto: str) -> dict:\n    padrao = r\"PED-(\\d+) \\s*\\| \\s*item\\s+([a-zA-Z0-9]+)\\s*(?:\\|\\s*qtd\\s+(\\d+))?\\s*$\"\n    match = re.match(padrao, texto)\n    \n    if not match:\n        raise ValueError(\"Linha não contém 'PED-<numero>' e 'item <sku>'\")\n    \n    pedido = match.group(1)\n    item = match.group(2).upper()\n    quantidade = int(match.group(3)) if match.group(3) else 1\n    \n    return {\"pedido\": pedido, \"item\": item, \"quantidade\": quantidade}",
+   "tokens_acumulados": 1633,
+   "guarda": "aceito",
+   "motivo_recusa": "",
+   "testes_passaram": 4,
+   "relatorio": "FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...",
+   "estagnado": true,
+   "autodeclarou": false
+  },
+  {
+   "n": 3,
+   "temperatura": 0.8,
+   "realimentacao_recebida": "FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...\nO verificador devolveu exatamente a mesma falha da iteracao anterior. Mude a abordagem em vez de repetir a mesma implementacao.",
+   "codigo_anterior_enviado": true,
+   "codigo": "import re\n\ndef normalizar_pedido(texto: str) -> dict:\n    padrao = r\"PED-(\\d+)\\s*\\|\\s*item\\s+([a-zA-Z0-9]+)\\s*(?:\\|\\s*qtd\\s+(\\d+))?\\s*$\"\n    match = re.match(padrao, texto)\n    \n    if not match:\n        raise ValueError(\"Linha não contém 'PED-<numero>' e 'item <sku>'\")\n    \n    pedido = match.group(1)\n    item = match.group(2).upper()\n    quantidade = int(match.group(3)) if match.group(3) else 1\n    \n    return {\"pedido\": pedido, \"item\": item, \"quantidade\": quantidade}",
+   "tokens_acumulados": 2594,
+   "guarda": "aceito",
+   "motivo_recusa": "",
+   "testes_passaram": 4,
+   "relatorio": "FAILED test_solucao.py::test_espacos_extras_e_caixa_baixa - ValueError: Linha...",
+   "estagnado": true,
+   "autodeclarou": false
+  }
+ ],
+ "parada": "orcamento_esgotado",
+ "iteracoes_totais": 3,
+ "tokens_totais": 2594,
+ "verdade_final": 4,
+ "codigo_final": "import re\n\ndef normalizar_pedido(texto: str) -> dict:\n    padrao = r\"PED-(\\d+)\\s*\\|\\s*item\\s+([a-zA-Z0-9]+)\\s*(?:\\|\\s*qtd\\s+(\\d+))?\\s*$\"\n    match = re.match(padrao, texto)\n    \n    if not match:\n        raise ValueError(\"Linha não contém 'PED-<numero>' e 'item <sku>'\")\n    \n    pedido = match.group(1)\n    item = match.group(2).upper()\n    quantidade = int(match.group(3)) if match.group(3) else 1\n    \n    return {\"pedido\": pedido, \"item\": item, \"quantidade\": quantidade}"
+}

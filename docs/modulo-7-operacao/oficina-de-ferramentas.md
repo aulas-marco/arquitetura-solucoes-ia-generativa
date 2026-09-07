@@ -27,8 +27,8 @@ Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No Termina
 
 ```bash
 python3 --version
-mkdir oficina-m6
-cd oficina-m6
+mkdir oficina-m7
+cd oficina-m7
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
@@ -41,8 +41,8 @@ Instale o Ollama pelo procedimento oficial em [ollama.com/download](https://olla
 
 ```bash
 python3 --version
-mkdir oficina-m6
-cd oficina-m6
+mkdir oficina-m7
+cd oficina-m7
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
@@ -55,19 +55,19 @@ Baixe o Ollama em [ollama.com/download](https://ollama.com/download). No PowerSh
 
 ```powershell
 python --version
-mkdir oficina-m6
-cd oficina-m6
+mkdir oficina-m7
+cd oficina-m7
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install opentelemetry-api opentelemetry-sdk 'litellm[proxy]==1.96.2' 'fastapi==0.140.0'
 ollama pull llama3.2:3b
 ```
 
-> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m6` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`.
+> **Ao retomar a prática:** se você fechar o terminal, volte para `oficina-m7` e reative o ambiente: no macOS/Linux, `source .venv/bin/activate`; no Windows/PowerShell, `.venv\Scripts\Activate.ps1`.
 
 ## Preparação do laboratório
 
-Baixe [telemetria_local.py](../assets/labs/modulo-6/telemetria_local.py), [litellm_config.yaml](../assets/labs/modulo-2/litellm_config.yaml) e [request.json](../assets/labs/modulo-2/request.json) para `oficina-m6`.
+Baixe [telemetria_local.py](../assets/labs/modulo-6/telemetria_local.py), [litellm_config.yaml](../assets/labs/modulo-2/litellm_config.yaml) e [request.json](../assets/labs/modulo-2/request.json) para `oficina-m7`.
 
 ```bash
 ls telemetria_local.py litellm_config.yaml request.json
@@ -77,7 +77,7 @@ O script não grava a pergunta completa como atributo do trace. Ele registra o a
 
 ## Execução
 
-Abra dois terminais na pasta `oficina-m6`. No primeiro, inicie o gateway:
+Abra dois terminais na pasta `oficina-m7`. No primeiro, inicie o gateway:
 
 ```bash
 # macOS/Linux
@@ -236,14 +236,14 @@ Um laço com condição de parada objetiva e um laço que para quando o modelo s
 
 ### Pré-requisitos
 
-- Python 3.10 ou superior, terminal e a pasta `oficina-m6` com o ambiente virtual ativo.
+- Python 3.10 ou superior, terminal e a pasta `oficina-m7` com o ambiente virtual ativo.
 - `pytest` e `langchain-ollama` instalados no ambiente: `python -m pip install pytest langchain-ollama`.
 - Ollama em execução com um modelo de codificação: `ollama pull qwen2.5-coder:7b` (4,7 GB). O `llama3.2:3b` das outras oficinas roda o laboratório, mas não converge; a subseção final trata disso.
 - Nenhum dado real. O laço escreve apenas dentro da subpasta `loop-sandbox`.
 
 ### Preparação
 
-Baixe [loop_objetivado.py](../assets/labs/modulo-6/loop_objetivado.py) para a pasta `oficina-m6`.
+Baixe [loop_objetivado.py](../assets/labs/modulo-6/loop_objetivado.py) para a pasta `oficina-m7`.
 
 ```bash
 ls loop_objetivado.py
@@ -274,6 +274,8 @@ python loop_objetivado.py
 ```
 
 Uma execução completa leva de 40 segundos a poucos minutos, conforme a máquina e o número de iterações até a convergência.
+
+Acrescente `--gravar sessao.json` para registrar a transcrição inteira — o relatório que entrou, o código que saiu e o veredito do verificador em cada iteração. É o formato que alimenta o [playback deste laço](playback-do-laco.md), útil para comparar a sua trajetória com as três gravadas ali sem precisar reexecutar.
 
 ### Observe
 
@@ -341,7 +343,7 @@ As duas primeiras linhas são desfechos aceitáveis, inclusive a segunda: um la�
 
 ### Modelo pequeno, laço que não fecha
 
-Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta oficina esgotou o orçamento com 1/5 em todas as execuções testadas, com e sem realimentação do código anterior. É o mesmo achado da [limitação registrada na oficina do Módulo 4](../modulo-5-sdd/oficina-de-ferramentas.md#instalacao): arnês bem construído não compensa capacidade insuficiente do modelo. As duas afirmações do curso convivem sem contradição. Trocar o arnês costuma render mais que trocar o modelo, **e** existe um piso de capacidade abaixo do qual nenhum arnês fecha o laço. O trabalho de arquitetura é descobrir de que lado desse piso está o seu caso, e a forma de descobrir é medir, como este laboratório faz.
+Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta oficina esgotou o orçamento com 1/5 em todas as execuções testadas, com e sem realimentação do código anterior. É o mesmo achado da [limitação registrada na oficina do Módulo 5](../modulo-5-sdd/oficina-de-ferramentas.md#instalacao): arnês bem construído não compensa capacidade insuficiente do modelo. As duas afirmações do curso convivem sem contradição. Trocar o arnês costuma render mais que trocar o modelo, **e** existe um piso de capacidade abaixo do qual nenhum arnês fecha o laço. O trabalho de arquitetura é descobrir de que lado desse piso está o seu caso, e a forma de descobrir é medir, como este laboratório faz.
 
 ### Questões exploratórias
 

@@ -142,6 +142,7 @@ nav:
       - "Observabilidade e métricas": modulo-7-operacao/observabilidade.md
       - "Entrega e recuperação": modulo-7-operacao/entrega-e-recuperacao.md
       - "Operação de loops": modulo-7-operacao/lacos-desassistidos.md
+      - "Playback: laço objetivado": modulo-7-operacao/playback-do-laco.md
       - "Plataforma corporativa": modulo-7-operacao/plataforma-corporativa.md
       - "Exemplo arquitetural": modulo-7-operacao/exemplo-arquitetural.md
       - "Estudo de caso": modulo-7-operacao/estudo-de-caso.md

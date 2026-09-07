@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import json
 import re
 import subprocess
 import sys
@@ -128,6 +129,8 @@ def main() -> None:
     parser.add_argument("--parada", choices=("testes", "modelo"), default="testes")
     parser.add_argument("--max-iteracoes", type=int, default=8)
     parser.add_argument("--modelo", default=MODELO)
+    parser.add_argument("--gravar", metavar="ARQUIVO.json",
+                        help="grava a transcricao completa da execucao em JSON")
     args = parser.parse_args()
 
     preparar()
@@ -140,6 +143,16 @@ def main() -> None:
     tokens = 0
     parada = "orcamento_esgotado"
     iteracao = 0
+    transcricao = {
+        "modelo": args.modelo,
+        "condicao_de_parada": args.parada,
+        "orcamento": args.max_iteracoes,
+        "total_testes": total_testes,
+        "prompt_sistema": sistema,
+        "especificacao": ESPECIFICACAO,
+        "suite": SUITE,
+        "iteracoes": [],
+    }
 
     print(f"MODELO: {args.modelo}")
     print(f"CONDICAO_DE_PARADA: {args.parada}")
@@ -160,8 +173,22 @@ def main() -> None:
         codigo = extrair_codigo(resposta.content)
         codigo_anterior = codigo
 
+        registro = {
+            "n": iteracao,
+            "temperatura": round(temperatura, 1),
+            "realimentacao_recebida": realimentacao,
+            "codigo_anterior_enviado": pedido.count("Sua versao anterior") > 0,
+            "resposta_bruta": resposta.content,
+            "codigo": codigo,
+            "tokens_acumulados": tokens,
+        }
+        transcricao["iteracoes"].append(registro)
+
         recusa = guarda_estatica(codigo)
         if recusa:
+            registro.update(guarda="recusado", motivo_recusa=recusa,
+                            testes_passaram=None, relatorio="", estagnado=False,
+                            autodeclarou=False)
             realimentacao = f"guarda estatica: {recusa}"
             print(f"ITER {iteracao} | GUARDA: recusado | TESTES: nao executados | "
                   f"TOKENS_ACUM: {tokens}")
@@ -180,6 +207,9 @@ def main() -> None:
                 "Mude a abordagem em vez de repetir a mesma implementacao."
             )
         autodeclarou = "PRONTO" in resposta.content.upper()
+        registro.update(guarda="aceito", motivo_recusa="", testes_passaram=passaram,
+                        relatorio=detalhe, estagnado=estagnado, autodeclarou=autodeclarou,
+                        temperatura=round(temperatura, 1))
         print(f"ITER {iteracao} | GUARDA: aceito | TESTES: {passaram}/{total_testes} | "
               f"AUTODECLAROU_PRONTO: {autodeclarou} | TEMPERATURA: {temperatura:.1f} | "
               f"TOKENS_ACUM: {tokens}")
@@ -202,6 +232,14 @@ def main() -> None:
     print(f"ITERACOES: {iteracao}")
     print(f"TOKENS_TOTAIS: {tokens}")
     print(f"VERDADE_FINAL: {passaram}/{total_testes} testes passando")
+
+    if args.gravar:
+        transcricao.update(parada=parada, iteracoes_totais=iteracao,
+                           tokens_totais=tokens, verdade_final=passaram,
+                           codigo_final=SOLUCAO.read_text(encoding="utf-8") if SOLUCAO.exists() else "")
+        Path(args.gravar).write_text(
+            json.dumps(transcricao, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"TRANSCRICAO: {args.gravar}")
 
 
 if __name__ == "__main__":

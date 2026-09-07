@@ -35,7 +35,7 @@ Ao final, você deverá conseguir:
 
 ## Continuidade com o curso
 
-O [Módulo 1](../modulo-1-fundamentos/index.md) mostrou que a resposta é probabilística, mas o sistema precisa de fronteiras determinísticas. O [Módulo 2](../modulo-2-desenho-conceitual/index.md) ligou contexto, atributos de qualidade e ADRs. O [Módulo 3](../modulo-3-rag/index.md) separou ingestão de consulta e fez da evidência um componente operacional. O [Módulo 4](../modulo-4-agentes/index.md) distinguiu geração, decisão e efeito corporativo. O [Módulo 6](../modulo-6-confianca/index.md) tratou guardrails, avaliação e risco residual.
+O [Módulo 1](../modulo-1-fundamentos/index.md) mostrou que a resposta é probabilística, mas o sistema precisa de fronteiras determinísticas. O [Módulo 2](../modulo-2-desenho-conceitual/index.md) ligou contexto, atributos de qualidade e ADRs. O [Módulo 3](../modulo-3-rag/index.md) separou ingestão de consulta e fez da evidência um componente operacional. O [Módulo 4](../modulo-4-agentes/index.md) distinguiu geração, decisão e efeito corporativo, e nomeou o [arnês](../modulo-4-agentes/arnes.md) e a [escada de loops](../modulo-4-agentes/loops.md#quatro-niveis-de-loop). O [Módulo 5](../modulo-5-sdd/index.md) mostrou o fluxo guiado por especificação como o arnês de um agente que escreve software. O [Módulo 6](../modulo-6-confianca/index.md) tratou guardrails, avaliação e risco residual.
 
 Agora essas decisões passam a viver no tempo. Um portão de regressão operacionaliza a avaliação; um trace carrega versões e decisões de guardrail; um rollback restaura um pacote comportamental, não só um binário; uma plataforma oferece controles comuns sem assumir regras de domínio. A escala organizacional será julgada pela capacidade de preservar essas propriedades quando dezenas de equipes e fornecedores compartilham infraestrutura.
 
@@ -56,11 +56,12 @@ Agora essas decisões passam a viver no tempo. Um portão de regressão operacio
 | 3 | [Observabilidade e métricas](observabilidade.md) | trace, quatro planos de métricas, logs minimizados e SLO |
 | 4 | [Entrega e recuperação](entrega-e-recuperacao.md) | entrega controlada, roteamento, fallback, rollback e incidente |
 | 5 | [Operação de loops](lacos-desassistidos.md) | o verificador como gargalo e os quatro portões de um laço |
-| 6 | [Plataforma corporativa](plataforma-corporativa.md) | gateway, serviços comuns, catálogo, tenancy e modelo operacional |
-| 7 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
-| 8 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
-| 9 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas, recuperação e um laço objetivado |
-| 10 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
-| 11 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
+| 6 | [Playback do laço](playback-do-laco.md) | quatro execuções reais reproduzidas iteração a iteração, sem executar nada |
+| 7 | [Plataforma corporativa](plataforma-corporativa.md) | gateway, serviços comuns, catálogo, tenancy e modelo operacional |
+| 8 | [Exemplo arquitetural](exemplo-arquitetural.md) | ciclo LLMOps e plataforma corporativa |
+| 9 | [Estudo de caso](estudo-de-caso.md) | integração dos protótipos e decisões operacionais |
+| 10 | [Oficina de ferramentas](oficina-de-ferramentas.md) | sinais operacionais, quotas, recuperação e um laço objetivado |
+| 11 | [Exercícios](exercicios.md) | manifesto, trace, rollout, plataforma e capstone |
+| 12 | [Síntese e referências](sintese-e-referencias.md) | prontidão, autoavaliação e fontes |
 
 Siga para [Versionamento e promoção](pacote-e-promocao.md), onde o ciclo operacional é construído antes das escolhas de plataforma. A [Oficina de ferramentas](oficina-de-ferramentas.md) transforma sinais sintéticos em decisões de operação sem exigir acesso a uma plataforma.
