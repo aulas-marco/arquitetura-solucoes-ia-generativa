@@ -39,8 +39,8 @@ O **manifesto da liberação** (*release manifest*) responde “o que exatamente
 
 O ciclo de operações de modelos de linguagem (*LLMOps*) organiza os ativos antes de expô-los. O mesmo pacote atravessa ambientes; configurações sensíveis e credenciais são fornecidas por cada ambiente, sem serem incorporadas ao pacote.
 
-<figure class="architecture-figure">
-  <img src="../assets/images/m07-ciclo-promocao-ambientes.svg" alt="Ciclo LLMOps: ativos são organizados em um pacote versionado, avaliados, promovidos por desenvolvimento e homologação, publicados gradualmente em produção e observados; evidências retornam ao planejamento sem alterar o pacote em execução.">
+<figure class="architecture-figure" markdown>
+  ![Ciclo LLMOps: ativos são organizados em um pacote versionado, avaliados, promovidos por desenvolvimento e homologação, publicados gradualmente em produção e observados; evidências retornam ao planejamento sem alterar o pacote em execução.](../assets/images/m07-ciclo-promocao-ambientes.svg)
   <figcaption class="figure-caption">Figura 1 — Ciclo LLMOps da organização dos ativos à publicação entre ambientes. Cada promoção conserva a identidade do pacote e acrescenta evidência.</figcaption>
 </figure>
 
@@ -132,8 +132,8 @@ Os três modelos abaixo respondem a perguntas diferentes. Eles podem aparecer em
 
 A **publicação canário** expõe o pacote candidato a uma fração delimitada do tráfego, dos usuários, dos clientes organizacionais (*tenants*) ou dos casos de uso. O restante continua na versão vigente. Seu objetivo é verificar se uma versão já aprovada permanece segura e operável sob condições reais.
 
-<figure class="architecture-figure">
-  <img src="../assets/images/m07-publicacao-canario.svg" alt="Na publicação canário, um roteador envia pequena parcela da coorte elegível à versão candidata e a maioria à versão vigente; métricas comparativas determinam ampliar, pausar ou reverter.">
+<figure class="architecture-figure" markdown>
+  ![Na publicação canário, um roteador envia pequena parcela da coorte elegível à versão candidata e a maioria à versão vigente; métricas comparativas determinam ampliar, pausar ou reverter.](../assets/images/m07-publicacao-canario.svg)
   <figcaption class="figure-caption">Figura 2 — Publicação canário: exposição pequena, atribuível e reversível antes da ampliação.</figcaption>
 </figure>
 
@@ -155,8 +155,8 @@ Use publicação canário quando o risco depende de condições reais que homolo
 
 O **teste A/B** distribui participantes elegíveis entre duas variantes aceitáveis para estimar o efeito de uma mudança sobre uma hipótese de produto. A pergunta não é “B é seguro?”, mas “B melhora o resultado definido em relação a A?”.
 
-<figure class="architecture-figure">
-  <img src="../assets/images/m07-teste-ab.svg" alt="No teste A/B, participantes elegíveis são atribuídos de forma estável e comparável às variantes A e B, ambas aprovadas; uma análise estatística estima o efeito sobre uma hipótese previamente definida.">
+<figure class="architecture-figure" markdown>
+  ![No teste A/B, participantes elegíveis são atribuídos de forma estável e comparável às variantes A e B, ambas aprovadas; uma análise estatística estima o efeito sobre uma hipótese previamente definida.](../assets/images/m07-teste-ab.svg)
   <figcaption class="figure-caption">Figura 3 — Teste A/B: duas variantes aceitáveis, grupos comparáveis e uma hipótese mensurável.</figcaption>
 </figure>
 
@@ -176,8 +176,8 @@ Não se deve usar teste A/B para expor uma variante possivelmente insegura, cont
 
 Na **publicação sombra**, uma cópia autorizada da entrada real alimenta a versão candidata em paralelo, mas sua saída não chega ao usuário nem produz efeitos. A versão vigente continua sendo o único caminho de resposta.
 
-<figure class="architecture-figure">
-  <img src="../assets/images/m07-publicacao-sombra.svg" alt="Na publicação sombra, a requisição real segue para a versão vigente e sua resposta volta ao usuário; uma cópia controlada alimenta o candidato, cuja saída é isolada e apenas comparada, sem executar ferramentas de escrita.">
+<figure class="architecture-figure" markdown>
+  ![Na publicação sombra, a requisição real segue para a versão vigente e sua resposta volta ao usuário; uma cópia controlada alimenta o candidato, cuja saída é isolada e apenas comparada, sem executar ferramentas de escrita.](../assets/images/m07-publicacao-sombra.svg)
   <figcaption class="figure-caption">Figura 4 — Publicação sombra: execução paralela sem resposta ou efeito do candidato sobre o usuário.</figcaption>
 </figure>
 

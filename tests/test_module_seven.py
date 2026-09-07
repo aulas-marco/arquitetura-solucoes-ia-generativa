@@ -1,5 +1,7 @@
 from pathlib import Path
 import re
+import subprocess
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
@@ -11,6 +13,25 @@ MODULE = ROOT / "docs" / "modulo-7-operacao"
 
 
 class ModuleSevenContentRegressionTest(unittest.TestCase):
+    def test_built_publication_page_resolves_every_svg_figure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory)
+            subprocess.run(
+                ["mkdocs", "build", "--strict", "--site-dir", str(site)],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            page = site / "modulo-7-operacao" / "pacote-e-promocao" / "index.html"
+            html = page.read_text(encoding="utf-8")
+            sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+\.svg)"', html)
+
+            self.assertEqual(4, len(sources))
+            for source in sources:
+                with self.subTest(source=source):
+                    self.assertTrue((page.parent / source).resolve().is_file())
+
     def test_publication_diagrams_are_valid_accessible_svgs(self):
         assets = ROOT / "docs" / "assets" / "images"
         diagrams = (
