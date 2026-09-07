@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import unittest
+import xml.etree.ElementTree as ET
 
 from scripts.validate_content import PAGES, bloom_sections, teaching_text, thematic_pages
 
@@ -10,6 +11,28 @@ MODULE = ROOT / "docs" / "modulo-7-operacao"
 
 
 class ModuleSevenContentRegressionTest(unittest.TestCase):
+    def test_publication_diagrams_are_valid_accessible_svgs(self):
+        assets = ROOT / "docs" / "assets" / "images"
+        diagrams = (
+            "m07-ciclo-promocao-ambientes.svg",
+            "m07-publicacao-canario.svg",
+            "m07-teste-ab.svg",
+            "m07-publicacao-sombra.svg",
+        )
+
+        for filename in diagrams:
+            with self.subTest(diagram=filename):
+                root = ET.parse(assets / filename).getroot()
+                self.assertEqual("img", root.attrib.get("role"))
+                labelled_by = root.attrib.get("aria-labelledby", "").split()
+                self.assertEqual(2, len(labelled_by))
+                ids = {
+                    element.attrib["id"]
+                    for element in root.iter()
+                    if "id" in element.attrib
+                }
+                self.assertTrue(set(labelled_by) <= ids)
+
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
         nomes = {path.name for path in MODULE.glob("*.md")}
         self.assertTrue(set(PAGES) | {"caso-lume.md", "caso-aurora.md"} <= nomes)
