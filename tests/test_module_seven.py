@@ -1,9 +1,9 @@
 from pathlib import Path
 import re
 import subprocess
+import struct
 import tempfile
 import unittest
-import xml.etree.ElementTree as ET
 
 from scripts.validate_content import PAGES, bloom_sections, teaching_text, thematic_pages
 
@@ -13,7 +13,7 @@ MODULE = ROOT / "docs" / "modulo-7-operacao"
 
 
 class ModuleSevenContentRegressionTest(unittest.TestCase):
-    def test_built_publication_page_resolves_every_svg_figure(self):
+    def test_built_publication_page_resolves_every_generated_figure(self):
         with tempfile.TemporaryDirectory() as directory:
             site = Path(directory)
             subprocess.run(
@@ -25,34 +25,30 @@ class ModuleSevenContentRegressionTest(unittest.TestCase):
             )
             page = site / "modulo-7-operacao" / "pacote-e-promocao" / "index.html"
             html = page.read_text(encoding="utf-8")
-            sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+\.svg)"', html)
+            sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+\.png)"', html)
 
             self.assertEqual(4, len(sources))
             for source in sources:
                 with self.subTest(source=source):
                     self.assertTrue((page.parent / source).resolve().is_file())
 
-    def test_publication_diagrams_are_valid_accessible_svgs(self):
+    def test_publication_diagrams_are_valid_landscape_pngs(self):
         assets = ROOT / "docs" / "assets" / "images"
         diagrams = (
-            "m07-ciclo-promocao-ambientes.svg",
-            "m07-publicacao-canario.svg",
-            "m07-teste-ab.svg",
-            "m07-publicacao-sombra.svg",
+            "m07-ciclo-promocao-ambientes-gpt.png",
+            "m07-publicacao-canario-gpt.png",
+            "m07-teste-ab-gpt.png",
+            "m07-publicacao-sombra-gpt.png",
         )
 
         for filename in diagrams:
             with self.subTest(diagram=filename):
-                root = ET.parse(assets / filename).getroot()
-                self.assertEqual("img", root.attrib.get("role"))
-                labelled_by = root.attrib.get("aria-labelledby", "").split()
-                self.assertEqual(2, len(labelled_by))
-                ids = {
-                    element.attrib["id"]
-                    for element in root.iter()
-                    if "id" in element.attrib
-                }
-                self.assertTrue(set(labelled_by) <= ids)
+                data = (assets / filename).read_bytes()
+                self.assertEqual(b"\x89PNG\r\n\x1a\n", data[:8])
+                width, height = struct.unpack(">II", data[16:24])
+                self.assertGreaterEqual(width, 1600)
+                self.assertGreaterEqual(height, 900)
+                self.assertAlmostEqual(16 / 9, width / height, delta=0.02)
 
     def test_module_has_standard_pages_navigation_and_guiding_question(self):
         nomes = {path.name for path in MODULE.glob("*.md")}

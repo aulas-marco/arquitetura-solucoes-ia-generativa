@@ -218,6 +218,86 @@
   modules: [6]
   type: institutional-book-chapter
 
+- id: google-sre-monitoring-distributed-systems-2016
+  title: Monitoring Distributed Systems
+  authors: Rob Ewaschuk e Betsy Beyer
+  year: 2016
+  url: https://sre.google/sre-book/monitoring-distributed-systems/
+  accessed: 2026-09-07
+  topics: [observabilidade, latencia, erros, saturacao]
+  modules: [7]
+  type: institutional-book-chapter
+
+- id: google-sre-addressing-cascading-failures-2016
+  title: Addressing Cascading Failures
+  authors: Mike Ulrich e outros
+  year: 2016
+  url: https://sre.google/sre-book/addressing-cascading-failures/
+  accessed: 2026-09-07
+  topics: [filas, saturacao, falhas-em-cascata]
+  modules: [7]
+  type: institutional-book-chapter
+
+- id: google-sre-workbook-implementing-slos-2018
+  title: Implementing SLOs
+  authors: Google SRE
+  year: 2018
+  url: https://sre.google/workbook/implementing-slos/
+  accessed: 2026-09-07
+  topics: [slos, sli, orcamento-de-erro]
+  modules: [7]
+  type: institutional-book-chapter
+
+- id: opentelemetry-semconv-naming-2026
+  title: OpenTelemetry Semantic Conventions — Naming
+  authors: OpenTelemetry Authors
+  year: 2026
+  url: https://opentelemetry.io/docs/specs/semconv/general/naming/
+  accessed: 2026-09-07
+  topics: [observabilidade, metricas, nomenclatura]
+  modules: [7]
+  type: official-specification
+
+- id: openai-working-with-evals-2026
+  title: Working with evals
+  authors: OpenAI
+  year: 2026
+  url: https://developers.openai.com/api/docs/guides/evals
+  accessed: 2026-09-07
+  topics: [avaliacao, criterios, modelos-generativos]
+  modules: [7]
+  type: official-documentation
+
+- id: google-analytics-purchase-journey-2026
+  title: Purchase journey report
+  authors: Google Analytics
+  year: 2026
+  url: https://support.google.com/analytics/answer/13128171
+  accessed: 2026-09-07
+  topics: [produto, abandono, funil]
+  modules: [7]
+  type: official-documentation
+
+- id: iso-18295-1-2017
+  title: "ISO 18295-1:2017 — Customer contact centres"
+  authors: International Organization for Standardization
+  year: 2017
+  url: https://www.iso.org/standard/64739.html
+  accessed: 2026-09-07
+  topics: [atendimento, indicadores, qualidade-de-servico]
+  modules: [7]
+  type: international-standard
+
+- id: acsi-telecommunications-study-2024
+  title: ACSI Telecommunications Study 2024
+  authors: American Customer Satisfaction Index
+  year: 2024
+  url: https://theacsi.org/wp-content/uploads/2024/05/24jun-telecom-study-FINAL.pdf
+  accessed: 2026-09-07
+  topics: [satisfacao, amostragem, experiencia-do-cliente]
+  modules: [7]
+  type: institutional-report
+
 - id: dora-delivery-metrics-2026
   title: DORA's Software Delivery Performance Metrics
   authors: DORA and Nathen Harvey
