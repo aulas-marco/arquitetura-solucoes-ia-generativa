@@ -82,9 +82,13 @@ Confira os nomes antes de executar:
 ls casos_confianca.json respostas_pregeradas.json avaliar_confianca.py agregar_confianca.py
 ```
 
-A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final. Nenhum programa roda nesta seção — a primeira execução acontece no Experimento A.
+A decisão esperada é a referência de avaliação; ela não é enviada como instrução ao usuário final.
 
-## Como o laboratório funciona
+## Execução
+
+Todo comando desta oficina roda dentro de um experimento, não antes dele: cada Experimento (A, B ou C) traz seu próprio bloco **Execute** com os comandos exatos e o que eles produzem. Nenhum script é disparado nesta seção — ela só confere se os quatro arquivos baixados estão com o nome certo.
+
+## Receita principal
 
 `avaliar_confianca.py` percorre os 45 casos, obtém a resposta (do arquivo pré-gerado ou do modelo local) e classifica essa resposta por regra, com um léxico de expressões regulares por decisão:
 
@@ -128,7 +132,15 @@ def por_classe(linhas: list[dict], classe: str) -> tuple[float, float, float, in
 
 Precisão e recall costumam se mover em direções opostas: tornar a recusa mais sensível eleva o recall de `bloquear` e derruba a precisão, porque mais pedidos legítimos passam a ser recusados. Nenhuma dessas contagens tem custo embutido — o custo de cada tipo de erro é uma decisão de arquitetura, não um número. A explicação completa, com a dedução de cada fórmula e os casos de borda (suporte pequeno, macro vs. micro, fatias por subgrupo), está em [Métricas de avaliação](../referencia/metricas-de-avaliacao.md).
 
-## Experimentos
+## Resultado esperado
+
+Sobre as 45 respostas pré-geradas, a camada 1 classifica corretamente 29 casos (acurácia 0,64) e deixa 12 como `indefinido`, porque o léxico não encontrou nenhum termo correspondente. A camada 2 mostra 2 falhas de bloqueio (pedido que exigia recusa e não foi recusado) e 2 falsas recusas (pedido legítimo barrado) — dois erros de mesma contagem e consequência oposta. A leitura completa da matriz de confusão está no Experimento A; a variação por régua e por limiar, nos Experimentos B e C.
+
+## Interpretação
+
+Leia a matriz de confusão antes da acurácia: ela mostra qual erro acontece, não só quantos. Acurácia sozinha esconde a diferença entre falha de bloqueio e falsa recusa, e esses dois erros têm consequência oposta — o primeiro expõe dado de terceiro, o segundo empurra um usuário legítimo para fila humana. Cada experimento a seguir traz sua própria seção "Leitura" com essa mesma pergunta aplicada ao resultado específico daquele experimento.
+
+## Roteiro sugerido para aula
 
 ### Experimento A — os dois erros não são iguais
 
@@ -145,7 +157,7 @@ python agregar_confianca.py
 
 O primeiro comando lê `casos_confianca.json` e `respostas_pregeradas.json`, classifica as 45 respostas pelo léxico e grava `relatorio-confianca.json`. O segundo lê esse relatório e imprime a matriz de confusão, as métricas por classe e as duas taxas de erro.
 
-**Resultado obtido**
+**Observe**
 
 ```text
 CASOS: 45 | ACURÁCIA: 0.64
@@ -165,6 +177,10 @@ corrigir          0.88      0.58    0.70        24
 falsa recusa: 2/37 dos casos legítimos
 falha de bloqueio: 2/8 dos casos que exigiam recusa
 ```
+
+**Compare**
+
+Recall da classe `bloquear` (0,75) contra a taxa de falsa recusa (2/37 ≈ 0,05). Os dois erros somam 2 casos cada, mas pesam sobre bases de tamanho muito diferente — 8 casos adversariais contra 37 legítimos.
 
 **Leitura**
 
@@ -220,9 +236,13 @@ python avaliar_confianca.py --fonte pregerada --metricas todas --regua fixa --ca
 
 Repita cada comando mais duas vezes, salvando em `gerada-2.json`, `gerada-3.json`, `fixa-2.json`, `fixa-3.json`.
 
-**Resultado a observar**
+**Observe**
 
-As respostas de entrada são idênticas nas seis execuções, porque vêm do arquivo pré-gerado — qualquer diferença na nota `geval` entre execuções da mesma régua vem só do juiz. Compare a nota `geval` caso a caso entre as três rodadas de `regua gerada` e depois entre as três de `regua fixa`. Este repositório não fixa um valor de dispersão esperado: a nota depende do modelo instalado, e o ponto do experimento é você medir a variação na sua própria máquina, não conferir contra um número publicado aqui.
+As respostas de entrada são idênticas nas seis execuções, porque vêm do arquivo pré-gerado — qualquer diferença na nota `geval` entre execuções da mesma régua vem só do juiz. Este repositório não fixa um valor de dispersão esperado: a nota depende do modelo instalado, e o ponto do experimento é você medir a variação na sua própria máquina, não conferir contra um número publicado aqui.
+
+**Compare**
+
+A nota `geval` caso a caso entre as três rodadas de `regua gerada`, depois entre as três de `regua fixa`. Compare a dispersão de um grupo contra a do outro.
 
 **Leitura**
 
@@ -269,9 +289,13 @@ python agregar_confianca.py --relatorio gerada.json
 
 Leia a tabela impressa em "VARREDURA DE LIMIAR DO JUIZ".
 
-**Resultado a observar**
+**Observe**
 
 Como no Experimento B, os valores de precisão e recall por limiar dependem do modelo instalado e não são fixados aqui. O padrão a conferir é a direção do movimento: subir o limiar reduz o número de casos aprovados e tende a subir a precisão entre os aprovados, enquanto derruba o recall — cada vez menos casos passam, mas os que passam erram menos.
+
+**Compare**
+
+Um limiar permissivo (0,2 ou 0,3) contra um restritivo (0,7 ou 0,8), em número de casos aprovados e na precisão entre eles.
 
 **Leitura**
 
