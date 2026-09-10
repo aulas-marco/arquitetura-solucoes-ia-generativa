@@ -111,6 +111,40 @@ python telemetria_local.py
 
 O terminal imprime três blocos de JSON — um por *span*, o nome que o OpenTelemetry dá a cada pedaço registrado — e, ao final, três linhas: `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os *spans* `entrada`, `modelo` e `saida`: eles [separam onde o tempo foi gasto](observabilidade.md#trace-reconstruir-a-composicao), em vez de só dizer que uma chamada aconteceu.
 
+Abaixo está um trace de exemplo, gerado localmente para ilustrar o formato (o campo `"modelo"` usa uma espera simulada no lugar de uma chamada real ao Ollama). No seu terminal, os três blocos vêm na ordem `modelo`, `saida`, `entrada` — o span pai (`entrada`) só termina, e só é impresso, depois dos dois filhos. Cada bloco real também traz `context`, `kind`, `status`, `resource` e outros campos, omitidos aqui por repetirem o mesmo valor nos três:
+
+```json
+{
+  "name": "modelo",
+  "start_time": "2026-09-10T01:58:10.513202Z",
+  "end_time": "2026-09-10T01:58:10.694008Z",
+  "attributes": {}
+}
+{
+  "name": "saida",
+  "start_time": "2026-09-10T01:58:10.695146Z",
+  "end_time": "2026-09-10T01:58:10.695169Z",
+  "attributes": {
+    "boreal.resultado": "ok",
+    "boreal.tamanho_resposta": 62
+  }
+}
+{
+  "name": "entrada",
+  "start_time": "2026-09-10T01:58:10.513178Z",
+  "end_time": "2026-09-10T01:58:10.695298Z",
+  "attributes": {
+    "gen_ai.request.model": "boreal-local",
+    "boreal.produto": "resumo-interno"
+  }
+}
+TRACE_ID: bd1d6fd2d08e0d570378d88cba1ffe75
+DURACAO_MS: 182
+RESPOSTA: O indicador tr-202 está dentro da faixa esperada nesta semana.
+```
+
+O seu terminal vai mostrar um `TRACE_ID` diferente, uma duração diferente e uma `RESPOSTA` escrita pelo modelo de verdade — o que não muda de uma execução para outra é a forma: três blocos com `name`, `start_time`, `end_time` e `attributes`, seguidos das três linhas finais.
+
 ## Resultado esperado
 
 No fim da execução, você vê três coisas no terminal: um `trace_id` (o identificador da chamada inteira), um `DURACAO_MS` (quanto tempo ela levou) e um `RESPOSTA` (o texto que o modelo devolveu). O script não implementa alarme nem trava nada sozinho — os Experimentos A, B e C te levam a olhar esses três números com mais atenção antes de decidir o que fazer com eles.
@@ -137,17 +171,19 @@ No segundo terminal, rode `python telemetria_local.py` e deixe a saída na tela.
 
 **Observe**
 
-O terminal imprime três blocos de JSON, um por bloco de código chamado *span*. Procure a linha `"name":` em cada um — os três valores são `entrada`, `modelo` e `saida`. Cada bloco também tem `"start_time"` e `"end_time"`, o horário exato em que aquele pedaço começou e terminou.
+O terminal imprime três blocos de JSON, um por bloco de código chamado *span*. Procure a linha `"name":` em cada um — os três valores são `entrada`, `modelo` e `saida`. Cada bloco também tem `"start_time"` e `"end_time"`, o horário exato em que aquele pedaço começou e terminou — como no trace de exemplo da "Receita principal", acima.
 
 **Compare**
 
 Um log comum teria uma linha só, dizendo só que a chamada aconteceu. Aqui você tem três blocos separados, cada um com seu próprio início e fim.
 
+No trace de exemplo, o bloco `modelo` tem `"start_time": "...513202Z"` e `"end_time": "...694008Z"`. A diferença entre os dois é `694008 - 513202 = 180806` microssegundos, ou **181 ms** — quase toda a duração total daquele exemplo (`DURACAO_MS: 182`). Faça a mesma conta com os horários do seu próprio terminal.
+
 **Questões exploratórias:**
 
 - Quantos blocos `"name"` apareceram no seu terminal? Escreva os três valores, na ordem em que apareceram.
 - No bloco `entrada`, procure o atributo `boreal.produto`. Ele guarda a pergunta inteira que foi enviada ao modelo, ou só um nome curto (`resumo-interno`)? Isso é um exemplo de [registrar o mínimo necessário](observabilidade.md#logs-com-preservacao-de-privacidade).
-- Pegue o `"start_time"` e o `"end_time"` do bloco `modelo` e subtraia um do outro. Quantos milissegundos esse bloco levou sozinho? Esse valor é menor do que o `DURACAO_MS` total impresso no fim? Por que faz sentido ser menor?
+- Refaça a conta do quadro "Compare" com o `start_time` e o `end_time` do bloco `modelo` do seu terminal. Quantos milissegundos esse bloco levou sozinho? Esse valor chegou perto do `DURACAO_MS` total, como no exemplo, ou ficou bem menor? O que isso sugere sobre onde o tempo foi gasto?
 
 ### Experimento B — variação controlada
 
