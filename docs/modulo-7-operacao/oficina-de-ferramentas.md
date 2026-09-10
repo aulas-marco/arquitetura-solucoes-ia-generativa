@@ -109,15 +109,15 @@ python telemetria_local.py
 
 ## Receita principal
 
-O terminal imprime três spans em JSON e, ao final, `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os spans `entrada`, `modelo` e `saida`. Eles mostram que observabilidade precisa [relacionar fases do fluxo](observabilidade.md#trace-reconstruir-a-composicao), e não apenas contar chamadas.
+O terminal imprime três blocos de JSON — um por *span*, o nome que o OpenTelemetry dá a cada pedaço registrado — e, ao final, três linhas: `TRACE_ID`, `DURACAO_MS` e `RESPOSTA`. Localize os *spans* `entrada`, `modelo` e `saida`: eles [separam onde o tempo foi gasto](observabilidade.md#trace-reconstruir-a-composicao), em vez de só dizer que uma chamada aconteceu.
 
 ## Resultado esperado
 
-Você deve obter um único `trace_id`, duração em milissegundos, resposta sintética e [atributos minimizados](observabilidade.md#logs-com-preservacao-de-privacidade). A execução não implementa quotas, [SLOs](observabilidade.md#slo-para-servico-util) ou alertas de produção; ela torna palpável que esses controles dependem de sinais com dono, [limiar](entrega-e-recuperacao.md#incidente-generativo) e ação de recuperação.
+No fim da execução, você vê três coisas no terminal: um `trace_id` (o identificador da chamada inteira), um `DURACAO_MS` (quanto tempo ela levou) e um `RESPOSTA` (o texto que o modelo devolveu). O script não implementa alarme nem trava nada sozinho — os Experimentos A, B e C te levam a olhar esses três números com mais atenção antes de decidir o que fazer com eles.
 
 ## Interpretação
 
-No script, altere somente o texto sintético `tr-202` por `tr-204` e execute novamente. Compare duração, erro caso ocorra, tamanho da resposta e os atributos emitidos. A diferença de duas execuções [não prova causalidade](observabilidade.md#quatro-planos-de-metricas): ela sugere uma hipótese que exigiria amostra, limiar e contexto operacional antes de mudar uma plataforma.
+Uma execução só, com um número só de duração, não diz muita coisa sozinha. É só rodando de novo — com o mesmo texto e depois com o texto trocado, como no Experimento B — que dá para perceber o quanto o número varia [mesmo sem mudar nada](observabilidade.md#quatro-planos-de-metricas), e o quanto isso limita o que você pode concluir de uma única chamada.
 
 ## Roteiro sugerido para aula
 
@@ -125,96 +125,102 @@ No script, altere somente o texto sintético `tr-202` por `tr-204` e execute nov
 
 **Objetivo**
 
-Reconhecer os sinais de uma chamada.
+Ver os três pedaços que compõem uma chamada, em vez de uma linha de log só.
 
 **Pré-requisito**
 
-Proxy iniciado.
+Proxy iniciado (primeiro terminal).
 
 **Execute**
 
-Rode o script.
+No segundo terminal, rode `python telemetria_local.py` e deixe a saída na tela.
 
 **Observe**
 
-`trace_id`, spans e duração.
+O terminal imprime três blocos de JSON, um por bloco de código chamado *span*. Procure a linha `"name":` em cada um — os três valores são `entrada`, `modelo` e `saida`. Cada bloco também tem `"start_time"` e `"end_time"`, o horário exato em que aquele pedaço começou e terminou.
 
 **Compare**
 
-Log isolado e [trace com etapas relacionadas](observabilidade.md#trace-reconstruir-a-composicao).
+Um log comum teria uma linha só, dizendo só que a chamada aconteceu. Aqui você tem três blocos separados, cada um com seu próprio início e fim.
 
 **Questões exploratórias:**
 
-- Qual atributo identifica o produto sem registrar o conteúdo inteiro, e que princípio de [minimização de dados](observabilidade.md#logs-com-preservacao-de-privacidade) isso exemplifica?
-- Que sinal permitiria separar falha do modelo e falha do gateway?
-- Quem deve ser [dono do limiar](entrega-e-recuperacao.md#prioridades-e-tensoes-operacionais) de duração observado?
+- Quantos blocos `"name"` apareceram no seu terminal? Escreva os três valores, na ordem em que apareceram.
+- No bloco `entrada`, procure o atributo `boreal.produto`. Ele guarda a pergunta inteira que foi enviada ao modelo, ou só um nome curto (`resumo-interno`)? Isso é um exemplo de [registrar o mínimo necessário](observabilidade.md#logs-com-preservacao-de-privacidade).
+- Pegue o `"start_time"` e o `"end_time"` do bloco `modelo` e subtraia um do outro. Quantos milissegundos esse bloco levou sozinho? Esse valor é menor do que o `DURACAO_MS` total impresso no fim? Por que faz sentido ser menor?
 
 ### Experimento B — variação controlada
 
 **Objetivo**
 
-Tratar medição como [hipótese](observabilidade.md#quatro-planos-de-metricas).
+Ver se a mesma pergunta, com um número trocado, muda o resultado — e o quanto o resultado varia mesmo sem trocar nada.
 
 **Pré-requisito**
 
-Primeiro trace salvo.
+Trace do Experimento A salvo (o `DURACAO_MS` e o `RESPOSTA` que apareceram no terminal).
 
 **Execute**
 
-Altere apenas `tr-202` para `tr-204`.
+Rode `python telemetria_local.py` de novo, sem mudar o arquivo. Depois abra `telemetria_local.py`, troque `tr-202` por `tr-204` na linha 30, salve e rode mais uma vez.
 
 **Observe**
 
-Duração, tamanho e erro.
+Você agora tem três números de `DURACAO_MS`: o do Experimento A, o da repetição sem mudar nada, e o de `tr-204`.
 
 **Compare**
 
-Dois traces locais.
+Os três valores de `DURACAO_MS`, lado a lado.
 
 **Questões exploratórias:**
 
-- Por que duas amostras não demonstram causa raiz?
-- Que metadado de modelo e [manifesto](pacote-e-promocao.md#o-objeto-operado-e-um-pacote-comportamental) ajuda a reproduzir um desvio?
-- Que dado deve ficar fora do trace para [preservar privacidade](observabilidade.md#logs-com-preservacao-de-privacidade)?
+- A duração da repetição (mesmo texto `tr-202`, rodado de novo) veio igual à do Experimento A, ou diferente? Você não mudou nada no arquivo entre as duas.
+- Sabendo que a duração varia mesmo sem trocar nada (pergunta anterior), a diferença entre `tr-202` e `tr-204` prova que foi a troca do texto que mudou o tempo?
+- Procure a palavra `tr-202` ou `tr-204` dentro dos três blocos de JSON impressos. Ela aparece em algum atributo, ou só na linha `RESPOSTA` no final do terminal?
 
 ### Experimento C — ação recuperável
 
 **Objetivo**
 
-Transformar sinal em decisão operacional.
+Usar um número medido de verdade para decidir quando algo merece atenção.
 
 **Pré-requisito**
 
-Comparativo de traces.
+Os três valores de `DURACAO_MS` do Experimento B, anotados.
 
 **Execute**
 
-Escolha um limiar e uma ação.
+Escolha um número de milissegundos maior que os três que você mediu. Escreva-o: esse é o seu "limite de alerta".
 
 **Observe**
 
-Evidência necessária antes de alterar o gateway.
+O script não faz nada com esse número — ele não trava, não avisa ninguém, não muda o comportamento sozinho. Ele só imprime a duração; agir a partir dela é decisão sua.
 
 **Compare**
 
-[Fallback](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao), redução de contexto, fila e rollback.
+Quatro ações possíveis quando um limite é ultrapassado, cada uma com um custo diferente de desfazer:
+
+- **trocar de modelo** ([`fallback`](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao)): usar outro modelo já pronto no lugar do que travou
+- **reduzir o pedido**: mandar uma pergunta mais curta, que roda mais rápido
+- **fila**: fazer o pedido esperar a vez, em vez de responder na hora
+- **rollback**: voltar para a versão de ontem, desfazendo a mudança mais recente
 
 **Questões exploratórias:**
 
-- Que produto deve ter prioridade quando a [capacidade é limitada](plataforma-corporativa.md#modelo-operacional-da-plataforma)?
-- Quando uma parada segura vira [incidente](entrega-e-recuperacao.md#incidente-generativo)?
-- Qual ação deve ser [reversível](entrega-e-recuperacao.md#roteamento-fallback-e-degradacao) primeiro?
+- Você escolheu um limite de alerta maior que os três `DURACAO_MS` medidos. Se amanhã aparecesse um `DURACAO_MS` maior que esse limite, o que você acha que aconteceu: o gateway ficou mais lento, ou foi só a variação normal que você já viu no Experimento B?
+- Um carro com defeito no motor pode parar no acostamento agora (rápido de fazer, mas trava quem vem atrás) ou seguir devagar até a próxima oficina (mais arriscado, mas não atrapalha ninguém). Das quatro ações acima, qual é mais parecida com "parar no acostamento agora"? E qual é mais parecida com "seguir até a oficina"?
+- De 1 (fácil) a 4 (difícil), ordene as quatro ações por quão fácil é desfazer cada uma se você errar a mão e ela não resolver o problema.
 
 ## Evidência a entregar
 
-Entregue as linhas `TRACE_ID` e `DURACAO_MS` de duas execuções e o quadro abaixo.
+Preencha o quadro com as três execuções do Experimento B (o `TRACE_ID` e o `DURACAO_MS` impressos em cada uma).
 
-| Execução | Produto/indicador | Duração | Atributos minimizados | Hipótese | Próxima ação |
-|---|---|---:|---|---|---|
-| Inicial | tr-202 |  |  |  |  |
-| Variação | tr-204 |  |  |  |  |
+| Execução | Texto usado | `TRACE_ID` | `DURACAO_MS` |
+|---|---|---|---:|
+| 1ª vez | tr-202 |  |  |
+| Repetição | tr-202 |  |  |
+| Variação | tr-204 |  |  |
 
-Conclua em até cinco linhas que sinal exigiria uma parada segura, que sinal exigiria investigação e qual informação adicional você coletaria antes de mudar o gateway. Registre também uma [fitness function](entrega-e-recuperacao.md#fitness-functions-operacionais), seu responsável e a reação diante da falha.
+Conclua em até cinco linhas: qual limite de alerta você escolheu no Experimento C, qual das quatro ações você tentaria primeiro se esse limite fosse ultrapassado, e por que essa e não outra.
 
 ## Limpeza e contingência
 
@@ -347,7 +353,7 @@ Rodando com `python loop_objetivado.py --modelo llama3.2:3b`, o laço desta ofic
 
 ### Questões exploratórias
 
-- O laço autodeclarado gastou 719 *tokens* e o objetivo gastou 4.523. Que informação você precisaria para dizer qual dos dois foi mais caro para a organização?
+- O laço autodeclarado gastou 719 *tokens* e disse que tinha terminado, mas entregou 4/5 testes passando. O objetivo gastou 4.523 *tokens* e só parou com 5/5. Se você fosse revisar esse código depois, qual dos dois prefere receber, mesmo custando mais caro? Por quê?
 - A detecção de estagnação eleva a temperatura. Que outras respostas o arnês poderia dar diante de duas falhas idênticas, e qual delas você adotaria num laço com efeito externo?
 - Se o agente tivesse permissão de escrita sobre `test_solucao.py`, qual desfecho passaria a ser possível, e que portão o impede?
 - O script roda `pytest` como subprocesso dentro da pasta do laboratório. O que faltaria nesse isolamento para que o mesmo laço pudesse rodar numa máquina compartilhada da empresa?
