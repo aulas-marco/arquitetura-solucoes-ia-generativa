@@ -161,7 +161,7 @@ Você conduz a iniciativa inteira como arquiteto responsável: define a profundi
 
 **Insumos disponíveis**
 
-Use o [fluxo completo](fluxo.md#da-intencao-a-implementacao-o-fluxo-completo), os [três gates](fluxo.md#tres-gates-dois-papeis-humanos), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md). Nenhum dado real deve ser usado.
+Use o [fluxo completo](fluxo.md#o-fluxo-do-spec-kit-em-detalhe), os [três gates](fluxo.md#tres-gates-dois-papeis-humanos), o [exemplo arquitetural](exemplo-arquitetural.md) e o [template de ADR](../referencia/template-adr.md). Nenhum dado real deve ser usado.
 
 **Como conduzir**
 

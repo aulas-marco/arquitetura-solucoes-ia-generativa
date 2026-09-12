@@ -34,48 +34,9 @@ A diferença entre os três modos, portanto, não está em quanto código a IA e
 
 Nenhum dos modos é moralmente superior. O anti-padrão é mudar silenciosamente a classe do ativo: um protótipo passa a atender usuários, acumula dados e recebe integrações, mas continua sendo mantido como se ainda fosse descartável. Quando isso acontece, a dívida não é apenas de código. É uma **dívida de intenção**, um sistema que contém decisões que ninguém consegue distinguir de acidentes de implementação.
 
-## O que “SDD” pode significar
+SDD muda a relação entre os artefatos. Em vez de tratar a especificação como andaime abandonado quando o código começa, trata-a como expressão versionada da intenção. O código é uma implementação possível daquela intenção, condicionada por arquitetura, plataforma e momento. Essa inversão não significa que prosa esteja sempre certa ou que código possa ser regenerado sem custo. Significa que uma mudança relevante deve começar por tornar explícito **o que mudou na intenção**, e que plano, testes e implementação precisam mostrar sua relação com essa mudança.
 
-*Spec-Driven Development* ainda não designa uma prática única e estabilizada. A expressão reúne fluxos com diferentes níveis de compromisso entre especificação e código. A taxonomia proposta por Birgitta Böckeler ajuda a evitar que ferramentas distintas pareçam equivalentes apenas porque todas produzem arquivos Markdown (Böckeler, 2025):
-
-1. **Spec-first.** A especificação melhora a primeira geração, mas pode ser arquivada ou abandonada depois. O código volta a ser a fonte operacional de verdade.
-2. **Spec-anchored.** Especificação e código evoluem juntos. Cada mudança parte do estado documentado e deve reconciliar os dois lados antes de terminar.
-3. **Spec-as-source.** A especificação é o artefato primário editável, e o código é uma projeção regenerável dela. Essa é a forma mais ambiciosa, e também a mais difícil, porque a especificação teria de expressar detalhe suficiente para reproduzir o comportamento sem depender de decisões escondidas no código.
-
-Este módulo opera entre *spec-first* e *spec-anchored*. As quatro abordagens comparadas no [fluxo SDD](fluxo.md#quatro-abordagens-para-o-mesmo-padrao) se distribuem nessa mesma faixa.
-
-A taxonomia leva a uma distinção que evita confundir instalação com adoção:
-
-- **método** é o conjunto de decisões sobre como o trabalho deve avançar.
-- **artefato** é o registro durável de intenção, design, tarefas ou evidências.
-- **ferramenta** instala comandos, modelos e automações que ajudam o agente a seguir o método.
-- **governança** define quem aprova, quais portões são obrigatórios e o que acontece quando um portão falha.
-
-Instalar uma ferramenta não cria governança automaticamente. Um agente pode preencher todos os modelos e ainda produzir uma especificação vaga. Da mesma forma, um time pode praticar SDD com arquivos simples, desde que trate a especificação como um contrato revisável e mantenha a disciplina de atualizá-la.
-
-## Cinco perguntas para escolher o modo de trabalho
-
-A escolha deve ser feita por mudança, não por preferência pessoal nem por um mandato uniforme para toda a organização. Cinco perguntas oferecem uma primeira triagem, e antecipam a classificação S/M/L da [Decisão 1](decisoes.md#decisao-1-escolher-a-profundidade-proporcional):
-
-1. **Reversibilidade.** Se a decisão estiver errada, é possível descartar o resultado sem migração de dados, indisponibilidade, quebra de contrato ou retrabalho amplo?
-2. **Tempo de vida esperado.** O código será usado por horas, por um ciclo de campanha ou por vários anos?
-3. **Número de futuros mantenedores.** A conversa original estará acessível e compreensível para todas as pessoas que precisarão alterar o sistema?
-4. **Criticidade da regra de negócio.** O comportamento envolve dinheiro, identidade, autorização, privacidade, segurança, obrigações regulatórias ou exceções difíceis de reconstruir?
-5. **Familiaridade com o sistema existente.** A mudança ocorre num projeto novo ou num sistema maduro, com dependências, convenções e restrições que não estão todas documentadas?
-
-As perguntas ficam mais úteis quando se traduzem em consequências operacionais:
-
-| Sinal observado | O que precisa aumentar no processo |
-|---|---|
-| mudança difícil de reverter | revisão prévia da solução, estratégia de migração e plano de rollback |
-| vida útil longa | registro durável das decisões e mecanismo de atualização da especificação |
-| muitos times consumidores | contratos explícitos, compatibilidade, responsáveis e comunicação de mudança |
-| regra crítica | critérios de aceitação verificáveis, cenários de borda e evidência de teste |
-| código legado ou pouco conhecido | exploração do repositório, análise de impacto e validação por alguém com conhecimento do domínio |
-
-Uma resposta “alta” não obriga a adotar a ferramenta mais pesada. Ela obriga a cobrir o risco correspondente. Uma alteração irreversível em um serviço pequeno pode pedir um plano de migração rigoroso, mas não necessariamente uma constitution de projeto. Uma mudança trivial em um sistema regulado pode reutilizar salvaguardas já codificadas e seguir um caminho abreviado.
-
-Por isso, “peso do processo” não deve ser medido pelo número de arquivos ou comandos. O custo relevante é a soma de três esforços: produzir o artefato, revisá-lo com atenção e mantê-lo coerente com o sistema. Se o time gera documentos que ninguém usa para decidir, o processo adiciona custo sem reduzir risco.
+> **Decisão arquitetural:** use SDD quando a tarefa contém decisões, riscos ou coordenação suficientes para justificar um contrato durável. Para um experimento descartável, registre a pergunta e o resultado; não simule uma burocracia completa.
 
 ## Por que escalar agentes desloca o gargalo
 
@@ -115,10 +76,6 @@ Um procedimento robusto preserva cinco coisas:
 5. as evidências que demonstram que a implementação atual satisfaz esses critérios.
 
 Uma boa especificação, portanto, não é a mais longa. É a que reduz interpretações relevantes e permite contestação. “Adicionar segurança ao login” é uma intenção. Já “bloquear novas autenticações por quinze minutos após cinco falhas associadas à conta, sem bloquear o fluxo de recuperação de senha” contém comportamento verificável. Ainda faltam decisões (concorrência, distribuição, privacidade, desbloqueio e ataques de negação de serviço), mas agora é possível enxergar as lacunas. Esse mesmo caso é percorrido pelas quatro abordagens no [fluxo SDD](fluxo.md#quatro-abordagens-para-o-mesmo-padrao).
-
-SDD muda a relação entre os artefatos. Em vez de tratar a especificação como andaime abandonado quando o código começa, trata-a como expressão versionada da intenção. O código é uma implementação possível daquela intenção, condicionada por arquitetura, plataforma e momento. Essa inversão não significa que prosa esteja sempre certa ou que código possa ser regenerado sem custo. Significa que uma mudança relevante deve começar por tornar explícito **o que mudou na intenção**, e que plano, testes e implementação precisam mostrar sua relação com essa mudança.
-
-> **Decisão arquitetural:** use SDD quando a tarefa contém decisões, riscos ou coordenação suficientes para justificar um contrato durável. Para um experimento descartável, registre a pergunta e o resultado; não simule uma burocracia completa.
 
 ## A spec como artefato central e vivo
 
@@ -192,3 +149,46 @@ Repare no que cada linha faz. O princípio nomeia a regra; a consequência nomei
 Princípios vagos não governam. “Escreva código limpo”, “priorize segurança” e “use boas práticas” não dizem o que fazer diante de um conflito, e por isso nunca rejeitam nada. O teste é direto: se você não consegue imaginar uma mudança plausível que o princípio barraria, ele é decoração. Quando um requisito viola um princípio, o plano registra a exceção e pede decisão humana em vez de seguir em silêncio.
 
 A constituição também não deve congelar o projeto. Mudá-la é possível, mas exige uma decisão de alcance maior que uma feature. A alteração pode tornar specs e implementações anteriores não conformes; por isso tem versão, justificativa, impacto e plano de adoção. Em termos arquiteturais, ela opera como política do sistema de desenvolvimento.
+
+## O que “SDD” pode significar
+
+*Spec-Driven Development* ainda não designa uma prática única e estabilizada. A expressão reúne fluxos com diferentes níveis de compromisso entre especificação e código. A taxonomia proposta por Birgitta Böckeler ajuda a evitar que ferramentas distintas pareçam equivalentes apenas porque todas produzem arquivos Markdown (Böckeler, 2025):
+
+1. **Spec-first.** A especificação melhora a primeira geração, mas pode ser arquivada ou abandonada depois. O código volta a ser a fonte operacional de verdade.
+2. **Spec-anchored.** Especificação e código evoluem juntos. Cada mudança parte do estado documentado e deve reconciliar os dois lados antes de terminar.
+3. **Spec-as-source.** A especificação é o artefato primário editável, e o código é uma projeção regenerável dela. Essa é a forma mais ambiciosa, e também a mais difícil, porque a especificação teria de expressar detalhe suficiente para reproduzir o comportamento sem depender de decisões escondidas no código.
+
+Este módulo opera entre *spec-first* e *spec-anchored*. As quatro abordagens comparadas no [fluxo SDD](fluxo.md#quatro-abordagens-para-o-mesmo-padrao) se distribuem nessa mesma faixa.
+
+A taxonomia leva a uma distinção que evita confundir instalação com adoção:
+
+- **método** é o conjunto de decisões sobre como o trabalho deve avançar.
+- **artefato** é o registro durável de intenção, design, tarefas ou evidências.
+- **ferramenta** instala comandos, modelos e automações que ajudam o agente a seguir o método.
+- **governança** define quem aprova, quais portões são obrigatórios e o que acontece quando um portão falha.
+
+Instalar uma ferramenta não cria governança automaticamente. Um agente pode preencher todos os modelos e ainda produzir uma especificação vaga. Da mesma forma, um time pode praticar SDD com arquivos simples, desde que trate a especificação como um contrato revisável e mantenha a disciplina de atualizá-la.
+
+## Cinco perguntas para escolher o modo de trabalho
+
+A escolha deve ser feita por mudança, não por preferência pessoal nem por um mandato uniforme para toda a organização. Cinco perguntas oferecem uma primeira triagem, e antecipam a classificação S/M/L da [Decisão 1](decisoes.md#decisao-1-escolher-a-profundidade-proporcional):
+
+1. **Reversibilidade.** Se a decisão estiver errada, é possível descartar o resultado sem migração de dados, indisponibilidade, quebra de contrato ou retrabalho amplo?
+2. **Tempo de vida esperado.** O código será usado por horas, por um ciclo de campanha ou por vários anos?
+3. **Número de futuros mantenedores.** A conversa original estará acessível e compreensível para todas as pessoas que precisarão alterar o sistema?
+4. **Criticidade da regra de negócio.** O comportamento envolve dinheiro, identidade, autorização, privacidade, segurança, obrigações regulatórias ou exceções difíceis de reconstruir?
+5. **Familiaridade com o sistema existente.** A mudança ocorre num projeto novo ou num sistema maduro, com dependências, convenções e restrições que não estão todas documentadas?
+
+As perguntas ficam mais úteis quando se traduzem em consequências operacionais:
+
+| Sinal observado | O que precisa aumentar no processo |
+|---|---|
+| mudança difícil de reverter | revisão prévia da solução, estratégia de migração e plano de rollback |
+| vida útil longa | registro durável das decisões e mecanismo de atualização da especificação |
+| muitos times consumidores | contratos explícitos, compatibilidade, responsáveis e comunicação de mudança |
+| regra crítica | critérios de aceitação verificáveis, cenários de borda e evidência de teste |
+| código legado ou pouco conhecido | exploração do repositório, análise de impacto e validação por alguém com conhecimento do domínio |
+
+Uma resposta “alta” não obriga a adotar a ferramenta mais pesada. Ela obriga a cobrir o risco correspondente. Uma alteração irreversível em um serviço pequeno pode pedir um plano de migração rigoroso, mas não necessariamente uma constitution de projeto. Uma mudança trivial em um sistema regulado pode reutilizar salvaguardas já codificadas e seguir um caminho abreviado.
+
+Por isso, “peso do processo” não deve ser medido pelo número de arquivos ou comandos. O custo relevante é a soma de três esforços: produzir o artefato, revisá-lo com atenção e mantê-lo coerente com o sistema. Se o time gera documentos que ninguém usa para decidir, o processo adiciona custo sem reduzir risco.
