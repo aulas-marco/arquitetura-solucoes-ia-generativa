@@ -106,6 +106,32 @@ Verificação possui ao menos dois eixos independentes:
 
 As [skills de engenharia de Matt Pocock](https://github.com/mattpocock/skills/tree/main/docs/engineering) tornam essa separação explícita em revisão. Uma implementação pode ser tecnicamente elegante e resolver a necessidade errada; pode atender ao comportamento e introduzir uma estrutura insustentável. Misturar os eixos num único “aprovado” permite que força em um esconda fraqueza no outro.
 
+## O mesmo padrão, mecanismos diferentes
+
+Os oito comandos acima são a implementação do Spec Kit, não o único jeito de fazer SDD. Três mecanismos resolvem o mesmo problema, transformar intenção em evidência, com formas bem diferentes de organizar o trabalho. Conhecê-los evita confundir o comando `/speckit.plan` com o princípio que ele serve.
+
+### OpenSpec: a mudança como unidade, não o pipeline inteiro
+
+O [OpenSpec](https://github.com/Fission-AI/OpenSpec) não parte de uma constitution nem percorre oito comandos em sequência. A unidade de trabalho é a mudança: uma pasta com proposta, especificação-delta, design e tarefas, que só é incorporada à especificação principal do sistema quando arquivada. Para a exportação de avaliações, isso significaria criar uma pasta `mudancas/exportacao-avaliacoes/` contendo só a diferença de comportamento (o cenário Gherkin desta página, o endpoint `POST /exportacoes`, a regra de autorização por unidade), sem declarar uma constitution nem passar pelos três portões completos.
+
+Isso aproxima o OpenSpec da classe M da [Decisão 1](decisoes.md#decisao-1-escolher-a-profundidade-proporcional): comportamento novo, mais de um componente, mas sem o risco que justificaria a cerimônia completa de uma classe L. A especificação principal do sistema, o equivalente ao `spec.md` vivo, recebe só o delta aprovado, e a pasta arquivada preserva por que aquela mudança aconteceu, sem exigir uma constitution para funcionar.
+
+### SPDD: a especificação inteira como um prompt estruturado único
+
+O [Structured Prompt-Driven Development](https://martinfowler.com/articles/structured-prompt-driven/) (SPDD), publicado pela Thoughtworks, comprime constitution, spec e parte do plano num único artefato: o Painel REASONS, com sete dimensões (Requirements, Entities, Approach, Structure, Operations, Norms, Safeguards). Na exportação de avaliações, a restrição de autorização por unidade que aqui vive na constitution, o critério de aceite que vive na spec, e a escolha de armazenamento que vive no plano, entrariam todos no mesmo painel, cada um em sua dimensão.
+
+A diferença mais relevante para este módulo é a ordem da verificação. O SPDD roda testes de API antes da revisão de código, e testes unitários depois, o inverso da própria sequência ensinada na etapa 7 acima. A justificativa: quando a revisão humana acontece, requisitos e design já foram aprovados no painel, então a atenção do revisor vai para o que ainda importa naquele estágio, não para reconferir intenção que já foi validada. O painel também mantém um laço fechado entre prompt e código. Uma correção de lógica atualiza o painel antes do código. Uma refatoração legítima sincroniza o painel a partir do código, para que nenhum dos dois lados fique desatualizado silenciosamente ([Zhang & Xia, 2026](https://martinfowler.com/articles/structured-prompt-driven/), [OpenSPDD](https://github.com/gszhangwei/open-spdd)).
+
+### Superpowers: disciplina automática em vez de comando explícito
+
+O [Superpowers](https://github.com/obra/superpowers) muda outra variável. Em vez de comandos explícitos que alguém precisa lembrar de digitar, um conjunto de habilidades é acionado automaticamente conforme a situação exige. O ciclo de implementação (teste que falha, código mínimo, refatoração) é quase idêntico ao ensinado na etapa 7, mas levado a um extremo disciplinar: o próprio sistema apaga código escrito antes de seu teste correspondente existir. O trabalho roda numa cópia isolada do repositório, e a revisão também acontece em dois eixos, conformidade com o plano aprovado e qualidade da implementação, o mesmo princípio da etapa 8 deste módulo chegando por outro caminho.
+
+A diferença estrutural importa. Superpowers não mantém uma especificação principal versionada como fonte de verdade do sistema, ao contrário de OpenSpec, Spec Kit e SPDD. Ele é melhor entendido como disciplina de execução adjacente ao SDD, que pode consumir uma spec produzida por outro processo, não como uma quarta forma de manter a spec viva.
+
+### O que muda e o que não muda
+
+As quatro implementações concordam no princípio e discordam no mecanismo. Todas separam intenção de execução. Todas preservam alguma forma de evidência antes de considerar o trabalho concluído. Todas dão à pessoa humana autoridade sobre decisões que o agente não deveria tomar sozinho. O que muda é onde o contrato mora (pasta de mudança, painel único, cadeia de artefatos sob constitution, ou plano dentro de um harness de execução), quantos portões existem, e se o comando é digitado ou disparado automaticamente. A pergunta que abre este módulo continua a mesma para qualquer uma das quatro: qual liberdade o modelo recebe, qual contrato orienta suas escolhas, e que evidência autoriza o próximo passo.
+
 ## Requisitos que orientam agentes
 
 Uma especificação para agentes precisa ser precisa sem prescrever cada linha. A formulação **EARS** ajuda — a sigla é *Easy Approach to Requirements Syntax*, um conjunto de cinco moldes de frase criado na Rolls-Royce para eliminar ambiguidade de requisito sem recorrer a notação formal. Cada molde fixa a condição e a resposta esperada:

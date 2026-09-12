@@ -4,6 +4,8 @@
 
 O [GitHub Spec Kit](https://github.com/github/spec-kit) é o fio operacional desta disciplina: constitution, specification, plan, tasks, implementação e verificação deixam decisões e critérios de aceite visíveis. As [skills de engenharia de Matt Pocock](https://github.com/mattpocock/skills/tree/main/docs/engineering) oferecem uma variação disciplinada, com *vertical slices*, testes nas interfaces públicas e revisão separada por aderência à spec e padrões do repositório.
 
+O [OpenSpec](https://github.com/Fission-AI/OpenSpec) organiza o trabalho pela mudança em vez de por um pipeline completo, o [Structured Prompt-Driven Development](https://martinfowler.com/articles/structured-prompt-driven/) (SPDD) da Thoughtworks comprime constitution, spec e plano num único prompt estruturado, e o [Superpowers](https://github.com/obra/superpowers) troca comandos explícitos por habilidades acionadas automaticamente. As três abordagens estão detalhadas em [O mesmo padrão, mecanismos diferentes](fluxo.md#o-mesmo-padrao-mecanismos-diferentes).
+
 [Kiro Specs](https://kiro.dev/docs/specs/), [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) e [Tessl](https://tessl.io) mostram escolhas diferentes de ambiente, papéis e persistência da especificação. O [OpenAI Model Spec](https://github.com/openai/model_spec) ajuda a discutir regras verificáveis, enquanto a palestra [The New Code](https://www.youtube.com/watch?v=8rABwKRsec4) provoca a tratar especificação como competência de engenharia. São comparações: não substituem o fluxo principal do Spec Kit.
 
 ## Síntese do fio SDD
@@ -91,6 +93,9 @@ Se a resposta for apenas “o agente segue os documentos”, ainda falta arquite
 | Abordagem | Ênfase útil | Cuidado arquitetural |
 |---|---|---|
 | Spec Kit | fluxo reproduzível e artefatos conectados | comandos e templates evoluem; fixe versão |
+| OpenSpec | mudança como unidade leve, sem exigir constitution | sem camada de princípios acima da mudança individual |
+| SPDD (Painel REASONS) | um único artefato para requisito, entidade, arquitetura e norma | variação entre praticantes ao escrever o mesmo painel |
+| Superpowers | disciplina de TDD e isolamento acionada sem comando explícito | não mantém especificação principal do sistema |
 | Matt Pocock | perguntas, fatias verticais, deep modules, TDD e revisão dual | skills pressupõem disciplina e integração com tracker |
 | Kiro | requisitos, design e tasks próximos ao IDE; EARS | experiência da ferramenta não substitui governança externa |
 | BMAD-METHOD | papéis e histórias para coordenar agentes | multiplicar personas pode aumentar handoffs |
