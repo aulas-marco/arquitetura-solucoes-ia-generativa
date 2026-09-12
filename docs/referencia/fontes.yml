@@ -698,6 +698,26 @@
   modules: [4]
   type: conference-talk
 
+- id: bockeler-understanding-sdd-2025
+  title: "Understanding Spec-Driven Development: Kiro, spec-kit, and Tessl"
+  authors: Birgitta Böckeler
+  year: 2025
+  url: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
+  accessed: 2026-09-12
+  topics: [sdd, taxonomia, spec-first, spec-anchored]
+  modules: [5]
+  type: technical-essay
+
+- id: willison-not-all-vibe-coding-2025
+  title: Not all AI-assisted programming is vibe coding (but vibe coding rocks)
+  authors: Simon Willison
+  year: 2025
+  url: https://simonwillison.net/2025/Mar/19/vibe-coding/
+  accessed: 2026-09-12
+  topics: [vibe-coding, definicao, pratica]
+  modules: [5]
+  type: practitioner-note
+
 - id: fission-ai-openspec
   title: OpenSpec
   authors: Fission-AI

@@ -213,11 +213,58 @@ Evite atualizar specs por regeneração cega. A alteração deve aparecer como d
 2. Tratar Spec Kit como padrão universal: concreto, porém cria acoplamento e confunde ferramenta com método.
 3. Usar Spec Kit como implementação de referência e comparar variações.
 
-**Decisão.** Adotar a terceira opção. Constitution, spec, plan, tasks e implement fornecem uma trajetória observável. Matt Pocock aprofunda *vertical slices*, deep modules, TDD e revisão em dois eixos; Kiro, BMAD e Tessl mostram outras escolhas de ambiente e artefatos.
+**Decisão.** Adotar a terceira opção. Constitution, spec, plan, tasks e implement fornecem uma trajetória observável. As [quatro abordagens comparadas](fluxo.md#quatro-abordagens-para-o-mesmo-padrao) mostram que o mesmo padrão admite mecanismos distintos: OpenSpec organiza por mudança, SPDD comprime tudo num Painel REASONS e Superpowers disciplina a execução sem manter spec principal. Matt Pocock aprofunda *vertical slices*, deep modules, TDD e revisão em dois eixos, enquanto Kiro, BMAD e Tessl mostram outras escolhas de ambiente e artefatos.
 
 **Consequências.** O aluno pratica comandos concretos e consegue transferir princípios. Materiais devem fixar versões e distinguir recurso atual de conceito durável.
 
 **Gatilho de revisão.** Mudança incompatível nos comandos, templates ou licença; surgimento de alternativa que ofereça melhor acesso e evidência para a turma.
+
+## As abordagens não cobram o mesmo tipo de rigor
+
+As [quatro abordagens](fluxo.md#quatro-abordagens-para-o-mesmo-padrao) apresentadas na página anterior podem ser comparadas sob dez critérios. A tabela serve para escolher, não para classificar.
+
+| Critério | OpenSpec | GitHub Spec Kit | SPDD / OpenSPDD | Superpowers |
+|---|---|---|---|---|
+| Natureza | ferramenta e fluxo de mudança orientado por especificação | toolkit extensível para fluxos orientados por intenção | método e implementação de referência centrados no prompt estruturado | framework de habilidades e metodologia de execução |
+| Unidade principal | mudança | funcionalidade sob princípios de projeto | incremento descrito por um Painel REASONS | tarefa ou plano de implementação |
+| Artefato central | especificação atual e delta da mudança | constitution, especificação, plano e tarefas | prompt ou Painel versionado | design, plano, código e testes |
+| Relação com SDD | predominantemente *spec-anchored* | pode operar de *spec-first* a *spec-anchored* | *spec-anchored* com sincronização bidirecional proposta | adjacente, disciplina a execução de uma spec ou design |
+| Governança transversal | não é o padrão, mas pode ser customizada | constitution e checagens explícitas | normas e salvaguardas no Painel, ativos reutilizáveis | habilidades e regras do fluxo, sem constitution de domínio |
+| Manutenção da intenção | deltas sincronizados e arquivados na spec principal | depende do uso contínuo dos artefatos e da convergência | atualização requisito → prompt → código e sincronização código → prompt | documentos por mudança, testes e código sustentam o comportamento |
+| Estratégia de verificação | validação de artefatos e verificação opcional da implementação | checklist, análise cruzada e convergência | revisões do Painel, API, código e sincronização, parte do ferramental é opcional | TDD, revisão em duas etapas e verificação antes de concluir |
+| Tipo de custo dominante | manter deltas e specs consolidadas coerentes | produzir e governar uma cadeia maior de artefatos | modelagem detalhada e expertise sênior antecipada | disciplina operacional, testabilidade e planos granulares |
+| Melhor encaixe | produto longevo com mudanças incrementais | múltiplos times e políticas compartilhadas | lógica complexa, repetição e restrições fortes | execução confiável em bases testáveis |
+| Falha típica se mal aplicado | arquivar sem sincronizar ou manter uma spec decorativa | constitution genérica e aprovações mecânicas | Painel detalhado baseado em premissa errada ou desatualizado | testes confirmarem uma interpretação incompleta do problema |
+
+Há duas conclusões menos óbvias nessa tabela.
+
+A primeira é que **documentação e rigor operacional são eixos diferentes**. Spec Kit pode ser documentalmente pesado, enquanto Superpowers pode ser operacionalmente exigente. Dizer apenas que uma abordagem é “leve” ou “pesada” esconde onde o custo realmente aparece.
+
+A segunda é que as abordagens podem ser complementares. Uma organização pode usar a constitution do Spec Kit para princípios transversais, deltas do OpenSpec para manter comportamento de domínio e práticas de TDD e verificação inspiradas em Superpowers para executar. Isso não significa instalar tudo. Significa reconhecer camadas distintas e evitar que dois artefatos concorram como fonte da mesma decisão.
+
+## Como escolher sem transformar o processo em religião
+
+Uma heurística prática é escolher primeiro o artefato que precisa sobreviver:
+
+- Se nada precisa sobreviver porque o resultado é descartável, use vibe coding conscientemente.
+- Se apenas a tarefa e sua evidência precisam sobreviver, assistência de codificação ou um fluxo como Superpowers pode bastar.
+- Se o comportamento atual do domínio precisa permanecer legível após muitas mudanças, OpenSpec é um encaixe natural.
+- Se princípios organizacionais precisam governar várias funcionalidades e times, Spec Kit oferece uma camada explícita para isso.
+- Se a organização precisa revisar e reutilizar não apenas requisitos, mas também a estratégia de implementação, normas e salvaguardas em incrementos de lógica, SPDD oferece o artefato mais detalhado.
+
+Depois, calibre o fluxo pelo risco, usando as mesmas classes da Decisão 1:
+
+| Situação | Ponto de partida provável |
+|---|---|
+| protótipo descartável, sem dados reais | vibe coding com limite explícito de vida e descarte |
+| correção pequena em código conhecido | assistência com testes, revisão e registro no ticket |
+| funcionalidade incremental em produto longevo | OpenSpec, acrescentando disciplina de teste conforme o risco |
+| mudança crítica que atravessa vários times | Spec Kit ou fluxo equivalente de governança e rastreabilidade |
+| família de APIs ou regras semelhantes sob forte conformidade | SPDD, desde que haja expertise para revisar o Painel |
+| base testável que sofre com agentes precipitados ou conclusões sem evidência | Superpowers, isoladamente ou executando uma especificação externa |
+| incidente ativo de produção | restaurar o serviço primeiro, fechando depois a dívida de intenção com teste, post-mortem e atualização dos artefatos |
+
+Nenhuma matriz elimina julgamento. Uma mudança de três linhas pode alterar autorização. Uma funcionalidade de centenas de linhas pode ser um experimento reversível. Tamanho do diff é um indicador fraco de risco, como já argumentou a [Decisão 1](#decisao-1-escolher-a-profundidade-proporcional).
 
 ## Quando SDD falha
 
@@ -252,6 +299,26 @@ Contar specs criadas incentiva produção de arquivos. Métricas melhores observ
 
 Velocidade de geração isolada é uma métrica perigosa. Um caso concreto: uma equipe passou de quatro para onze *pull requests* por semana depois de adotar o agente, e no mesmo trimestre o retrabalho por defeito escapado subiu de 8% para 21% das horas. O primeiro número sozinho recomendaria ampliar o uso; os dois juntos recomendam olhar onde a intenção está se perdendo. Se o agente produz mais código e aumenta retrabalho, o sistema local ficou rápido e o fluxo global piorou.
 
+### O que medir num piloto
+
+A tabela acima mede uma prática já instalada. Antes disso vem outra pergunta: vale instalar? Adotar SDD em toda a organização antes de aprender com mudanças reais repete o mesmo erro que o processo tenta evitar, que é comprometer-se cedo demais com uma solução. Um piloto deve comparar classes semelhantes de tarefa e observar o sistema de entrega inteiro, não apenas o tempo até a primeira geração.
+
+Alguns indicadores úteis são:
+
+- tempo da solicitação até a aceitação em produção.
+- número de ciclos de retrabalho após a primeira implementação.
+- tempo e tamanho da fila de revisão.
+- defeitos encontrados antes e depois da implantação.
+- requisitos ou decisões sem teste ou evidência correspondente.
+- divergências entre especificação, plano, código e comportamento observado.
+- esforço gasto para atualizar os artefatos depois de uma mudança.
+- tempo necessário para uma pessoa nova compreender e alterar a funcionalidade.
+- frequência com que portões encontram um problema relevante, e com que frequência viram aprovação automática.
+
+O objetivo não é provar que “a IA ficou mais produtiva”. É descobrir se o fluxo reduz retrabalho e risco sem transferir um custo desproporcional para especificação e revisão.
+
+Um bom piloto começa com poucas mudanças representativas, define quais etapas são obrigatórias e registra exceções. Ao final, o time deve ser capaz de responder: qual artefato realmente foi consultado, qual portão mudou uma decisão, qual etapa não agregou valor e quem manterá o processo quando a ferramenta evoluir.
+
 ## O que permanece humano
 
 SDD desloca trabalho, não elimina responsabilidade. Pessoas continuam responsáveis por:
@@ -265,3 +332,7 @@ SDD desloca trabalho, não elimina responsabilidade. Pessoas continuam responsá
 - responder por efeitos em produção.
 
 Agentes ampliam pesquisa, comparação, consistência, geração e revisão. Eles são particularmente úteis para manter relações entre muitos artefatos. Mas não possuem mandato organizacional. A spec não é central porque foi escrita em linguagem natural; é central porque pessoas autorizadas a adotaram como contrato e mantêm mecanismos para testá-la.
+
+O salto além do vibe coding, portanto, não acontece quando o time instala mais comandos. Acontece quando a intenção deixa de depender da memória de quem conversou com o agente e passa a ser verificável por outras pessoas. Cada uma das quatro abordagens preserva uma coisa diferente, e cada uma pode falhar de um jeito diferente. A especificação pode estar errada. A constitution pode virar burocracia. O Painel pode envelhecer. Os testes podem provar apenas a premissa que o agente inventou. O elemento comum continua sendo julgamento humano: confirmar que o problema foi compreendido, que o risco foi coberto e que a evidência apresentada é suficiente.
+
+A pergunta madura não é “qual ferramenta gera mais código?”, mas “qual combinação de intenção, governança e evidência torna esta mudança segura o bastante para sobreviver a quem a criou?”.
