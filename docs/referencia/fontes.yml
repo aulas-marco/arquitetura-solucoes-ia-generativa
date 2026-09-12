@@ -698,6 +698,46 @@
   modules: [4]
   type: conference-talk
 
+- id: fission-ai-openspec
+  title: OpenSpec
+  authors: Fission-AI
+  year: 2026
+  url: https://github.com/Fission-AI/OpenSpec
+  accessed: 2026-09-12
+  topics: [sdd, especificacao, mudanca, delta]
+  modules: [5]
+  type: official-repository
+
+- id: zhang-xia-structured-prompt-driven-development
+  title: Structured-Prompt-Driven Development (SPDD)
+  authors: Wei Zhang and Jing Jing Xia
+  year: 2026
+  url: https://martinfowler.com/articles/structured-prompt-driven/
+  accessed: 2026-09-12
+  topics: [sdd, spdd, prompt-estruturado, thoughtworks]
+  modules: [5]
+  type: technical-essay
+
+- id: gszhangwei-open-spdd
+  title: OpenSPDD
+  authors: gszhangwei
+  year: 2026
+  url: https://github.com/gszhangwei/open-spdd
+  accessed: 2026-09-12
+  topics: [sdd, spdd, reasons-canvas]
+  modules: [5]
+  type: official-repository
+
+- id: obra-superpowers
+  title: "Superpowers: An agentic skills framework & software development methodology"
+  authors: Jesse Vincent and Prime Radiant
+  year: 2026
+  url: https://github.com/obra/superpowers
+  accessed: 2026-09-12
+  topics: [sdd, tdd, agentes, metodologia]
+  modules: [5]
+  type: official-repository
+
 - id: iso-42010-2022
   title: "ISO/IEC/IEEE 42010:2022 — Software, systems and enterprise — Architecture description"
   authors: ISO; IEC; IEEE
